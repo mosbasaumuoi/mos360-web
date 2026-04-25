@@ -30,14 +30,13 @@ export default {
                 border-bottom: 1px solid var(--border);
             }
             .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-            .brand img { width: 42px; height: auto; filter: drop-shadow(0 0 10px rgba(255,102,0,0.3)); }
+            .brand img { width: 42px; height: auto; }
             .brand span { color: white; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
             
             .nav-actions { display: flex; gap: 12px; }
             .btn { padding: 10px 22px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 0.85rem; }
             .btn-trial { border: 1px solid var(--border); color: #bbb; }
-            .btn-login { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(255,102,0,0.2); }
-            .btn-login:hover { background: #e65c00; transform: translateY(-2px); }
+            .btn-login { background: var(--primary); color: white; }
 
             /* Hero Section */
             .hero { text-align: center; padding: 100px 20px 60px; }
@@ -52,20 +51,20 @@ export default {
             .social-icon {
                 width: 52px; height: 52px; border-radius: 14px;
                 display: flex; align-items: center; justify-content: center;
-                background: #1a1a1a; border: 1px solid var(--border); backdrop-filter: blur(10px);
+                background: #1a1a1a; border: 1px solid var(--border);
             }
             .social-icon img { width: 28px; height: 28px; }
             .social-icon:hover { border-color: var(--primary); transform: translateX(-8px); background: #000; }
 
-            /* Search Box */
+            /* Search Box Modern */
             .search-box-wrap { max-width: 650px; margin: 0 auto 90px; }
             .search-input { 
                 width: 100%; padding: 22px 32px; border-radius: 100px; border: 1px solid var(--border);
                 background: rgba(255,255,255,0.03); color: white; font-size: 1.05rem; outline: none;
             }
-            .search-input:focus { border-color: var(--primary); background: rgba(255,255,255,0.07); }
+            .search-input:focus { border-color: var(--primary); }
 
-            /* Grid Cards */
+            /* Feature Cards */
             .container { max-width: 1200px; margin: 0 auto; padding: 0 40px 100px; }
             .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
             .card { 
@@ -75,15 +74,14 @@ export default {
             .card:hover { border-color: var(--primary); transform: translateY(-10px); }
             .card h3 { font-size: 1.35rem; margin-bottom: 18px; color: #fff; display: flex; align-items: center; gap: 12px; }
             .card h3::before { content: ''; width: 4px; height: 22px; background: var(--primary); border-radius: 10px; }
-            .card p { color: #666; font-size: 0.95rem; line-height: 1.7; }
-            .badge { background: rgba(255,102,0,0.15); color: var(--primary); font-size: 0.7rem; padding: 4px 10px; border-radius: 6px; font-weight: 800; margin-left: 8px; }
+            .card p { color: #888; font-size: 0.95rem; line-height: 1.7; }
+            .badge { background: rgba(255,102,0,0.15); color: var(--primary); font-size: 0.7rem; padding: 4px 10px; border-radius: 6px; font-weight: 800; }
 
             /* Footer & Map */
-            footer { background: #050505; padding: 100px 60px 40px; border-top: 1px solid var(--border); }
+            footer { background: #050505; padding: 80px 60px 40px; border-top: 1px solid var(--border); }
             .f-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 1fr 1.2fr; gap: 60px; }
-            .f-brand { color: var(--primary); font-size: 2rem; font-weight: 800; margin-bottom: 25px; letter-spacing: -1px; }
+            .f-brand { color: var(--primary); font-size: 2rem; font-weight: 800; margin-bottom: 25px; }
             .f-text p { color: #777; font-size: 1rem; margin-bottom: 12px; }
-            .f-text strong { color: #fff; }
             
             .map-container { 
                 border-radius: 24px; overflow: hidden; height: 320px; 
@@ -96,7 +94,6 @@ export default {
                 .grid, .f-grid { grid-template-columns: 1fr; } 
                 .hero h1 { font-size: 2.8rem; }
                 header { padding: 12px 25px; }
-                .side-contact { right: 10px; }
             }
         </style>
     </head>
@@ -104,7 +101,7 @@ export default {
 
     <header>
         <a href="#" class="brand">
-            <img src="https://github.com/mosbasaumuoi/mos360-web/blob/main/logo%20vien.png?raw=true" alt="MOS360 Logo">
+            <img src="https://github.com/mosbasaumuoi/mos360-web/blob/main/logo%20vien.png?raw=true" alt="MOS360">
             <span>MOS360</span>
         </a>
         <div class="nav-actions">
@@ -114,16 +111,16 @@ export default {
     </header>
 
     <div class="side-contact">
-        <a href="https://zalo.me/0912888360" class="social-icon" title="Chat Zalo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo"></a>
-        <a href="#" class="social-icon" title="Messenger"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger"></a>
-        <a href="#" class="social-icon" title="Facebook Page"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="FB"></a>
+        <a href="https://zalo.me/0912888360" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo"></a>
+        <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger"></a>
+        <a href="#" class="social-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="FB"></a>
     </div>
 
     <section class="hero">
         <h1>Chuẩn đầu ra cho sinh viên</h1>
         <p class="tagline">Luyện thi MOS 1000 - Đồng hành thực chiến trọn đời</p>
         <div class="search-box-wrap">
-            <input type="text" class="search-input" placeholder="Bạn cần tìm tài liệu gì hay muốn hỏi AI Assistant?">
+            <input type="text" class="search-input" placeholder="Tìm tài liệu hoặc hỏi AI Assistant...">
         </div>
     </section>
 
@@ -139,7 +136,7 @@ export default {
             </div>
             <div class="card">
                 <h3>Đồng Hành Trọn Đời</h3>
-                <p>Tài liệu hỗ trợ định dạng luận văn, đồ án và kỹ năng văn phòng thông dụng. Đồng hành cùng sự nghiệp của bạn mãi mãi.</p>
+                <p>Cung cấp tài liệu và hỗ trợ kỹ năng chuyên sâu, giúp bạn làm chủ mọi luận văn và tác vụ văn phòng thực tế.</p>
             </div>
         </div>
     </div>
@@ -148,16 +145,35 @@ export default {
         <div class="f-grid">
             <div class="f-text">
                 <div class="f-brand">MOS360.VN</div>
-                <p>Nền tảng luyện thi tin học quốc tế thực chiến hàng đầu tại Hải Phòng.</p>
-                <p style="margin-top: 35px;"><strong>Hotline/Zalo hỗ trợ:</strong></p>
+                <p>Hệ thống đào tạo tin học quốc tế uy tín tại Hải Phòng.</p>
+                <p style="margin-top: 35px;"><strong>Hotline/Zalo:</strong></p>
                 <p style="font-size: 1.8rem; color: var(--primary); font-weight: 800; margin: 0;">0912.888.360</p>
             </div>
             
             <div class="f-text">
                 <p><strong>Cơ sở Hải Phòng:</strong><br>Số 57 Lê Văn Thuyết A, P. An Biên, TP. Hải Phòng</p>
-                <p style="margin-top: 30px;"><strong>Email liên hệ:</strong><br><span style="color: #fff;">mos360.vn@gmail.com</span></p>
+                <p style="margin-top: 30px;"><strong>Email:</strong><br>mos360.vn@gmail.com</p>
             </div>
 
             <div class="map-container">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d418.1565439722748!
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.468249629631!2d106.6784869!3d20.8525704!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af937c95e1b%3A0xc3c97e5564998797!2zNTcgTMOqIFbEg24gVGh1eeG6v3QgQSwgQW4gQmnDqm4sIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1711800000000!5m2!1svi!2s" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #444; font-size: 0.8rem; margin-top: 80px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
+            MOS360 - ĐỒNG HÀNH TRỌN ĐỜI
+        </div>
+    </footer>
+
+    </body>
+    </html>`;
+    return new Response(html, { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+  }
+};
