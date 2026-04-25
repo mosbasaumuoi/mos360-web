@@ -61,12 +61,11 @@ export default {
         </div>
 
         <h2 class="section-title">Tại sao chọn MOS360?</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <span class="feature-icon">🎯</span>
-                <h3>Cam kết 1000 Điểm</h3>
-                <p>Tài liệu được cập nhật mới nhất theo cấu trúc đề thi 2026. Học đúng trọng tâm, thi là đỗ.</p>
-            </div>
+<div class="feature-card">
+    <span class="feature-icon">💻</span>
+    <h3>Trải Nghiệm Thi Thật</h3>
+    <p>Phần mềm mô phỏng giao diện và áp lực thời gian chính xác như bài thi quốc tế. Giúp bạn tự tin 100% khi bước vào phòng thi.</p>
+</div>
             <div class="feature-card">
                 <span class="feature-icon">🤝</span>
                 <h3>Đồng hành trọn đời</h3>
