@@ -12,13 +12,13 @@ async function fetchCertificates() {
             if (link && link.startsWith('http')) {
                 htmlContent += `
                     <div class="student-item">
-                        <img src="${link}" onerror="this.src='https://via.placeholder.com/400x300?text=MOS360'">
+                        <img src="${link}" onerror="this.src='https://via.placeholder.com/400x300?text=MOS360+Certificate'">
                     </div>`;
             }
         });
         return htmlContent + htmlContent;
     } catch (e) {
-        return "<p>Đang cập nhật danh sách...</p>";
+        return "<p style='color:#888;'>Đang tải dữ liệu chứng chỉ...</p>";
     }
 }
 
@@ -34,120 +34,151 @@ export const renderWeb = async () => {
         <title>MOS360 - Bảng Vàng & AI Assistant</title>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
         <style>
-            :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --ai-cyan: #00f2ff; }
+            :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.1); --ai-cyan: #00f2ff; }
             * { box-sizing: border-box; margin: 0; padding: 0; }
-            body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+            body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.5; }
+
+            /* HEADER */
+            header { padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: #000; }
+            .brand { font-weight: 800; font-size: 1.5rem; color: white; text-decoration: none; }
+            .login-btn { background: var(--primary); color: white; padding: 10px 25px; border-radius: 12px; text-decoration: none; font-weight: 700; transition: 0.3s; }
 
             /* SOCIAL SIDEBAR */
-            .side-social { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
-            .social-item { width: 45px; height: 45px; background: #1a1a1a; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; }
-            .social-item:hover { border-color: var(--primary); transform: scale(1.1); }
-            .social-item img { width: 22px; }
+            .side-social { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+            .social-item { width: 48px; height: 48px; background: #1a1a1a; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; }
+            .social-item:hover { border-color: var(--primary); transform: translateY(-5px); }
+            .social-item img { width: 24px; }
 
-            /* LAYOUT CHÍNH */
-            .main-container { max-width: 1200px; margin: 40px auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
-            .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 32px; padding: 40px; text-align: center; overflow: hidden; position: relative; }
+            /* MAIN SECTION */
+            .hero-title { text-align: center; padding: 50px 20px 20px; font-size: 2.5rem; font-weight: 800; }
+            .main-container { max-width: 1300px; margin: 0 auto; padding: 20px 40px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; }
+            .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 32px; padding: 40px; position: relative; overflow: hidden; }
 
-            /* BẢNG VÀNG ẢNH CỰC ĐẠI */
-            .carousel-viewport { width: 100%; overflow: hidden; margin-top: 20px; }
-            .carousel-track { display: flex; gap: 20px; animation: scroll 40s linear infinite; width: max-content; }
-            .student-item { width: 320px; flex-shrink: 0; }
-            .student-item img { width: 100%; aspect-ratio: 1.4/1; border-radius: 12px; border: 1px solid var(--border); object-fit: cover; }
+            /* BẢNG VÀNG - ẢNH TO VÀ RÕ */
+            .carousel-viewport { width: 100%; overflow: hidden; margin-top: 25px; border-radius: 20px; }
+            .carousel-track { display: flex; gap: 20px; animation: scroll 45s linear infinite; width: max-content; }
+            .student-item { width: 380px; flex-shrink: 0; } /* Tăng chiều ngang ảnh */
+            .student-item img { 
+                width: 100%; 
+                aspect-ratio: 1.5/1; 
+                border-radius: 12px; 
+                object-fit: cover; 
+                border: 2px solid rgba(255,255,255,0.05);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
             @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
             /* VÒNG QUAY */
-            .wheel-box { position: relative; width: 280px; height: 280px; margin: 0 auto 25px; border-radius: 50%; border: 8px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); animation: spin 20s linear infinite; }
+            .wheel-box { width: 300px; height: 300px; margin: 0 auto 30px; border-radius: 50%; border: 10px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); animation: spin 20s linear infinite; display: flex; align-items: center; justify-content: center; font-weight: 900; }
             @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-            /* DỊCH VỤ & Ô CHAT AI */
-            .services-grid { max-width: 1200px; margin: 50px auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 25px; align-items: stretch; }
-            .service-card { background: var(--card); padding: 30px; border-radius: 28px; border: 1px solid var(--border); border-left: 4px solid var(--primary); display: flex; flex-direction: column; }
+            /* DỊCH VỤ & KHUNG CHAT AI */
+            .services-grid { max-width: 1300px; margin: 40px auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1.8fr 1fr; gap: 25px; }
+            .service-card { background: var(--card); padding: 35px; border-radius: 30px; border: 1px solid var(--border); border-left: 5px solid var(--primary); display: flex; flex-direction: column; transition: 0.3s; }
             
-            /* CẤU CỨU AI ASSISTANT */
-            .service-card.ai-box { 
+            /* THIẾT KẾ RIÊNG CHO KHUNG CHAT AI */
+            .service-card.ai-highlight { 
                 border: 2px solid var(--ai-cyan); 
-                border-left: 4px solid var(--ai-cyan);
-                box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
-                transform: scale(1.05);
-                z-index: 10;
+                border-left: 5px solid var(--ai-cyan);
+                box-shadow: 0 0 40px rgba(0, 242, 255, 0.15);
+                background: linear-gradient(145deg, #121212 0%, #1a1a1a 100%);
             }
-            .ai-badge { background: var(--ai-cyan); color: #000; font-size: 0.6rem; font-weight: 800; padding: 3px 10px; border-radius: 10px; align-self: flex-start; margin-bottom: 10px; }
-            .ai-box h3 { color: var(--ai-cyan); margin-bottom: 10px; }
-            
-            /* Ô INPUT AI */
-            .ai-chat-wrapper { margin-top: auto; padding-top: 20px; }
-            .ai-input-group { position: relative; display: flex; align-items: center; }
-            .ai-input { 
-                width: 100%; background: #1a1a1a; border: 1px solid rgba(0, 242, 255, 0.3); 
-                padding: 14px 50px 14px 18px; border-radius: 15px; color: white; outline: none;
-                font-size: 0.9rem; transition: 0.3s;
-            }
-            .ai-input:focus { border-color: var(--ai-cyan); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
-            .ai-send-btn { 
-                position: absolute; right: 10px; background: var(--ai-cyan); border: none; 
-                width: 34px; height: 34px; border-radius: 10px; cursor: pointer; display: flex;
-                align-items: center; justify-content: center; transition: 0.3s;
-            }
-            .ai-send-btn:hover { transform: scale(1.1); background: #fff; }
+            .ai-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+            .ai-robot-icon { width: 40px; height: 40px; background: var(--ai-cyan); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+            .ai-highlight h3 { color: var(--ai-cyan); font-size: 1.4rem; }
 
-            .btn-action { background: #E64A19; color: white; border: none; padding: 18px; border-radius: 100px; font-weight: 800; width: 100%; cursor: pointer; margin-top: 15px; }
-            header { padding: 15px 50px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); }
-            
-            @media (max-width: 1000px) { .services-grid, .main-container { grid-template-columns: 1fr; } .service-card.ai-box { transform: none; } }
+            .ai-chat-area { margin-top: auto; position: relative; }
+            .ai-input-box { 
+                width: 100%; 
+                background: #000; 
+                border: 1px solid rgba(0, 242, 255, 0.3); 
+                padding: 15px 55px 15px 20px; 
+                border-radius: 18px; 
+                color: white; 
+                outline: none; 
+                font-size: 0.95rem;
+                transition: 0.3s;
+            }
+            .ai-input-box:focus { border-color: var(--ai-cyan); box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
+            .ai-send-btn { 
+                position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+                background: var(--ai-cyan); border: none; width: 38px; height: 38px; 
+                border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+                transition: 0.2s;
+            }
+            .ai-send-btn:hover { background: #fff; transform: translateY(-50%) scale(1.1); }
+
+            .btn-action { background: #E64A19; color: white; border: none; padding: 20px; border-radius: 100px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
+
+            footer { padding: 50px 40px; border-top: 1px solid var(--border); text-align: center; color: #666; }
+
+            @media (max-width: 1100px) { .services-grid, .main-container { grid-template-columns: 1fr; } .student-item { width: 300px; } }
         </style>
     </head>
     <body>
-        <header>
-            <a href="#" style="text-decoration:none; color:white; font-weight:800; font-size:1.4rem;">MOS360</a>
-            <a href="https://mos360.vn" target="_blank" style="background:var(--primary); color:white; padding:10px 22px; border-radius:10px; text-decoration:none; font-weight:700;">Đăng nhập</a>
-        </header>
 
-        <div class="side-social">
-            <a href="https://zalo.me/0912888360" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-            <a href="https://www.facebook.com/MOS360.EDU" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"></a>
-            <a href="https://m.me/MOS360.EDU" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
-            <a href="https://www.youtube.com/@mos360_vn" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"></a>
-            <a href="https://www.tiktok.com/@mos360.vn" target="_blank" class="social-item"><img src="https://www.tiktok.com/favicon.ico" style="filter:invert(1)"></a>
+    <header>
+        <a href="#" class="brand">MOS360</a>
+        <a href="https://mos360.vn" target="_blank" class="login-btn">Đăng nhập</a>
+    </header>
+
+    <div class="side-social">
+        <a href="https://zalo.me/0912888360" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
+        <a href="https://www.facebook.com/MOS360.EDU" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"></a>
+        <a href="https://m.me/MOS360.EDU" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
+        <a href="https://www.youtube.com/@mos360_vn" target="_blank" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"></a>
+        <a href="https://www.tiktok.com/@mos360.vn" target="_blank" class="social-item"><img src="https://www.tiktok.com/favicon.ico" style="filter:invert(1)"></a>
+    </div>
+
+    <h1 class="hero-title">Chuẩn đầu ra cho sinh viên</h1>
+
+    <div class="main-container">
+        <div class="section-card" style="text-align:center;">
+            <h3 style="color:var(--primary); margin-bottom:20px;">🎡 Vòng Quay May Mắn</h3>
+            <div class="wheel-box">QUAY</div>
+            <button class="btn-action">NHẬN QUÀ NGAY</button>
         </div>
 
-        <div class="main-container">
-            <div class="section-card">
-                <h3 style="color:var(--primary); margin-bottom:20px;">🎡 Vòng Quay May Mắn</h3>
-                <div class="wheel-box"></div>
-                <button class="btn-action">NHẬN QUÀ NGAY</button>
+        <div class="section-card">
+            <h3>🏆 Bảng Vàng Chứng Chỉ</h3>
+            <div class="carousel-viewport">
+                <div class="carousel-track">${studentData}</div>
             </div>
-
-            <div class="section-card" style="text-align:left;">
-                <h3>🏆 Bảng Vàng Chứng Chỉ</h3>
-                <div class="carousel-viewport"><div class="carousel-track">${studentData}</div></div>
-            </div>
+            <p style="margin-top:20px; color:#888; font-size:0.9rem;">Học viên đạt điểm tuyệt đối được cập nhật tự động.</p>
         </div>
+    </div>
 
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Thi Thật 100%</h3>
-                <p>Hệ thống mô phỏng sát đề thi quốc tế Certiport.</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <h3>Thi Thật 100%</h3>
+            <p style="color:#aaa;">Thực hành trên hệ thống mô phỏng sát đề thi quốc tế của Certiport.</p>
+        </div>
+        
+        <div class="service-card ai-highlight">
+            <div class="ai-header">
+                <div class="ai-robot-icon">🤖</div>
+                <h3>AI Assistant 24/7</h3>
             </div>
+            <p style="color:#ccc; font-size:0.9rem; margin-bottom:20px;">Hỏi AI về kiến thức tin học, hàm Excel hoặc tra cứu tài liệu học tập ngay:</p>
             
-            <div class="service-card ai-box">
-                <span class="ai-badge">HỎI ĐÁP AI</span>
-                <h3>AI Assistant 24/7 ✨</h3>
-                <p style="font-size: 0.85rem; color: #ccc;">Tra cứu tài liệu hoặc giải đáp hàm Excel ngay lập tức:</p>
-                <div class="ai-chat-wrapper">
-                    <div class="ai-input-group">
-                        <input type="text" class="ai-input" placeholder="Hỏi AI về hàm VLOOKUP...">
-                        <button class="ai-send-btn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <h3>Đồng Hành Trọn Đời</h3>
-                <p>Hỗ trợ định dạng luận văn, đồ án chuyên nghiệp.</p>
+            <div class="ai-chat-area">
+                <input type="text" class="ai-input-box" placeholder="Ví dụ: Cách dùng hàm VLOOKUP?">
+                <button class="ai-send-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
             </div>
         </div>
+
+        <div class="service-card">
+            <h3>Đồng Hành Trọn Đời</h3>
+            <p style="color:#aaa;">Hỗ trợ kỹ năng định dạng luận văn, đồ án chuyên nghiệp suốt quá trình học.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 MOS360 - Luyện thi MOS 1000/1000</p>
+    </footer>
+
     </body>
     </html>`;
 };
