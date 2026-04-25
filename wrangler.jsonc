@@ -5,11 +5,5 @@
   "compatibility_date": "2026-04-24",
   "compatibility_flags": [
     "nodejs_compat"
-  ],
-  "kv_namespaces": [
-    {
-      "binding": "Links_mos360",
-      "id": "ID_KHO_KV_CUA_BAN" 
-    }
   ]
 }
