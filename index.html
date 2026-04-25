@@ -1,58 +1,42 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOS360 - Chuẩn đầu ra cho sinh viên</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .bg-mos { background-color: #f97316; } /* Màu cam thương hiệu */
-    </style>
-</head>
-<body class="bg-gray-50 font-sans">
-    <nav class="bg-white shadow-md p-4 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-orange-600">MOS360</h1>
-            <div class="space-x-6 hidden md:block">
-                <a href="#" class="hover:text-orange-600 font-medium">Trang chủ</a>
-                <a href="#about" class="hover:text-orange-600 font-medium">Về chúng tôi</a>
-                <a href="https://go.mos360.vn" class="bg-mos text-white px-4 py-2 rounded-lg hover:opacity-90">Hệ thống Link</a>
+export default {
+  async fetch(request, env) {
+    const html = `
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MOS360 - Hệ thống tài liệu</title>
+        <style>
+            :root { --primary: #FF6600; --bg: #0d0d0d; --card: #1a1a1a; }
+            body { font-family: 'Arial', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; text-align: center; }
+            header { padding: 50px 20px; background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%); }
+            .logo-text { font-size: 3rem; font-weight: bold; color: var(--primary); letter-spacing: -2px; }
+            .tagline { color: #888; margin-top: 10px; font-size: 1rem; }
+            .search-box { width: 85%; max-width: 600px; padding: 15px 25px; border-radius: 30px; border: 2px solid var(--primary); background: transparent; color: white; margin: 40px auto; display: block; outline: none; }
+            .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: 0 auto; }
+            .card { background: var(--card); padding: 20px; border-radius: 12px; border-bottom: 3px solid var(--primary); text-decoration: none; color: white; transition: 0.3s; text-align: left; }
+            .card:hover { transform: translateY(-5px); background: #222; }
+            .card h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: var(--primary); }
+            .footer { padding: 40px; color: #444; font-size: 0.8rem; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo-text">MOS360</div>
+            <div class="tagline">Hệ thống tài liệu - Học chuẩn, thi nhanh</div>
+        </header>
+        <input type="text" class="search-box" placeholder="Tìm nhanh: Office, Windows, Macbook...">
+        <div class="container">
+            <div class="card">
+                <h3>Đang đợi nạp dữ liệu...</h3>
+                <p>Sáng mai khi bạn nạp xong 429 link vào KV qua mos-editor, các tài liệu sẽ hiện ở đây.</p>
             </div>
         </div>
-    </nav>
-
-    <header class="bg-mos text-white py-20 px-4 text-center">
-        <h2 class="text-4xl md:text-6xl font-extrabold mb-4">Chuẩn đầu ra cho sinh viên</h2>
-        <p class="text-xl md:text-2xl mb-8 opacity-90">Luyện thi MOS 1000/1000 - Đồng hành thực chiến trọn đời</p>
-        <div class="flex justify-center gap-4">
-            <a href="https://zalo.me/your-zalo-id" class="bg-white text-orange-600 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-100 transition">Tư vấn ngay</a>
-            <a href="#features" class="border-2 border-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-orange-600 transition">Tìm hiểu thêm</a>
-        </div>
-    </header>
-
-    <section id="features" class="py-16 container mx-auto px-4 text-center">
-        <h3 class="text-3xl font-bold mb-12 text-gray-800">Tại sao chọn MOS360?</h3>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div class="text-4xl mb-4">🏆</div>
-                <h4 class="text-xl font-bold mb-2">Cam kết 1000 điểm</h4>
-                <p class="text-gray-600">Lộ trình tối ưu, giúp bạn chinh phục điểm tuyệt đối trong thời gian ngắn nhất.</p>
-            </div>
-            <div class="p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div class="text-4xl mb-4">🤝</div>
-                <h4 class="text-xl font-bold mb-2">Đồng hành trọn đời</h4>
-                <p class="text-gray-600">Hỗ trợ định dạng luận văn, đồ án và kỹ năng văn phòng sau khi thi xong.</p>
-            </div>
-            <div class="p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
-                <div class="text-4xl mb-4">🚀</div>
-                <h4 class="text-xl font-bold mb-2">Công nghệ 2026</h4>
-                <p class="text-gray-600">Học tập với trợ lý AI và thư viện tài liệu thực chiến độc quyền.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-gray-800 text-gray-400 py-8 text-center">
-        <p>© 2026 MOS360 - Đã được bảo vệ bởi Cloudflare</p>
-    </footer>
-</body>
-</html>
+        <div class="footer">© 2026 MOS360.vn - Học chuẩn, thi nhanh</div>
+    </body>
+    </html>
+    `;
+    return new Response(html, { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+  }
+};
