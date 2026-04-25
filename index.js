@@ -1,8 +1,5 @@
 export default {
   async fetch(request, env) {
-    // ĐÃ FIX: Nhúng trực tiếp file "logo vien.png" vào code dưới dạng Base64
-    const logoBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAYAAAC79p+7AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6AMCFB0XzS0S6AAAAB1pVFh0Q29t..." // (Tôi lược bớt ở đây cho gọn, bạn copy cả khối dưới)
-
     const html = `
     <!DOCTYPE html>
     <html lang="vi">
@@ -13,37 +10,34 @@ export default {
         <style>
             :root { --primary: #FF6600; --bg: #0d0d0d; --card: #1a1a1a; }
             body { font-family: 'Arial', sans-serif; background: var(--bg); color: white; margin: 0; padding: 0; text-align: center; }
-            header { padding: 50px 20px; background: #111; border-bottom: 2px solid var(--primary); }
+            header { padding: 30px 20px; background: #111; border-bottom: 2px solid var(--primary); }
             
-            /* Logo chuẩn 1:1 theo ảnh gốc */
-            .logo-wrap { display: inline-block; width: 300px; height: auto; }
-            .logo-img { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(255,102,0,0.5)); }
+            /* Logo chuẩn từ link GitHub bạn vừa gửi */
+            .logo-img { max-height: 200px; width: auto; display: block; margin: 0 auto; filter: drop-shadow(0 0 10px rgba(255,102,0,0.3)); }
             
-            .search-box { width: 85%; max-width: 600px; padding: 18px 25px; border-radius: 50px; border: 2px solid var(--primary); background: #1a1a1a; color: white; margin: 35px auto; display: block; outline: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-size: 1rem; }
+            .search-box { width: 85%; max-width: 600px; padding: 18px 25px; border-radius: 50px; border: 2px solid var(--primary); background: #1a1a1a; color: white; margin: 30px auto; display: block; outline: none; font-size: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
             .container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; padding: 20px; max-width: 1100px; margin: 0 auto; }
-            .card { background: var(--card); padding: 30px; border-radius: 20px; border-left: 5px solid var(--primary); text-align: left; transition: 0.3s; }
-            .card:hover { background: #222; transform: translateY(-5px); }
-            .card h3 { margin: 0 0 12px 0; color: var(--primary); font-size: 1.3rem; }
-            .footer { padding: 60px; color: #444; font-size: 0.8rem; letter-spacing: 1px; }
+            .card { background: var(--card); padding: 30px; border-radius: 15px; border-left: 5px solid var(--primary); text-align: left; transition: 0.3s; }
+            .card:hover { transform: translateY(-5px); background: #222; }
+            .card h3 { margin: 0 0 10px; color: var(--primary); font-size: 1.2rem; }
+            .footer { padding: 40px; color: #444; font-size: 0.8rem; }
         </style>
     </head>
     <body>
         <header>
-            <div class="logo-wrap">
-                <img src="https://pub-2f74116938a1411598418080f5538e1c.r2.dev/logo%20vien.png" class="logo-img" alt="MOS360">
-            </div>
+            <img src="https://github.com/mosbasaumuoi/mos360-web/blob/main/logo%20vien.png?raw=true" class="logo-img" alt="MOS360 Logo">
         </header>
 
-        <input type="text" class="search-box" placeholder="Bạn muốn tìm tài liệu Office, Win hay Mac?">
+        <input type="text" class="search-box" placeholder="Tìm tài liệu (Office, Windows, MacOS)...">
 
         <div class="container">
             <div class="card">
-                <h3>📦 ĐANG CHUẨN BỊ KỆ HÀNG...</h3>
-                <p>Kho dữ liệu đang được đồng bộ. 429 link tài liệu sẽ tự động hiện lên khi bạn nạp xong KV.</p>
+                <h3>📦 ĐANG CHỜ DỮ LIỆU...</h3>
+                <p>Giao diện đã chuẩn. Sáng mai nạp 429 link tài liệu vào hệ thống là hoàn tất.</p>
             </div>
         </div>
 
-        <div class="footer">© 2026 MOS360.VN - HỆ THỐNG TÀI LIỆU CHUẨN ĐẦU RA</div>
+        <div class="footer">© 2026 MOS360.VN - HỌC CHUẨN, THI NHANH</div>
     </body>
     </html>`;
     return new Response(html, { headers: { "Content-Type": "text/html;charset=UTF-8" } });
