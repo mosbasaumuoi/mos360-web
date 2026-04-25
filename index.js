@@ -30,7 +30,7 @@ export default {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MOS360 - Bảng Vàng Chứng Chỉ</title>
+        <title>MOS360 - Chinh phục chứng chỉ quốc tế</title>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
         <style>
             :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
@@ -47,49 +47,56 @@ export default {
             .social-item img, .social-item svg { width: 22px; height: 22px; }
 
             .hero { text-align: center; padding: 60px 20px 30px; }
-            .hero h1 { font-size: 3.2rem; font-weight: 800; }
+            .hero h1 { font-size: 3.2rem; font-weight: 800; margin-bottom: 10px; }
 
             .main-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 420px 1fr; gap: 30px; }
             .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 32px; padding: 40px; text-align: center; overflow: hidden; }
 
-            /* VÒNG QUAY */
-            .wheel-box { position: relative; width: 300px; height: 300px; margin: 0 auto 25px; }
-            .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 25px solid #FFD700; z-index: 20; }
-            .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); position: relative; animation: spin 20s linear infinite; }
-            .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; background: white; border-radius: 50%; z-index: 30; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 0.8rem; }
+            /* VÒNG QUAY - CĂN CHỈNH GIỮA NAN */
+            .wheel-box { position: relative; width: 320px; height: 320px; margin: 0 auto 25px; }
+            .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 25px solid #FFD700; z-index: 40; }
+            .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); position: relative; animation: spin 20s linear infinite; box-shadow: 0 0 30px rgba(255,215,0,0.15); }
+            .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 75px; height: 75px; background: white; border-radius: 50%; z-index: 50; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 0.85rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+            
+            /* Logic căn giữa nan quạt: Xoay label và đẩy text vào đúng góc trung tâm nan */
             .wheel-label { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
-            .wheel-label b { position: absolute; top: 50%; left: 50%; width: 50%; transform-origin: left center; text-align: center; padding-left: 55px; font-size: 0.85rem; font-weight: 900; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.6); }
-            .l1 b { transform: rotate(-45deg) translateY(-50%); }
-            .l2 b { transform: rotate(-135deg) translateY(-50%); }
-            .l3 b { transform: rotate(-225deg) translateY(-50%); }
-            .l4 b { transform: rotate(-315deg) translateY(-50%); }
+            .wheel-label b { 
+                position: absolute; 
+                top: 50%; 
+                left: 50%; 
+                width: 42%; 
+                transform-origin: left center; 
+                text-align: right; 
+                font-size: 0.8rem; 
+                font-weight: 800; 
+                color: white; 
+                text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                white-space: nowrap;
+                padding-right: 10px;
+            }
+            /* Mỗi nan rộng 90deg, b xoay thêm 45deg để vào đúng giữa */
+            .l1 b { transform: rotate(45deg) translateY(-50%); }   /* Nan 1 */
+            .l2 b { transform: rotate(135deg) translateY(-50%); }  /* Nan 2 */
+            .l3 b { transform: rotate(225deg) translateY(-50%); }  /* Nan 3 */
+            .l4 b { transform: rotate(315deg) translateY(-50%); }  /* Nan 4 */
+            
             @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-            /* BẢNG VÀNG - ẢNH TO 520PX */
+            /* BẢNG VÀNG - ẢNH TO */
             .carousel-viewport { width: 100%; overflow: hidden; margin-top: 20px; }
             .carousel-track { display: flex; gap: 20px; animation: scroll 45s linear infinite; width: max-content; }
             .carousel-track:hover { animation-play-state: paused; }
             .student-item { width: 520px; flex-shrink: 0; }
-            .student-item img { 
-                width: 100%; 
-                height: 360px;
-                border-radius: 15px; 
-                border: 2px solid var(--border); 
-                object-fit: contain; 
-                background: #000;
-                transition: 0.3s;
-            }
-            .student-item img:hover { border-color: var(--primary); transform: scale(1.02); }
+            .student-item img { width: 100%; height: 360px; border-radius: 15px; border: 2px solid var(--border); object-fit: contain; background: #000; transition: 0.3s; }
             
             @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-            /* DỊCH VỤ & Ô CHAT AI */
+            /* DỊCH VỤ */
             .services-grid { max-width: 1400px; margin: 50px auto; padding: 0 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
             .service-card { background: var(--card); padding: 35px; border-radius: 28px; border: 1px solid var(--border); border-left: 4px solid var(--primary); display: flex; flex-direction: column; justify-content: center; }
             .ai-chat-card { border: 2px solid var(--cyan); border-left: 4px solid var(--cyan); background: #161616; }
-            .ai-chat-card h3 { color: var(--cyan); }
             .chat-input-box { display: flex; background: #000; border: 1px solid #333; border-radius: 12px; padding: 5px; margin-top: 15px; }
-            .chat-input-box input { flex: 1; background: transparent; border: none; padding: 10px; color: white; outline: none; font-size: 0.9rem; }
+            .chat-input-box input { flex: 1; background: transparent; border: none; padding: 10px; color: white; outline: none; }
             .chat-input-box button { background: var(--cyan); border: none; padding: 0 15px; border-radius: 8px; font-weight: 800; cursor: pointer; color: #000; }
 
             .btn-action { background: #E64A19; color: white; border: none; padding: 18px; border-radius: 100px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 15px; }
@@ -98,11 +105,7 @@ export default {
             .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
             .map-container { border-radius: 20px; overflow: hidden; height: 220px; filter: grayscale(1) invert(0.9); border: 1px solid var(--border); }
 
-            @media (max-width: 1024px) { 
-                .main-container, .services-grid, .footer-content { grid-template-columns: 1fr; } 
-                .student-item { width: 300px; } 
-                .student-item img { height: 220px; }
-            }
+            @media (max-width: 1024px) { .main-container, .services-grid, .footer-content { grid-template-columns: 1fr; } .student-item { width: 320px; } .student-item img { height: 240px; } }
         </style>
     </head>
     <body>
@@ -122,7 +125,7 @@ export default {
 
     <section class="hero">
         <h1>Chuẩn đầu ra cho sinh viên</h1>
-        <p style="color:#888;">Luyện thi MOS 1000/1000 - Đồng hành thực chiến trọn đời</p>
+        <p style="color:#888;">Luyện thi MOS 1000 - Đồng hành thực chiến trọn đời</p>
     </section>
 
     <div class="main-container">
@@ -161,10 +164,10 @@ export default {
             <p>Thực hành trực tiếp trên hệ thống mô phỏng sát 100% đề thi quốc tế của Certiport.</p>
         </div>
         <div class="service-card ai-chat-card">
-            <h3>AI Assistant 24/7 ✨</h3>
-            <p>Hỏi đáp kiến thức tin học và các hàm Excel nhanh chóng:</p>
+            <h3 style="color:var(--cyan);">AI Assistant 24/7 ✨</h3>
+            <p>Giải đáp kiến thức tin học và các hàm Excel phức tạp ngay tức thì:</p>
             <div class="chat-input-box">
-                <input type="text" placeholder="Nhập nội dung cần hỏi...">
+                <input type="text" placeholder="Nhập câu hỏi tại đây...">
                 <button>GỬI</button>
             </div>
         </div>
@@ -178,7 +181,7 @@ export default {
         <div class="footer-content">
             <div><h2 style="color:var(--primary)">MOS360.VN</h2><p style="color:#666">Hotline: 0912.888.360</p></div>
             <div><p style="color:#888">Địa chỉ: 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p></div>
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.455243453883!2d106.6787!3d20.8427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjDCsDUwJzMzLjciTiAxMDbCsDQwJzQzLjMiRQ!5e0!3m2!1svi!2svn!4v1625123456789!5m2!1svi!2svn" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.468200639912!2d106.67812517596541!3d20.85324399377482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af99d257b49%3A0x6b4453001851e360!2zNTcgTMOqIFbEg24gVGh1eeG6v3QgQSwgQW4gQmnDqm4sIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1714030000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
         </div>
     </footer>
 
