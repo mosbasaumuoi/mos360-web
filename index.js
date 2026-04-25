@@ -19,7 +19,7 @@ export default {
             * { box-sizing: border-box; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
             body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
 
-            /* Header & Social Icons (Giữ nguyên như bản cũ) */
+            /* Header & Social Icons */
             header { padding: 12px 50px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(8, 8, 8, 0.95); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
             .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
             .brand img { width: 42px; height: auto; }
@@ -37,11 +37,37 @@ export default {
             .funnel-container { max-width: 1200px; margin: 40px auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
             .funnel-card { background: linear-gradient(145deg, #1a1a1a, #0d0d0d); border: 1px solid var(--border); border-radius: 32px; padding: 40px; position: relative; overflow: hidden; }
             
-            /* Wheel Styles */
+            /* THIẾT KẾ VÒNG QUAY ĐẸP (CSS Conic Gradient) */
             .wheel-wrap { text-align: center; }
-            .wheel-visual { width: 220px; height: 220px; border: 8px solid var(--primary); border-radius: 50%; margin: 20px auto; position: relative; background: conic-gradient(from 0deg, var(--primary) 0% 25%, #222 25% 50%, var(--primary) 50% 75%, #222 75% 100%); animation: rotateWheel 10s linear infinite; }
+            .wheel-visual { 
+                width: 250px; height: 250px; 
+                border: 10px solid #FFD700; /* Viền vàng */
+                border-radius: 50%; 
+                margin: 20px auto; 
+                position: relative; 
+                background: conic-gradient(
+                    #ff8a80 0deg 72deg, /* Voucher 50k */
+                    #81d4fa 72deg 144deg, /* Voucher 100k */
+                    #a5d6a7 144deg 216deg, /* Miễn phí MOS */
+                    #ffcc80 216deg 288deg, /* Voucher 150k */
+                    #b39ddb 288deg 360deg  /* Voucher 200k */
+                ); 
+                animation: rotateWheel 15s linear infinite; 
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            }
+            .wheel-visual::after {
+                content: 'QUAY';
+                position: absolute; top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60px; height: 60px;
+                background: white; border-radius: 50%;
+                color: #333; font-weight: 800; font-size: 0.8rem;
+                display: flex; align-items: center; justify-content: center;
+                box-shadow: 0 0 10px rgba(0,0,0,0.3);
+                z-index: 2;
+            }
             @keyframes rotateWheel { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
-            .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 20px solid #FFD700; z-index: 10; }
+            .wheel-pointer { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 25px solid #FFD700; z-index: 10; filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); }
 
             /* Stats & Proof */
             .stat-badge { background: rgba(255,102,0,0.1); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-weight: 700; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; }
@@ -58,9 +84,15 @@ export default {
             .card h3::before { content: ''; width: 4px; height: 20px; background: var(--primary); border-radius: 10px; }
             .ai-icon-inline svg { width: 18px; height: 18px; fill: #FFD700; filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); margin-left: 5px; }
 
+            /* Footer */
             footer { background: #050505; padding: 60px; border-top: 1px solid var(--border); }
             .f-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 1fr 1.2fr; gap: 60px; }
-            .map-container { border-radius: 24px; overflow: hidden; height: 280px; border: 1px solid var(--border); filter: grayscale(1) invert(0.92); }
+            
+            /* BẢN ĐỒ ĐÃ ĐƯỢC FIX LỖI 404 */
+            .map-container { 
+                border-radius: 24px; overflow: hidden; height: 280px; 
+                border: 1px solid var(--border); filter: grayscale(1) invert(0.92); 
+            }
 
             @media (max-width: 1000px) { .funnel-container, .grid, .f-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
         </style>
@@ -90,18 +122,18 @@ export default {
     <section class="hero">
         <span class="stat-badge">⭐ 100% Học viên đỗ ngay lần đầu</span>
         <h1>Chuẩn đầu ra cho sinh viên</h1>
-        <p style="color: #777; font-size: 1.2rem; margin-top: 20px;">Luyện thi MOS 1000 - Đồng hành thực chiến cùng sự nghiệp</p>
+        <p style="color: #777; font-size: 1.2rem; margin-top: 20px;">Luyện thi MOS 1000 - Đồng hành thực chiến trọn đời cùng sự nghiệp</p>
     </section>
 
     <div class="funnel-container">
         <div class="funnel-card wheel-wrap">
             <h3 style="color: var(--primary); margin: 0;">🎡 Vòng Quay May Mắn</h3>
             <p style="color: #888; font-size: 0.9rem; margin: 10px 0;">100% Trúng quà: Giảm tới 80% học phí!</p>
-            <div style="position: relative;">
+            <div style="position: relative; padding: 20px 0;">
                 <div class="wheel-pointer"></div>
                 <div class="wheel-visual"></div>
             </div>
-            <button style="background: var(--primary); color: white; border: none; padding: 15px 40px; border-radius: 100px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 10px;">THỬ VẬN MAY NGAY</button>
+            <button style="background: var(--primary); color: white; border: none; padding: 16px 40px; border-radius: 100px; font-weight: 800; font-size: 1rem; cursor: pointer; width: 100%; margin-top: 15px; box-shadow: 0 5px 15px rgba(255,102,0,0.3);">NHẬN QUÀ NGAY</button>
         </div>
 
         <div class="funnel-card">
@@ -159,8 +191,17 @@ export default {
                 <p style="color: #777;"><strong>Cơ sở Hải Phòng:</strong><br>57 Lê Văn Thuyết A, P. An Biên</p>
                 <p style="color: #777; margin-top: 15px;"><strong>Email:</strong><br>mos360.vn@gmail.com</p>
             </div>
+            
             <div class="map-container">
-                <iframe src="https://www.google.com/maps6" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe 
+                    src="https://www.google.com/maps7" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
     </footer>
