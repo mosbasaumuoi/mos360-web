@@ -39,12 +39,12 @@ export default {
             .btn-login { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(255,102,0,0.2); }
             .btn-login:hover { background: #e65c00; transform: translateY(-2px); }
 
-            /* Hero Section - Slogan chuẩn của bạn */
+            /* Hero Section */
             .hero { text-align: center; padding: 100px 20px 60px; }
             .hero h1 { font-size: 4.2rem; font-weight: 800; letter-spacing: -3px; margin: 0; line-height: 1.1; background: linear-gradient(to bottom, #fff 60%, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
             .hero .tagline { font-size: 1.5rem; color: #777; margin: 25px 0 45px; font-weight: 400; }
 
-            /* Nút liên hệ nổi (Floating) bên phải */
+            /* Nút liên hệ nổi bên phải */
             .side-contact {
                 position: fixed; right: 20px; top: 55%; transform: translateY(-50%);
                 display: flex; flex-direction: column; gap: 12px; z-index: 9999;
@@ -57,7 +57,7 @@ export default {
             .social-icon img { width: 28px; height: 28px; }
             .social-icon:hover { border-color: var(--primary); transform: translateX(-8px); background: #000; }
 
-            /* Search Box Modern */
+            /* Search Box */
             .search-box-wrap { max-width: 650px; margin: 0 auto 90px; }
             .search-input { 
                 width: 100%; padding: 22px 32px; border-radius: 100px; border: 1px solid var(--border);
@@ -115,4 +115,49 @@ export default {
 
     <div class="side-contact">
         <a href="https://zalo.me/0912888360" class="social-icon" title="Chat Zalo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo"></a>
-        <a href="#" class="social-
+        <a href="#" class="social-icon" title="Messenger"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger"></a>
+        <a href="#" class="social-icon" title="Facebook Page"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="FB"></a>
+    </div>
+
+    <section class="hero">
+        <h1>Chuẩn đầu ra cho sinh viên</h1>
+        <p class="tagline">Luyện thi MOS 1000 - Đồng hành thực chiến trọn đời</p>
+        <div class="search-box-wrap">
+            <input type="text" class="search-input" placeholder="Bạn cần tìm tài liệu gì hay muốn hỏi AI Assistant?">
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h3>Thi Thật 100% <span class="badge">CAM KẾT</span></h3>
+                <p>Thực hành trực tiếp trên phần mềm mô phỏng sát 100% đề thi quốc tế. Tự tin tuyệt đối khi bước vào phòng thi thật.</p>
+            </div>
+            <div class="card">
+                <h3>AI Assistant 24/7</h3>
+                <p>Hệ thống trí tuệ nhân tạo hỗ trợ tìm kiếm tài liệu thông minh và giải đáp mọi thắc mắc về kiến thức tin học ngay lập tức.</p>
+            </div>
+            <div class="card">
+                <h3>Đồng Hành Trọn Đời</h3>
+                <p>Tài liệu hỗ trợ định dạng luận văn, đồ án và kỹ năng văn phòng thông dụng. Đồng hành cùng sự nghiệp của bạn mãi mãi.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="f-grid">
+            <div class="f-text">
+                <div class="f-brand">MOS360.VN</div>
+                <p>Nền tảng luyện thi tin học quốc tế thực chiến hàng đầu tại Hải Phòng.</p>
+                <p style="margin-top: 35px;"><strong>Hotline/Zalo hỗ trợ:</strong></p>
+                <p style="font-size: 1.8rem; color: var(--primary); font-weight: 800; margin: 0;">0912.888.360</p>
+            </div>
+            
+            <div class="f-text">
+                <p><strong>Cơ sở Hải Phòng:</strong><br>Số 57 Lê Văn Thuyết A, P. An Biên, TP. Hải Phòng</p>
+                <p style="margin-top: 30px;"><strong>Email liên hệ:</strong><br><span style="color: #fff;">mos360.vn@gmail.com</span></p>
+            </div>
+
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d418.1565439722748!
