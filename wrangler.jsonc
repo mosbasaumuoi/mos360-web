@@ -1,14 +1,15 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mos360-web",
+  "main": "index.js",
   "compatibility_date": "2026-04-24",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  },
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "Links_mos360",
+      "id": "ID_KHO_KV_CUA_BAN" 
+    }
   ]
 }
