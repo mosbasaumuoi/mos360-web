@@ -10,16 +10,16 @@ async function fetchCertificates() {
             const columns = row.split('\t');
             const link = columns[0] ? columns[0].trim() : "";
             if (link && link.startsWith('http')) {
-                // Ép kích thước ảnh cực to trực tiếp trong thẻ img
+                // ÉP KIỂU ẢNH TO 500PX TRỰC TIẾP TẠI ĐÂY
                 htmlContent += `
-                    <div class="cert-card">
-                        <img src="${link}" style="width: 500px; height: auto; border-radius: 15px; border: 2px solid #333; display: block;">
+                    <div style="flex-shrink:0; width:500px; padding:10px;">
+                        <img src="${link}" style="width:100%; height:320px; object-fit:contain; border-radius:15px; border:3px solid #333; background:#000;">
                     </div>`;
             }
         });
-        return htmlContent + htmlContent; 
+        return htmlContent + htmlContent;
     } catch (e) {
-        return "<span>Đang tải dữ liệu...</span>";
+        return "<span>Đang tải...</span>";
     }
 }
 
@@ -31,101 +31,66 @@ export const renderWeb = async () => {
     <html lang="vi">
     <head>
         <meta charset="UTF-8">
-        <title>MOS360 - Bảng Vàng & AI Assistant</title>
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
         <style>
-            :root { --orange: #FF5722; --cyan: #00f2ff; --bg: #080808; }
-            * { box-sizing: border-box; margin: 0; padding: 0; }
-            body { background: var(--bg); color: white; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
-
-            /* HEADER */
-            .navbar { padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
-            .login-btn { background: var(--orange); padding: 10px 25px; border-radius: 10px; font-weight: 800; text-decoration: none; color: white; }
-
-            /* MAIN SECTION - BẢNG VÀNG */
-            .main-section { max-width: 1500px; margin: 40px auto; display: grid; grid-template-columns: 320px 1fr; gap: 30px; padding: 0 40px; }
-            .card-box { background: #111; border: 1px solid #222; border-radius: 30px; padding: 35px; }
-
-            /* CAROUSEL - LÀM ẢNH TO VƯỢT TRỘI */
-            .cert-viewport { width: 100%; overflow: hidden; margin-top: 20px; }
-            .cert-track { display: flex; gap: 40px; animation: scroll 50s linear infinite; width: max-content; }
-            .cert-card { flex-shrink: 0; width: 500px; } /* Chiều ngang mỗi ảnh là 500px */
+            body { background: #080808; color: white; font-family: sans-serif; margin: 0; }
             @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-            /* 3 CỘT DỊCH VỤ - KHUNG CHAT AI */
-            .services-area { max-width: 1500px; margin: 0 auto 60px; display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 25px; padding: 0 40px; }
-            .service-item { background: #111; padding: 30px; border-radius: 25px; border: 1px solid #222; border-left: 5px solid var(--orange); }
-            
-            /* CSS RIÊNG CHO Ô CHAT AI */
-            .ai-box { border: 2px solid var(--cyan) !important; border-left: 5px solid var(--cyan) !important; position: relative; background: #161616; }
-            .ai-input-container { margin-top: 20px; display: flex; background: #000; border-radius: 15px; border: 1px solid #333; padding: 5px; }
-            .ai-input-field { 
-                flex: 1; background: transparent; border: none; padding: 15px; color: white; 
-                outline: none; font-size: 15px; width: 100%; 
-            }
-            .ai-send-button { 
-                background: var(--cyan); border: none; padding: 0 20px; border-radius: 10px; 
-                color: black; font-weight: 800; cursor: pointer; transition: 0.3s;
-            }
-            .ai-send-button:hover { background: white; }
-
-            .side-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; }
-            .side-nav img { width: 45px; transition: 0.3s; }
-            .side-nav img:hover { transform: scale(1.1); }
+            @keyframes spin { to { transform: rotate(360deg); } }
         </style>
     </head>
     <body>
-        <div class="navbar">
-            <h1 style="font-size: 26px;">MOS360</h1>
-            <a href="https://mos360.vn" class="login-btn">ĐĂNG NHẬP</a>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 50px; border-bottom:1px solid #222;">
+            <h1 style="margin:0; font-size:28px; color:#fff;">MOS360</h1>
+            <div style="background:#FF5722; color:white; padding:12px 25px; border-radius:10px; font-weight:bold; cursor:pointer;">ĐĂNG NHẬP</div>
         </div>
 
-        <div class="main-section">
-            <div class="card-box" style="text-align: center;">
-                <h3 style="color: var(--orange); margin-bottom: 20px;">🎡 Vòng Quay</h3>
-                <div style="width: 220px; height: 220px; border-radius: 50%; border: 10px solid gold; margin: 0 auto; background: conic-gradient(from 0deg, #ff6b6b, #4ecdc4, #ffbe0b, #ff006e, #ff6b6b); animation: spin 10s linear infinite;"></div>
-                <button style="background: var(--orange); border:none; width:100%; padding:18px; border-radius:40px; color:white; font-weight:800; margin-top:30px; cursor:pointer;">NHẬN QUÀ NGAY</button>
+        <div style="display:grid; grid-template-columns: 350px 1fr; gap:30px; padding:40px; max-width:1600px; margin:auto;">
+            
+            <div style="background:#111; padding:30px; border-radius:30px; text-align:center; border:1px solid #222;">
+                <h3 style="color:#FF5722; margin-bottom:20px;">🎡 Vòng Quay May Mắn</h3>
+                <div style="width:250px; height:250px; border-radius:50%; border:8px solid #FFD700; margin:auto; background:conic-gradient(red, orange, yellow, green, cyan, blue, violet); animation: spin 10s linear infinite;"></div>
+                <button style="width:100%; background:#FF5722; border:none; padding:18px; border-radius:40px; color:white; font-weight:bold; margin-top:30px; cursor:pointer; font-size:16px;">NHẬN QUÀ NGAY</button>
             </div>
 
-            <div class="card-box">
-                <h3 style="font-size: 22px;">🏆 BẢNG VÀNG CHỨNG CHỈ 1000/1000</h3>
-                <div class="cert-viewport">
-                    <div class="cert-track">${certs}</div>
+            <div style="background:#111; padding:30px; border-radius:30px; border:1px solid #222; overflow:hidden;">
+                <h3 style="margin-top:0;">🏆 Bảng Vàng Chứng Chỉ (Ảnh To)</h3>
+                <div style="width:100%; overflow:hidden; margin-top:20px;">
+                    <div style="display:flex; animation: scroll 40s linear infinite; width:max-content;">
+                        ${certs}
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="services-area">
-            <div class="service-item">
+        <div style="display:grid; grid-template-columns: 1fr 1.5fr 1fr; gap:25px; padding:0 40px 60px; max-width:1600px; margin:auto;">
+            
+            <div style="background:#111; padding:30px; border-radius:25px; border-left:5px solid #FF5722; border:1px solid #222;">
                 <h3>Thi Thật 100%</h3>
-                <p style="color:#888; font-size:14px; margin-top:10px;">Phần mềm mô phỏng sát đề thi quốc tế Certiport.</p>
+                <p style="color:#888; font-size:14px;">Hệ thống mô phỏng chuẩn quốc tế Certiport.</p>
             </div>
 
-            <div class="service-item ai-box">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 24px;">🤖</span>
-                    <h3 style="color: var(--cyan);">AI Assistant 24/7 ✨</h3>
+            <div style="background:#161616; padding:30px; border-radius:25px; border:2px solid #00f2ff; box-shadow: 0 0 15px rgba(0,242,255,0.2);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px;">
+                    <span style="font-size:30px;">🤖</span>
+                    <h3 style="color:#00f2ff; margin:0;">AI Assistant 24/7 ✨</h3>
                 </div>
-                <p style="color:#aaa; font-size:14px; margin-top:8px;">Hỏi đáp kiến thức Tin học và tra cứu tài liệu:</p>
+                <p style="color:#ccc; font-size:14px; margin-bottom:20px;">Đặt câu hỏi về Excel hoặc Tin học văn phòng tại đây:</p>
                 
-                <div class="ai-input-container">
-                    <input type="text" class="ai-input-field" placeholder="Nhập câu hỏi tại đây...">
-                    <button class="ai-send-button">GỬI</button>
+                <div style="display:flex; background:#000; border:1px solid #333; border-radius:15px; padding:5px;">
+                    <input type="text" placeholder="Nhập câu hỏi của bạn..." style="flex:1; background:transparent; border:none; padding:15px; color:white; outline:none; font-size:16px;">
+                    <button style="background:#00f2ff; border:none; padding:0 25px; border-radius:10px; font-weight:bold; cursor:pointer; color:black;">GỬI</button>
                 </div>
             </div>
 
-            <div class="service-item">
-                <h3>Hỗ Trợ Luận Văn</h3>
-                <p style="color:#888; font-size:14px; margin-top:10px;">Định dạng văn bản chuẩn chuyên nghiệp trọn đời.</p>
+            <div style="background:#111; padding:30px; border-radius:25px; border-left:5px solid #FF5722; border:1px solid #222;">
+                <h3>Đồng Hành Trọn Đời</h3>
+                <p style="color:#888; font-size:14px;">Hỗ trợ định dạng luận văn chuyên nghiệp mãi mãi.</p>
             </div>
         </div>
 
-        <div class="side-nav">
-            <a href="https://zalo.me/0912888360" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-            <a href="https://www.facebook.com/MOS360.EDU" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"></a>
+        <div style="position:fixed; right:20px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:15px;">
+            <a href="https://zalo.me/0912888360" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" style="width:45px;"></a>
+            <a href="https://www.facebook.com/MOS360.EDU" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" style="width:45px;"></a>
         </div>
-
-        <style> @keyframes spin { to { transform: rotate(360deg); } } </style>
     </body>
     </html>`;
 };
