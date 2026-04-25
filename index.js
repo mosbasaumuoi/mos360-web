@@ -30,7 +30,7 @@ export default {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MOS360 - Chinh phục chứng chỉ quốc tế</title>
+        <title>MOS360 - Bảng Vàng Chứng Chỉ</title>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
         <style>
             :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
@@ -47,38 +47,45 @@ export default {
             .social-item img, .social-item svg { width: 22px; height: 22px; }
 
             .hero { text-align: center; padding: 60px 20px 30px; }
-            .hero h1 { font-size: 3.2rem; font-weight: 800; margin-bottom: 10px; }
+            .hero h1 { font-size: 3.2rem; font-weight: 800; }
 
             .main-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 420px 1fr; gap: 30px; }
             .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 32px; padding: 40px; text-align: center; overflow: hidden; }
 
-            /* VÒNG QUAY - CĂN CHỈNH GIỮA NAN */
-            .wheel-box { position: relative; width: 320px; height: 320px; margin: 0 auto 25px; }
+            /* VÒNG QUAY - CĂN CHỈNH GIỮA NAN TUYỆT ĐỐI */
+            .wheel-box { position: relative; width: 300px; height: 300px; margin: 0 auto 25px; }
             .wheel-pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 25px solid #FFD700; z-index: 40; }
-            .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); position: relative; animation: spin 20s linear infinite; box-shadow: 0 0 30px rgba(255,215,0,0.15); }
-            .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 75px; height: 75px; background: white; border-radius: 50%; z-index: 50; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 0.85rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+            .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 8px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); position: relative; animation: spin 20s linear infinite; }
+            .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; background: white; border-radius: 50%; z-index: 50; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 0.8rem; }
             
-            /* Logic căn giữa nan quạt: Xoay label và đẩy text vào đúng góc trung tâm nan */
-            .wheel-label { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+            .wheel-label { 
+                position: absolute; 
+                width: 100%; 
+                height: 100%; 
+                top: 0; 
+                left: 0; 
+            }
             .wheel-label b { 
                 position: absolute; 
                 top: 50%; 
                 left: 50%; 
-                width: 42%; 
-                transform-origin: left center; 
-                text-align: right; 
-                font-size: 0.8rem; 
-                font-weight: 800; 
+                width: 50%; /* Chiều dài từ tâm ra mép */
+                height: 30px;
+                line-height: 30px;
+                transform-origin: 0% 50%; /* Trục xoay nằm ở tâm vòng tròn */
+                text-align: center; /* Căn giữa nội dung trong 50% chiều dài đó */
+                padding-left: 45px; /* Đẩy chữ ra xa tâm để không bị đè */
+                font-size: 0.85rem; 
+                font-weight: 900; 
                 color: white; 
-                text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+                text-shadow: 0 2px 4px rgba(0,0,0,0.6); 
                 white-space: nowrap;
-                padding-right: 10px;
             }
-            /* Mỗi nan rộng 90deg, b xoay thêm 45deg để vào đúng giữa */
-            .l1 b { transform: rotate(45deg) translateY(-50%); }   /* Nan 1 */
-            .l2 b { transform: rotate(135deg) translateY(-50%); }  /* Nan 2 */
-            .l3 b { transform: rotate(225deg) translateY(-50%); }  /* Nan 3 */
-            .l4 b { transform: rotate(315deg) translateY(-50%); }  /* Nan 4 */
+            /* Căn chỉnh góc xoay để nằm chính giữa mỗi nan 90 độ */
+            .l1 b { transform: rotate(-45deg) translateY(-50%); } 
+            .l2 b { transform: rotate(-135deg) translateY(-50%); } 
+            .l3 b { transform: rotate(-225deg) translateY(-50%); } 
+            .l4 b { transform: rotate(-315deg) translateY(-50%); } 
             
             @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
@@ -91,7 +98,6 @@ export default {
             
             @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-            /* DỊCH VỤ */
             .services-grid { max-width: 1400px; margin: 50px auto; padding: 0 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
             .service-card { background: var(--card); padding: 35px; border-radius: 28px; border: 1px solid var(--border); border-left: 4px solid var(--primary); display: flex; flex-direction: column; justify-content: center; }
             .ai-chat-card { border: 2px solid var(--cyan); border-left: 4px solid var(--cyan); background: #161616; }
@@ -165,7 +171,7 @@ export default {
         </div>
         <div class="service-card ai-chat-card">
             <h3 style="color:var(--cyan);">AI Assistant 24/7 ✨</h3>
-            <p>Giải đáp kiến thức tin học và các hàm Excel phức tạp ngay tức thì:</p>
+            <p>Giải đáp kiến thức tin học và các hàm Excel nhanh chóng:</p>
             <div class="chat-input-box">
                 <input type="text" placeholder="Nhập câu hỏi tại đây...">
                 <button>GỬI</button>
@@ -181,7 +187,7 @@ export default {
         <div class="footer-content">
             <div><h2 style="color:var(--primary)">MOS360.VN</h2><p style="color:#666">Hotline: 0912.888.360</p></div>
             <div><p style="color:#888">Địa chỉ: 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p></div>
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.468200639912!2d106.67812517596541!3d20.85324399377482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af99d257b49%3A0x6b4453001851e360!2zNTcgTMOqIFbEg24gVGh1eeG6v3QgQSwgQW4gQmnDqm4sIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1714030000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.45529452033!2d106.67756857585098!3d20.843621494191372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af276c125bb%3A0xb167098e945c792!2zNTcgTMOqIFbEg24gVGh1eeG6v3QsIEFuIEJpw6puLCBMw6ogQ2jDom4sIEjhuqNpIFBow7JuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1714040000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
         </div>
     </footer>
 
