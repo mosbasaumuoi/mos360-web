@@ -23,7 +23,6 @@ export default {
                 margin: 0; line-height: 1.6; overflow-x: hidden;
             }
 
-            /* Header */
             header { 
                 padding: 12px 50px; display: flex; justify-content: space-between; align-items: center;
                 position: sticky; top: 0; background: rgba(8, 8, 8, 0.95); backdrop-filter: blur(15px); z-index: 1000;
@@ -38,7 +37,7 @@ export default {
             .btn-trial { border: 1px solid var(--border); color: #bbb; }
             .btn-login { background: var(--primary); color: white; }
 
-            /* Thanh liên hệ nổi - Cập nhật link chính thức */
+            /* Fix Side Contact & TikTok Icon */
             .side-contact {
                 position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
                 display: flex; flex-direction: column; gap: 10px; z-index: 9999;
@@ -49,45 +48,42 @@ export default {
                 background: #1a1a1a; border: 1px solid var(--border);
                 text-decoration: none;
             }
-            .social-icon img { width: 24px; height: 24px; object-fit: contain; }
+            .social-icon svg, .social-icon img { width: 24px; height: 24px; fill: white; }
             .social-icon:hover { border-color: var(--primary); transform: translateX(-5px); background: #000; }
 
-            /* Hero Section */
             .hero { text-align: center; padding: 100px 20px 60px; }
             .hero h1 { font-size: 4.2rem; font-weight: 800; letter-spacing: -3px; margin: 0; line-height: 1.1; background: linear-gradient(to bottom, #fff 60%, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
             .hero .tagline { font-size: 1.5rem; color: #777; margin: 25px 0 45px; font-weight: 400; }
 
-            /* Search Box */
             .search-box-wrap { max-width: 650px; margin: 0 auto 90px; }
             .search-input { 
                 width: 100%; padding: 22px 32px; border-radius: 100px; border: 1px solid var(--border);
                 background: rgba(255,255,255,0.03); color: white; font-size: 1.05rem; outline: none;
             }
 
-            /* Container & Cards */
             .container { max-width: 1200px; margin: 0 auto; padding: 0 40px 100px; }
-            .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+            .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; align-items: stretch; }
+            
+            /* Fix AI Card Alignment */
             .card { 
                 background: var(--card); padding: 45px 35px; border-radius: 28px;
                 border: 1px solid var(--border); text-align: left;
+                display: flex; flex-direction: column; justify-content: flex-start;
             }
             .card:hover { border-color: var(--primary); transform: translateY(-10px); }
             .card h3 { 
                 font-size: 1.35rem; margin-bottom: 18px; color: #fff; 
-                display: flex; align-items: center; gap: 10px;
+                display: flex; align-items: center; gap: 10px; margin-top: 0;
             }
-            .card h3::before { content: ''; width: 4px; height: 22px; background: var(--primary); border-radius: 10px; }
+            .card h3::before { content: ''; width: 4px; height: 22px; background: var(--primary); border-radius: 10px; flex-shrink: 0; }
             
-            /* Icon AI lấp lánh inline */
             .ai-icon-inline svg {
                 width: 18px; height: 18px; fill: #FFD700;
                 filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
-                margin-left: 5px;
             }
 
             .card p { color: #888; font-size: 0.95rem; line-height: 1.7; margin: 0; }
 
-            /* Footer */
             footer { background: #050505; padding: 80px 60px 40px; border-top: 1px solid var(--border); }
             .f-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr 1fr 1.2fr; gap: 60px; }
             .f-brand { color: var(--primary); font-size: 2rem; font-weight: 800; margin-bottom: 25px; }
@@ -111,20 +107,20 @@ export default {
     </header>
 
     <div class="side-contact">
-        <a href="https://zalo.me/0912888360" class="social-icon" target="_blank" title="Zalo">
+        <a href="https://zalo.me/0912888360" class="social-icon" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo">
         </a>
-        <a href="https://www.facebook.com/MOS360.EDU" class="social-icon" target="_blank" title="Facebook">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">
+        <a href="https://www.facebook.com/MOS360.EDU" class="social-icon" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="FB">
         </a>
-        <a href="https://m.me/MOS360.EDU" class="social-icon" target="_blank" title="Messenger">
+        <a href="https://m.me/MOS360.EDU" class="social-icon" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
         </a>
-        <a href="https://www.youtube.com/@mos360_vn" class="social-icon" target="_blank" title="Youtube">
+        <a href="https://www.youtube.com/@mos360_vn" class="social-icon" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="Youtube">
         </a>
-        <a href="https://www.tiktok.com/@mos360.vn" class="social-icon" target="_blank" title="TikTok">
-            <img src="https://sf-tb-static.fingerfun.com/production/static//islands/tik-tok.png" alt="TikTok">
+        <a href="https://www.tiktok.com/@mos360.vn" class="social-icon" target="_blank">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.03 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.8.12-.91.38-1.57 1.23-1.73 2.19-.11.64-.03 1.3.18 1.91.43 1.13 1.53 1.95 2.73 2.11 1.19.16 2.45-.19 3.33-1.01.62-.57.97-1.38 1-2.22.04-4.52-.01-9.04.01-13.56z"/></svg>
         </a>
     </div>
 
@@ -146,7 +142,9 @@ export default {
             <div class="card">
                 <h3>
                     AI Assistant 24/7
-                    <svg class="ai-icon-inline" viewBox="0 0 24 24"><path d="M12 2l2.4 7.2L22 12l-7.6 2.4L12 22l-2.4-7.2L2 12l7.6-2.4L12 2zM19 6l1.2 3.6L24 11l-3.8 1.2L19 16l-1.2-3.6L14 11l3.8-1.2L19 6zM6 16l.8 2.4L9 19l-2.2.8L6 22l-.8-2.4L3 19l2.2-.8L6 16z"/></svg>
+                    <span class="ai-icon-inline">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2L22 12l-7.6 2.4L12 22l-2.4-7.2L2 12l7.6-2.4L12 2zM19 6l1.2 3.6L24 11l-3.8 1.2L19 16l-1.2-3.6L14 11l3.8-1.2L19 6zM6 16l.8 2.4L9 19l-2.2.8L6 22l-.8-2.4L3 19l2.2-.8L6 16z"/></svg>
+                    </span>
                 </h3>
                 <p>Hệ thống trí tuệ nhân tạo hỗ trợ tìm kiếm tài liệu thông minh và giải đáp mọi thắc mắc về kiến thức tin học ngay lập tức.</p>
             </div>
@@ -171,7 +169,7 @@ export default {
                 <p style="margin-top: 30px;"><strong>Email:</strong><br>mos360.vn@gmail.com</p>
             </div>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.5348821013775!2d106.6784849!3d20.8504994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af27670e3eb%3A0xb71a81f33f076b2!2zNTcgTMOqIFbEg24gVGh1eeG6v3QgQSwgQW4gQmmnbiwgTMOqIENow6JuLCBI4bqjaSBQaMOybmcsIFZpZXRuYW0!5e0!3m2!1sen!2s!4v1714000000000!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.455246714652!2d106.6795493!3d20.8516769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af279e85555%3A0x696464522758f70d!2zNTcgTMOqIFbEg24gVGh1eeG6v3QgQSwgQW4gQmnDqm4sIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1714035000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
         <div style="text-align: center; color: #444; font-size: 0.8rem; margin-top: 80px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">
