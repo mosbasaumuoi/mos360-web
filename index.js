@@ -1,179 +1,173 @@
 const CONFIG = {
-  TITLE: "MOS360 - Luyện thi MOS 1000/1000",
+  TITLE: "MOS360 - Hệ Thống Luyện Thi Chuyên Nghiệp",
   STUDENT_PASS: "hocvien360",
+  SINGLE_PRICE: 400, // 400k
   LOGO_URL: "https://github.com/mosbasaumuoi/mos360-web/blob/main/logo%20vien.png?raw=true",
   SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv"
 };
 
-const COURSES = [
-  { id: "wd19", name: "MOS Word 2019", price1: "450k", price3: "1.200k" },
-  { id: "ex19", name: "MOS Excel 2019", price1: "450k", price3: "1.200k" },
-  { id: "pp19", name: "MOS PPT 2019", price1: "450k", price3: "1.200k" },
-  { id: "wd365", name: "MOS Word 365", price1: "500k", price3: "1.350k" },
-  { id: "ex365", name: "MOS Excel 365", price1: "500k", price3: "1.350k" },
-  { id: "pp365", name: "MOS PPT 365", price1: "500k", price3: "1.350k" }
-];
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const key = url.pathname.split("/")[1];
+    const path = url.pathname;
+    const key = path.split("/")[1];
     const cookie = request.headers.get("Cookie") || "";
+    const isStudent = cookie.includes("auth=student");
 
-    // GĐ 1 & 2: Xử lý link KV & Bảo mật
-    if (key && !["", "api-reg"].includes(key)) {
-      const linkData = await env.Links_mos360.get(key);
-      if (linkData) {
-         try {
-           const data = JSON.parse(linkData);
-           if (data.type === "Học viên" && !cookie.includes("auth=student")) return Response.redirect(url.origin + "?login=1", 302);
-           return Response.redirect(data.url, 301);
-         } catch(e) { return Response.redirect(linkData, 301); }
-      }
+    // GĐ 1: Điều hướng link KV (Tài liệu/Tiện ích)
+    if (key && !["", "courses", "library", "login", "api"].includes(key)) {
+      const link = await env.Links_mos360.get(key);
+      if (link) return Response.redirect(link, 301);
     }
 
-    // GĐ 3: Lấy ảnh Bảng Vàng từ Sheets
-    let studentItems = "";
-    try {
-      const resp = await fetch(CONFIG.SHEET_URL);
-      const tsv = await resp.text();
-      const rows = tsv.split("\n").slice(1);
-      rows.forEach(row => {
-        const link = row.split("\t")[0]?.trim();
-        if (link && link.startsWith("http")) {
-          studentItems += `<div class="student-item"><img src="${link}" loading="lazy"></div>`;
-        }
-      });
-      studentItems += studentItems;
-    } catch (e) { studentItems = "<div>Đang tải...</div>"; }
+    // Router điều hướng trang
+    if (path === "/courses") return this.renderCourses();
+    if (path === "/library") return this.renderLibrary(env);
+    if (path === "/login") return this.renderLogin();
 
-    return new Response(this.renderHTML(studentItems, cookie.includes("auth=student")), {
-      headers: { "Content-Type": "text/html;charset=UTF-8" }
-    });
+    // Mặc định trả về Trang Chủ
+    return this.renderHome(isStudent);
   },
 
-  renderHTML(studentData, isStudent) {
-    return `
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${CONFIG.TITLE}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
-        
-        header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(8,8,8,0.9); backdrop-filter: blur(10px); position: sticky; top:0; z-index:100; border-bottom: 1px solid var(--border); }
-        .brand img { height: 40px; }
-
-        /* Khối thống kê */
-        .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1200px; margin: 30px auto; text-align: center; background: linear-gradient(90deg, #121212, #1a1a1a); padding: 20px; border-radius: 20px; border: 1px solid var(--border); }
-        .stat-item h2 { color: var(--primary); font-size: 2.2rem; }
-        .stat-item p { color: #888; font-size: 0.9rem; }
-
-        /* Bố cục chính */
-        .main-grid { display: grid; grid-template-columns: 380px 1fr; gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 5%; }
-        
-        /* Cụm quay thưởng nhỏ gọn */
-        .promo-wheel-box { background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 25px; text-align: center; }
-        .wheel { width: 220px; height: 220px; margin: 0 auto 20px; border-radius: 50%; border: 5px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); animation: spin 10s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* Khối khóa học */
-        .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1400px; margin: 40px auto; padding: 0 5%; }
-        .course-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 25px; transition: 0.3s; border-top: 4px solid var(--primary); }
-        .course-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .price-tag { font-size: 1.4rem; font-weight: 800; color: var(--cyan); margin: 15px 0; }
-        .btn-reg { width: 100%; background: #fff; color: #000; border: none; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; }
-
-        /* Carousel Bảng Vàng */
-        .gold-board { background: var(--card); border-radius: 30px; padding: 30px; border: 1px solid var(--border); overflow: hidden; }
-        .track { display: flex; gap: 15px; animation: scroll 40s linear infinite; }
-        .student-item img { height: 320px; border-radius: 12px; }
-        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-        /* Modal Form */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
-        .form-box { background: #1a1a1a; padding: 40px; border-radius: 24px; width: 450px; border: 1px solid var(--primary); }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; }
-    </style>
-</head>
-<body>
-    <header>
-        <a href="/" class="brand"><img src="${CONFIG.LOGO_URL}"></a>
-        <div>
-            ${isStudent ? '<button onclick="openForm(\'thi\')" style="color:var(--cyan); background:none; border:1px solid var(--cyan); padding:8px 15px; border-radius:8px; margin-right:10px; cursor:pointer;">Đăng ký thi</button>' : ''}
-            <button onclick="location.href='/?login=1'" style="background:var(--primary); border:none; color:#fff; padding:10px 20px; border-radius:10px; font-weight:800; cursor:pointer;">HỌC VIÊN</button>
+  // --- 1. TRANG CHỦ: VÒNG QUAY & GIÁ TRỊ CỐT LÕI ---
+  renderHome(isStudent) {
+    return this.layout(`
+      <section class="hero-section">
+        <div class="stats-bar">
+          <div class="stat"><h2>100%</h2><p>Đỗ Lần Đầu</p></div>
+          <div class="stat"><h2>1000+</h2><p>Học Viên</p></div>
+          <div class="stat"><h2>600+</h2><p>Truy Cập/Ngày</p></div>
         </div>
-    </header>
-
-    <div class="stats-bar">
-        <div class="stat-item"><h2>100%</h2><p>Đỗ ngay lần đầu</p></div>
-        <div class="stat-item"><h2>1,000+</h2><p>Học viên đăng ký</p></div>
-        <div class="stat-item"><h2>600+</h2><p>Truy cập thường xuyên</p></div>
-    </div>
-
-    <div class="main-grid">
-        <aside>
-            <div class="promo-wheel-box">
-                <h3 style="color:var(--primary); margin-bottom:15px;">🎡 Quay Thưởng</h3>
-                <div class="wheel"></div>
-                <p style="font-size:0.85rem; color:#888; margin-bottom:15px;">🎁 ƯU ĐÃI NHÓM 3: Giảm 100k/bạn</p>
-                <button class="btn-reg" style="background:var(--primary); color:#fff;" onclick="alert('Hãy chọn khóa học bên dưới để áp dụng mã giảm giá!')">QUAY NGAY</button>
-            </div>
-            <div class="promo-wheel-box" style="margin-top:20px; border-left:4px solid var(--cyan);">
-                <h4>Học Offline</h4>
-                <p style="font-size:0.8rem; color:#888;">Lớp kèm trực tiếp tại Hải Phòng</p>
-                <button class="btn-reg" onclick="openForm('offline')">Đăng ký Offline</button>
-            </div>
-        </aside>
         
-        <section class="gold-board">
-            <h3 style="margin-bottom:20px;">🏆 Bảng Vàng Chứng Chỉ</h3>
-            <div class="track">${studentData}</div>
-        </section>
-    </div>
-
-    <div class="course-grid">
-        ${COURSES.map(c => `
-            <div class="course-card">
-                <h4>${c.name}</h4>
-                <div class="price-tag" id="price-${c.id}">${c.price1}</div>
-                <select onchange="updatePrice('${c.id}', this.value, '${c.price1}', '${c.price3}')">
-                    <option value="1">Luyện 1 môn</option>
-                    <option value="3">Gói Combo 3 môn</option>
-                </select>
-                <button class="btn-reg" onclick="openForm('hoc', '${c.name}')">Đăng Ký Học</button>
-            </div>
-        `).join('')}
-    </div>
-
-    <div id="modalForm" class="modal">
-        <div class="form-box">
-            <h2 id="formTitle">Đăng ký</h2>
-            <input type="text" placeholder="Họ và tên">
-            <input type="text" placeholder="Số điện thoại">
-            <input type="text" id="courseInput" readonly>
-            <button class="btn-reg" style="background:var(--primary); color:#fff;" onclick="alert('Gửi thành công! Chúng tôi sẽ liên hệ sớm.')">GỬI THÔNG TIN</button>
-            <button onclick="closeForm()" style="background:none; border:none; color:#888; margin-top:15px; cursor:pointer; width:100%;">Đóng</button>
+        <div class="main-grid">
+          <div class="promo-box">
+             <h3 style="color:var(--primary)">🎡 Vòng Quay & Ưu Đãi</h3>
+             <div class="wheel-mini"></div>
+             <div class="promo-info">
+                <p>🎁 <b>Khuyến Mại:</b> Đăng ký Combo 3 môn chỉ tính tiền 2 môn (Tiết kiệm 400k)!</p>
+                <button class="btn-main" onclick="location.href='/courses'">XEM KHÓA HỌC</button>
+             </div>
+          </div>
+          
+          <div class="values-grid">
+             <div class="v-card"><h4>🎯 Thực Chiến</h4><p>Học trên phần mềm mô phỏng 100%.</p></div>
+             <div class="v-card"><h4>🤝 Đồng Hành</h4><p>Hỗ trợ đồ án, luận văn trọn đời.</p></div>
+             <div class="v-card"><h4>💎 Uy Tín</h4><p>Chứng chỉ quốc tế giá trị vĩnh viễn.</p></div>
+          </div>
         </div>
-    </div>
+      </section>
+    `, isStudent);
+  },
 
-    <script>
-        function updatePrice(id, val, p1, p3) {
-            document.getElementById('price-'+id).innerText = (val == '1') ? p1 : p3;
+  // --- 2. TRANG KHÓA HỌC: LOGIC CỘNG TIỀN (CHỐT 400K) ---
+  renderCourses() {
+    return this.layout(`
+      <div class="course-container">
+        <h2>Danh Sách Khóa Học MOS</h2>
+        <p>Chọn môn học để tự động tính tổng học phí (Ưu đãi: Mua 3 tính 2)</p>
+
+        <div class="group-box">
+          <h3>📦 Nhóm MOS 2019</h3>
+          <label><input type="checkbox" class="course-cb" data-price="400" onchange="calc()"> Word 2019 - 400k</label><br>
+          <label><input type="checkbox" class="course-cb" data-price="400" onchange="calc()"> Excel 2019 - 400k</label><br>
+          <label><input type="checkbox" class="course-cb" data-price="400" onchange="calc()"> PowerPoint 2019 - 400k</label>
+        </div>
+
+        <div class="group-box">
+          <h3>📦 Nhóm MOS 365</h3>
+          <label><input type="checkbox" class="course-cb" data-price="400" onchange="calc()"> Word 365 - 400k</label><br>
+          <label><input type="checkbox" class="course-cb" data-price="400" onchange="calc()"> Excel 365 - 400k</label><br>
+          <label><input type="checkbox" class="course-cb" data-price="400" onchange="calc()"> PowerPoint 365 - 400k</label>
+        </div>
+
+        <div class="sticky-calc">
+           <div class="total-text">Tổng tiền: <span id="total-price">0</span>k</div>
+           <button class="btn-main" onclick="alert('Đang chuyển hướng Form Đăng ký...')">ĐĂNG KÝ NGAY</button>
+        </div>
+      </div>
+      <script>
+        function calc() {
+          let cbs = document.querySelectorAll('.course-cb:checked');
+          let count = cbs.length;
+          let total = 0;
+          if (count === 3) { total = 800; } // Mua 3 tính 2
+          else if (count === 6) { total = 1600; }
+          else { total = count * 400; }
+          document.getElementById('total-price').innerText = total;
         }
-        function openForm(type, course = '') {
-            document.getElementById('modalForm').style.display = 'flex';
-            document.getElementById('courseInput').value = course || type.toUpperCase();
-            document.getElementById('formTitle').innerText = 'Đăng ký ' + type;
-        }
-        function closeForm() { document.getElementById('modalForm').style.display = 'none'; }
-    </script>
-</body>
-</html>`;
+      </script>
+    `);
+  },
+
+  // --- 3. TRANG THƯ VIỆN: AI & TÌM KIẾM TÀI LIỆU ---
+  renderLibrary() {
+    return this.layout(`
+      <div class="library-container">
+        <div class="ai-box">
+           <h3>AI Assistant ✨</h3>
+           <div class="chat-area">Chào bạn, tôi là AI MOS360. Bạn cần giúp gì về hàm Excel?</div>
+           <input type="text" placeholder="Nhập câu hỏi...">
+        </div>
+        <div class="search-box">
+           <h3>Tìm Kiếm Tài Liệu</h3>
+           <input type="text" id="searchDocs" placeholder="Nhập tên tài liệu (ví dụ: G-metrix, Excel...)" onkeyup="search()">
+           <div id="results"></div>
+        </div>
+      </div>
+    `);
+  },
+
+  // --- LAYOUT CHUNG (FOOTER, HEADER, CSS) ---
+  layout(content, isStudent = false) {
+    return new Response(`
+      <!DOCTYPE html>
+      <html lang="vi">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${CONFIG.TITLE}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+        <style>
+          :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); }
+          body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin:0; }
+          nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background: #000; border-bottom: 1px solid var(--border); position: sticky; top:0; z-index:100; }
+          .nav-links a { color: #888; text-decoration: none; margin-left: 20px; font-weight: 600; }
+          .nav-links a:hover { color: var(--primary); }
+          
+          .stats-bar { display: flex; justify-content: space-around; padding: 40px; background: var(--card); margin: 20px 5%; border-radius: 24px; }
+          .stat h2 { color: var(--primary); font-size: 2.5rem; margin:0; }
+          
+          .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 0 5%; }
+          .promo-box, .v-card, .group-box { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; }
+          
+          .btn-main { background: var(--primary); color: #fff; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 800; cursor: pointer; }
+          
+          .sticky-calc { position: fixed; bottom: 20px; right: 20px; background: var(--primary); padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(255,87,34,0.3); }
+          .total-text { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+          
+          footer { padding: 60px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 100px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+          .wheel-mini { width: 150px; height: 150px; margin: 0 auto; background: conic-gradient(red, yellow, blue, green); border-radius: 50%; animation: rotate 5s infinite linear; }
+          @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        </style>
+      </head>
+      <body>
+        <nav>
+          <a href="/"><img src="${CONFIG.LOGO_URL}" height="40"></a>
+          <div class="nav-links">
+            <a href="/">Trang Chủ</a>
+            <a href="/courses">Khóa Học</a>
+            <a href="/library">Tài Liệu</a>
+            ${isStudent ? '<a href="/student">Học Viên</a>' : '<a href="/login" style="color:var(--primary)">Đăng Nhập</a>'}
+          </div>
+        </nav>
+        <main>${content}</main>
+        <footer>
+          <div><h3>MOS360.VN</h3><p>Đồng hành thực chiến trọn đời.</p></div>
+          <div><h4>Liên kết</h4><p>Facebook</p><p>Zalo</p></div>
+          <div><h4>Địa chỉ</h4><p>An Biên, Hải Phòng</p></div>
+        </footer>
+      </body>
+      </html>
+    `, { headers: { "Content-Type": "text/html;charset=UTF-8" } });
   }
 };
