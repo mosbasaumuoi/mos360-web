@@ -297,4 +297,40 @@ export default {
         .btn-primary { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: 800; cursor: pointer; width: 100%; }
 
         /* FOOTER MAP & TIME CHUẨN */
-        footer { padding: 60px 40px;
+        footer { padding: 60px 40px; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
+        .map-frame { border-radius: 20px; overflow: hidden; height: 180px; border: 1px solid var(--border); filter: grayscale(1) opacity(0.5); transition: 0.5s; }
+        .map-frame:hover { filter: grayscale(0) opacity(1); border-color: var(--primary); }
+    </style>
+    </head><body>
+        <header>
+            <a href="/" class="brand"><img src="${CONFIG.LOGO_URL}"> <span>MOS360</span></a>
+            <div class="nav-links"><a href="/">Trang Chủ</a><a href="/hocvien">Học Viên</a></div>
+        </header>
+        <div class="side-social">
+            <a href="[https://zalo.me/0912888360](https://zalo.me/0912888360)" class="social-item"><img src="[https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg](https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg)"></a>
+            <a href="[https://www.facebook.com/MOS360.EDU](https://www.facebook.com/MOS360.EDU)" class="social-item"><img src="[https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png](https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png)"></a>
+            <a href="[https://m.me/MOS360.EDU](https://m.me/MOS360.EDU)" class="social-item"><img src="[https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg](https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg)"></a>
+            <a href="[https://www.tiktok.com/@mos360.vn](https://www.tiktok.com/@mos360.vn)" class="social-item tiktok-icon"><img src="[https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg](https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg)"></a>
+        </div>
+        <main>${content}</main>
+        <footer>
+            <div class="footer-grid">
+                <div>
+                    <h2 style="color:var(--primary); margin-bottom:15px;">MOS360.VN</h2>
+                    <p><b>Hotline:</b> 0912.888.360</p>
+                    <p><b>Email:</b> hotro@mos360.vn</p>
+                </div>
+                <div>
+                    <p><b>Địa chỉ:</b> 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p>
+                    <p style="color:#aaa; font-size:0.85rem; margin-top:5px;">🕒 Từ sáng từ 8h00 đến 11h30 | Chiều từ 13h30 đến 17h00. Hỗ trợ 24/7.</p>
+                </div>
+                <div class="map-frame">
+                    <iframe src="[https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.847529431522!2d106.6710492759654!3d20.836932494297136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a70659648a1d7%3A0xc365c1922c19c5c9!2zNTcgTMOqIFbEg24gVGh1eeG6vHQsIEFuIEJpw6puLCBMw6ogQ2jDom4sIEjhuqNpIFBow7JuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1714310000000!5m2!1svi!2s](https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.847529431522!2d106.6710492759654!3d20.836932494297136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a70659648a1d7%3A0xc365c1922c19c5c9!2zNTcgTMOqIFbEg24gVGh1eeG6vHQsIEFuIEJpw6puLCBMw6ogQ2jDom4sIEjhuqNpIFBow7JuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1714310000000!5m2!1svi!2s)" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+                </div>
+            </div>
+        </footer>
+    </body>
+    </html>`;
+  }
+};
