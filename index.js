@@ -69,7 +69,7 @@ export default {
           </div>
 
           <div class="right-col">
-              <div class="section-card" id="bang-vang-fixed">
+              <div class="section-card" id="bang-vang-container">
                   <h3 class="bv-title">🏆 Bảng Vàng Chứng Chỉ</h3>
                   <div class="carousel-viewport">
                       <div class="carousel-track">${studentData}</div>
@@ -176,12 +176,12 @@ export default {
         .l1{transform:rotate(45deg)} .l2{transform:rotate(135deg)} .l3{transform:rotate(225deg)} .l4{transform:rotate(315deg)}
         .wheel-inputs input { width: 100%; padding: 8px; margin-bottom: 8px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 0.8rem; }
 
-        /* BẢNG VÀNG - FIX LỖI TRÀN KHUNG TUYỆT ĐỐI */
-        #bang-vang-fixed { height: 420px; overflow: hidden; display: flex; flex-direction: column; padding: 20px; position: relative; }
-        .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; border-radius: 15px; }
-        .carousel-track { display: flex; gap: 20px; animation: scroll 30s linear infinite; height: 100%; align-items: center; }
-        .student-item { flex: 0 0 auto; height: 250px; display: flex; align-items: center; }
-        .student-item img { height: 100%; width: auto; border-radius: 12px; object-fit: contain; box-shadow: 0 10px 30px rgba(0,0,0,0.8); pointer-events: none; }
+        /* BẢNG VÀNG - SỬA LỖI TRÀN KHUNG */
+        #bang-vang-container { height: 420px; overflow: hidden; padding: 25px; border: 1px solid var(--border); display: flex; flex-direction: column; }
+        .carousel-viewport { width: 100%; height: 320px; overflow: hidden; border-radius: 12px; position: relative; background: #000; }
+        .carousel-track { display: flex; gap: 20px; animation: scroll 40s linear infinite; height: 100%; align-items: center; }
+        .student-item { flex: 0 0 auto; height: 260px; /* Nhỏ đi 10% so với cũ */ width: auto; display: flex; align-items: center; }
+        .student-item img { height: 100%; width: auto; border-radius: 8px; object-fit: contain; }
 
         .services-grid { max-width: 1400px; margin: 30px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .service-card { background: var(--card); padding: 20px; border-radius: 20px; border-left: 4px solid var(--primary); }
@@ -195,7 +195,7 @@ export default {
         .social-item:hover { transform: scale(1.1); border-color: var(--primary); }
         .social-item img { width: 22px; height: 22px; }
 
-        /* MAP CHUẨN LÊ VĂN THUYẾT HẢI PHÒNG */
+        /* MAP CHUẨN VỊ TRÍ 57 LÊ VĂN THUYẾT */
         .map-wrapper { height: 200px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
 
         footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
@@ -206,7 +206,7 @@ export default {
         @media (max-width: 768px) {
             .main-container, .services-grid, .footer-grid { grid-template-columns: 1fr; }
             .side-social { display: none; }
-            .student-item { height: 180px; }
+            .student-item { height: 200px; }
         }
     </style>
     </head><body>
@@ -233,7 +233,7 @@ export default {
                 <p>Thứ 2 - Thứ 7: 08:00 – 17:00</p><p>Chủ Nhật & Lễ: Nghỉ</p>
             </div>
             <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.847522510344!2d106.68532457476214!3d20.83685649429446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af2763f03f7%3A0x6b7724128f77372b!2zNTcgTMOqIFbEg24gVGh1eeG6vHQsIEvDqm5oIETGsMahbmcsIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1715000000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.8475253816116!2d106.68532457589923!3d20.836015594293883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af27931c81d%3A0x6b498f8040d9931!2zNTcgTMOqIFbEg24gVGh1eeG6vHQsIEvDqm5oETGsMahbmcsIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1714400000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </footer>
