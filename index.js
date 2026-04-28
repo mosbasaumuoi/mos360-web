@@ -69,7 +69,7 @@ export default {
           </div>
 
           <div class="right-col">
-              <div class="section-card bang-vang-card">
+              <div class="section-card" id="bang-vang-fixed">
                   <h3 class="bv-title">🏆 Bảng Vàng Chứng Chỉ</h3>
                   <div class="carousel-viewport">
                       <div class="carousel-track">${studentData}</div>
@@ -168,7 +168,7 @@ export default {
         .promo-box-top { background: rgba(255,87,34,0.1); border: 1px dashed var(--primary); border-radius: 15px; padding: 12px; margin-bottom: 15px; text-align: center; }
         .wheel-card { padding: 15px; }
         .wheel-title { font-size: 1rem; margin-bottom: 25px; color: var(--primary); font-weight: 800; }
-        .wheel-box { position: relative; width: 180px; height: 180px; margin: 0 auto 20px; }
+        .wheel-box { position: relative; width: 160px; height: 160px; margin: 0 auto 20px; }
         .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 5px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); position: relative; }
         .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); border-top: 15px solid #FFD700; border-left: 8px solid transparent; border-right: 8px solid transparent; z-index: 10; }
         .wheel-center { position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; background:#fff; border-radius:50%; color:#000; font-weight:900; display:flex; align-items:center; justify-content:center; z-index:20; font-size:0.6rem; }
@@ -176,12 +176,12 @@ export default {
         .l1{transform:rotate(45deg)} .l2{transform:rotate(135deg)} .l3{transform:rotate(225deg)} .l4{transform:rotate(315deg)}
         .wheel-inputs input { width: 100%; padding: 8px; margin-bottom: 8px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 0.8rem; }
 
-        /* BẢNG VÀNG - FIX CỨNG KHÔNG TRÀN KHUNG */
-        .bang-vang-card { height: 400px !important; overflow: hidden; display: flex; flex-direction: column; position: relative; }
-        .carousel-viewport { width: 100%; height: 320px; overflow: hidden; position: relative; margin-top: auto; margin-bottom: auto; }
-        .carousel-track { display: flex; gap: 20px; animation: scroll 25s linear infinite; height: 100%; align-items: center; }
-        .student-item { flex: 0 0 auto; height: 260px; display: flex; align-items: center; justify-content: center; }
-        .student-item img { height: 100%; width: auto; border-radius: 12px; object-fit: contain; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        /* BẢNG VÀNG - FIX LỖI TRÀN KHUNG TUYỆT ĐỐI */
+        #bang-vang-fixed { height: 420px; overflow: hidden; display: flex; flex-direction: column; padding: 20px; position: relative; }
+        .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; border-radius: 15px; }
+        .carousel-track { display: flex; gap: 20px; animation: scroll 30s linear infinite; height: 100%; align-items: center; }
+        .student-item { flex: 0 0 auto; height: 250px; display: flex; align-items: center; }
+        .student-item img { height: 100%; width: auto; border-radius: 12px; object-fit: contain; box-shadow: 0 10px 30px rgba(0,0,0,0.8); pointer-events: none; }
 
         .services-grid { max-width: 1400px; margin: 30px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .service-card { background: var(--card); padding: 20px; border-radius: 20px; border-left: 4px solid var(--primary); }
@@ -195,16 +195,16 @@ export default {
         .social-item:hover { transform: scale(1.1); border-color: var(--primary); }
         .social-item img { width: 22px; height: 22px; }
 
-        .map-wrapper { height: 200px; border-radius: 20px; overflow: hidden; filter: grayscale(1); transition: 0.8s ease; border: 1px solid var(--border); }
-        .map-wrapper:hover { filter: grayscale(0); }
+        /* MAP CHUẨN LÊ VĂN THUYẾT HẢI PHÒNG */
+        .map-wrapper { height: 200px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
 
         footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
         .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 50px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 50px; font-weight: 800; cursor: pointer; width: 100%; }
 
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @media (max-width: 768px) {
-            .main-container, .services-grid, .footer-grid, .course-grid { grid-template-columns: 1fr; }
+            .main-container, .services-grid, .footer-grid { grid-template-columns: 1fr; }
             .side-social { display: none; }
             .student-item { height: 180px; }
         }
@@ -233,7 +233,7 @@ export default {
                 <p>Thứ 2 - Thứ 7: 08:00 – 17:00</p><p>Chủ Nhật & Lễ: Nghỉ</p>
             </div>
             <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.435759166946!2d106.68536967592476!3d20.85451999373038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af99d42407b%3A0xe54e38c92a688b14!2zNTcgTMOqIFbEg24gVGh1eeG6v3QsIEvDqm4gRMawxqFuZywgTMOqIENow6JuLCBI4bqjaSBQaMO0bmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1709123456789!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.847522510344!2d106.68532457476214!3d20.83685649429446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af2763f03f7%3A0x6b7724128f77372b!2zNTcgTMOqIFbEg24gVGh1eeG6vHQsIEvDqm5oIETGsMahbmcsIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1715000000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </footer>
