@@ -20,7 +20,6 @@ export default {
       rows.forEach(row => {
         const link = row.split("\t")[0]?.trim();
         if (link && link.startsWith("http")) {
-          // Bọc ảnh bằng khung cố định để chống tràn
           htmlContent += `<div class="student-item"><img src="${link}" loading="lazy"></div>`;
         }
       });
@@ -103,6 +102,41 @@ export default {
       </script>`;
   },
 
+  getCoursesUI() {
+    return `
+      <div class="section-card" style="max-width:900px; margin:40px auto; text-align:left;">
+          <h2 style="text-align:center; color:var(--primary); margin-bottom:20px;">CHỌN KHÓA HỌC (ĐỒNG GIÁ 400K)</h2>
+          <div class="course-grid-internal">
+              <div class="course-group-box">
+                  <h3><img src="https://cdn-icons-png.flaticon.com/512/1554/1554527.png" width="22"> MOS 2019 (Offline)</h3>
+                  <label class="course-label"><input type="checkbox" class="course-check"> Word 2019</label>
+                  <label class="course-label"><input type="checkbox" class="course-check"> Excel 2019</label>
+                  <label class="course-label"><input type="checkbox" class="course-check"> PowerPoint 2019</label>
+              </div>
+              <div class="course-group-box">
+                  <h3><img src="https://cdn-icons-png.flaticon.com/512/2675/2675848.png" width="22"> MOS 365 (Online)</h3>
+                  <label class="course-label"><input type="checkbox" class="course-check"> Word 365</label>
+                  <label class="course-label"><input type="checkbox" class="course-check"> Excel 365</label>
+                  <label class="course-label"><input type="checkbox" class="course-check"> PowerPoint 365</label>
+              </div>
+          </div>
+          <div style="text-align:center; margin-top:30px;">
+              <p>Tổng tiền: <span id="total-price" style="font-size:2.5rem; color:var(--primary); font-weight:800;">0</span> VNĐ</p>
+              <button class="btn-action" style="max-width:250px; margin-top:15px;">THANH TOÁN ĐĂNG KÝ</button>
+          </div>
+      </div>
+      <script>
+          document.querySelectorAll('.course-check').forEach(box => {
+              box.addEventListener('change', () => {
+                  const count = document.querySelectorAll('.course-check:checked').length;
+                  let total = count * 400000;
+                  if(count >= 3) total = (count * 400000) - (Math.floor(count/3) * 400000);
+                  document.getElementById('total-price').innerText = total.toLocaleString();
+              });
+          });
+      </script>`;
+  },
+
   layout(content) {
     return `<!DOCTYPE html><html lang="vi"><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -128,7 +162,6 @@ export default {
         .promo-box-top { background: rgba(255,87,34,0.15); border: 1px dashed var(--primary); padding: 15px; border-radius: 15px; margin-bottom: 20px; text-align: center; }
         .highlight-text { color: var(--primary); font-weight: 800; display: block; margin-top: 5px; }
 
-        /* Vòng quay chỉnh sửa */
         .wheel-card { display: flex; flex-direction: column; align-items: center; }
         .wheel-title-mini { font-size: 0.9rem; color: #888; margin-bottom: 15px; text-align: center; }
         .wheel-box { position: relative; width: 180px; height: 180px; margin: 0 auto 20px; }
@@ -138,12 +171,21 @@ export default {
         .wheel-label { position: absolute; width:100%; height:100%; display:flex; justify-content:center; align-items:flex-start; padding-top:15px; font-size:0.55rem; color:#fff; }
         .l1{transform:rotate(45deg)} .l2{transform:rotate(135deg)} .l3{transform:rotate(225deg)} .l4{transform:rotate(315deg)}
 
-        /* Bảng vàng - CHỐNG TRÀN TUYỆT ĐỐI */
+        /* Bảng vàng - Khống chế khung triệt để */
         .bang-vang-section { height: 450px; display: flex; flex-direction: column; overflow: hidden; }
-        .carousel-viewport { flex: 1; width: 100%; overflow: hidden; position: relative; background: rgba(0,0,0,0.3); border-radius: 15px; }
-        .carousel-track { display: flex; gap: 20px; animation: scroll 20s linear infinite; height: 100%; align-items: center; }
-        .student-item { flex: 0 0 auto; height: 90%; width: auto; display: flex; align-items: center; }
-        .student-item img { height: 100%; width: auto; object-fit: contain; border-radius: 10px; }
+        .bv-title { text-align: center; color: #FFD700; margin-bottom: 15px; }
+        .carousel-viewport { flex: 1; width: 100%; overflow: hidden; position: relative; background: rgba(0,0,0,0.4); border-radius: 15px; padding: 15px 0; }
+        .carousel-track { display: flex; gap: 25px; animation: scroll 30s linear infinite; height: 100%; align-items: center; }
+        .student-item { flex: 0 0 auto; height: 100%; max-height: 380px; width: auto; display: flex; align-items: center; }
+        .student-item img { height: 100%; width: auto; object-fit: contain; border-radius: 8px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); }
+
+        /* Trang khóa học internal */
+        .course-grid-internal { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .course-group-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
+        .course-group-box h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: var(--cyan); }
+        .course-label { display: block; padding: 12px; background: #000; margin-bottom: 10px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+        .course-label:hover { border-color: var(--primary); }
+        .course-check { margin-right: 12px; transform: scale(1.3); accent-color: var(--primary); }
 
         .services-grid { max-width: 1250px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .service-card { background: var(--card); padding: 20px; border-radius: 20px; border-left: 4px solid var(--primary); }
@@ -154,10 +196,13 @@ export default {
 
         footer { padding: 40px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
         .footer-grid { max-width: 1250px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 30px; }
-        .map-wrapper { height: 180px; border-radius: 15px; overflow: hidden; background: #111; border: 1px solid #333; }
+        .map-wrapper { height: 180px; border-radius: 15px; overflow: hidden; border: 1px solid #333; }
 
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        @media (max-width: 768px) { .main-container, .services-grid, .footer-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { 
+            .main-container, .services-grid, .footer-grid, .course-grid-internal { grid-template-columns: 1fr; } 
+            .student-item { height: 250px; }
+        }
     </style>
     </head><body>
     <header>
@@ -177,48 +222,13 @@ export default {
                 <p>Thứ 2 - Thứ 7: 08:00 – 21:00</p><p>Chủ Nhật: 08:00 – 17:00</p>
             </div>
             <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.455246755491!2d106.6775618!3d20.8436067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af2762f625b%3A0x6730a84545b73e4!2zNTcgTMOqIFbEg24gVGh1eeG6vHQsIErDqm5oIETGsMahbmcsIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1715000000000!5m2!1svi!2s" 
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.5348348827763!2d106.67812327502662!3d20.84042858076127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af2762a6327%3A0x6334547460195536!2zNTcgTMOqIFbEg24gVGh1eeG6v3QgQSwgQW4gQmnDqm4sIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v17000000000005" 
                 width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </footer>
     </body></html>`;
   },
-
-  getCoursesUI() {
-    return `
-      <div class="section-card" style="max-width:900px; margin:40px auto; text-align:left;">
-          <h2 style="text-align:center; color:var(--primary); margin-bottom:20px;">CHỌN KHÓA HỌC (ĐỒNG GIÁ 400K)</h2>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
-              <div style="background:rgba(255,255,255,0.03); padding:20px; border-radius:15px;">
-                  <h3><img src="https://cdn-icons-png.flaticon.com/512/281/281760.png" width="18"> Nhóm MOS 2019</h3>
-                  <label style="display:block; margin:10px 0;"><input type="checkbox" class="course-check"> Word 2019 [☐]</label>
-                  <label style="display:block; margin:10px 0;"><input type="checkbox" class="course-check"> Excel 2019 [☐]</label>
-                  <label style="display:block; margin:10px 0;"><input type="checkbox" class="course-check"> PowerPoint 2019 [☐]</label>
-              </div>
-              <div style="background:rgba(255,255,255,0.03); padding:20px; border-radius:15px;">
-                  <h3><img src="https://cdn-icons-png.flaticon.com/512/732/732220.png" width="18"> Nhóm MOS 365</h3>
-                  <label style="display:block; margin:10px 0;"><input type="checkbox" class="course-check"> Word 365 [☐]</label>
-                  <label style="display:block; margin:10px 0;"><input type="checkbox" class="course-check"> Excel 365 [☐]</label>
-                  <label style="display:block; margin:10px 0;"><input type="checkbox" class="course-check"> PowerPoint 365 [☐]</label>
-              </div>
-          </div>
-          <div style="text-align:center; margin-top:30px;">
-              <p>Tổng tiền: <span id="total-price" style="font-size:2rem; color:var(--primary); font-weight:800;">0</span> VNĐ</p>
-              <button class="btn-action" style="max-width:250px; margin-top:15px;">THANH TOÁN</button>
-          </div>
-      </div>
-      <script>
-          document.querySelectorAll('.course-check').forEach(box => {
-              box.addEventListener('change', () => {
-                  const count = document.querySelectorAll('.course-check:checked').length;
-                  let total = count * 400000;
-                  if(count >= 3) total = (count * 400000) - (Math.floor(count/3) * 400000);
-                  document.getElementById('total-price').innerText = total.toLocaleString();
-              });
-          });
-      </script>`;
-  },
   getKhoMosUI() { return `<div class="section-card" style="max-width:800px; margin:40px auto; text-align:center;"><h2>📦 KHO TÀI LIỆU MOS</h2><p>Dữ liệu đang cập nhật...</p></div>`; },
-  getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto; text-align:center;"><h2>HỌC VIÊN ĐĂNG NHẬP</h2><input type="text" placeholder="Số điện thoại" style="width:100%; padding:12px; margin:15px 0; background:#000; border:1px solid #333; color:white; border-radius:8px;"><button class="btn-action">VÀO HỌC</button></div>`; }
+  getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto; text-align:center;"><h2>HỌC VIÊN ĐĂNG NHẬP</h2><input type="text" placeholder="Số điện thoại" style="width:100%; padding:12px; margin:15px 0; background:#000; border:1px solid #333; color:white; border-radius:8px;"><button class="btn-action">VÀO HỆ THỐNG</button></div>`; }
 };
