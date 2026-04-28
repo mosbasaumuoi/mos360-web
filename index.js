@@ -17,55 +17,102 @@ const UI = `
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
         header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--border); position: sticky; top:0; z-index:100; backdrop-filter: blur(10px); }
         .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--primary); text-decoration: none; font-size: 22px; }
-        .hero { text-align: center; padding: 70px 20px; background: radial-gradient(circle at top, #22120d 0%, #080808 100%); }
-        .search-input { width: 100%; max-width: 600px; padding: 18px 30px; border-radius: 50px; border: 1.5px solid var(--primary); background: #000; color: #fff; outline: none; }
-        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: -40px auto 50px; padding: 0 20px; }
-        .f-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        .main-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 30px; max-width: 1100px; margin: 0 auto 50px; padding: 0 20px; }
-        .bng-vang { background: var(--card); padding: 30px; border-radius: 30px; border: 1px solid var(--border); }
-        .promo { background: var(--primary); padding: 12px; border-radius: 12px; font-weight: 700; text-align: center; margin-bottom: 20px; }
-        .mini-wheel { background: #111; padding: 20px; border-radius: 25px; text-align: center; border: 1px solid #222; }
-        #wheel-ui { width: 140px; height: 140px; background: #222; border-radius: 50%; margin: 15px auto; border: 4px solid #333; display:flex; align-items:center; justify-content:center; color:#444; }
-        footer { background: #050505; padding: 50px 5%; border-top: 1px solid var(--border); margin-top: 50px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto; }
-        .footer-col h4 { color: var(--primary); margin-bottom: 20px; }
-        .footer-col p, .footer-col li { color: #888; font-size: 0.9rem; list-style: none; margin-bottom: 10px; padding: 0; }
+        
+        .hero { text-align: center; padding: 60px 20px; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+        .hero p { color: #888; margin-bottom: 30px; }
+
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* LAYOUT CHÍNH NHƯ ẢNH 5accdc.png */
+        .top-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px; margin-bottom: 40px; }
+        
+        .card-box { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 30px; position: relative; }
+        .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; justify-content: center; }
+
+        /* VÒNG QUAY */
+        .wheel-area { text-align: center; }
+        .wheel-img { width: 250px; height: 250px; margin: 0 auto 20px; background: url('https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/vongquay.png') no-repeat center; background-size: contain; }
+        .btn-quay { background: var(--primary); color: #fff; border: none; padding: 12px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; width: 100%; }
+
+        /* BẢNG VÀNG */
+        .gold-board { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .cert-item { background: #000; border-radius: 15px; overflow: hidden; border: 1px solid #222; }
+        .cert-img { width: 100%; aspect-ratio: 1/1; background: #1a1a1a; }
+        .promo-tag { background: #E65100; color: #fff; padding: 10px; border-radius: 10px; font-size: 0.8rem; margin-top: 15px; text-align: left; border-left: 4px solid #fff; }
+
+        /* 3 KHỐI DƯỚI */
+        .bottom-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 60px; }
+        .feat-card { background: var(--card); border: 1px solid var(--border); padding: 25px; border-radius: 20px; }
+        .feat-card h4 { color: var(--primary); margin: 0 0 10px 0; }
+        .feat-card.active { border-color: var(--cyan); }
+        .search-mini { width: 100%; background: #000; border: 1px solid #333; padding: 10px; border-radius: 8px; color: #fff; margin-top: 10px; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid var(--border); padding: 50px 0; color: #888; font-size: 0.9rem; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; }
+        .map-box { width: 250px; height: 150px; background: #1a1a1a; border-radius: 10px; margin-top: 10px; }
     </style>
 </head>
 <body>
     <header>
         <a href="/" class="logo"><img src="\${CONFIG.LOGO_URL}" height="35"> <span>MOS360</span></a>
-        <button style="background:var(--primary); border:none; color:#fff; padding:10px 20px; border-radius:10px; cursor:pointer; font-weight:700;">HỌC VIÊN</button>
+        <button style="background:var(--primary); border:none; color:#fff; padding:8px 18px; border-radius:10px; font-weight:700;">Đăng nhập</button>
     </header>
-    <section class="hero">
-        <h1>Luyện Thi MOS Thực Chiến</h1>
-        <input type="text" class="search-input" placeholder="Tìm kiếm tài liệu...">
-    </section>
-    <div class="features">
-        <div class="f-card"><h3>Thi Thật 100%</h3><p>Mô phỏng chuẩn quốc tế.</p></div>
-        <div class="f-card" style="border-color:var(--cyan)"><h3>AI Assistant ✨</h3><p>Hỗ trợ 24/7.</p></div>
-        <div class="f-card"><h3>Đồng Hành</h3><p>Hỗ trợ đồ án sinh viên.</p></div>
-    </div>
-    <main class="main-grid">
-        <div class="bng-vang">
-            <div class="promo">🎁 ƯU ĐÃI NHÓM: GIẢM 100K/BẠN</div>
-            <h2>🏆 Bảng Vàng Chứng Chỉ</h2>
-            <div style="height:250px; display:flex; align-items:center; justify-content:center; color:#333;">Đang kết nối dữ liệu...</div>
-        </div>
-        <aside class="sidebar">
-            <div class="mini-wheel">
-                <h4 style="color:var(--primary);">Quà Tặng</h4>
-                <div id="wheel-ui">WHEEL</div>
-                <button style="width:100%; background:#fff; padding:10px; border-radius:10px; border:none; font-weight:800;">QUAY</button>
+
+    <div class="main-container">
+        <section class="hero">
+            <h1>Chuẩn đầu ra cho sinh viên</h1>
+            <p>Luyện thi MOS 1000 - Đồng hành thực chiến trọn đời</p>
+        </section>
+
+        <div class="top-grid">
+            <div class="card-box wheel-area">
+                <div class="card-title">🎡 Vòng Quay May Mắn</div>
+                <div class="wheel-img"></div>
+                <button class="btn-quay">NHẬN QUÀ NGAY</button>
             </div>
-        </aside>
-    </main>
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col"><h4>MOS360</h4><p>Hệ thống luyện thi MOS hàng đầu.</p></div>
-            <div class="footer-col"><h4>Hỗ Trợ</h4><p>📍 Địa chỉ: Hải Phòng</p></div>
+
+            <div class="card-box">
+                <div class="card-title">🏆 Bảng Vàng Chứng Chỉ</div>
+                <div class="gold-board">
+                    <div class="cert-item"><div class="cert-img"></div></div>
+                    <div class="cert-item"><div class="cert-img"></div></div>
+                </div>
+                <div class="promo-tag">
+                    <strong>🎁 ƯU ĐÃI NHÓM:</strong><br>Nhóm 3 người giảm ngay 100k mỗi bạn.
+                </div>
+            </div>
         </div>
-    </footer>
+
+        <div class="bottom-features">
+            <div class="feat-card">
+                <h4>Thi Thật 100%</h4>
+                <p>Thực hành trực tiếp trên hệ thống mô phỏng sát 100% đề thi quốc tế của Certiport.</p>
+            </div>
+            <div class="feat-card active">
+                <h4>AI Assistant 24/7 ✨</h4>
+                <p>Giải đáp kiến thức tin học và các hàm Excel nhanh chóng:</p>
+                <input type="text" class="search-mini" placeholder="Nhập câu hỏi tại đây...">
+            </div>
+            <div class="feat-card">
+                <h4>Đồng Hành Trọn Đời</h4>
+                <p>Hỗ trợ kỹ năng định dạng luận văn, đồ án chuyên nghiệp suốt quá trình học tập.</p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <strong style="color:#fff">MOS360.VN</strong><br>Hotline: 0912.888.360
+                </div>
+                <div>Địa chỉ: 57 Lê Văn Thuyết A, An Biên, Hải Phòng</div>
+                <div class="map-box">
+                    <img src="https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/map-demo.png" style="width:100%; height:100%; border-radius:10px; object-fit:cover;">
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
 `;
@@ -74,20 +121,12 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const key = url.pathname.split("/")[1];
-    const cookie = request.headers.get("Cookie") || "";
 
     if (key && !["", "api-search"].includes(key)) {
-      const rawData = await env.Links_mos360.get(key);
-      if (rawData) {
-        try {
-          const data = JSON.parse(rawData);
-          if (data.type === "Học viên" && !cookie.includes("auth=student")) {
-            return Response.redirect(url.origin + "?login=required", 302);
-          }
-          return Response.redirect(data.url, 301);
-        } catch (e) { return Response.redirect(rawData, 301); }
-      }
+        const rawData = await env.Links_mos360.get(key);
+        if (rawData) return Response.redirect(rawData, 301);
     }
+
     return new Response(UI, { headers: { "Content-Type": "text/html;charset=UTF-8" } });
   }
 };
