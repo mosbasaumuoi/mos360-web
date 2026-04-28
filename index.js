@@ -20,11 +20,11 @@ export default {
       rows.forEach(row => {
         const link = row.split("\t")[0]?.trim();
         if (link && link.startsWith("http")) {
-          htmlContent += `<div class="student-item"><img src="${link}"></div>`;
+          htmlContent += `<div class="student-item"><img src="${link}" loading="lazy"></div>`;
         }
       });
-      studentData = htmlContent + htmlContent;
-    } catch (e) { studentData = "Đang nạp dữ liệu..."; }
+      studentData = htmlContent + htmlContent; // Nhân đôi để chạy carousel vô tận
+    } catch (e) { studentData = "<p>Đang tải dữ liệu học viên...</p>"; }
 
     let content = "";
     if (path === "/courses") content = this.getCoursesUI();
@@ -38,18 +38,19 @@ export default {
   getHomeUI(studentData) {
     return `
       <div class="stats-bar">
-          <div class="stat-item"><h2>100%</h2><p>Thi đậu ngay lần đầu</p></div>
-          <div class="stat-item"><h2>1.000+</h2><p>Học viên đã học</p></div>
-          <div class="stat-item"><h2>600+</h2><p>Truy cập thường xuyên</p></div>
+          <div class="stat-item"><h2>100%</h2><p>ĐẬU LẦN ĐẦU</p></div>
+          <div class="stat-item"><h2>1.000+</h2><p>HỌC VIÊN</p></div>
+          <div class="stat-item"><h2>600+</h2><p>TRUY CẬP/NGÀY</p></div>
       </div>
 
       <div class="main-container">
           <div class="left-col">
               <div class="promo-box-top">
-                  <p>🔥 <b>SIÊU ƯU ĐÃI ĐẶC BIỆT</b><br>Mua 3 khóa tính tiền 2 - Tiết kiệm 400k</p>
+                  <p>🔥 <b>ƯU ĐÃI ĐẶC BIỆT:</b> Mua 3 tặng 1 - Tiết kiệm ngay 400k</p>
               </div>
+              
               <div class="section-card wheel-card">
-                  <h3 class="wheel-title">Vòng Quay May Mắn</h3>
+                  <h3 class="wheel-title">VÒNG QUAY MAY MẮN</h3>
                   <div class="wheel-box">
                       <div class="wheel-pointer"></div>
                       <div class="wheel-circle" id="main-wheel">
@@ -61,19 +62,20 @@ export default {
                       <div class="wheel-center">MOS</div>
                   </div>
                   <div class="wheel-inputs">
-                      <input type="text" placeholder="Họ tên của bạn" id="w-name">
-                      <input type="text" placeholder="Số điện thoại của bạn" id="w-phone">
+                      <input type="text" placeholder="Họ và tên" id="w-name">
+                      <input type="tel" placeholder="Số điện thoại" id="w-phone">
                   </div>
-                  <button class="btn-action" onclick="spinWheel()">QUAY NGAY</button>
+                  <button class="btn-action" onclick="spinWheel()">THỬ VẬN MAY NGAY</button>
               </div>
           </div>
 
           <div class="right-col">
-              <div class="section-card" id="bang-vang-box">
-                  <h3 class="bv-title">🏆 Bảng Vàng Chứng Chỉ</h3>
+              <div class="section-card bang-vang-section">
+                  <h3 class="bv-title">🏆 BẢNG VÀNG VINH DANH</h3>
                   <div class="carousel-viewport">
                       <div class="carousel-track">${studentData}</div>
                   </div>
+                  <p class="bv-note">Chứng chỉ thật - Kết quả thật từ học viên MOS360</p>
               </div>
           </div>
       </div>
@@ -81,15 +83,18 @@ export default {
       <div class="services-grid">
           <div class="service-card">
               <h4>Thi Thật 100%</h4>
-              <p class="small-desc">Hệ thống mô phỏng sát đề quốc tế.</p>
+              <p class="small-desc">Giao diện mô phỏng chuẩn IIG quốc tế.</p>
           </div>
           <div class="service-card ai-chat-card">
               <h4 style="color:var(--cyan);">AI Assistant 24/7 ✨</h4>
-              <div class="chat-input-box"><input type="text" placeholder="Hỏi MOS đi..."><button>GỬI</button></div>
+              <div class="chat-input-box">
+                  <input type="text" placeholder="Hỏi về lộ trình MOS...">
+                  <button>GỬI</button>
+              </div>
           </div>
           <div class="service-card">
-              <h4>Đồng hành trọn đời</h4>
-              <p class="small-desc">Hỗ trợ định dạng luận văn đề án, tin học công sở.</p>
+              <h4>Hỗ Trợ Trọn Đời</h4>
+              <p class="small-desc">Cấp tài khoản luyện thi đến khi lấy bằng.</p>
           </div>
       </div>
 
@@ -97,108 +102,133 @@ export default {
         function spinWheel() {
             const name = document.getElementById('w-name').value;
             const phone = document.getElementById('w-phone').value;
-            if(!name || !phone) { alert('Vui lòng nhập đủ thông tin!'); return; }
+            if(!name || !phone) { alert('Bạn hãy nhập thông tin để nhận quà nhé!'); return; }
             const wheel = document.getElementById('main-wheel');
             const deg = 3600 + Math.random() * 360;
-            wheel.style.transition = 'transform 4s cubic-bezier(0.1, 0, 0.1, 1)';
+            wheel.style.transition = 'transform 5s cubic-bezier(0.15, 0, 0.15, 1)';
             wheel.style.transform = 'rotate(' + deg + 'deg)';
-            setTimeout(() => { alert('Chúc mừng ' + name + '! MOS360 sẽ liên hệ qua SĐT: ' + phone); }, 4500);
+            setTimeout(() => { alert('Chúc mừng ' + name + '! MOS360 sẽ gửi mã giảm giá đến SĐT: ' + phone); }, 5500);
         }
       </script>`;
   },
 
-  getCoursesUI() { return `<div class="section-card" style="max-width:900px; margin:40px auto;"><h2>KHÓA HỌC ĐỒNG GIÁ 400K</h2></div>`; },
-  getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto;"><h2>Đăng Nhập</h2></div>`; },
-  getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:40px auto;"><h2>📚 Thư Viện</h2></div>`; },
-
   layout(content) {
-    return `<!DOCTYPE html><html><head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${CONFIG.TITLE}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    return `<!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>${CONFIG.TITLE}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+        <style>
+            :root { --primary: #FF5722; --bg: #0A0A0A; --card: #161616; --text: #FFFFFF; --border: rgba(255,255,255,0.1); --cyan: #00F2FF; }
+            * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+            body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-        header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(8,8,8,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border); }
-        .brand img { height: 35px; }
-        nav a { color: #888; text-decoration: none; font-weight: 700; font-size: 0.85rem; margin-left: 20px; }
+            /* Header mờ ảo hiện đại */
+            header { padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(10,10,10,0.8); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--border); }
+            .brand img { height: 32px; filter: drop-shadow(0 0 5px rgba(255,87,34,0.3)); }
+            nav a { color: #BBB; text-decoration: none; font-weight: 700; font-size: 0.8rem; margin-left: 15px; text-transform: uppercase; transition: 0.3s; }
+            nav a:hover { color: var(--primary); }
 
-        .stats-bar { display: flex; justify-content: center; gap: 40px; padding: 30px 5%; }
-        .stat-item h2 { color: var(--primary); font-size: 2.2rem; }
-        .stat-item p { color: #888; font-size: 0.8rem; }
+            /* Stats Bar */
+            .stats-bar { display: flex; justify-content: center; gap: 20px; padding: 30px 5%; text-align: center; }
+            .stat-item h2 { color: var(--primary); font-size: 1.8rem; font-weight: 800; }
+            .stat-item p { color: #888; font-size: 0.7rem; letter-spacing: 1px; }
 
-        .main-container { max-width: 1400px; margin: 0 auto; padding: 0 5%; display: grid; grid-template-columns: 300px 1fr; gap: 25px; }
-        .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 28px; padding: 25px; }
+            /* Grid Layout */
+            .main-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 320px 1fr; gap: 24px; }
+            .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 20px; overflow: hidden; }
 
-        .promo-box-top { background: rgba(255,87,34,0.1); border: 1px dashed var(--primary); border-radius: 15px; padding: 12px; margin-bottom: 15px; text-align: center; }
-        .wheel-card { padding: 15px; }
-        .wheel-title { font-size: 1rem; margin-bottom: 25px; color: var(--primary); font-weight: 800; }
-        .wheel-box { position: relative; width: 160px; height: 160px; margin: 0 auto 20px; }
-        .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 5px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); position: relative; }
-        .wheel-pointer { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); border-top: 15px solid #FFD700; border-left: 8px solid transparent; border-right: 8px solid transparent; z-index: 10; }
-        .wheel-center { position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; background:#fff; border-radius:50%; color:#000; font-weight:900; display:flex; align-items:center; justify-content:center; z-index:20; font-size:0.6rem; }
-        .wheel-label { position: absolute; width:100%; height:100%; display:flex; justify-content:center; align-items:flex-start; padding-top:20px; font-size:0.6rem; color:#fff; }
-        .l1{transform:rotate(45deg)} .l2{transform:rotate(135deg)} .l3{transform:rotate(225deg)} .l4{transform:rotate(315deg)}
-        .wheel-inputs input { width: 100%; padding: 8px; margin-bottom: 8px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 0.8rem; }
+            .promo-box-top { background: linear-gradient(90deg, rgba(255,87,34,0.2), transparent); border-left: 4px solid var(--primary); padding: 15px; border-radius: 12px; margin-bottom: 20px; font-size: 0.9rem; }
 
-        /* BẢNG VÀNG: ÉP CHẾT ẢNH TRONG KHUNG */
-        #bang-vang-box { height: 400px; padding: 40px !important; overflow: hidden; display: flex; flex-direction: column; }
-        .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; display: flex; align-items: center; }
-        .carousel-track { display: flex; gap: 30px; animation: scroll 30s linear infinite; height: auto; align-items: center; }
-        .student-item { flex: 0 0 auto; height: 220px; }
-        .student-item img { height: 220px !important; width: auto !important; border-radius: 12px; object-fit: contain; }
+            /* Vòng quay */
+            .wheel-card { text-align: center; }
+            .wheel-title { font-size: 1rem; margin-bottom: 20px; color: var(--primary); }
+            .wheel-box { position: relative; width: 200px; height: 200px; margin: 0 auto 20px; }
+            .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 6px solid #222; position: relative; overflow: hidden; transition: transform 5s cubic-bezier(0.15, 0, 0.15, 1); background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); }
+            .wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid var(--primary); z-index: 10; }
+            .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 45px; height: 45px; background: white; border-radius: 50%; color: black; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; z-index: 5; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+            .wheel-inputs input { width: 100%; padding: 12px; margin-bottom: 10px; background: #000; border: 1px solid #333; color: white; border-radius: 10px; }
 
-        .services-grid { max-width: 1400px; margin: 30px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .service-card { background: var(--card); padding: 20px; border-radius: 20px; border-left: 4px solid var(--primary); }
-        .small-desc { font-size: 0.75rem; color: #888; margin-top: 5px; line-height: 1.4; }
-        .chat-input-box { display: flex; background: #000; border-radius: 8px; margin-top: 10px; padding: 4px; border: 1px solid #222; }
-        .chat-input-box input { flex:1; background:transparent; border:none; color:#fff; padding:8px; outline:none; font-size:0.8rem; }
-        .chat-input-box button { background:var(--cyan); border:none; padding:0 12px; border-radius:6px; font-weight:800; cursor:pointer; }
+            /* BẢNG VÀNG - KHÔNG TRÀN KHUNG */
+            .bang-vang-section { height: 450px; display: flex; flex-direction: column; background: radial-gradient(circle at top right, #1a1a1a, #161616); }
+            .bv-title { margin-bottom: 15px; text-align: center; color: #FFD700; }
+            .carousel-viewport { flex: 1; width: 100%; overflow: hidden; position: relative; border-radius: 16px; background: rgba(0,0,0,0.3); display: flex; align-items: center; }
+            .carousel-track { display: flex; gap: 20px; animation: scroll 40s linear infinite; padding: 0 20px; align-items: center; }
+            .student-item { flex: 0 0 auto; height: 280px; width: auto; }
+            .student-item img { height: 100%; width: auto; object-fit: contain; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+            .bv-note { text-align: center; font-size: 0.75rem; color: #666; margin-top: 15px; }
 
-        .side-social { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        .social-item { width: 42px; height: 42px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); transition: 0.3s; }
-        .social-item:hover { transform: scale(1.1); border-color: var(--primary); }
-        .social-item img { width: 22px; height: 22px; }
+            /* Dịch vụ */
+            .services-grid { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .service-card { background: var(--card); padding: 20px; border-radius: 20px; border-bottom: 3px solid var(--primary); transition: 0.3s; }
+            .service-card:hover { transform: translateY(-5px); background: #1c1c1c; }
+            .chat-input-box { display: flex; background: #000; padding: 5px; border-radius: 10px; margin-top: 10px; border: 1px solid #333; }
+            .chat-input-box input { flex: 1; background: transparent; border: none; color: white; padding: 8px; font-size: 0.8rem; outline: none; }
+            .chat-input-box button { background: var(--cyan); border: none; padding: 0 15px; border-radius: 8px; font-weight: 800; color: #000; cursor: pointer; }
 
-        /* MAP CHUẨN TỌA ĐỘ */
-        .map-wrapper { height: 200px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); background: #000; }
+            /* Nút bấm chuyển đổi cao */
+            .btn-action { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255,87,34,0.4); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+            .btn-action:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-        footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
-        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 14px; border-radius: 50px; font-weight: 800; cursor: pointer; width: 100%; }
+            /* Footer & Map */
+            footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); }
+            .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 40px; }
+            .map-wrapper { height: 180px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
 
-        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    </style>
-    </head><body>
-    <header>
-        <a href="/" class="brand"><img src="${CONFIG.LOGO_URL}"></a>
-        <nav><a href="/">Trang Chủ</a><a href="/courses">Khóa Học</a><a href="/library">Tài Liệu</a><a href="/login" style="color:var(--primary)">Đăng Nhập</a></nav>
-    </header>
+            @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    <div class="side-social">
-        <a href="https://zalo.me/0912888360" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-        <a href="https://facebook.com/mos360.edu" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"></a>
-        <a href="#" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
-        <a href="#" class="social-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"></a>
-        <a href="#" class="social-item"><svg viewBox="0 0 24 24" fill="white" width="22"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.03 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.8.12-.91.38-1.57 1.23-1.73 2.19-.11.64-.03 1.3.18 1.91.43 1.13 1.53 1.95 2.73 2.11 1.19.16 2.45-.19 3.33-1.01.62-.57.97-1.38 1-2.22.04-4.52-.01-9.04.01-13.56z"/></svg></a>
-    </div>
+            /* RESPONSIVE - TỐI ƯU ĐIỆN THOẠI */
+            @media (max-width: 768px) {
+                .main-container { grid-template-columns: 1fr; }
+                .stats-bar { padding: 20px 10px; }
+                .stat-item h2 { font-size: 1.4rem; }
+                .services-grid { grid-template-columns: 1fr; }
+                .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+                .student-item { height: 200px; } /* Thu nhỏ ảnh trên mobile để ko tràn */
+                .bang-vang-section { height: 350px; }
+                header { padding: 10px 15px; }
+                nav a { margin-left: 10px; font-size: 0.7rem; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <a href="/" class="brand"><img src="${CONFIG.LOGO_URL}" alt="MOS360"></a>
+            <nav>
+                <a href="/">Trang Chủ</a>
+                <a href="/courses">Khóa Học</a>
+                <a href="/login" style="color:var(--primary)">Học Viên</a>
+            </nav>
+        </header>
 
-    <main>${content}</main>
+        <main>${content}</main>
 
-    <footer>
-        <div class="footer-grid">
-            <div><h2 style="color:var(--primary)">MOS360.VN</h2><p>Hotline: 0912.888.360</p><p>57 Lê Văn Thuyết, Kênh Dương, Lê Chân, Hải Phòng</p></div>
-            <div style="font-size:0.85rem;">
-                <h4 style="color:var(--cyan)">🕒 GIỜ LÀM VIỆC</h4>
-                <p>Thứ 2 - Thứ 7: 08:00 – 17:00</p><p>Chủ Nhật & Lễ: Nghỉ</p>
+        <footer>
+            <div class="footer-grid">
+                <div>
+                    <h2 style="color:var(--primary); margin-bottom:15px;">MOS360.VN</h2>
+                    <p>📍 57 Lê Văn Thuyết, Kênh Dương, Lê Chân, Hải Phòng</p>
+                    <p>📞 Hotline: 0912.888.360</p>
+                </div>
+                <div>
+                    <h4 style="color:var(--cyan); margin-bottom:10px;">THỜI GIAN LÀM VIỆC</h4>
+                    <p>Thứ 2 - Thứ 7: 08:00 – 21:00</p>
+                    <p>Chủ Nhật: 08:00 – 17:00</p>
+                </div>
+                <div class="map-wrapper">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3729.023245450415!2d106.6791653!3d20.8309117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af93e920d3f%3A0x67390299f90f23d1!2zNTcgTMOqIFbEg24gVGh1eeG6v3QsIEvDqm5oETGsMahbmcsIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1700000000000" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
             </div>
-            <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.847522589417!2d106.6738982!3d20.835754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7962c6d46067%3A0xcf955d8df66133a8!2zNTcgTMOqIFbEg24gVGh1eeG6v3QsIEvDqm5oETGsMahbmcsIEzDqiBDaMOibiwgSOG6o2kgUGjDsm5n!5e0!3m2!1svi!2s!4v1715600000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </footer>
-    </body></html>`;
-  }
+        </footer>
+    </body>
+    </html>`;
+  },
+
+  // Giữ các hàm UI khác ngắn gọn nhưng đẹp mắt
+  getCoursesUI() { return `<div class="section-card" style="max-width:800px; margin:40px auto; text-align:center;"><h2>CÁC KHÓA HỌC MOS/IC3</h2><p>Dữ liệu đang được cập nhật...</p></div>`; },
+  getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto;"><h2>ĐĂNG NHẬP</h2><input type="text" placeholder="Tài khoản" style="width:100%; padding:12px; margin:15px 0; background:#000; border:1px solid #333; color:white; border-radius:8px;"><button class="btn-action">VÀO HỌC</button></div>`; },
+  getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:40px auto;"><h2>THƯ VIỆN TÀI LIỆU</h2></div>`; }
 };
