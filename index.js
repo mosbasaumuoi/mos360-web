@@ -165,7 +165,6 @@ export default {
         .main-container { max-width: 1400px; margin: 0 auto; padding: 0 5%; display: grid; grid-template-columns: 300px 1fr; gap: 25px; }
         .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 28px; padding: 25px; }
 
-        /* VÒNG QUAY CSS - THU NHỎ & GIÃN TÊN */
         .promo-box-top { background: rgba(255,87,34,0.1); border: 1px dashed var(--primary); border-radius: 15px; padding: 12px; margin-bottom: 15px; text-align: center; }
         .wheel-card { padding: 15px; }
         .wheel-title { font-size: 1rem; margin-bottom: 25px; color: var(--primary); font-weight: 800; }
@@ -177,13 +176,13 @@ export default {
         .l1{transform:rotate(45deg)} .l2{transform:rotate(135deg)} .l3{transform:rotate(225deg)} .l4{transform:rotate(315deg)}
         .wheel-inputs input { width: 100%; padding: 8px; margin-bottom: 8px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 0.8rem; }
 
-        /* BẢNG VÀNG CSS - KHÔNG TRÀN */
-        .bang-vang-card { height: 450px; overflow: hidden; display: flex; flex-direction: column; }
+        /* BẢNG VÀNG CSS - GIẢM ẢNH 10% & FIX TRÀN */
+        .bang-vang-card { height: 420px; overflow: hidden; display: flex; flex-direction: column; }
         .carousel-viewport { width: 100%; flex: 1; overflow: hidden; border-radius: 15px; position: relative; }
         .carousel-track { display: flex; gap: 15px; animation: scroll 25s linear infinite; align-items: center; height: 100%; }
-        .student-item img { height: 320px; width: auto; border-radius: 12px; object-fit: contain; background: #000; }
+        .student-item { flex-shrink: 0; }
+        .student-item img { height: 288px; width: auto; border-radius: 12px; object-fit: contain; background: #000; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 
-        /* GIÁ TRỊ CỐT LÕI CSS */
         .services-grid { max-width: 1400px; margin: 30px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .service-card { background: var(--card); padding: 20px; border-radius: 20px; border-left: 4px solid var(--primary); }
         .small-desc { font-size: 0.75rem; color: #888; margin-top: 5px; line-height: 1.4; }
@@ -191,14 +190,13 @@ export default {
         .chat-input-box input { flex:1; background:transparent; border:none; color:#fff; padding:8px; outline:none; font-size:0.8rem; }
         .chat-input-box button { background:var(--cyan); border:none; padding:0 12px; border-radius:6px; font-weight:800; cursor:pointer; }
 
-        /* SIDEBAR SOCIAL - KHÔI PHỤC */
         .side-social { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
         .social-item { width: 42px; height: 42px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); transition: 0.3s; }
         .social-item:hover { transform: scale(1.1); border-color: var(--primary); }
         .social-item img { width: 22px; height: 22px; }
 
-        /* MAP VỚI HIỆU ỨNG SÁNG */
-        .map-wrapper { height: 200px; border-radius: 20px; overflow: hidden; filter: grayscale(1); transition: 0.5s; border: 1px solid var(--border); }
+        /* MAP CHUẨN VỊ TRÍ HẢI PHÒNG & SÁNG KHI HOVER */
+        .map-wrapper { height: 200px; border-radius: 20px; overflow: hidden; filter: grayscale(1); transition: 0.8s ease; border: 1px solid var(--border); }
         .map-wrapper:hover { filter: grayscale(0); }
 
         footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
@@ -214,6 +212,7 @@ export default {
         @media (max-width: 768px) {
             .main-container, .services-grid, .footer-grid, .course-grid { grid-template-columns: 1fr; }
             .side-social { display: none; }
+            .student-item img { height: 200px; }
         }
     </style>
     </head><body>
@@ -240,7 +239,7 @@ export default {
                 <p>Thứ 2 - Thứ 7: 08:00 – 17:00</p><p>Chủ Nhật & Lễ: Nghỉ</p>
             </div>
             <div class="map-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.4550186718224!2d106.67111051532452!3d20.852449099105423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af27961958b%3A0x673998f48039d6e5!2zNTcgTMOqIFbEg24gVGh1eeG6v3QgQSwgS8OqbmggRMawxqFuZywgTMOqIENow6JuLCBI4bqjaSBQaMOYbmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1690000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.8475253633654!2d106.6663248747625!3d20.836814994297622!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7061d4734891%3A0xc3f3484f479f6492!2zNTcgTMOqIFbEg24gVGh1eeG6vHQsIEvDqm4gRMawxqFuZywgTMOqIENow6JuLCBI4bqjaSBQaMOybmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1715800000000!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </footer>
