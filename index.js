@@ -9,17 +9,15 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // --- BẢO VỆ LINK RÚT GỌN (TRẢ LẠI QUYỀN CHO SERVER GỐC) ---
-    // Nếu đường dẫn không phải là trang chủ, hãy để Server gốc xử lý (Fix lỗi 522)
+    // --- 🚨 LỆNH KHẨN CẤP: NẾU KHÔNG PHẢI TRANG CHỦ, THÌ BỎ QUA ---
+    // Điều này giúp toàn bộ link rút gọn của bạn hoạt động bình thường trở lại ngay lập tức
     if (path !== "/" && path !== "/index.html") {
       return fetch(request);
     }
 
-    // Lấy cookie người dùng
     const cookie = request.headers.get("Cookie") || "";
     const userName = cookie.match(/user=([^;]+)/) ? decodeURIComponent(cookie.match(/user=([^;]+)/)[1]) : null;
 
-    // Lấy dữ liệu Bảng Vàng
     let studentItems = "";
     try {
       const resp = await fetch(CONFIG.SHEET_URL);
@@ -28,8 +26,8 @@ export default {
         const link = row.split("\t")[0]?.trim();
         return (link && link.startsWith("http")) ? `<div class="st-item"><img src="${link}"></div>` : "";
       }).join("");
-      studentItems += studentItems; // Chạy lặp lại
-    } catch (e) { studentItems = "<div>Đang nạp dữ liệu...</div>"; }
+      studentItems += studentItems; 
+    } catch (e) { studentItems = ""; }
 
     return new Response(this.layout(studentItems, userName), { 
       headers: { "Content-Type": "text/html;charset=UTF-8" } 
@@ -37,87 +35,64 @@ export default {
   },
 
   layout(studentData, userName) {
-    const loginBtn = userName ? `Chào, ${userName}` : "Đăng nhập";
     return `<!DOCTYPE html><html><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      :root { --primary: #FF5722; --bg: #000; --card: #111; --border: rgba(255,255,255,0.1); }
-      * { box-sizing: border-box; }
-      body { font-family: sans-serif; background: var(--bg); color: #fff; margin: 0; overflow-x: hidden; }
+      :root { --primary: #FF5722; --bg: #000; --card: #111; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: sans-serif; background: var(--bg); color: #fff; overflow-x: hidden; }
       
-      header { padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: #000; position: sticky; top: 0; z-index: 9999; }
+      header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; background: #000; position: sticky; top:0; z-index:100; }
       .logo img { height: 35px; }
-      .nav a { color: #888; text-decoration: none; margin-left: 20px; font-weight: bold; font-size: 0.9rem; }
-      .login-btn { background: var(--primary); color: #fff !important; padding: 8px 16px; border-radius: 20px; }
+      .login-btn { background: var(--primary); color: #fff; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.8rem; }
 
-      /* SIDEBAR - Fix logo TikTok không bị nền xám */
+      /* SIDEBAR TIKTOK TRẮNG */
       .sidebar { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
-      .s-icon { width: 40px; height: 40px; background: #222; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); overflow: hidden; }
-      .s-icon.tk-fix { background: transparent !important; border: none; }
-      .s-icon img { width: 22px; filter: brightness(0) invert(1); } /* Chuyển icon sang trắng */
+      .s-icon { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; }
+      .tk img { filter: brightness(0) invert(1); width: 22px; }
 
-      /* GRID LAYOUT - Fix vỡ màn hình */
-      .stats-row { display: flex; justify-content: center; gap: 40px; padding: 30px; text-align: center; }
-      .stats-row h2 { color: var(--primary); margin: 0; }
-      
-      .main-content { display: grid; grid-template-columns: 320px 1fr; gap: 20px; padding: 0 5%; max-width: 1400px; margin: 0 auto; }
-      .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; }
-
-      /* BẢNG VÀNG - KHÓA CHẾT KHUNG (Fix ảnh khổng lồ) */
-      .golden-board { overflow: hidden; border: 2px solid #333; position: relative; }
-      .slider-container { overflow: hidden; width: 100%; position: relative; }
-      .slider-track { display: flex; gap: 15px; animation: scroll 40s linear infinite; }
-      .st-item img { height: 260px; width: auto; border-radius: 8px; object-fit: contain; }
-
-      /* MOBILE */
-      @media (max-width: 850px) {
-        .main-content { grid-template-columns: 1fr; }
+      /* GRID FIX VỠ KHUNG */
+      .main-grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; padding: 20px 5%; max-width: 1300px; margin: 0 auto; }
+      @media (max-width: 800px) { 
+        .main-grid { grid-template-columns: 1fr; }
         .sidebar { bottom: 20px; top: auto; right: 20px; transform: none; flex-direction: row; }
       }
+
+      /* BẢNG VÀNG KHÔNG TRÀN */
+      .card { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid #333; }
+      .slider-box { overflow: hidden; width: 100%; border-radius: 10px; border: 1px solid #444; }
+      .slider-track { display: flex; gap: 10px; animation: scroll 40s linear infinite; }
+      .st-item img { height: 250px; object-fit: contain; border-radius: 8px; }
+
+      .stats { display: flex; justify-content: center; gap: 30px; padding: 20px; text-align: center; }
+      .stats h2 { color: var(--primary); }
 
       @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     </style>
     </head><body>
     <header>
       <a href="/" class="logo"><img src="${CONFIG.LOGO_URL}"></a>
-      <nav class="nav">
-        <a href="/">Trang Chủ</a><a href="/courses">Khóa Học</a><a href="/library">Tài Liệu</a>
-        <a href="/login" class="login-btn">${loginBtn}</a>
-      </nav>
+      <a href="/login" class="login-btn">${userName ? 'Chào, '+userName : 'Đăng nhập'}</a>
     </header>
-
     <div class="sidebar">
-      <a href="#" class="s-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-      <a href="#" class="s-icon tk-fix"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg"></a>
+      <a href="#" class="s-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" width="20"></a>
+      <a href="#" class="s-icon tk"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg"></a>
     </div>
-
-    <div class="stats-row">
-      <div><h2>100%</h2><p>Đỗ ngay lần đầu</p></div>
-      <div><h2>1,000+</h2><p>Học viên đăng ký</p></div>
-      <div><h2>600+</h2><p>Truy cập thường xuyên</p></div>
+    <div class="stats">
+      <div><h2>100%</h2><p>Đỗ ngay</p></div>
+      <div><h2>1,000+</h2><p>Học viên</p></div>
+      <div><h2>600+</h2><p>Truy cập</p></div>
     </div>
-
-    <div class="main-content">
-      <div class="col-left">
-        <div class="card">
-          <h3>🎡 Vòng Quay May Mắn</h3>
-          <div style="height:150px; background:conic-gradient(red, yellow, blue, red); border-radius:50%; margin: 20px auto; width:150px;"></div>
-          <button style="width:100%; background:var(--primary); border:none; color:#fff; padding:10px; border-radius:10px; font-weight:bold;">QUAY NGAY</button>
-        </div>
+    <main class="main-grid">
+      <div class="card">
+        <h3>🎡 May mắn</h3>
+        <div style="height:140px; width:140px; border-radius:50%; background:conic-gradient(orange, red, orange); margin: 20px auto;"></div>
       </div>
-      <div class="col-right">
-        <div class="card golden-board">
-          <h3>🏆 Bảng Vàng Chứng Chỉ</h3>
-          <div class="slider-container"><div class="slider-track">${studentData}</div></div>
-        </div>
+      <div class="card">
+        <h3>🏆 Bảng Vàng</h3>
+        <div class="slider-box"><div class="slider-track">${studentData}</div></div>
       </div>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 40px 5%;">
-      <div class="card"><h3>Thi Thật 100%</h3><p>Mô phỏng sát đề quốc tế.</p></div>
-      <div class="card" style="border-left: 4px solid var(--primary);"><h3>AI Trợ Lý 24/7 ✨</h3><p>Giải đáp tin học tức thì.</p></div>
-      <div class="card"><h3>Hỗ Trợ Trọn Đời</h3><p>Đồng hành cùng học viên.</p></div>
-    </div>
+    </main>
     </body></html>`;
   }
 };
