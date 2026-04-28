@@ -8,6 +8,12 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
+    const cookie = request.headers.get("Cookie") || "";
+    
+    // Giả lập check login (Bạn có thể thay đổi logic này)
+    let userRole = "";
+    if (cookie.includes("user=admin")) userRole = "Quản trị";
+    else if (cookie.includes("user=student")) userRole = "Học viên";
 
     // Lấy dữ liệu Bảng Vàng
     let studentItems = "";
@@ -22,147 +28,127 @@ export default {
         }
       });
       studentItems += studentItems; 
-    } catch (e) { studentItems = "<div>Dữ liệu đang nạp...</div>"; }
+    } catch (e) { studentItems = "<div>Đang nạp bảng vàng...</div>"; }
 
     let content = "";
-    if (path === "/hocvien") {
-      content = this.getStudentUI();
-    } else {
-      content = this.getHomeUI(studentItems);
-    }
+    if (path === "/courses") content = this.getCoursesUI();
+    else if (path === "/library") content = this.getLibraryUI();
+    else content = this.getHomeUI(studentItems);
 
-    return new Response(this.layout(content), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+    return new Response(this.layout(content, userRole), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
   },
 
-  // --- TRANG CHỦ: TÁCH RIÊNG CÁC KHỐI ---
   getHomeUI(studentData) {
     return `
       <div class="stats-row">
         <div class="s-box"><h2>100%</h2><p>Đỗ ngay lần đầu</p></div>
         <div class="s-box"><h2>1,000+</h2><p>Học viên đăng ký</p></div>
-        <div class="s-box"><h2>600+</h2><p>Truy cập thường xuyên</p></div>
+        <div class="s-box"><h2>600+</h2><p>Truy cập</p></div>
       </div>
-
       <div class="main-layout">
         <aside class="left-side">
-          <div class="card wheel-card">
+          <div class="card">
             <h3>🎡 Vòng Quay May Mắn</h3>
-            <div class="wheel-container">
+            <div class="wheel-box">
               <div class="wheel-arrow"></div>
-              <div class="wheel-body">
-                <div class="w-segment s1">GIẢM 50k</div>
-                <div class="w-segment s2">GIẢM 50%</div>
-                <div class="w-segment s3">GIẢM 100k</div>
-                <div class="w-segment s4">GIẢM 80%</div>
-              </div>
+              <div class="wheel-body"><div class="w-txt t1">GIẢM 50k</div><div class="w-txt t2">GIẢM 50%</div><div class="w-txt t3">GIẢM 100k</div><div class="w-txt t4">GIẢM 80%</div></div>
               <div class="wheel-btn">QUAY</div>
             </div>
-            <button class="cta-btn" onclick="location.href='/hocvien'">XEM KHÓA HỌC</button>
-            
             <div class="promo-box">
               <span class="badge">ƯU ĐÃI</span>
-              <p>Đăng ký Combo 3 môn tính tiền 2 môn (Chỉ 800k). Đăng ký ngay để nhận quà!</p>
+              <p>Đăng ký Combo 3 môn tính tiền 2 (Chỉ 800k). Áp dụng trọn đời!</p>
             </div>
           </div>
         </aside>
-
         <section class="right-side">
           <div class="card golden-board">
             <h3>🏆 Bảng Vàng Chứng Chỉ</h3>
-            <div class="slider-wrapper">
-              <div class="slider-track">${studentData}</div>
-            </div>
+            <div class="slider-wrapper"><div class="slider-track">${studentData}</div></div>
           </div>
         </section>
       </div>
-
       <div class="services-grid">
-        <div class="svc-item"><h3>Thi Thật 100%</h3><p>Mô phỏng sát đề thi quốc tế Certiport.</p></div>
-        <div class="svc-item" style="border-color:var(--cyan)"><h3>Trợ lý AI 24/7 ✨</h3><p>Giải đáp tin học qua khung Chat AI.</p></div>
-        <div class="svc-item"><h3>Đồng Hành Trọn Đời</h3><p>Hỗ trợ luận văn, đồ án chuyên nghiệp.</p></div>
+        <div class="svc-item"><h3>Thi Thật 100%</h3><p>Mô phỏng sát đề quốc tế Certiport.</p></div>
+        <div class="svc-item" style="border-color:var(--cyan)"><h3>AI Trợ lý 24/7</h3><p>Giải đáp kiến thức tin học.</p></div>
+        <div class="svc-item"><h3>Đồng Hành</h3><p>Hỗ trợ luận văn trọn đời.</p></div>
       </div>`;
   },
 
-  getStudentUI() {
-    return `
-      <div class="card student-portal" style="max-width:600px; margin:50px auto; text-align:center;">
-        <h2 style="color:var(--primary)">Cổng Học Viên MOS360</h2>
-        <div style="margin-top:30px; display:flex; flex-direction:column; gap:15px;">
-           <button class="cta-btn" style="background:#00c2cb">ĐĂNG KÝ HỌC OFFLINE HẢI PHÒNG</button>
-           <button class="cta-btn">ĐĂNG KÝ THI MOS QUỐC TẾ</button>
-           <button class="cta-btn" style="background:#333" onclick="location.href='/'">QUAY LẠI TRANG CHỦ</button>
-        </div>
-      </div>`;
+  getCoursesUI() {
+    return `<div class="card" style="max-width:1000px; margin:20px auto;">
+      <h2 style="text-align:center; margin-bottom:20px;">Hệ Thống Khóa Học</h2>
+      <div class="course-flex">
+        <div class="c-col"><h4>Nhóm 2019</h4><label><input type="checkbox"> Word</label><label><input type="checkbox"> Excel</label></div>
+        <div class="c-col"><h4>Nhóm 365</h4><label><input type="checkbox"> Word</label><label><input type="checkbox"> Excel</label></div>
+      </div>
+    </div>`;
   },
 
-  layout(content) {
+  getLibraryUI() {
+    return `<div class="card" style="max-width:800px; margin:20px auto; text-align:center;"><h2>📚 Thư Viện Tài Liệu</h2><p>Đang cập nhật dữ liệu...</p></div>`;
+  },
+
+  layout(content, userRole) {
+    const loginLabel = userRole ? `Chào, ${userRole}` : "Đăng nhập";
     return `<!DOCTYPE html><html><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${CONFIG.TITLE}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-      :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
+      :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.1); --cyan: #00f2ff; }
       * { box-sizing: border-box; margin: 0; padding: 0; }
-      body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x:hidden; }
       
-      /* Header & Logo */
-      header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top:0; background: rgba(8,8,8,0.9); z-index: 1000; }
-      .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-      .logo img { height: 38px; }
-      .logo span { font-weight: 800; color: var(--primary); font-size: 1.4rem; }
-      .nav a { color: #888; text-decoration: none; margin-left: 20px; font-weight: 700; font-size: 0.9rem; }
-      .nav a:hover { color: var(--primary); }
-
-      /* SOCIAL SIDEBAR (FIX TIKTOK) */
-      .sidebar-links { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 2000; }
-      .link-circle { width: 44px; height: 44px; background: #1a1a1a; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; }
-      .link-circle img { width: 20px; }
-      .link-circle:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.1); }
-      .tk-link { background: transparent !important; } /* Xóa nền Tiktok */
-      .tk-link img { filter: brightness(0) invert(1); } /* Làm icon Tiktok trắng */
-
-      /* Thống kê ngang */
-      .stats-row { display: flex; justify-content: center; gap: 80px; padding: 40px 0; border-bottom: 1px solid var(--border); }
-      .s-box h2 { color: var(--primary); font-size: 2.8rem; margin-bottom: 5px; }
-      .s-box p { color: #888; font-weight: 700; font-size: 0.9rem; }
-
-      /* Main Grid */
-      .main-layout { display: grid; grid-template-columns: 380px 1fr; gap: 30px; max-width: 1400px; margin: 30px auto; padding: 0 5%; }
-      .card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 25px; position: relative; }
-      .card h3 { font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-
-      /* Vòng quay & Khuyến mại */
-      .wheel-container { position: relative; width: 200px; height: 200px; margin: 0 auto 20px; }
-      .wheel-arrow { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 18px solid var(--primary); z-index: 10; }
-      .wheel-body { width: 100%; height: 100%; border-radius: 50%; border: 5px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); animation: rotate 10s linear infinite; }
-      .w-segment { position: absolute; width: 100%; height: 100%; top:0; left:0; display: flex; justify-content: center; padding-top: 30px; font-weight: 800; font-size: 0.65rem; }
-      .s1{transform:rotate(45deg)}.s2{transform:rotate(135deg)}.s3{transform:rotate(225deg)}.s4{transform:rotate(315deg)}
-      .wheel-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 55px; height: 55px; background: #fff; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; border: 3px solid #fff; }
+      header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background: #000; border-bottom: 1px solid var(--border); sticky; top:0; z-index:1000; }
+      .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+      .logo img { height: 35px; }
+      .logo span { font-weight: 800; color: var(--primary); font-size: 1.3rem; }
       
-      .promo-box { margin-top: 20px; padding: 15px; border: 1px dashed var(--primary); border-radius: 12px; background: rgba(255,87,34,0.05); position: relative; }
-      .promo-box p { font-size: 0.85rem; color: #ccc; line-height: 1.4; }
-      .badge { position: absolute; top: -10px; left: 15px; background: var(--primary); padding: 2px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; }
+      .nav { display: flex; align-items: center; gap: 15px; }
+      .nav a { color: #888; text-decoration: none; font-weight: 700; font-size: 0.85rem; }
+      .login-btn { background: var(--primary); color: #fff !important; padding: 8px 15px; border-radius: 8px; }
 
-      /* BẢNG VÀNG CHUẨN KHUNG ĐỎ */
-      .slider-wrapper { overflow: hidden; border-radius: 15px; background: #000; padding: 20px 0; border: 2px solid #333; }
-      .slider-track { display: flex; gap: 20px; animation: scroll 40s linear infinite; }
-      .st-item img { height: 320px; border-radius: 10px; object-fit: contain; }
-      
-      /* Services */
-      .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 1400px; margin: 40px auto; padding: 0 5%; }
-      .svc-item { background: var(--card); padding: 30px; border-radius: 20px; border-left: 5px solid var(--primary); }
-      .svc-item h3 { margin-bottom: 10px; font-size: 1.2rem; }
-      .svc-item p { color: #888; font-size: 0.95rem; }
+      /* SIDEBAR */
+      .sidebar { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 2000; }
+      .s-link { width: 40px; height: 40px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+      .s-link img { width: 18px; }
+      .tk-fix img { filter: brightness(0) invert(1); } /* Tiktok icon trắng */
 
-      .cta-btn { background: var(--primary); color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; margin-top: 10px; }
+      /* LAYOUT & RESPONSIVE */
+      .stats-row { display: flex; justify-content: center; gap: 40px; padding: 30px 5%; text-align: center; }
+      .main-layout { display: grid; grid-template-columns: 350px 1fr; gap: 20px; max-width: 1300px; margin: 0 auto; padding: 0 5%; }
       
-      /* FOOTER CHUẨN VỊ TRÍ & GIỜ MỞ CỬA */
-      footer { padding: 60px 5% 40px; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
-      .footer-flex { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; }
-      .time-card { background: #111; padding: 20px; border-radius: 15px; border: 1px solid #222; }
-      .time-card p { font-size: 0.9rem; margin-top: 5px; color: #aaa; }
-      .map-box { border-radius: 15px; overflow: hidden; height: 180px; border: 1px solid var(--border); filter: grayscale(1); transition: 0.5s; }
-      .map-box:hover { filter: grayscale(0); border-color: var(--primary); }
+      @media (max-width: 900px) {
+        .main-layout { grid-template-columns: 1fr; }
+        .stats-row { gap: 20px; }
+        .stats-row h2 { font-size: 1.5rem; }
+        .sidebar { bottom: 20px; top: auto; right: 20px; transform: none; flex-direction: row; }
+      }
+
+      .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; height: 100%; }
+      
+      /* VÒNG QUAY */
+      .wheel-box { position: relative; width: 200px; height: 200px; margin: 0 auto 15px; }
+      .wheel-body { width: 100%; height: 100%; border-radius: 50%; border: 4px solid #FFD700; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); animation: rotate 10s linear infinite; }
+      .w-txt { position: absolute; width: 100%; height: 100%; top:0; left:0; text-align:center; padding-top: 30px; font-weight: 800; font-size: 0.6rem; }
+      .t1{transform:rotate(45deg)}.t2{transform:rotate(135deg)}.t3{transform:rotate(225deg)}.t4{transform:rotate(315deg)}
+      .wheel-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 50px; height: 50px; background: #fff; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; border: 3px solid #fff; }
+      .wheel-arrow { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 15px solid var(--primary); z-index: 5; }
+
+      /* BẢNG VÀNG (FIXED) */
+      .slider-wrapper { overflow: hidden; border-radius: 15px; background: #000; padding: 15px 0; border: 2px solid #222; width: 100%; position: relative; }
+      .slider-track { display: flex; gap: 15px; animation: scroll 30s linear infinite; }
+      .st-item img { height: 280px; border-radius: 10px; object-fit: contain; }
+
+      .promo-box { margin-top: 15px; padding: 12px; border: 1px dashed var(--primary); border-radius: 10px; background: rgba(255,87,34,0.05); }
+      .badge { background: var(--primary); padding: 2px 8px; border-radius: 5px; font-size: 0.65rem; font-weight: 800; }
+
+      .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1300px; margin: 30px auto; padding: 0 5%; }
+      .svc-item { background: var(--card); padding: 20px; border-radius: 15px; border-left: 4px solid var(--primary); }
+
+      footer { padding: 40px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 40px; }
+      .f-flex { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1300px; margin: 0 auto; }
+      .map-box { height: 150px; border-radius: 10px; overflow: hidden; filter: grayscale(1); border: 1px solid var(--border); }
 
       @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
       @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -170,35 +156,29 @@ export default {
     </head><body>
     <header>
       <a href="/" class="logo"><img src="${CONFIG.LOGO_URL}"> <span>MOS360</span></a>
-      <div class="nav"><a href="/">Trang Chủ</a><a href="/hocvien">Học Viên</a></div>
+      <nav class="nav">
+        <a href="/">Trang Chủ</a><a href="/courses">Khóa Học</a><a href="/library">Tài Liệu</a>
+        <a href="/login" class="login-btn">${loginLabel}</a>
+      </nav>
     </header>
 
-    <div class="sidebar-links">
-      <a href="https://zalo.me/0912888360" class="link-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
-      <a href="https://facebook.com/MOS360.EDU" class="link-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"></a>
-      <a href="https://m.me/MOS360.EDU" class="link-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
-      <a href="https://youtube.com/@mos360_vn" class="link-circle"><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"></a>
-      <a href="https://tiktok.com/@mos360.vn" class="link-circle tk-link"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg"></a>
+    <div class="sidebar">
+      <a href="#" class="s-link"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg"></a>
+      <a href="#" class="s-link"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"></a>
+      <a href="#" class="s-link"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg"></a>
+      <a href="#" class="s-link tk-fix"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg"></a>
     </div>
 
     <main>${content}</main>
 
     <footer>
-      <div class="footer-flex">
-        <div>
-          <h2 style="color:var(--primary); margin-bottom:10px;">MOS360.VN</h2>
-          <p>Hotline: 0912.888.360</p>
-          <p>Địa chỉ: 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p>
+      <div class="f-flex">
+        <div><h3>MOS360.VN</h3><p>Hotline: 0912.888.360</p><p>57 Lê Văn Thuyết A, Hải Phòng</p></div>
+        <div style="font-size:0.9rem;">
+          <h4 style="color:var(--cyan)">🕒 GIỜ LÀM VIỆC</h4>
+          <p>Sáng: 08:00 – 11:30</p><p>Chiều: 13:30 – 17:00</p>
         </div>
-        <div class="time-card">
-          <h4 style="color:var(--cyan)">🕒 GIỜ MỞ CỬA</h4>
-          <p>• Sáng: 08:00 – 11:30</p>
-          <p>• Chiều: 13:30 – 17:00</p>
-          <p style="font-size:0.75rem; color:var(--primary); margin-top:10px;">* Hỗ trợ trực tuyến 24/7</p>
-        </div>
-        <div class="map-box">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.641656832442!2d106.6775191!3d20.8461741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7af93683a303%3A0x6771746771746771!2zNTcgTMOqIFbEg24gVGh1eeG6v3QsIEFuIEJpw6puLCBMw6ogQ2jDom4sIEjhuqNpIFBow7JuZw!5e0!3m2!1svi!2s!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
+        <div class="map-box"><iframe src="http://googleusercontent.com/maps.google.com/6" width="100%" height="100%" style="border:0;"></iframe></div>
       </div>
     </footer>
     </body></html>`;
