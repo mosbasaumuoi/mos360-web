@@ -8,28 +8,27 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
+    const hostname = url.hostname;
 
-    // --- 🎯 PHÂN LOẠI 1: XỬ LÝ LINK RÚT GỌN (CHỐNG LỖI 522) ---
-    // Nếu đường dẫn không phải là trang chủ (ví dụ /office, /360exe)
-    // Hoặc nếu truy cập từ subdomain go.mos360.vn
-    if (path !== "/" && path !== "/index.html" || url.hostname.includes("go.")) {
-      // Worker sẽ chỉ đóng vai trò "đẩy yêu cầu đi" mà không can thiệp nội dung
-      // Điều này giúp giữ nguyên tính năng rút gọn của hosting cũ nhưng chạy qua mây cam Cloudflare
+    // --- 🎯 KHU VỰC 1: XỬ LÝ LINK RÚT GỌN (REDIRECT NGAY TRÊN CLOUDFLARE) ---
+    // Nếu là subdomain go.mos360.vn hoặc các path như /office, /360exe...
+    if (hostname.startsWith("go.") || (path !== "/" && path !== "/index.html")) {
+      // Ép Worker lấy dữ liệu từ gốc và trả về ngay, không chạy logic giao diện bên dưới
+      // Điều này triệt tiêu lỗi 522 vì kết nối được thông suốt
       return fetch(request);
     }
 
-    // --- 🏠 PHÂN LOẠI 2: GIAO DIỆN WEB TÍCH HỢP (CHỈ TRANG CHỦ) ---
+    // --- 🏠 KHU VỰC 2: XỬ LÝ TRANG CHỦ TÍCH HỢP ---
     try {
       const resp = await fetch(CONFIG.SHEET_URL);
-      const tsv = await resp.text();
+      if (!resp.ok) throw new Error("Sheet error");
       
-      // Xử lý dữ liệu Bảng Vàng từ Google Sheet
+      const tsv = await resp.text();
       const studentItems = tsv.split("\n").slice(1).map(row => {
         const link = row.split("\t")[0]?.trim();
-        return (link && link.startsWith("http")) ? `<div class="st-item"><img src="${link}" loading="lazy"></div>` : "";
+        return (link && link.startsWith("http")) ? `<div class="st-item"><img src="${link}"></div>` : "";
       }).join("");
 
-      // Kiểm tra Login (Cookie)
       const cookie = request.headers.get("Cookie") || "";
       const user = cookie.match(/user=([^;]+)/) ? decodeURIComponent(cookie.match(/user=([^;]+)/)[1]) : null;
 
@@ -37,7 +36,7 @@ export default {
         headers: { "Content-Type": "text/html;charset=UTF-8" }
       });
     } catch (e) {
-      // Nếu Google Sheet lỗi, vẫn phải fetch(request) để hiện trang chủ mặc định từ hosting
+      // Nếu lỗi hệ thống, vẫn phải trả về yêu cầu gốc để không sập trang
       return fetch(request);
     }
   },
@@ -49,7 +48,7 @@ export default {
     <style>
       :root { --primary: #FF5722; --bg: #000; }
       body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #fff; margin: 0; overflow-x: hidden; }
-      header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); position: sticky; top:0; z-index:1000; }
+      header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; background: #000; position: sticky; top: 0; z-index: 1000; }
       .logo img { height: 35px; }
       .login-btn { background: var(--primary); color: #fff; padding: 8px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; }
       
@@ -68,9 +67,9 @@ export default {
     </header>
     <main class="main-grid">
       <div class="card">
-        <h3 style="color:var(--primary)">🎡 Vòng Quay May Mắn</h3>
-        <div style="height:180px; width:180px; border-radius:50%; background:conic-gradient(#FF5722, #FF9800, #FF5722); margin: 20px auto; border: 5px solid #222; box-shadow: 0 0 20px rgba(255,87,34,0.3);"></div>
-        <p style="text-align:center; color:#888;">Quay ngay để nhận mã giảm giá luyện thi!</p>
+        <h3 style="color:var(--primary)">🎡 Vòng Quay</h3>
+        <div style="height:180px; width:180px; border-radius:50%; background:conic-gradient(#FF5722, #FF9800, #FF5722); margin: 20px auto; border: 5px solid #222;"></div>
+        <p style="text-align:center; font-size:0.9rem; color:#888;">Quay để nhận mã giảm giá!</p>
       </div>
       <div class="card">
         <h3>🏆 Bảng Vàng Chứng Chỉ</h3>
