@@ -81,6 +81,7 @@ export default {
             <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
             <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
         </nav>
+        <link rel="stylesheet" href="/css/style.css">
     </header>
 
     <div class="main-container">
