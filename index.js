@@ -28,9 +28,9 @@ export default {
           let finalLink = link;
           if (link.includes("drive.google.com")) {
             const imgId = link.match(/[-\w]{25,}/);
-            finalLink = `https://lh3.googleusercontent.com/d/$${imgId}`;
+            finalLink = "https://lh3.googleusercontent.com/d/$$" + imgId;
           }
-          htmlContent += `<div class="student-item"><img src="${finalLink}" loading="lazy"></div>`;
+          htmlContent += '<div class="student-item"><img src="' + finalLink + '" loading="lazy"></div>';
         }
       });
       studentData = htmlContent + htmlContent; 
@@ -46,7 +46,7 @@ export default {
   },
 
   getHomeUI(studentData) {
-    return `
+    let html = `
       <div class="stats-bar">
           <div class="stat-item"><h2>100%</h2><p>Thi đậu ngay lần đầu</p></div>
           <div class="stat-item"><h2>1.000+</h2><p>Học viên đã nhận chứng chỉ</p></div>
@@ -82,7 +82,7 @@ export default {
               <div class="section-card" id="bang-vang-container">
                   <h3 class="bv-title">🏆 Bảng Vàng Chứng Chỉ</h3>
                   <div class="carousel-viewport">
-                      <div class="carousel-track">${studentData}</div>
+                      <div class="carousel-track">` + studentData + `</div>
                   </div>
               </div>
           </div>
@@ -105,25 +105,26 @@ export default {
         <a href="https://m.me/mos360.vn" target="_blank" class="s-btn"><img src="https://img.icons8.com/color/48/facebook-messenger--v1.png"></a>
         <a href="https://youtube.com/@mos360_vn" target="_blank" class="s-btn"><img src="https://img.icons8.com/color/48/youtube-play.png"></a>
         <a href="https://tiktok.com/@mos360.vn" target="_blank" class="s-btn" style="background:#000;"><img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok--v1.png"></a>
-      </div>
+      </div>`;
 
-      <script>
+    let script = `<script>
         function spinWheel() {
-            const name = document.getElementById('w-name').value;
-            const phone = document.getElementById('w-phone').value;
+            var name = document.getElementById('w-name').value;
+            var phone = document.getElementById('w-phone').value;
             if(!name || !phone) { alert('Vui lòng nhập đủ thông tin!'); return; }
-            const wheel = document.getElementById('main-wheel');
+            var wheel = document.getElementById('main-wheel');
             wheel.classList.remove('idle-spin');
-            const deg = 3600 + Math.random() * 360;
+            var deg = 3600 + Math.random() * 360;
             wheel.style.transition = 'transform 4s cubic-bezier(0.1, 0, 0.1, 1)';
             wheel.style.transform = 'rotate(' + deg + 'deg)';
-            setTimeout(() => { alert('Chúc mừng ' + name + '! MOS360 sẽ liên hệ ưu đãi qua SĐT ' + phone); }, 4500);
+            setTimeout(function() { alert('Chúc mừng ' + name + '! MOS360 sẽ liên hệ ưu đãi qua SĐT ' + phone); }, 4500);
         }
-      <\/script>`;
+    </script>`;
+    return html + script;
   },
 
   getCoursesUI() {
-    return `<div class="section-card" style="max-width:900px; margin:40px auto;">
+    let html = `<div class="section-card" style="max-width:900px; margin:40px auto;">
         <h1 style="text-align:center; color:var(--primary); margin-bottom:10px;">ĐĂNG KÝ KHÓA HỌC</h1>
         <div style="text-align:center; margin-bottom:30px; padding:10px; border:1px solid rgba(255,87,34,0.3); border-radius:10px;">
             <p style="color:#FFD700; font-size:1.1rem;">🔥 <b>Siêu ưu đãi đặc biệt trong tháng 5 !!!</b></p>
@@ -151,33 +152,34 @@ export default {
             <h2 id="total-price" style="color:#FFD700">Tổng thanh toán: 0đ</h2>
             <p id="discount-note" style="color:var(--cyan); font-size:0.9rem; margin-top:5px;"></p>
             <button class="btn-action" style="margin-top:15px; max-width:300px;">THANH TOÁN NGAY</button>
-        </div>
-        <script>
-            document.querySelectorAll('.course-cb').forEach(cb => {
-                cb.addEventListener('change', () => {
-                    let prices = [];
-                    document.querySelectorAll('.course-cb:checked').forEach(c => prices.push(parseInt(c.dataset.price)));
-                    let total = 0;
-                    let note = "";
+        </div>`;
+        
+    let script = `<script>
+            document.querySelectorAll('.course-cb').forEach(function(cb) {
+                cb.addEventListener('change', function() {
+                    var prices = [];
+                    document.querySelectorAll('.course-cb:checked').forEach(function(c) { prices.push(parseInt(c.dataset.price)); });
+                    var total = 0;
+                    var note = "";
                     if (prices.length >= 3) {
-                        prices.sort((a, b) => b - a);
+                        prices.sort(function(a, b) { return b - a; });
                         total = prices[0] + prices[1]; 
                         note = "✨ Đã áp dụng ưu đãi Mua 3 tính tiền 2 (Tiết kiệm " + prices[2].toLocaleString() + "đ)";
                     } else {
-                        total = prices.reduce((a, b) => a + b, 0);
+                        total = prices.reduce(function(a, b) { return a + b; }, 0);
                     }
                     document.getElementById('total-price').innerText = 'Tổng thanh toán: ' + total.toLocaleString('vi-VN') + 'đ';
                     document.getElementById('discount-note').innerText = note;
                 });
             });
-        <\/script>
-    </div>`;
+    </script></div>`;
+    return html + script;
   },
 
   layout(content) {
     return `<!DOCTYPE html><html><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>\${CONFIG.TITLE}</title>
+    <title>` + CONFIG.TITLE + `</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
@@ -230,14 +232,14 @@ export default {
     </style>
     </head><body>
     <header>
-        <a href="/" class="brand"><img src="\${CONFIG.LOGO_URL}"> MOS360</a>
+        <a href="/" class="brand"><img src="` + CONFIG.LOGO_URL + `"> MOS360</a>
         <nav><a href="/">TRANG CHỦ</a><a href="/courses">KHÓA HỌC</a><a href="/library">KHO MOS</a><a href="/login" style="color:var(--primary)">ĐĂNG NHẬP</a></nav>
     </header>
     <nav style="background: rgba(255,255,255,0.03); padding: 5px 5%; font-size: 0.8rem; border-bottom: 1px solid var(--border); display:flex; gap:15px;">
         <span style="color:#666;">🎯 Thử thách mới:</span>
         <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold; margin:0;">[HOT] Trắc nghiệm Generative AI ✨</a>
     </nav>
-    <main>\${content}</main>
+    <main>` + content + `</main>
     <footer>
         <div class="footer-grid">
             <div><h2 style="color:var(--primary)">MOS360.VN</h2><p>📍 Số 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p><p>📞 Hotline: 0912.888.360</p></div>
@@ -254,7 +256,7 @@ export default {
   getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Tài Liệu MOS</h2><p>Nội dung đang được cập nhật...</p></div>`; },
   
   getGenerativeAIUI() {
-    return `<!DOCTYPE html>
+    let htmlContent = `<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -323,7 +325,7 @@ export default {
         <header>
             <div class="header-content">
                 <h1>MOS360 - Hệ Thống Ôn Luyện Trắc Nghiệm</h1>
-                <p>Chuyên đề: Kiến thức về Generative AI (Trí tuệ nhân tạo tạo sinh) • Tổng số: 130 câu hỏi</p>
+                <p>Chuyên đề: Kiến thức về Generative AI (Trí tuệ nhân tạo tạo sinh) • Tổng số: 30 câu hỏi mẫu</p>
             </div>
             <div class="header-bg"></div>
         </header>
@@ -334,7 +336,7 @@ export default {
                     <div class="progress-bar" id="progress-bar"></div>
                 </div>
                 <div class="quiz-header">
-                    <span class="question-number">Câu hỏi <span id="q-num">1</span>/130</span>
+                    <span class="question-number">Câu hỏi <span id="q-num">1</span>/30</span>
                     <span class="score-display">Đúng: <span id="score-correct" style="color: #198754;">0</span> | Sai: <span id="score-incorrect" style="color: #dc3545;">0</span></span>
                 </div>
 
@@ -366,58 +368,58 @@ export default {
                 <div class="nav-grid" id="nav-grid"></div>
                 
                 <div class="stats-summary">
-                    <div class="stat-line"><span>Đã làm:</span><span id="stat-answered">0/130</span></div>
+                    <div class="stat-line"><span>Đã làm:</span><span id="stat-answered">0/30</span></div>
                     <div class="stat-line"><span>Tỷ lệ chính xác:</span><span id="stat-accuracy">0%</span></div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>`;
 
-    <script>
-        const questions = [
+    let scriptContent = `<script>
+        var questions = [
             { id: 1, text: "Khái niệm nào sau đây mô tả đúng nhất về Generative AI?", options: ["Một loại AI chỉ có khả năng phân tích dữ liệu cũ mà không thể tạo ra nội dung mới.", "Một nhánh của AI tập trung vào việc tạo ra nội dung mới (văn bản, hình ảnh, âm thanh, mã nguồn...) dựa trên dữ liệu đã học.", "Hệ thống máy tính chuyên dụng dùng để tăng tốc độ xử lý phần cứng.", "Thuật toán chỉ áp dụng trong việc điều khiển robot tự động."], correct: 1, explanation: "Generative AI (AI tạo sinh) là một nhánh của trí tuệ nhân tạo tập trung vào các mô hình có khả năng tạo ra nội dung mới dựa trên các mẫu dữ liệu thu thập được từ quá trình huấn luyện." },
             { id: 2, text: "Mô hình ngôn ngữ lớn (LLM) như GPT-4 hoạt động chủ yếu dựa trên kiến trúc mạng thần kinh nào?", options: ["RNN (Recurrent Neural Network)", "CNN (Convolutional Neural Network)", "Transformer", "GAN (Generative Adversarial Network)"], correct: 2, explanation: "Hầu hết các LLM hiện đại đều dựa trên kiến trúc Transformer, được giới thiệu vào năm 2017 với cơ chế Attention giúp xử lý ngữ cảnh rất hiệu quả." },
-            { id: 3, text: "Thuật ngữ \"Prompt\" trong ngữ cảnh sử dụng Generative AI có nghĩa là gì?", options: ["Một đoạn mã lập trình hệ thống.", "Câu lệnh, hướng dẫn hoặc yêu cầu bằng văn bản/hình ảnh mà người dùng cung cấp để AI tạo ra nội dung mong muốn.", "Thời gian phản hồi của hệ thống AI.", "Quá trình kiểm thử lỗi của mô hình."], correct: 1, explanation: "Prompt (Lời nhắc) là đầu vào (văn bản, câu hỏi, hình ảnh) mà người dùng nhập vào để hướng dẫn mô hình AI tạo ra kết quả đầu ra tương ứng." },
-            { id: 4, text: "Hiện tượng \"Hallucination\" (Ảo tưởng/Ảo giác) ở các mô hình Generative AI xảy ra khi nào?", options: ["Mô hình ngừng hoạt động do quá tải máy chủ.", "Mô hình tạo ra thông tin trông có vẻ thuyết phục và hợp lý nhưng thực chất là sai lệch hoặc không có thật.", "Mô hình dịch ngôn ngữ này sang ngôn ngữ khác.", "Mô hình phát hiện phần mềm độc hại trong hệ thống."], correct: 1, explanation: "Hallucination là hiện tượng AI tạo sinh tạo ra các thông tin hoàn toàn sai sự thật nhưng được trình bày một cách rất tự tin và logic." },
-            { id: 5, text: "Kỹ thuật \"Few-shot Prompting\" được hiểu là gì?", options: ["Cung cấp cho AI một yêu cầu ngắn gọn không kèm ví dụ.", "Cung cấp cho AI một vài ví dụ minh họa cụ thể về định dạng hoặc nội dung mong muốn trước khi đưa ra yêu cầu chính.", "Chạy mô hình AI nhiều lần liên tiếp để chọn kết quả tốt nhất.", "Sử dụng hình ảnh thay cho văn bản để ra lệnh cho AI."], correct: 1, explanation: "Few-shot Prompting là kỹ thuật cung cấp một vài ví dụ (shots) trong prompt để giúp mô hình hiểu rõ ngữ cảnh và định dạng đầu ra mong muốn." },
+            { id: 3, text: "Thuật ngữ \\"Prompt\\" trong ngữ cảnh sử dụng Generative AI có nghĩa là gì?", options: ["Một đoạn mã lập trình hệ thống.", "Câu lệnh, hướng dẫn hoặc yêu cầu bằng văn bản/hình ảnh mà người dùng cung cấp để AI tạo ra nội dung mong muốn.", "Thời gian phản hồi của hệ thống AI.", "Quá trình kiểm thử lỗi của mô hình."], correct: 1, explanation: "Prompt (Lời nhắc) là đầu vào (văn bản, câu hỏi, hình ảnh) mà người dùng nhập vào để hướng dẫn mô hình AI tạo ra kết quả đầu ra tương ứng." },
+            { id: 4, text: "Hiện tượng \\"Hallucination\\" (Ảo tưởng/Ảo giác) ở các mô hình Generative AI xảy ra khi nào?", options: ["Mô hình ngừng hoạt động do quá tải máy chủ.", "Mô hình tạo ra thông tin trông có vẻ thuyết phục và hợp lý nhưng thực chất là sai lệch hoặc không có thật.", "Mô hình dịch ngôn ngữ này sang ngôn ngữ khác.", "Mô hình phát hiện phần mềm độc hại trong hệ thống."], correct: 1, explanation: "Hallucination là hiện tượng AI tạo sinh tạo ra các thông tin hoàn toàn sai sự thật nhưng được trình bày một cách rất tự tin và logic." },
+            { id: 5, text: "Kỹ thuật \\"Few-shot Prompting\\" được hiểu là gì?", options: ["Cung cấp cho AI một yêu cầu ngắn gọn không kèm ví dụ.", "Cung cấp cho AI một vài ví dụ minh họa cụ thể về định dạng hoặc nội dung mong muốn trước khi đưa ra yêu cầu chính.", "Chạy mô hình AI nhiều lần liên tiếp để chọn kết quả tốt nhất.", "Sử dụng hình ảnh thay cho văn bản để ra lệnh cho AI."], correct: 1, explanation: "Few-shot Prompting là kỹ thuật cung cấp một vài ví dụ (shots) trong prompt để giúp mô hình hiểu rõ ngữ cảnh và định dạng đầu ra mong muốn." },
             { id: 6, text: "Trong các công cụ sau, công cụ nào chuyên về tạo sinh hình ảnh từ văn bản (Text-to-Image)?", options: ["ChatGPT", "Midjourney", "GitHub Copilot", "ElevenLabs"], correct: 1, explanation: "Midjourney là công cụ nổi tiếng chuyên chuyển đổi văn bản thành hình ảnh nghệ thuật chất lượng cao." },
-            { id: 7, text: "Cơ chế \"Self-Attention\" trong kiến trúc Transformer có tác dụng gì?", options: ["Giúp mô hình tự động xóa các dữ liệu trùng lặp.", "Giúp mô hình đánh giá mức độ liên quan và mối quan hệ giữa tất cả các từ trong một câu, bất kể khoảng cách giữa chúng.", "Bảo mật dữ liệu người dùng không bị rò rỉ ra ngoài.", "Tăng độ phân giải của hình ảnh đầu ra."], correct: 1, explanation: "Cơ chế Self-Attention cho phép mô hình tập trung vào các phần khác nhau của chuỗi đầu vào để hiểu rõ ngữ cảnh của từ ngữ." },
+            { id: 7, text: "Cơ chế \\"Self-Attention\\" trong kiến trúc Transformer có tác dụng gì?", options: ["Giúp mô hình tự động xóa các dữ liệu trùng lặp.", "Giúp mô hình đánh giá mức độ liên quan và mối quan hệ giữa tất cả các từ trong một câu, bất kể khoảng cách giữa chúng.", "Bảo mật dữ liệu người dùng không bị rò rỉ ra ngoài.", "Tăng độ phân giải của hình ảnh đầu ra."], correct: 1, explanation: "Cơ chế Self-Attention cho phép mô hình tập trung vào các phần khác nhau của chuỗi đầu vào để hiểu rõ ngữ cảnh của từ ngữ." },
             { id: 8, text: "Mô hình GAN (Generative Adversarial Network) bao gồm hai thành phần đối nghịch nào?", options: ["Encoder và Decoder", "Generator (Mô hình tạo sinh) và Discriminator (Mô hình phân biệt)", "Transformer và Thuật toán tìm kiếm", "Dữ liệu đầu vào và Dữ liệu đầu ra"], correct: 1, explanation: "GAN gồm Generator cố gắng tạo dữ liệu giả giống thật và Discriminator cố gắng phân biệt dữ liệu thật/giả. Sự đối nghịch này giúp cả hai cùng tiến bộ." },
-            { id: 9, text: "Mục đích chính của quá trình \"Fine-tuning\" (Tinh chỉnh) một mô hình AI là gì?", options: ["Xóa bỏ hoàn toàn mô hình cũ để làm lại từ đầu.", "Tiếp tục huấn luyện một mô hình đã được đào tạo trước (Pre-trained) trên một tập dữ liệu nhỏ, chuyên biệt để thực hiện tốt một tác vụ cụ thể.", "Giảm lượng điện năng tiêu thụ của máy chủ AI.", "Tăng tốc độ kết nối Internet của người dùng."], correct: 1, explanation: "Fine-tuning giúp tối ưu hóa một mô hình đa năng có sẵn thành một mô hình chuyên biệt cho một ngành nghề hoặc tác vụ cụ thể bằng tập dữ liệu ngách." },
-            { id: 10, text: "Trong kỷ nguyên Generative AI, rủi ro về \"Deepfake\" liên quan đến vấn đề gì?", options: ["Dữ liệu bị xóa sạch do virus máy tính.", "Việc sử dụng AI để tạo ra hình ảnh, video hoặc âm thanh giả mạo người thật một cách tinh vi nhằm mục đích lừa đảo hoặc bôi nhọ.", "Hệ thống AI từ chối trả lời câu hỏi của người dùng.", "Sự sụt giảm giá trị cổ phiếu của các công ty công nghệ."], correct: 1, explanation: "Deepfake là công nghệ sử dụng AI để thay thế khuôn mặt, giọng nói của một người trong video/hình ảnh bằng một người khác vô cùng chân thực, tiềm ẩn nguy cơ lừa đảo cao." },
+            { id: 9, text: "Mục đích chính của quá trình \\"Fine-tuning\\" (Tinh chỉnh) một mô hình AI là gì?", options: ["Xóa bỏ hoàn toàn mô hình cũ để làm lại từ đầu.", "Tiếp tục huấn luyện một mô hình đã được đào tạo trước (Pre-trained) trên một tập dữ liệu nhỏ, chuyên biệt để thực hiện tốt một tác vụ cụ thể.", "Giảm lượng điện năng tiêu thụ của máy chủ AI.", "Tăng tốc độ kết nối Internet của người dùng."], correct: 1, explanation: "Fine-tuning giúp tối ưu hóa một mô hình đa năng có sẵn thành một mô hình chuyên biệt cho một ngành nghề hoặc tác vụ cụ thể bằng tập dữ liệu ngách." },
+            { id: 10, text: "Trong kỷ nguyên Generative AI, rủi ro về \\"Deepfake\\" liên quan đến vấn đề gì?", options: ["Dữ liệu bị xóa sạch do virus máy tính.", "Việc sử dụng AI để tạo ra hình ảnh, video hoặc âm thanh giả mạo người thật một cách tinh vi nhằm mục đích lừa đảo hoặc bôi nhọ.", "Hệ thống AI từ chối trả lời câu hỏi của người dùng.", "Sự sụt giảm giá trị cổ phiếu của các công ty công nghệ."], correct: 1, explanation: "Deepfake là công nghệ sử dụng AI để thay thế khuôn mặt, giọng nói của một người trong video/hình ảnh bằng một người khác vô cùng chân thực, tiềm ẩn nguy cơ lừa đảo cao." },
             { id: 11, text: "Công cụ nào sau đây của Microsoft được tích hợp Generative AI để hỗ trợ lập trình viên viết mã nguồn?", options: ["Microsoft Word", "GitHub Copilot", "Windows Defender", "OneDrive"], correct: 1, explanation: "GitHub Copilot (thuộc Microsoft) hỗ trợ gợi ý và viết mã nguồn tự động dựa trên mô hình Codex của OpenAI." },
-            { id: 12, text: "Thuật ngữ \"Multimodal AI\" (AI đa phương thức) chỉ các mô hình có khả năng gì?", options: ["Chỉ xử lý được một loại dữ liệu văn bản duy nhất nhưng với tốc độ cực nhanh.", "Có thể hiểu và xử lý đồng thời nhiều loại dữ liệu đầu vào/đầu ra khác nhau như văn bản, hình ảnh, âm thanh, video...", "Chạy được trên nhiều hệ điều hành cùng một lúc.", "Hệ thống AI có thể kết nối với nhiều người dùng cùng lúc."], correct: 1, explanation: "Multimodal AI là mô hình có khả năng xử lý đồng thời và kết hợp nhiều dạng thông tin như nghe, nhìn, đọc, hiểu (ví dụ GPT-4o, Gemini)." },
-            { id: 13, text: "Khi sử dụng ChatGPT, thông số \"Temperature\" (nếu có thể điều chỉnh qua API) kiểm soát yếu tố nào của kết quả đầu ra?", options: ["Tốc độ tạo văn bản của mô hình.", "Độ dài tối đa của văn bản được tạo ra.", "Tính sáng tạo và mức độ ngẫu nhiên của câu trả lời.", "Độ bảo mật và quyền riêng tư của dữ liệu."], correct: 2, explanation: "Temperature kiểm soát độ ngẫu nhiên. Nhiệt độ thấp kết quả sẽ an toàn, logic và lặp lại; nhiệt độ cao kết quả sẽ sáng tạo, đa dạng nhưng dễ bị ảo tưởng hơn." },
-            { id: 14, text: "Kỹ thuật \"RAG\" (Retrieval-Augmented Generation) được sử dụng nhằm mục đích gì?", options: ["Tăng tốc độ xử lý đồ họa của GPU.", "Kết hợp mô hình AI với việc truy xuất dữ liệu từ một kho kiến thức bên ngoài đáng tin cậy để cung cấp câu trả lời chính xác và cập nhật hơn.", "Tự động dịch văn bản sang 100 ngôn ngữ khác nhau.", "Nén dung lượng file HTML để tải lên website nhanh hơn."], correct: 1, explanation: "RAG giúp hạn chế hiện tượng ảo tưởng của AI bằng cách bắt AI tra cứu thông tin từ nguồn tài liệu chuẩn được cung cấp trước khi tổng hợp câu trả lời." },
+            { id: 12, text: "Thuật ngữ \\"Multimodal AI\\" (AI đa phương thức) chỉ các mô hình có khả năng gì?", options: ["Chỉ xử lý được một loại dữ liệu văn bản duy nhất nhưng với tốc độ cực nhanh.", "Có thể hiểu và xử lý đồng thời nhiều loại dữ liệu đầu vào/đầu ra khác nhau như văn bản, hình ảnh, âm thanh, video...", "Chạy được trên nhiều hệ điều hành cùng một lúc.", "Hệ thống AI có thể kết nối với nhiều người dùng cùng lúc."], correct: 1, explanation: "Multimodal AI là mô hình có khả năng xử lý đồng thời và kết hợp nhiều dạng thông tin như nghe, nhìn, đọc, hiểu (ví dụ GPT-4o, Gemini)." },
+            { id: 13, text: "Khi sử dụng ChatGPT, thông số \\"Temperature\\" (nếu có thể điều chỉnh qua API) kiểm soát yếu tố nào của kết quả đầu ra?", options: ["Tốc độ tạo văn bản của mô hình.", "Độ dài tối đa của văn bản được tạo ra.", "Tính sáng tạo và mức độ ngẫu nhiên của câu trả lời.", "Độ bảo mật và quyền riêng tư của dữ liệu."], correct: 2, explanation: "Temperature kiểm soát độ ngẫu nhiên. Nhiệt độ thấp kết quả sẽ an toàn, logic và lặp lại; nhiệt độ cao kết quả sẽ sáng tạo, đa dạng nhưng dễ bị ảo tưởng hơn." },
+            { id: 14, text: "Kỹ thuật \\"RAG\\" (Retrieval-Augmented Generation) được sử dụng nhằm mục đích gì?", options: ["Tăng tốc độ xử lý đồ họa của GPU.", "Kết hợp mô hình AI với việc truy xuất dữ liệu từ một kho kiến thức bên ngoài đáng tin cậy để cung cấp câu trả lời chính xác và cập nhật hơn.", "Tự động dịch văn bản sang 100 ngôn ngữ khác nhau.", "Nén dung lượng file HTML để tải lên website nhanh hơn."], correct: 1, explanation: "RAG giúp hạn chế hiện tượng ảo tưởng của AI bằng cách bắt AI tra cứu thông tin từ nguồn tài liệu chuẩn được cung cấp trước khi tổng hợp câu trả lời." },
             { id: 15, text: "Đâu là một thách thức lớn về mặt pháp lý và đạo đức đối với dữ liệu huấn luyện (Training Data) của Generative AI hiện nay?", options: ["Dữ liệu quá ít không đủ để máy tính lưu trữ.", "Vấn đề vi phạm bản quyền và quyền sở hữu trí tuệ khi thu thập tác phẩm của nghệ sĩ, nhà văn mà chưa được phép.", "Dữ liệu bị lỗi phông chữ khi nạp vào hệ thống.", "Tốc độ truyền tải dữ liệu giữa các quốc gia quá chậm."], correct: 1, explanation: "Nhiều công ty AI đang đối mặt với các vụ kiện tụng do sử dụng dữ liệu có bản quyền trên internet để huấn luyện mô hình mà không xin phép hay trả phí cho tác giả." },
             { id: 16, text: "Sự khác biệt cốt lõi giữa AI truyền thống (Discriminative AI) và AI tạo sinh (Generative AI) là gì?", options: ["AI truyền thống chạy bằng điện, AI tạo sinh chạy bằng pin.", "AI truyền thống phân loại hoặc dự đoán dựa trên dữ liệu có sẵn; AI tạo sinh tạo ra dữ liệu hoàn toàn mới có cấu trúc tương tự dữ liệu huấn luyện.", "AI truyền thống chỉ dùng cho điện thoại, AI tạo sinh chỉ dùng cho máy tính.", "Không có sự khác biệt nào về mặt chức năng."], correct: 1, explanation: "AI truyền thống nhận diện, phân loại (ví dụ: đây là ảnh chó hay mèo), còn AI tạo sinh tạo ra nội dung mới hoàn toàn (ví dụ: vẽ một con mèo đang bay)." },
-            { id: 17, text: "Phương pháp học \"RLHF\" (Reinforcement Learning from Human Feedback) giúp ích gì cho các mô hình như ChatGPT?", options: ["Giúp mô hình tự động tìm kiếm mã giảm giá trên mạng.", "Căn chỉnh câu trả lời của AI sao cho an toàn, hữu ích, trung thực và phù hợp với chuẩn mực đạo đức của con người thông qua sự đánh giá của chuyên gia.", "Tăng dung lượng lưu trữ của bộ nhớ RAM.", "Giúp mô hình kết nối trực tiếp với các thiết bị gia dụng thông minh."], correct: 1, explanation: "RLHF (Học tăng cường từ phản hồi của con người) giúp tối ưu câu trả lời của AI thân thiện, chính xác và an toàn hơn dựa trên điểm số đánh giá từ con người." },
-            { id: 18, text: "Đâu là định nghĩa đúng cho kỹ thuật \"Zero-shot Prompting\"?", options: ["Yêu cầu AI thực hiện một tác vụ mà không đưa ra bất kỳ ví dụ minh họa nào trước đó.", "Xóa bỏ hoàn toàn lịch sử chat để bắt đầu phiên làm việc mới.", "Cung cấp vô số ví dụ cho AI đến khi hệ thống bị quá tải.", "Sử dụng các ký tự đặc biệt để hack hệ thống AI."], correct: 0, explanation: "Zero-shot Prompting là việc đưa ra yêu cầu trực tiếp cho AI thực hiện dựa trên kiến thức nền tảng của nó mà không mồi thêm ví dụ cụ thể nào." },
+            { id: 17, text: "Phương pháp học \\"RLHF\\" (Reinforcement Learning from Human Feedback) giúp ích gì cho các mô hình như ChatGPT?", options: ["Giúp mô hình tự động tìm kiếm mã giảm giá trên mạng.", "Căn chỉnh câu trả lời của AI sao cho an toàn, hữu ích, trung thực và phù hợp với chuẩn mực đạo đức của con người thông qua sự đánh giá của chuyên gia.", "Tăng dung lượng lưu trữ của bộ nhớ RAM.", "Giúp mô hình kết nối trực tiếp với các thiết bị gia dụng thông minh."], correct: 1, explanation: "RLHF (Học tăng cường từ phản hồi của con người) giúp tối ưu câu trả lời của AI thân thiện, chính xác và an toàn hơn dựa trên điểm số đánh giá từ con người." },
+            { id: 18, text: "Đâu là định nghĩa đúng cho kỹ thuật \\"Zero-shot Prompting\\"?", options: ["Yêu cầu AI thực hiện một tác vụ mà không đưa ra bất kỳ ví dụ minh họa nào trước đó.", "Xóa bỏ hoàn toàn lịch sử chat để bắt đầu phiên làm việc mới.", "Cung cấp vô số ví dụ cho AI đến khi hệ thống bị quá tải.", "Sử dụng các ký tự đặc biệt để hack hệ thống AI."], correct: 0, explanation: "Zero-shot Prompting là việc đưa ra yêu cầu trực tiếp cho AI thực hiện dựa trên kiến thức nền tảng của nó mà không mồi thêm ví dụ cụ thể nào." },
             { id: 19, text: "Token trong xử lý ngôn ngữ tự nhiên (NLP) của Generative AI thường được hiểu là gì?", options: ["Một đơn vị tiền tệ dùng để mua tài khoản VIP.", "Mã bảo mật dùng để đăng nhập vào ứng dụng.", "Các đoạn nhỏ của từ ngữ (có thể là một từ, một phần của từ hoặc một ký tự) mà mô hình sử dụng để đọc và xử lý văn bản.", "Thiết bị phần cứng lưu trữ khóa mã hóa."], correct: 2, explanation: "Token là đơn vị cơ bản để mô hình AI xử lý ngôn ngữ. 100 từ tiếng Anh thường tương đương khoảng 130 tokens; tiếng Việt có dấu sẽ tốn nhiều token hơn." },
             { id: 20, text: "Mô hình nào sau đây do Google phát triển, nổi tiếng với khả năng xử lý đa phương thức và có cửa sổ ngữ cảnh (Context Window) lên tới hàng triệu token?", options: ["GPT-4", "Claude 3", "Gemini", "Llama 3"], correct: 2, explanation: "Gemini là thế hệ mô hình AI đa phương thức tiên tiến của Google, hỗ trợ cửa sổ ngữ cảnh siêu lớn giúp phân tích được video và tài liệu dài hàng ngàn trang." },
             { id: 21, text: "Cửa sổ ngữ cảnh (Context Window) của một mô hình AI tạo sinh đại diện cho điều gì?", options: ["Kích thước khung hình hiển thị của ứng dụng trên màn hình máy tính.", "Lượng dữ liệu tối đa (tính bằng token) bao gồm cả prompt đầu vào và kết quả đầu ra mà mô hình có thể ghi nhớ và xử lý trong một phiên làm việc.", "Số lượng người dùng tối đa có thể truy cập hệ thống cùng lúc.", "Thời gian tối đa AI được phép suy nghĩ trước khi trả lời."], correct: 1, explanation: "Context Window quyết định độ dài tài liệu mà AI có thể đọc hiểu cùng một lúc. Cửa sổ càng lớn, AI càng nhớ được nhiều nội dung đã trò chuyện ở phía trên." },
-            { id: 22, text: "Trong các định dạng sau, Generative AI có thể tạo ra loại nội dung nào?", options: ["Chỉ văn bản (Text).", "Chỉ hình ảnh (Image).", "Chỉ mã lập trình (Code).", "Tất cả các định dạng trên (Văn bản, Hình ảnh, Âm thanh, Video, Mã nguồn...)."], correct: 3, explanation: "Generative AI ngày nay cực kỳ đa năng, bao phủ toàn bộ các định dạng nội dung số hóa phổ biến." },
-            { id: 23, text: "Khi viết prompt, việc cung cấp \"Context\" (Ngữ cảnh) có vai trò gì?", options: ["Làm cho câu lệnh dài hơn để tốn nhiều chi phí hơn.", "Giúp mô hình giới hạn phạm vi kiến thức, hiểu rõ vai trò và đối tượng mục tiêu để đưa ra câu trả lời chính xác, phù hợp nhất.", "Giúp máy tính chạy mát hơn.", "Tự động sửa lỗi chính tả cho người dùng."], correct: 1, explanation: "Ngữ cảnh giúp định hình câu trả lời của AI. Ví dụ: Hãy đóng vai chuyên gia kinh tế, viết cho học sinh cấp 3 hiểu... sẽ cho ra kết quả tốt hơn lệnh chung chung." },
-            { id: 24, text: "Công cụ \"Sora\" do OpenAI công bố thuộc thể loại Generative AI nào?", options: ["Text-to-Speech (Văn bản thành giọng nói)", "Text-to-Video (Văn bản thành video)", "Image-to-3D (Hình ảnh thành mô hình 3D)", "Code-to-Web (Mã nguồn thành trang web)"], correct: 1, explanation: "Sora là mô hình AI tạo sinh video từ văn bản vô cùng chân thực và có tính nhất quán cao về mặt không gian, vật lý." },
-            { id: 25, text: "Rủi ro \"Data Leakage\" (Rò rỉ dữ liệu) khi nhân viên sử dụng các công cụ AI công cộng là gì?", options: ["Máy tính bị mất điện đột ngột.", "Thông tin bảo mật, mã nguồn nội bộ hoặc dữ liệu khách hàng nhập vào prompt có thể bị lưu lại để huấn luyện mô hình và vô tình hiển thị cho người dùng khác ở tương lai.", "Màn hình máy tính hiển thị sai màu sắc.", "File kết quả tải về bị nhiễm virus."], correct: 1, explanation: "Các công cụ AI miễn phí thường dùng dữ liệu chat của người dùng để tái huấn luyện mô hình. Nếu nhập dữ liệu mật của công ty lên đó, nguy cơ rò rỉ là rất lớn." },
-            { id: 26, text: "Thuật ngữ \"Open-source AI model\" (Mô hình AI mã nguồn mở) nghĩa là gì?", options: ["Mô hình bắt buộc phải trả phí rất cao mới được sử dụng.", "Mô hình mà nhà phát triển công khai toàn bộ cấu trúc, trọng số (weights) để cộng đồng có thể tự do tải về, tùy chỉnh và chạy trên hạ tầng riêng.", "Mô hình chỉ chạy được trên hệ điều hành Linux.", "Mô hình không cần kết nối mạng vẫn sử dụng được."], correct: 1, explanation: "Mô hình mã nguồn mở (như Llama của Meta, Mistral) cho phép các lập trình viên tải về toàn bộ mã nguồn để tự phát triển và bảo mật dữ liệu riêng." },
+            { id: 22, text: "In các định dạng sau, Generative AI có thể tạo ra loại nội dung nào?", options: ["Chỉ văn bản (Text).", "Chỉ hình ảnh (Image).", "Chỉ mã lập trình (Code).", "Tất cả các định dạng trên (Văn bản, Hình ảnh, Âm thanh, Video, Mã nguồn...)."], correct: 3, explanation: "Generative AI ngày nay cực kỳ đa năng, bao phủ toàn bộ các định dạng nội dung số hóa phổ biến." },
+            { id: 23, text: "Khi viết prompt, việc cung cấp \\"Context\\" (Ngữ cảnh) có vai trò gì?", options: ["Làm cho câu lệnh dài hơn để tốn nhiều chi phí hơn.", "Giúp mô hình giới hạn phạm vi kiến thức, hiểu rõ vai trò và đối tượng mục tiêu để đưa ra câu trả lời chính xác, phù hợp nhất.", "Giúp máy tính chạy mát hơn.", "Tự động sửa lỗi chính tả cho người dùng."], correct: 1, explanation: "Ngữ cảnh giúp định hình câu trả lời của AI. Ví dụ: Hãy đóng vai chuyên gia kinh tế, viết cho học sinh cấp 3 hiểu... sẽ cho ra kết quả tốt hơn lệnh chung chung." },
+            { id: 24, text: "Công cụ \\"Sora\\" do OpenAI công bố thuộc thể loại Generative AI nào?", options: ["Text-to-Speech (Văn bản thành giọng nói)", "Text-to-Video (Văn bản thành video)", "Image-to-3D (Hình ảnh thành mô hình 3D)", "Code-to-Web (Mã nguồn thành trang web)"], correct: 1, explanation: "Sora là mô hình AI tạo sinh video từ văn bản vô cùng chân thực và có tính nhất quán cao về mặt không gian, vật lý." },
+            { id: 25, text: "Rủi ro \\"Data Leakage\\" (Rò rỉ dữ liệu) khi nhân viên sử dụng các công cụ AI công cộng là gì?", options: ["Máy tính bị mất điện đột ngột.", "Thông tin bảo mật, mã nguồn nội bộ hoặc dữ liệu khách hàng nhập vào prompt có thể bị lưu lại để huấn luyện mô hình và vô tình hiển thị cho người dùng khác ở tương lai.", "Màn hình máy tính hiển thị sai màu sắc.", "File kết quả tải về bị nhiễm virus."], correct: 1, explanation: "Các công cụ AI miễn phí thường dùng dữ liệu chat của người dùng để tái huấn luyện mô hình. Nếu nhập dữ liệu mật của công ty lên đó, nguy cơ rò rỉ là rất lớn." },
+            { id: 26, text: "Thuật ngữ \\"Open-source AI model\\" (Mô hình AI mã nguồn mở) nghĩa là gì?", options: ["Mô hình bắt buộc phải trả phí rất cao mới được sử dụng.", "Mô hình mà nhà phát triển công khai toàn bộ cấu trúc, trọng số (weights) để cộng đồng có thể tự do tải về, tùy chỉnh và chạy trên hạ tầng riêng.", "Mô hình chỉ chạy được trên hệ điều hành Linux.", "Mô hình không cần kết nối mạng vẫn sử dụng được."], correct: 1, explanation: "Mô hình mã nguồn mở (như Llama của Meta, Mistral) cho phép các lập trình viên tải về toàn bộ mã nguồn để tự phát triển và bảo mật dữ liệu riêng." },
             { id: 27, text: "Đâu là một ví dụ về ứng dụng của Generative AI trong lĩnh vực y tế?", options: ["Thay thế hoàn toàn bác sĩ để phẫu thuật từ xa.", "Tự động hóa việc dọn dẹp phòng bệnh.", "Hỗ trợ thiết kế, sáng tạo ra các cấu trúc phân tử protein mới giúp đẩy nhanh quá trình tìm kiếm và bào chế thuốc chữa bệnh.", "Tăng tốc độ hiển thị của máy chụp X-quang."], correct: 2, explanation: "AI tạo sinh có khả năng mô phỏng và tạo ra các chuỗi protein, cấu trúc hóa học mới chưa từng có, hỗ trợ đắc lực cho ngành dược phẩm." },
-            { id: 28, text: "Kỹ thuật \"Chain-of-Thought Prompting\" giúp cải thiện khả năng nào của mô hình AI?", options: ["Khả năng tạo ra các bài thơ hay hơn.", "Khả năng tư vấn tâm lý khách hàng.", "Khả năng lập luận logic, giải toán hoặc xử lý các bài toán phức tạp bằng cách yêu cầu AI giải thích từng bước một trước khi đưa ra đáp án cuối cùng.", "Khả năng tăng tốc độ kết xuất đồ họa hình ảnh."], correct: 2, explanation: "Chain-of-Thought (Chuỗi suy nghĩ) kích hoạt khả năng suy luận từng bước của AI bằng cách chèn cụm từ lệnh \"Hãy suy nghĩ từng bước một\"." },
-            { id: 29, text: "Tại sao việc xác thực lại thông tin (Fact-checking) từ kết quả của Generative AI lại cực kỳ quan trọng trước khi xuất bản?", options: ["Kiểm tra lỗi bản quyền nếu thông tin bị trùng lặp.", "Vì các mô hình AI không thực sự \"hiểu\" sự thật, chúng chỉ dự đoán từ tiếp theo dựa trên xác suất toán học nên hoàn toàn có thể tạo ra thông tin sai lệch rất tự tin.", "Vì luật pháp cấm sử dụng trực tiếp câu chữ của AI.", "Vì văn bản của AI có chứa mã độc ẩn."], correct: 1, explanation: "Bản chất của LLM là mô hình xác suất từ ngữ, không phải bộ máy tra cứu sự thật tuyệt đối, nên việc kiểm tra lại thông tin là bắt buộc đối với người dùng chuyên nghiệp." },
+            { id: 28, text: "Kỹ thuật \\"Chain-of-Thought Prompting\\" giúp cải thiện khả năng nào của mô hình AI?", options: ["Khả năng tạo ra các bài thơ hay hơn.", "Khả năng tư vấn tâm lý khách hàng.", "Khả năng lập luận logic, giải toán hoặc xử lý các bài toán phức tạp bằng cách yêu cầu AI giải thích từng bước một trước khi đưa ra đáp án cuối cùng.", "Khả năng tăng tốc độ kết xuất đồ họa hình ảnh."], correct: 2, explanation: "Chain-of-Thought (Chuỗi suy nghĩ) kích hoạt khả năng suy luận từng bước của AI bằng cách chèn cụm từ lệnh \\"Hãy suy nghĩ từng bước một\\"." },
+            { id: 29, text: "Tại sao việc xác thực lại thông tin (Fact-checking) từ kết quả của Generative AI lại cực kỳ quan trọng trước khi xuất bản?", options: ["Kiểm tra lỗi bản quyền nếu thông tin bị trùng lặp.", "Vì các mô hình AI không thực sự \\"hiểu\\" sự thật, chúng chỉ dự đoán từ tiếp theo dựa trên xác suất toán học nên hoàn toàn có thể tạo ra thông tin sai lệch rất tự tin.", "Vì luật pháp cấm sử dụng trực tiếp câu chữ của AI.", "Vì văn bản của AI có chứa mã độc ẩn."], correct: 1, explanation: "Bản chất của LLM là mô hình xác suất từ ngữ, không phải bộ máy tra cứu sự thật tuyệt đối, nên việc kiểm tra lại thông tin là bắt buộc đối với người dùng chuyên nghiệp." },
             { id: 30, text: "Đâu là hành vi sử dụng Generative AI có trách nhiệm và đạo đức?", options: ["Dùng AI viết toàn bộ luận văn tốt nghiệp và cam đoan tự viết.", "Sử dụng AI như một công cụ hỗ trợ tìm kiếm ý tưởng, lập dàn ý, tối ưu mã nguồn và luôn ghi rõ nguồn hoặc có sự kiểm soát, chỉnh sửa từ con người.", "Dùng AI để tạo hàng loạt bài viết giả mạo nhằm hạ uy tín đối thủ cạnh tranh.", "Sao chép tác phẩm nghệ thuật của người khác bắt AI vẽ lại giống hệt để bán."], correct: 1, explanation: "Sử dụng AI có đạo đức là coi AI là trợ lý đồng hành, tăng hiệu suất công việc và chịu trách nhiệm cuối cùng về nội dung sản phẩm do mình tạo ra." }
         ];
 
-        let currentQuestion = 0;
-        let scoreCorrect = 0;
-        let scoreIncorrect = 0;
-        const userAnswers = new Array(questions.length).fill(null);
-        let selectedOptionIndex = null;
+        var currentQuestion = 0;
+        var scoreCorrect = 0;
+        var scoreIncorrect = 0;
+        var userAnswers = new Array(questions.length).fill(null);
+        var selectedOptionIndex = null;
 
         function createNavigationButtons() {
-            const navGrid = document.getElementById('nav-grid');
+            var navGrid = document.getElementById('nav-grid');
             navGrid.innerHTML = '';
-            for (let i = 0; i < questions.length; i++) {
-                const btn = document.createElement('div');
+            for (var i = 0; i < questions.length; i++) {
+                var btn = document.createElement('div');
                 btn.className = 'nav-item';
                 btn.textContent = i + 1;
                 btn.id = 'nav-item-' + i;
@@ -429,22 +431,22 @@ export default {
         }
 
         function updateQuestion() {
-            const currentQ = questions[currentQuestion];
+            var currentQ = questions[currentQuestion];
             document.getElementById('q-num').textContent = currentQuestion + 1;
             document.getElementById('question-text').textContent = currentQ.text;
 
-            const optionsContainer = document.getElementById('options-container');
+            var optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
             selectedOptionIndex = null;
 
-            const status = userAnswers[currentQuestion];
+            var status = userAnswers[currentQuestion];
 
-            currentQ.options.forEach((option, index) => {
-                const optDiv = document.createElement('div');
+            currentQ.options.forEach(function(option, index) {
+                var optDiv = document.createElement('div');
                 optDiv.className = 'option';
                 optDiv.id = 'option-' + index;
                 
-                const labelText = String.fromCharCode(65 + index);
+                var labelText = String.fromCharCode(65 + index);
                 optDiv.innerHTML = '<div class="option-label">' + labelText + '</div><div class="option-text">' + option + '</div>';
 
                 if (status === null) {
@@ -461,12 +463,12 @@ export default {
                 optionsContainer.appendChild(optDiv);
             });
 
-            const answerKey = document.getElementById('answer-key');
+            var answerKey = document.getElementById('answer-key');
             if (status !== null) {
                 answerKey.classList.add('show');
                 document.getElementById('explanation-text').textContent = currentQ.explanation;
-                const resultIcon = document.getElementById('result-icon');
-                const resultText = document.getElementById('result-text');
+                var resultIcon = document.getElementById('result-icon');
+                var resultText = document.getElementById('result-text');
                 
                 if (status === 1) {
                     resultIcon.textContent = '✅';
@@ -488,8 +490,8 @@ export default {
             document.getElementById('btn-prev').disabled = (currentQuestion === 0);
             document.getElementById('btn-next').disabled = (currentQuestion === questions.length - 1);
 
-            for (let i = 0; i < questions.length; i++) {
-                const navItem = document.getElementById('nav-item-' + i);
+            for (var i = 0; i < questions.length; i++) {
+                var navItem = document.getElementById('nav-item-' + i);
                 if (navItem) {
                     navItem.classList.remove('current', 'answered', 'correct', 'incorrect');
                     if (i === currentQuestion) {
@@ -502,7 +504,7 @@ export default {
                 }
             }
 
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            var progress = ((currentQuestion + 1) / questions.length) * 100;
             document.getElementById('progress-bar').style.width = progress + '%';
             
             updateStats();
@@ -512,8 +514,8 @@ export default {
             if (userAnswers[currentQuestion] !== null) return;
 
             selectedOptionIndex = index;
-            const options = document.querySelectorAll('.options-container .option');
-            options.forEach((opt, idx) => {
+            var options = document.querySelectorAll('.options-container .option');
+            options.forEach(function(opt, idx) {
                 if (idx === index) {
                     opt.classList.add('selected');
                 } else {
@@ -528,7 +530,7 @@ export default {
                 return;
             }
 
-            const currentQ = questions[currentQuestion];
+            var currentQ = questions[currentQuestion];
             currentQ.userChoice = selectedOptionIndex;
 
             if (selectedOptionIndex === currentQ.correct) {
@@ -543,7 +545,7 @@ export default {
         }
 
         function changeQuestion(direction) {
-            const nextQ = currentQuestion + direction;
+            var nextQ = currentQuestion + direction;
             if (nextQ >= 0 && nextQ < questions.length) {
                 currentQuestion = nextQ;
                 updateQuestion();
@@ -559,10 +561,10 @@ export default {
             document.getElementById('score-correct').textContent = scoreCorrect;
             document.getElementById('score-incorrect').textContent = scoreIncorrect;
 
-            const answeredCount = userAnswers.filter(function(ans) { return ans !== null; }).length;
+            var answeredCount = userAnswers.filter(function(ans) { return ans !== null; }).length;
             document.getElementById('stat-answered').textContent = answeredCount + '/' + questions.length;
 
-            const accuracy = answeredCount === 0 ? 0 : Math.round((scoreCorrect / answeredCount) * 100);
+            var accuracy = answeredCount === 0 ? 0 : Math.round((scoreCorrect / answeredCount) * 100);
             document.getElementById('stat-accuracy').textContent = accuracy + '%';
         }
 
@@ -570,7 +572,7 @@ export default {
             createNavigationButtons();
             updateQuestion();
 
-            document.addEventListener('keydown', (e) => {
+            document.addEventListener('keydown', function(e) {
                 if (e.key === 'ArrowLeft') {
                     if (currentQuestion > 0) { currentQuestion--; updateQuestion(); }
                 } else if (e.key === 'ArrowRight') {
@@ -593,5 +595,6 @@ export default {
     </script>
 </body>
 </html>`;
+    return htmlContent + scriptContent;
   }
 };
