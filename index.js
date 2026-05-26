@@ -8,8 +8,15 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
-    const webPaths = ["/", "/index.html", "/courses", "/library", "/login"];
+    
+    // Bước 1: Thêm đường dẫn vào danh sách cho phép
+    const webPaths = ["/", "/index.html", "/courses", "/library", "/login", "/generative-ai"];
     if (!webPaths.includes(path)) return fetch(request);
+
+    // Bước 2: Nếu là trang trắc nghiệm, trả về HTML độc lập luôn, không qua layout chung
+    if (path === "/generative-ai") {
+        return new Response(this.getGenerativeAIUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+    }
 
     let studentData = "";
     try {
@@ -114,7 +121,7 @@ export default {
             wheel.style.transform = 'rotate(' + deg + 'deg)';
             setTimeout(() => { alert('Chúc mừng ' + name + '! MOS360 sẽ liên hệ ưu đãi qua SĐT ' + phone); }, 4500);
         }
-      </script>`;
+      <\/script>`;
   },
 
   getCoursesUI() {
@@ -165,14 +172,14 @@ export default {
                     document.getElementById('discount-note').innerText = note;
                 });
             });
-        </script>
+        <\/script>
     </div>`;
   },
 
   layout(content) {
     return `<!DOCTYPE html><html><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${CONFIG.TITLE}</title>
+    <title>\${CONFIG.TITLE}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
@@ -225,10 +232,14 @@ export default {
     </style>
     </head><body>
     <header>
-        <a href="/" class="brand"><img src="${CONFIG.LOGO_URL}"> MOS360</a>
+        <a href="/" class="brand"><img src="\${CONFIG.LOGO_URL}"> MOS360</a>
         <nav><a href="/">TRANG CHỦ</a><a href="/courses">KHÓA HỌC</a><a href="/library">KHO MOS</a><a href="/login" style="color:var(--primary)">ĐĂNG NHẬP</a></nav>
     </header>
-    <main>${content}</main>
+    <nav style="background: rgba(255,255,255,0.03); padding: 5px 5%; font-size: 0.8rem; border-bottom: 1px solid var(--border); display:flex; gap:15px;">
+        <span style="color:#666;">🎯 Thử thách mới:</span>
+        <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold; margin:0;">[HOT] Trắc nghiệm Generative AI ✨</a>
+    </nav>
+    <main>\${content}</main>
     <footer>
         <div class="footer-grid">
             <div><h2 style="color:var(--primary)">MOS360.VN</h2><p>📍 Số 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p><p>📞 Hotline: 0912.888.360</p></div>
@@ -242,5 +253,12 @@ export default {
   },
 
   getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto; text-align:center;"><h2>Đăng Nhập</h2><input type="password" placeholder="Mật khẩu" style="width:100%; padding:15px; margin:20px 0; background:#000; border:1px solid #333; color:#fff; border-radius:10px;"><button class="btn-action">VÀO HỆ THỐNG</button></div>`; },
-  getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Tài Liệu MOS</h2><p>Nội dung đang được cập nhật...</p></div>`; }
+  getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Tài Liệu MOS</h2><p>Nội dung đang được cập nhật...</p></div>`; },
+  
+  // Bước 3: Hàm trả về giao diện Trắc nghiệm độc lập
+  getGenerativeAIUI() {
+    return `
+    XÓA DÒNG CHỮ NÀY VÀ DÁN TOÀN BỘ NỘI DUNG TRONG FILE "Generative AI.html" CỦA BẠN VÀO ĐÂY
+    `;
+  }
 };
