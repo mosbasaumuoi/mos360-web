@@ -9,11 +9,11 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
     
-    // Thêm đường dẫn /generative-ai vào danh sách được cho phép xử lý
+    // Bước 1: Thêm đường dẫn vào danh sách cho phép
     const webPaths = ["/", "/index.html", "/courses", "/library", "/login", "/generative-ai"];
     if (!webPaths.includes(path)) return fetch(request);
 
-    // Trả về giao diện trắc nghiệm độc lập khi người dùng vào link mos360.vn/generative-ai
+    // Bước 2: Nếu là trang trắc nghiệm, trả về HTML độc lập luôn, không qua layout chung
     if (path === "/generative-ai") {
         return new Response(this.getGenerativeAIUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
     }
@@ -252,4 +252,13 @@ export default {
     </body></html>`;
   },
 
-  getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto; text-align:center;"><h2>Đăng Nhập</h2><input type="password" placeholder="Mật khẩu" style="width:100%; padding:15px; margin:20px 0; background:#000; border:1px solid #333; color
+  getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto; text-align:center;"><h2>Đăng Nhập</h2><input type="password" placeholder="Mật khẩu" style="width:100%; padding:15px; margin:20px 0; background:#000; border:1px solid #333; color:#fff; border-radius:10px;"><button class="btn-action">VÀO HỆ THỐNG</button></div>`; },
+  getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Tài Liệu MOS</h2><p>Nội dung đang được cập nhật...</p></div>`; },
+  
+  // Bước 3: Hàm trả về giao diện Trắc nghiệm độc lập
+  getGenerativeAIUI() {
+    return `
+    XÓA DÒNG CHỮ NÀY VÀ DÁN TOÀN BỘ NỘI DUNG TRONG FILE "Generative AI.html" CỦA BẠN VÀO ĐÂY
+    `;
+  }
+};
