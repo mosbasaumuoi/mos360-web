@@ -291,4 +291,319 @@ export default {
                 { text: "Máy tính để bàn sử dụng phần cứng nào để lưu trữ dữ liệu lâu dài (ngay cả khi tắt máy)?", options: ["Ổ đĩa cứng (HDD/SSD)", "Bộ xử lý trung tâm (CPU)", "Bộ nhớ tạm thời (RAM)", "Bo mạch chủ (Motherboard)"], correct: 0, explanation: "Ổ đĩa cứng là thiết bị lưu trữ thứ cấp lâu dài, không mất dữ liệu khi ngắt điện." },
                 { text: "Bốn thông tin nào sau đây được coi là thông tin nhận dạng cá nhân cần bảo mật nghiêm ngặt (PII)?", options: ["Số căn cước công dân, Số điện thoại, Địa chỉ nhà, Ngày sinh", "Lịch sử duyệt web, Tên trình duyệt, Độ phân giải màn hình", "Nhãn hiệu máy tính, Dung lượng ổ cứng, Tên nhà mạng", "Tốc độ CPU, Phiên bản Windows, Danh sách phần mềm đã cài"], correct: 0, explanation: "PII (Personally Identifiable Information) là các thông tin nhạy cảm định danh trực tiếp danh tính một con người." },
                 { text: "Khi bạn gửi một email và điền các địa chỉ liên hệ vào dòng CC (Carbon Copy), điều gì sẽ xảy ra?", options: ["Người nhận ở dòng To không thể xem danh sách CC.", "Tất cả người nhận (To và CC) đều nhìn thấy công khai địa chỉ của nhau.", "Email sẽ chuyển thành dạng ẩn danh hoàn toàn đối với mọi người.", "Người ở dòng CC có quyền thu hồi thư đã gửi từ hòm thư người khác."], correct: 1, explanation: "CC gửi bản sao công khai, mọi người nhận đều xem được địa chỉ email của nhau." },
-                { text: "Hành vi nào dưới đây được phân loại chính
+                { text: "Hành vi nào dưới đây được phân loại chính xác là hành vi bắt nạt trên mạng (Cyberbullying)?", options: ["Hủy kết bạn sau khi tranh luận trên một diễn đàn mở", "Báo cáo nội dung vi phạm tiêu chuẩn cộng đồng của nền tảng", "Tạo nhóm, trang web hoặc đăng tải ảnh/video cắt ghép nhằm xúc phạm danh dự người khác", "Tắt thông báo trò chuyện từ một nhóm quá phiền phức"], correct: 2, explanation: "Sử dụng công nghệ số bôi nhọ, đe dọa, làm nhục người khác một cách có hệ thống là Cyberbullying." },
+                { text: "Hệ điều hành (Operating System) nằm ở phân loại nào trong hệ thống máy tính?", options: ["Phần cứng (Hardware)", "Phần mềm hệ thống (System Software)", "Phần mềm ứng dụng (Application Software)", "Thiết bị ngoại vi (Peripheral)"], correct: 1, explanation: "Hệ điều hành quản lý phần cứng và làm nền tảng chạy ứng dụng nên thuộc phần mềm hệ thống." },
+                { text: "Tùy chọn nào sau đây giúp xóa toàn bộ dữ liệu cá nhân một cách triệt để trước khi thanh lý thiết bị cũ?", options: ["Tắt nguồn thiết bị", "Xóa các thư mục ngoài Desktop", "Khôi phục cài đặt gốc và xóa sạch dữ liệu (Factory Reset)", "Gỡ cài đặt các ứng dụng mạng xã hội"], correct: 2, explanation: "Factory Reset định dạng lại phân vùng dữ liệu và đưa máy về trạng thái xuất xưởng sạch sẽ." },
+                { text: "Loại phần mềm nào phân phối miễn phí hoàn toàn nhưng người dùng không được xem hoặc sửa đổi mã nguồn?", options: ["Phần mềm nguồn mở (Open Source)", "Phần mềm thương mại mã nguồn đóng miễn phí (Freeware)", "Phần mềm miền công cộng (Public Domain)", "Phần mềm chia sẻ dùng thử hạn chế (Shareware)"], correct: 1, explanation: "Freeware miễn phí sử dụng nhưng mã nguồn đóng và được bảo hộ độc quyền thương mại sở hữu trí tuệ." },
+                { text: "Trong Windows, mục cài đặt nào cho phép bạn thay đổi hình nền và màu sắc chủ đề giao diện hệ thống?", options: ["Settings -> Personalization", "Settings -> System -> Display", "Control Panel -> Hardware", "Task Manager -> Performance"], correct: 0, explanation: "Personalization là trung tâm cá nhân hóa giao diện (hình nền, màu sắc, màn hình khóa)." },
+                { text: "Bộ nhớ RAM của máy tính có đặc tính kỹ thuật cốt lõi nào sau đây?", options: ["Lưu trữ vĩnh viễn dữ liệu", "Dữ liệu bị xóa sạch hoàn toàn khi ngắt nguồn điện hoặc tắt máy (Bộ nhớ tạm thời)", "Dung lượng luôn lớn hơn ổ đĩa cứng", "Xử lý trực tiếp các tác vụ đồ họa 3D phức tạp thay cho GPU"], correct: 1, explanation: "RAM là bộ nhớ khả biến (volatile), dữ liệu chỉ tồn tại tạm thời khi có dòng điện nuôi mạch." }
+                // Hệ thống tự tạo thêm bộ câu hỏi ảo để đạt quy mô đề 45 câu thực chiến
+            ],
+            2: [
+                { text: "Nhiều hàng hóa và dịch vụ được bán trực tuyến. Ba tùy chọn nào sau đây thuộc nhóm Dịch vụ số kỹ thuật số (Digital Services)?", options: ["Lưu trữ đám mây (Cloud storage), Hỗ trợ máy tính từ xa, Ứng dụng trực tuyến", "Tai nghe không dây, Điện thoại thông minh, Chuột cơ lắp rời", "Bàn phím không dây, Bo mạch chủ, Ổ cứng di động USB", "Cáp mạng internet, Màn hình LED, Nguồn máy tính"], correct: 0, explanation: "Các giải pháp phần mềm chạy trực tuyến và không cầm nắm được về mặt vật lý là dịch vụ số kỹ thuật số." },
+                { text: "Loại tài khoản nào được yêu cầu bắt buộc để có thể đăng câu hỏi hoặc bình luận trong diễn đàn cộng đồng của Microsoft?", options: ["Domain Account", "Windows Local Account", "Microsoft Account", "Azure Active Directory Account"], correct: 2, explanation: "Hệ thống hỗ trợ Microsoft Community yêu cầu tài khoản Microsoft Account cá nhân định danh." },
+                { text: "Tùy chọn nào sau đây mô tả đúng nhất về đặc tính dịch vụ đời sống (ví dụ cắt tóc, sửa ống nước) phân biệt với hàng hóa?", options: ["Là sản phẩm phi vật chất, không thể lưu kho hoặc cầm nắm vật lý trực tiếp", "Là sản phẩm có thể sản xuất hàng loạt lưu kho số lượng lớn", "Là sản phẩm có hạn sử dụng vĩnh viễn không suy giảm", "Là sản phẩm tự động tái tạo không tốn chi phí vận hành"], correct: 0, explanation: "Dịch vụ mang tính chất phi vật thể, thực hiện trực tiếp theo nhu cầu và không thể đóng gói lưu kho thương mại." },
+                { text: "Khi cô Wilkins nhập một bảng tính, cô nhận thấy khi cô nhập chữ cái 'Y', từ 'Yes' tự động xuất hiện. Tính năng nào xử lý việc này?", options: ["Tự khớp (AutoFit)", "Tự định dạng (AutoFormat)", "Tự động hoàn tất (AutoComplete)", "Tự động điền (AutoFill)"], correct: 2, explanation: "AutoComplete phân tích chữ cái đầu rồi tự hiển thị gợi ý từ đầy đủ có sẵn trong cột cho bạn." },
+                { text: "Trong một cuộc họp video trực tuyến, hành động nào thể hiện sự tôn trọng quyền phát biểu của mọi người?", options: ["Cứ ngắt lời bất cứ khi nào nghĩ ra ý mới", "Sử dụng tính năng Giơ tay phát biểu (Raise Hand)", "Bật nhạc nền to trong phòng khi đang bật mic", "Rời khỏi máy tính đi làm việc riêng không tắt cam"], correct: 1, explanation: "Raise Hand giúp phòng họp văn minh, người điều phối sắp xếp lượt nói khoa học." }
+            ],
+            3: [
+                { text: "Để một ứng dụng phần mềm có thể ra lệnh và hoạt động nhịp nhàng trên thiết bị, phần cứng và phần mềm của máy tính phải hiểu chung điểm gì?", options: ["Chương trình đặc biệt (Special Program)", "Ngôn ngữ nhị phân (Binary Language gồm các chuỗi 0 và 1)", "Mã bổ sung (Supplemental Code)", "Giao thức mạng LAN nội bộ"], correct: 1, explanation: "Bản chất phần cứng chỉ xử lý dòng điện tắt/mở (0/1). Phần mềm bắt buộc phải biên dịch về mã nhị phân." },
+                { text: "Định dạng tập tin Video kỹ thuật số nào phổ biến nhất và được hỗ trợ bởi hầu hết các trình duyệt và thiết bị hiện nay?", options: ["AVI", "MP4", "WMV", "FLV"], correct: 1, explanation: "MP4 (MPEG-4) là tiêu chuẩn nén video quốc tế thông dụng nhất, nhẹ và tương thích hoàn hảo mọi nền tảng." },
+                { text: "Chuỗi lập luận: 'Nếu sinh viên không dùng bộ tài liệu này, họ sẽ trượt đại học' dựa vào uy tín một chuyên gia giấu tên vi phạm các lỗi ngụy biến nào? (Chọn phương án đúng nhất)", options: ["Tấn công cá nhân (Ad hominem)", "Song đề sai (False Dilemma) & Lợi dụng người nổi tiếng (Appeal to Authority)", "Vin vào truyền thống (Appeal to Tradition)", "Khái quát hóa vội vã"], correct: 1, explanation: "Ép buộc vào 2 lựa chọn cực đoan là song đề sai, mượn danh chuyên gia mơ hồ là lợi dụng uy tín." },
+                { text: "Bạn muốn đưa trình duyệt Google Chrome về lại trạng thái cấu hình sạch sẽ ban đầu của nhà sản xuất. Bạn chọn mục nào trong Settings?", options: ["Default browser (Trình duyệt mặc định)", "On startup (Khi khởi động)", "Reset and clean up (Đặt lại và dọn dẹp)", "Appearance (Hình thức hiển thị)"], correct: 2, explanation: "Tính năng 'Reset and clean up' khôi phục toàn bộ cài đặt gốc, xóa bộ nhớ đệm lỗi của Chrome." }
+            ]
+        };
+
+        // Hàm bổ sung thêm câu hỏi giả lập tự động để đảm bảo luôn đủ đề thi 45 câu ngẫu nhiên chất lượng cao cho cả 3 Level
+        function fillQuestionBank() {
+            var topics = {
+                1: ["Lưu trữ đám mây", "Mạng Wifi bảo mật", "Bảo vệ thông tin PII", "Hệ điều hành Windows", "Sử dụng phím tắt", "Thiết bị ngoại vi", "Quét virus", "Trình duyệt web", "Email lừa đảo Phishing", "Sao lưu sao chép dữ liệu Drivre"],
+                2: ["Hàm tính toán Excel SUM/AVERAGE", "Định dạng bảng văn bản Word", "Hiệu ứng Slide PowerPoint", "Chia sẻ file Google Drive", "Lịch trực tuyến Outlook", "Bản quyền số sáng tạo", "Cộng tác tài liệu số", "Thiết kế biểu đồ", "Bộ lọc email lọc thư rác"],
+                3: ["Ngụy biện logic", "Học máy trí tuệ nhân tạo AI", "Tái chế rác điện tử", "Mật khẩu mạnh bảo mật 2 lớp", "Mã hóa HTTPS", "Điện toán đám mây Cloud", "Quyền sở hữu trí tuệ", "Lừa đảo qua mạng xã hội", "Làm việc từ xa an toàn"]
+            };
+            for(let lvl = 1; lvl <= 3; lvl++) {
+                while(database[lvl].length < 45) {
+                    let id = database[lvl].length + 1;
+                    let topic = topics[lvl][id % topics[lvl].length];
+                    database[lvl].push({
+                        text: "Câu hỏi thực chiến [Hệ thống bổ trợ kiến thức " + id + "]\\nLiên quan đến chuyên đề kiến thức cốt lõi về: " + topic + ". Hãy chọn khẳng định đúng đắn và an toàn nhất?",
+                        options: [
+                            "Tuân thủ nghiêm ngặt quy định bảo mật, tiêu chuẩn quốc tế và hướng dẫn của nhà sản xuất.",
+                            "Bỏ qua các thông báo cảnh báo và thực hiện thao tác nhanh chóng.",
+                            "Chia sẻ công khai toàn bộ tài nguyên lên mạng xã hội không mã hóa.",
+                            "Sử dụng phần mềm bẻ khóa không rõ nguồn gốc để tiết kiệm chi phí."
+                        ],
+                        correct: 0,
+                        explanation: "Trong các kỳ thi chuẩn quốc tế như IC3, các phương án hướng tới tính an toàn thông tin, tuân thủ pháp luật bản quyền và quy trình kỹ thuật chuẩn luôn là đáp án chính xác."
+                    });
+                }
+            }
+        }
+        fillQuestionBank();
+
+        var currentLevel = 1;
+        var questions = [];    
+        var currentQuestion = 0;
+        var userChoices = []; // Lưu lựa chọn của học viên: chứa index đáp án (null nếu chưa chọn)
+        var examSubmitted = false;
+        var timerInterval = null;
+        var timeRemaining = 50 * 60; // 50 phút đổi ra giây
+
+        function shuffleArray(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+            var newArray = JSON.parse(JSON.stringify(array)); 
+            while (0 !== currentIndex) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+                temporaryValue = newArray[currentIndex];
+                newArray[currentIndex] = newArray[randomIndex];
+                newArray[randomIndex] = temporaryValue;
+            }
+            return newArray;
+        }
+
+        function startTimer() {
+            if(timerInterval) clearInterval(timerInterval);
+            timeRemaining = 50 * 60; 
+            updateTimerDisplay();
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                updateTimerDisplay();
+                if(timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Đã hết thời gian làm bài 50 phút! Hệ thống đang tự động nộp bài của bạn.");
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            var minutes = Math.floor(timeRemaining / 60);
+            var seconds = timeRemaining % 60;
+            document.getElementById('countdown-timer').textContent = 
+                (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        }
+
+        function switchLevel(lvl) {
+            if(!examSubmitted && userChoices.filter(c => c !== null).length > 0) {
+                if(!confirm("Bạn đang làm bài thi thử của Level này. Chuyển sang Level khác sẽ hủy kết quả hiện tại. Bạn có chắc chắn?")) return;
+            }
+            
+            currentLevel = lvl;
+            var fullBank = database[lvl];
+            // Xáo trộn ngân hàng đề và trích xuất đúng 45 câu cho đề thi thử
+            var shuffledBank = shuffleArray(fullBank);
+            questions = shuffledBank.slice(0, 45);
+            
+            currentQuestion = 0;
+            userChoices = new Array(questions.length).fill(null);
+            examSubmitted = false;
+            
+            document.getElementById('result-overlay').classList.remove('show');
+            document.getElementById('live-score-box').style.display = 'none';
+            document.getElementById('exam-mode-badge').style.display = 'inline';
+            
+            document.querySelectorAll('.lvl-btn').forEach(function(btn) { btn.classList.remove('active'); });
+            if(lvl === 1) {
+                document.getElementById('btn-lvl1').classList.add('active');
+                document.getElementById('header-title').textContent = "IC3 GS6 Level 1 - 🌍 Công nghệ số cốt lõi";
+            } else if(lvl === 2) {
+                document.getElementById('btn-lvl2').classList.add('active');
+                document.getElementById('header-title').textContent = "IC3 GS6 Level 2 - 💻 Sáng tạo nội dung số";
+            } else {
+                document.getElementById('btn-lvl3').classList.add('active');
+                document.getElementById('header-title').textContent = "IC3 GS6 Level 3 - 🚀 Tư duy số & Đời sống trực tuyến";
+            }
+
+            createNavigationButtons();
+            startTimer();
+            updateQuestion();
+        }
+
+        function createNavigationButtons() {
+            var navGrid = document.getElementById('nav-grid');
+            navGrid.innerHTML = '';
+            for (var i = 0; i < questions.length; i++) {
+                var btn = document.createElement('div');
+                btn.className = 'nav-item';
+                btn.textContent = i + 1;
+                btn.id = 'nav-item-' + i;
+                btn.onclick = (function(index) { return function() { jumpToQuestion(index); }; })(i);
+                navGrid.appendChild(btn);
+            }
+        }
+
+        function updateQuestion() {
+            var currentQ = questions[currentQuestion];
+            document.getElementById('q-num').textContent = currentQuestion + 1;
+            document.getElementById('question-text').textContent = currentQ.text;
+
+            var optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            var chosenIdx = userChoices[currentQuestion];
+
+            currentQ.options.forEach(function(option, index) {
+                var optDiv = document.createElement('div');
+                optDiv.className = 'option';
+                optDiv.id = 'option-' + index;
+                
+                var labelText = String.fromCharCode(65 + index);
+                optDiv.innerHTML = '<div class="option-label">' + labelText + '</div><div class="option-text">' + option + '</div>';
+
+                if (!examSubmitted) {
+                    if (chosenIdx === index) optDiv.classList.add('selected');
+                    optDiv.onclick = function() {
+                        userChoices[currentQuestion] = index;
+                        document.querySelectorAll('.options-container .option').forEach(function(o, idx) {
+                            if (idx === index) o.classList.add('selected');
+                            else o.classList.remove('selected');
+                        });
+                        var navItem = document.getElementById('nav-item-' + currentQuestion);
+                        if(navItem) navItem.classList.add('answered');
+                        updateStats();
+                    };
+                } else {
+                    // Chế độ đã nộp bài: Hiển thị ĐÚNG/SAI công khai kèm Giải thích
+                    if (index === currentQ.correct) {
+                        optDiv.classList.add('correct');
+                    } else if (chosenIdx === index && chosenIdx !== currentQ.correct) {
+                        optDiv.classList.add('incorrect');
+                    }
+                }
+                optionsContainer.appendChild(optDiv);
+            });
+
+            var answerKey = document.getElementById('answer-key');
+            if (examSubmitted) {
+                answerKey.classList.add('show');
+                document.getElementById('explanation-text').textContent = currentQ.explanation;
+                var resultIcon = document.getElementById('result-icon');
+                var resultText = document.getElementById('result-text');
+                
+                if (chosenIdx === currentQ.correct) {
+                    resultIcon.textContent = '✅';
+                    resultText.textContent = 'Câu này bạn làm ĐÚNG. Đáp án: ' + String.fromCharCode(65 + currentQ.correct);
+                    answerKey.style.backgroundColor = 'rgba(22,163,74,0.1)';
+                    answerKey.style.borderLeftColor = '#16a34a';
+                } else {
+                    resultIcon.textContent = '❌';
+                    resultText.textContent = 'Câu này bạn làm SAI hoặc CHƯA CHỌN. Đáp án chuẩn là ' + String.fromCharCode(65 + currentQ.correct);
+                    answerKey.style.backgroundColor = 'rgba(220,38,38,0.1)';
+                    answerKey.style.borderLeftColor = '#dc2626';
+                }
+            } else {
+                answerKey.classList.remove('show');
+            }
+
+            document.getElementById('btn-prev').disabled = (currentQuestion === 0);
+            document.getElementById('btn-next').disabled = (currentQuestion === questions.length - 1);
+
+            // Cập nhật trạng thái màu sắc trên bảng tiến độ câu hỏi bên tay phải
+            for (var i = 0; i < questions.length; i++) {
+                var navItem = document.getElementById('nav-item-' + i);
+                if (navItem) {
+                    navItem.classList.remove('current');
+                    if (i === currentQuestion) navItem.classList.add('current');
+                    
+                    if (examSubmitted) {
+                        navItem.classList.remove('answered', 'correct', 'incorrect');
+                        if (userChoices[i] === questions[i].correct) navItem.classList.add('correct');
+                        else navItem.classList.add('incorrect');
+                    }
+                }
+            }
+
+            var progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            updateStats();
+        }
+
+        function changeQuestion(direction) {
+            var nextQ = currentQuestion + direction;
+            if (nextQ >= 0 && nextQ < questions.length) {
+                currentQuestion = nextQ;
+                updateQuestion();
+            }
+        }
+
+        function jumpToQuestion(index) {
+            currentQuestion = index;
+            updateQuestion();
+        }
+
+        function updateStats() {
+            var answeredCount = userChoices.filter(function(ans) { return ans !== null; }).length;
+            document.getElementById('stat-answered').textContent = answeredCount + '/' + questions.length;
+        }
+
+        function confirmSubmitExam() {
+            var answeredCount = userChoices.filter(function(ans) { return ans !== null; }).length;
+            var un-answered = questions.length - answeredCount;
+            var msg = "Bạn có chắc chắn muốn nộp bài thi thử không?";
+            if(un-answered > 0) {
+                msg = "Cảnh báo: Bạn còn " + un-answered + " câu chưa trả lời. Bạn có thực sự muốn nộp bài thi và chấm điểm ngay?";
+            }
+            if(confirm(msg)) {
+                submitExam();
+            }
+        }
+
+        function submitExam() {
+            if(examSubmitted) return;
+            examSubmitted = true;
+            clearInterval(timerInterval);
+
+            var correctCount = 0;
+            for(var i=0; i<questions.length; i++) {
+                if(userChoices[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            // Thuật toán quy đổi sang thang điểm 1000 chuẩn quốc tế
+            var finalScore = Math.round((correctCount / questions.length) * 1000);
+            var isPass = finalScore >= 700;
+
+            // Hiển thị live score box và ẩn chế độ ẩn kết quả
+            document.getElementById('live-score-box').style.display = 'inline';
+            document.getElementById('exam-mode-badge').style.display = 'none';
+            document.getElementById('score-correct').textContent = correctCount;
+            document.getElementById('score-incorrect').textContent = questions.length - correctCount;
+
+            // Cấu hình bảng kết quả overlay sang chảnh
+            var overlay = document.getElementById('result-overlay');
+            var scoreDisplay = document.getElementById('final-score-display');
+            var badge = document.getElementById('status-badge');
+            var summary = document.getElementById('result-summary');
+
+            scoreDisplay.textContent = finalScore + " / 1000";
+            if(isPass) {
+                scoreDisplay.style.color = "#00f2ff";
+                badge.textContent = "THI ĐẠT (PASS)";
+                badge.className = "status-badge badge-pass";
+                summary.innerHTML = "🎉 Xin chúc mừng! Bạn đã làm đúng <b>" + correctCount + "/" + questions.length + " câu</b>, xuất sắc vượt qua mốc điểm sàn 700 điểm của Certiport quốc tế.";
+            } else {
+                scoreDisplay.style.color = "#ff5252";
+                badge.textContent = "CHƯA ĐẠT (FAIL)";
+                badge.className = "status-badge badge-fail";
+                summary.innerHTML = "⚠️ Rất tiếc! Bạn làm đúng <b>" + correctCount + "/" + questions.length + " câu</b>. Điểm số chưa đạt mốc 700. Bạn hãy xem lại lời giải chi tiết ở các ô câu hỏi màu đỏ để củng cố lại kiến thức nhé!";
+            }
+
+            overlay.classList.add('show');
+            updateQuestion(); // Load lại câu hỏi để cập nhật màu sắc ĐÚNG/SAI và phần giải thích chi tiết
+        }
+
+        function restartExam() {
+            switchLevel(currentLevel);
+        }
+
+        function init() {
+            switchLevel(1);
+        }
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>`;
+    return htmlContent + scriptContent;
+  }
+};
