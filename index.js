@@ -20,7 +20,6 @@ export default {
         return new Response(this.getIC3QuizUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
     }
 
-    // Giữ nguyên tính năng Bảng Vàng cập nhật tự động từ Google Sheets của bạn
     let studentData = "";
     try {
       const resp = await fetch(CONFIG.SHEET_URL + "&v=" + Date.now());
@@ -33,7 +32,7 @@ export default {
           let finalLink = link;
           if (link.includes("drive.google.com")) {
             const imgId = link.match(/[-\w]{25,}/);
-            finalLink = "https://lh3.googleusercontent.com/d/$$" + imgId;
+            finalLink = "https://lh3.googleusercontent.com/d/" + imgId;
           }
           htmlContent += '<div class="student-item"><img src="' + finalLink + '" loading="lazy"></div>';
         }
@@ -209,7 +208,6 @@ export default {
         .progress-container { margin-bottom: 20px; background-color: #1e2333; height: 6px; border-radius: 4px; overflow: hidden; }
         .progress-bar { background: #FF5722; height: 100%; width: 0%; transition: width 0.3s ease; }
 
-        /* Kết quả Modal Xịn Xò */
         .result-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13,16,26,0.96); z-index: 100; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; display: none; }
         .result-overlay.show { display: flex; animation: fadeIn 0.4s ease-out; }
         .result-score { font-size: 64px; font-weight: 800; margin: 15px 0; letter-spacing: 1px; }
@@ -284,7 +282,6 @@ export default {
     </div>`;
 
     let scriptContent = `<script>
-        // NGÂN HÀNG ĐỀ ĐẦY ĐỦ ĐÃ ĐƯỢC MỞ RỘNG VÀ CHUYỂN ĐỔI CHUẨN XÁC TỪ FILE PDF CỦA BẠN
         var database = {
             1: [
                 { text: "[DẠNG GHÉP NỐI ĐÃ CHUYỂN ĐỔI]\\nHãy chọn cặp ghép ĐÚNG khi nói về mục đích cốt lõi của các ứng dụng phần mềm:", options: ["Phần mềm xử lý văn bản - Tính toán và hiển thị dữ liệu số dạng biểu đồ", "Ứng dụng bảng tính - Nhập, chỉnh sửa, định dạng tài liệu văn bản", "Trình duyệt web - Truy cập thông tin trên internet và thế giới trực tuyến", "Hệ thống quản lý cơ sở dữ liệu - Tạo các bài thuyết trình điện tử đa phương tiện"], correct: 2, explanation: "Trình duyệt web mục đích chính là truy cập internet. Các phương án khác đều bị đảo lộn vế sai chức năng." },
@@ -297,7 +294,6 @@ export default {
                 { text: "Loại phần mềm nào phân phối miễn phí hoàn toàn nhưng người dùng không được xem hoặc sửa đổi mã nguồn?", options: ["Phần mềm nguồn mở (Open Source)", "Phần mềm thương mại mã nguồn đóng miễn phí (Freeware)", "Phần mềm miền công cộng (Public Domain)", "Phần mềm chia sẻ dùng thử hạn chế (Shareware)"], correct: 1, explanation: "Freeware miễn phí sử dụng nhưng mã nguồn đóng và được bảo hộ độc quyền thương mại sở hữu trí tuệ." },
                 { text: "Trong Windows, mục cài đặt nào cho phép bạn thay đổi hình nền và màu sắc chủ đề giao diện hệ thống?", options: ["Settings -> Personalization", "Settings -> System -> Display", "Control Panel -> Hardware", "Task Manager -> Performance"], correct: 0, explanation: "Personalization là trung tâm cá nhân hóa giao diện (hình nền, màu sắc, màn hình khóa)." },
                 { text: "Bộ nhớ RAM của máy tính có đặc tính kỹ thuật cốt lõi nào sau đây?", options: ["Lưu trữ vĩnh viễn dữ liệu", "Dữ liệu bị xóa sạch hoàn toàn khi ngắt nguồn điện hoặc tắt máy (Bộ nhớ tạm thời)", "Dung lượng luôn lớn hơn ổ đĩa cứng", "Xử lý trực tiếp các tác vụ đồ họa 3D phức tạp thay cho GPU"], correct: 1, explanation: "RAM là bộ nhớ khả biến (volatile), dữ liệu chỉ tồn tại tạm thời khi có dòng điện nuôi mạch." }
-                // Hệ thống tự tạo thêm bộ câu hỏi ảo để đạt quy mô đề 45 câu thực chiến
             ],
             2: [
                 { text: "Nhiều hàng hóa và dịch vụ được bán trực tuyến. Ba tùy chọn nào sau đây thuộc nhóm Dịch vụ số kỹ thuật số (Digital Services)?", options: ["Lưu trữ đám mây (Cloud storage), Hỗ trợ máy tính từ xa, Ứng dụng trực tuyến", "Tai nghe không dây, Điện thoại thông minh, Chuột cơ lắp rời", "Bàn phím không dây, Bo mạch chủ, Ổ cứng di động USB", "Cáp mạng internet, Màn hình LED, Nguồn máy tính"], correct: 0, explanation: "Các giải pháp phần mềm chạy trực tuyến và không cầm nắm được về mặt vật lý là dịch vụ số kỹ thuật số." },
@@ -314,17 +310,17 @@ export default {
             ]
         };
 
-        // Hàm bổ sung thêm câu hỏi giả lập tự động để đảm bảo luôn đủ đề thi 45 câu ngẫu nhiên chất lượng cao cho cả 3 Level
         function fillQuestionBank() {
             var topics = {
-                1: ["Lưu trữ đám mây", "Mạng Wifi bảo mật", "Bảo vệ thông tin PII", "Hệ điều hành Windows", "Sử dụng phím tắt", "Thiết bị ngoại vi", "Quét virus", "Trình duyệt web", "Email lừa đảo Phishing", "Sao lưu sao chép dữ liệu Drivre"],
+                1: ["Lưu trữ đám mây", "Mạng Wifi bảo mật", "Bảo vệ thông tin PII", "Hệ điều hành Windows", "Sử dụng phím tắt", "Thiết bị ngoại vi", "Quét virus", "Trình duyệt web", "Email lừa đảo Phishing", "Sao lưu sao chép dữ liệu Drive"],
                 2: ["Hàm tính toán Excel SUM/AVERAGE", "Định dạng bảng văn bản Word", "Hiệu ứng Slide PowerPoint", "Chia sẻ file Google Drive", "Lịch trực tuyến Outlook", "Bản quyền số sáng tạo", "Cộng tác tài liệu số", "Thiết kế biểu đồ", "Bộ lọc email lọc thư rác"],
-                3: ["Ngụy biện logic", "Học máy trí tuệ nhân tạo AI", "Tái chế rác điện tử", "Mật khẩu mạnh bảo mật 2 lớp", "Mã hóa HTTPS", "Điện toán đám mây Cloud", "Quyền sở hữu trí tuệ", "Lừa đảo qua mạng xã hội", "Làm việc từ xa an toàn"]
+                3: ["Ngụy biến logic", "Học máy trí tuệ nhân tạo AI", "Tái chế rác điện tử", "Mật khẩu mạnh bảo mật 2 lớp", "Mã hóa HTTPS", "Điện toán đám mây Cloud", "Quyền sở hữu trí tuệ", "Lừa đảo qua mạng xã hội", "Làm việc từ xa an toàn"]
             };
-            for(let lvl = 1; lvl <= 3; lvl++) {
+            for(var lvl = 1; lvl <= 3; lvl++) {
+                var id = database[lvl].length;
                 while(database[lvl].length < 45) {
-                    let id = database[lvl].length + 1;
-                    let topic = topics[lvl][id % topics[lvl].length];
+                    id++;
+                    var topic = topics[lvl][id % topics[lvl].length];
                     database[lvl].push({
                         text: "Câu hỏi thực chiến [Hệ thống bổ trợ kiến thức " + id + "]\\nLiên quan đến chuyên đề kiến thức cốt lõi về: " + topic + ". Hãy chọn khẳng định đúng đắn và an toàn nhất?",
                         options: [
@@ -344,10 +340,10 @@ export default {
         var currentLevel = 1;
         var questions = [];    
         var currentQuestion = 0;
-        var userChoices = []; // Lưu lựa chọn của học viên: chứa index đáp án (null nếu chưa chọn)
+        var userChoices = []; 
         var examSubmitted = false;
         var timerInterval = null;
-        var timeRemaining = 50 * 60; // 50 phút đổi ra giây
+        var timeRemaining = 50 * 60; 
 
         function shuffleArray(array) {
             var currentIndex = array.length, temporaryValue, randomIndex;
@@ -385,13 +381,12 @@ export default {
         }
 
         function switchLevel(lvl) {
-            if(!examSubmitted && userChoices.filter(c => c !== null).length > 0) {
+            if(!examSubmitted && userChoices.filter(function(c) { return c !== null; }).length > 0) {
                 if(!confirm("Bạn đang làm bài thi thử của Level này. Chuyển sang Level khác sẽ hủy kết quả hiện tại. Bạn có chắc chắn?")) return;
             }
             
             currentLevel = lvl;
             var fullBank = database[lvl];
-            // Xáo trộn ngân hàng đề và trích xuất đúng 45 câu cho đề thi thử
             var shuffledBank = shuffleArray(fullBank);
             questions = shuffledBank.slice(0, 45);
             
@@ -463,7 +458,6 @@ export default {
                         updateStats();
                     };
                 } else {
-                    // Chế độ đã nộp bài: Hiển thị ĐÚNG/SAI công khai kèm Giải thích
                     if (index === currentQ.correct) {
                         optDiv.classList.add('correct');
                     } else if (chosenIdx === index && chosenIdx !== currentQ.correct) {
@@ -498,7 +492,6 @@ export default {
             document.getElementById('btn-prev').disabled = (currentQuestion === 0);
             document.getElementById('btn-next').disabled = (currentQuestion === questions.length - 1);
 
-            // Cập nhật trạng thái màu sắc trên bảng tiến độ câu hỏi bên tay phải
             for (var i = 0; i < questions.length; i++) {
                 var navItem = document.getElementById('nav-item-' + i);
                 if (navItem) {
@@ -538,10 +531,10 @@ export default {
 
         function confirmSubmitExam() {
             var answeredCount = userChoices.filter(function(ans) { return ans !== null; }).length;
-            var un-answered = questions.length - answeredCount;
+            var unAnswered = questions.length - answeredCount;
             var msg = "Bạn có chắc chắn muốn nộp bài thi thử không?";
-            if(un-answered > 0) {
-                msg = "Cảnh báo: Bạn còn " + un-answered + " câu chưa trả lời. Bạn có thực sự muốn nộp bài thi và chấm điểm ngay?";
+            if(unAnswered > 0) {
+                msg = "Cảnh báo: Bạn còn " + unAnswered + " câu chưa trả lời. Bạn có thực sự muốn nộp bài thi và chấm điểm ngay?";
             }
             if(confirm(msg)) {
                 submitExam();
@@ -560,17 +553,14 @@ export default {
                 }
             }
 
-            // Thuật toán quy đổi sang thang điểm 1000 chuẩn quốc tế
             var finalScore = Math.round((correctCount / questions.length) * 1000);
             var isPass = finalScore >= 700;
 
-            // Hiển thị live score box và ẩn chế độ ẩn kết quả
             document.getElementById('live-score-box').style.display = 'inline';
             document.getElementById('exam-mode-badge').style.display = 'none';
             document.getElementById('score-correct').textContent = correctCount;
             document.getElementById('score-incorrect').textContent = questions.length - correctCount;
 
-            // Cấu hình bảng kết quả overlay sang chảnh
             var overlay = document.getElementById('result-overlay');
             var scoreDisplay = document.getElementById('final-score-display');
             var badge = document.getElementById('status-badge');
@@ -590,7 +580,7 @@ export default {
             }
 
             overlay.classList.add('show');
-            updateQuestion(); // Load lại câu hỏi để cập nhật màu sắc ĐÚNG/SAI và phần giải thích chi tiết
+            updateQuestion(); 
         }
 
         function restartExam() {
