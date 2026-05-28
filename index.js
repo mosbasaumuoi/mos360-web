@@ -1,5 +1,5 @@
 const CONFIG = {
-  TITLE: "MOS360 - Luyện thi MOS 1000/1000",
+  TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
   LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
   SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv"
 };
@@ -9,11 +9,16 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
     
-    const webPaths = ["/", "/index.html", "/courses", "/library", "/login", "/generative-ai"];
+    // Bổ sung thêm route /ic3-test vào danh sách đường dẫn hợp lệ
+    const webPaths = ["/", "/index.html", "/courses", "/library", "/login", "/generative-ai", "/ic3-test"];
     if (!webPaths.includes(path)) return fetch(request);
 
     if (path === "/generative-ai") {
         return new Response(this.getGenerativeAIUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+    }
+
+    if (path === "/ic3-test") {
+        return new Response(this.getIC3QuizUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
     }
 
     let studentData = "";
@@ -45,137 +50,6 @@ export default {
     return new Response(this.layout(content), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
   },
 
-  getHomeUI(studentData) {
-    let html = `
-      <div class="stats-bar">
-          <div class="stat-item"><h2>100%</h2><p>Thi đậu ngay lần đầu</p></div>
-          <div class="stat-item"><h2>1.000+</h2><p>Học viên đã nhận chứng chỉ</p></div>
-          <div class="stat-item"><h2>500+</h2><p>Truy cập thường xuyên</p></div>
-      </div>
-
-      <div class="main-container">
-          <div class="left-col">
-              <div class="promo-box-top" style="border: 1.5px solid var(--primary); background: rgba(255,87,34,0.1); border-radius:15px; padding:15px; margin-bottom:15px;">
-                  <p style="font-size:1.1rem; line-height:1.4; text-align:center;">🔥 <b style="color:var(--primary);">Siêu ưu đãi đặc biệt trong tháng 5 !!!</b><br><span style="font-size:0.9rem; opacity:0.9;">Mua 3 khóa tính tiền 2</span><br><span style="color:#FFD700; font-weight:800; font-size:1.2rem;">Tiết kiệm 400k</span></p>
-              </div>
-              <div class="section-card wheel-card" style="text-align: center;">
-                  <h3 class="wheel-title" style="margin-bottom: 15px;">Vòng Quay May Mắn</h3>
-                  <div class="wheel-box">
-                      <div class="wheel-pointer"></div>
-                      <div class="wheel-circle idle-spin" id="main-wheel">
-                          <div class="wheel-label l1"><b>GIẢM 50K</b></div>
-                          <div class="wheel-label l2"><b>GIẢM 50%</b></div>
-                          <div class="wheel-label l3"><b>GIẢM 100K</b></div>
-                          <div class="wheel-label l4"><b>GIẢM 80%</b></div>
-                      </div>
-                      <div class="wheel-center">MOS</div>
-                  </div>
-                  <div class="wheel-inputs">
-                      <input type="text" placeholder="Họ tên của bạn" id="w-name">
-                      <input type="text" placeholder="Số điện thoại của bạn" id="w-phone">
-                  </div>
-                  <button class="btn-action" onclick="spinWheel()">QUAY NGAY</button>
-              </div>
-          </div>
-
-          <div class="right-col">
-              <div class="section-card" id="bang-vang-container">
-                  <h3 class="bv-title">🏆 Bảng Vàng Chứng Chỉ</h3>
-                  <div class="carousel-viewport">
-                      <div class="carousel-track">` + studentData + `</div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="services-grid">
-          <div class="service-card"><h4>Thi Thật 100%</h4><p class="small-desc">Hệ thống mô phỏng sát đề quốc tế.</p></div>
-          <div class="service-card ai-chat-card" style="display: flex; flex-direction: column; justify-content: center;">
-              <h4 style="color:var(--cyan); margin-bottom: 10px;">AI Assistant 24/7 ✨</h4>
-              <div class="chat-input-box">
-                  <input type="text" placeholder="Chào bạn, hỏi MOS đi..."><button style="color: white; font-family: 'Plus Jakarta Sans', sans-serif; font-weight:800;">GỬI</button>
-              </div>
-          </div>
-          <div class="service-card"><h4>Đồng hành trọn đời</h4><p class="small-desc">Hỗ trợ đề án, luận văn, tin học công sở.</p></div>
-      </div>
-
-      <div class="side-socials">
-        <a href="https://zalo.me/0912888360" target="_blank" class="s-btn"><img src="https://img.icons8.com/color/48/zalo.png"></a>
-        <a href="https://facebook.com/mos360.vn" target="_blank" class="s-btn"><img src="https://img.icons8.com/color/48/facebook-new.png"></a>
-        <a href="https://m.me/mos360.vn" target="_blank" class="s-btn"><img src="https://img.icons8.com/color/48/facebook-messenger--v1.png"></a>
-        <a href="https://youtube.com/@mos360_vn" target="_blank" class="s-btn"><img src="https://img.icons8.com/color/48/youtube-play.png"></a>
-        <a href="https://tiktok.com/@mos360.vn" target="_blank" class="s-btn" style="background:#000;"><img src="https://img.icons8.com/ios-filled/50/ffffff/tiktok--v1.png"></a>
-      </div>`;
-
-    let script = `<script>
-        function spinWheel() {
-            var name = document.getElementById('w-name').value;
-            var phone = document.getElementById('w-phone').value;
-            if(!name || !phone) { alert('Vui lòng nhập đủ thông tin!'); return; }
-            var wheel = document.getElementById('main-wheel');
-            wheel.classList.remove('idle-spin');
-            var deg = 3600 + Math.random() * 360;
-            wheel.style.transition = 'transform 4s cubic-bezier(0.1, 0, 0.1, 1)';
-            wheel.style.transform = 'rotate(' + deg + 'deg)';
-            setTimeout(function() { alert('Chúc mừng ' + name + '! MOS360 sẽ liên hệ ưu đãi qua SĐT ' + phone); }, 4500);
-        }
-    </script>`;
-    return html + script;
-  },
-
-  getCoursesUI() {
-    let html = `<div class="section-card" style="max-width:900px; margin:40px auto;">
-        <h1 style="text-align:center; color:var(--primary); margin-bottom:10px;">ĐĂNG KÝ KHÓA HỌC</h1>
-        <div style="text-align:center; margin-bottom:30px; padding:10px; border:1px solid rgba(255,87,34,0.3); border-radius:10px;">
-            <p style="color:#FFD700; font-size:1.1rem;">🔥 <b>Siêu ưu đãi đặc biệt trong tháng 5 !!!</b></p>
-            <p style="color:#888; font-size:0.9rem;">Chương trình: <b>Mua 3 khóa tính tiền 2</b></p>
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-            <div class="course-group" style="background:rgba(255,255,255,0.03); padding:20px; border-radius:20px;">
-                <h3>MOS 2019</h3>
-                <div style="margin-top:15px;">
-                  <label><input type="checkbox" class="course-cb" data-price="400000"> Word 2019 (400k)</label><br><br>
-                  <label><input type="checkbox" class="course-cb" data-price="400000"> Excel 2019 (400k)</label><br><br>
-                  <label><input type="checkbox" class="course-cb" data-price="400000"> PowerPoint 2019 (400k)</label>
-                </div>
-            </div>
-            <div class="course-group" style="background:rgba(255,255,255,0.03); padding:20px; border-radius:20px;">
-                <h3>MOS 365</h3>
-                <div style="margin-top:15px;">
-                  <label><input type="checkbox" class="course-cb" data-price="400000"> Word 365 (400k)</label><br><br>
-                  <label><input type="checkbox" class="course-cb" data-price="400000"> Excel 365 (400k)</label><br><br>
-                  <label><input type="checkbox" class="course-cb" data-price="400000"> PowerPoint 365 (400k)</label>
-                </div>
-            </div>
-        </div>
-        <div style="margin-top:30px; text-align:center; padding:25px; background:#000; border-radius:15px; border:1px solid var(--primary);">
-            <h2 id="total-price" style="color:#FFD700">Tổng thanh toán: 0đ</h2>
-            <p id="discount-note" style="color:var(--cyan); font-size:0.9rem; margin-top:5px;"></p>
-            <button class="btn-action" style="margin-top:15px; max-width:300px;">THANH TOÁN NGAY</button>
-        </div>`;
-        
-    let script = `<script>
-            document.querySelectorAll('.course-cb').forEach(function(cb) {
-                cb.addEventListener('change', function() {
-                    var prices = [];
-                    document.querySelectorAll('.course-cb:checked').forEach(function(c) { prices.push(parseInt(c.dataset.price)); });
-                    var total = 0;
-                    var note = "";
-                    if (prices.length >= 3) {
-                        prices.sort(function(a, b) { return b - a; });
-                        total = prices[0] + prices[1]; 
-                        note = "✨ Đã áp dụng ưu đãi Mua 3 tính tiền 2 (Tiết kiệm " + prices[2].toLocaleString() + "đ)";
-                    } else {
-                        total = prices.reduce(function(a, b) { return a + b; }, 0);
-                    }
-                    document.getElementById('total-price').innerText = 'Tổng thanh toán: ' + total.toLocaleString('vi-VN') + 'đ';
-                    document.getElementById('discount-note').innerText = note;
-                });
-            });
-    </script></div>`;
-    return html + script;
-  },
-
   layout(content) {
     return `<!DOCTYPE html><html><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -185,49 +59,28 @@ export default {
         :root { --primary: #FF5722; --bg: #080808; --card: #121212; --text: #fff; --border: rgba(255,255,255,0.08); --cyan: #00f2ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
-
         header { padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(8,8,8,0.9); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border); }
         .brand { display: flex; align-items: center; text-decoration: none; color: #fff; font-weight: 800; font-size: 1.2rem; }
         .brand img { height: 35px; margin-right: 10px; }
         nav a { color: #888; text-decoration: none; font-weight: 700; margin-left: 20px; font-size: 0.8rem; }
-
         .stats-bar { display: flex; justify-content: center; gap: 30px; padding: 25px; text-align: center; }
         .stat-item h2 { color: var(--primary); font-size: 2rem; }
-
         .main-container { max-width: 1400px; margin: 0 auto; padding: 0 5%; display: grid; grid-template-columns: 320px 1fr; gap: 25px; }
         .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 28px; padding: 25px; }
-
-        .wheel-box { position: relative; width: 180px; height: 180px; margin: 0 auto 20px; }
-        .wheel-circle { width: 100%; height: 100%; border-radius: 50%; border: 4px solid #FFD700; position: relative; background: conic-gradient(#ff6b6b 0 90deg, #4ecdc4 90deg 180deg, #ffbe0b 180deg 270deg, #ff006e 270deg 360deg); }
-        .idle-spin { animation: slowRotate 15s linear infinite; }
-        @keyframes slowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .wheel-center { position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; background:#fff; border-radius:50%; color:#000; font-weight:900; display:flex; align-items:center; justify-content:center; z-index:20; font-size:0.6rem; }
-        .wheel-label { position: absolute; width:100%; height:100%; display:flex; justify-content:center; align-items:flex-start; padding-top:20px; font-size:0.65rem; color:#fff; }
-        .l1{transform:rotate(45deg)} .l2{transform:rotate(135deg)} .l3{transform:rotate(225deg)} .l4{transform:rotate(315deg)}
-        .wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); border-top: 15px solid #FFD700; border-left: 8px solid transparent; border-right: 8px solid transparent; z-index: 10; }
-
         #bang-vang-container { height: 450px; overflow: hidden; }
         .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; background: rgba(0,0,0,0.4); border-radius: 20px; }
         .carousel-track { display: flex; align-items: center; gap: 20px; position: absolute; left: 0; top: 0; height: 100%; animation: scroll-left 100s linear infinite; }
         .student-item { flex: 0 0 auto; width: 320px; height: 100%; display: flex; align-items: center; justify-content: center; }
         .student-item img { max-width: 100%; max-height: 90%; object-fit: contain; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); }
         @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
         .side-socials { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
         .s-btn { width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
         .s-btn img { width: 25px; height: 25px; }
-
         .services-grid { max-width: 1400px; margin: 30px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .service-card { background: var(--card); padding: 25px; border-radius: 20px; border-left: 4px solid var(--primary); }
-        .chat-input-box { display: flex; background: #000; border-radius: 8px; padding: 4px; border: 1px solid #222; }
-        .chat-input-box input { flex:1; background:transparent; border:none; color:#fff; padding:10px; outline:none; font-size:0.85rem; }
-        .chat-input-box button { background:var(--cyan); border:none; padding:0 15px; border-radius:6px; font-weight:800; cursor:pointer; }
-
         footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
         .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 40px; }
         .btn-action { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 30px; font-weight: 800; cursor: pointer; width: 100%; }
-        .wheel-inputs input { width: 100%; padding: 10px; margin-bottom: 10px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; }
-
         @media (max-width: 800px) { .main-container, .services-grid, .footer-grid { grid-template-columns: 1fr; } }
     </style>
     </head><body>
@@ -235,9 +88,10 @@ export default {
         <a href="/" class="brand"><img src="` + CONFIG.LOGO_URL + `"> MOS360</a>
         <nav><a href="/">TRANG CHỦ</a><a href="/courses">KHÓA HỌC</a><a href="/library">KHO MOS</a><a href="/login" style="color:var(--primary)">ĐĂNG NHẬP</a></nav>
     </header>
-    <nav style="background: rgba(255,255,255,0.03); padding: 5px 5%; font-size: 0.8rem; border-bottom: 1px solid var(--border); display:flex; gap:15px;">
-        <span style="color:#666;">🎯 Thử thách mới:</span>
-        <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold; margin:0;">[HOT] Trắc nghiệm Generative AI ✨</a>
+    <nav style="background: rgba(255,255,255,0.03); padding: 5px 5%; font-size: 0.8rem; border-bottom: 1px solid var(--border); display:flex; gap:15px; overflow-x: auto;">
+        <span style="color:#666; flex-shrink: 0;">🎯 Chuyên mục HOT:</span>
+        <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold; margin:0;">✨ Trắc nghiệm Generative AI</a>
+        <a href="/ic3-test" style="color:#FFD700; text-decoration:none; font-weight:bold; margin:0;">🌍 [MỚI] Luyện Đề IC3 GS6 (Level 1/2/3)</a>
     </nav>
     <main>` + content + `</main>
     <footer>
@@ -252,123 +106,149 @@ export default {
     </body></html>`;
   },
 
+  getHomeUI(studentData) {
+    return `<div class="stats-bar">
+          <div class="stat-item"><h2>100%</h2><p>Thi đậu ngay lần đầu</p></div>
+          <div class="stat-item"><h2>1.000+</h2><p>Học viên đã nhận chứng chỉ</p></div>
+          <div class="stat-item"><h2>500+</h2><p>Truy cập thường xuyên</p></div>
+      </div>
+      <div class="main-container">
+          <div class="left-col" style="background:var(--card); padding:20px; border-radius:20px; border:1px solid var(--border);">
+              <h3 style="color:var(--primary); margin-bottom:15px;">Khóa học nổi bật</h3>
+              <p style="font-size:0.9rem; line-height:1.6; color:#aaa;">Học và ôn thi trực quan bám sát cấu trúc đề thi quốc tế thực tế.</p>
+              <button class="btn-action" style="margin-top:20px;" onclick="location.href='/courses'">XEM KHÓA HỌC</button>
+          </div>
+          <div class="right-col">
+              <div class="section-card" id="bang-vang-container">
+                  <h3 class="bv-title">🏆 Bảng Vàng Chứng Chỉ</h3>
+                  <div class="carousel-viewport">
+                      <div class="carousel-track">` + studentData + `</div>
+                  </div>
+              </div>
+          </div>
+      </div>`;
+  },
+
+  getCoursesUI() { return `<div class="section-card" style="max-width:600px; margin:40px auto; text-align:center;"><h2>Khóa học đang mở</h2><p style="margin:20px 0; color:#888;">Hệ thống đang tải danh sách lớp tháng này...</p></div>`; },
   getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto; text-align:center;"><h2>Đăng Nhập</h2><input type="password" placeholder="Mật khẩu" style="width:100%; padding:15px; margin:20px 0; background:#000; border:1px solid #333; color:#fff; border-radius:10px;"><button class="btn-action">VÀO HỆ THỐNG</button></div>`; },
-  getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Tài Liệu MOS</h2><p>Nội dung đang được cập nhật...</p></div>`; },
-  
-  getGenerativeAIUI() {
+  getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Tài Liệu MOS & IC3</h2><p>Nội dung đang được cập nhật...</p></div>`; },
+  getGenerativeAIUI() { return `<div style="padding:50px; text-align:center; color:#fff;"><h1>Giao diện Generative AI</h1><p><a href="/ic3-test" style="color:var(--cyan)">Bấm vào đây để làm bài trắc nghiệm IC3 GS6 mới gộp</a></p></div>`; },
+
+  // GIAO DIỆN TRẮC NGHIỆM TỔNG HỢP IC3 GS6 LEVEL 1, 2, 3 MỚI
+  getIC3QuizUI() {
     let htmlContent = `<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> MOS360 - Trắc nghiệm Generative AI</title>
+    <title>MOS360 - Luyện Đề IC3 GS6 Tổng Hợp</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f5f7fa; color: #333; line-height: 1.6; padding: 20px; }
         .container { max-width: 1200px; margin: 0 auto; background-color: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); overflow: hidden; }
-        header { background: linear-gradient(135deg, #e63946, #a4161a); color: white; padding: 25px 30px; position: relative; overflow: hidden; }
-        .header-content { position: relative; z-index: 2; }
-        header h1 { font-size: 24px; margin-bottom: 8px; font-weight: 700; letter-spacing: 0.5px; }
-        header p { font-size: 14px; opacity: 0.9; }
-        .header-bg { position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; z-index: 1; }
+        
+        /* Bộ chọn Level mượt mà */
+        .level-selector-bar { background-color: #1e293b; padding: 15px 25px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid #334155; }
+        .level-selector-bar span { color: #94a3b8; font-weight: 600; font-size: 14px; margin-right: 10px; }
+        .lvl-btn { padding: 10px 18px; background-color: #334155; color: #e2e8f0; border: none; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s ease; }
+        .lvl-btn:hover { background-color: #475569; }
+        .lvl-btn.active { background-color: #3b82f6; color: white; box-shadow: 0 0 10px rgba(59,130,246,0.5); }
+
+        header { background: linear-gradient(135deg, #0f172a, #1e3a8a); color: white; padding: 25px 30px; }
+        header h1 { font-size: 22px; margin-bottom: 6px; font-weight: 700; }
+        header p { font-size: 13px; opacity: 0.8; }
+
         .quiz-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; padding: 25px; }
         @media (max-width: 992px) { .quiz-layout { grid-template-columns: 1fr; } }
-        .main-quiz { background-color: #fff; border: 1px solid #e1e8ed; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; }
-        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f0f2f5; }
-        .question-number { font-size: 14px; font-weight: 600; color: #e63946; background-color: #fceade; padding: 6px 12px; border-radius: 20px; }
-        .score-display { font-size: 14px; font-weight: 600; color: #2b2d42; }
-        .question-box { margin-bottom: 25px; }
-        .question-text { font-size: 18px; font-weight: 600; color: #2b2d42; line-height: 1.5; margin-bottom: 20px; }
+        
+        .main-quiz { background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; min-height: 400px; }
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f1f5f9; }
+        .question-number { font-size: 13px; font-weight: 600; color: #2563eb; background-color: #dbeafe; padding: 6px 14px; border-radius: 20px; }
+        .score-display { font-size: 13px; font-weight: 600; color: #334155; }
+        
+        .question-text { font-size: 17px; font-weight: 600; color: #1e293b; margin-bottom: 20px; line-height: 1.5; }
         .options-container { display: flex; flex-direction: column; gap: 12px; }
-        .option { display: flex; align-items: center; padding: 14px 20px; background-color: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
-        .option:hover { background-color: #eef1f6; border-color: #ced4da; }
-        .option.selected { background-color: #e8f0fe; border-color: #3b82f6; }
-        .option.correct { background-color: #d1e7dd; border-color: #0f5132; }
-        .option.incorrect { background-color: #f8d7da; border-color: #842029; }
-        .option-label { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; background-color: #fff; border: 1px solid #ced4da; border-radius: 50%; margin-right: 15px; font-weight: 600; font-size: 14px; flex-shrink: 0; }
+        
+        .option { display: flex; align-items: center; padding: 14px 20px; background-color: #f8fafc; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; }
+        .option:hover { background-color: #f1f5f9; border-color: #cbd5e1; }
+        .option.selected { background-color: #eff6ff; border-color: #3b82f6; }
+        .option.correct { background-color: #dcfce7; border-color: #16a34a; }
+        .option.incorrect { background-color: #fee2e2; border-color: #dc2626; }
+        
+        .option-label { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; background-color: #fff; border: 1px solid #cbd5e1; border-radius: 50%; margin-right: 15px; font-weight: 600; font-size: 13px; flex-shrink: 0; }
         .option.selected .option-label { background-color: #3b82f6; color: white; border-color: #3b82f6; }
-        .option.correct .option-label { background-color: #198754; color: white; border-color: #198754; }
-        .option.incorrect .option-label { background-color: #dc3545; color: white; border-color: #dc3545; }
-        .option-text { font-size: 15px; color: #495057; }
-        .option.selected .option-text { color: #1e3a8a; font-weight: 500; }
-        .answer-key { margin-top: 25px; padding: 20px; background-color: #e8f5e9; border-left: 5px solid #2e7d32; border-radius: 4px; display: none; }
+        .option.correct .option-label { background-color: #16a34a; color: white; border-color: #16a34a; }
+        .option.incorrect .option-label { background-color: #dc2626; color: white; border-color: #dc2626; }
+        .option-text { font-size: 14.5px; color: #334155; }
+
+        .answer-key { margin-top: 25px; padding: 20px; background-color: #f0fdf4; border-left: 5px solid #16a34a; border-radius: 4px; display: none; }
         .answer-key.show { display: block; }
-        .answer-key h4 { color: #2e7d32; margin-bottom: 8px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
-        .answer-key p { font-size: 14px; color: #1b5e20; }
-        .action-buttons { display: flex; justify-content: space-between; margin-top: auto; padding-top: 25px; border-top: 1px solid #f0f2f5; gap: 15px; }
-        .btn { padding: 10px 20px; font-size: 14px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; border: none; display: flex; align-items: center; gap: 8px; }
-        .btn-prev { background-color: #fff; color: #495057; border: 1px solid #ced4da; }
-        .btn-prev:hover:not(:disabled) { background-color: #e9ecef; }
-        .btn-next { background-color: #e63946; color: white; margin-left: auto; }
-        .btn-next:hover:not(:disabled) { background-color: #c92a3a; }
-        .btn-check { background-color: #2b2d42; color: white; }
-        .btn-check:hover:not(:disabled) { background-color: #1d1e2c; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .sidebar { background-color: #fff; border: 1px solid #e1e8ed; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; max-height: 600px; }
-        .sidebar-title { font-size: 16px; font-weight: 600; color: #2b2d42; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f0f2f5; }
+        .answer-key h4 { color: #15803d; margin-bottom: 6px; font-size: 15px; }
+        .answer-key p { font-size: 13.5px; color: #166534; }
+
+        .action-buttons { display: flex; justify-content: space-between; margin-top: auto; padding-top: 25px; border-top: 1px solid #f1f5f9; gap: 15px; }
+        .btn { padding: 10px 20px; font-size: 13.5px; font-weight: 600; border-radius: 6px; cursor: pointer; border: none; }
+        .btn-prev { background-color: #fff; color: #64748b; border: 1px solid #cbd5e1; }
+        .btn-prev:hover:not(:disabled) { background-color: #f1f5f9; }
+        .btn-next { background-color: #2563eb; color: white; margin-left: auto; }
+        .btn-next:hover:not(:disabled) { background-color: #1d4ed8; }
+        .btn-check { background-color: #1e293b; color: white; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .sidebar { background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; max-height: 520px; }
+        .sidebar-title { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; }
         .nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; overflow-y: auto; padding-right: 5px; flex-grow: 1; margin-bottom: 15px; }
-        .nav-item { display: flex; align-items: center; justify-content: center; height: 40px; background-color: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; font-size: 13px; font-weight: 600; color: #495057; cursor: pointer; transition: all 0.15s ease; }
-        .nav-item:hover { background-color: #e9ecef; border-color: #dee2e6; }
-        .nav-item.current { border: 2px solid #e63946; color: #e63946; background-color: #fff; }
-        .nav-item.answered { background-color: #e8f0fe; border-color: #bfdbfe; color: #2563eb; }
-        .nav-item.correct { background-color: #d1e7dd; border-color: #a3cfbb; color: #0f5132; }
-        .nav-item.incorrect { background-color: #f8d7da; border-color: #f5c2c7; color: #842029; }
-        .stats-summary { padding: 15px; background-color: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef; }
-        .stat-line { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #495057; }
-        .stat-line:last-child { margin-bottom: 0; padding-top: 6px; border-top: 1px solid #dee2e6; font-weight: 600; color: #2b2d42; }
-        .progress-container { margin-bottom: 20px; background-color: #e9ecef; height: 8px; border-radius: 4px; overflow: hidden; }
-        .progress-bar { background: linear-gradient(90deg, #e63946, #ff7096); height: 100%; width: 0%; transition: width 0.3s ease; }
+        .nav-item { display: flex; align-items: center; justify-content: center; height: 38px; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12.5px; font-weight: 600; color: #475569; cursor: pointer; }
+        .nav-item.current { border: 2px solid #2563eb; color: #2563eb; background-color: #fff; }
+        .nav-item.correct { background-color: #dcfce7; border-color: #bbf7d0; color: #16a34a; }
+        .nav-item.incorrect { background-color: #fee2e2; border-color: #fecaca; color: #dc2626; }
+
+        .stats-summary { padding: 15px; background-color: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0; }
+        .stat-line { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 6px; color: #475569; }
+        .progress-container { margin-bottom: 20px; background-color: #e2e8f0; height: 6px; border-radius: 4px; overflow: hidden; }
+        .progress-bar { background: #2563eb; height: 100%; width: 0%; transition: width 0.3s ease; }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="level-selector-bar">
+            <span>Chọn cấp độ luyện tập:</span>
+            <button class="lvl-btn active" id="btn-lvl1" onclick="switchLevel(1)">IC3 Level 1</button>
+            <button class="lvl-btn" id="btn-lvl2" onclick="switchLevel(2)">IC3 Level 2</button>
+            <button class="lvl-btn" id="btn-lvl3" onclick="switchLevel(2)">IC3 Level 3</button>
+        </div>
+
         <header>
-            <div class="header-content">
-                <h1>MOS360 - Hệ Thống Ôn Luyện Trắc Nghiệm</h1>
-                <p>Chuyên đề: Kiến thức về Generative AI (Trí tuệ nhân tạo tạo sinh) • Tổng số: 30 câu hỏi mẫu</p>
-            </div>
-            <div class="header-bg"></div>
+            <h1 id="header-title">IC3 GS6 Level 1 - 🌍 Công nghệ số cốt lõi</h1>
+            <p id="header-desc">Hệ thống mô phỏng bài tập trắc nghiệm chuẩn quốc tế dựa trên tài liệu ôn thi chính thức.</p>
         </header>
 
         <div class="quiz-layout">
             <div class="main-quiz">
-                <div class="progress-container">
-                    <div class="progress-bar" id="progress-bar"></div>
-                </div>
+                <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
                 <div class="quiz-header">
-                    <span class="question-number">Câu hỏi <span id="q-num">1</span>/30</span>
-                    <span class="score-display">Đúng: <span id="score-correct" style="color: #198754;">0</span> | Sai: <span id="score-incorrect" style="color: #dc3545;">0</span></span>
+                    <span class="question-number">Câu hỏi <span id="q-num">1</span>/<span id="q-total">10</span></span>
+                    <span class="score-display">Đúng: <span id="score-correct" style="color:#16a34a;">0</span> | Sai: <span id="score-incorrect" style="color:#dc2626;">0</span></span>
                 </div>
-
                 <div class="question-box">
-                    <div class="question-text" id="question-text">Đang tải câu hỏi...</div>
+                    <div class="question-text" id="question-text">Đang tải...</div>
                     <div class="options-container" id="options-container"></div>
                 </div>
-
                 <div class="answer-key" id="answer-key">
                     <h4><span id="result-icon">✨</span> <span id="result-text">Đáp án chính xác</span></h4>
-                    <p id="explanation-text">Giải thích nội dung câu hỏi...</p>
+                    <p id="explanation-text"></p>
                 </div>
-
                 <div class="action-buttons">
-                    <button class="btn btn-prev" id="btn-prev" onclick="changeQuestion(-1)" disabled>
-                        ← Câu trước
-                    </button>
-                    <button class="btn btn-check" id="btn-check" onclick="checkAnswer()">
-                        Kiểm tra đáp án
-                    </button>
-                    <button class="btn btn-next" id="btn-next" onclick="changeQuestion(1)">
-                        Câu tiếp theo →
-                    </button>
+                    <button class="btn btn-prev" id="btn-prev" onclick="changeQuestion(-1)" disabled>← Câu trước</button>
+                    <button class="btn btn-check" id="btn-check" onclick="checkAnswer()">Kiểm tra đáp án</button>
+                    <button class="btn btn-next" id="btn-next" onclick="changeQuestion(1)">Câu tiếp theo →</button>
                 </div>
             </div>
-
             <div class="sidebar">
                 <div class="sidebar-title">Danh sách câu hỏi</div>
                 <div class="nav-grid" id="nav-grid"></div>
-                
                 <div class="stats-summary">
-                    <div class="stat-line"><span>Đã làm:</span><span id="stat-answered">0/30</span></div>
+                    <div class="stat-line"><span>Đã làm:</span><span id="stat-answered">0/10</span></div>
                     <div class="stat-line"><span>Tỷ lệ chính xác:</span><span id="stat-accuracy">0%</span></div>
                 </div>
             </div>
@@ -376,56 +256,77 @@ export default {
     </div>`;
 
     let scriptContent = `<script>
-        var questions = [
-            { id: 1, text: "Khái niệm nào sau đây mô tả đúng nhất về Generative AI?", options: ["Một loại AI chỉ có khả năng phân tích dữ liệu cũ mà không thể tạo ra nội dung mới.", "Một nhánh của AI tập trung vào việc tạo ra nội dung mới (văn bản, hình ảnh, âm thanh, mã nguồn...) dựa trên dữ liệu đã học.", "Hệ thống máy tính chuyên dụng dùng để tăng tốc độ xử lý phần cứng.", "Thuật toán chỉ áp dụng trong việc điều khiển robot tự động."], correct: 1, explanation: "Generative AI (AI tạo sinh) là một nhánh của trí tuệ nhân tạo tập trung vào các mô hình có khả năng tạo ra nội dung mới dựa trên các mẫu dữ liệu thu thập được từ quá trình huấn luyện." },
-            { id: 2, text: "Mô hình ngôn ngữ lớn (LLM) như GPT-4 hoạt động chủ yếu dựa trên kiến trúc mạng thần kinh nào?", options: ["RNN (Recurrent Neural Network)", "CNN (Convolutional Neural Network)", "Transformer", "GAN (Generative Adversarial Network)"], correct: 2, explanation: "Hầu hết các LLM hiện đại đều dựa trên kiến trúc Transformer, được giới thiệu vào năm 2017 với cơ chế Attention giúp xử lý ngữ cảnh rất hiệu quả." },
-            { id: 3, text: "Thuật ngữ \\"Prompt\\" trong ngữ cảnh sử dụng Generative AI có nghĩa là gì?", options: ["Một đoạn mã lập trình hệ thống.", "Câu lệnh, hướng dẫn hoặc yêu cầu bằng văn bản/hình ảnh mà người dùng cung cấp để AI tạo ra nội dung mong muốn.", "Thời gian phản hồi của hệ thống AI.", "Quá trình kiểm thử lỗi của mô hình."], correct: 1, explanation: "Prompt (Lời nhắc) là đầu vào (văn bản, câu hỏi, hình ảnh) mà người dùng nhập vào để hướng dẫn mô hình AI tạo ra kết quả đầu ra tương ứng." },
-            { id: 4, text: "Hiện tượng \\"Hallucination\\" (Ảo tưởng/Ảo giác) ở các mô hình Generative AI xảy ra khi nào?", options: ["Mô hình ngừng hoạt động do quá tải máy chủ.", "Mô hình tạo ra thông tin trông có vẻ thuyết phục và hợp lý nhưng thực chất là sai lệch hoặc không có thật.", "Mô hình dịch ngôn ngữ này sang ngôn ngữ khác.", "Mô hình phát hiện phần mềm độc hại trong hệ thống."], correct: 1, explanation: "Hallucination là hiện tượng AI tạo sinh tạo ra các thông tin hoàn toàn sai sự thật nhưng được trình bày một cách rất tự tin và logic." },
-            { id: 5, text: "Kỹ thuật \\"Few-shot Prompting\\" được hiểu là gì?", options: ["Cung cấp cho AI một yêu cầu ngắn gọn không kèm ví dụ.", "Cung cấp cho AI một vài ví dụ minh họa cụ thể về định dạng hoặc nội dung mong muốn trước khi đưa ra yêu cầu chính.", "Chạy mô hình AI nhiều lần liên tiếp để chọn kết quả tốt nhất.", "Sử dụng hình ảnh thay cho văn bản để ra lệnh cho AI."], correct: 1, explanation: "Few-shot Prompting là kỹ thuật cung cấp một vài ví dụ (shots) trong prompt để giúp mô hình hiểu rõ ngữ cảnh và định dạng đầu ra mong muốn." },
-            { id: 6, text: "Trong các công cụ sau, công cụ nào chuyên về tạo sinh hình ảnh từ văn bản (Text-to-Image)?", options: ["ChatGPT", "Midjourney", "GitHub Copilot", "ElevenLabs"], correct: 1, explanation: "Midjourney là công cụ nổi tiếng chuyên chuyển đổi văn bản thành hình ảnh nghệ thuật chất lượng cao." },
-            { id: 7, text: "Cơ chế \\"Self-Attention\\" trong kiến trúc Transformer có tác dụng gì?", options: ["Giúp mô hình tự động xóa các dữ liệu trùng lặp.", "Giúp mô hình đánh giá mức độ liên quan và mối quan hệ giữa tất cả các từ trong một câu, bất kể khoảng cách giữa chúng.", "Bảo mật dữ liệu người dùng không bị rò rỉ ra ngoài.", "Tăng độ phân giải của hình ảnh đầu ra."], correct: 1, explanation: "Cơ chế Self-Attention cho phép mô hình tập trung vào các phần khác nhau của chuỗi đầu vào để hiểu rõ ngữ cảnh của từ ngữ." },
-            { id: 8, text: "Mô hình GAN (Generative Adversarial Network) bao gồm hai thành phần đối nghịch nào?", options: ["Encoder và Decoder", "Generator (Mô hình tạo sinh) và Discriminator (Mô hình phân biệt)", "Transformer và Thuật toán tìm kiếm", "Dữ liệu đầu vào và Dữ liệu đầu ra"], correct: 1, explanation: "GAN gồm Generator cố gắng tạo dữ liệu giả giống thật và Discriminator cố gắng phân biệt dữ liệu thật/giả. Sự đối nghịch này giúp cả hai cùng tiến bộ." },
-            { id: 9, text: "Mục đích chính của quá trình \\"Fine-tuning\\" (Tinh chỉnh) một mô hình AI là gì?", options: ["Xóa bỏ hoàn toàn mô hình cũ để làm lại từ đầu.", "Tiếp tục huấn luyện một mô hình đã được đào tạo trước (Pre-trained) trên một tập dữ liệu nhỏ, chuyên biệt để thực hiện tốt một tác vụ cụ thể.", "Giảm lượng điện năng tiêu thụ của máy chủ AI.", "Tăng tốc độ kết nối Internet của người dùng."], correct: 1, explanation: "Fine-tuning giúp tối ưu hóa một mô hình đa năng có sẵn thành một mô hình chuyên biệt cho một ngành nghề hoặc tác vụ cụ thể bằng tập dữ liệu ngách." },
-            { id: 10, text: "Trong kỷ nguyên Generative AI, rủi ro về \\"Deepfake\\" liên quan đến vấn đề gì?", options: ["Dữ liệu bị xóa sạch do virus máy tính.", "Việc sử dụng AI để tạo ra hình ảnh, video hoặc âm thanh giả mạo người thật một cách tinh vi nhằm mục đích lừa đảo hoặc bôi nhọ.", "Hệ thống AI từ chối trả lời câu hỏi của người dùng.", "Sự sụt giảm giá trị cổ phiếu của các công ty công nghệ."], correct: 1, explanation: "Deepfake là công nghệ sử dụng AI để thay thế khuôn mặt, giọng nói của một người trong video/hình ảnh bằng một người khác vô cùng chân thực, tiềm ẩn nguy cơ lừa đảo cao." },
-            { id: 11, text: "Công cụ nào sau đây của Microsoft được tích hợp Generative AI để hỗ trợ lập trình viên viết mã nguồn?", options: ["Microsoft Word", "GitHub Copilot", "Windows Defender", "OneDrive"], correct: 1, explanation: "GitHub Copilot (thuộc Microsoft) hỗ trợ gợi ý và viết mã nguồn tự động dựa trên mô hình Codex của OpenAI." },
-            { id: 12, text: "Thuật ngữ \\"Multimodal AI\\" (AI đa phương thức) chỉ các mô hình có khả năng gì?", options: ["Chỉ xử lý được một loại dữ liệu văn bản duy nhất nhưng với tốc độ cực nhanh.", "Có thể hiểu và xử lý đồng thời nhiều loại dữ liệu đầu vào/đầu ra khác nhau như văn bản, hình ảnh, âm thanh, video...", "Chạy được trên nhiều hệ điều hành cùng một lúc.", "Hệ thống AI có thể kết nối với nhiều người dùng cùng lúc."], correct: 1, explanation: "Multimodal AI là mô hình có khả năng xử lý đồng thời và kết hợp nhiều dạng thông tin như nghe, nhìn, đọc, hiểu (ví dụ GPT-4o, Gemini)." },
-            { id: 13, text: "Khi sử dụng ChatGPT, thông số \\"Temperature\\" (nếu có thể điều chỉnh qua API) kiểm soát yếu tố nào của kết quả đầu ra?", options: ["Tốc độ tạo văn bản của mô hình.", "Độ dài tối đa của văn bản được tạo ra.", "Tính sáng tạo và mức độ ngẫu nhiên của câu trả lời.", "Độ bảo mật và quyền riêng tư của dữ liệu."], correct: 2, explanation: "Temperature kiểm soát độ ngẫu nhiên. Nhiệt độ thấp kết quả sẽ an toàn, logic và lặp lại; nhiệt độ cao kết quả sẽ sáng tạo, đa dạng nhưng dễ bị ảo tưởng hơn." },
-            { id: 14, text: "Kỹ thuật \\"RAG\\" (Retrieval-Augmented Generation) được sử dụng nhằm mục đích gì?", options: ["Tăng tốc độ xử lý đồ họa của GPU.", "Kết hợp mô hình AI với việc truy xuất dữ liệu từ một kho kiến thức bên ngoài đáng tin cậy để cung cấp câu trả lời chính xác và cập nhật hơn.", "Tự động dịch văn bản sang 100 ngôn ngữ khác nhau.", "Nén dung lượng file HTML để tải lên website nhanh hơn."], correct: 1, explanation: "RAG giúp hạn chế hiện tượng ảo tưởng của AI bằng cách bắt AI tra cứu thông tin từ nguồn tài liệu chuẩn được cung cấp trước khi tổng hợp câu trả lời." },
-            { id: 15, text: "Đâu là một thách thức lớn về mặt pháp lý và đạo đức đối với dữ liệu huấn luyện (Training Data) của Generative AI hiện nay?", options: ["Dữ liệu quá ít không đủ để máy tính lưu trữ.", "Vấn đề vi phạm bản quyền và quyền sở hữu trí tuệ khi thu thập tác phẩm của nghệ sĩ, nhà văn mà chưa được phép.", "Dữ liệu bị lỗi phông chữ khi nạp vào hệ thống.", "Tốc độ truyền tải dữ liệu giữa các quốc gia quá chậm."], correct: 1, explanation: "Nhiều công ty AI đang đối mặt với các vụ kiện tụng do sử dụng dữ liệu có bản quyền trên internet để huấn luyện mô hình mà không xin phép hay trả phí cho tác giả." },
-            { id: 16, text: "Sự khác biệt cốt lõi giữa AI truyền thống (Discriminative AI) và AI tạo sinh (Generative AI) là gì?", options: ["AI truyền thống chạy bằng điện, AI tạo sinh chạy bằng pin.", "AI truyền thống phân loại hoặc dự đoán dựa trên dữ liệu có sẵn; AI tạo sinh tạo ra dữ liệu hoàn toàn mới có cấu trúc tương tự dữ liệu huấn luyện.", "AI truyền thống chỉ dùng cho điện thoại, AI tạo sinh chỉ dùng cho máy tính.", "Không có sự khác biệt nào về mặt chức năng."], correct: 1, explanation: "AI truyền thống nhận diện, phân loại (ví dụ: đây là ảnh chó hay mèo), còn AI tạo sinh tạo ra nội dung mới hoàn toàn (ví dụ: vẽ một con mèo đang bay)." },
-            { id: 17, text: "Phương pháp học \\"RLHF\\" (Reinforcement Learning from Human Feedback) giúp ích gì cho các mô hình như ChatGPT?", options: ["Giúp mô hình tự động tìm kiếm mã giảm giá trên mạng.", "Căn chỉnh câu trả lời của AI sao cho an toàn, hữu ích, trung thực và phù hợp với chuẩn mực đạo đức của con người thông qua sự đánh giá của chuyên gia.", "Tăng dung lượng lưu trữ của bộ nhớ RAM.", "Giúp mô hình kết nối trực tiếp với các thiết bị gia dụng thông minh."], correct: 1, explanation: "RLHF (Học tăng cường từ phản hồi của con người) giúp tối ưu câu trả lời của AI thân thiện, chính xác và an toàn hơn dựa trên điểm số đánh giá từ con người." },
-            { id: 18, text: "Đâu là định nghĩa đúng cho kỹ thuật \\"Zero-shot Prompting\\"?", options: ["Yêu cầu AI thực hiện một tác vụ mà không đưa ra bất kỳ ví dụ minh họa nào trước đó.", "Xóa bỏ hoàn toàn lịch sử chat để bắt đầu phiên làm việc mới.", "Cung cấp vô số ví dụ cho AI đến khi hệ thống bị quá tải.", "Sử dụng các ký tự đặc biệt để hack hệ thống AI."], correct: 0, explanation: "Zero-shot Prompting là việc đưa ra yêu cầu trực tiếp cho AI thực hiện dựa trên kiến thức nền tảng của nó mà không mồi thêm ví dụ cụ thể nào." },
-            { id: 19, text: "Token trong xử lý ngôn ngữ tự nhiên (NLP) của Generative AI thường được hiểu là gì?", options: ["Một đơn vị tiền tệ dùng để mua tài khoản VIP.", "Mã bảo mật dùng để đăng nhập vào ứng dụng.", "Các đoạn nhỏ của từ ngữ (có thể là một từ, một phần của từ hoặc một ký tự) mà mô hình sử dụng để đọc và xử lý văn bản.", "Thiết bị phần cứng lưu trữ khóa mã hóa."], correct: 2, explanation: "Token là đơn vị cơ bản để mô hình AI xử lý ngôn ngữ. 100 từ tiếng Anh thường tương đương khoảng 130 tokens; tiếng Việt có dấu sẽ tốn nhiều token hơn." },
-            { id: 20, text: "Mô hình nào sau đây do Google phát triển, nổi tiếng với khả năng xử lý đa phương thức và có cửa sổ ngữ cảnh (Context Window) lên tới hàng triệu token?", options: ["GPT-4", "Claude 3", "Gemini", "Llama 3"], correct: 2, explanation: "Gemini là thế hệ mô hình AI đa phương thức tiên tiến của Google, hỗ trợ cửa sổ ngữ cảnh siêu lớn giúp phân tích được video và tài liệu dài hàng ngàn trang." },
-            { id: 21, text: "Cửa sổ ngữ cảnh (Context Window) của một mô hình AI tạo sinh đại diện cho điều gì?", options: ["Kích thước khung hình hiển thị của ứng dụng trên màn hình máy tính.", "Lượng dữ liệu tối đa (tính bằng token) bao gồm cả prompt đầu vào và kết quả đầu ra mà mô hình có thể ghi nhớ và xử lý trong một phiên làm việc.", "Số lượng người dùng tối đa có thể truy cập hệ thống cùng lúc.", "Thời gian tối đa AI được phép suy nghĩ trước khi trả lời."], correct: 1, explanation: "Context Window quyết định độ dài tài liệu mà AI có thể đọc hiểu cùng một lúc. Cửa sổ càng lớn, AI càng nhớ được nhiều nội dung đã trò chuyện ở phía trên." },
-            { id: 22, text: "In các định dạng sau, Generative AI có thể tạo ra loại nội dung nào?", options: ["Chỉ văn bản (Text).", "Chỉ hình ảnh (Image).", "Chỉ mã lập trình (Code).", "Tất cả các định dạng trên (Văn bản, Hình ảnh, Âm thanh, Video, Mã nguồn...)."], correct: 3, explanation: "Generative AI ngày nay cực kỳ đa năng, bao phủ toàn bộ các định dạng nội dung số hóa phổ biến." },
-            { id: 23, text: "Khi viết prompt, việc cung cấp \\"Context\\" (Ngữ cảnh) có vai trò gì?", options: ["Làm cho câu lệnh dài hơn để tốn nhiều chi phí hơn.", "Giúp mô hình giới hạn phạm vi kiến thức, hiểu rõ vai trò và đối tượng mục tiêu để đưa ra câu trả lời chính xác, phù hợp nhất.", "Giúp máy tính chạy mát hơn.", "Tự động sửa lỗi chính tả cho người dùng."], correct: 1, explanation: "Ngữ cảnh giúp định hình câu trả lời của AI. Ví dụ: Hãy đóng vai chuyên gia kinh tế, viết cho học sinh cấp 3 hiểu... sẽ cho ra kết quả tốt hơn lệnh chung chung." },
-            { id: 24, text: "Công cụ \\"Sora\\" do OpenAI công bố thuộc thể loại Generative AI nào?", options: ["Text-to-Speech (Văn bản thành giọng nói)", "Text-to-Video (Văn bản thành video)", "Image-to-3D (Hình ảnh thành mô hình 3D)", "Code-to-Web (Mã nguồn thành trang web)"], correct: 1, explanation: "Sora là mô hình AI tạo sinh video từ văn bản vô cùng chân thực và có tính nhất quán cao về mặt không gian, vật lý." },
-            { id: 25, text: "Rủi ro \\"Data Leakage\\" (Rò rỉ dữ liệu) khi nhân viên sử dụng các công cụ AI công cộng là gì?", options: ["Máy tính bị mất điện đột ngột.", "Thông tin bảo mật, mã nguồn nội bộ hoặc dữ liệu khách hàng nhập vào prompt có thể bị lưu lại để huấn luyện mô hình và vô tình hiển thị cho người dùng khác ở tương lai.", "Màn hình máy tính hiển thị sai màu sắc.", "File kết quả tải về bị nhiễm virus."], correct: 1, explanation: "Các công cụ AI miễn phí thường dùng dữ liệu chat của người dùng để tái huấn luyện mô hình. Nếu nhập dữ liệu mật của công ty lên đó, nguy cơ rò rỉ là rất lớn." },
-            { id: 26, text: "Thuật ngữ \\"Open-source AI model\\" (Mô hình AI mã nguồn mở) nghĩa là gì?", options: ["Mô hình bắt buộc phải trả phí rất cao mới được sử dụng.", "Mô hình mà nhà phát triển công khai toàn bộ cấu trúc, trọng số (weights) để cộng đồng có thể tự do tải về, tùy chỉnh và chạy trên hạ tầng riêng.", "Mô hình chỉ chạy được trên hệ điều hành Linux.", "Mô hình không cần kết nối mạng vẫn sử dụng được."], correct: 1, explanation: "Mô hình mã nguồn mở (như Llama của Meta, Mistral) cho phép các lập trình viên tải về toàn bộ mã nguồn để tự phát triển và bảo mật dữ liệu riêng." },
-            { id: 27, text: "Đâu là một ví dụ về ứng dụng của Generative AI trong lĩnh vực y tế?", options: ["Thay thế hoàn toàn bác sĩ để phẫu thuật từ xa.", "Tự động hóa việc dọn dẹp phòng bệnh.", "Hỗ trợ thiết kế, sáng tạo ra các cấu trúc phân tử protein mới giúp đẩy nhanh quá trình tìm kiếm và bào chế thuốc chữa bệnh.", "Tăng tốc độ hiển thị của máy chụp X-quang."], correct: 2, explanation: "AI tạo sinh có khả năng mô phỏng và tạo ra các chuỗi protein, cấu trúc hóa học mới chưa từng có, hỗ trợ đắc lực cho ngành dược phẩm." },
-            { id: 28, text: "Kỹ thuật \\"Chain-of-Thought Prompting\\" giúp cải thiện khả năng nào của mô hình AI?", options: ["Khả năng tạo ra các bài thơ hay hơn.", "Khả năng tư vấn tâm lý khách hàng.", "Khả năng lập luận logic, giải toán hoặc xử lý các bài toán phức tạp bằng cách yêu cầu AI giải thích từng bước một trước khi đưa ra đáp án cuối cùng.", "Khả năng tăng tốc độ kết xuất đồ họa hình ảnh."], correct: 2, explanation: "Chain-of-Thought (Chuỗi suy nghĩ) kích hoạt khả năng suy luận từng bước của AI bằng cách chèn cụm từ lệnh \\"Hãy suy nghĩ từng bước một\\"." },
-            { id: 29, text: "Tại sao việc xác thực lại thông tin (Fact-checking) từ kết quả của Generative AI lại cực kỳ quan trọng trước khi xuất bản?", options: ["Kiểm tra lỗi bản quyền nếu thông tin bị trùng lặp.", "Vì các mô hình AI không thực sự \\"hiểu\\" sự thật, chúng chỉ dự đoán từ tiếp theo dựa trên xác suất toán học nên hoàn toàn có thể tạo ra thông tin sai lệch rất tự tin.", "Vì luật pháp cấm sử dụng trực tiếp câu chữ của AI.", "Vì văn bản của AI có chứa mã độc ẩn."], correct: 1, explanation: "Bản chất của LLM là mô hình xác suất từ ngữ, không phải bộ máy tra cứu sự thật tuyệt đối, nên việc kiểm tra lại thông tin là bắt buộc đối với người dùng chuyên nghiệp." },
-            { id: 30, text: "Đâu là hành vi sử dụng Generative AI có trách nhiệm và đạo đức?", options: ["Dùng AI viết toàn bộ luận văn tốt nghiệp và cam đoan tự viết.", "Sử dụng AI như một công cụ hỗ trợ tìm kiếm ý tưởng, lập dàn ý, tối ưu mã nguồn và luôn ghi rõ nguồn hoặc có sự kiểm soát, chỉnh sửa từ con người.", "Dùng AI để tạo hàng loạt bài viết giả mạo nhằm hạ uy tín đối thủ cạnh tranh.", "Sao chép tác phẩm nghệ thuật của người khác bắt AI vẽ lại giống hệt để bán."], correct: 1, explanation: "Sử dụng AI có đạo đức là coi AI là trợ lý đồng hành, tăng hiệu suất công việc và chịu trách nhiệm cuối cùng về nội dung sản phẩm do mình tạo ra." }
-        ];
+        // Kho dữ liệu câu hỏi đồng bộ trực tiếp từ file tài liệu của bạn
+        var database = {
+            1: [
+                { text: "Máy tính để bàn sử dụng phần cứng nào để lưu trữ dữ liệu lâu dài (ngay cả khi tắt máy)?", options: ["Bộ xử lý trung tâm (CPU)", "Bộ nhớ truy cập ngẫu nhiên (RAM)", "Ổ đĩa cứng (HDD/SSD)", "Bo mạch chủ (Motherboard)"], correct: 2, explanation: "Ổ đĩa cứng (Hard drive) là thiết bị lưu trữ dữ liệu lâu dài, thông tin không bị mất đi khi ngắt nguồn điện." },
+                { text: "Bốn thông tin nào sau đây được coi là thông tin nhận dạng cá nhân cần bảo mật (PII)?", options: ["Số căn cước công dân, Số điện thoại, Địa chỉ nhà, Ngày sinh", "Lịch sử duyệt web, Tên trình duyệt, Độ phân giải màn hình", "Nhãn hiệu máy tính, Dung lượng ổ cứng, Tên nhà mạng", "Tốc độ CPU, Phiên bản Windows, Danh sách phần mềm đã cài"], correct: 0, explanation: "PII (Personally Identifiable Information) gồm bất kỳ thông tin nào có thể dùng để định danh và xác định một cá nhân cụ thể." },
+                { text: "Hệ điều hành (Operating System) nằm ở phân loại nào trong hệ thống máy tính?", options: ["Phần cứng (Hardware)", "Phần mềm hệ thống (System Software)", "Phần mềm ứng dụng (Application Software)", "Thiết bị ngoại vi (Peripheral)"], correct: 1, explanation: "Hệ điều hành là phần mềm hệ thống đứng ra điều phối phần cứng và làm nền tảng cho phần mềm ứng dụng." },
+                { text: "Tùy chọn nào sau đây giúp xóa toàn bộ dữ liệu cá nhân một cách triệt để trước khi thanh lý thiết bị?", options: ["Tắt nguồn thiết bị", "Xóa các thư mục ngoài Desktop", "Khôi phục cài đặt gốc và xóa sạch dữ liệu (Factory Reset)", "Gỡ cài đặt các ứng dụng mạng xã hội"], correct: 2, explanation: "Factory Reset sẽ xóa sạch toàn bộ cấu hình, tài khoản và dữ liệu cá nhân bám trên bộ nhớ máy." },
+                { text: "Loại phần mềm nào phân phối miễn phí hoàn toàn nhưng không cho phép người dùng xem hoặc sửa đổi mã nguồn?", options: ["Phần mềm nguồn mở (Open Source)", "Phần mềm thương mại mã nguồn đóng miễn phí (Freeware / Closed Source)", "Phần mềm miền công cộng (Public Domain)", "Phần mềm chia sẻ dùng thử (Shareware)"], correct: 1, explanation: "Freeware là phần mềm miễn phí cho người dùng cuối nhưng mã nguồn đóng và được bảo hộ độc quyền thương mại." },
+                { text: "Khi bạn gửi một email và điền các địa chỉ liên hệ vào dòng CC (Carbon Copy), điều gì sẽ xảy ra?", options: ["Người nhận ở dòng To không thể xem danh sách CC.", "Tất cả người nhận (To và CC) đều nhìn thấy công khai địa chỉ của nhau.", "Email sẽ chuyển thành dạng ẩn danh hoàn toàn.", "Người ở dòng CC có quyền thu hồi thư đã gửi."], correct: 1, explanation: "CC (Carbon Copy) gửi bản sao công khai, tất cả mọi người nhận đều thấy địa chỉ email của nhau." },
+                { text: "Hành vi nào dưới đây được phân loại chính xác là hành vi bắt nạt trên mạng (Cyberbullying)?", options: ["Hủy kết bạn sau khi tranh luận", "Báo cáo nội dung vi phạm tiêu chuẩn cộng đồng", "Tạo nhóm, trang web hoặc đăng tải ảnh/video cắt ghép nhằm xúc phạm danh dự người khác", "Tắt thông báo trò chuyện từ một nhóm quá phiền"], correct: 2, explanation: "Bắt nạt qua mạng là sử dụng công nghệ số để đe dọa, xúc phạm hoặc cố tình làm tổn hại tinh thần đối phương." },
+                { text: "Khi mua sắm trên mạng, các dịch vụ trực tuyến như 'Lưu trữ đám mây' (Cloud Storage) thuộc loại hình sản phẩm nào?", options: ["Hàng hóa vật lý", "Dịch vụ kỹ thuật số (Digital Services)", "Phần cứng thô", "Mạng viễn thông cố định"], correct: 1, explanation: "Các giải pháp phần mềm chạy trực tuyến và không cầm nắm được về mặt vật lý là dịch vụ số kỹ thuật số." },
+                { text: "Trong Windows, mục cài đặt nào cho phép thay đổi hình nền, màu sắc giao diện hệ thống?", options: ["Settings -> Personalization", "Settings -> System -> Display", "Control Panel -> Hardware", "Task Manager"], correct: 0, explanation: "Personalization (Cá nhân hóa) quản lý toàn bộ chủ đề hiển thị, hình nền nền, màn hình khóa." },
+                { text: "Bộ nhớ RAM của máy tính có đặc tính kỹ thuật cốt lõi nào sau đây?", options: ["Lưu trữ vĩnh viễn dữ liệu", "Dữ liệu bị xóa sạch hoàn toàn khi ngắt nguồn điện hoặc tắt máy (Bộ nhớ tạm thời)", "Dung lượng luôn lớn hơn ổ đĩa cứng", "Xử lý trực tiếp các tác vụ đồ họa 3D phức tạp thay cho GPU"], correct: 1, explanation: "RAM là bộ nhớ truy xuất tạm thời (khả biến), mất điện dữ liệu sẽ lập tức biến mất." }
+            ],
+            2: [
+                { text: "Nhiều hàng hóa và dịch vụ được bán trực tuyến. Tùy chọn nào sau đây thuộc nhóm Dịch vụ số kỹ thuật số? (Chọn đáp án đúng nhất)", options: ["Lưu trữ đám mây (Cloud storage) và Hỗ trợ máy tính từ xa", "Tai nghe không dây Bose Earbuds", "Điện thoại thông minh Samsung Galaxy", "Bàn phím cơ chuyên dụng lắp rời"], correct: 0, explanation: "Lưu trữ đám mây và hỗ trợ kĩ thuật từ xa là các loại hình dịch vụ số, không có cấu tạo vật lý như tai nghe hay điện thoại." },
+                { text: "Loại tài khoản nào được yêu cầu bắt buộc để có thể đăng câu hỏi hoặc bình luận trong diễn đàn cộng đồng của Microsoft?", options: ["Domain Account", "Windows Local Account", "Microsoft Account", "Azure Active Directory Account"], correct: 2, explanation: "Bạn cần một tài khoản Microsoft cá nhân (Microsoft Account) để đăng nhập và tương tác trên cộng đồng Microsoft hỗ trợ." },
+                { text: "Tùy chọn nào sau đây mô tả đúng nhất về đặc tính dịch vụ (ví dụ cắt tóc, sửa ống nước) phân biệt với hàng hóa?", options: ["Là sản phẩm phi vật chất, không thể lưu kho hoặc cầm nắm vật lý trực tiếp", "Là sản phẩm có thể sản xuất hàng loạt lưu kho", "Là sản phẩm có hạn sử dụng vĩnh viễn", "Là sản phẩm tự động tái tạo không tốn chi phí"], correct: 0, explanation: "Dịch vụ mang tính chất phi vật thể, thực hiện trực tiếp theo nhu cầu và không thể đóng gói lưu kho như hàng hóa vật lý." },
+                { text: "Khi bạn nhập một tài liệu, tính năng nào tự động hoàn thành từ dựa trên các chữ cái đầu tiên bạn vừa nhập?", options: ["AutoFit (Tự khớp)", "AutoFormat (Tự định dạng)", "AutoComplete (Tự động hoàn tất)", "AutoFill (Tự động điền)"], correct: 2, explanation: "AutoComplete phân tích chữ cái đầu (ví dụ gõ 'Y') rồi tự hiển thị gợi ý từ đầy đủ ('Yes') cho bạn nhấn Enter." },
+                { text: "Khi tham gia cuộc họp video từ xa, hành động nào đảm bảo tạo cơ hội công bằng cho tất cả thành viên phát biểu ý kiến?", options: ["Bật mic nói xen ngang liên tục", "Sử dụng tính năng giơ tay ảo (Raise Hand) có sẵn trên ứng dụng họp", "Chỉ thảo luận các ý kiến nằm trong danh sách cá nhân của mình", "Im lặng hoàn toàn suốt cuộc họp từ đầu đến cuối"], correct: 1, explanation: "Tính năng Giơ tay giúp người điều phối cuộc họp biết bạn muốn phát biểu theo thứ tự mà không ngắt lời người khác." }
+            ],
+            3: [
+                { text: "Để một ứng dụng phần mềm có thể ra lệnh và hoạt động nhịp nhàng trên thiết bị, phần cứng và phần mềm của máy tính phải hiểu chung điểm gì?", options: ["Chương trình đặc biệt (Special Program)", "Ngôn ngữ nhị phân (Binary Language gồm các chuỗi 0 và 1)", "Mã bổ sung (Supplemental Code)", "Giao thức mạng LAN"], correct: 1, explanation: "Bản chất cốt lõi của phần cứng chỉ xử lý các bóng bán dẫn tắt/mở tương ứng với mã nhị phân 0 và 1, phần mềm phải biên dịch về mã này." },
+                { text: "Định dạng tập tin Video kỹ thuật số nào phổ biến nhất và được hỗ trợ bởi hầu hết các trình duyệt và thiết bị hiện nay?", options: ["AVI", "MP4", "WMV", "FLV"], correct: 1, explanation: "MP4 (MPEG-4 Part 14) là tiêu chuẩn nén video quốc tế phổ biến nhất, nhẹ và tương thích mọi nền tảng." },
+                { text: "Chuỗi lập luận: 'Nếu sinh viên không dùng bộ tài liệu này, họ sẽ trượt đại học' dựa vào uy tín một chuyên gia giấu tên vi phạm lỗi ngụy biện nào?", options: ["Tấn công cá nhân (Ad hominem)", "Song đề sai (False Dilemma) & Lợi dụng người nổi tiếng (Appeal to Authority)", "Vin vào truyền thống (Appeal to Tradition)", "Khái quát hóa vội vã"], correct: 1, explanation: "Chỉ đưa ra 2 lựa chọn cực đoan là ngụy biện song đề sai, đồng thời mượn danh chuyên gia mơ hồ là ngụy biện lợi dụng uy tín Authority." },
+                { text: "Bạn muốn đưa trình duyệt Google Chrome về lại trạng thái cấu hình ban đầu của nhà sản xuất. Bạn chọn mục nào trong Settings?", options: ["Default browser (Trình duyệt mặc định)", "On startup (Khi khởi động)", "Reset and clean up (Đặt lại và dọn dẹp)", "Appearance (Hình thức hiển thị)"], correct: 2, explanation: "Tính năng 'Reset and clean up' cho phép xóa cookies, bộ nhớ tạm và tắt các tiện ích mở rộng lộn xộn, đưa Chrome về ban đầu." }
+            ]
+        };
 
+        var currentLevel = 1;
+        var questions = database[1];
         var currentQuestion = 0;
         var scoreCorrect = 0;
         var scoreIncorrect = 0;
-        var userAnswers = new Array(questions.length).fill(null);
-        var selectedOptionIndex = null;
+        var userAnswers = [];
+
+        function switchLevel(lvl) {
+            currentLevel = lvl;
+            questions = database[lvl];
+            currentQuestion = 0;
+            scoreCorrect = 0;
+            scoreIncorrect = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            
+            // Cập nhật trạng thái nút bấm active
+            document.querySelectorAll('.lvl-btn').forEach(function(btn) { btn.classList.remove('active'); });
+            if(lvl === 1) {
+                document.getElementById('btn-lvl1').classList.add('active');
+                document.getElementById('header-title').textContent = "IC3 GS6 Level 1 - 🌍 Công nghệ số cốt lõi";
+            } else if(lvl === 2) {
+                document.getElementById('btn-lvl2').classList.add('active');
+                document.getElementById('header-title').textContent = "IC3 GS6 Level 2 - 💻 Sáng tạo nội dung số";
+            } else {
+                document.getElementById('btn-lvl3').classList.add('active');
+                document.getElementById('header-title').textContent = "IC3 GS6 Level 3 - 🚀 Tư duy số & Đời sống trực tuyến";
+            }
+
+            createNavigationButtons();
+            updateQuestion();
+        }
 
         function createNavigationButtons() {
             var navGrid = document.getElementById('nav-grid');
             navGrid.innerHTML = '';
+            document.getElementById('q-total').textContent = questions.length;
             for (var i = 0; i < questions.length; i++) {
                 var btn = document.createElement('div');
                 btn.className = 'nav-item';
                 btn.textContent = i + 1;
                 btn.id = 'nav-item-' + i;
-                btn.onclick = (function(index) {
-                    return function() { jumpToQuestion(index); };
-                })(i);
+                btn.onclick = (function(index) { return function() { jumpToQuestion(index); }; })(i);
                 navGrid.appendChild(btn);
             }
         }
@@ -437,8 +338,7 @@ export default {
 
             var optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
-            selectedOptionIndex = null;
-
+            var selectedOptionIndex = null;
             var status = userAnswers[currentQuestion];
 
             currentQ.options.forEach(function(option, index) {
@@ -450,9 +350,13 @@ export default {
                 optDiv.innerHTML = '<div class="option-label">' + labelText + '</div><div class="option-text">' + option + '</div>';
 
                 if (status === null) {
-                    optDiv.onclick = (function(idx) {
-                        return function() { selectOption(idx); };
-                    })(index);
+                    optDiv.onclick = function() {
+                        window.latestSelectedIdx = index; 
+                        document.querySelectorAll('.options-container .option').forEach(function(o, idx) {
+                            if (idx === index) o.classList.add('selected');
+                            else o.classList.remove('selected');
+                        });
+                    };
                 } else {
                     if (index === currentQ.correct) {
                         optDiv.classList.add('correct');
@@ -473,16 +377,17 @@ export default {
                 if (status === 1) {
                     resultIcon.textContent = '✅';
                     resultText.textContent = 'Chính xác! Đáp án đúng là ' + String.fromCharCode(65 + currentQ.correct);
-                    answerKey.style.backgroundColor = '#e8f5e9';
-                    answerKey.style.borderLeftColor = '#2e7d32';
+                    answerKey.style.backgroundColor = '#f0fdf4';
+                    answerKey.style.borderLeftColor = '#16a34a';
                 } else {
                     resultIcon.textContent = '❌';
                     resultText.textContent = 'Chưa chính xác! Đáp án đúng là ' + String.fromCharCode(65 + currentQ.correct);
-                    answerKey.style.backgroundColor = '#ffebee';
-                    answerKey.style.borderLeftColor = '#c62828';
+                    answerKey.style.backgroundColor = '#fef2f2';
+                    answerKey.style.borderLeftColor = '#dc2626';
                 }
                 document.getElementById('btn-check').disabled = true;
             } else {
+                window.latestSelectedIdx = null; 
                 answerKey.classList.remove('show');
                 document.getElementById('btn-check').disabled = false;
             }
@@ -493,54 +398,33 @@ export default {
             for (var i = 0; i < questions.length; i++) {
                 var navItem = document.getElementById('nav-item-' + i);
                 if (navItem) {
-                    navItem.classList.remove('current', 'answered', 'correct', 'incorrect');
-                    if (i === currentQuestion) {
-                        navItem.classList.add('current');
-                    } else if (userAnswers[i] === 1) {
-                        navItem.classList.add('correct');
-                    } else if (userAnswers[i] === 0) {
-                        navItem.classList.add('incorrect');
-                    }
+                    navItem.classList.remove('current', 'correct', 'incorrect');
+                    if (i === currentQuestion) navItem.classList.add('current');
+                    else if (userAnswers[i] === 1) navItem.classList.add('correct');
+                    else if (userAnswers[i] === 0) navItem.classList.add('incorrect');
                 }
             }
 
             var progress = ((currentQuestion + 1) / questions.length) * 100;
             document.getElementById('progress-bar').style.width = progress + '%';
-            
             updateStats();
         }
 
-        function selectOption(index) {
-            if (userAnswers[currentQuestion] !== null) return;
-
-            selectedOptionIndex = index;
-            var options = document.querySelectorAll('.options-container .option');
-            options.forEach(function(opt, idx) {
-                if (idx === index) {
-                    opt.classList.add('selected');
-                } else {
-                    opt.classList.remove('selected');
-                }
-            });
-        }
-
         function checkAnswer() {
-            if (selectedOptionIndex === null) {
+            if (window.latestSelectedIdx === null || window.latestSelectedIdx === undefined) {
                 alert('Vui lòng chọn một phương án trả lời!');
                 return;
             }
-
             var currentQ = questions[currentQuestion];
-            currentQ.userChoice = selectedOptionIndex;
+            currentQ.userChoice = window.latestSelectedIdx;
 
-            if (selectedOptionIndex === currentQ.correct) {
+            if (window.latestSelectedIdx === currentQ.correct) {
                 userAnswers[currentQuestion] = 1;
                 scoreCorrect++;
             } else {
                 userAnswers[currentQuestion] = 0;
                 scoreIncorrect++;
             }
-
             updateQuestion();
         }
 
@@ -560,37 +444,15 @@ export default {
         function updateStats() {
             document.getElementById('score-correct').textContent = scoreCorrect;
             document.getElementById('score-incorrect').textContent = scoreIncorrect;
-
             var answeredCount = userAnswers.filter(function(ans) { return ans !== null; }).length;
             document.getElementById('stat-answered').textContent = answeredCount + '/' + questions.length;
-
             var accuracy = answeredCount === 0 ? 0 : Math.round((scoreCorrect / answeredCount) * 100);
             document.getElementById('stat-accuracy').textContent = accuracy + '%';
         }
 
         function init() {
-            createNavigationButtons();
-            updateQuestion();
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    if (currentQuestion > 0) { currentQuestion--; updateQuestion(); }
-                } else if (e.key === 'ArrowRight') {
-                    if (currentQuestion < questions.length - 1) { currentQuestion++; updateQuestion(); }
-                } else if (e.key === 'Enter') {
-                    if (userAnswers[currentQuestion] === null) checkAnswer();
-                } else if (e.key === 'a' || e.key === 'A') {
-                    selectOption(0);
-                } else if (e.key === 'b' || e.key === 'B') {
-                    selectOption(1);
-                } else if (e.key === 'c' || e.key === 'C') {
-                    selectOption(2);
-                } else if (e.key === 'd' || e.key === 'D') {
-                    selectOption(3);
-                }
-            });
+            switchLevel(1);
         }
-
         window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
