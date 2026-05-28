@@ -140,17 +140,23 @@ export default {
         body { background-color: #090a0f; color: #f1f5f9; line-height: 1.6; padding: 20px; }
         .container { max-width: 1260px; margin: 0 auto; background-color: #121520; border-radius: 18px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6); overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
         
-        .level-bar { background-color: #181d2a; padding: 18px 25px; display: flex; gap: 14px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); overflow-x: auto; }
+        .level-bar { background-color: #181d2a; padding: 15px 25px; display: flex; gap: 14px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); overflow-x: auto; }
         .level-bar span { color: #94a3b8; font-weight: 600; font-size: 14px; margin-right: 8px; flex-shrink: 0; }
-        .lvl-btn { padding: 10px 22px; background-color: #22293a; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; font-weight: 700; font-size: 13.5px; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+        .lvl-btn { padding: 8px 18px; background-color: #22293a; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
         .lvl-btn:hover { background-color: #2d364d; color: #fff; }
-        .lvl-btn.active { background-color: #FF5722; color: white; border-color: #FF5722; box-shadow: 0 0 15px rgba(255,87,34,0.4); }
+        .lvl-btn.active { background-color: #FF5722; color: white; border-color: #FF5722; box-shadow: 0 0 12px rgba(255,87,34,0.3); }
 
-        header { background: linear-gradient(135deg, #131722, #1f2637); color: white; padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        header h1 { font-size: 22px; margin-bottom: 4px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
+        .mode-bar { background-color: #141824; padding: 12px 25px; display: flex; gap: 12px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .mode-btn { padding: 6px 16px; background-color: #1d2333; color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; font-weight: 700; font-size: 12.5px; cursor: pointer; transition: all 0.2s; }
+        .mode-btn:hover { color: #fff; background-color: #252d42; }
+        .mode-btn.active { background-color: rgba(0, 242, 255, 0.12); color: #00f2ff; border-color: #00f2ff; box-shadow: 0 0 10px rgba(0,242,255,0.15); }
+
+        header { background: linear-gradient(135deg, #131722, #1f2637); color: white; padding: 22px 30px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        header h1 { font-size: 21px; margin-bottom: 4px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
         header p { font-size: 13px; color: #94a3b8; }
         
-        .timer-box { background: rgba(255, 87, 34, 0.1); border: 2px solid #FF5722; padding: 10px 20px; border-radius: 12px; display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; color: #ff784e; box-shadow: 0 0 15px rgba(255,87,34,0.15); }
+        .timer-box { background: rgba(255, 87, 34, 0.08); border: 2px solid #FF5722; padding: 10px 18px; border-radius: 12px; display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 800; color: #ff784e; box-shadow: 0 0 15px rgba(255,87,34,0.1); }
+        .timer-box.freeze { border-color: #4b5563; background: rgba(156, 163, 175, 0.05); color: #9ca3af; box-shadow: none; }
 
         .quiz-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; padding: 25px; }
         @media (max-width: 992px) { .quiz-layout { grid-template-columns: 1fr; } }
@@ -164,10 +170,11 @@ export default {
         .options-container { display: flex; flex-direction: column; gap: 12px; }
         
         .option { display: flex; align-items: center; padding: 15px 20px; background-color: #1e2333; border: 2px solid #282f44; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
-        .option:hover { background-color: #252c40; border-color: #3b4563; }
+        .option:hover:not(.disabled) { background-color: #252c40; border-color: #3b4563; }
         .option.selected { background-color: rgba(0,242,255,0.05); border-color: #00f2ff; }
         .option.correct { background-color: rgba(22,163,74,0.15); border-color: #16a34a; }
         .option.incorrect { background-color: rgba(220,38,38,0.15); border-color: #dc2626; }
+        .option.disabled { cursor: not-allowed; }
         
         .option-label { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; background-color: #171b26; border: 1px solid #3b4563; border-radius: 50%; margin-right: 15px; font-weight: 700; font-size: 13px; color: #94a3b8; flex-shrink: 0; }
         .option.selected .option-label { background-color: #00f2ff; color: #000; border-color: #00f2ff; }
@@ -186,8 +193,6 @@ export default {
         .btn-prev:hover:not(:disabled) { background-color: #252c40; color: #fff; }
         .btn-next { background-color: #22293a; color: white; border: 1px solid #3b4563; }
         .btn-next:hover:not(:disabled) { background-color: #2d364d; }
-        .btn-check { background-color: #FF5722; color: #fff; font-size: 14px; padding: 12px 28px; box-shadow: 0 4px 12px rgba(255,87,34,0.25); }
-        .btn-check:hover:not(:disabled) { background-color: #e64a19; }
         .btn:disabled { opacity: 0.2; cursor: not-allowed; }
 
         .sidebar { background-color: #171b26; border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; height: 580px; }
@@ -202,6 +207,7 @@ export default {
 
         .btn-submit-exam { width: 100%; background: linear-gradient(135deg, #00f2ff, #00a2ff); color: #000; font-weight: 800; padding: 12px; border-radius: 8px; border: none; cursor: pointer; margin-bottom: 15px; font-size: 14px; letter-spacing: 0.5px; transition: all 0.2s; box-shadow: 0 4px 15px rgba(0,242,255,0.2); }
         .btn-submit-exam:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,242,255,0.3); }
+        .btn-submit-exam:disabled { background: #22293a; color: #4b5563; box-shadow: none; cursor: not-allowed; opacity: 0.5; }
         
         .stats-summary { padding: 15px; background-color: #1e2333; border-radius: 8px; border: 1px solid #282f44; }
         .stat-line { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 6px; color: #94a3b8; }
@@ -227,14 +233,20 @@ export default {
             <button class="lvl-btn" id="btn-lvl2" onclick="switchLevel(2)">IC3 GS6 Level 2</button>
             <button class="lvl-btn" id="btn-lvl3" onclick="switchLevel(3)">IC3 GS6 Level 3</button>
         </div>
+        
+        <div class="mode-bar">
+            <span>Chế độ học tập:</span>
+            <button class="mode-btn active" id="btn-mode-practice" onclick="switchMode('practice')">📘 Ôn Luyện (Hiện giải thích ngay)</button>
+            <button class="mode-btn" id="btn-mode-exam" onclick="switchMode('exam')">⏱️ Thi Thực Chiến (Ẩn kết quả)</button>
+        </div>
 
         <header>
             <div>
                 <h1 id="header-title">IC3 GS6 Level 1 - 🌍 Công nghệ số cốt lõi</h1>
                 <p id="header-desc">Đề mô phỏng chuẩn Certiport: 45 Câu hỏi | 50 Phút | Điểm Đạt: 700/1000</p>
             </div>
-            <div class="timer-box">
-                <span>⏱️</span>
+            <div class="timer-box" id="timer-box">
+                <span id="timer-icon">⏱️</span>
                 <span id="countdown-timer">50:00</span>
             </div>
         </header>
@@ -253,7 +265,7 @@ export default {
                 <div class="quiz-header">
                     <span class="question-number">Câu hỏi <span id="q-num">1</span>/45</span>
                     <span class="score-display" id="live-score-box" style="display:none;">Đúng: <span id="score-correct" style="color:#4ade80;">0</span> | Sai: <span id="score-incorrect" style="color:#f87171;">0</span></span>
-                    <span class="score-display" id="exam-mode-badge" style="color: #64748b; font-weight: bold; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Thực chiến: Ẩn kết quả</span>
+                    <span class="score-display" id="exam-mode-badge" style="color: #00f2ff; font-weight: bold; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;">Chế độ: Ôn luyện tự do</span>
                 </div>
                 <div class="question-box">
                     <div class="question-text" id="question-text">Đang nạp dữ liệu...</div>
@@ -265,7 +277,6 @@ export default {
                 </div>
                 <div class="action-buttons">
                     <button class="btn btn-prev" id="btn-prev" onclick="changeQuestion(-1)" disabled>← Câu trước</button>
-                    <button class="btn btn-check" id="btn-check" onclick="checkAnswer()" style="display:none;">Kiểm tra câu này</button>
                     <button class="btn btn-next" id="btn-next" onclick="changeQuestion(1)">Câu tiếp theo →</button>
                 </div>
             </div>
@@ -312,8 +323,8 @@ export default {
 
         function fillQuestionBank() {
             var topics = {
-                1: ["Lưu trữ đám mây", "Mạng Wifi bảo mật", "Bảo vệ thông tin PII", "Hệ điều hành Windows", "Sử dụng phím tắt", "Thiết bị ngoại vi", "Quét virus", "Trình duyệt web", "Email lừa đảo Phishing", "Sao lưu sao chép dữ liệu Drive"],
-                2: ["Hàm tính toán Excel SUM/AVERAGE", "Định dạng bảng văn bản Word", "Hiệu ứng Slide PowerPoint", "Chia sẻ file Google Drive", "Lịch trực tuyến Outlook", "Bản quyền số sáng tạo", "Cộng tác tài liệu số", "Thiết kế biểu đồ", "Bộ lọc email lọc thư rác"],
+                1: ["Lưu trữ đám mây", "Mạng Wifi bảo mật", "Bảo vệ thông tin PII", "Hệ điều hành Windows", "Sử dụng phím tắt", "Thiết bị ngoại vi", "Quét virus", "Trình duyệt web", "Email lừa đảo Phishing", "Sao lưu dữ liệu Drive"],
+                2: ["Hàm tính toán Excel SUM/AVERAGE", "Định dạng bảng văn bản Word", "Hiệu ứng Slide PowerPoint", "Chia sẻ file Google Drive", "Lịch trực tuyến Outlook", "Bản quyền số sáng tạo", "Cộng tác tài liệu số", "Thiết kế biểu đồ", "Bộ lọc thư rác"],
                 3: ["Ngụy biến logic", "Học máy trí tuệ nhân tạo AI", "Tái chế rác điện tử", "Mật khẩu mạnh bảo mật 2 lớp", "Mã hóa HTTPS", "Điện toán đám mây Cloud", "Quyền sở hữu trí tuệ", "Lừa đảo qua mạng xã hội", "Làm việc từ xa an toàn"]
             };
             for(var lvl = 1; lvl <= 3; lvl++) {
@@ -338,6 +349,7 @@ export default {
         fillQuestionBank();
 
         var currentLevel = 1;
+        var currentMode = 'practice'; // 'practice' hoặc 'exam'
         var questions = [];    
         var currentQuestion = 0;
         var userChoices = []; 
@@ -353,6 +365,7 @@ export default {
                 currentIndex -= 1;
                 temporaryValue = newArray[currentIndex];
                 newArray[currentIndex] = newArray[randomIndex];
+                newArray[randomIndex] = newArray[randomIndex];
                 newArray[randomIndex] = temporaryValue;
             }
             return newArray;
@@ -360,6 +373,12 @@ export default {
 
         function startTimer() {
             if(timerInterval) clearInterval(timerInterval);
+            if (currentMode === 'practice') {
+                document.getElementById('countdown-timer').textContent = "VÔ HẠN";
+                document.getElementById('timer-box').classList.add('freeze');
+                return;
+            }
+            document.getElementById('timer-box').classList.remove('freeze');
             timeRemaining = 50 * 60; 
             updateTimerDisplay();
             timerInterval = setInterval(function() {
@@ -380,24 +399,28 @@ export default {
                 (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
         }
 
+        function switchMode(mode) {
+            if (currentMode === mode) return;
+            if (!examSubmitted && userChoices.filter(function(c) { return c !== null; }).length > 0) {
+                if (!confirm("Thay đổi chế độ học tập sẽ làm mới và thiết lập lại tiến độ câu hỏi hiện tại. Bạn có đồng ý?")) return;
+            }
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(function(btn) { btn.classList.remove('active'); });
+            if (mode === 'practice') {
+                document.getElementById('btn-mode-practice').classList.add('active');
+                document.getElementById('btn-submit-exam').disabled = true;
+            } else {
+                document.getElementById('btn-mode-exam').classList.add('active');
+                document.getElementById('btn-submit-exam').disabled = false;
+            }
+            resetQuizData();
+        }
+
         function switchLevel(lvl) {
             if(!examSubmitted && userChoices.filter(function(c) { return c !== null; }).length > 0) {
-                if(!confirm("Bạn đang làm bài thi thử của Level này. Chuyển sang Level khác sẽ hủy kết quả hiện tại. Bạn có chắc chắn?")) return;
+                if(!confirm("Bạn đang làm dở bộ câu hỏi của Level này. Chuyển sang Level khác sẽ hủy kết quả hiện tại. Bạn có chắc chắn?")) return;
             }
-            
             currentLevel = lvl;
-            var fullBank = database[lvl];
-            var shuffledBank = shuffleArray(fullBank);
-            questions = shuffledBank.slice(0, 45);
-            
-            currentQuestion = 0;
-            userChoices = new Array(questions.length).fill(null);
-            examSubmitted = false;
-            
-            document.getElementById('result-overlay').classList.remove('show');
-            document.getElementById('live-score-box').style.display = 'none';
-            document.getElementById('exam-mode-badge').style.display = 'inline';
-            
             document.querySelectorAll('.lvl-btn').forEach(function(btn) { btn.classList.remove('active'); });
             if(lvl === 1) {
                 document.getElementById('btn-lvl1').classList.add('active');
@@ -409,7 +432,32 @@ export default {
                 document.getElementById('btn-lvl3').classList.add('active');
                 document.getElementById('header-title').textContent = "IC3 GS6 Level 3 - 🚀 Tư duy số & Đời sống trực tuyến";
             }
+            resetQuizData();
+        }
 
+        function resetQuizData() {
+            var fullBank = database[currentLevel];
+            var shuffledBank = shuffleArray(fullBank);
+            questions = shuffledBank.slice(0, 45);
+            
+            currentQuestion = 0;
+            userChoices = new Array(questions.length).fill(null);
+            examSubmitted = false;
+            
+            document.getElementById('result-overlay').classList.remove('show');
+            document.getElementById('live-score-box').style.display = 'none';
+            
+            var badge = document.getElementById('exam-mode-badge');
+            if (currentMode === 'practice') {
+                badge.textContent = "Chế độ: Ôn luyện tự do";
+                badge.style.color = "#00f2ff";
+                document.getElementById('btn-submit-exam').disabled = true;
+            } else {
+                badge.textContent = "Thực chiến: Ẩn kết quả";
+                badge.style.color = "#64748b";
+                document.getElementById('btn-submit-exam').disabled = false;
+            }
+            
             createNavigationButtons();
             startTimer();
             updateQuestion();
@@ -445,30 +493,56 @@ export default {
                 var labelText = String.fromCharCode(65 + index);
                 optDiv.innerHTML = '<div class="option-label">' + labelText + '</div><div class="option-text">' + option + '</div>';
 
-                if (!examSubmitted) {
-                    if (chosenIdx === index) optDiv.classList.add('selected');
-                    optDiv.onclick = function() {
-                        userChoices[currentQuestion] = index;
-                        document.querySelectorAll('.options-container .option').forEach(function(o, idx) {
-                            if (idx === index) o.classList.add('selected');
-                            else o.classList.remove('selected');
-                        });
-                        var navItem = document.getElementById('nav-item-' + currentQuestion);
-                        if(navItem) navItem.classList.add('answered');
-                        updateStats();
-                    };
+                if (currentMode === 'practice') {
+                    // Chế độ Ôn Luyện: Xem kết quả liền tay
+                    if (chosenIdx !== null) {
+                        optDiv.classList.add('disabled');
+                        if (index === currentQ.correct) {
+                            optDiv.classList.add('correct');
+                        } else if (chosenIdx === index) {
+                            optDiv.classList.add('incorrect');
+                        }
+                    } else {
+                        optDiv.onclick = function() {
+                            userChoices[currentQuestion] = index;
+                            var navItem = document.getElementById('nav-item-' + currentQuestion);
+                            if(navItem) {
+                                if(index === currentQ.correct) navItem.classList.add('correct');
+                                else navItem.classList.add('incorrect');
+                            }
+                            updateQuestion();
+                        };
+                    }
                 } else {
-                    if (index === currentQ.correct) {
-                        optDiv.classList.add('correct');
-                    } else if (chosenIdx === index && chosenIdx !== currentQ.correct) {
-                        optDiv.classList.add('incorrect');
+                    // Chế độ Thi thử (Ẩn kết quả cho đến khi nộp bài)
+                    if (!examSubmitted) {
+                        if (chosenIdx === index) optDiv.classList.add('selected');
+                        optDiv.onclick = function() {
+                            userChoices[currentQuestion] = index;
+                            document.querySelectorAll('.options-container .option').forEach(function(o, idx) {
+                                if (idx === index) o.classList.add('selected');
+                                else o.classList.remove('selected');
+                            });
+                            var navItem = document.getElementById('nav-item-' + currentQuestion);
+                            if(navItem) navItem.classList.add('answered');
+                            updateStats();
+                        };
+                    } else {
+                        optDiv.classList.add('disabled');
+                        if (index === currentQ.correct) {
+                            optDiv.classList.add('correct');
+                        } else if (chosenIdx === index && chosenIdx !== currentQ.correct) {
+                            optDiv.classList.add('incorrect');
+                        }
                     }
                 }
                 optionsContainer.appendChild(optDiv);
             });
 
             var answerKey = document.getElementById('answer-key');
-            if (examSubmitted) {
+            var shouldShowExplanation = (currentMode === 'practice' && chosenIdx !== null) || (currentMode === 'exam' && examSubmitted);
+            
+            if (shouldShowExplanation) {
                 answerKey.classList.add('show');
                 document.getElementById('explanation-text').textContent = currentQ.explanation;
                 var resultIcon = document.getElementById('result-icon');
@@ -476,12 +550,12 @@ export default {
                 
                 if (chosenIdx === currentQ.correct) {
                     resultIcon.textContent = '✅';
-                    resultText.textContent = 'Câu này bạn làm ĐÚNG. Đáp án: ' + String.fromCharCode(65 + currentQ.correct);
+                    resultText.textContent = 'Câu này chính xác. Đáp án: ' + String.fromCharCode(65 + currentQ.correct);
                     answerKey.style.backgroundColor = 'rgba(22,163,74,0.1)';
                     answerKey.style.borderLeftColor = '#16a34a';
                 } else {
                     resultIcon.textContent = '❌';
-                    resultText.textContent = 'Câu này bạn làm SAI hoặc CHƯA CHỌN. Đáp án chuẩn là ' + String.fromCharCode(65 + currentQ.correct);
+                    resultText.textContent = 'Chưa chính xác. Đáp án đúng là: ' + String.fromCharCode(65 + currentQ.correct);
                     answerKey.style.backgroundColor = 'rgba(220,38,38,0.1)';
                     answerKey.style.borderLeftColor = '#dc2626';
                 }
@@ -498,7 +572,13 @@ export default {
                     navItem.classList.remove('current');
                     if (i === currentQuestion) navItem.classList.add('current');
                     
-                    if (examSubmitted) {
+                    if (currentMode === 'practice') {
+                        if (userChoices[i] !== null) {
+                            navItem.classList.remove('answered');
+                            if (userChoices[i] === questions[i].correct) navItem.classList.add('correct');
+                            else navItem.classList.add('incorrect');
+                        }
+                    } else if (examSubmitted) {
                         navItem.classList.remove('answered', 'correct', 'incorrect');
                         if (userChoices[i] === questions[i].correct) navItem.classList.add('correct');
                         else navItem.classList.add('incorrect');
@@ -530,11 +610,12 @@ export default {
         }
 
         function confirmSubmitExam() {
+            if(currentMode === 'practice') return;
             var answeredCount = userChoices.filter(function(ans) { return ans !== null; }).length;
             var unAnswered = questions.length - answeredCount;
             var msg = "Bạn có chắc chắn muốn nộp bài thi thử không?";
             if(unAnswered > 0) {
-                msg = "Cảnh báo: Bạn còn " + unAnswered + " câu chưa trả lời. Bạn có thực sự muốn nộp bài thi và chấm điểm ngay?";
+                msg = "Cảnh báo: Bạn còn " + unAnswered + " câu chưa hoàn tất. Bạn vẫn muốn nộp bài thi chứ?";
             }
             if(confirm(msg)) {
                 submitExam();
@@ -576,7 +657,7 @@ export default {
                 scoreDisplay.style.color = "#ff5252";
                 badge.textContent = "CHƯA ĐẠT (FAIL)";
                 badge.className = "status-badge badge-fail";
-                summary.innerHTML = "⚠️ Rất tiếc! Bạn làm đúng <b>" + correctCount + "/" + questions.length + " câu</b>. Điểm số chưa đạt mốc 700. Bạn hãy xem lại lời giải chi tiết ở các ô câu hỏi màu đỏ để củng cố lại kiến thức nhé!";
+                summary.innerHTML = "⚠️ Rất tiếc! Bạn làm đúng <b>" + correctCount + "/" + questions.length + " câu</b>. Điểm số chưa đạt mốc 700. Hãy kiểm tra các câu lỗi và ôn tập kỹ hơn.";
             }
 
             overlay.classList.add('show');
@@ -584,11 +665,19 @@ export default {
         }
 
         function restartExam() {
-            switchLevel(currentLevel);
+            resetQuizData();
         }
 
         function init() {
-            switchLevel(1);
+            // Mặc định khởi tạo chạy Level 1 ở chế độ Ôn Luyện (Practice)
+            var fullBank = database[1];
+            var shuffledBank = shuffleArray(fullBank);
+            questions = shuffledBank.slice(0, 45);
+            userChoices = new Array(questions.length).fill(null);
+            document.getElementById('btn-submit-exam').disabled = true;
+            createNavigationButtons();
+            startTimer();
+            updateQuestion();
         }
         window.addEventListener('DOMContentLoaded', init);
     </script>
