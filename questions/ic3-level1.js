@@ -1,5 +1,4 @@
 export const IC3_LEVEL1 = [
-
   {
     id: 1,
     level: "IC3_LEVEL1",
@@ -1501,5 +1500,6 @@ export const IC3_LEVEL1 = [
     explanation:
       "Công dân số có trách nhiệm cần tôn trọng, xác minh và bảo vệ dữ liệu cá nhân."
   }
-  
+ 
 ];
+export default IC3_LEVEL1;
