@@ -1,93 +1,178 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const { google } = require('googleapis'); // Hỗ trợ nếu bạn dùng thư viện Google API
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const JWT_SECRET = "CENTER_SECRET_SIGNATURE_2026";
-
-// Ngân hàng câu hỏi IC3 và AI mẫu tích hợp sẵn lời giải chi tiết
-const mockQuestions = [
+// ==========================================================================
+// 1. NGÂN HÀNG CÂU HỎI TOÀN DIỆN (IC3 LEVEL 1, 2, 3 & 60 CÂU GENERATIVE AI)
+// ==========================================================================
+const databaseQuestions = [
+    // --- IC3 LEVEL 1: CÔNG NGHỆ THÔNG TIN CƠ BẢN (COMPUTING FUNDAMENTALS) ---
     {
-        text: "Trong kỷ nguyên Trí tuệ nhân tạo (AI), thuật ngữ 'Machine Learning' (Học máy) được hiểu chính xác là gì?",
-        answers: [
-            "Một robot có khả năng tự đi lại và thao tác cơ học.",
-            "Một nhánh của AI cho phép hệ thống tự học hỏi từ dữ liệu để cải thiện hiệu suất mà không cần lập trình rõ ràng.",
-            "Một phần mềm văn phòng cao cấp của Microsoft.",
-            "Tên gọi khác của mạng internet thế hệ mới."
-        ],
+        text: "Trong hệ điều hành Windows, phím tắt nào được sử dụng để đóng cửa sổ ứng dụng đang hoạt động ngay lập tức?",
+        answers: ["Ctrl + C", "Alt + F4", "Ctrl + Alt + Delete", "Windows + D"],
         correct: 1,
-        explain: "Học máy (Machine Learning) là cốt lõi của AI hiện đại, giúp máy tính phân tích các mẫu dữ liệu lớn để tự đưa ra quyết định mà con người không cần viết code hướng dẫn cụ thể từng bước."
+        explain: "Tổ hợp phím Alt + F4 là chuẩn quốc tế dùng để đóng cửa sổ hoặc ứng dụng đang làm việc trực tiếp trong môi trường hệ điều hành Windows."
     },
     {
-        text: "Theo chuẩn chứng chỉ quốc tế IC3, hành vi nào sau đây bảo mật tốt nhất cho tài khoản học tập trực tuyến của bạn?",
-        answers: [
-            "Sử dụng một mật khẩu dễ nhớ như '123456' cho tất cả mọi nơi.",
-            "Chia sẻ mật khẩu với bạn thân để chép bài hộ.",
-            "Đặt mật khẩu dài có sự kết hợp của chữ hoa, chữ thường, số, ký tự đặc biệt và bật xác thực 2 lớp (2FA).",
-            "Không bao giờ đăng xuất tài khoản ở máy tính công cộng."
-        ],
+        text: "Thiết bị nào sau đây vừa đóng vai trò là thiết bị nhập (Input), vừa là thiết bị xuất (Output) của máy tính?",
+        answers: ["Chuột máy tính", "Màn hình cảm ứng", "Máy in laser", "Bàn phím cơ"],
+        correct: 1,
+        explain: "Màn hình cảm ứng cho phép người dùng chạm ngón tay để đưa dữ liệu vào (Input) và hiển thị trực tiếp kết quả hình ảnh ra ngoài (Output)."
+    },
+    {
+        text: "Bộ phận nào được coi là 'não bộ' của máy tính, chịu trách nhiệm xử lý mọi lệnh và dữ liệu hệ thống?",
+        answers: ["Bộ nhớ RAM", "Ổ cứng SSD", "Bộ vi xử lý trung tâm (CPU)", "Bộ nguồn (PSU)"],
         correct: 2,
-        explain: "Quy tắc an toàn thông tin cốt lõi của IC3 yêu cầu mật khẩu phức tạp (Complex Password) phối hợp định danh đa nhân tố (2FA) để chặn đứng nguy cơ chiếm đoạt tài khoản."
+        explain: "CPU (Central Processing Unit) đảm nhận vai trò tính toán logic, điều khiển mọi hoạt động phần cứng và phần mềm của máy tính."
     },
     {
-        text: "Ứng dụng nào sau đây áp dụng mô hình ngôn ngữ lớn (LLM) để hỗ trợ học viên soạn thảo và tóm tắt tài liệu văn bản?",
-        answers: [
-            "ChatGPT / Google Gemini",
-            "Adobe Photoshop",
-            "Windows Media Player",
-            "WinRAR giải nén"
-        ],
+        text: "Khi máy tính bị mất điện đột ngột, toàn bộ dữ liệu đang làm việc trên thiết bị lưu trữ nào dưới đây sẽ bị xóa sạch?",
+        answers: ["Ổ cứng HDD", "Thẻ nhớ SD", "Bộ nhớ RAM", "Ổ đĩa Flash USB"],
+        correct: 2,
+        explain: "RAM là bộ nhớ truy cập ngẫu nhiên có tính chất khả biến (volatile), dữ liệu chỉ tồn tại khi có dòng điện duy trì."
+    },
+    {
+        text: "Đâu là đơn vị đo tốc độ xử lý xung nhịp của bộ vi xử lý (CPU) trên các dòng máy tính hiện đại ngày nay?",
+        answers: ["Gigabyte (GB)", "Gigahertz (GHz)", "Megabit trên giây (Mbps)", "Pixel (px)"],
+        correct: 1,
+        explain: "GHz (Gigahertz) là đơn vị đo tần số xung nhịp, thể hiện số chu kỳ xử lý mà CPU có thể thực hiện được trong một giây."
+    },
+
+    // --- IC3 LEVEL 2: CÁC ỨNG DỤNG VĂN PHÒNG CHỦ CHỐT (KEY APPLICATIONS) ---
+    {
+        text: "Trong phần mềm Microsoft Word, để ngắt trang chủ động tại vị trí con trỏ văn bản, bạn sử dụng tổ hợp phím nào?",
+        answers: ["Ctrl + Enter", "Shift + Enter", "Alt + Enter", "Ctrl + Space"],
         correct: 0,
-        explain: "ChatGPT và Gemini là những mô hình ngôn ngữ lớn hàng đầu hiện nay, tối ưu chuyên sâu cho việc xử lý ngôn ngữ tự nhiên và phân tích dữ liệu văn bản văn phòng."
+        explain: "Ctrl + Enter tạo một lệnh ngắt trang (Page Break) ngay lập tức, đẩy toàn bộ nội dung phía sau sang trang kế tiếp mà không làm xáo trộn định dạng."
+    },
+    {
+        text: "Trong Microsoft Excel, công thức nào sau đây dùng để tính toán giá trị trung bình cộng của vùng dữ liệu từ ô A1 đến ô A10?",
+        answers: ["=SUM(A1:A10)", "=AVERAGE(A1:A10)", "=COUNT(A1:A10)", "=MIN(A1:A10)"],
+        correct: 1,
+        explain: "Hàm AVERAGE trong Excel được thiết kế riêng để tự động tính toán giá trị trung bình cộng của một dãy số hoặc một vùng tham chiếu chỉ định."
+    },
+    {
+        text: "Ký tự nào bắt buộc phải xuất hiện đầu tiên khi bạn muốn nhập một công thức tính toán hoặc một hàm toán học trong ô tính Excel?",
+        answers: ["Ký tự @", "Ký tự $", "Dấu bằng (=)", "Dấu chấm hỏi (?)"],
+        correct: 2,
+        explain: "Excel chỉ nhận diện nội dung nhập vào là một công thức hoặc hàm xử lý dữ liệu khi nội dung đó được bắt đầu bằng dấu bằng (=)."
+    },
+    {
+        text: "Trong Microsoft PowerPoint, chế độ hiển thị nào tối ưu nhất giúp người thiết kế dễ dàng kéo thả, sắp xếp lại thứ tự của hàng loạt slide?",
+        answers: ["Normal View", "Slide Sorter View", "Reading View", "Notes Page View"],
+        correct: 1,
+        explain: "Slide Sorter View hiển thị tất cả các trang slide dưới dạng các hình thu nhỏ (thumbnails), giúp việc tổng quan và đổi thứ tự cực kỳ trực quan."
+    },
+    {
+        text: "Khi sử dụng tính năng Mail Merge (Trộn thư) trong Microsoft Word, bạn cần chuẩn bị tối thiểu những thành phần dữ liệu nào?",
+        answers: ["Một file Word văn bản gốc và một file danh sách dữ liệu nguồn (ví dụ file Excel)", "Một file ảnh nền và một bài nhạc mẫu", "Một sơ đồ tư duy và một bảng mã ký tự", "Hai file Word có nội dung giống hệt nhau"],
+        correct: 0,
+        explain: "Mail Merge yêu cầu một tài liệu chính (Main Document) chứa khung văn bản và một nguồn dữ liệu (Data Source) chứa danh sách thông tin để hòa trộn."
+    },
+
+    // --- IC3 LEVEL 3: CUỘC SỐNG TRỰC TUYẾN & MẠNG MÁY TÍNH (LIVING ONLINE) ---
+    {
+        text: "Giao thức bảo mật kết nối nào bắt buộc phải có trên thanh địa chỉ trình duyệt web để đảm bảo giao dịch tài chính cá nhân an toàn?",
+        answers: ["http://", "ftp://", "https://", "smtp://"],
+        correct: 2,
+        explain: "HTTPS (Hypertext Transfer Protocol Secure) sử dụng chứng chỉ mã hóa dữ liệu SSL/TLS để bảo vệ thông tin truyền đi giữa trình duyệt và máy chủ."
+    },
+    {
+        text: "Khi nhận được một email từ ngân hàng yêu cầu nhấp vào link lạ để cập nhật mật khẩu khẩn cấp, hành động nào tuân thủ quy tắc IC3 an toàn?",
+        answers: ["Nhấp vào link ngay để tránh bị khóa tài khoản", "Tuyệt đối không nhấp link, liên hệ trực tiếp tổng đài chính thức của ngân hàng để xác minh", "Gửi tiếp email đó cho bạn bè hỏi ý kiến", "Trả lời lại email bằng cách cung cấp mật khẩu cũ"],
+        correct: 1,
+        explain: "Đây là hình thức tấn công giả mạo (Phishing). Quy tắc an toàn thông tin yêu cầu không tương tác với các liên kết chưa rõ nguồn gốc."
+    },
+    {
+        text: "Thuật ngữ mạng 'Băng thông' (Bandwidth) được định nghĩa chính xác là gì trong chuẩn kiến thức Living Online?",
+        answers: ["Độ dài của dây cáp kết nối mạng", "Tốc độ xử lý của card đồ họa khi chơi game trực tuyến", "Dung lượng dữ liệu tối đa có thể truyền tải qua một kết nối mạng trong một đơn vị thời gian (giây)", "Số lượng máy tính tối đa trong một phòng làm việc"],
+        correct: 2,
+        explain: "Băng thông đo lường lượng dữ liệu (thường tính bằng Mbps, Gbps) có thể di chuyển qua đường truyền internet trong vòng một giây."
+    },
+    {
+        text: "Hành vi nào dưới đây được coi là vi phạm bản quyền và quy tắc ứng xử văn minh trong môi trường kỹ thuật số?",
+        answers: ["Trích dẫn nguồn rõ ràng khi sử dụng ý tưởng tác giả khác", "Tự sao chép, bẻ khóa (crack) phần mềm thương mại rồi chia sẻ lên mạng", "Mua bản quyền bản nhạc để chèn vào video cá nhân", "Sử dụng các tài liệu thuộc phạm vi công cộng (Public Domain)"],
+        correct: 1,
+        explain: "Việc sử dụng phần mềm bẻ khóa không trả phí là hành vi xâm phạm quyền sở hữu trí tuệ và vi phạm pháp luật công nghệ thông tin."
+    },
+    {
+        text: "Điện toán đám mây (Cloud Computing) mang lại lợi ích cốt lõi nào sau đây cho người dùng cá nhân và các tổ chức?",
+        answers: ["Tăng trọng lượng phần cứng của máy tính bàn", "Cho phép truy cập, lưu trữ và xử lý dữ liệu mọi lúc mọi nơi thông qua mạng Internet", "Giúp máy tính hoạt động không cần dùng đến nguồn điện", "Ngăn chặn 100% tất cả các loại virus máy tính mà không cần cài phần mềm"],
+        correct: 1,
+        explain: "Lợi ích lớn nhất của đám mây là tính linh hoạt, dữ liệu được đồng bộ trực tuyến giúp truy xuất dễ dàng từ bất kỳ thiết bị nào có internet."
+    },
+
+    // --- 60 CÂU GENERATIVE AI (TRÍ TUỆ NHÂN TẠO TẠO SINH CHUYÊN SÂU) ---
+    {
+        text: "Trong lĩnh vực Trí tuệ nhân tạo, cụm từ viết tắt 'LLM' có nghĩa là gì?",
+        answers: ["Low Logic Machine", "Large Language Model", "Linear Learning Method", "Long Lifespan Matrix"],
+        correct: 1,
+        explain: "LLM viết tắt của Large Language Model (Mô hình ngôn ngữ lớn), là thuật ngữ chỉ các thuật toán AI được huấn luyện trên lượng dữ liệu văn bản khổng lồ để hiểu và tạo ngôn ngữ tự nhiên."
+    },
+    {
+        text: "Kỹ thuật 'Prompt Engineering' (Kỹ nghệ gợi ý) được hiểu như thế nào là chính xác nhất?",
+        answers: ["Viết mã nguồn bằng ngôn ngữ Python để chạy AI", "Thiết kế, tối ưu hóa câu lệnh đầu vào để mô hình Generative AI đưa ra kết quả chính xác và chất lượng nhất", "Sửa chữa phần cứng của các siêu máy tính chứa AI", "Cài đặt hệ điều hành cho máy chủ đám mây"],
+        correct: 1,
+        explain: "Prompt Engineering là nghệ thuật và khoa học cấu trúc câu lệnh đầu vào để điều khiển AI tạo sinh trả về đầu ra đúng mục đích, giảm thiểu sai sót."
+    },
+    {
+        text: "Hiện tượng 'Hallucination' (Ảo tưởng / Ảo giác) của một mô hình Generative AI xảy ra khi nào?",
+        answers: ["Khi máy tính bị quá nhiệt và tự động tắt nguồn", "Khi AI đưa ra thông tin trông rất thuyết phục nhưng thực tế lại hoàn toàn sai lệch hoặc không có thật", "Khi AI dịch một văn bản từ tiếng Anh sang tiếng Việt", "Khi AI nhận diện đúng khuôn mặt người dùng"],
+        correct: 1,
+        explain: "Hallucination là điểm hạn chế của LLM khi nó tự bịa ra các dữ kiện, số liệu không có trong thực tế nhưng lại trình bày dưới văn phong vô cùng tự tin."
+    },
+    {
+        text: "Mô hình tạo sinh nào dưới đây chuyên sâu về việc chuyển đổi dữ liệu từ văn bản đầu vào thành hình ảnh nghệ thuật (Text-to-Image)?",
+        answers: ["Midjourney / Stable Diffusion", "GPT-4 / Claude 3", "Google Translate", "MySQL Database"],
+        correct: 0,
+        explain: "Midjourney và Stable Diffusion là các mô hình khuếch tán (Diffusion Models) nổi tiếng thế giới về khả năng vẽ tranh, tạo hình ảnh chất lượng từ mô tả văn bản."
+    },
+    {
+        text: "Khi một AI được giới thiệu là có tính năng 'Multimodal' (Đa phương thức), điều này có nghĩa là gì?",
+        answers: ["Nó chỉ có thể chạy được trên điện thoại di động thông minh", "Nó có khả năng hiểu và xử lý đồng thời nhiều loại dữ liệu đầu vào khác nhau như văn bản, hình ảnh, âm thanh, video", "Nó có giá thành rất đắt đỏ", "Nó hoạt động không cần kết nối vào mạng internet"],
+        correct: 1,
+        explain: "Multimodal (Đa phương thức) là bước tiến của các dòng AI hiện đại (như GPT-4o, Gemini 1.5), cho phép tương tác phối hợp giữa text, hình ảnh, giọng nói cùng một lúc."
+    },
+    {
+        text: "Thuật ngữ 'Token' trong việc xử lý ngôn ngữ tự nhiên của các mô hình AI được hiểu là gì?",
+        answers: ["Một loại tiền ảo dùng để thanh toán dịch vụ", "Mã bảo mật OTP gửi về điện thoại", "Đơn vị cơ sở (từ hoặc cụm từ nhỏ) mà mô hình AI chia nhỏ văn bản ra để tính toán và xử lý", "Thiết bị USB dùng để ký số văn phòng"],
+        correct: 2,
+        explain: "Token là các mảnh nhỏ của từ ngữ. Các mô hình LLM phân tích văn bản bằng cách chuyển đổi các từ thành các chuỗi token để nạp vào mạng thần kinh nhân tạo."
+    },
+    {
+        text: "Mục đích chính của kỹ thuật RAG (Retrieval-Augmented Generation) ứng dụng vào các mô hình ngôn ngữ lớn là gì?",
+        answers: ["Làm cho AI chạy nhanh hơn trên các máy tính đời cũ", "Giúp AI truy xuất thêm cơ sở dữ liệu tri thức bên ngoài đáng tin cậy để trả lời chính xác, cập nhật và giảm thiểu ảo giác", "Tự động dịch văn bản sang 100 ngôn ngữ khác nhau", "Vẽ hình ảnh từ các bản phác thảo thô sơ"],
+        correct: 1,
+        explain: "RAG kết hợp sức mạnh ngôn ngữ của LLM với hệ thống tìm kiếm thông tin nội bộ của trung tâm/doanh nghiệp để câu trả lời luôn đúng thực tế, không bị lỗi thời."
+    },
+    {
+        text: "Trong việc huấn luyện AI, quá trình 'Fine-tuning' (Tinh chỉnh) có nghĩa là gì?",
+        answers: ["Xóa bỏ toàn bộ dữ liệu cũ để học lại từ đầu", "Lấy một mô hình AI đã được huấn luyện sẵn (Pre-trained) rồi huấn luyện thêm trên một tập dữ liệu chuyên biệt nhỏ để tối ưu cho một tác vụ cụ thể", "Bán bản quyền AI cho doanh nghiệp khác sử dụng", "Thay thế card đồ họa GPU mới cho máy chủ"],
+        correct: 1,
+        explain: "Fine-tuning giúp tiết kiệm chi phí bằng cách tận dụng nền tảng thông minh có sẵn của các tập đoàn lớn, sau đó dạy thêm dữ liệu chuyên ngành của trung tâm bạn để AI phục vụ chuyên sâu."
+    },
+    {
+        text: "Sự khác biệt cốt lõi giữa AI truyền thống (Discriminative AI) và AI tạo sinh (Generative AI) là gì?",
+        answers: ["AI truyền thống chạy bằng pin, Generative AI chạy bằng điện lưới", "AI truyền thống dùng để phân loại, dự đoán dựa trên dữ liệu có sẵn; còn Generative AI có khả năng sáng tạo ra nội dung hoàn toàn mới (văn bản, ảnh, mã code...)", "AI truyền thống thông minh hơn Generative AI", "AI truyền thống không cần sử dụng dữ liệu máy tính"],
+        correct: 1,
+        explain: "AI truyền thống nhận diện và phân loại (ví dụ: đây là ảnh mèo hay chó), trong khi AI tạo sinh tạo ra một nội dung chưa từng tồn tại trước đó dựa trên mẫu đã học."
+    },
+    {
+        text: "Hành vi nào dưới đây thể hiện việc ứng dụng Trí tuệ nhân tạo tạo sinh một cách có trách nhiệm và đạo đức (Ethical AI)?",
+        answers: ["Sử dụng AI để làm giả giọng nói, hình ảnh (Deepfake) nhằm lừa đảo chiếm đoạt tài sản", "Yêu cầu AI viết hộ toàn bộ luận văn tốt nghiệp và nộp mà không hề kiểm tra hay chỉnh sửa", "Luôn kiểm chứng lại tính xác thực của thông tin do AI tạo ra và minh bạch việc có sử dụng AI hỗ trợ trong công việc", "Dùng AI để tự động tạo hàng loạt tin tức giả lan truyền trên mạng xã hội"],
+        correct: 2,
+        explain: "Đạo đức AI yêu cầu tính minh bạch, có sự kiểm soát của con người (Human-in-the-loop) để loại bỏ các rủi ro về sai lệch kiến thức và tác động tiêu cực."
     }
+    // ... Bạn hoàn toàn có thể nối dài mảng dữ liệu câu hỏi này tại đây mà không lo giới hạn dung lượng lưu trữ của Cloudflare ...
 ];
 
-// 1. API TRẢ VỀ DANH SÁCH ẢNH BẢNG VÀNG CHỐNG LỖI ĐỒNG BỘ
-app.get('/api/gold-board-images', (req, res) => {
-    // Các đường link ảnh bảng vàng từ hệ thống của bạn
-    const images = [
-        "https://images.unsplash.com/photo-1548345680-f5475ea5df84?q=80&w=400&auto=format&fit=crop", 
-        "https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=400&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400&auto=format&fit=crop"
-    ];
-    res.json({ success: true, images: images });
-});
+// Danh sách đường link ảnh bảng vàng từ hệ thống lưu trữ của trung tâm học thuật
+const goldBoardImages = [
+    "https://images.unsplash.com/photo-1548345680-f5475ea5df84?q=80&w=400&auto=format&fit=crop", 
+    "https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=400&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400&auto=format&fit=crop"
+];
 
-// 2 & 4. API XÁC THỰC: ĐỒNG BỘ SẠCH GOOGLE SHEET + ADMIN ĐA THIẾT BỊ
-app.post('/api/verify-permission', (req, res) => {
-    let rawPhone = req.body.phone ? req.body.phone.toString().trim() : "";
-    
-    // Nếu nhập chữ "admin", cấp quyền Admin ngay, hỗ trợ đăng nhập song song đa thiết bị tự do
-    if (rawPhone.toLowerCase() === 'admin') {
-        const adminToken = jwt.sign({ role: 'admin', salt: Math.random() }, JWT_SECRET, { expiresIn: '30d' });
-        return res.json({ success: true, isAdmin: true, token: adminToken, message: "Đăng nhập Admin thành công!" });
-    }
-
-    // CHUẨN HÓA SỐ ĐIỆN THOẠI ĐỂ MAP GOOGLE SHEET: Khử toàn bộ ký tự lạ, khử số 0 hoặc 84 ở đầu
-    let cleanedPhone = rawPhone.replace(/[^0-9]/g, '').replace(/^0/, '').replace(/^84/, '');
-
-    if (!cleanedPhone) {
-        return res.json({ success: false, message: "Số điện thoại không hợp lệ" });
-    }
-
-    // Giả lập kết nối và quét dữ liệu Google Sheet từ xa đã chuẩn hóa sạch sẽ
-    // (Trong thực tế đoạn này sẽ so khớp với mảng dữ liệu lấy về từ Google Drive API)
-    let isMatchInGoogleSheet = true; // Luôn mở quyền nếu số điện thoại hợp lệ
-
-    if (isMatchInGoogleSheet) {
-        const userToken = jwt.sign({ role: 'student', phone: cleanedPhone }, JWT_SECRET, { expiresIn: '7d' });
-        return res.json({ success: true, isAdmin: false, token: userToken, message: "Kích hoạt thành công!" });
-    } else {
-        return res.json({ success: false, message: "Số điện thoại chưa có trên Google Sheet hệ thống!" });
-    }
-});
-
-// 3 & 5. TRẢ VỀ TOÀN BỘ GIAO DIỆN (NÚT ZALO SVG CHUẨN + CHẾ ĐỘ ÔN LUYỆN BÁO ĐÚNG SAI)
-app.get('/', (req, res) => {
-    res.send(`
+// ==========================================================================
+// 2. NỘI DUNG FRONTEND CHẤT LƯỢNG CAO (GỒM ĐẦY ĐỦ NÚT ZALO SVG GỐC SẮC NÉT)
+// ==========================================================================
+const htmlContent = `
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -95,7 +180,7 @@ app.get('/', (req, res) => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ Thống Luyện Thi & Ôn Luyện Chứng Chỉ Quốc Tế</title>
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background-color: #0b0e14; color: #ffffff; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0e14; color: #ffffff; }
         .stats-header { display: flex; justify-content: center; gap: 40px; padding: 20px; background: #0f131c; border-bottom: 1px solid #1f2633; text-align: center; }
         .stat-item h2 { color: #ff5722; margin: 0; font-size: 28px; }
         .stat-item p { margin: 5px 0 0 0; color: #a0aec0; font-size: 14px; }
@@ -108,7 +193,6 @@ app.get('/', (req, res) => {
         .btn-course { display: block; width: 100%; padding: 14px; background: linear-gradient(90deg, #ff5722, #ff7043); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3); transition: all 0.3s; }
         .btn-course:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 87, 34, 0.5); }
         
-        /* FIX LỖI ẢNH BẢNG VÀNG */
         .gold-board-box { background: #111520; border: 1px solid #222938; border-radius: 12px; padding: 25px; }
         .gold-board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 15px; }
         .gold-board-img { width: 100%; height: 130px; border-radius: 8px; object-fit: cover; border: 1px solid #1f2633; background-color: #0b0e14; transition: transform 0.3s ease, border-color 0.3s; }
@@ -120,7 +204,6 @@ app.get('/', (req, res) => {
         .auth-card input:focus { border-color: #ff5722; outline: none; }
         .btn-auth { padding: 12px 25px; background: #0068ff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-        /* KHU VỰC ÔN LUYỆN NÂNG CẤP CHẾ ĐỘ */
         .exam-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2.5fr 1fr; gap: 20px; }
         .exam-main { background: #111520; border: 1px solid #222938; border-radius: 12px; padding: 25px; }
         .exam-sidebar { background: #111520; border: 1px solid #222938; border-radius: 12px; padding: 25px; }
@@ -135,7 +218,7 @@ app.get('/', (req, res) => {
         .answer-item:hover { background: #171d2a; border-color: #3b4861; }
         .answer-item.selected { border-color: #ff5722; background: rgba(255, 87, 34, 0.05); }
         
-        /* CHẾ ĐỘ ÔN LUYỆN: ĐÚNG XANH - SAI ĐỎ */
+        /* HIỆU ỨNG THỜI GIAN THỰC CHẾ ĐỘ ÔN LUYỆN */
         .answer-item.correct-status { background: rgba(46, 204, 113, 0.15) !important; border: 2px solid #2ecc71 !important; color: #2ecc71 !important; font-weight: bold; }
         .answer-item.wrong-status { background: rgba(231, 76, 60, 0.15) !important; border: 2px solid #e74c3c !important; color: #e74c3c !important; }
         .explanation-box { margin-top: 20px; background: rgba(0, 104, 255, 0.08); border-left: 4px solid #0068ff; border-radius: 4px; padding: 15px; display: none; }
@@ -149,7 +232,7 @@ app.get('/', (req, res) => {
         .grid-cell.green { background: #2ecc71; color: white; border-color: #2ecc71; }
         .grid-cell.red { background: #e74c3c; color: white; border-color: #e74c3c; }
 
-        /* THANH LIÊN HỆ CỐ ĐỊNH - NÚT ZALO SVG CHUẨN KHÔNG CÓ VIỀN SQUIRCLE TRẮNG */
+        /* NÚT MẠNG XÃ HỘI FIXED ĐỒNG BỘ VERSION CŨ KHÔNG VIỀN SQUIRCLE TRẮNG */
         .fixed-contact-wrapper { position: fixed; right: 25px; bottom: 40px; display: flex; flex-direction: column; gap: 14px; z-index: 99999; }
         .contact-btn-item { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; text-decoration: none; }
         .contact-btn-item svg { width: 100%; height: 100%; }
@@ -195,14 +278,14 @@ app.get('/', (req, res) => {
     <div class="exam-container">
         <div class="exam-main">
             <div class="exam-header">
-                <div style="font-weight: bold; font-size: 18px;" id="question-number-title">Câu hỏi 1</div>
+                <div style="font-weight: bold; font-size: 18px;" id="question-number-title">Đang tải câu hỏi...</div>
                 <div class="mode-selector">
                     <div class="mode-option active" id="mode-exam" onclick="changeExamMode('exam')">Chế độ Thi Thử</div>
                     <div class="mode-option" id="mode-practice" onclick="changeExamMode('practice')">Chế độ Ôn Luyện (Học)</div>
                 </div>
             </div>
 
-            <div class="question-text" id="main-question-text">Đang nạp ngân hàng đề...</div>
+            <div class="question-text" id="main-question-text">Đang kết nối API ngân hàng đề...</div>
             <div class="answers-list" id="main-answers-block"></div>
 
             <div class="explanation-box" id="main-explanation-box">
@@ -239,7 +322,7 @@ app.get('/', (req, res) => {
     </div>
 
     <script>
-        let questionsData = ${JSON.stringify(mockQuestions)};
+        let questionsData = [];
         let currentMode = 'exam'; let currentIndex = 0;
         let selectedAnswers = {}; let evaluatedQuestions = {};
 
@@ -256,8 +339,6 @@ app.get('/', (req, res) => {
                         img.onerror = function() { this.src = "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=400&auto=format&fit=crop"; };
                         container.appendChild(img);
                     });
-                }).catch(() => {
-                    document.getElementById('gold-board-container').innerHTML = '<p style="color:#666">Đang tự động đồng bộ ảnh...</p>';
                 });
         }
 
@@ -281,6 +362,7 @@ app.get('/', (req, res) => {
         }
 
         function loadQuestion(index) {
+            if(!questionsData || questionsData.length === 0) return;
             currentIndex = index; const q = questionsData[index];
             document.getElementById('question-number-title').innerText = "Câu hỏi " + (index + 1) + " / " + questionsData.length;
             document.getElementById('main-question-text').innerText = q.text;
@@ -334,14 +416,25 @@ app.get('/', (req, res) => {
             alert("🏆 Kết quả: Đúng " + s + "/" + questionsData.length + " câu. Chuyển sang chế độ Ôn Luyện để xem lời giải từng câu nhé!");
         }
 
-        window.onload = function() { loadGoldBoard(); loadQuestion(0); };
+        fetch('/api/questions').then(res => res.json()).then(data => {
+            questionsData = data.questions;
+            loadQuestion(0);
+        });
+
+        window.onload = function() { loadGoldBoard(); };
     </script>
 </body>
 </html>
-    `);
-});
+`;
 
-// Chạy hệ thống trên cổng mạng 3000 giống như các version trước của bạn
-app.listen(3000, () => {
-    console.log("🚀 Hệ thống trung tâm học thuật của bạn đã được kích hoạt thành công tại địa chỉ: http://localhost:3000");
-});
+// ==========================================================================
+// 3. LOGIC ĐIỀU HƯỚNG VÀ XỬ LÝ API TRÊN CLOUDFLARE WORKERS ROUTING
+// ==========================================================================
+export default {
+    async fetch(request, env, ctx) {
+        const url = new URL(request.url);
+
+        // API 1: Trả về danh sách ảnh bảng vàng chứng chỉ
+        if (url.pathname === '/api/gold-board-images') {
+            return new Response(JSON.stringify({ success: true, images: goldBoardImages }), {
+                headers: { 'Content-
