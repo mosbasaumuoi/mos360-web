@@ -74,6 +74,7 @@ export default {
               .replace(/^\+84/, "0")
               .replace(/^84/, "0");
       }
+      const phone = normalizePhone(rawPhone); 
       const course = rawCourse.replace(/\s+/g, " ").trim().toLowerCase();
 
       if (!phone || !course) {
