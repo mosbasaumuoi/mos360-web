@@ -68,7 +68,12 @@ export default {
       const rawCourse = url.searchParams.get("course") || "";
 
       // Chuẩn hóa SĐT: bỏ khoảng trắng, chuyển đầu +84 → 0
-      const phone = rawPhone.trim().replace(/^(\+84|84)/, "0");
+      function normalizePhone(raw) {
+          return raw
+              .trim()
+              .replace(/^\+84/, "0")
+              .replace(/^84/, "0");
+      }
       const course = rawCourse.replace(/\s+/g, " ").trim().toLowerCase();
 
       if (!phone || !course) {
