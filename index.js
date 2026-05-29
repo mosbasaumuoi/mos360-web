@@ -46,7 +46,7 @@ const COURSE_MAP = {
 };
 
 /* =========================
-   EXAM CONTRACT V2
+   EXAM CONTRACT V21
    ========================= */
 
 const EXAM_CONFIG = {
