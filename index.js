@@ -167,6 +167,7 @@ export default {
         }
     );
 }
+           }
 
         if (path === "/generative-ai") {
             return new Response(this.getQuizEnginePage("GENERATIVE AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
