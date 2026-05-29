@@ -153,10 +153,20 @@ export default {
                 return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
                     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
                 });
-            } catch (err) {
-                return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu!" }), { headers: { "Content-Type": "application/json" } });
+                           } catch (err) {
+                   return new Response(
+                       JSON.stringify({
+                           success:false,
+                           error:String(err),
+                           stack:err?.stack
+                       }, null, 2),
+                       {
+            headers:{
+                "Content-Type":"application/json"
             }
         }
+    );
+}
 
         if (path === "/generative-ai") {
             return new Response(this.getQuizEnginePage("GENERATIVE AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
