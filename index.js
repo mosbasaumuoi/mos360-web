@@ -1,7 +1,14 @@
 const CONFIG = {
   TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
   LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
-  SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv"
+  SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
+  SOCIALS: {
+    ZALO: "https://zalo.me/0912888360",
+    FACEBOOK: "https://facebook.com/mos360",
+    MESSENGER: "https://m.me/mos360",
+    YOUTUBE: "https://youtube.com/@mos360",
+    TIKTOK: "https://tiktok.com/@mos360"
+  }
 };
 
 export default {
@@ -75,7 +82,14 @@ export default {
         footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
         .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 40px; }
         .btn-action { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 30px; font-weight: 800; cursor: pointer; width: 100%; }
-        @media (max-width: 800px) { .main-container, .footer-grid { grid-template-columns: 1fr; } }
+        
+        /* CÁC NÚT MẠNG XÃ HỘI CỐ ĐỊNH BÊN PHẢI */
+        .social-sticky-bar { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
+        .social-sticky-item { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; text-decoration: none; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .social-sticky-item:hover { transform: scale(1.15) translateX(-3px); }
+        .s-zalo { background: #0084FF; } .s-fb { background: #1877F2; } .s-mess { background: #00B2FF; } .s-yt { background: #FF0000; } .s-tt { background: #010101; border: 1px solid rgba(255,255,255,0.2); }
+
+        @media (max-width: 800px) { .main-container, .footer-grid { grid-template-columns: 1fr; } .social-sticky-bar { right: 10px; } .social-sticky-item { width: 40px; height: 40px; font-size: 12px; } }
     </style>
     </head><body>
     <header>
@@ -87,6 +101,15 @@ export default {
         <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold; margin:0;">✨ Trắc nghiệm Generative AI</a>
         <a href="/ic3-test" style="color:#FFD700; text-decoration:none; font-weight:bold; margin:0;">🌍 [MỚI] Luyện Đề IC3 GS6 Tổng Hợp (Level 1/2/3)</a>
     </nav>
+    
+    <div class="social-sticky-bar">
+        <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="social-sticky-item s-zalo" title="Zalo">Zalo</a>
+        <a href="` + CONFIG.SOCIALS.FACEBOOK + `" target="_blank" class="social-sticky-item s-fb" title="Facebook">FB</a>
+        <a href="` + CONFIG.SOCIALS.MESSENGER + `" target="_blank" class="social-sticky-item s-mess" title="Messenger">Mess</a>
+        <a href="` + CONFIG.SOCIALS.YOUTUBE + `" target="_blank" class="social-sticky-item s-yt" title="Youtube">YT</a>
+        <a href="` + CONFIG.SOCIALS.TIKTOK + `" target="_blank" class="social-sticky-item s-tt" title="Tiktok">TT</a>
+    </div>
+
     <main>` + content + `</main>
     <footer>
         <div class="footer-grid">
@@ -123,10 +146,136 @@ export default {
       </div>`;
   },
 
-  getCoursesUI() { return `<div class="section-card" style="max-width:600px; margin:40px auto; text-align:center;"><h2>Khóa học đang mở</h2><p style="margin:20px 0; color:#888;">Hệ thống đang tải danh sách lớp tháng này...</p></div>`; },
+  getCoursesUI() { 
+    return `<div style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <h2 style="color: var(--primary); text-align: center; margin-bottom: 10px; font-weight: 800; font-size: 2rem;">DANH SÁCH KHÓA HỌC CHẤT LƯỢNG CAO</h2>
+        <p style="text-align: center; color: #888; margin-bottom: 40px; font-size: 0.95rem;">Học chuẩn lộ trình Certiport, cam kết đầu ra bằng văn bản cam kết hiệu quả.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+            <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                    <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">TIN HỌC QUỐC TẾ</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.3rem;">Luyện Thi Chứng Chỉ IC3 GS6</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6; margin-bottom:20px;">Trọn gói 3 Level: Công nghệ số cốt lõi, Sáng tạo nội dung số, và Đời sống trực tuyến nâng cao. Phù hợp cho học sinh, sinh viên xét tốt nghiệp.</p>
+                </div>
+                <button class="btn-action" onclick="location.href='/ic3-test'">LUYỆN ĐỀ NGAY</button>
+            </div>
+            <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                    <span style="background:rgba(255, 87, 34, 0.1); color:var(--primary); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">VĂN PHÒNG CHUYÊN NGHIỆP</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.3rem;">Luyện Thi MOS Quốc Tế</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6; margin-bottom:20px;">Các cấu phần Word, Excel, PowerPoint phiên bản mới nhất. Học thực hành trực quan, tăng cường kỹ năng xử lý văn phòng thực chiến.</p>
+                </div>
+                <button class="btn-action" style="background:#555;">ĐANG CẬP NHẬT</button>
+            </div>
+            <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                    <span style="background:rgba(212, 175, 55, 0.1); color:#D4AF37; padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">CÔNG NGHỆ MỚI</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.3rem;">Ứng dụng Generative AI</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6; margin-bottom:20px;">Khóa học đón đầu xu thế công nghệ làm chủ Trí tuệ nhân tạo tạo sinh, giúp tự động hóa công việc và bứt phá hiệu suất học tập.</p>
+                </div>
+                <button class="btn-action" style="background: linear-gradient(135deg, #00f2ff, #00a2ff); color:#000;" onclick="location.href='/generative-ai'">VÀO HỌC AI</button>
+            </div>
+        </div>
+    </div>`;
+  },
   getLoginUI() { return `<div class="section-card" style="max-width:400px; margin:100px auto; text-align:center;"><h2>Đăng Nhập</h2><input type="password" placeholder="Mật khẩu" style="width:100%; padding:15px; margin:20px 0; background:#000; border:1px solid #333; color:#fff; border-radius:10px;"><button class="btn-action">VÀO HỆ THỐNG</button></div>`; },
   getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Tài Liệu MOS & IC3</h2><p>Nội dung đang được cập nhật...</p></div>`; },
-  getGenerativeAIUI() { return `<div style="padding:100px 5%; text-align:center; color:#fff; background:var(--card); border-radius:20px; max-width:800px; margin:40px auto; border:1px solid var(--border);"><h1>✨ Trắc nghiệm Generative AI</h1><p style="margin:20px 0; color:#888;">Hệ thống bài tập cũ của bạn.</p><p><a href="/ic3-test" style="color:var(--cyan); text-decoration:none; font-weight:bold;">👉 Bấm để sang trang Trắc Nghiệm IC3 GS6 mới gộp</a></p></div>`; },
+  
+  getGenerativeAIUI() { 
+    return `<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOS360 - Trắc nghiệm Generative AI</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: #0b0c10; color: #c5c6c7; padding: 20px; }
+        .ai-wrap { max-width: 850px; margin: 30px auto; background: #1f2833; border-radius: 16px; border: 1px solid #45f3ff; box-shadow: 0 0 20px rgba(69,243,255,0.2); padding: 30px; }
+        h1 { color: #45f3ff; font-size: 24px; text-align: center; margin-bottom: 25px; font-weight: 800; text-transform: uppercase; }
+        .q-text { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 20px; line-height: 1.5; }
+        .opts-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px; }
+        .opt-item { padding: 14px 18px; background: #0b0c10; border: 2px solid #2f3e46; border-radius: 8px; cursor: pointer; color: #cbd5e1; font-size: 14.5px; transition: 0.2s; }
+        .opt-item:hover:not(.locked) { border-color: #45f3ff; background: #151a22; }
+        .opt-item.picked { border-color: #45f3ff; background: rgba(69,243,255,0.05); }
+        .opt-item.right { border-color: #2ecc71; background: rgba(46,204,113,0.1); color: #2ecc71; font-weight: bold; }
+        .opt-item.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.1); color: #e74c3c; }
+        .explain-box { padding: 15px; background: rgba(69,243,255,0.08); border-left: 4px solid #45f3ff; border-radius: 4px; margin-bottom: 25px; display: none; font-size: 14px; color: #cbd5e1; }
+        .nav-ctrls { display: flex; justify-content: space-between; align-items: center; }
+        .ai-btn { padding: 10px 22px; background: #45f3ff; color: #0b0c10; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 13.5px; }
+        .ai-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <div class="ai-wrap">
+        <h1>✨ Trắc Nghiệm Kiến Thức Generative AI</h1>
+        <div style="text-align:center; margin-bottom: 15px; font-weight: bold; color:#45f3ff;">Câu <span id="ai-idx">1</span> / 5</div>
+        <div class="q-text" id="ai-q-text">Đang nạp câu hỏi...</div>
+        <div class="opts-list" id="ai-opts-block"></div>
+        <div class="explain-box" id="ai-explain-box"></div>
+        <div class="nav-ctrls">
+            <button class="ai-btn" id="ai-btn-prev" onclick="moveQ(-1)" disabled>← Câu trước</button>
+            <a href="/" style="color:#888; text-decoration:none; font-size:12px; font-weight:bold;">QUAY VỀ TRANG CHỦ</a>
+            <button class="ai-btn" id="ai-btn-next" onclick="moveQ(1)">Câu tiếp theo →</button>
+        </div>
+    </div>
+    <script>
+        var aiQuestions = [
+            { q: "Mô hình ngôn ngữ lớn (LLM) hoạt động dựa trên cơ chế cốt lõi nào sau đây?", ans: ["Dự đoán từ tiếp theo có khả năng xảy ra nhất dựa trên ngữ cảnh", "Tra cứu trực tiếp câu trả lời chính xác có sẵn trong ổ cứng", "Sử dụng các quy tắc ngữ pháp cứng nhắc do lập trình viên định nghĩa", "Tự suy luận logic độc lập như bộ não con người không cần dữ liệu"], right: 0, exp: "LLM hoạt động dựa trên xác suất, phân tích ngữ cảnh trước để đưa ra từ tiếp theo phù hợp nhất trong chuỗi." },
+            { q: "Thuật ngữ 'Hallucination' (Ảo tưởng/Bịa chuyện) trong Generative AI chỉ hiện tượng gì?", q: "Hiện tượng AI tự tin đưa ra thông tin hoàn toàn sai lệch hoặc không có thật nhưng trình bày như một sự thật.", ans: ["Hệ thống bị sập do quá tải yêu cầu đồng thời", "AI tạo ra câu trả lời có tính chính xác tuyệt đối", "AI tự tin khẳng định một thông tin sai lệch, bịa đặt như thể là sự thật", "AI từ chối trả lời vì câu hỏi vi phạm chính sách an toàn"], right: 2, exp: "Hallucination là điểm hạn chế của AI tạo sinh khi nó tự tạo thông tin không có cơ sở nhưng văn phong cực kỳ thuyết phục." },
+            { q: "Kỹ thuật viết câu lệnh hiệu quả để AI cho ra kết quả tối ưu nhất được gọi là gì?", ans: ["Software Engineering", "Prompt Engineering", "Data Crawling", "Model Training"], right: 1, exp: "Prompt Engineering là kỹ thuật thiết kế, tinh chỉnh câu lệnh để giao tiếp và khai thác AI tối ưu nhất." },
+            { q: "Để AI không bịa đặt thông tin và trả lời bám sát vào tài liệu riêng của công ty, người ta thường dùng giải pháp nào?", ans: ["Xóa bỏ hoàn toàn mô hình cũ và huấn luyện lại từ đầu", "Sử dụng RAG (Retrieval-Augmented Generation) để tra cứu dữ liệu trước khi trả lời", "Tăng độ dài của câu lệnh lên gấp nhiều lần", "Tắt tính năng bảo mật hệ thống"], right: 1, exp: "RAG giúp cung cấp thêm một kho tri thức đáng tin cậy bên ngoài làm căn cứ cho AI tổng hợp câu trả lời chính xác." },
+            { q: "Deepfake - một sản phẩm của Generative AI thường sử dụng loại mạng kiến trúc nào để cắt ghép khuôn mặt, giọng nói?", ans: ["Mạng GAN (Generative Adversarial Networks)", "Mạng cảm biến diện rộng", "Hệ thống quản trị SQL", "Thuật toán tìm kiếm nhị phân"], right: 0, exp: "GAN gồm 2 mạng đối nghịch (mạng tạo sinh và mạng phân biệt) giúp tối ưu hóa sản phẩm Deepfake giống thật nhất." }
+        ];
+        var curAiQ = 0;
+        var savedAnswers = new Array(aiQuestions.length).fill(null);
+
+        function renderAiQuestion() {
+            var item = aiQuestions[curAiQ];
+            document.getElementById("ai-idx").textContent = curAiQ + 1;
+            document.getElementById("ai-q-text").textContent = item.q;
+            var box = document.getElementById("ai-opts-block");
+            box.innerHTML = "";
+            
+            var chosen = savedAnswers[curAiQ];
+            item.ans.forEach(function(opt, i) {
+                var div = document.createElement("div");
+                div.className = "opt-item";
+                div.textContent = opt;
+                
+                if(chosen !== null) {
+                    div.classList.add("locked");
+                    if(i === item.right) div.classList.add("right");
+                    else if(i === chosen) div.classList.add("wrong");
+                } else {
+                    div.onclick = function() {
+                        savedAnswers[curAiQ] = i;
+                        renderAiQuestion();
+                    };
+                }
+                box.appendChild(div);
+            });
+
+            var expBox = document.getElementById("ai-explain-box");
+            if(chosen !== null) {
+                expBox.style.display = "block";
+                expBox.innerHTML = "<b>Giải thích:</b> " + item.exp;
+            } else {
+                expBox.style.display = "none";
+            }
+            document.getElementById("ai-btn-prev").disabled = (curAiQ === 0);
+            document.getElementById("ai-btn-next").disabled = (curAiQ === aiQuestions.length - 1);
+        }
+
+        function moveQ(dir) {
+            curAiQ += dir;
+            renderAiQuestion();
+        }
+        window.onload = function() { renderAiQuestion(); };
+    </script>
+</body>
+</html>`;
+  },
 
   getIC3QuizUI() {
     let htmlContent = `<!DOCTYPE html>
@@ -271,12 +420,9 @@ export default {
                     <div class="question-text" id="question-text">Đang nạp dữ liệu...</div>
                     <div class="options-container" id="options-container"></div>
                 </div>
-                <div class="answer-key" id="answer-key">
-                    <h4><span id="result-icon">✨</span> <span id="result-text">Đáp án chính xác</span></h4>
-                    <p id="explanation-text"></p>
-                </div>
                 <div class="action-buttons">
                     <button class="btn btn-prev" id="btn-prev" onclick="changeQuestion(-1)" disabled>← Câu trước</button>
+                    <a href="/" style="color:#666; text-decoration:none; display:flex; align-items:center; font-size:12px; font-weight:bold;">THOÁT PHÒNG THI</a>
                     <button class="btn btn-next" id="btn-next" onclick="changeQuestion(1)">Câu tiếp theo →</button>
                 </div>
             </div>
@@ -349,7 +495,7 @@ export default {
         fillQuestionBank();
 
         var currentLevel = 1;
-        var currentMode = 'practice'; // 'practice' hoặc 'exam'
+        var currentMode = 'practice'; 
         var questions = [];    
         var currentQuestion = 0;
         var userChoices = []; 
@@ -365,7 +511,6 @@ export default {
                 currentIndex -= 1;
                 temporaryValue = newArray[currentIndex];
                 newArray[currentIndex] = newArray[randomIndex];
-                newArray[randomIndex] = newArray[randomIndex];
                 newArray[randomIndex] = temporaryValue;
             }
             return newArray;
@@ -494,7 +639,6 @@ export default {
                 optDiv.innerHTML = '<div class="option-label">' + labelText + '</div><div class="option-text">' + option + '</div>';
 
                 if (currentMode === 'practice') {
-                    // Chế độ Ôn Luyện: Xem kết quả liền tay
                     if (chosenIdx !== null) {
                         optDiv.classList.add('disabled');
                         if (index === currentQ.correct) {
@@ -514,7 +658,6 @@ export default {
                         };
                     }
                 } else {
-                    // Chế độ Thi thử (Ẩn kết quả cho đến khi nộp bài)
                     if (!examSubmitted) {
                         if (chosenIdx === index) optDiv.classList.add('selected');
                         optDiv.onclick = function() {
@@ -539,29 +682,8 @@ export default {
                 optionsContainer.appendChild(optDiv);
             });
 
-            var answerKey = document.getElementById('answer-key');
-            var shouldShowExplanation = (currentMode === 'practice' && chosenIdx !== null) || (currentMode === 'exam' && examSubmitted);
-            
-            if (shouldShowExplanation) {
-                answerKey.classList.add('show');
-                document.getElementById('explanation-text').textContent = currentQ.explanation;
-                var resultIcon = document.getElementById('result-icon');
-                var resultText = document.getElementById('result-text');
-                
-                if (chosenIdx === currentQ.correct) {
-                    resultIcon.textContent = '✅';
-                    resultText.textContent = 'Câu này chính xác. Đáp án: ' + String.fromCharCode(65 + currentQ.correct);
-                    answerKey.style.backgroundColor = 'rgba(22,163,74,0.1)';
-                    answerKey.style.borderLeftColor = '#16a34a';
-                } else {
-                    resultIcon.textContent = '❌';
-                    resultText.textContent = 'Chưa chính xác. Đáp án đúng là: ' + String.fromCharCode(65 + currentQ.correct);
-                    answerKey.style.backgroundColor = 'rgba(220,38,38,0.1)';
-                    answerKey.style.borderLeftColor = '#dc2626';
-                }
-            } else {
-                answerKey.classList.remove('show');
-            }
+            // Loại bỏ giải thích dạng tĩnh cũ để dồn không gian cho trải nghiệm, 
+            // hoặc xem qua ô kết quả nếu bạn muốn phục hồi.
 
             document.getElementById('btn-prev').disabled = (currentQuestion === 0);
             document.getElementById('btn-next').disabled = (currentQuestion === questions.length - 1);
@@ -669,7 +791,6 @@ export default {
         }
 
         function init() {
-            // Mặc định khởi tạo chạy Level 1 ở chế độ Ôn Luyện (Practice)
             var fullBank = database[1];
             var shuffledBank = shuffleArray(fullBank);
             questions = shuffledBank.slice(0, 45);
