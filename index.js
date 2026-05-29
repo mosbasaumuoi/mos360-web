@@ -697,6 +697,7 @@ const bankJSON = JSON.stringify(
             <div>
                 <h3 style="color:#fff;">🎯 Phòng Ôn Luyện & Sát Hạch: ${courseType}</h3>
                 <p style="color:#64748b; font-size:0.75rem; margin-top:2px;">Tiêu chuẩn đạt: ${EXAM_CONFIG.PASS_SCORE} / ${EXAM_CONFIG.MAX_SCORE} điểm | ${EXAM_CONFIG.QUESTION_COUNT} Câu hỏi
+                </p>
             </div>
             <div class="timer-box" id="timerContainer">⏱️ <span id="clock">00:00</span></div>
         </header>
