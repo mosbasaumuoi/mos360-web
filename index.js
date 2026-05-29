@@ -1,8 +1,19 @@
+/* =========================
+   MOS360 V2
+   BASELINE CONTRACT LOCKED
+   ========================= */
+
+import IC3_LEVEL1 from "./questions/ic3-level1.js";
+import IC3_LEVEL2 from "./questions/ic3-level2.js";
+import IC3_LEVEL3 from "./questions/ic3-level3.js";
+import GENERATIVE_AI from "./questions/generative-ai.js";
+
 const CONFIG = {
   TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
   LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
   SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
   SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
+
   SOCIALS: {
     ZALO: "https://zalo.me/0912888360",
     FACEBOOK: "https://facebook.com/mos360",
@@ -10,10 +21,40 @@ const CONFIG = {
     YOUTUBE: "https://youtube.com/@mos360",
     TIKTOK: "https://tiktok.com/@mos360"
   },
+
   ADMIN: {
     USER: "admin@mos360",
     PASS: "Mos360"
   }
+};
+
+/* =========================
+   QUESTION BANK V2
+   ========================= */
+
+const COURSE_MAP = {
+  "IC3 GS6": [
+    ...IC3_LEVEL1,
+    ...IC3_LEVEL2,
+    ...IC3_LEVEL3
+  ],
+
+  "GENERATIVE AI": [
+    ...GENERATIVE_AI
+  ]
+};
+
+/* =========================
+   EXAM CONTRACT V2
+   ========================= */
+
+const EXAM_CONFIG = {
+  QUESTION_COUNT: 45,
+  EXAM_DURATION: 50,
+  PASS_SCORE: 700,
+  MAX_SCORE: 1000,
+
+  TRIAL_DURATION: 10
 };
 
 export default {
@@ -49,23 +90,51 @@ export default {
             const sheetCourse = (cols[0] || "").replace(/\r/g, "").replace(/\s+/g, " ").trim().toLowerCase();
             const rawSheetPhone = (cols[1] || "").replace(/\r/g, "").trim();
             const sheetPhone = rawSheetPhone.replace(/^(\+84|84)/, "0");
-            const sheetDateStr = (cols[2] || "").replace(/\r/g, "").trim();
+            const expireStr = (cols[3] || "").replace(/\r/g, "").trim();
 
-            if (sheetPhone === phone && (sheetCourse === course || sheetCourse.includes(course) || course.includes(sheetCourse))) {
-              if (sheetDateStr) {
-                const parts = sheetDateStr.includes("/") ? sheetDateStr.split("/") : sheetDateStr.split("-");
-                let startDate = sheetDateStr.includes("/")
-                  ? new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]))
-                  : new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
-                const diffDays = Math.ceil(Math.abs(new Date() - startDate) / (1000 * 60 * 60 * 24));
-                if (diffDays > 30) {
-                  reason = "Tài khoản đã hết hạn 30 ngày học tập quy định!";
-                  break;
-                }
-              }
-              isValid = true;
-              break;
-            }
+if (
+  sheetPhone === phone &&
+  (
+    sheetCourse === course ||
+    sheetCourse.includes(course) ||
+    course.includes(sheetCourse)
+  )
+) {
+
+  if (expireStr) {
+
+    const parts =
+      expireStr.includes("/")
+        ? expireStr.split("/")
+        : expireStr.split("-");
+
+    const expireDate =
+      expireStr.includes("/")
+        ? new Date(
+            parseInt(parts[2]),
+            parseInt(parts[1]) - 1,
+            parseInt(parts[0]),
+            23, 59, 59
+          )
+        : new Date(
+            parseInt(parts[0]),
+            parseInt(parts[1]) - 1,
+            parseInt(parts[2]),
+            23, 59, 59
+          );
+
+    if (new Date() > expireDate) {
+
+      reason =
+        "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
+
+      break;
+    }
+  }
+
+  isValid = true;
+  break;
+}
           }
         }
         return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
@@ -174,6 +243,12 @@ export default {
         .social-sticky-item:hover { transform: scale(1.15); }
         .social-sticky-item svg { width: 48px; height: 48px; }
         .s-zalo { box-shadow: 0 4px 14px rgba(0,104,255,0.5); }
+        .s-zalo svg {
+              width: 48px;
+              height: 48px;
+              border-radius: 50%;
+              overflow: hidden;
+          }
         .s-fb { background: #1877F2; box-shadow: 0 4px 14px rgba(24,119,242,0.4); }
         .s-fb svg, .s-mess svg, .s-yt svg, .s-tt svg { width: 26px; height: 26px; fill: white; }
         .s-mess { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); box-shadow: 0 4px 14px rgba(214,36,159,0.4); }
@@ -314,7 +389,7 @@ export default {
               <div class="featured-main-title">
                   Xóa tan nỗi lo
                   <span>CHUẨN ĐẦU RA</span>
-                  for sinh viên
+                  cho sinh viên
               </div>
               <ul class="highlight-list">
                   <li>Học thật, tiến bộ thật</li>
@@ -345,7 +420,7 @@ export default {
 
         <div class="course-block-title">
             <svg viewBox="0 0 24 24"><path d="M22 18H2V4h20v14zm-11 2h2v2h-2v-2zm-9-4h18V6H2v10z"/></svg>
-            <h2>LỚP KHÓA HỌC LUYỆN THI MOS OFFICE 2019 (ĐỒNG GIÁ 400K)</h2>
+            <h2>LỚP KHÓA HỌC LUYỆN THI MOS OFFICE 2019</h2>
         </div>
         <div class="course-grid">
             <div class="section-card">
@@ -379,7 +454,7 @@ export default {
 
         <div class="course-block-title">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            <h2>LỚP KHÓA HỌC LUYỆN THI MOS OFFICE 365 (ĐỒNG GIÁ 400K)</h2>
+            <h2>LỚP KHÓA HỌC LUYỆN THI MOS OFFICE 365</h2>
         </div>
         <div class="course-grid">
             <div class="section-card">
@@ -413,7 +488,7 @@ export default {
 
         <div class="course-block-title">
             <svg viewBox="0 0 24 24"><path d="M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.2 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>
-            <h2>PHÒNG THI THỬ ĐẶC BIỆT CHUYÊN SÂU (ĐỒNG GIÁ 200K)</h2>
+            <h2>PHÒNG THI THỬ ĐẶC BIỆT CHUYÊN SÂU</h2>
         </div>
         <div class="course-grid">
             <div class="section-card" style="border-color:#FFD700; display:flex; flex-direction:column; justify-content:space-between;">
@@ -521,24 +596,46 @@ export default {
 
   // FIX 5: Phòng ôn luyện với phản hồi đúng/sai ngay lập tức + hộp giải thích
   getQuizEnginePage(courseType) {
-    // Ngân hàng câu hỏi với explanation chi tiết
-    const bankJSON = JSON.stringify([
-      { q: "Khi làm việc trên Internet, hoạt động nào là ví dụ điển hình về Điện toán đám mây (Cloud Computing)?", o: ["Lưu file trên USB di động", "Đồng bộ dữ liệu qua Microsoft OneDrive", "Cài Office bằng đĩa cứng vật lý", "Gửi SMS truyền thống"], c: 1, e: "Cloud Computing là mô hình cung cấp tài nguyên (lưu trữ, tính toán) qua Internet. OneDrive là dịch vụ đám mây điển hình của Microsoft, cho phép truy cập tệp từ mọi thiết bị." },
-      { q: "Loại phần mềm nào không cho phép công khai và ngăn người dùng chỉnh sửa mã nguồn gốc?", o: ["Mã nguồn mở (Open Source)", "Phần mềm thương mại mã nguồn đóng (Closed Source)", "Phần mềm miễn phí (Freeware)", "Phần mềm dùng thử (Shareware)"], c: 1, e: "Phần mềm Closed Source (mã nguồn đóng) bảo vệ mã nguồn bằng bản quyền, không cho phép xem, sao chép hoặc chỉnh sửa. Ví dụ: Microsoft Windows, Adobe Photoshop." },
-      { q: "Tính năng nào trong Excel tự động hiển thị gợi ý từ dữ liệu đã nhập trước trong cột?", o: ["AutoFit", "AutoFormat", "AutoComplete", "AutoFill"], c: 2, e: "AutoComplete tự động đề xuất hoàn chỉnh giá trị khi phát hiện ký tự trùng khớp với dữ liệu cột hiện có. Nhấn Enter để chấp nhận hoặc tiếp tục gõ để bỏ qua." },
-      { q: "Trong cuộc họp Video Conference, tính năng nào giúp mọi người phát biểu bình đẳng?", o: ["Tắt camera tất cả mọi người", "Sử dụng tính năng Giơ tay (Raise Hand)", "Nhắn tin riêng cho người chủ trì", "Rời phòng họp khi có ý kiến trái chiều"], c: 1, e: "Raise Hand (Giơ tay ảo) là tính năng chuẩn trong các nền tảng họp trực tuyến (Zoom, Teams, Meet) giúp người tham dự thông báo muốn phát biểu mà không làm gián đoạn người đang nói." },
-      { q: "Hành động nào xóa bỏ an toàn dữ liệu cá nhân trước khi thanh lý thiết bị?", o: ["Tắt nguồn thiết bị", "Gỡ cài đặt trình duyệt", "Khôi phục cài đặt gốc (Factory Reset)", "Quét virus nhanh"], c: 2, e: "Factory Reset xóa toàn bộ dữ liệu người dùng và khôi phục thiết bị về trạng thái xuất xưởng. Đây là bước bắt buộc khi chuyển nhượng hoặc tái chế thiết bị để bảo vệ thông tin cá nhân." },
-      { q: "Generative AI khác với AI truyền thống ở điểm nào?", o: ["Generative AI chỉ phân tích dữ liệu có sẵn", "Generative AI có thể tạo ra nội dung mới (văn bản, hình ảnh, code)", "Generative AI không sử dụng dữ liệu huấn luyện", "Generative AI chỉ hoạt động trên siêu máy tính"], c: 1, e: "Generative AI (AI tạo sinh) có khả năng tạo ra nội dung mới không có trong dữ liệu huấn luyện, bao gồm văn bản, hình ảnh, âm thanh, code. Ví dụ: ChatGPT, DALL-E, GitHub Copilot." },
-      { q: "Prompt Engineering là gì trong bối cảnh sử dụng Generative AI?", o: ["Lập trình phần cứng cho máy chủ AI", "Kỹ thuật viết câu lệnh/hướng dẫn hiệu quả để nhận output tốt từ AI", "Quy trình kiểm thử mô hình AI", "Phương pháp mã hóa dữ liệu huấn luyện"], c: 1, e: "Prompt Engineering là nghệ thuật thiết kế câu lệnh (prompt) rõ ràng, cụ thể để hướng AI tạo ra kết quả chính xác theo mục tiêu. Kỹ năng này giúp tận dụng tối đa sức mạnh của Generative AI." },
-      { q: "Hallucination trong AI Generative đề cập đến vấn đề gì?", o: ["AI xử lý quá chậm", "AI tạo ra thông tin không chính xác hoặc bịa đặt nhưng trông có vẻ hợp lý", "AI không thể hiểu ngôn ngữ tự nhiên", "AI tiêu tốn quá nhiều điện năng"], c: 1, e: "Hallucination là hiện tượng AI tự tin trả lời sai, bịa ra các 'sự kiện', tên người, hoặc nguồn tài liệu không tồn tại. Người dùng cần luôn kiểm chứng thông tin quan trọng từ AI với nguồn chính thống." },
-      { q: "Trong IC3 GS6, kỹ năng 'Digital Citizenship' bao gồm điều nào?", o: ["Lập trình Python nâng cao", "Ứng xử có trách nhiệm và an toàn trên môi trường số", "Thiết kế đồ họa vector", "Quản trị cơ sở dữ liệu"], c: 1, e: "Digital Citizenship (Công dân số) trong IC3 GS6 bao gồm: an toàn trực tuyến, bảo vệ quyền riêng tư, ứng xử có đạo đức trên mạng, nhận biết thông tin sai lệch, và sử dụng công nghệ có trách nhiệm." },
-      { q: "Phishing là hình thức tấn công mạng nào?", o: ["Tấn công từ chối dịch vụ (DDoS)", "Giả mạo email/website để đánh cắp thông tin đăng nhập", "Mã hóa dữ liệu để tống tiền", "Khai thác lỗ hổng phần mềm tự động"], c: 1, e: "Phishing giả mạo email, SMS hoặc website của tổ chức uy tín (ngân hàng, mạng xã hội) để lừa người dùng cung cấp mật khẩu, số thẻ tín dụng. Dấu hiệu nhận biết: URL lạ, lỗi chính tả, yêu cầu gấp." },
-      { q: "Định dạng file nào được tối ưu để chia sẻ tài liệu đảm bảo bố cục không thay đổi trên mọi thiết bị?", o: [".docx", ".txt", ".pdf", ".rtf"], c: 2, e: "PDF (Portable Document Format) giữ nguyên font chữ, bố cục và hình ảnh trên mọi hệ điều hành và thiết bị. Đây là lý do PDF là định dạng chuẩn cho tài liệu chính thức, hóa đơn, hợp đồng." },
-      { q: "Trong Excel, hàm nào dùng để tính tổng có điều kiện?", o: ["SUM", "SUMIF", "COUNT", "AVERAGE"], c: 1, e: "SUMIF(range, criteria, sum_range) tính tổng các ô thỏa điều kiện. Ví dụ: =SUMIF(A:A,\"Hà Nội\",B:B) tổng cột B khi cột A là 'Hà Nội'. SUMIFS dùng khi có nhiều điều kiện." },
-      { q: "IPv6 được phát triển để giải quyết vấn đề gì của IPv4?", o: ["Tốc độ truyền dữ liệu quá chậm", "Địa chỉ IP bị cạn kiệt do không đủ số lượng", "Bảo mật kém hơn", "Không tương thích với thiết bị di động"], c: 1, e: "IPv4 chỉ có ~4.3 tỷ địa chỉ (32-bit), đã gần cạn kiệt. IPv6 dùng 128-bit, cung cấp 340 undecillion địa chỉ (3.4×10³⁸), đủ cho mọi thiết bị IoT trong tương lai." },
-      { q: "Thao tác Ctrl+Z trong các ứng dụng văn phòng dùng để làm gì?", o: ["Lưu file", "Hoàn tác hành động vừa thực hiện (Undo)", "Chọn tất cả", "Tìm kiếm"], c: 1, e: "Ctrl+Z là phím tắt Undo phổ biến nhất trên Windows, hoàn tác thao tác vừa thực hiện. Ctrl+Y hoặc Ctrl+Shift+Z là Redo (làm lại). Đây là kỹ năng cơ bản trong IC3 Computing Fundamentals." },
-      { q: "Malware là gì?", o: ["Phần mềm diệt virus", "Phần mềm độc hại thiết kế để gây hại cho hệ thống", "Bản cập nhật hệ điều hành", "Ứng dụng tăng hiệu suất máy tính"], c: 1, e: "Malware (Malicious Software) là thuật ngữ chung cho mọi phần mềm độc hại: virus, worm, trojan, ransomware, spyware. Chúng xâm nhập hệ thống để đánh cắp dữ liệu, phá hoại hoặc kiểm soát thiết bị." }
-    ]);
+    /* =========================
+   QUESTION BANK V2
+   ========================= */
+
+const questionBank =
+  COURSE_MAP[courseType] || [];
+
+if (!questionBank.length) {
+
+  return `
+  <!DOCTYPE html>
+  <html>
+  <body style="
+      background:#08090e;
+      color:white;
+      font-family:sans-serif;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      text-align:center;
+  ">
+      <div>
+          <h2>⚠ Không tìm thấy Question Bank</h2>
+          <p>${courseType}</p>
+          <a href="/courses">Quay lại</a>
+      </div>
+  </body>
+  </html>
+  `;
+}    
+
+const bankJSON = JSON.stringify(
+  questionBank.map(item => ({
+    q: item.question,
+    o: item.options,
+    c: item.answer,
+    e: item.explanation || ""
+  }))
+);
 
     return `<!DOCTYPE html><html><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -599,7 +696,7 @@ export default {
         <header>
             <div>
                 <h3 style="color:#fff;">🎯 Phòng Ôn Luyện & Sát Hạch: ${courseType}</h3>
-                <p style="color:#64748b; font-size:0.75rem; margin-top:2px;">Tiêu chuẩn đạt: 700 / 1000 điểm | 45 Câu hỏi</p>
+                <p style="color:#64748b; font-size:0.75rem; margin-top:2px;">Tiêu chuẩn đạt: ${EXAM_CONFIG.PASS_SCORE} / ${EXAM_CONFIG.MAX_SCORE} điểm | ${EXAM_CONFIG.QUESTION_COUNT} Câu hỏi
             </div>
             <div class="timer-box" id="timerContainer">⏱️ <span id="clock">00:00</span></div>
         </header>
@@ -628,7 +725,9 @@ export default {
                     <button onclick="restartQuiz()" style="padding:10px 25px; background:#1e2235; border:1px solid #282f44; color:#94a3b8; font-weight:700; border-radius:20px; cursor:pointer;">LÀM LẠI BÀI THI</button>
                 </div>
 
-                <div style="font-size:11px; color:#00f2ff; font-weight:800; letter-spacing:0.5px; margin-bottom:10px;">CÂU HỎI: <span id="lblIdx">1</span> / 45</div>
+                <div style="font-size:11px; color:#00f2ff; font-weight:800; letter-spacing:0.5px; margin-bottom:10px;">
+                CÂU HỎI: <span id="lblIdx">1</span> / ${EXAM_CONFIG.QUESTION_COUNT}
+                </div>
                 <div class="question-box" id="lblText">Đang tải...</div>
                 <div id="optsArea"></div>
                 <!-- FIX 5: Hộp giải thích -->
@@ -654,7 +753,7 @@ export default {
     </div>
 
     <script>
-    var qCount = 45;
+    var qCount = EXAM_CONFIG.QUESTION_COUNT;
     var list = [];
     var cur = 0;
     var userAns = new Array(qCount).fill(null);
@@ -665,11 +764,50 @@ export default {
     // Ngân hàng câu hỏi với explanation
     var bank = ${bankJSON};
 
-    // Xây danh sách 45 câu từ bank (lặp vòng nếu bank < 45)
-    for (var i = 0; i < qCount; i++) {
-        var b = bank[i % bank.length];
-        list.push({ q: "[Câu " + (i+1) + "] " + b.q, options: b.o.slice(), c: b.c, e: b.e });
+/* =========================
+   RANDOM 45 QUESTIONS
+   ========================= */
+
+function shuffleArray(arr) {
+
+    var clone = arr.slice();
+
+    for (var i = clone.length - 1; i > 0; i--) {
+
+        var j = Math.floor(
+            Math.random() * (i + 1)
+        );
+
+        var temp = clone[i];
+        clone[i] = clone[j];
+        clone[j] = temp;
     }
+
+    return clone;
+}
+
+var shuffledBank = shuffleArray(bank);
+
+var selectedQuestions =
+    shuffledBank.slice(
+        0,
+        Math.min(qCount, shuffledBank.length)
+    );
+
+for (var i = 0; i < selectedQuestions.length; i++) {
+
+    var b = selectedQuestions[i];
+
+    list.push({
+        q: "[Câu " + (i + 1) + "] " + b.q,
+        options: b.o.slice(),
+        c: b.c,
+        e: b.e
+    });
+}
+
+qCount = list.length;
+userAns = new Array(qCount).fill(null);
 
     function verifyModeMenu() {
         if (isVerified) {
@@ -713,14 +851,21 @@ export default {
             g.appendChild(d);
         }
         renderQ();
-        var mins = isVerified ? (mode === 'exam' ? 50 : 0) : 10;
-        if (mins > 0) {
-            startTimer(mins);
-        } else {
-            document.getElementById('timerContainer').innerHTML = "📖 Ôn luyện tự do";
-            document.getElementById('timerContainer').style.border = "2px solid #22c55e";
-            document.getElementById('timerContainer').style.color = "#22c55e";
-        }
+        var mins =
+        isVerified
+            ? (
+                mode === 'exam'
+                    ? EXAM_CONFIG.EXAM_DURATION
+                    : 0
+            )
+            : EXAM_CONFIG.TRIAL_DURATION;
+            if (mins > 0) {
+                startTimer(mins);
+            } else {
+                document.getElementById('timerContainer').innerHTML = "📖 Ôn luyện tự do";
+                document.getElementById('timerContainer').style.border = "2px solid #22c55e";
+                document.getElementById('timerContainer').style.color = "#22c55e";
+            }
     }
 
     function renderQ() {
@@ -808,13 +953,13 @@ export default {
         var rights = 0;
         for (var i = 0; i < qCount; i++) { if (userAns[i] === list[i].c) rights++; }
         var score = Math.round((rights / qCount) * 1000);
-        document.getElementById('resScore').textContent = score + " / 1000 điểm";
-        if (score >= 700) {
+        document.getElementById('resScore').textContent = score + "/" + EXAM_CONFIG.MAX_SCORE + " điểm";
+        if (score >= EXAM_CONFIG.PASS_SCORE) {
             document.getElementById('resScore').style.color = "#22c55e";
-            document.getElementById('resText').innerHTML = "🎉 XUẤT SẮC ĐẠT CHUẨN! Bạn trả lời đúng " + rights + "/" + qCount + " câu, đạt " + score + "/1000 điểm (Tiêu chuẩn PASS Certiport: 700đ).";
+            document.getElementById('resText').innerHTML = "🎉 XUẤT SẮC ĐẠT CHUẨN! Bạn trả lời đúng " + rights + "/" + qCount + " câu, đạt " + score + "/" + EXAM_CONFIG.MAX_SCORE + " điểm (Tiêu chuẩn PASS Certiport: 700đ).";
         } else {
             document.getElementById('resScore').style.color = "#FF5722";
-            document.getElementById('resText').innerHTML = "⚠️ CHƯA ĐẠT CHUẨN. Bạn đạt " + score + "/1000 điểm, cần ôn thêm để đạt mức 700đ. Hãy thử chế độ Ôn luyện để xem giải thích từng câu!";
+            document.getElementById('resText').innerHTML = "⚠️ CHƯA ĐẠT CHUẨN. Bạn đạt " + score + "/" + EXAM_CONFIG.MAX_SCORE + " điểm, cần ôn thêm để đạt mức " + EXAM_CONFIG.PASS_SCORE + " điểm. Hãy thử chế độ Ôn luyện để xem giải thích từng câu!";
         }
         document.getElementById('resBox').style.display = "flex";
     }
