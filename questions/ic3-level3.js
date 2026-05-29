@@ -1462,3 +1462,4 @@ export const IC3_LEVEL3 = [
   }
 
 ];
+export default IC3_LEVEL3;
