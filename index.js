@@ -69,8 +69,12 @@ export default {
 
       // Chuẩn hóa SĐT: bỏ khoảng trắng, chuyển đầu +84 → 0
       function normalizePhone(raw) {
-    return "MOS360_TEST_123";
-}
+          return raw
+              .trim()
+              .replace(/^\+84/, "0")
+              .replace(/^84/, "0");
+      }
+
       const phone = normalizePhone(rawPhone); 
       const course = rawCourse.replace(/\s+/g, " ").trim().toLowerCase();
 
