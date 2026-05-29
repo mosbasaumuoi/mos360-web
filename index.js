@@ -85,6 +85,7 @@ export default {
             try {
                 const resp = await fetch(CONFIG.SHEET_EDIT_URL + "&v=" + Date.now());
                 const tsv = await resp.text();
+               return new Response(tsv.slice(0, 500));
                 const rows = tsv.split("\n");
 
                 let isValid = false;
