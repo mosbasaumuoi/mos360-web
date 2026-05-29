@@ -103,6 +103,7 @@ console.log("TOTAL ROWS:", rows.length);
 
                 for (let i = 1; i < rows.length; i++) {
                     const cols = rows[i].split("\t");
+                   return new Response(JSON.stringify(cols));
                     if (cols.length >= 2) {
                         // Chuẩn hóa cả dữ liệu sheet
                         const sheetCourse = (cols[0] || "").replace(/\r/g, "").replace(/\s+/g, " ").trim().toLowerCase();
