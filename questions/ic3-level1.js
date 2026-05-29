@@ -856,7 +856,7 @@ export const IC3_LEVEL1 = [
     answer: 0,
     explanation:
       "Độ tương phản tốt giúp người xem dễ đọc nội dung."
-  }.
+  },
 
     {
     id: 46,
