@@ -103,7 +103,19 @@ console.log("TOTAL ROWS:", rows.length);
                 let reason = "Mã số điện thoại chưa được đăng ký trên hệ thống!";
 
                 for (let i = 1; i < rows.length; i++) {
-                    const cols = rows[i].split("\t");
+                    const sheetCourse = (cols[0] || "")
+  .replace(/\r/g, "")
+  .replace(/\s+/g, " ")
+  .trim()
+  .toLowerCase();
+
+const rawSheetPhone = (cols[1] || "")
+  .replace(/\r/g, "")
+  .trim();
+
+const expireStr = (cols[3] || "")
+  .replace(/\r/g, "")
+  .trim();
                    
                     if (cols.length >= 2) {
                         // Chuẩn hóa cả dữ liệu sheet
