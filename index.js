@@ -1,7 +1,6 @@
 const CONFIG = {
   TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
   LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
-  // URL Gốc dữ liệu dùng để xuất TSV đồng bộ và làm link định tuyến trực tiếp cho nút Admin
   SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
   SOCIALS: {
     ZALO: "https://zalo.me/0912888360",
@@ -21,16 +20,15 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
     
-    // 2. + 3. API TRA CỨU DỮ LIỆU TỰ ĐỘNG VÀ ĐỔI TEXT THÔNG BÁO THÀNH "HỆ THỐNG HỌC VIÊN MOS360"
+    // API TRA CỨU TỰ ĐỘNG CHUẨN MÃ KHÓA HỌC TRÊN GOOGLE SHEET
     if (path === "/api/verify-code") {
-      const phone = url.searchParams.get("phone");
-      const course = url.searchParams.get("course");
+      const phone = url.searchParams.get("phone")?.trim();
+      const course = url.searchParams.get("course")?.trim();
       if (!phone || !course) {
         return new Response(JSON.stringify({ success: false, msg: "Thiếu thông tin số điện thoại tra cứu!" }), { headers: { "Content-Type": "application/json" } });
       }
       
       try {
-        // Trích xuất tự động qua cổng Export của cấu trúc trang Sheet thực tế của bạn
         const exportUrl = CONFIG.SHEET_EDIT_URL.split("/edit")[0] + "/export?format=tsv&gid=0&v=" + Date.now();
         const resp = await fetch(exportUrl);
         const tsv = await resp.text();
@@ -39,14 +37,19 @@ export default {
         let isValid = false;
         let reason = "Mã số điện thoại chưa được kích hoạt trên hệ thống học viên MOS360!";
         
+        // Chuẩn hóa chuỗi tìm kiếm (xóa khoảng trắng thừa, đưa về chữ thường)
+        const targetCourseClean = course.replace(/\s+/g, ' ').trim().toLowerCase();
+        
         for (let i = 1; i < rows.length; i++) {
           const cols = rows[i].split("\t");
           if (cols.length >= 2) {
-            const sheetCourse = cols[0]?.replace(/\r/g, "").trim().toLowerCase();
+            const sheetCourseRaw = cols[0]?.replace(/\r/g, "");
+            const sheetCourseClean = sheetCourseRaw ? sheetCourseRaw.replace(/\s+/g, ' ').trim().toLowerCase() : "";
             const sheetPhone = cols[1]?.replace(/\r/g, "").trim();
             const sheetDateStr = cols[2]?.replace(/\r/g, "").trim();
             
-            if (sheetPhone === phone && (sheetCourse.includes(course.toLowerCase()) || course.toLowerCase().includes(sheetCourse))) {
+            // So khớp chính xác mã khóa học đã chuẩn hóa và số điện thoại
+            if (sheetPhone === phone && (sheetCourseClean === targetCourseClean || sheetCourseClean.includes(targetCourseClean) || targetCourseClean.includes(sheetCourseClean))) {
               if (sheetDateStr) {
                 const parts = sheetDateStr.includes("/") ? sheetDateStr.split("/") : sheetDateStr.split("-");
                 let startDate = sheetDateStr.includes("/") ? new Date(parts[2], parts[1] - 1, parts[0]) : new Date(parts[0], parts[1] - 1, parts[2]);
@@ -71,13 +74,13 @@ export default {
 
     // Định tuyến giao diện phòng thi
     if (path === "/generative-ai") {
-        return new Response(this.getQuizEnginePage("Generative AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        return new Response(this.getQuizEnginePage("GENERATIVE AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
     }
     if (path === "/ic3-test") {
         return new Response(this.getQuizEnginePage("IC3 GS6"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
     }
 
-    // 1. TẢI DỮ LIỆU CHỨNG CHỈ BẢNG VÀNG THEO ĐÚNG TIÊU CHUẨN PHIÊN BẢN CŨ
+    // TẢI DỮ LIỆU CHỨNG CHỈ BẢNG VÀNG - NHÂN BẢN ĐỂ CHẠY HIỆU ỨNG LIÊN TỤC
     let studentData = "";
     try {
       const exportUrl = CONFIG.SHEET_EDIT_URL.split("/edit")[0] + "/export?format=tsv&gid=0&v=" + Date.now();
@@ -96,7 +99,8 @@ export default {
           htmlContent += '<div class="student-item"><img src="' + finalLink + '" loading="lazy"></div>';
         }
       });
-      studentData = htmlContent ? htmlContent + htmlContent : "<div style='color:#64748b; padding:20px;'>Hệ thống đang đồng bộ hình ảnh...</div>"; 
+      // Nhân bản 3 lần chuỗi dữ liệu đảm bảo track đủ dài để chạy cuộn mượt không bị trống khung
+      studentData = htmlContent ? htmlContent + htmlContent + htmlContent : "<div style='color:#64748b; padding:20px;'>Hệ thống đang đồng bộ hình ảnh...</div>"; 
     } catch (e) { 
       studentData = "<div style='color:#64748b; padding:20px;'>Đang tải dữ liệu từ Google Sheet...</div>"; 
     }
@@ -140,7 +144,6 @@ export default {
         .main-container { max-width: 1400px; margin: 30px auto; padding: 0 5%; display: grid; grid-template-columns: 360px 1fr; gap: 30px; }
         .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         
-        /* GIỮ NGUYÊN CSS KHỐI TIÊU ĐỀ ĐÃ XOÁ CHỮ "CAM KẾT CHẤT LƯỢNG" */
         .featured-highlights-box { background: #111422; border: 1px solid var(--border); border-radius: 24px; padding: 35px 25px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
         .featured-highlights-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, #FF5722, #ff9100); }
         .featured-main-title { font-size: 1.85rem; font-weight: 800; color: #fff; line-height: 1.25; letter-spacing: -0.5px; margin-top: 5px; }
@@ -149,21 +152,21 @@ export default {
         .highlight-list li { display: flex; align-items: center; gap: 12px; font-size: 1.05rem; font-weight: 700; color: #cbd5e1; }
         .highlight-list li::before { content: "✓"; display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(255, 87, 34, 0.15); color: #FF5722; border-radius: 50%; font-size: 11px; font-weight: 900; }
         
-        /* 1. KHÔI PHỤC NGUYÊN VẸN CSS BẢNG VÀNG PHIÊN BẢN CŨ CHUẨN ĐẸP */
+        /* 2. SỬA LỖI BẢNG VÀNG: HIỆU ỨNG CHẠY ĐỘNG TRƠN TRU MƯỢT MÀ KHÔNG DỪNG */
         #bang-vang-container { height: 420px; overflow: hidden; }
         .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; background: rgba(0,0,0,0.2); border-radius: 16px; }
-        .carousel-track { display: flex; align-items: center; gap: 20px; position: absolute; left: 0; top: 0; height: 100%; animation: scroll-left 120s linear infinite; }
+        .carousel-track { display: flex; align-items: center; gap: 20px; position: absolute; left: 0; top: 0; height: 100%; animation: scroll-left 45s linear infinite; width: max-content; }
         .student-item { flex: 0 0 auto; width: 280px; height: 100%; display: flex; align-items: center; justify-content: center; }
         .student-item img { max-width: 100%; max-height: 90%; object-fit: contain; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }
         
-        /* 5. CẤU HÌNH ICON MẠNG XÃ HỘI CHUẨN ĐẸP THEO ẢNH CHAT TRƯỚC (HÌNH TRÒN KHÔNG NỀN XÁM, MÀU HIỆN ĐẠI) */
+        /* 1. SỬA ICON ZALO THƯƠNG HIỆU: DỄ DÀNG NHẬN DIỆN */
         .social-sticky-bar { position: fixed; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
-        .social-sticky-item { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .social-sticky-item { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.4); text-decoration: none; font-weight: 900; color: white; }
         .social-sticky-item:hover { transform: scale(1.15) rotate(5deg); }
         .social-sticky-item svg { width: 26px; height: 26px; fill: white; }
         
-        .s-zalo { background: #0068FF; box-shadow: 0 4px 14px rgba(0,104,255,0.4); }
+        .s-zalo { background: #0068FF; font-size: 22px; font-family: 'Arial', sans-serif; box-shadow: 0 4px 14px rgba(0,104,255,0.5); border: 1px solid rgba(255,255,255,0.2); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
         .s-fb { background: #1877F2; box-shadow: 0 4px 14px rgba(24,119,242,0.4); }
         .s-mess { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); box-shadow: 0 4px 14px rgba(214,36,159,0.4); }
         .s-yt { background: #FF0000; box-shadow: 0 4px 14px rgba(255,0,0,0.4); }
@@ -210,15 +213,14 @@ export default {
     </header>
     
     <nav style="background: rgba(0,242,255,0.03); padding: 12px 5%; font-size: 0.8rem; border-bottom: 1px solid var(--border); display:flex; gap:15px; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;">
-        <span style="color:#64748b; font-weight:bold;">🎯 Lối tắt nhanh:</span>
-        <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold; margin:0;">✨ Luyện thi Generative AI</a>
+        <span style="color:#64748b; font-weight:bold;">🎯 Lối tắt phòng thi:</span>
+        <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold; margin:0;">✨ Luyện thi GENERATIVE AI</a>
         <a href="/ic3-test" style="color:#FFD700; text-decoration:none; font-weight:bold; margin:0;">🌍 Luyện thi IC3 GS6 Tổng hợp</a>
     </nav>
     
     <div class="social-sticky-bar" id="stickySocialBar">
-        <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="social-sticky-item s-zalo" title="Zalo">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.58 2 10c0 2.45 1.34 4.61 3.46 5.92-.12.48-.52 1.92-.6 2.25-.11.45.17.41.36.28.3-.2 2.05-1.39 2.87-1.93.92.27 1.9.43 2.91.43 5.52 0 10-3.58 10-8s-4.48-8-10-8zm-1.25 11.25H7.5v-1.5h3.25v1.5zm4.5 0h-3.25v-1.5h3.25v1.5zm0-3h-4.5v-1.5h4.5v1.5z"/></svg>
-        </a>
+        <!-- ICON ZALO MỚI: CHỮ Z ĐẶC TRƯNG SIÊU DỄ NHẬN DIỆN -->
+        <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="social-sticky-item s-zalo" title="Zalo">Zalo</a>
         <a href="` + CONFIG.SOCIALS.FACEBOOK + `" target="_blank" class="social-sticky-item s-fb" title="Facebook">
             <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/></svg>
         </a>
@@ -324,7 +326,6 @@ export default {
         <h2 style="color: var(--primary); text-align: center; margin-bottom: 10px; font-weight: 800; font-size: 1.8rem;">LỘ TRÌNH LUYỆN THI CHỨNG CHỈ QUỐC TẾ</h2>
         <p style="text-align: center; color: #888; margin-bottom: 30px; font-size: 0.9rem;">Học và ôn thi trực tuyến tương tác cao, bám sát cấu trúc hành trình Certiport.</p>
         
-        <!-- 5. ICON MÁY TÍNH BÀN CHO KHỐI MOS 2019 -->
         <div class="course-block-title">
             <svg viewBox="0 0 24 24"><path d="M22 18H2V4h20v14zm-11 2h2v2h-2v-2zm-9-4h18V6H2v10z"/></svg>
             <h2>LỚP KHÓA HỌC LUYỆN THI MOS OFFICE 2019 (ĐỒNG GIÁ 400K)</h2>
@@ -332,25 +333,33 @@ export default {
         <div class="course-grid">
             <div class="section-card">
                 <span style="background:rgba(255,87,34,0.1); color:var(--primary); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
-                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS Word 2019</h3>
+                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS WORD 2019</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
-                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐẠNG KÝ HỌC</a>
+                <div class="course-btn-group">
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-sub" id="btn-auth-W19" onclick="triggerRemoteVerification('MOS WORD 2019')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(255,87,34,0.1); color:var(--primary); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
-                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS Excel 2019</h3>
+                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS EXECL 2019</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
-                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐẠNG KÝ HỌC</a>
+                <div class="course-btn-group">
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-sub" id="btn-auth-E19" onclick="triggerRemoteVerification('MOS EXECL 2019')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(255,87,34,0.1); color:var(--primary); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
-                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS PowerPoint 2019</h3>
+                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS PPT 2019</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
-                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐẠNG KÝ HỌC</a>
+                <div class="course-btn-group">
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-sub" id="btn-auth-P19" onclick="triggerRemoteVerification('MOS PPT 2019')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                </div>
             </div>
         </div>
 
-        <!-- 5. ICON MẠNG INTERNET CHO KHỐI MOS 365 -->
         <div class="course-block-title">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
             <h2>LỚP KHÓA HỌC LUYỆN THI MOS OFFICE 365 (ĐỒNG GIÁ 400K)</h2>
@@ -358,21 +367,30 @@ export default {
         <div class="course-grid">
             <div class="section-card">
                 <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
-                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS Word 365</h3>
+                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS WORD 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
-                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐẠNG KÝ HỌC</a>
+                <div class="course-btn-group">
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-sub" id="btn-auth-W365" onclick="triggerRemoteVerification('MOS WORD 365')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
-                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS Excel 365</h3>
+                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS EXECL 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
-                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐẠNG KÝ HỌC</a>
+                <div class="course-btn-group">
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-sub" id="btn-auth-E365" onclick="triggerRemoteVerification('MOS EXECL 365')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
-                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS PowerPoint 365</h3>
+                <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS PPT 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
-                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐẠNG KÝ HỌC</a>
+                <div class="course-btn-group">
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-sub" id="btn-auth-P365" onclick="triggerRemoteVerification('MOS PPT 365')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                </div>
             </div>
         </div>
 
@@ -384,12 +402,12 @@ export default {
             <div class="section-card" style="border-color:#FFD700; display:flex; flex-direction:column; justify-content:space-between;">
                 <div>
                     <span style="background:rgba(255, 215, 0, 0.1); color:#FFD700; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">IC3 GS6</span>
-                    <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:#FFD700;">Luyện thi IC3-GS6 Tổng Hợp</h3>
+                    <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:#FFD700;">Luyện thi IC3 GS6</h3>
                     <p style="color:#94a3b8; font-size:0.85rem; line-height:1.5;">Phòng ôn luyện bao gồm cả chế độ luyện tập tự do và thi thử tính giờ thực tế.</p>
                     <div class="price-tag">200.000đ <span>450.000đ</span></div>
                 </div>
                 <div class="course-btn-group">
-                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action" style="background:linear-gradient(135deg, #FFD700, #cca400); color:#000;">ĐẠNG KÝ NGAY</a>
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action" style="background:linear-gradient(135deg, #FFD700, #cca400); color:#000;">ĐĂNG KÝ NGAY</a>
                     <button class="btn-sub" id="btn-auth-IC3" onclick="triggerRemoteVerification('IC3 GS6')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                     <button class="btn-sub btn-trial" onclick="startTrialAccess('/ic3-test', 'IC3 GS6')">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
@@ -398,38 +416,41 @@ export default {
             <div class="section-card" style="border-color:var(--cyan); display:flex; flex-direction:column; justify-content:space-between;">
                 <div>
                     <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">AI DIGITAL</span>
-                    <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:var(--cyan);">Luyện thi Chứng chỉ Generative AI</h3>
+                    <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:var(--cyan);">Luyện thi GENERATIVE AI</h3>
                     <p style="color:#94a3b8; font-size:0.85rem; line-height:1.5;">Bộ ngân hàng 45 câu xáo trộn ngẫu nhiên đạt tiêu chuẩn từ đề thi quốc tế.</p>
                     <div class="price-tag">200.000đ <span>400.000đ</span></div>
                 </div>
                 <div class="course-btn-group">
-                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action" style="background:linear-gradient(135deg, #00f2ff, #00a2ff); color:#000;">ĐẠNG KÝ NGAY</a>
-                    <button class="btn-sub" id="btn-auth-AI" onclick="triggerRemoteVerification('Generative AI')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
-                    <button class="btn-sub btn-trial" onclick="startTrialAccess('/generative-ai', 'Generative AI')">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
+                    <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action" style="background:linear-gradient(135deg, #00f2ff, #00a2ff); color:#000;">ĐĂNG KÝ NGAY</a>
+                    <button class="btn-sub" id="btn-auth-AI" onclick="triggerRemoteVerification('GENERATIVE AI')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub btn-trial" onclick="startTrialAccess('/generative-ai', 'GENERATIVE AI')">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        const cList = ["MOS WORD 2019", "MOS EXECL 2019", "MOS PPT 2019", "MOS WORD 365", "MOS EXECL 365", "MOS PPT 365", "IC3 GS6", "GENERATIVE AI"];
+        const idMap = {
+            "MOS WORD 2019": "btn-auth-W19", "MOS EXECL 2019": "btn-auth-E19", "MOS PPT 2019": "btn-auth-P19",
+            "MOS WORD 365": "btn-auth-W365", "MOS EXECL 365": "btn-auth-E365", "MOS PPT 365": "btn-auth-P365",
+            "IC3 GS6": "btn-auth-IC3", "GENERATIVE AI": "btn-auth-AI"
+        };
         function checkState() {
-            if(localStorage.getItem('course_auth_IC3 GS6') === 'verified') {
-                document.getElementById('btn-auth-IC3').innerHTML = "✅ ĐÃ KÍCH HOẠT FULL QUYỀN";
-                document.getElementById('btn-auth-IC3').style.color = "#00f2ff";
-            }
-            if(localStorage.getItem('course_auth_Generative AI') === 'verified') {
-                document.getElementById('btn-auth-AI').innerHTML = "✅ ĐÃ KÍCH HOẠT FULL QUYỀN";
-                document.getElementById('btn-auth-AI').style.color = "#00f2ff";
-            }
+            cList.forEach(c => {
+                if(localStorage.getItem('course_auth_' + c) === 'verified') {
+                    var el = document.getElementById(idMap[c]);
+                    if(el) { el.innerHTML = "✅ FULL QUYỀN HỌC VIÊN"; el.style.color = "#00f2ff"; }
+                }
+            });
         }
-        // 2. CHẠY TRA CỨU ĐIỆN THOẠI TRỰC TIẾP VÀ IN RA LỖI HỆ THỐNG HỌC VIÊN MOS360 CHUẨN XÁC
         async function triggerRemoteVerification(courseName) {
-            var phone = prompt("Nhập số điện thoại đăng ký học viên [" + courseName + "] của bạn:");
+            var phone = prompt("Nhập số điện thoại đăng ký [" + courseName + "] của bạn:");
             if(!phone) return;
             try {
-                var res = await fetch("/api/verify-code?phone=" + phone + "&course=" + courseName);
+                var res = await fetch("/api/verify-code?phone=" + phone + "&course=" + encodeURIComponent(courseName));
                 var data = await res.json();
                 if(data.success) {
-                    alert("🎉 Đăng nhập thành công! Hệ thống mở khóa toàn bộ quyền Ôn Luyện Tự Do & Thi Thử 50 Phút.");
+                    alert("🎉 Xác thực thành công mã khóa học [" + courseName + "]! Hệ thống mở khóa toàn bộ quyền Ôn Tập & Thi Thử.");
                     localStorage.setItem('course_auth_' + courseName, 'verified');
                     checkState();
                 } else { alert("❌ Không thành công: " + data.msg); }
@@ -473,7 +494,6 @@ export default {
   
   getLibraryUI() { return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Thư Viện Đề Thi MOS & IC3</h2><p style="color:#64748b; margin-top:15px;">Dữ liệu tài nguyên thư viện đang đồng bộ...</p></div>`; },
 
-  // 4. FIX TOÀN DIỆN LỖI LOAD ĐỀ - HỖ TRỢ 2 CHẾ ĐỘ THI ĐẦY ĐỦ (ÔN LUYỆN KHÔNG THỜI GIAN & THI THỬ 50 PHÚT)
   getQuizEnginePage(courseType) {
     return `<!DOCTYPE html><html><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -485,9 +505,8 @@ export default {
         header { background: #171b2a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .timer-box { border: 2px solid #00f2ff; padding: 6px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; color: #00f2ff; text-shadow: 0 0 10px rgba(0,242,255,0.3); }
         
-        /* BOX CHỌN CHẾ ĐỘ ÔN LUYỆN BAN ĐẦU */
         .mode-selection-overlay { position: absolute; inset: 0; background: #0c0e17; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
-        .mode-btn { width: 100%; max-width: 340px; padding: 16px; margin: 10px 0; border: 2px solid #282f44; background: #161927; color: white; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+        .mode-btn { width: 100%; max-width: 380px; padding: 16px; margin: 10px 0; border: 2px solid #282f44; background: #161927; color: white; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: left; position: relative; }
         .mode-btn:hover { border-color: #00f2ff; background: rgba(0,242,255,0.03); }
         .lock-badge { font-size: 0.75rem; color: #64748b; display: block; margin-top: 4px; font-weight: normal; }
 
@@ -528,22 +547,18 @@ export default {
         <div class="quiz-layout">
             <div class="main-quiz">
                 
-                <!-- CHỌN CHẾ ĐỘ THI PHÂN QUYỀN HỌC VIÊN CHUẨN XÁC -->
                 <div class="mode-selection-overlay" id="modeSelectBox">
                     <h2 style="color: #fff; margin-bottom: 5px;">CHỌN CHẾ ĐỘ HỌC TẬP</h2>
-                    <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 25px;" id="modeWelcomeTxt">Chào mừng bạn đến với hệ thống thi thử MOS360</p>
+                    <p style="color: #00f2ff; font-size: 0.85rem; margin-bottom: 25px; font-weight:bold;" id="modeWelcomeTxt">Trạng thái quyền truy cập đang kiểm tra...</p>
                     
-                    <button class="mode-btn" id="mBtn-Free" onclick="launchEngine('trial')">
-                        🎯 Trải nghiệm dùng thử (10 Phút)
-                        <span class="lock-badge">Dành cho tài khoản khách vãng lai</span>
-                    </button>
-                    <button class="mode-btn" id="mBtn-Practice" onclick="launchEngine('practice')">
+                    <!-- 4. HỌC THỬ ĐỀU CHỌN ĐƯỢC CẢ 2 CHẾ ĐỘ: ÔN LUYỆN HOẶC THI THỬ -->
+                    <button class="mode-btn" onclick="launchEngine('practice')">
                         📖 Chế độ Ôn luyện tự do
-                        <span class="lock-badge" id="lock-practice">Yêu cầu đăng nhập học viên</span>
+                        <span class="lock-badge" id="lock-practice">Chờ nạp...</span>
                     </button>
-                    <button class="mode-btn" id="mBtn-Exam" onclick="launchEngine('exam')">
-                        ⏱️ Chế độ Thi thử thực chiến (50 Phút)
-                        <span class="lock-badge" id="lock-exam">Yêu cầu đăng nhập học viên</span>
+                    <button class="mode-btn" onclick="launchEngine('exam')">
+                        ⏱️ Chế độ Thi thử thực chiến
+                        <span class="lock-badge" id="lock-exam">Chờ nạp...</span>
                     </button>
                     <a href="/courses" style="color: #64748b; font-size: 0.8rem; margin-top: 15px; text-decoration: none;">← Quay lại danh mục khóa học</a>
                 </div>
@@ -574,7 +589,7 @@ export default {
     </div>
     
     <script>
-        var qCount = 45; // Đảm bảo 45 câu hỏi chuẩn xác
+        var qCount = 45;
         var list = [];
         var cur = 0;
         var userAns = new Array(qCount).fill(null);
@@ -597,20 +612,18 @@ export default {
 
         function verifyModeMenu() {
             if(isVerified) {
-                document.getElementById('modeWelcomeTxt').textContent = "🎯 Tài khoản học viên hợp lệ! Toàn quyền truy cập mọi chế độ luyện tập.";
-                document.getElementById('lock-practice').textContent = "🔓 Đã mở khóa thành công"; document.getElementById('lock-practice').style.color = "#00f2ff";
-                document.getElementById('lock-exam').textContent = "🔓 Đã mở khóa thành công"; document.getElementById('lock-exam').style.color = "#00f2ff";
+                document.getElementById('modeWelcomeTxt').textContent = "✅ Quyền học viên hợp lệ: Mở khóa Full tính năng không giới hạn!";
+                document.getElementById('lock-practice').textContent = "🔓 Không giới hạn thời gian học tập"; document.getElementById('lock-practice').style.color = "#00f2ff";
+                document.getElementById('lock-exam').textContent = "🔓 Đồng hồ tính giờ chuẩn 50 phút"; document.getElementById('lock-exam').style.color = "#00f2ff";
             } else {
-                document.getElementById('mBtn-Practice').style.opacity = "0.5";
-                document.getElementById('mBtn-Exam').style.opacity = "0.5";
+                document.getElementById('modeWelcomeTxt').textContent = "⚠️ Bạn chưa đăng nhập: Hệ thống mở chế độ TRẢI NGHIỆM DÙNG THỬ (Giới hạn 10 phút)";
+                document.getElementById('modeWelcomeTxt').style.color = "#FF5722";
+                document.getElementById('lock-practice').textContent = "⏱️ Chế độ ôn tập dùng thử - Giới hạn làm bài 10 phút"; document.getElementById('lock-practice').style.color = "#ffaa80";
+                document.getElementById('lock-exam').textContent = "⏱️ Chế độ thi thử dùng thử - Giới hạn làm bài 10 phút"; document.getElementById('lock-exam').style.color = "#ffaa80";
             }
         }
 
         function launchEngine(chosenMode) {
-            if((chosenMode === 'practice' || chosenMode === 'exam') && !isVerified) {
-                alert("🔒 Chế độ này chỉ dành riêng cho học viên đã đăng nhập thành công bằng Số điện thoại tại trang Khóa Học!");
-                return;
-            }
             mode = chosenMode;
             document.getElementById('modeSelectBox').style.display = "none";
             initQuiz();
@@ -625,9 +638,13 @@ export default {
             }
             renderQ();
             
-            if(mode === 'trial') startTimer(10); // Giới hạn khách vãng lai 10 phút
-            else if(mode === 'exam') startTimer(50); // Học viên thi thử 50 phút
-            else { document.getElementById('timerContainer').textContent = "📖 Chế độ ôn luyện tự do (Không giới hạn thời gian)"; }
+            // Logic đếm ngược phân tầng chuẩn xác
+            if(!isVerified) {
+                startTimer(10); // Cả 2 chế độ học thử đều giới hạn chuẩn 10 phút
+            } else {
+                if(mode === 'exam') startTimer(50); // Học viên thi thử: 50 phút
+                else { document.getElementById('timerContainer').textContent = "📖 Ôn luyện tự do (Không giới hạn)"; } // Học viên ôn tập: Vô thời hạn
+            }
         }
 
         function renderQ() {
@@ -661,13 +678,13 @@ export default {
                 sec--;
                 var mins = Math.floor(sec/60); var s = sec % 60;
                 document.getElementById('clock').textContent = (mins < 10 ? '0' : '') + mins + ":" + (s < 10 ? '0' : '') + s;
-                if(sec <= 0) { clearInterval(t); alert("Hết giờ làm bài!"); submitExamNow(); }
+                if(sec <= 0) { clearInterval(t); alert("Hết thời gian làm bài quy định!"); submitExamNow(); }
             }, 1000);
         }
 
         function submitExamNow() {
             if(isDone) return;
-            if(mode !== 'trial' && !confirm("Bạn có chắc chắn muốn nộp bài chấm điểm?")) return;
+            if(isVerified && !confirm("Bạn có chắc chắn muốn nộp bài chấm điểm?")) return;
             isDone = true;
             var rights = 0;
             for(let i=0; i<qCount; i++) { if(userAns[i] === list[i].c) rights++; }
@@ -676,10 +693,10 @@ export default {
             document.getElementById('resScore').textContent = score + " / 1000 điểm";
             if(score >= 700) {
                 document.getElementById('resScore').style.color = "#16a34a";
-                document.getElementById('resText').innerHTML = "🎉 KHÚC KHÍCH CHÚC MỪNG! Bạn đạt " + score + "đ (Đạt tiêu chuẩn ĐẠT từ 700/1000 của Certiport).";
+                document.getElementById('resText').innerHTML = "🎉 XUẤT SẮC ĐẠT TIÊU CHUẨN! Bạn đạt " + score + " điểm (Đạt yêu cầu PASS tối thiểu từ 700/1000đ của Certiport).";
             } else {
                 document.getElementById('resScore').style.color = "#FF5722";
-                document.getElementById('resText').innerHTML = "⚠️ KẾT QUẢ CHƯA ĐẠT! Bạn đạt " + score + "đ (Dưới điểm sàn 700đ). Hãy ôn luyện kỹ hơn nhé học viên.";
+                document.getElementById('resText').innerHTML = "⚠️ KẾT QUẢ CHƯA ĐẠT! Bạn đạt " + score + " điểm (Dưới mức điểm sàn 700đ). Học viên vui lòng đăng nhập để ôn tập lại đầy đủ ngân hàng câu hỏi.";
             }
             document.getElementById('resBox').style.display = "flex";
         }
