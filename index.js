@@ -86,7 +86,18 @@ export default {
                 const resp = await fetch(CONFIG.SHEET_URL + "&v=" + Date.now());
                 const tsv = await resp.text();
                 const rows = tsv.split("\n");
+               const headers = rows[0]
+    .split("\t")
+    .map(h => h.trim().toLowerCase());
 
+const courseIdx = headers.indexOf("course");
+const phoneIdx = headers.indexOf("phone");
+const expireIdx = headers.indexOf("expire");
+
+               console.log("PHONE INPUT:", phone);
+console.log("COURSE INPUT:", course);
+console.log("ROW SAMPLE:", rows[1]);
+console.log("TOTAL ROWS:", rows.length);
                 let isValid = false;
                 let reason = "Mã số điện thoại chưa được đăng ký trên hệ thống!";
 
