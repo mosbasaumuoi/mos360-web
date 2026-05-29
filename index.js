@@ -1,492 +1,424 @@
-// ==========================================================================
-// 1. NGÂN HÀNG CÂU HỎI KHỔNG LỒ (IC3 LEVEL 1, 2, 3 & ĐẦY ĐỦ 60 CÂU GENERATIVE AI)
-// ==========================================================================
-const databaseQuestions = [
-    // --- IC3 LEVEL 1: CÔNG NGHỆ THÔNG TIN CƠ BẢN (COMPUTING FUNDAMENTALS) ---
-    {
-        text: "Trong hệ điều hành Windows, phím tắt nào được sử dụng để đóng cửa sổ ứng dụng đang hoạt động ngay lập tức?",
-        answers: ["Ctrl + C", "Alt + F4", "Ctrl + Alt + Delete", "Windows + D"],
-        correct: 1,
-        explain: "Tổ hợp phím Alt + F4 là chuẩn quốc tế dùng để đóng cửa sổ hoặc ứng dụng đang làm việc trực tiếp trong môi trường hệ điều hành Windows."
-    },
-    {
-        text: "Thiết bị nào sau đây vừa đóng vai trò là thiết bị nhập (Input), vừa là thiết bị xuất (Output) của máy tính?",
-        answers: ["Chuột máy tính", "Màn hình cảm ứng", "Máy in laser", "Bàn phím cơ"],
-        correct: 1,
-        explain: "Màn hình cảm ứng cho phép người dùng chạm ngón tay để đưa dữ liệu vào (Input) và hiển thị trực tiếp kết quả hình ảnh ra ngoài (Output)."
-    },
-    {
-        text: "Bộ phận nào được coi là 'não bộ' của máy tính, chịu trách nhiệm xử lý mọi lệnh và dữ liệu hệ thống?",
-        answers: ["Bộ nhớ RAM", "Ổ cứng SSD", "Bộ vi xử lý trung tâm (CPU)", "Bộ nguồn (PSU)"],
-        correct: 2,
-        explain: "CPU (Central Processing Unit) đảm nhận vai trò tính toán logic, điều khiển mọi hoạt động phần cứng và phần mềm của máy tính."
-    },
-    {
-        text: "Khi máy tính bị mất điện đột ngột, toàn bộ dữ liệu đang làm việc trên thiết bị lưu trữ nào dưới đây sẽ bị xóa sạch?",
-        answers: ["Ổ cứng HDD", "Thẻ nhớ SD", "Bộ nhớ RAM", "Ổ đĩa Flash USB"],
-        correct: 2,
-        explain: "RAM là bộ nhớ truy cập ngẫu nhiên có tính chất khả biến (volatile), dữ liệu chỉ tồn tại khi có dòng điện duy trì."
-    },
-    {
-        text: "Đâu là đơn vị đo tốc độ xử lý xung nhịp của bộ vi xử lý (CPU) trên các dòng máy tính hiện đại ngày nay?",
-        answers: ["Gigabyte (GB)", "Gigahertz (GHz)", "Megabit trên giây (Mbps)", "Pixel (px)"],
-        correct: 1,
-        explain: "GHz (Gigahertz) là đơn vị đo tần số xung nhịp, thể hiện số chu kỳ xử lý mà CPU có thể thực hiện được trong một giây."
-    },
+const CONFIG = {
+  TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
+  LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
+  SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
+  SOCIALS: {
+    ZALO: "https://zalo.me/0912888360",
+    FACEBOOK: "https://facebook.com/mos360",
+    MESSENGER: "https://m.me/mos360",
+    YOUTUBE: "https://youtube.com/@mos360",
+    TIKTOK: "https://tiktok.com/@mos360"
+  },
+  ADMIN: {
+    USER: "admin@mos360",
+    PASS: "Mos360"
+  }
+};
 
-    // --- IC3 LEVEL 2: CÁC ỨNG DỤNG VĂN PHÒNG CHỦ CHỐT (KEY APPLICATIONS) ---
-    {
-        text: "Trong phần mềm Microsoft Word, để ngắt trang chủ động tại vị trí con trỏ văn bản, bạn sử dụng tổ hợp phím nào?",
-        answers: ["Ctrl + Enter", "Shift + Enter", "Alt + Enter", "Ctrl + Space"],
-        correct: 0,
-        explain: "Ctrl + Enter tạo một lệnh ngắt trang (Page Break) ngay lập tức, đẩy toàn bộ nội dung phía sau sang trang kế tiếp mà không làm xáo trộn định dạng."
-    },
-    {
-        text: "Trong Microsoft Excel, công thức nào sau đây dùng để tính toán giá trị trung bình cộng của vùng dữ liệu từ ô A1 đến ô A10?",
-        answers: ["=SUM(A1:A10)", "=AVERAGE(A1:A10)", "=COUNT(A1:A10)", "=MIN(A1:A10)"],
-        correct: 1,
-        explain: "Hàm AVERAGE trong Excel được thiết kế riêng để tự động tính toán giá trị trung bình cộng của một dãy số hoặc một vùng tham chiếu chỉ định."
-    },
-    {
-        text: "Ký tự nào bắt buộc phải xuất hiện đầu tiên khi bạn muốn nhập một công thức tính toán hoặc một hàm toán học trong ô tính Excel?",
-        answers: ["Ký tự @", "Ký tự $", "Dấu bằng (=)", "Dấu chấm hỏi (?)"],
-        correct: 2,
-        explain: "Excel chỉ nhận diện nội dung nhập vào là một công thức hoặc hàm xử lý dữ liệu khi nội dung đó được bắt đầu bằng dấu bằng (=)."
-    },
-    {
-        text: "Trong Microsoft PowerPoint, chế độ hiển thị nào tối ưu nhất giúp người thiết kế dễ dàng kéo thả, sắp xếp lại thứ tự của hàng loạt slide?",
-        answers: ["Normal View", "Slide Sorter View", "Reading View", "Notes Page View"],
-        correct: 1,
-        explain: "Slide Sorter View hiển thị tất cả các trang slide dưới dạng các hình thu nhỏ (thumbnails), giúp việc tổng quan và đổi thứ tự cực kỳ trực quan."
-    },
-    {
-        text: "Khi sử dụng tính năng Mail Merge (Trộn thư) trong Microsoft Word, bạn cần chuẩn bị tối thiểu những thành phần dữ liệu nào?",
-        answers: ["Một file Word văn bản gốc và một file danh sách dữ liệu nguồn (ví dụ file Excel)", "Một file ảnh nền và một bài nhạc mẫu", "Một sơ đồ tư duy và một bảng mã ký tự", "Hai file Word có nội dung giống hệt nhau"],
-        correct: 0,
-        explain: "Mail Merge yêu cầu một tài liệu chính (Main Document) chứa khung văn bản và một nguồn dữ liệu (Data Source) chứa danh sách thông tin để hòa trộn."
-    },
+// Hàm bổ trợ chuẩn hóa số điện thoại về định dạng chung đầu số 0
+function normalizePhone(phoneStr) {
+  if (!phoneStr) return "";
+  let cleaned = phoneStr.replace(/\D/g, ""); // Xóa mọi ký tự không phải số
+  if (cleaned.startsWith("84")) {
+    cleaned = "0" + cleaned.substring(2);
+  } else if (cleaned.startsWith("+84")) {
+    cleaned = "0" + cleaned.substring(3);
+  }
+  return cleaned;
+}
 
-    // --- IC3 LEVEL 3: CUỘC SỐNG TRỰC TUYẾN & MẠNG MÁY TÍNH (LIVING ONLINE) ---
-    {
-        text: "Giao thức bảo mật kết nối nào bắt buộc phải có trên thanh địa chỉ trình duyệt web để đảm bảo giao dịch tài chính cá nhân an toàn?",
-        answers: ["http://", "ftp://", "https://", "smtp://"],
-        correct: 2,
-        explain: "HTTPS (Hypertext Transfer Protocol Secure) sử dụng chứng chỉ mã hóa dữ liệu SSL/TLS để bảo vệ thông tin truyền đi giữa trình duyệt và máy chủ."
-    },
-    {
-        text: "Khi nhận được một email từ ngân hàng yêu cầu nhấp vào link lạ để cập nhật mật khẩu khẩn cấp, hành động nào tuân thủ quy tắc IC3 an toàn?",
-        answers: ["Nhấp vào link ngay để tránh bị khóa tài khoản", "Tuyệt đối không nhấp link, liên hệ trực tiếp tổng đài chính thức của ngân hàng để xác minh", "Gửi tiếp email đó cho bạn bè hỏi ý kiến", "Trả lời lại email bằng cách cung cấp mật khẩu cũ"],
-        correct: 1,
-        explain: "Đây là hình thức tấn công giả mạo (Phishing). Quy tắc an toàn thông tin yêu cầu không tương tác với các liên kết chưa rõ nguồn gốc."
-    },
-    {
-        text: "Thuật ngữ mạng 'Băng thông' (Bandwidth) được định nghĩa chính xác là gì trong chuẩn kiến thức Living Online?",
-        answers: ["Độ dài của dây cáp kết nối mạng", "Tốc độ xử lý của card đồ họa khi chơi game trực tuyến", "Dung lượng dữ liệu tối đa có thể truyền tải qua một kết nối mạng trong một đơn vị thời gian (giây)", "Số lượng máy tính tối đa trong một phòng làm việc"],
-        correct: 2,
-        explain: "Băng thông đo lường lượng dữ liệu (thường tính bằng Mbps, Gbps) có thể di chuyển qua đường truyền internet trong vòng một giây."
-    },
-    {
-        text: "Hành vi nào dưới đây được coi là vi phạm bản quyền và quy tắc ứng xử văn minh trong môi trường kỹ thuật số?",
-        answers: ["Trích dẫn nguồn rõ ràng khi sử dụng ý tưởng tác giả khác", "Tự sao chép, bẻ khóa (crack) phần mềm thương mại rồi chia sẻ lên mạng", "Mua bản quyền bản nhạc để chèn vào video cá nhân", "Sử dụng các tài liệu thuộc phạm vi công cộng (Public Domain)"],
-        correct: 1,
-        explain: "Việc sử dụng phần mềm bẻ khóa không trả phí là hành vi xâm phạm quyền sở hữu trí tuệ và vi phạm pháp luật công nghệ thông tin."
-    },
-    {
-        text: "Điện toán đám mây (Cloud Computing) mang lại lợi ích cốt lõi nào sau đây cho người dùng cá nhân và các tổ chức?",
-        answers: ["Tăng trọng lượng phần cứng của máy tính bàn", "Cho phép truy cập, lưu trữ và xử lý dữ liệu mọi lúc mọi nơi thông qua mạng Internet", "Giúp máy tính hoạt động không cần dùng đến nguồn điện", "Ngăn chặn 100% tất cả các loại virus máy tính mà không cần cài phần mềm"],
-        correct: 1,
-        explain: "Lợi ích lớn nhất của đám mây là tính linh hoạt, dữ liệu được đồng bộ trực tuyến giúp truy xuất dễ dàng từ bất kỳ thiết bị nào có internet."
-    },
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+    
+    // 3. API TRA CỨU TỰ ĐỘNG CHUẨN MÃ KHÓA HỌC + SỐ ĐIỆN THOẠI
+    if (path === "/api/verify-code") {
+      const rawPhone = url.searchParams.get("phone");
+      const course = url.searchParams.get("course")?.trim();
+      
+      const phone = normalizePhone(rawPhone);
+      if (!phone || !course) {
+        return new Response(JSON.stringify({ success: false, msg: "Thiếu thông tin số điện thoại hoặc khóa học!" }), { headers: { "Content-Type": "application/json" } });
+      }
 
-    // --- ĐẦY ĐỦ NGÂN HÀNG 60 CÂU GENERATIVE AI (TRÍ TUỆ NHÂN TẠO TẠO SINH) ---
-    {
-        text: "Trong lĩnh vực Trí tuệ nhân tạo, cụm từ viết tắt 'LLM' có nghĩa là gì?",
-        answers: ["Low Logic Machine", "Large Language Model", "Linear Learning Method", "Long Lifespan Matrix"],
-        correct: 1,
-        explain: "LLM viết tắt của Large Language Model (Mô hình ngôn ngữ lớn), là thuật ngữ chỉ các thuật toán AI được huấn luyện trên lượng dữ liệu văn bản khổng lồ để hiểu và tạo ngôn ngữ tự nhiên."
-    },
-    {
-        text: "Kỹ thuật 'Prompt Engineering' (Kỹ nghệ gợi ý) được hiểu như thế nào là chính xác nhất?",
-        answers: ["Viết mã nguồn bằng ngôn ngữ Python để chạy AI", "Thiết kế, tối ưu hóa câu lệnh đầu vào để mô hình Generative AI đưa ra kết quả chính xác và chất lượng nhất", "Sửa chữa phần cứng của các siêu máy tính chứa AI", "Cài đặt hệ điều hành cho máy chủ đám mây"],
-        correct: 1,
-        explain: "Prompt Engineering là nghệ thuật và khoa học cấu trúc câu lệnh đầu vào để điều khiển AI tạo sinh trả về đầu ra đúng mục đích, giảm thiểu sai sót."
-    },
-    {
-        text: "Hiện tượng 'Hallucination' (Ảo tưởng / Ảo giác) của một mô hình Generative AI xảy ra khi nào?",
-        answers: ["Khi máy tính bị quá nhiệt và tự động tắt nguồn", "Khi AI đưa ra thông tin trông rất thuyết phục nhưng thực tế lại hoàn toàn sai lệch hoặc không có thật", "Khi AI dịch một văn bản từ tiếng Anh sang tiếng Việt", "Khi AI nhận diện đúng khuôn mặt người dùng"],
-        correct: 1,
-        explain: "Hallucination là điểm hạn chế của LLM khi nó tự bịa ra các dữ kiện, số liệu không có trong thực tế nhưng lại trình bày dưới văn phong vô cùng tự tin."
-    },
-    {
-        text: "Mô hình tạo sinh nào dưới đây chuyên sâu về việc chuyển đổi dữ liệu từ văn bản đầu vào thành hình ảnh nghệ thuật (Text-to-Image)?",
-        answers: ["Midjourney / Stable Diffusion", "GPT-4 / Claude 3", "Google Translate", "MySQL Database"],
-        correct: 0,
-        explain: "Midjourney và Stable Diffusion là các mô hình khuếch tán (Diffusion Models) nổi tiếng thế giới về khả năng vẽ tranh, tạo hình ảnh chất lượng từ mô tả văn bản."
-    },
-    {
-        text: "Khi một AI được giới thiệu là có tính năng 'Multimodal' (Đa phương thức), điều này có nghĩa là gì?",
-        answers: ["Nó chỉ có thể chạy được trên điện thoại di động thông minh", "Nó có khả năng hiểu và xử lý đồng thời nhiều loại dữ liệu đầu vào khác nhau như văn bản, hình ảnh, âm thanh, video", "Nó có giá thành rất đắt đỏ", "Nó hoạt động không cần kết nối vào mạng internet"],
-        correct: 1,
-        explain: "Multimodal (Đa phương thức) là bước tiến của các dòng AI hiện đại (như GPT-4o, Gemini 1.5), cho phép tương tác phối hợp giữa text, hình ảnh, giọng nói cùng một lúc."
-    },
-    {
-        text: "Thuật ngữ 'Token' trong việc xử lý ngôn ngữ tự nhiên của các mô hình AI được hiểu là gì?",
-        answers: ["Một loại tiền ảo dùng để thanh toán dịch vụ", "Mã bảo mật OTP gửi về điện thoại", "Đơn vị cơ sở (từ hoặc cụm từ nhỏ) mà mô hình AI chia nhỏ văn bản ra để tính toán và xử lý", "Thiết bị USB dùng để ký số văn phòng"],
-        correct: 2,
-        explain: "Token là các mảnh nhỏ của từ ngữ. Các mô hình LLM phân tích văn bản bằng cách chuyển đổi các từ thành các chuỗi token để nạp vào mạng thần kinh nhân tạo."
-    },
-    {
-        text: "Mục đích chính của kỹ thuật RAG (Retrieval-Augmented Generation) ứng dụng vào các mô hình ngôn ngữ lớn là gì?",
-        answers: ["Làm cho AI chạy nhanh hơn trên các máy tính đời cũ", "Giúp AI truy xuất thêm cơ sở dữ liệu tri thức bên ngoài đáng tin cậy để trả lời chính xác, cập nhật và giảm thiểu ảo giác", "Tự động dịch văn bản sang 100 ngôn ngữ khác nhau", "Vẽ hình ảnh từ các bản phác thảo thô sơ"],
-        correct: 1,
-        explain: "RAG kết hợp sức mạnh ngôn ngữ của LLM với hệ thống tìm kiếm thông tin nội bộ của trung tâm/doanh nghiệp để câu trả lời luôn đúng thực tế, không bị lỗi thời."
-    },
-    {
-        text: "Trong việc huấn luyện AI, quá trình 'Fine-tuning' (Tinh chỉnh) có nghĩa là gì?",
-        answers: ["Xóa bỏ toàn bộ dữ liệu cũ để học lại từ đầu", "Lấy một mô hình AI đã được huấn luyện sẵn (Pre-trained) rồi huấn luyện thêm trên một tập dữ liệu chuyên biệt nhỏ để tối ưu cho một tác vụ cụ thể", "Bán bản quyền AI cho doanh nghiệp khác sử dụng", "Thay thế card đồ họa GPU mới cho máy chủ"],
-        correct: 1,
-        explain: "Fine-tuning giúp tiết kiệm chi phí bằng cách tận dụng nền tảng thông minh có sẵn của các tập đoàn lớn, sau đó dạy thêm dữ liệu chuyên ngành của trung tâm bạn để AI phục vụ chuyên sâu."
-    },
-    {
-        text: "Sự khác biệt cốt lõi giữa AI truyền thống (Discriminative AI) và AI tạo sinh (Generative AI) là gì?",
-        answers: ["AI truyền thống chạy bằng pin, Generative AI chạy bằng điện lưới", "AI truyền thống dùng để phân loại, dự đoán dựa trên dữ liệu có sẵn; còn Generative AI có khả năng sáng tạo ra nội dung hoàn toàn mới (văn bản, ảnh, mã code...)", "AI truyền thống thông minh hơn Generative AI", "AI truyền thống không cần sử dụng dữ liệu máy tính"],
-        correct: 1,
-        explain: "AI truyền thống nhận diện và phân loại (ví dụ: đây là ảnh mèo hay chó), trong khi AI tạo sinh tạo ra một nội dung chưa từng tồn tại trước đó dựa trên mẫu đã học."
-    },
-    {
-        text: "Hành vi nào dưới đây thể hiện việc ứng dụng Trí tuệ nhân tạo tạo sinh một cách có trách nhiệm và đạo đức (Ethical AI)?",
-        answers: ["Sử dụng AI để làm giả giọng nói, hình ảnh (Deepfake) nhằm lừa đảo chiếm đoạt tài sản", "Yêu cầu AI viết hộ toàn bộ luận văn tốt nghiệp và nộp mà không hề kiểm tra hay chỉnh sửa", "Luôn kiểm chứng lại tính xác thực của thông tin do AI tạo ra và minh bạch việc có sử dụng AI hỗ trợ trong công việc", "Dùng AI để tự động tạo hàng loạt tin tức giả lan truyền trên mạng xã hội"],
-        correct: 2,
-        explain: "Đạo đức AI yêu cầu tính minh bạch, có sự kiểm soát của con người (Human-in-the-loop) để loại bỏ các rủi ro về sai lệch kiến thức và tác động tiêu cực."
+      try {
+        const exportUrl = CONFIG.SHEET_EDIT_URL.split("/edit")[0] + "/export?format=tsv&gid=0&v=" + Date.now();
+        const resp = await fetch(exportUrl);
+        const tsv = await resp.text();
+        const rows = tsv.split("\n");
+
+        let isValid = false;
+        let reason = "Số điện thoại chưa được đăng ký hoặc kích hoạt khóa học này trên hệ thống MOS360!";
+        const targetCourseClean = course.replace(/\s+/g, ' ').trim().toLowerCase();
+
+        for (let i = 1; i < rows.length; i++) {
+          const cols = rows[i].split("\t");
+          if (cols.length >= 2) {
+            const sheetCourseRaw = cols[0]?.replace(/\r/g, "");
+            const sheetCourseClean = sheetCourseRaw ? sheetCourseRaw.replace(/\s+/g, ' ').trim().toLowerCase() : "";
+            const sheetPhoneRaw = cols[1]?.replace(/\r/g, "");
+            const sheetPhone = normalizePhone(sheetPhoneRaw);
+            const sheetDateStr = cols[2]?.replace(/\r/g, "").trim();
+
+            if (sheetPhone === phone && (sheetCourseClean === targetCourseClean || sheetCourseClean.includes(targetCourseClean))) {
+              if (sheetDateStr) {
+                const parts = sheetDateStr.includes("/") ? sheetDateStr.split("/") : sheetDateStr.split("-");
+                let startDate = sheetDateStr.includes("/") ? new Date(parts[2], parts[1] - 1, parts[0]) : new Date(parts[0], parts[1] - 1, parts[2]);
+                const diffDays = Math.ceil(Math.abs(new Date() - startDate) / (1000 * 60 * 60 * 24));
+
+                if (diffDays > 30) {
+                  isValid = false;
+                  reason = "Khóa học kích hoạt qua số điện thoại này đã hết thời hạn 30 ngày sử dụng!";
+                  break;
+                }
+              }
+              isValid = true;
+              break;
+            }
+          }
+        }
+        return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), { headers: { "Content-Type": "application/json" } });
+      } catch (err) {
+        return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu Google Sheet API!" }), { headers: { "Content-Type": "application/json" } });
+      }
     }
-    // ... Hệ thống Cloudflare Workers hỗ trợ dung lượng mảng câu hỏi siêu lớn, bạn hoàn toàn có thể paste thêm các câu hỏi tiếp theo vào đây ...
-];
 
-// Đường dẫn lưu trữ hình ảnh Bảng Vàng học viên đạt chứng chỉ xuất sắc
-const goldBoardImages = [
-    "https://images.unsplash.com/photo-1548345680-f5475ea5df84?q=80&w=400&auto=format&fit=crop", 
-    "https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=400&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400&auto=format&fit=crop"
-];
+    // Định tuyến giao diện phòng thi nâng cấp Chế độ Học tập / Thi thử
+    if (path === "/generative-ai") {
+      return new Response(this.getQuizEnginePage("GENERATIVE AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+    }
+    if (path === "/ic3-test") {
+      return new Response(this.getQuizEnginePage("IC3 GS6"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+    }
 
-// ==========================================================================
-// 2. TOÀN BỘ GIAO DIỆN WEB FRONTEND CHẤT LƯỢNG CAO NHÚNG ĐỒNG BỘ
-// ==========================================================================
-const htmlContent = `
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Luyện Thi & Ôn Luyện Chứng Chỉ Quốc Tế</title>
+    // 1. TẢI DỮ LIỆU VÀ CHUẨN HÓA ẢNH BẢNG VÀNG DRIVE TRÁNH LỖI HIỂN THỊ 
+    let studentData = "";
+    try {
+      const exportUrl = CONFIG.SHEET_EDIT_URL.split("/edit")[0] + "/export?format=tsv&gid=0&v=" + Date.now();
+      const resp = await fetch(exportUrl);
+      const tsv = await resp.text();
+      const rows = tsv.split("\n").slice(1);
+      let htmlContent = "";
+
+      rows.forEach(row => {
+        const link = row.split("\t")[3]?.replace(/\r/g, "").trim(); // Giả định link ảnh cột 4 hoặc sửa theo chỉ mục chính xác của bạn
+        if (link && link.startsWith("http")) {
+          let finalLink = link;
+          if (link.includes("drive.google.com")) {
+            const imgId = link.match(/[-\w]{25,}/);
+            if (imgId) {
+              finalLink = `https://drive.google.com/uc?export=view&id=${imgId[0]}`;
+            }
+          }
+          // Bổ sung onerror handler để loại bỏ ảnh hỏng tự động
+          htmlContent += `<div class="student-item"><img src="${finalLink}" onerror="this.src='https://www.w3schools.com/howto/img_avatar.png';this.onerror=null;" loading="lazy"></div>`;
+        }
+      });
+
+      studentData = htmlContent ? htmlContent + htmlContent + htmlContent : "<div style='color:#64748b; padding:20px;'>Hệ thống đang cập nhật danh sách...</div>";
+    } catch (e) {
+      studentData = "<div style='color:#64748b; padding:20px;'>Đang kết nối Bảng Vàng dữ liệu...</div>";
+    }
+
+    let content = "";
+    if (path === "/courses") content = this.getCoursesUI();
+    else if (path === "/login") content = this.getLoginUI();
+    else if (path === "/library") content = this.getLibraryUI();
+    else content = this.getHomeUI(studentData);
+
+    return new Response(this.layout(content), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+  },
+
+  // Giao diện phòng thi cải tiến Chế độ Luyện tập Trực tiếp
+  getQuizEnginePage(courseType) {
+    return `<!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Phòng Luyện Thi - ${courseType}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+      <style>
+        :root { --primary: #FF5722; --bg: #0b0d19; --card: #15182c; --success: #4CAF50; --error: #F44336; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: #fff; padding: 20px; margin: 0; }
+        .quiz-container { max-width: 800px; margin: 0 auto; background: var(--card); border-radius: 16px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .mode-selector { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        .mode-btn { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); color: #fff; font-weight: bold; cursor: pointer; }
+        .mode-btn.active { background: var(--primary); border-color: var(--primary); }
+        .question-box { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; line-height: 1.5; }
+        .options-list { display: flex; flex-direction: column; gap: 12px; }
+        .option-item { padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .option-item:hover { background: rgba(255,255,255,0.08); }
+        
+        /* Màu trạng thái chế độ ôn tập trực tiếp */
+        .option-item.correct { background: rgba(76, 175, 80, 0.2) !important; border-color: var(--success) !important; color: #81C784; }
+        .option-item.wrong { background: rgba(244, 67, 54, 0.2) !important; border-color: var(--error) !important; color: #E57373; }
+        
+        /* 5. Khung giải thích Explanation Box trượt xuống mượt mà */
+        .explanation-box { display: none; margin-top: 20px; padding: 15px 20px; background: rgba(0, 242, 255, 0.05); border-left: 4px solid #00f2ff; border-radius: 0 8px 8px 0; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .explanation-title { font-weight: 800; color: #00f2ff; margin-bottom: 5px; font-size: 0.95rem; }
+        .explanation-text { font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; }
+        .nav-actions { display: flex; justify-content: space-between; margin-top: 30px; }
+        .btn-nav { padding: 10px 25px; border-radius: 20px; border: none; background: var(--primary); color: white; font-weight: 700; cursor: pointer; }
+      </style>
+    </head>
+    <body>
+      <div class="quiz-container">
+        <h2>Phòng luyện thi: ${courseType}</h2>
+        <div class="mode-selector">
+          <button class="mode-btn active" id="modeLearn" onclick="setMode('learn')">📖 CHẾ ĐỘ ÔN LUYỆN (Báo đúng/sai ngay)</button>
+          <button class="mode-btn" id="modeTest" onclick="setMode('test')">⏱️ CHẾ ĐỘ THI THỬ (Nộp bài xem điểm)</button>
+        </div>
+        
+        <div id="quiz-engine-core">
+          <div class="question-box" id="qText">Đang tải câu hỏi ngân hàng dữ liệu...</div>
+          <div class="options-list" id="qOptions"></div>
+          
+          <div class="explanation-box" id="explanationBox">
+            <div class="explanation-title">💡 PHÂN TÍCH KIẾN THỨC CỐT LÕI:</div>
+            <div class="explanation-text" id="explanationText">Giải thích chi tiết các thuật ngữ liên quan...</div>
+          </div>
+        </div>
+        
+        <div class="nav-actions">
+          <button class="btn-nav" style="background:#475569" onclick="prevQuestion()">Câu Trước</button>
+          <button class="btn-nav" onclick="nextQuestion()">Câu Tiếp Theo</button>
+        </div>
+      </div>
+
+      <script>
+        // Ngân hàng dữ liệu Demo mẫu (Hệ thống thực tế sẽ nạp từ dữ liệu câu hỏi của bạn)
+        const sampleQuestions = [
+          {
+            text: "Trong Generative AI, mô hình học máy LLM viết tắt của cụm từ nào?",
+            options: ["Large Learning Machine", "Large Language Model", "Logic Language Model", "Low Language Matrix"],
+            correct: 1,
+            explain: "LLM nghĩa là Large Language Model (Mô hình ngôn ngữ lớn), được huấn luyện trên khối lượng văn bản khổng lồ để hiểu và tạo lập ngôn ngữ tự nhiên tựa con người."
+          },
+          {
+            text: "Trong tiêu chuẩn IC3 GS6, kỹ năng số nào giúp bảo vệ thông tin nhận dạng cá nhân (PII)?",
+            options: ["Sử dụng tường lửa cá nhân", "Bật chế độ ẩn danh trình duyệt", "Quản lý mật khẩu mạnh và cơ chế 2FA", "Xóa lịch sử cookie định kỳ"],
+            correct: 2,
+            explain: "Quản lý chuỗi xác thực đa yếu tố (2FA) và bảo mật mật khẩu độ phức tạp cao là cốt lõi bảo vệ danh tính cá nhân số PII an toàn nhất."
+          }
+        ];
+
+        let currentIndex = 0;
+        let currentMode = 'learn'; // 'learn' hoặc 'test'
+        let hasAnswered = false;
+
+        function setMode(mode) {
+          currentMode = mode;
+          document.getElementById('modeLearn').classList.toggle('active', mode === 'learn');
+          document.getElementById('modeTest').classList.toggle('active', mode === 'test');
+          loadQuestion();
+        }
+
+        function loadQuestion() {
+          hasAnswered = false;
+          const q = sampleQuestions[currentIndex];
+          document.getElementById('qText').textContent = \`Câu \${currentIndex + 1}: \${q.text}\`;
+          
+          const optionsDiv = document.getElementById('options-list') || document.getElementById('qOptions');
+          optionsDiv.innerHTML = '';
+          document.getElementById('explanationBox').style.display = 'none';
+
+          q.options.forEach((opt, idx) => {
+            const btn = document.createElement('div');
+            btn.className = 'option-item';
+            btn.textContent = opt;
+            btn.onclick = () => selectOption(idx, btn);
+            optionsDiv.appendChild(btn);
+          });
+        }
+
+        function selectOption(selectedIdx, element) {
+          if (hasAnswered && currentMode === 'learn') return;
+          const q = sampleQuestions[currentIndex];
+          
+          if (currentMode === 'learn') {
+            hasAnswered = true;
+            const items = document.querySelectorAll('.option-item');
+            
+            // 5. Báo đúng/sai đổi màu nút lập tức
+            if (selectedIdx === q.correct) {
+              element.classList.add('correct');
+            } else {
+              element.classList.add('wrong');
+              items[q.correct].classList.add('correct'); // Hiển thị luôn đáp án đúng
+            }
+            
+            // 5. Trượt mở Explanation Box
+            document.getElementById('explanationText').textContent = q.explain;
+            document.getElementById('explanationBox').style.background = "rgba(0, 242, 255, 0.05)";
+            document.getElementById('explanationBox').style.display = 'block';
+          } else {
+            // Chế độ thi thử: chỉ ghi nhận highlight lựa chọn thông thường
+            document.querySelectorAll('.option-item').forEach(el => el.style.borderColor = 'rgba(255,255,255,0.08)');
+            element.style.borderColor = '#FF5722';
+          }
+        }
+
+        function nextQuestion() {
+          if (currentIndex < sampleQuestions.length - 1) { currentIndex++; loadQuestion(); }
+        }
+        function prevQuestion() {
+          if (currentIndex > 0) { currentIndex--; loadQuestion(); }
+        }
+        
+        window.onload = loadQuestion;
+      </script>
+    </body>
+    </html>`;
+  },
+
+  layout(content) {
+    return `<!DOCTYPE html><html><head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>${CONFIG.TITLE}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0e14; color: #ffffff; }
-        .stats-header { display: flex; justify-content: center; gap: 40px; padding: 20px; background: #0f131c; border-bottom: 1px solid #1f2633; text-align: center; }
-        .stat-item h2 { color: #ff5722; margin: 0; font-size: 28px; }
-        .stat-item p { margin: 5px 0 0 0; color: #a0aec0; font-size: 14px; }
-        .main-dashboard { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .promo-box { background: #111520; border: 1px solid #222938; border-left: 4px solid #ff5722; border-radius: 12px; padding: 30px; }
-        .promo-box h2 { color: #ffffff; margin-top: 0; font-size: 26px; }
-        .promo-box h2 span { color: #ff5722; }
-        .promo-box ul { padding-left: 20px; color: #a0aec0; }
-        .promo-box ul li { margin-bottom: 12px; }
-        .btn-course { display: block; width: 100%; padding: 14px; background: linear-gradient(90deg, #ff5722, #ff7043); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; text-align: center; box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3); transition: all 0.3s; }
-        .btn-course:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 87, 34, 0.5); }
-        
-        .gold-board-box { background: #111520; border: 1px solid #222938; border-radius: 12px; padding: 25px; }
-        .gold-board-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 15px; }
-        .gold-board-img { width: 100%; height: 130px; border-radius: 8px; object-fit: cover; border: 1px solid #1f2633; background-color: #0b0e14; transition: transform 0.3s ease, border-color 0.3s; }
-        .gold-board-img:hover { transform: scale(1.04); border-color: #ff5722; }
+      :root { --primary: #FF5722; --bg: #06070d; --card: #111422; --text: #fff; --border: rgba(255,255,255,0.06); --cyan: #00f2ff; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+      header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(6,7,13,0.9); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid var(--border); }
+      .brand { display: flex; align-items: center; text-decoration: none; color: #fff; font-weight: 800; font-size: 1.3rem; }
+      .brand img { height: 36px; margin-right: 10px; }
+      nav { display: flex; align-items: center; }
+      nav a { color: #94a3b8; text-decoration: none; font-weight: 700; margin-left: 20px; font-size: 0.85rem; transition: color 0.2s; }
+      nav a:hover { color: #fff; }
+      .admin-only-btn { display: none; background: rgba(255, 215, 0, 0.1); color: #FFD700 !important; border: 1px solid #FFD700; padding: 6px 12px; border-radius: 6px; font-weight: 800; }
+      
+      .main-container { max-width: 1400px; margin: 30px auto; padding: 0 5%; display: grid; grid-template-columns: 360px 1fr; gap: 30px; }
+      .section-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+      
+      #bang-vang-container { height: 420px; overflow: hidden; }
+      .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; background: rgba(0,0,0,0.2); border-radius: 16px; }
+      .carousel-track { display: flex; align-items: center; gap: 20px; position: absolute; left: 0; top: 0; height: 100%; animation: scroll-left 45s linear infinite; width: max-content; }
+      .student-item { flex: 0 0 auto; width: 280px; height: 100%; display: flex; align-items: center; justify-content: center; }
+      .student-item img { max-width: 100%; max-height: 90%; object-fit: contain; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+      @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }
 
-        .auth-section { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        .auth-card { background: #111520; border: 1px solid #222938; border-radius: 12px; padding: 20px; display: flex; gap: 15px; align-items: center; }
-        .auth-card input { flex: 1; padding: 12px; background: #0b0e14; border: 1px solid #222938; border-radius: 6px; color: white; font-size: 15px; }
-        .auth-card input:focus { border-color: #ff5722; outline: none; }
-        .btn-auth { padding: 12px 25px; background: #0068ff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-
-        .exam-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2.5fr 1fr; gap: 20px; }
-        .exam-main { background: #111520; border: 1px solid #222938; border-radius: 12px; padding: 25px; }
-        .exam-sidebar { background: #111520; border: 1px solid #222938; border-radius: 12px; padding: 25px; }
-        .exam-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1f2633; padding-bottom: 15px; margin-bottom: 20px; }
-        .mode-selector { display: flex; gap: 15px; background: #0b0e14; padding: 6px; border-radius: 20px; border: 1px solid #1f2633; }
-        .mode-option { padding: 6px 16px; border-radius: 15px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
-        .mode-option.active { background: #ff5722; color: white; font-weight: bold; }
-        .question-text { font-size: 18px; font-weight: 500; margin-bottom: 20px; line-height: 1.5; }
-        .answers-list { display: flex; flex-direction: column; gap: 12px; }
-        
-        .answer-item { padding: 14px; background: #0b0e14; border: 1px solid #1f2633; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-        .answer-item:hover { background: #171d2a; border-color: #3b4861; }
-        .answer-item.selected { border-color: #ff5722; background: rgba(255, 87, 34, 0.05); }
-        
-        /* CHẾ ĐỘ ÔN LUYỆN REALTIME: ĐÚNG XANH - SAI ĐỎ */
-        .answer-item.correct-status { background: rgba(46, 204, 113, 0.15) !important; border: 2px solid #2ecc71 !important; color: #2ecc71 !important; font-weight: bold; }
-        .answer-item.wrong-status { background: rgba(231, 76, 60, 0.15) !important; border: 2px solid #e74c3c !important; color: #e74c3c !important; }
-        .explanation-box { margin-top: 20px; background: rgba(0, 104, 255, 0.08); border-left: 4px solid #0068ff; border-radius: 4px; padding: 15px; display: none; }
-
-        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 30px; }
-        .btn-nav { padding: 10px 20px; background: #1f2633; color: white; border: none; border-radius: 6px; cursor: pointer; }
-        .btn-nav:disabled { opacity: 0.3; cursor: not-allowed; }
-        .q-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .grid-cell { height: 35px; display: flex; align-items: center; justify-content: center; background: #0b0e14; border: 1px solid #1f2633; border-radius: 4px; font-size: 13px; cursor: pointer; }
-        .grid-cell.filled { background: #3b4861; }
-        .grid-cell.green { background: #2ecc71; color: white; border-color: #2ecc71; }
-        .grid-cell.red { background: #e74c3c; color: white; border-color: #e74c3c; }
-
-        /* NÚT MẠNG XÃ HỘI FIXED ĐỒNG BỘ CHUẨN KHÔNG VIỀN TRẮNG SQUIRCLE */
-        .fixed-contact-wrapper { position: fixed; right: 25px; bottom: 40px; display: flex; flex-direction: column; gap: 14px; z-index: 99999; }
-        .contact-btn-item { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; text-decoration: none; }
-        .contact-btn-item svg { width: 100%; height: 100%; }
-        .contact-btn-item:hover { transform: scale(1.18); }
-        .zalo-color-btn svg { filter: drop-shadow(0px 4px 12px rgba(0, 104, 255, 0.45)); }
-        .phone-color-btn { background: #2ecc71; box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4); }
-        .messenger-color-btn { background: #0084ff; box-shadow: 0 4px 12px rgba(0, 132, 255, 0.4); }
+      /* 2. SỬA ICON ZALO THƯƠNG HIỆU ĐỔ BÓNG HIỆN ĐẠI */
+      .social-sticky-bar { position: fixed; right: 25px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
+      .social-sticky-item { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s ease; box-shadow: 0 6px 16px rgba(0,0,0,0.4); text-decoration: none; color: white; }
+      .social-sticky-item:hover { transform: scale(1.15) rotate(4deg); box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+      .social-sticky-item svg { width: 28px; height: 28px; fill: white; }
+      .s-zalo { background: #0068FF; box-shadow: 0 4px 14px rgba(0,104,255,0.4); }
+      .s-fb { background: #1877F2; }
+      .s-mess { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
+      .s-yt { background: #FF0000; }
+      .s-tt { background: #000000; border: 1px solid rgba(255,255,255,0.15); }
+      
+      .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+      .btn-action { background: linear-gradient(135deg, #FF5722, #ff784e); color: white; border: none; padding: 12px; border-radius: 25px; font-weight: 800; cursor: pointer; text-decoration:none; display:inline-block; text-align:center; transition: transform 0.15s; }
+      .btn-sub { padding: 10px; border-radius: 20px; font-weight: 700; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #cbd5e1; cursor: pointer; text-decoration: none; }
+      footer { padding: 40px 5%; background: #030408; border-top: 1px solid var(--border); margin-top: 40px; }
+      .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 30px; }
+      @media (max-width: 768px) {
+        header { padding: 12px 4%; flex-direction: column; gap: 10px; }
+        nav { width: 100%; justify-content: center; flex-wrap: wrap; gap: 8px; }
+        .main-container { grid-template-columns: 1fr; }
+        .social-sticky-bar { position: relative; top: 0; transform: none; right: 0; flex-direction: row; justify-content: center; margin: 15px 4%; gap: 15px; }
+      }
     </style>
-</head>
-<body>
+    </head><body>
+    <header>
+      <a href="/" class="brand"><img src="${CONFIG.LOGO_URL}"> MOS360</a>
+      <nav>
+        <a href="/">TRANG CHỦ</a>
+        <a href="/courses">KHÓA HỌC</a>
+        <a href="/library">KHO MOS</a>
+        <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank" class="admin-only-btn" id="adminPanelBtn">[QUẢN LÝ HỌC VIÊN]</a>
+        <a href="/login" id="navLoginLink" style="color:var(--primary)">ĐĂNG NHẬP</a>
+      </nav>
+    </header>
 
-    <div class="stats-header">
-        <div class="stat-item"><h2>100%</h2><p>Thi đậu ngay lần đầu</p></div>
-        <div class="stat-item"><h2>1.200+</h2><p>Học viên nhận chứng chỉ</p></div>
-        <div class="stat-item"><h2>600+</h2><p>Truy cập học trực tuyến</p></div>
+    <nav style="background: rgba(0,242,255,0.03); padding: 12px 5%; font-size: 0.8rem; border-bottom: 1px solid var(--border); display:flex; gap:15px; overflow-x: auto;">
+      <span style="color:#64748b; font-weight:bold;"> 🎯 Lối tắt phòng thi:</span>
+      <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold;"> ✨ Luyện thi GENERATIVE AI</a>
+      <a href="/ic3-test" style="color:#FFD700; text-decoration:none; font-weight:bold;"> 🌍 Luyện thi IC3 GS6 Tổng hợp</a>
+    </nav>
+
+    <div class="social-sticky-bar" id="stickySocialBar">
+      <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="social-sticky-item s-zalo" title="Zalo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.477 2 2 5.865 2 10.635c0 2.871 1.636 5.414 4.195 6.942l-.634 2.373a.5.5 0 00.72.545l2.84-1.635A11.162 11.162 0 0012 19.27c5.523 0 10-3.865 10-8.635S17.523 2 12 2zm3.12 11.16h-3.47v-1.125h2.155V10.91H11.65V9.785h3.41v1.125h-2.155v.125H15.12v1.125z"/>
+        </svg>
+      </a>
+      <a href="${CONFIG.SOCIALS.FACEBOOK}" target="_blank" class="social-sticky-item s-fb" title="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/></svg>
+      </a>
+      <a href="${CONFIG.SOCIALS.MESSENGER}" target="_blank" class="social-sticky-item s-mess" title="Messenger">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.36 2 2 6.13 2 11.43c0 2.99 1.45 5.63 3.73 7.37.19.15.31.38.31.62l-.07 1.94c-.02.51.52.88.96.63l2.15-1.21c.18-.1.39-.13.59-.08 1.02.28 2.1.43 3.33.43 5.64 0 10-4.13 10-9.43S17.64 2 12 2zm1.02 12.35l-2.42-2.58-4.73 2.58 5.2-5.53 2.47 2.58 4.68-2.58-5.2 5.53z"/></svg>
+      </a>
+      <a href="${CONFIG.SOCIALS.YOUTUBE}" target="_blank" class="social-sticky-item s-yt" title="Youtube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.503 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.387.508 9.387.508s7.517 0 9.387-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
     </div>
+    <main id="mainWebBody">${content}</main>
 
-    <div class="main-dashboard">
-        <div class="promo-box">
-            <h2>Xóa tan nỗi lo<br><span>CHUẨN ĐẦU RA</span><br>for sinh viên</h2>
-            <ul>
-                <li>✓ Học thật, tiến bộ thật</li>
-                <li>✓ Thi thật 100%</li>
-                <li>✓ Đồng hành trọn đời</li>
-            </ul>
-            <button class="btn-course">XEM KHÓA HỌC</button>
+    <footer>
+      <div class="footer-grid">
+        <div><h2 style="color:var(--primary)">MOS360.VN</h2><p> 📍 Số 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p><p> 📞 Hotline: 0912.888.360</p></div>
+        <div><h4> 🕒 GIỜ LÀM VIỆC</h4><p>T2 - T7: 08:00 – 17:00<br>Chủ Nhật & Lễ: Nghỉ</p></div>
+        <div style="height:160px; border-radius:15px; overflow:hidden;">
+          <iframe src="https://maps.google.com/maps?q=Hai%20Phong&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
         </div>
-
-        <div class="gold-board-box">
-            <h3>🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</h3>
-            <div class="gold-board-grid" id="gold-board-container"></div>
-        </div>
-    </div>
-
-    <div class="auth-section">
-        <div class="auth-card">
-            <div style="font-weight: bold; font-size: 15px; color: #ff5722;">🔐 KÍCH HOẠT FULL QUYỀN:</div>
-            <input type="tel" id="user-phone" placeholder="Nhập số điện thoại để đồng bộ Google Sheet / Hoặc gõ 'admin'...">
-            <button class="btn-auth" onclick="handleSyncAndVerify()">KÍCH HOẠT</button>
-        </div>
-    </div>
-
-    <div class="exam-container">
-        <div class="exam-main">
-            <div class="exam-header">
-                <div style="font-weight: bold; font-size: 18px;" id="question-number-title">Đang tải câu hỏi...</div>
-                <div class="mode-selector">
-                    <div class="mode-option active" id="mode-exam" onclick="changeExamMode('exam')">Chế độ Thi Thử</div>
-                    <div class="mode-option" id="mode-practice" onclick="changeExamMode('practice')">Chế độ Ôn Luyện (Học)</div>
-                </div>
-            </div>
-
-            <div class="question-text" id="main-question-text">Đang đồng bộ dữ liệu ngân hàng đề...</div>
-            <div class="answers-list" id="main-answers-block"></div>
-
-            <div class="explanation-box" id="main-explanation-box">
-                <strong style="color: #0068ff;">💡 Giải thích đáp án đúng:</strong>
-                <p id="main-explanation-text" style="margin: 8px 0 0 0; color: #b1c2d9; font-size: 14px;"></p>
-            </div>
-
-            <div class="navigation-buttons">
-                <button class="btn-nav" id="prev-btn" onclick="goNavigation(-1)" disabled>← Câu trước</button>
-                <button class="btn-nav" id="next-btn" onclick="goNavigation(1)">Câu tiếp theo →</button>
-            </div>
-        </div>
-
-        <div class="exam-sidebar">
-            <button class="btn-course" style="background: #2ecc71; box-shadow: none; margin-bottom: 20px;" onclick="finishAndSubmitAll()">NỘP BÀI CHẤM ĐIỂM</button>
-            <div style="font-weight: bold; font-size: 14px; margin-bottom: 10px; color: #a0aec0;">TIẾN ĐỘ BÀI LÀM:</div>
-            <div class="q-grid" id="side-progress-grid"></div>
-        </div>
-    </div>
-
-    <div class="fixed-contact-wrapper">
-        <a href="https://zalo.me/0912345678" target="_blank" class="contact-btn-item zalo-color-btn" title="Chat qua Zalo">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                <circle cx="24" cy="24" r="23" fill="#0068ff"/>
-                <path d="M24,7C14.6,7,7,13.3,7,21.1c0,4.2,2.3,8,6,10.6c-0.8,2.9-2.2,5.2-2.3,5.4C10.6,37.3,11,37.3,11.3,37c0.4-0.3,3.7-2.5,5.2-3.6c2.4,0.5,4.9,0.8,7.5,0.8c9.4,0,17-6.3,17-14.1S33.4,7,24,7z M31.6,26.1c-0.4,0.7-1.3,1.2-2.2,1.2h-5.8c-1.2,0-2.1-0.9-2.1-2.1v-4.6c0-1.2,0.9-2.1,2.1-2.1h5.6c0.9,0,1.7,0.5,2.1,1.2c0.2,0.4,0.1,0.9-0.2,1.1c-0.4,0.2-0.9,0.1-1.1-0.2c-0.2-0.4-0.6-0.6-1-0.6h-5c-0.3,0-0.5,0.2-0.5,0.5v1.4h4.4c0.4,0,0.8,0.4,0.8,0.8c0,0.4-0.4,0.8-0.8,0.8h-4.4v1.5c0,0.3,0.2,0.5,0.5,0.5h5.1c0.5,0,0.9-0.3,1.1-0.6c0.2-0.4,0.7-0.5,1.1-0.3C31.7,25.2,31.8,25.7,31.6,26.1z" fill="#fff"/>
-            </svg>
-        </a>
-        <a href="tel:0912345678" class="contact-btn-item phone-color-btn" title="Hotline">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.27c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.26 1.02l-2.2 2.2z"/></svg>
-        </a>
-        <a href="https://m.me/your_center_page" target="_blank" class="contact-btn-item messenger-color-btn" title="Messenger">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="white"><path d="M12 2C6.48 2 2 6.14 2 11.25c0 2.91 1.45 5.51 3.71 7.15.19.14.3.36.27.6l-.25 2.4c-.04.42.38.74.77.58l2.69-1.1c.17-.07.36-.06.52.02A10.63 10.63 0 0 0 12 20.5c5.52 0 10-4.14 10-9.25S17.52 2 12 2zm1 11l-2.5-2.6-4.8 2.6 5.3-5.6 2.5 2.6 4.8-2.6-5.3 5.6z"/></svg>
-        </a>
-    </div>
+      </div>
+    </footer>
 
     <script>
-        let questionsData = [];
-        let currentMode = 'exam'; let currentIndex = 0;
-        let selectedAnswers = {}; let evaluatedQuestions = {};
-
-        function loadGoldBoard() {
-            fetch('/api/gold-board-images')
-                .then(res => res.json())
-                .then(data => {
-                    const container = document.getElementById('gold-board-container');
-                    container.innerHTML = '';
-                    data.images.forEach(url => {
-                        const img = document.createElement('img');
-                        img.src = url + "?t=" + Math.random();
-                        img.className = "gold-board-img";
-                        img.onerror = function() { this.src = "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=400&auto=format&fit=crop"; };
-                        container.appendChild(img);
-                    });
-                });
-        }
-
-        function handleSyncAndVerify() {
-            let phone = document.getElementById('user-phone').value.trim();
-            fetch('/api/verify-permission', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ phone: phone })
-            }).then(res => res.json()).then(res => {
-                alert(res.message);
-                if(res.success) { localStorage.setItem("token", res.token); }
-            });
-        }
-
-        function changeExamMode(mode) {
-            currentMode = mode;
-            document.getElementById('mode-exam').classList.toggle('active', mode === 'exam');
-            document.getElementById('mode-practice').classList.toggle('active', mode === 'practice');
-            loadQuestion(currentIndex);
-        }
-
-        function loadQuestion(index) {
-            if(!questionsData || questionsData.length === 0) return;
-            currentIndex = index; const q = questionsData[index];
-            document.getElementById('question-number-title').innerText = "Câu hỏi " + (index + 1) + " / " + questionsData.length;
-            document.getElementById('main-question-text').innerText = q.text;
-
-            const answersBlock = document.getElementById('main-answers-block');
-            answersBlock.innerHTML = '';
-
-            q.answers.forEach((ansText, aIdx) => {
-                const item = document.createElement('div');
-                item.className = 'answer-item';
-                item.innerText = String.fromCharCode(65 + aIdx) + ". " + ansText;
-
-                if (currentMode === 'practice' && evaluatedQuestions[index]) {
-                    item.style.pointerEvents = 'none';
-                    if (aIdx === q.correct) item.classList.add('correct-status');
-                    else if (aIdx === selectedAnswers[index]) item.classList.add('wrong-status');
-                } else {
-                    if (selectedAnswers[index] === aIdx) item.classList.add('selected');
-                    item.onclick = () => { selectedAnswers[index] = aIdx; if(currentMode === 'practice') evaluatedQuestions[index] = true; loadQuestion(index); };
-                }
-                answersBlock.appendChild(item);
-            });
-
-            const expBox = document.getElementById('main-explanation-box');
-            if (currentMode === 'practice' && evaluatedQuestions[index]) {
-                document.getElementById('main-explanation-text').innerText = q.explain;
-                expBox.style.display = 'block';
-            } else { expBox.style.display = 'none'; }
-
-            document.getElementById('prev-btn').disabled = (index === 0);
-            document.getElementById('next-btn').disabled = (index === questionsData.length - 1);
-            renderSidebarGrid();
-        }
-
-        function goNavigation(step) { let n = currentIndex + step; if(n >= 0 && n < questionsData.length) loadQuestion(n); }
-
-        function renderSidebarGrid() {
-            const grid = document.getElementById('side-progress-grid'); grid.innerHTML = '';
-            questionsData.forEach((_, idx) => {
-                const cell = document.createElement('div'); cell.className = 'grid-cell'; cell.innerText = idx + 1;
-                if (currentMode === 'practice' && evaluatedQuestions[idx]) {
-                    if (selectedAnswers[idx] === questionsData[idx].correct) cell.classList.add('green');
-                    else cell.classList.add('red');
-                } else { if (selectedAnswers[idx] !== undefined) cell.classList.add('filled'); }
-                cell.onclick = () => loadQuestion(idx); grid.appendChild(cell);
-            });
-        }
-
-        function finishAndSubmitAll() {
-            let s = 0; questionsData.forEach((q, idx) => { if(selectedAnswers[idx] === q.correct) s++; });
-            alert("🏆 Kết quả: Đúng " + s + "/" + questionsData.length + " câu. Chuyển sang chế độ Ôn Luyện để xem lời giải từng câu nhé!");
-        }
-
-        // Tự động kéo ngân hàng đề thi khổng lồ từ Cloudflare API về Client mượt mà
-        fetch('/api/questions').then(res => res.json()).then(data => {
-            questionsData = data.questions;
-            loadQuestion(0);
-        });
-
-        window.onload = function() { loadGoldBoard(); };
-    </script>
-</body>
-</html>
-`;
-
-// ==========================================================================
-// 3. LOGIC XỬ LÝ ĐIỀU HƯỚNG CLOUDFLARE WORKERS KHÔNG DÙNG EXPRESS
-// ==========================================================================
-export default {
-    async fetch(request, env, ctx) {
-        const url = new URL(request.url);
-
-        // API 1: Trả về mảng link hình ảnh bảng vàng
-        if (url.pathname === '/api/gold-board-images') {
-            return new Response(JSON.stringify({ success: true, images: goldBoardImages }), {
-                headers: { 'Content-Type': 'application/json' }
-            });
-        }
-
-        // API 2: Trả về toàn bộ ngân hàng câu hỏi đồ sộ cho Client
-        if (url.pathname === '/api/questions') {
-            return new Response(JSON.stringify({ success: true, questions: databaseQuestions }), {
-                headers: { 'Content-Type': 'application/json' }
-            });
-        }
-
-        // API 3: Xác thực quyền Admin đa thiết bị song song & Đồng bộ SĐT làm sạch lên Google Sheet
-        if (url.pathname === '/api/verify-permission' && request.method === 'POST') {
-            try {
-                const body = await request.json();
-                let rawPhone = body.phone ? body.phone.toString().trim() : "";
-
-                // Cơ chế đăng nhập Admin song song không lo bị đẩy thiết bị cũ
-                if (rawPhone.toLowerCase() === 'admin') {
-                    return new Response(JSON.stringify({ 
-                        success: true, 
-                        message: "🔑 Quyền Admin hợp lệ! Chấp nhận duy trì đăng nhập đồng thời trên đa thiết bị tự do." 
-                    }), { headers: { 'Content-Type': 'application/json' } });
-                }
-
-                // CHUẨN HÓA SỐ ĐIỆN THOẠI TRƯỚC KHI MAP GOOGLE SHEET (Xóa chữ, ký tự lạ, số 0 hoặc 84 ở đầu)
-                let cleanedPhone = rawPhone.replace(/[^0-9]/g, '').replace(/^0/, '').replace(/^84/, '');
-
-                if (!cleanedPhone) {
-                    return new Response(JSON.stringify({ success: false, message: "Số điện thoại nhập vào không hợp lệ!" }), {
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                }
-
-                return new Response(JSON.stringify({ 
-                    success: true, 
-                    message: `🎉 Làm sạch SĐT [${cleanedPhone}] thành công! Đã khớp dữ liệu Google Sheet của trung tâm và kích hoạt full khóa học.` 
-                }), { headers: { 'Content-Type': 'application/json' } });
-
-            } catch (e) {
-                return new Response(JSON.stringify({ success: false, message: "Lỗi kết nối hệ thống!" }), {
-                    headers: { 'Content-Type': 'application/json' }
-                });
+      // 4. CHẤP NHẬN ĐĂNG NHẬP MULTI-DEVICE CHO ADMIN QUA TIMESTAMPS/TOKEN KHÔNG BỊ EXPEL ĐĂNG XUẤT NHAU
+      function applyAdminSession() {
+        var adminToken = localStorage.getItem('mos360_admin_token');
+        // Cho phép nhận diện cả session cũ hoặc token đa thiết bị mới
+        var isActive = localStorage.getItem('mos360_admin_session') === 'active' || (adminToken && adminToken.length > 10);
+        if (isActive) {
+          var adminBtn = document.getElementById('adminPanelBtn');
+          if(adminBtn) adminBtn.style.display = 'inline-block';
+          var logLink = document.getElementById('navLoginLink');
+          if (logLink) {
+            logLink.textContent = "ĐĂNG XUẤT ADMIN"; logLink.href = "#";
+            logLink.onclick = function() {
+              localStorage.removeItem('mos360_admin_session');
+              localStorage.removeItem('mos360_admin_token');
+              alert("Đã đăng xuất tài khoản quản trị hệ thống!"); window.location.href = "/";
             }
+          }
         }
+      }
+      applyAdminSession();
+    </script>
+    </body></html>`;
+  },
 
-        // MẶC ĐỊNH: Trả về toàn bộ giao diện trang web học tập chuẩn UTF-8
-        return new Response(htmlContent, {
-            headers: { 'Content-Type': 'text/html; charset=utf-8' }
-        });
-    }
+  getHomeUI(studentData) {
+    return `<div class="hero-banner">
+      <div class="hero-content">
+        <h1>HỆ THỐNG LUYỆN THI <span>CHỨNG CHỈ QUỐC TẾ</span> CHUYÊN NGHIỆP</h1>
+        <p>Học trực quan, luyện đề thực chiến bám sát kho đề thi Certiport thực tế.</p>
+        <div style="max-width:240px; margin:0 auto;"><a href="/courses" class="btn-action">XEM KHÓA HỌC NGAY</a></div>
+      </div>
+    </div>
+    <div class="main-container">
+      <div class="featured-highlights-box">
+        <div class="featured-main-title"> Xóa tan nỗi lo <span>CHUẨN ĐẦU RA</span> </div>
+        <button class="btn-action" onclick="location.href='/courses'">XEM KHÓA HỌC</button>
+      </div>
+      <div class="right-col">
+        <div class="section-card" id="bang-vang-container">
+          <h3 style="margin-bottom:15px;"> 🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</h3>
+          <div class="carousel-viewport">
+            <div class="carousel-track">${studentData}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  },
+  getCoursesUI() { return ``; },
+  getLoginUI() { return ``; },
+  getLibraryUI() { return ``; }
 };
