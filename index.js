@@ -11,8 +11,8 @@ import GENERATIVE_AI from "./questions/generative-ai.js";
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
     LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
-    SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
-    SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
+    SHEET: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
+    SHEET_EDIT: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
 
     SOCIALS: {
         ZALO: "https://zalo.me/0912888360",
@@ -83,7 +83,12 @@ export default {
             }
 
             try {
-                const resp = await fetch(CONFIG.SHEET_EDIT_URL + "&v=" + Date.now());
+                const exportUrl =
+                 CONFIG.SHEET_EDIT_URL.split("/edit")[0] +
+                 "/export?format=tsv&gid=0&v=" +
+                 Date.now();
+               
+               const resp = await fetch(exportUrl);
                 const tsv = await resp.text();
                 return new Response(tsv);
                 const rows = tsv.split("\n");
