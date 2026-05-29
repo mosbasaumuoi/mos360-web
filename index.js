@@ -109,6 +109,15 @@ console.log("TOTAL ROWS:", rows.length);
                         const rawSheetPhone = (cols[1] || "").replace(/\r/g, "").trim();
                         const sheetPhone = rawSheetPhone.replace(/^(\+84|84)/, "0");
                         const expireStr = (cols[3] || "").replace(/\r/g, "").trim();
+                       return new Response(JSON.stringify({
+    phoneInput: phone,
+    courseInput: course,
+    sheetCourse,
+    sheetPhone,
+    expireStr
+}, null, 2), {
+    headers: { "Content-Type": "application/json" }
+});
 
                         if (
                             sheetPhone === phone &&
