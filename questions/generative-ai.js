@@ -2352,3 +2352,4 @@ export const GENERATIVE_AI = [
       "Responsible AI kết hợp các nguyên tắc công bằng, minh bạch, an toàn và trách nhiệm."
   }
 ];
+export default GENERATIVE_AI;
