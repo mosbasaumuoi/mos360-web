@@ -81,15 +81,27 @@ export default {
         @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--border); margin-top: 50px; }
         .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 40px; }
-        .btn-action { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 30px; font-weight: 800; cursor: pointer; width: 100%; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 30px; font-weight: 800; cursor: pointer; width: 100%; text-decoration:none; display:block; text-align:center; }
         
-        /* CÁC NÚT MẠNG XÃ HỘI CỐ ĐỊNH BÊN PHẢI */
+        /* CÁC NÚT MẠNG XÃ HỘI BIỂU TƯỢNG (ICON) CỐ ĐỊNH BÊN PHẢI */
         .social-sticky-bar { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
-        .social-sticky-item { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; text-decoration: none; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-        .social-sticky-item:hover { transform: scale(1.15) translateX(-3px); }
-        .s-zalo { background: #0084FF; } .s-fb { background: #1877F2; } .s-mess { background: #00B2FF; } .s-yt { background: #FF0000; } .s-tt { background: #010101; border: 1px solid rgba(255,255,255,0.2); }
+        .social-sticky-item { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+        .social-sticky-item svg { width: 24px; height: 24px; fill: currentColor; }
+        .social-sticky-item:hover { transform: scale(1.18) translateX(-4px); }
+        .s-zalo { background: #0084FF; } 
+        .s-fb { background: #1877F2; } 
+        .s-mess { background: linear-gradient(135deg, #00C6FF, #0072FF, #00F2FE); } 
+        .s-yt { background: #FF0000; } 
+        .s-tt { background: #111111; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.15); }
 
-        @media (max-width: 800px) { .main-container, .footer-grid { grid-template-columns: 1fr; } .social-sticky-bar { right: 10px; } .social-sticky-item { width: 40px; height: 40px; font-size: 12px; } }
+        /* CSS PHÂN KHỐI KHÓA HỌC */
+        .course-block-title { display: flex; align-items: center; gap: 12px; margin: 35px 0 20px 0; padding-bottom: 10px; border-bottom: 2px solid var(--border); color: #fff; }
+        .course-block-title svg { width: 28px; height: 28px; fill: var(--primary); }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .price-tag { font-size: 1.3rem; font-weight: 800; color: #00f2ff; margin: 15px 0; display: flex; align-items: center; gap: 5px; }
+        .price-tag span { font-size: 0.8rem; color: #888; text-decoration: line-through; font-weight: normal; }
+
+        @media (max-width: 800px) { .main-container, .footer-grid { grid-template-columns: 1fr; } .social-sticky-bar { right: 10px; } .social-sticky-item { width: 42px; height: 42px; } .social-sticky-item svg { width: 20px; height: 20px; } }
     </style>
     </head><body>
     <header>
@@ -103,11 +115,21 @@ export default {
     </nav>
     
     <div class="social-sticky-bar">
-        <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="social-sticky-item s-zalo" title="Zalo">Zalo</a>
-        <a href="` + CONFIG.SOCIALS.FACEBOOK + `" target="_blank" class="social-sticky-item s-fb" title="Facebook">FB</a>
-        <a href="` + CONFIG.SOCIALS.MESSENGER + `" target="_blank" class="social-sticky-item s-mess" title="Messenger">Mess</a>
-        <a href="` + CONFIG.SOCIALS.YOUTUBE + `" target="_blank" class="social-sticky-item s-yt" title="Youtube">YT</a>
-        <a href="` + CONFIG.SOCIALS.TIKTOK + `" target="_blank" class="social-sticky-item s-tt" title="Tiktok">TT</a>
+        <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="social-sticky-item s-zalo" title="Zalo">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.58 2 10c0 2.45 1.34 4.61 3.46 5.92-.12.48-.52 1.92-.6 2.25-.11.45.17.41.36.28.3-.2 2.05-1.39 2.87-1.93.92.27 1.9.43 2.91.43 5.52 0 10-3.58 10-8s-4.48-8-10-8zm-1.25 11.25H7.5v-1.5h3.25v1.5zm4.5 0h-3.25v-1.5h3.25v1.5zm0-3h-4.5v-1.5h4.5v1.5z"/></svg>
+        </a>
+        <a href="` + CONFIG.SOCIALS.FACEBOOK + `" target="_blank" class="social-sticky-item s-fb" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.8z"/></svg>
+        </a>
+        <a href="` + CONFIG.SOCIALS.MESSENGER + `" target="_blank" class="social-sticky-item s-mess" title="Messenger">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.36 2 2 6.13 2 11.43c0 2.99 1.45 5.63 3.73 7.37.19.15.31.38.31.62l-.07 1.94c-.02.51.52.88.96.63l2.15-1.21c.18-.1.39-.13.59-.08 1.02.28 2.1.43 3.33.43 5.64 0 10-4.13 10-9.43S17.64 2 12 2zm1.02 12.35l-2.42-2.58-4.73 2.58 5.2-5.53 2.47 2.58 4.68-2.58-5.2 5.53z"/></svg>
+        </a>
+        <a href="` + CONFIG.SOCIALS.YOUTUBE + `" target="_blank" class="social-sticky-item s-yt" title="Youtube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.516 0-9.387.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.503 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.387.508 9.387.508s7.517 0 9.387-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="` + CONFIG.SOCIALS.TIKTOK + `" target="_blank" class="social-sticky-item s-tt" title="Tiktok">
+            <svg viewBox="0 0 24 24"><path d="M12.36 2c.03 0 .06 0 .09.015v4.584c-.66-.465-1.44-.744-2.295-.744-2.13 0-3.87 1.74-3.87 3.87s1.74 3.87 3.87 3.87c2.115 0 3.84-1.71 3.87-3.825V6.54C15.825 8.16 18.06 9.18 20.55 9.18v-3.87c-1.74 0-3.255-.915-4.11-2.295h-4.08z"/></svg>
+        </a>
     </div>
 
     <main>` + content + `</main>
@@ -148,32 +170,91 @@ export default {
 
   getCoursesUI() { 
     return `<div style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-        <h2 style="color: var(--primary); text-align: center; margin-bottom: 10px; font-weight: 800; font-size: 2rem;">DANH SÁCH KHÓA HỌC CHẤT LƯỢNG CAO</h2>
-        <p style="text-align: center; color: #888; margin-bottom: 40px; font-size: 0.95rem;">Học chuẩn lộ trình Certiport, cam kết đầu ra bằng văn bản cam kết hiệu quả.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+        <h2 style="color: var(--primary); text-align: center; margin-bottom: 10px; font-weight: 800; font-size: 2rem;">LỘ TRÌNH LUYỆN THI CHỨNG CHỈ QUỐC TẾ</h2>
+        <p style="text-align: center; color: #888; margin-bottom: 20px; font-size: 0.95rem;">Cam kết chuẩn đầu ra Certiport - Học trực tuyến tương tác cao.</p>
+        
+        <div class="course-block-title">
+            <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 4h16v12H4V4z"/></svg>
+            <h2>KHỐI LUYỆN THI MOS OFFICE 2019</h2>
+        </div>
+        <div class="course-grid">
             <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
                 <div>
-                    <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">TIN HỌC QUỐC TẾ</span>
-                    <h3 style="margin:15px 0 10px 0; font-size:1.3rem;">Luyện Thi Chứng Chỉ IC3 GS6</h3>
-                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6; margin-bottom:20px;">Trọn gói 3 Level: Công nghệ số cốt lõi, Sáng tạo nội dung số, và Đời sống trực tuyến nâng cao. Phù hợp cho học sinh, sinh viên xét tốt nghiệp.</p>
+                    <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.25rem;">Luyện thi MOS Word 2019</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6;">Làm chủ kỹ năng soạn thảo, định dạng văn bản nâng cao, thiết kế báo cáo, hợp đồng chuẩn quốc tế.</p>
+                    <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 </div>
-                <button class="btn-action" onclick="location.href='/ic3-test'">LUYỆN ĐỀ NGAY</button>
+                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
             </div>
             <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
                 <div>
-                    <span style="background:rgba(255, 87, 34, 0.1); color:var(--primary); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">VĂN PHÒNG CHUYÊN NGHIỆP</span>
-                    <h3 style="margin:15px 0 10px 0; font-size:1.3rem;">Luyện Thi MOS Quốc Tế</h3>
-                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6; margin-bottom:20px;">Các cấu phần Word, Excel, PowerPoint phiên bản mới nhất. Học thực hành trực quan, tăng cường kỹ năng xử lý văn phòng thực chiến.</p>
+                    <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.25rem;">Luyện thi MOS Excel 2019</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6;">Thành thạo hàm xử lý dữ liệu, định dạng bảng tính toán, biểu đồ trực quan phục vụ công việc thực tế.</p>
+                    <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 </div>
-                <button class="btn-action" style="background:#555;">ĐANG CẬP NHẬT</button>
+                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
             </div>
             <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
                 <div>
-                    <span style="background:rgba(212, 175, 55, 0.1); color:#D4AF37; padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">CÔNG NGHỆ MỚI</span>
-                    <h3 style="margin:15px 0 10px 0; font-size:1.3rem;">Ứng dụng Generative AI</h3>
-                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6; margin-bottom:20px;">Khóa học đón đầu xu thế công nghệ làm chủ Trí tuệ nhân tạo tạo sinh, giúp tự động hóa công việc và bứt phá hiệu suất học tập.</p>
+                    <span style="background:rgba(0, 242, 255, 0.1); color:var(--cyan); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.25rem;">Luyện thi MOS PowerPoint 2019</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6;">Tư duy thiết kế Slide thuyết trình chuyên nghiệp, hiệu ứng chuyển động mượt mà bứt phá mọi bài báo cáo.</p>
+                    <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 </div>
-                <button class="btn-action" style="background: linear-gradient(135deg, #00f2ff, #00a2ff); color:#000;" onclick="location.href='/generative-ai'">VÀO HỌC AI</button>
+                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+            </div>
+        </div>
+
+        <div class="course-block-title">
+            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg>
+            <h2>KHỐI LUYỆN THI MOS OFFICE 365</h2>
+        </div>
+        <div class="course-grid">
+            <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                    <span style="background:rgba(255, 87, 34, 0.1); color:var(--primary); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.25rem;">Luyện thi MOS Word 365</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6;">Tiếp cận các tính năng cộng tác thời gian thực, AI hỗ trợ soạn thảo và định dạng văn bản Office đám mây mới nhất.</p>
+                    <div class="price-tag">400.000đ <span>650.000đ</span></div>
+                </div>
+                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+            </div>
+            <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                    <span style="background:rgba(255, 87, 34, 0.1); color:var(--primary); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.25rem;">Luyện thi MOS Excel 365</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6;">Ứng dụng mảng động (Dynamic Arrays), các hàm xử lý dữ liệu mới hiệu năng cao chỉ có trên phiên bản 365.</p>
+                    <div class="price-tag">400.000đ <span>650.000đ</span></div>
+                </div>
+                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+            </div>
+            <div class="section-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                    <span style="background:rgba(255, 87, 34, 0.1); color:var(--primary); padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
+                    <h3 style="margin:15px 0 10px 0; font-size:1.25rem;">Luyện thi MOS PowerPoint 365</h3>
+                    <p style="color:#aaa; font-size:0.85rem; line-height:1.6;">Khai thác tính năng biến đổi Morph đặc thù, chèn vật thể 3D, Zoom Slide tạo hiệu ứng chuyển động điện ảnh siêu đỉnh.</p>
+                    <div class="price-tag">400.000đ <span>650.000đ</span></div>
+                </div>
+                <a href="` + CONFIG.SOCIALS.ZALO + `" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; display:grid; grid-template-columns: 1fr 1fr; gap:25px;">
+            <div class="section-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <h3 style="color:#FFD700;">🌍 Phòng ôn đề thi thử IC3 GS6</h3>
+                    <p style="font-size:0.8rem; color:#aaa; margin-top:5px;">Hệ thống trắc nghiệm mô phỏng cấu trúc Certiport chuẩn quốc tế cả 3 Level.</p>
+                </div>
+                <button class="btn-action" style="width:140px; background:#FFD700; color:#000;" onclick="location.href='/ic3-test'">VÀO LUYỆN</button>
+            </div>
+            <div class="section-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <h3 style="color:var(--cyan);">✨ Công nghệ Generative AI</h3>
+                    <p style="font-size:0.8rem; color:#aaa; margin-top:5px;">Luyện tập kiến thức nền tảng để đón đầu kỷ nguyên Trí tuệ nhân tạo tạo sinh.</p>
+                </div>
+                <button class="btn-action" style="width:140px; background:var(--cyan); color:#000;" onclick="location.href='/generative-ai'">VÀO THỬ SỨC</button>
             </div>
         </div>
     </div>`;
@@ -222,7 +303,7 @@ export default {
     <script>
         var aiQuestions = [
             { q: "Mô hình ngôn ngữ lớn (LLM) hoạt động dựa trên cơ chế cốt lõi nào sau đây?", ans: ["Dự đoán từ tiếp theo có khả năng xảy ra nhất dựa trên ngữ cảnh", "Tra cứu trực tiếp câu trả lời chính xác có sẵn trong ổ cứng", "Sử dụng các quy tắc ngữ pháp cứng nhắc do lập trình viên định nghĩa", "Tự suy luận logic độc lập như bộ não con người không cần dữ liệu"], right: 0, exp: "LLM hoạt động dựa trên xác suất, phân tích ngữ cảnh trước để đưa ra từ tiếp theo phù hợp nhất trong chuỗi." },
-            { q: "Thuật ngữ 'Hallucination' (Ảo tưởng/Bịa chuyện) trong Generative AI chỉ hiện tượng gì?", q: "Hiện tượng AI tự tin đưa ra thông tin hoàn toàn sai lệch hoặc không có thật nhưng trình bày như một sự thật.", ans: ["Hệ thống bị sập do quá tải yêu cầu đồng thời", "AI tạo ra câu trả lời có tính chính xác tuyệt đối", "AI tự tin khẳng định một thông tin sai lệch, bịa đặt như thể là sự thật", "AI từ chối trả lời vì câu hỏi vi phạm chính sách an toàn"], right: 2, exp: "Hallucination là điểm hạn chế của AI tạo sinh khi nó tự tạo thông tin không có cơ sở nhưng văn phong cực kỳ thuyết phục." },
+            { q: "Thuật ngữ 'Hallucination' (Ảo tưởng/Bịa chuyện) trong Generative AI chỉ hiện tượng gì?", ans: ["Hệ thống bị sập do quá tải yêu cầu đồng thời", "AI tạo ra câu trả lời có tính chính xác tuyệt đối", "AI tự tin khẳng định một thông tin sai lệch, bịa đặt như thể là sự thật", "AI từ chối trả lời vì câu hỏi vi phạm chính sách an toàn"], right: 2, exp: "Hallucination là điểm hạn chế của AI tạo sinh khi nó tự tạo thông tin không có cơ sở nhưng văn phong cực kỳ thuyết phục." },
             { q: "Kỹ thuật viết câu lệnh hiệu quả để AI cho ra kết quả tối ưu nhất được gọi là gì?", ans: ["Software Engineering", "Prompt Engineering", "Data Crawling", "Model Training"], right: 1, exp: "Prompt Engineering là kỹ thuật thiết kế, tinh chỉnh câu lệnh để giao tiếp và khai thác AI tối ưu nhất." },
             { q: "Để AI không bịa đặt thông tin và trả lời bám sát vào tài liệu riêng của công ty, người ta thường dùng giải pháp nào?", ans: ["Xóa bỏ hoàn toàn mô hình cũ và huấn luyện lại từ đầu", "Sử dụng RAG (Retrieval-Augmented Generation) để tra cứu dữ liệu trước khi trả lời", "Tăng độ dài của câu lệnh lên gấp nhiều lần", "Tắt tính năng bảo mật hệ thống"], right: 1, exp: "RAG giúp cung cấp thêm một kho tri thức đáng tin cậy bên ngoài làm căn cứ cho AI tổng hợp câu trả lời chính xác." },
             { q: "Deepfake - một sản phẩm của Generative AI thường sử dụng loại mạng kiến trúc nào để cắt ghép khuôn mặt, giọng nói?", ans: ["Mạng GAN (Generative Adversarial Networks)", "Mạng cảm biến diện rộng", "Hệ thống quản trị SQL", "Thuật toán tìm kiếm nhị phân"], right: 0, exp: "GAN gồm 2 mạng đối nghịch (mạng tạo sinh và mạng phân biệt) giúp tối ưu hóa sản phẩm Deepfake giống thật nhất." }
@@ -331,11 +412,6 @@ export default {
         .option.incorrect .option-label { background-color: #dc2626; color: white; border-color: #dc2626; }
         .option-text { font-size: 14.5px; color: #cbd5e1; }
 
-        .answer-key { margin-top: 25px; padding: 20px; background-color: rgba(22,163,74,0.08); border-left: 5px solid #16a34a; border-radius: 6px; display: none; }
-        .answer-key.show { display: block; }
-        .answer-key h4 { color: #4ade80; margin-bottom: 6px; font-size: 15px; font-weight: 700; }
-        .answer-key p { font-size: 13.5px; color: #94a3b8; line-height: 1.5; }
-
         .action-buttons { display: flex; justify-content: space-between; margin-top: auto; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); gap: 15px; }
         .btn { padding: 12px 24px; font-size: 13.5px; font-weight: 700; border-radius: 8px; cursor: pointer; border: none; transition: all 0.2s; }
         .btn-prev { background-color: #1e2333; color: #94a3b8; border: 1px solid #282f44; }
@@ -441,29 +517,29 @@ export default {
     let scriptContent = `<script>
         var database = {
             1: [
-                { text: "[DẠNG GHÉP NỐI ĐÃ CHUYỂN ĐỔI]\\nHãy chọn cặp ghép ĐÚNG khi nói về mục đích cốt lõi của các ứng dụng phần mềm:", options: ["Phần mềm xử lý văn bản - Tính toán và hiển thị dữ liệu số dạng biểu đồ", "Ứng dụng bảng tính - Nhập, chỉnh sửa, định dạng tài liệu văn bản", "Trình duyệt web - Truy cập thông tin trên internet và thế giới trực tuyến", "Hệ thống quản lý cơ sở dữ liệu - Tạo các bài thuyết trình điện tử đa phương tiện"], correct: 2, explanation: "Trình duyệt web mục đích chính là truy cập internet. Các phương án khác đều bị đảo lộn vế sai chức năng." },
-                { text: "Máy tính để bàn sử dụng phần cứng nào để lưu trữ dữ liệu lâu dài (ngay cả khi tắt máy)?", options: ["Ổ đĩa cứng (HDD/SSD)", "Bộ xử lý trung tâm (CPU)", "Bộ nhớ tạm thời (RAM)", "Bo mạch chủ (Motherboard)"], correct: 0, explanation: "Ổ đĩa cứng là thiết bị lưu trữ thứ cấp lâu dài, không mất dữ liệu khi ngắt điện." },
-                { text: "Bốn thông tin nào sau đây được coi là thông tin nhận dạng cá nhân cần bảo mật nghiêm ngặt (PII)?", options: ["Số căn cước công dân, Số điện thoại, Địa chỉ nhà, Ngày sinh", "Lịch sử duyệt web, Tên trình duyệt, Độ phân giải màn hình", "Nhãn hiệu máy tính, Dung lượng ổ cứng, Tên nhà mạng", "Tốc độ CPU, Phiên bản Windows, Danh sách phần mềm đã cài"], correct: 0, explanation: "PII (Personally Identifiable Information) là các thông tin nhạy cảm định danh trực tiếp danh tính một con người." },
-                { text: "Khi bạn gửi một email và điền các địa chỉ liên hệ vào dòng CC (Carbon Copy), điều gì sẽ xảy ra?", options: ["Người nhận ở dòng To không thể xem danh sách CC.", "Tất cả người nhận (To và CC) đều nhìn thấy công khai địa chỉ của nhau.", "Email sẽ chuyển thành dạng ẩn danh hoàn toàn đối với mọi người.", "Người ở dòng CC có quyền thu hồi thư đã gửi từ hòm thư người khác."], correct: 1, explanation: "CC gửi bản sao công khai, mọi người nhận đều xem được địa chỉ email của nhau." },
-                { text: "Hành vi nào dưới đây được phân loại chính xác là hành vi bắt nạt trên mạng (Cyberbullying)?", options: ["Hủy kết bạn sau khi tranh luận trên một diễn đàn mở", "Báo cáo nội dung vi phạm tiêu chuẩn cộng đồng của nền tảng", "Tạo nhóm, trang web hoặc đăng tải ảnh/video cắt ghép nhằm xúc phạm danh dự người khác", "Tắt thông báo trò chuyện từ một nhóm quá phiền phức"], correct: 2, explanation: "Sử dụng công nghệ số bôi nhọ, đe dọa, làm nhục người khác một cách có hệ thống là Cyberbullying." },
-                { text: "Hệ điều hành (Operating System) nằm ở phân loại nào trong hệ thống máy tính?", options: ["Phần cứng (Hardware)", "Phần mềm hệ thống (System Software)", "Phần mềm ứng dụng (Application Software)", "Thiết bị ngoại vi (Peripheral)"], correct: 1, explanation: "Hệ điều hành quản lý phần cứng và làm nền tảng chạy ứng dụng nên thuộc phần mềm hệ thống." },
-                { text: "Tùy chọn nào sau đây giúp xóa toàn bộ dữ liệu cá nhân một cách triệt để trước khi thanh lý thiết bị cũ?", options: ["Tắt nguồn thiết bị", "Xóa các thư mục ngoài Desktop", "Khôi phục cài đặt gốc và xóa sạch dữ liệu (Factory Reset)", "Gỡ cài đặt các ứng dụng mạng xã hội"], correct: 2, explanation: "Factory Reset định dạng lại phân vùng dữ liệu và đưa máy về trạng thái xuất xưởng sạch sẽ." },
-                { text: "Loại phần mềm nào phân phối miễn phí hoàn toàn nhưng người dùng không được xem hoặc sửa đổi mã nguồn?", options: ["Phần mềm nguồn mở (Open Source)", "Phần mềm thương mại mã nguồn đóng miễn phí (Freeware)", "Phần mềm miền công cộng (Public Domain)", "Phần mềm chia sẻ dùng thử hạn chế (Shareware)"], correct: 1, explanation: "Freeware miễn phí sử dụng nhưng mã nguồn đóng và được bảo hộ độc quyền thương mại sở hữu trí tuệ." },
-                { text: "Trong Windows, mục cài đặt nào cho phép bạn thay đổi hình nền và màu sắc chủ đề giao diện hệ thống?", options: ["Settings -> Personalization", "Settings -> System -> Display", "Control Panel -> Hardware", "Task Manager -> Performance"], correct: 0, explanation: "Personalization là trung tâm cá nhân hóa giao diện (hình nền, màu sắc, màn hình khóa)." },
-                { text: "Bộ nhớ RAM của máy tính có đặc tính kỹ thuật cốt lõi nào sau đây?", options: ["Lưu trữ vĩnh viễn dữ liệu", "Dữ liệu bị xóa sạch hoàn toàn khi ngắt nguồn điện hoặc tắt máy (Bộ nhớ tạm thời)", "Dung lượng luôn lớn hơn ổ đĩa cứng", "Xử lý trực tiếp các tác vụ đồ họa 3D phức tạp thay cho GPU"], correct: 1, explanation: "RAM là bộ nhớ khả biến (volatile), dữ liệu chỉ tồn tại tạm thời khi có dòng điện nuôi mạch." }
+                { text: "[DẠNG GHÉP NỐI ĐÃ CHUYỂN ĐỔI]\\nHãy chọn cặp ghép ĐÚNG khi nói về mục đích cốt lõi của các ứng dụng phần mềm:", options: ["Phần mềm xử lý văn bản - Tính toán và hiển thị dữ liệu số dạng biểu đồ", "Ứng dụng bảng tính - Nhập, chỉnh sửa, định dạng tài liệu văn bản", "Trình duyệt web - Truy cập thông tin trên internet và thế giới trực tuyến", "Hệ thống quản lý cơ sở dữ liệu - Tạo các bài thuyết trình điện tử đa phương tiện"], correct: 2 },
+                { text: "Máy tính để bàn sử dụng phần cứng nào để lưu trữ dữ liệu lâu dài (ngay cả khi tắt máy)?", options: ["Ổ đĩa cứng (HDD/SSD)", "Bộ xử lý trung tâm (CPU)", "Bộ nhớ tạm thời (RAM)", "Bo mạch chủ (Motherboard)"], correct: 0 },
+                { text: "Bốn thông tin nào sau đây được coi là thông tin nhận dạng cá nhân cần bảo mật nghiêm ngặt (PII)?", options: ["Số căn cước công dân, Số điện thoại, Địa chỉ nhà, Ngày sinh", "Lịch sử duyệt web, Tên trình duyệt, Độ phân giải màn hình", "Nhãn hiệu máy tính, Dung lượng ổ cứng, Tên nhà mạng", "Tốc độ CPU, Phiên bản Windows, Danh sách phần mềm đã cài"], correct: 0 },
+                { text: "Khi bạn gửi một email và điền các địa chỉ liên hệ vào dòng CC (Carbon Copy), điều gì sẽ xảy ra?", options: ["Người nhận ở dòng To không thể xem danh sách CC.", "Tất cả người nhận (To và CC) đều nhìn thấy công khai địa chỉ của nhau.", "Email sẽ chuyển thành dạng ẩn danh hoàn toàn đối với mọi người.", "Người ở dòng CC có quyền thu hồi thư đã gửi từ hòm thư người khác."], correct: 1 },
+                { text: "Hành vi nào dưới đây được phân loại chính xác là hành vi bắt nạt trên mạng (Cyberbullying)?", options: ["Hủy kết bạn sau khi tranh luận trên một diễn đàn mở", "Báo cáo nội dung vi phạm tiêu chuẩn cộng đồng của nền tảng", "Tạo nhóm, trang web hoặc đăng tải ảnh/video cắt ghép nhằm xúc phạm danh dự người khác", "Tắt thông báo trò chuyện từ một nhóm quá phiền phức"], correct: 2 },
+                { text: "Hệ điều hành (Operating System) nằm ở phân loại nào trong hệ thống máy tính?", options: ["Phần cứng (Hardware)", "Phần mềm hệ thống (System Software)", "Phần mềm ứng dụng (Application Software)", "Thiết bị ngoại vi (Peripheral)"], correct: 1 },
+                { text: "Tùy chọn nào sau đây giúp xóa toàn bộ dữ liệu cá nhân một cách triệt để trước khi thanh lý thiết bị cũ?", options: ["Tắt nguồn thiết bị", "Xóa các thư mục ngoài Desktop", "Khôi phục cài đặt gốc và xóa sạch dữ liệu (Factory Reset)", "Gỡ cài đặt các ứng dụng mạng xã hội"], correct: 2 },
+                { text: "Loại phần mềm nào phân phối miễn phí hoàn toàn nhưng người dùng không được xem hoặc sửa đổi mã nguồn?", options: ["Phần mềm nguồn mở (Open Source)", "Phần mềm thương mại mã nguồn đóng miễn phí (Freeware)", "Phần mềm miền công cộng (Public Domain)", "Phần mềm chia sẻ dùng thử hạn chế (Shareware)"], correct: 1 },
+                { text: "Trong Windows, mục cài đặt nào cho phép bạn thay đổi hình nền và màu sắc chủ đề giao diện hệ thống?", options: ["Settings -> Personalization", "Settings -> System -> Display", "Control Panel -> Hardware", "Task Manager -> Performance"], correct: 0 },
+                { text: "Bộ nhớ RAM của máy tính có đặc tính kỹ thuật cốt lõi nào sau đây?", options: ["Lưu trữ vĩnh viễn dữ liệu", "Dữ liệu bị xóa sạch hoàn toàn khi ngắt nguồn điện hoặc tắt máy (Bộ nhớ tạm thời)", "Dung lượng luôn lớn hơn ổ đĩa cứng", "Xử lý trực tiếp các tác vụ đồ họa 3D phức tạp thay cho GPU"], correct: 1 }
             ],
             2: [
-                { text: "Nhiều hàng hóa và dịch vụ được bán trực tuyến. Ba tùy chọn nào sau đây thuộc nhóm Dịch vụ số kỹ thuật số (Digital Services)?", options: ["Lưu trữ đám mây (Cloud storage), Hỗ trợ máy tính từ xa, Ứng dụng trực tuyến", "Tai nghe không dây, Điện thoại thông minh, Chuột cơ lắp rời", "Bàn phím không dây, Bo mạch chủ, Ổ cứng di động USB", "Cáp mạng internet, Màn hình LED, Nguồn máy tính"], correct: 0, explanation: "Các giải pháp phần mềm chạy trực tuyến và không cầm nắm được về mặt vật lý là dịch vụ số kỹ thuật số." },
-                { text: "Loại tài khoản nào được yêu cầu bắt buộc để có thể đăng câu hỏi hoặc bình luận trong diễn đàn cộng đồng của Microsoft?", options: ["Domain Account", "Windows Local Account", "Microsoft Account", "Azure Active Directory Account"], correct: 2, explanation: "Hệ thống hỗ trợ Microsoft Community yêu cầu tài khoản Microsoft Account cá nhân định danh." },
-                { text: "Tùy chọn nào sau đây mô tả đúng nhất về đặc tính dịch vụ đời sống (ví dụ cắt tóc, sửa ống nước) phân biệt với hàng hóa?", options: ["Là sản phẩm phi vật chất, không thể lưu kho hoặc cầm nắm vật lý trực tiếp", "Là sản phẩm có thể sản xuất hàng loạt lưu kho số lượng lớn", "Là sản phẩm có hạn sử dụng vĩnh viễn không suy giảm", "Là sản phẩm tự động tái tạo không tốn chi phí vận hành"], correct: 0, explanation: "Dịch vụ mang tính chất phi vật thể, thực hiện trực tiếp theo nhu cầu và không thể đóng gói lưu kho thương mại." },
-                { text: "Khi cô Wilkins nhập một bảng tính, cô nhận thấy khi cô nhập chữ cái 'Y', từ 'Yes' tự động xuất hiện. Tính năng nào xử lý việc này?", options: ["Tự khớp (AutoFit)", "Tự định dạng (AutoFormat)", "Tự động hoàn tất (AutoComplete)", "Tự động điền (AutoFill)"], correct: 2, explanation: "AutoComplete phân tích chữ cái đầu rồi tự hiển thị gợi ý từ đầy đủ có sẵn trong cột cho bạn." },
-                { text: "Trong một cuộc họp video trực tuyến, hành động nào thể hiện sự tôn trọng quyền phát biểu của mọi người?", options: ["Cứ ngắt lời bất cứ khi nào nghĩ ra ý mới", "Sử dụng tính năng Giơ tay phát biểu (Raise Hand)", "Bật nhạc nền to trong phòng khi đang bật mic", "Rời khỏi máy tính đi làm việc riêng không tắt cam"], correct: 1, explanation: "Raise Hand giúp phòng họp văn minh, người điều phối sắp xếp lượt nói khoa học." }
+                { text: "Nhiều hàng hóa và dịch vụ được bán trực tuyến. Ba tùy chọn nào sau đây thuộc nhóm Dịch vụ số kỹ thuật số (Digital Services)?", options: ["Lưu trữ đám mây (Cloud storage), Hỗ trợ máy tính từ xa, Ứng dụng trực tuyến", "Tai nghe không dây, Điện thoại thông minh, Chuột cơ lắp rời", "Bàn phím không dây, Bo mạch chủ, Ổ cứng di động USB", "Cáp mạng internet, Màn hình LED, Nguồn máy tính"], correct: 0 },
+                { text: "Loại tài khoản nào được yêu cầu bắt buộc để có thể đăng câu hỏi hoặc bình luận trong diễn đàn cộng đồng của Microsoft?", options: ["Domain Account", "Windows Local Account", "Microsoft Account", "Azure Active Directory Account"], correct: 2 },
+                { text: "Tùy chọn nào sau đây mô tả đúng nhất về đặc tính dịch vụ đời sống (ví dụ cắt tóc, sửa ống nước) phân biệt với hàng hóa?", options: ["Là sản phẩm phi vật chất, không thể lưu kho hoặc cầm nắm vật lý trực tiếp", "Là sản phẩm có thể sản xuất hàng loạt lưu kho số lượng lớn", "Là sản phẩm có hạn sử dụng vĩnh viễn không suy giảm", "Là sản phẩm tự động tái tạo không tốn chi phí vận hành"], correct: 0 },
+                { text: "Khi cô Wilkins nhập một bảng tính, cô nhận thấy khi cô nhập chữ cái 'Y', từ 'Yes' tự động xuất hiện. Tính năng nào xử lý việc này?", options: ["Tự khớp (AutoFit)", "Tự định dạng (AutoFormat)", "Tự động hoàn tất (AutoComplete)", "Tự động điền (AutoFill)"], correct: 2 },
+                { text: "Trong một cuộc họp video trực tuyến, hành động nào thể hiện sự tôn trọng quyền phát biểu của mọi người?", options: ["Cứ ngắt lời bất cứ khi nào nghĩ ra ý mới", "Sử dụng tính năng Giơ tay phát biểu (Raise Hand)", "Bật nhạc nền to trong phòng khi đang bật mic", "Rời khỏi máy tính đi làm việc riêng không tắt cam"], correct: 1 }
             ],
             3: [
-                { text: "Để một ứng dụng phần mềm có thể ra lệnh và hoạt động nhịp nhàng trên thiết bị, phần cứng và phần mềm của máy tính phải hiểu chung điểm gì?", options: ["Chương trình đặc biệt (Special Program)", "Ngôn ngữ nhị phân (Binary Language gồm các chuỗi 0 và 1)", "Mã bổ sung (Supplemental Code)", "Giao thức mạng LAN nội bộ"], correct: 1, explanation: "Bản chất phần cứng chỉ xử lý dòng điện tắt/mở (0/1). Phần mềm bắt buộc phải biên dịch về mã nhị phân." },
-                { text: "Định dạng tập tin Video kỹ thuật số nào phổ biến nhất và được hỗ trợ bởi hầu hết các trình duyệt và thiết bị hiện nay?", options: ["AVI", "MP4", "WMV", "FLV"], correct: 1, explanation: "MP4 (MPEG-4) là tiêu chuẩn nén video quốc tế thông dụng nhất, nhẹ và tương thích hoàn hảo mọi nền tảng." },
-                { text: "Chuỗi lập luận: 'Nếu sinh viên không dùng bộ tài liệu này, họ sẽ trượt đại học' dựa vào uy tín một chuyên gia giấu tên vi phạm các lỗi ngụy biến nào? (Chọn phương án đúng nhất)", options: ["Tấn công cá nhân (Ad hominem)", "Song đề sai (False Dilemma) & Lợi dụng người nổi tiếng (Appeal to Authority)", "Vin vào truyền thống (Appeal to Tradition)", "Khái quát hóa vội vã"], correct: 1, explanation: "Ép buộc vào 2 lựa chọn cực đoan là song đề sai, mượn danh chuyên gia mơ hồ là lợi dụng uy tín." },
-                { text: "Bạn muốn đưa trình duyệt Google Chrome về lại trạng thái cấu hình sạch sẽ ban đầu của nhà sản xuất. Bạn chọn mục nào trong Settings?", options: ["Default browser (Trình duyệt mặc định)", "On startup (Khi khởi động)", "Reset and clean up (Đặt lại và dọn dẹp)", "Appearance (Hình thức hiển thị)"], correct: 2, explanation: "Tính năng 'Reset and clean up' khôi phục toàn bộ cài đặt gốc, xóa bộ nhớ đệm lỗi của Chrome." }
+                { text: "Để một ứng dụng phần mềm có thể ra lệnh và hoạt động nhịp nhàng trên thiết bị, phần cứng và phần mềm của máy tính phải hiểu chung điểm gì?", options: ["Chương trình đặc biệt (Special Program)", "Ngôn ngữ nhị phân (Binary Language gồm các chuỗi 0 và 1)", "Mã bổ sung (Supplemental Code)", "Giao thức mạng LAN nội bộ"], correct: 1 },
+                { text: "Định dạng tập tin Video kỹ thuật số nào phổ biến nhất và được hỗ trợ bởi hầu hết các trình duyệt và thiết bị hiện nay?", options: ["AVI", "MP4", "WMV", "FLV"], correct: 1 },
+                { text: "Chuỗi lập luận: 'Nếu sinh viên không dùng bộ tài liệu này, họ sẽ trượt đại học' dựa vào uy tín một chuyên gia giấu tên vi phạm các lỗi ngụy biến nào? (Chọn phương án đúng nhất)", options: ["Tấn công cá nhân (Ad hominem)", "Song đề sai (False Dilemma) & Lợi dụng người nổi tiếng (Appeal to Authority)", "Vin vào truyền thống (Appeal to Tradition)", "Khái quát hóa vội vã"], correct: 1 },
+                { text: "Bạn muốn đưa trình duyệt Google Chrome về lại trạng thái cấu hình sạch sẽ ban đầu của nhà sản xuất. Bạn chọn mục nào trong Settings?", options: ["Default browser (Trình duyệt mặc định)", "On startup (Khi khởi động)", "Reset and clean up (Đặt lại và dọn dẹp)", "Appearance (Hình thức hiển thị)"], correct: 2 }
             ]
         };
 
@@ -486,8 +562,7 @@ export default {
                             "Chia sẻ công khai toàn bộ tài nguyên lên mạng xã hội không mã hóa.",
                             "Sử dụng phần mềm bẻ khóa không rõ nguồn gốc để tiết kiệm chi phí."
                         ],
-                        correct: 0,
-                        explanation: "Trong các kỳ thi chuẩn quốc tế như IC3, các phương án hướng tới tính an toàn thông tin, tuân thủ pháp luật bản quyền và quy trình kỹ thuật chuẩn luôn là đáp án chính xác."
+                        correct: 0
                     });
                 }
             }
@@ -681,9 +756,6 @@ export default {
                 }
                 optionsContainer.appendChild(optDiv);
             });
-
-            // Loại bỏ giải thích dạng tĩnh cũ để dồn không gian cho trải nghiệm, 
-            // hoặc xem qua ô kết quả nếu bạn muốn phục hồi.
 
             document.getElementById('btn-prev').disabled = (currentQuestion === 0);
             document.getElementById('btn-next').disabled = (currentQuestion === questions.length - 1);
