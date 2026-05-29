@@ -103,23 +103,14 @@ console.log("TOTAL ROWS:", rows.length);
 
                 for (let i = 1; i < rows.length; i++) {
                     const cols = rows[i].split("\t");
-                   return new Response(JSON.stringify(cols));
+                   
                     if (cols.length >= 2) {
                         // Chuẩn hóa cả dữ liệu sheet
                         const sheetCourse = (cols[0] || "").replace(/\r/g, "").replace(/\s+/g, " ").trim().toLowerCase();
                         const rawSheetPhone = (cols[1] || "").replace(/\r/g, "").trim();
                         const sheetPhone = rawSheetPhone.replace(/^(\+84|84)/, "0");
                         const expireStr = (cols[3] || "").replace(/\r/g, "").trim();
-                       return new Response(JSON.stringify({
-    phoneInput: phone,
-    courseInput: course,
-    sheetCourse,
-    sheetPhone,
-    expireStr
-}, null, 2), {
-    headers: { "Content-Type": "application/json" }
-});
-
+                      
                         if (
                             sheetPhone === phone &&
                             (
