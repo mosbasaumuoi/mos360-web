@@ -13,6 +13,7 @@ const CONFIG = {
     LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
     SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
+    STUDENT_SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjb4deEYb7i_AMpimoccuyElyPF01QfQGEue2nQNrlRjU4xZlz3tH1qJt3jPUN8gqRHiHJQqWJBo9E/pub?output=tsv",
 
     SOCIALS: {
         ZALO: "https://zalo.me/0912888360",
@@ -174,7 +175,7 @@ console.log("TOTAL ROWS:", rows.length);
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
         let studentData = "";
         try {
-            const resp = await fetch(CONFIG.SHEET_URL + "&v=" + Date.now());
+            const resp = await fetch(CONFIG.STUDENT_SHEET_URL + "&v=" + Date.now());
             const tsv = await resp.text();
             const rows = tsv.split("\n").slice(1);
             let htmlContent = "";
