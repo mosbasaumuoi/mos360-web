@@ -1,5 +1,5 @@
 /* =========================
-   MOS360 V2
+   MOS360 V2026
    BASELINE CONTRACT LOCKED
    ========================= */
 
@@ -71,7 +71,7 @@ export default {
             function normalizePhone(raw) {
                 return raw
                     .trim()
-                    .replace(/^[+]84/, "0")
+                    .replace(/^\+84/, "0")
                     .replace(/^84/, "0");
             }
 
@@ -85,7 +85,7 @@ export default {
             try {
                 const resp = await fetch(CONFIG.SHEET_EDIT_URL + "&v=" + Date.now());
                 const tsv = await resp.text();
-               return new Response(tsv.slice(0, 500));
+                return new Response(tsv);
                 const rows = tsv.split("\n");
 
                 let isValid = false;
@@ -97,7 +97,7 @@ export default {
                         // Chuẩn hóa cả dữ liệu sheet
                         const sheetCourse = (cols[0] || "").replace(/\r/g, "").replace(/\s+/g, " ").trim().toLowerCase();
                         const rawSheetPhone = (cols[1] || "").replace(/\r/g, "").trim();
-                        const sheetPhone = rawSheetPhone.replace(/^([+]84|84)/, "0");
+                        const sheetPhone = rawSheetPhone.replace(/^(\+84|84)/, "0");
                         const expireStr = (cols[3] || "").replace(/\r/g, "").trim();
 
                         if (
@@ -544,7 +544,7 @@ export default {
         }
         // FIX 3: Chuẩn hóa SĐT phía client trước khi gửi lên API
         function normalizePhone(raw) {
-            return raw.trim().replace(/^([+]84|84)/, "0");
+            return raw.trim().replace(/^(\+84|84)/, "0");
         }
         async function triggerRemoteVerification(courseName) {
             var rawPhone = prompt("Nhập số điện thoại đăng ký [" + courseName + "] của bạn:");
