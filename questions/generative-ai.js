@@ -2171,4 +2171,184 @@ export const GENERATIVE_AI = [
     explanation:
       "Human-in-the-Loop là nguyên tắc cốt lõi trong các ứng dụng AI có tác động cao."
   },
+
+    {
+    id: 121,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "AI Compliance đề cập đến điều gì?",
+    options: [
+      "Tuân thủ các quy định, chính sách và luật pháp liên quan đến AI",
+      "Tăng tốc độ xử lý mô hình",
+      "Nâng cấp phần cứng AI",
+      "Giảm số lượng dữ liệu"
+    ],
+    answer: 0,
+    explanation:
+      "AI Compliance giúp đảm bảo việc sử dụng AI phù hợp với quy định hiện hành."
+  },
+
+  {
+    id: 122,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Điều nào là lợi ích của việc minh bạch nguồn dữ liệu AI?",
+    options: [
+      "Tăng khả năng đánh giá chất lượng và độ tin cậy",
+      "Tăng tốc Internet",
+      "Giảm số lượng token",
+      "Tăng dung lượng RAM"
+    ],
+    answer: 0,
+    explanation:
+      "Minh bạch dữ liệu giúp đánh giá rủi ro và độ tin cậy của mô hình."
+  },
+
+  {
+    id: 123,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Một hệ thống AI có trách nhiệm cần ưu tiên điều gì khi xử lý dữ liệu cá nhân?",
+    options: [
+      "Bảo vệ quyền riêng tư và bảo mật dữ liệu",
+      "Thu thập tối đa dữ liệu có thể",
+      "Chia sẻ dữ liệu cho mọi bên",
+      "Bỏ qua sự đồng ý của người dùng"
+    ],
+    answer: 0,
+    explanation:
+      "Bảo vệ dữ liệu cá nhân là nguyên tắc quan trọng trong Responsible AI."
+  },
+
+  {
+    id: 124,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Điều nào là ví dụ về sử dụng AI minh bạch?",
+    options: [
+      "Thông báo rõ khi nội dung được tạo bởi AI",
+      "Che giấu việc sử dụng AI",
+      "Ẩn nguồn dữ liệu",
+      "Không công bố hạn chế của mô hình"
+    ],
+    answer: 0,
+    explanation:
+      "Người dùng nên biết khi nào họ đang tương tác với hoặc sử dụng nội dung từ AI."
+  },
+
+  {
+    id: 125,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Điều gì giúp giảm nguy cơ lạm dụng Generative AI?",
+    options: [
+      "Chính sách sử dụng rõ ràng và giám sát phù hợp",
+      "Cho phép mọi hành vi không kiểm soát",
+      "Loại bỏ kiểm tra nội dung",
+      "Bỏ qua đào tạo người dùng"
+    ],
+    answer: 0,
+    explanation:
+      "Chính sách và giám sát giúp giảm rủi ro sử dụng sai mục đích."
+  },
+
+  {
+    id: 126,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Khi AI được sử dụng để hỗ trợ quyết định, điều gì là quan trọng nhất?",
+    options: [
+      "Con người chịu trách nhiệm cuối cùng",
+      "AI chịu trách nhiệm pháp lý",
+      "Không cần kiểm tra kết quả",
+      "Luôn ưu tiên AI hơn chuyên gia"
+    ],
+    answer: 0,
+    explanation:
+      "AI hỗ trợ quyết định, nhưng trách nhiệm cuối cùng vẫn thuộc về con người."
+  },
+
+  {
+    id: 127,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Tại sao doanh nghiệp cần đào tạo nhân viên về AI Ethics?",
+    options: [
+      "Để sử dụng AI an toàn và có trách nhiệm",
+      "Để giảm số lượng người dùng",
+      "Để tăng tốc độ mạng",
+      "Để thay thế toàn bộ quy trình"
+    ],
+    answer: 0,
+    explanation:
+      "Đào tạo giúp giảm rủi ro và nâng cao nhận thức về AI."
+  },
+
+  {
+    id: 128,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Điều nào là dấu hiệu của một hệ thống AI đáng tin cậy?",
+    options: [
+      "Có thể giải thích được, an toàn và được kiểm soát",
+      "Luôn bí mật hoàn toàn",
+      "Không cho phép kiểm tra",
+      "Không công bố hạn chế"
+    ],
+    answer: 0,
+    explanation:
+      "Khả năng giải thích và kiểm soát là yếu tố quan trọng của Trustworthy AI."
+  },
+
+  {
+    id: 129,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Mục tiêu của Human-Centered AI là gì?",
+    options: [
+      "Đặt nhu cầu và lợi ích của con người làm trung tâm",
+      "Tối đa hóa kích thước mô hình",
+      "Giảm tương tác của con người",
+      "Thay thế hoàn toàn con người"
+    ],
+    answer: 0,
+    explanation:
+      "Human-Centered AI đảm bảo công nghệ phục vụ con người một cách có ý nghĩa."
+  },
+
+  {
+    id: 130,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Nguyên tắc cốt lõi nhất của Responsible AI là gì?",
+    options: [
+      "AI phải mang lại lợi ích, công bằng, minh bạch và an toàn cho con người",
+      "AI phải lớn nhất thị trường",
+      "AI phải tạo nhiều nội dung nhất",
+      "AI phải hoạt động không cần giám sát"
+    ],
+    answer: 0,
+    explanation:
+      "Responsible AI kết hợp các nguyên tắc công bằng, minh bạch, an toàn và trách nhiệm."
+  }
 ];
