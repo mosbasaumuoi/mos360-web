@@ -1075,7 +1075,7 @@ export const IC3_LEVEL2 = [
       "Tổ chức tài chính cho phép xử lý và hoàn tất các giao dịch chuyển tiền trực tuyến": "Ngân hàng thanh toán",
       "Đơn vị phát hành, cung cấp thẻ ghi nợ (Debit) hoặc thẻ tín dụng (Credit) cho người tiêu dùng": "Nhà phát hành (Issuer)"
     },
-    explanation: "Merchant là người bán sản phẩm/dịch vụ; Ngân hàng thanh toán đứng giữa để xử lý kỹ thuật dòng tiền giao dịch; Issuer là tổ chức/ngân hàng cấp thẻ trực tiếp cho người dùng cuối." [cite: 431, 432]
+    explanation: "Merchant là người bán sản phẩm/dịch vụ; Ngân hàng thanh toán đứng giữa để xử lý kỹ thuật dòng tiền giao dịch; Issuer là tổ chức/ngân hàng cấp thẻ trực tiếp cho người dùng cuối." 
   },
   {
     id: 56,
@@ -1103,8 +1103,7 @@ export const IC3_LEVEL2 = [
       "Bạn liên hệ với huấn luyện viên của mình sau giờ học để báo ngắn gọn rằng bạn sẽ bỏ lỡ buổi tập hôm nay": "Tin nhắn văn bản",
       "Bạn liên lạc chính thức với một công ty để yêu cầu giải quyết việc nhận lại tiền hoàn trả": "Email"
     },
-    explanation: "Nhật ký trực tuyến dài là Blog; Nhóm thảo luận chung là Diễn đàn (Forum); Thông báo khẩn ngắn gọn cho cá nhân là Tin nhắn; Trao đổi thủ tục hành chính, thương mại chính thức là Email." [cite: 434, 435, 436]
-  },
+    explanation: "Nhật ký trực tuyến dài là Blog; Nhóm thảo luận chung là Diễn đàn (Forum); Thông báo khẩn ngắn gọn cho cá nhân là Tin nhắn; Trao đổi thủ tục hành chính, thương mại chính thức là Email." 
   {
     id: 57,
     level: "IC3_LEVEL2",
@@ -1144,8 +1143,7 @@ export const IC3_LEVEL2 = [
       "Sai"
     ],
     answer: "Sai",
-    explanation: "Trong văn hóa ứng xử số (Netiquette), khi không đồng tình với một ý kiến, bạn luôn cần giữ thái độ lịch sự, khách quan và tôn trọng, tránh bị cuốn vào việc dùng giọng điệu công kích, nóng nảy hay tiêu cực của đối phương." [cite: 438, 439, 440]
-  },
+    explanation: "Trong văn hóa ứng xử số (Netiquette), khi không đồng tình với một ý kiến, bạn luôn cần giữ thái độ lịch sự, khách quan và tôn trọng, tránh bị cuốn vào việc dùng giọng điệu công kích, nóng nảy hay tiêu cực của đối phương."
   {
     id: 59,
     level: "IC3_LEVEL2",
@@ -1161,8 +1159,7 @@ export const IC3_LEVEL2 = [
       "Bcc"
     ],
     answer: "Cc",
-    explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này." [cite: 440, 441, 442]
-  },
+    explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này." 
   {
     id: 60,
     level: "IC3_LEVEL2",
