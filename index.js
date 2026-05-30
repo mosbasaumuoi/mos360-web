@@ -138,8 +138,7 @@ const expireIdx = headers.indexOf("expire");
                             isValid = true;
                             break;
                         }
-                    }
-                }
+                    }                }
                 return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
                     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
                 });
