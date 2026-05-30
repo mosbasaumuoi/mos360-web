@@ -94,18 +94,8 @@ export default {
 const courseIdx = headers.indexOf("course");
 const phoneIdx = headers.indexOf("phone");
 const expireIdx = headers.indexOf("expire");
-
-if (courseIdx === -1 || phoneIdx === -1 || expireIdx === -1) {
-    return new Response(
-        JSON.stringify({
-            success: false,
-            msg: "Không tìm thấy cột Course / Phone / Expire trong Sheet!"
-        }),
-        { headers: { "Content-Type": "application/json" } }
-    );
-}               
-
-               console.log("PHONE INPUT:", phone);
+          
+console.log("PHONE INPUT:", phone);
 console.log("COURSE INPUT:", course);
 console.log("ROW SAMPLE:", rows[1]);
 console.log("TOTAL ROWS:", rows.length);
