@@ -1033,7 +1033,7 @@ export const IC3_LEVEL2 = [
       "Tập tin hình vạch quét có độ nén cao hỗ trợ chứa nhiều hình ảnh tĩnh (hoặc ảnh động giới hạn bảng màu) trong một tập tin": "GIF",
       "Tập tin văn bản định dạng phong phú hỗ trợ văn bản và đồ họa được định dạng cơ bản": "RTF"
     },
-    explanation: "PNG hỗ trợ độ trong suốt (transparency) và nén không mất dữ liệu; TXT là văn bản thuần túy (plain text); GIF hỗ trợ nhiều khung hình trong một tập tin (ảnh động); RTF (Rich Text Format) cho phép định dạng chữ và chèn hình ảnh cơ bản." [cite: 426, 427, 428]
+    explanation: "PNG hỗ trợ độ trong suốt (transparency) và nén không mất dữ liệu; TXT là văn bản thuần túy (plain text); GIF hỗ trợ nhiều khung hình trong một tập tin (ảnh động); RTF (Rich Text Format) cho phép định dạng chữ và chèn hình ảnh cơ bản." 
   },
   {
     id: 54,
@@ -1050,7 +1050,7 @@ export const IC3_LEVEL2 = [
       "Gửi thư tới tất cả phụ huynh bằng cách sử dụng trường Bcc"
     ],
     answer: "Gửi thư tới tất cả phụ huynh bằng cách sử dụng trường Bcc",
-    explanation: "Khi gửi email hàng loạt cho một danh sách số lượng lớn người nhận không có mối quan hệ cá nhân với nhau (như toàn thể phụ huynh), việc sử dụng trường Bcc (Blind Carbon Copy) giúp ẩn danh sách địa chỉ email của mọi người, bảo vệ quyền riêng tư và tránh lộ thông tin cá nhân." [cite: 429, 430, 431]
+    explanation: "Khi gửi email hàng loạt cho một danh sách số lượng lớn người nhận không có mối quan hệ cá nhân với nhau (như toàn thể phụ huynh), việc sử dụng trường Bcc (Blind Carbon Copy) giúp ẩn danh sách địa chỉ email của mọi người, bảo vệ quyền riêng tư và tránh lộ thông tin cá nhân." 
   },
   {
     id: 55,
