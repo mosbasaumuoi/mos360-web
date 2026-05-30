@@ -17,10 +17,10 @@ const CONFIG = {
 
     SOCIALS: {
         ZALO: "https://zalo.me/0912888360",
-        FACEBOOK: "https://facebook.com/mos360",
-        MESSENGER: "https://m.me/mos360",
-        YOUTUBE: "https://youtube.com/@mos360",
-        TIKTOK: "https://tiktok.com/@mos360"
+        FACEBOOK: "https://facebook.com/mos360.vn",
+        MESSENGER: "https://m.me/mos360.vn",
+        YOUTUBE: "https://youtube.com/@mos360_vn",
+        TIKTOK: "https://tiktok.com/@mos360.vn"
     },
 
     ADMIN: {
