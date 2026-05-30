@@ -63,7 +63,7 @@ export default {
         const url = new URL(request.url);
         const path = url.pathname;
 
-        // ===== FIX 3: API xác thực – chuẩn hóa SĐT và tên khóa trước khi so khớp nhau =====
+        // ===== FIX 3: API xác thực – chuẩn hóa SĐT và tên khóa trước khi so khớp =====
         if (path === "/api/verify-code") {
             const rawPhone = url.searchParams.get("phone") || "";
             const rawCourse = url.searchParams.get("course") || "";
