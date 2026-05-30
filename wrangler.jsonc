@@ -5,10 +5,12 @@
   "compatibility_date": "2026-04-24",
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+
+  "kv_namespaces": [
+    {
+      "binding": "MOS360_USERS_KV",
+      "id": "dc0d0df05914e888863c95abe080a3f"
+    }
   ]
-
-[[kv_namespaces]]
-binding = "MOS360_USERS_KV"
-id = "dc0ad0df05914e888863c95abe080a3f"
-
 }
