@@ -151,7 +151,7 @@ export default {
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
         let studentData = "";
         try {
-            const resp = await fetch(CONFIG.STUDENT_SHEET_URL + "&v=" + Date.now());
+            const resp = await fetch(CONFIG.SHEET_URL + "&v=" + Date.now());
             const tsv = await resp.text();
             const rows = tsv.split("\n").slice(1);
             let htmlContent = "";
