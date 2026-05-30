@@ -262,6 +262,8 @@ export default {
         .btn-sub { padding: 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: #cbd5e1; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.2s; }
         .btn-sub:hover { background: rgba(255,255,255,0.08); color: #fff; }
         .btn-trial { background: rgba(0,242,255,0.08); color: #00f2ff; border: 1px solid rgba(0,242,255,0.2); }
+        .btn-confirm { display:none; margin-top:12px; padding:12px 30px; background:linear-gradient(135deg,#00f2ff,#00a2ff); color:#000; border:none; border-radius:10px; font-weight:800; font-size:0.95rem; cursor:pointer; width:100%; }
+        .btn-confirm.visible { display:block; }
 
         footer { padding: 40px 5%; background: #030408; border-top: 1px solid var(--border); margin-top: 40px; }
         .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1.2fr; gap: 30px; }
@@ -758,6 +760,8 @@ export default {
                 </div>
                 <div class="question-box" id="lblText">Đang tải...</div>
                 <div id="optsArea"></div>
+                     <button class="btn-confirm" id="btnConfirm" onclick="confirmAnswer()">✅ XÁC NHẬN ĐÁP ÁN</button>
+                     <div class="explanation-box" id="explanationBox"><strong>💡 Giải thích:</strong> <span id="explanationText"></span></div>
                 <!-- FIX 5: Hộp giải thích -->
                 <div class="explanation-box" id="explanationBox"><strong>💡 Giải thích:</strong> <span id="explanationText"></span></div>
 
@@ -799,6 +803,30 @@ export default {
         var temp = clone[i]; clone[i] = clone[j]; clone[j] = temp;
     }
     return clone;
+   }
+
+// Khai báo cùng chỗ với var list, cur, userAns...
+var confirmedList = [];
+
+function isConfirmed(idx) {
+    return confirmedList[idx] === true;
+}
+
+function confirmAnswer() {
+    if (!isAnswered(cur)) return;
+    confirmedList[cur] = true;
+
+    // Cập nhật màu nav
+    var ni = document.getElementById('ni-' + cur);
+    ni.classList.remove('answered');
+    ni.classList.add(isCorrectAnswer(cur) ? 'correct-nav' : 'wrong-nav');
+
+    renderQ();
+
+    // Tự động chuyển câu tiếp sau 0.8s nếu đúng (tùy chọn)
+    // if (isCorrectAnswer(cur) && cur < qCount - 1) {
+    //     setTimeout(function() { cur++; renderQ(); }, 800);
+    // }
 }
 
 function selectLevel(lv) {
@@ -844,6 +872,8 @@ function launchEngine(chosenMode) {
     qCount = list.length;
     // userAns: single→null, multiple→[]
     userAns = list.map(function(q) { return Array.isArray(q.c) ? [] : null; });
+    // Thêm vào cuối phần khởi tạo list trong launchEngine
+   confirmedList = new Array(list.length).fill(false);  
 
     initQuiz();
 }
@@ -895,8 +925,9 @@ function renderQ() {
 
     var isMultiple = Array.isArray(q.c);
     var answered = isAnswered(cur);
+    var confirmed = isConfirmed(cur); // ← đã bấm XÁC NHẬN chưa
 
-    // Hint số đáp án cần chọn
+    // Hint số đáp án
     if (isMultiple) {
         var hint = document.createElement('div');
         hint.style.cssText = "font-size:0.8rem;color:#f59e0b;margin-bottom:10px;font-weight:bold;";
@@ -910,7 +941,7 @@ function renderQ() {
         var isCorrectOpt = isMultiple ? q.c.indexOf(i) >= 0 : q.c === i;
 
         var cls = 'option';
-        if (answered && mode === 'practice') {
+        if (confirmed && mode === 'practice') {
             if (isSelected && isCorrectOpt) cls += ' correct-ans';
             else if (isSelected && !isCorrectOpt) cls += ' wrong-ans';
             else if (!isSelected && isCorrectOpt) cls += ' show-correct';
@@ -921,48 +952,34 @@ function renderQ() {
         div.className = cls;
         div.innerHTML = '<span style="min-width:22px;font-weight:900;color:#64748b;">' + String.fromCharCode(65+i) + '.</span>' + q.options[i];
 
-        var canClick = !isDone && !(answered && !isMultiple && mode === 'practice');
-        if (canClick) {
+        // Chỉ cho click nếu chưa xác nhận
+        if (!isDone && !confirmed) {
             (function(optIdx){
                 div.onclick = function() {
                     if (isMultiple) {
-                        // Toggle chọn/bỏ chọn
                         var idx2 = userAns[cur].indexOf(optIdx);
                         if (idx2 >= 0) userAns[cur].splice(idx2, 1);
                         else userAns[cur].push(optIdx);
-                        // Cập nhật nav
-                        var ni = document.getElementById('ni-' + cur);
-                        if (userAns[cur].length > 0) {
-                            ni.classList.remove('correct-nav','wrong-nav');
-                            ni.classList.add('answered');
-                        }
-                        renderQ();
-                        // Chỉ show giải thích khi đã chọn đủ số đáp án
-                        if (mode === 'practice' && userAns[cur].length === q.c.length) {
-                            var ni2 = document.getElementById('ni-' + cur);
-                            ni2.classList.remove('answered');
-                            ni2.classList.add(isCorrectAnswer(cur) ? 'correct-nav' : 'wrong-nav');
-                            document.getElementById('explanationText').textContent = q.e;
-                            document.getElementById('explanationBox').classList.add('visible');
-                        }
                     } else {
                         userAns[cur] = optIdx;
-                        var ni = document.getElementById('ni-' + cur);
-                        ni.classList.remove('answered');
-                        ni.classList.add(optIdx === q.c ? 'correct-nav' : 'wrong-nav');
-                        renderQ();
-                        if (mode === 'practice') {
-                            document.getElementById('explanationText').textContent = q.e;
-                            document.getElementById('explanationBox').classList.add('visible');
-                        }
                     }
+                    renderQ();
                 };
             })(i);
         }
         area.appendChild(div);
     }
 
-    if (answered && mode === 'practice') {
+    // Hiện/ẩn nút XÁC NHẬN
+    var btnConfirm = document.getElementById('btnConfirm');
+    if (!isDone && !confirmed && answered) {
+        btnConfirm.classList.add('visible');
+    } else {
+        btnConfirm.classList.remove('visible');
+    }
+
+    // Hiện giải thích nếu đã xác nhận + practice
+    if (confirmed && mode === 'practice') {
         document.getElementById('explanationText').textContent = q.e;
         expBox.classList.add('visible');
     }
@@ -1008,8 +1025,10 @@ function submitExamNow() {
 function restartQuiz() {
     isDone = false;
     userAns = list.map(function(q) { return Array.isArray(q.c) ? [] : null; });
+    confirmedList = new Array(list.length).fill(false);
     cur = 0;
     document.getElementById('resBox').style.display = "none";
+    document.getElementById('btnConfirm').classList.remove('visible');
     renderQ();
     document.querySelectorAll('.nav-item').forEach(function(n) { n.className = 'nav-item'; });
     document.getElementById('ni-0').classList.add('current');
