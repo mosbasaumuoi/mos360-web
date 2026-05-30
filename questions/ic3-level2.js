@@ -1162,7 +1162,8 @@ export const IC3_LEVEL2 = [
     ],
     answer: "Cc",
     explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này." 
-  {
+  },
+        {
     id: 60,
     level: "IC3_LEVEL2",
     test: 2,
