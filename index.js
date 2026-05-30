@@ -94,6 +94,16 @@ export default {
 const courseIdx = headers.indexOf("course");
 const phoneIdx = headers.indexOf("phone");
 const expireIdx = headers.indexOf("expire");
+               let isValid = false;
+let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
+
+for (let i = 1; i < rows.length; i++) {
+    const cols = rows[i].split("\t");
+    if (cols.length < 3) continue;
+
+    const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
+    const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
+    const expireStr = (cols[expireIdx] || "").trim();
                      
                         if (
                             sheetPhone === phone &&
@@ -138,7 +148,8 @@ const expireIdx = headers.indexOf("expire");
                             isValid = true;
                             break;
                         }
-                    }             
+                    } 
+            }
                 return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
                     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
                 });
@@ -854,14 +865,9 @@ userAns = new Array(qCount).fill(null);
             g.appendChild(d);
         }
         renderQ();
-        var mins =
-        isVerified
-            ? (
-                mode === 'exam'
-                    ? ${EXAM_CONFIG.EXAM_DURATION}
-                    : 0
-            )
-            : ${EXAM_CONFIG.TRIAL_DURATION}
+        var mins = isVerified
+             ? (mode === 'exam' ? 50 : 0)
+             : 10;
             if (mins > 0) {
                 startTimer(mins);
             } else {
