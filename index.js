@@ -627,12 +627,16 @@ export default {
   `;
         }
 
-        const bankJSON = JSON.stringify(
+       const hasLevels = courseType === "IC3 GS6";
+       
+       const bankJSON = JSON.stringify(
             questionBank.map(item => ({
                 q: item.question,
                 o: item.options,
                 c: item.answer,
-                e: item.explanation || ""
+                e: item.explanation || "",
+                t: item.type || "single",       
+               lv: item.level || ""                 
             }))
         );
 
@@ -703,19 +707,43 @@ export default {
         <div class="quiz-layout">
             <div class="main-quiz">
 
-                <div class="mode-selection-overlay" id="modeSelectBox">
-                    <h2 style="color:#fff; margin-bottom:6px;">CHỌN CHẾ ĐỘ HỌC TẬP</h2>
-                    <p style="font-size:0.85rem; margin-bottom:20px; font-weight:bold;" id="modeWelcomeTxt">Đang kiểm tra quyền truy cập...</p>
-                    <button class="mode-btn" onclick="launchEngine('practice')">
-                        📖 Chế độ Ôn luyện tự do
-                        <span class="lock-badge" id="lock-practice"> </span>
-                    </button>
-                    <button class="mode-btn" onclick="launchEngine('exam')">
-                        ⏱️ Chế độ Thi thử thực chiến
-                        <span class="lock-badge" id="lock-exam"> </span>
-                    </button>
-                    <a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>
-                </div>
+                <!-- Bước 1: Chọn Level (chỉ IC3 GS6) -->
+               <div class="mode-selection-overlay" id="levelSelectBox" style="${hasLevels ? '' : 'display:none;'}">
+                   <h2 style="color:#fff; margin-bottom:6px;">CHỌN CẤP ĐỘ ÔN LUYỆN</h2>
+                   <p style="font-size:0.85rem; margin-bottom:20px; color:#94a3b8;">IC3 GS6 gồm 3 cấp độ từ cơ bản đến nâng cao</p>
+                   <button class="mode-btn" onclick="selectLevel('ALL')">
+                       🌐 Tất cả các cấp độ
+                       <span class="lock-badge" style="color:#94a3b8;">Trộn ngẫu nhiên từ Level 1 + 2 + 3</span>
+                   </button>
+                   <button class="mode-btn" onclick="selectLevel('IC3_LEVEL1')">
+                       🟢 Level 1 – Cơ bản
+                       <span class="lock-badge" style="color:#94a3b8;">Kiến thức nền tảng máy tính & mạng</span>
+                   </button>
+                   <button class="mode-btn" onclick="selectLevel('IC3_LEVEL2')">
+                       🟡 Level 2 – Trung cấp
+                       <span class="lock-badge" style="color:#94a3b8;">Ứng dụng văn phòng & internet</span>
+                   </button>
+                   <button class="mode-btn" onclick="selectLevel('IC3_LEVEL3')">
+                       🔴 Level 3 – Nâng cao
+                       <span class="lock-badge" style="color:#94a3b8;">Bảo mật, đám mây & kỹ năng số</span>
+                   </button>
+                   <a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>
+               </div>
+               
+               <!-- Bước 2: Chọn Mode -->
+               <div class="mode-selection-overlay" id="modeSelectBox" style="${hasLevels ? 'display:none;' : ''}">
+                   <h2 style="color:#fff; margin-bottom:6px;">CHỌN CHẾ ĐỘ HỌC TẬP</h2>
+                   <p style="font-size:0.85rem; margin-bottom:20px; font-weight:bold;" id="modeWelcomeTxt">Đang kiểm tra quyền truy cập...</p>
+                   <button class="mode-btn" onclick="launchEngine('practice')">
+                       📖 Chế độ Ôn luyện tự do
+                       <span class="lock-badge" id="lock-practice"> </span>
+                   </button>
+                   <button class="mode-btn" onclick="launchEngine('exam')">
+                       ⏱️ Chế độ Thi thử thực chiến
+                       <span class="lock-badge" id="lock-exam"> </span>
+                   </button>
+                   ${hasLevels ? `<button onclick="document.getElementById('modeSelectBox').style.display='none'; document.getElementById('levelSelectBox').style.display='flex';" style="color:#64748b; font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer; cursor:pointer;">← Chọn lại cấp độ</button>` : `<a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>`}
+               </div>
 
                 <div class="result-overlay" id="resBox">
                     <h2 style="color:#00f2ff; font-weight:800;">KẾT QUẢ SÁT HẠCH</h2>
@@ -754,223 +782,239 @@ export default {
 
     <script>
     var qCount = ${EXAM_CONFIG.QUESTION_COUNT};
-    var list = [];
-    var cur = 0;
-    var userAns = new Array(qCount).fill(null);
-    var isDone = false;
-    var mode = "";
-    var isVerified = localStorage.getItem('course_auth_${courseType}') === 'verified';
-
-    // Ngân hàng câu hỏi với explanation
-    var bank = ${bankJSON};
-
-/* =========================
-   RANDOM 45 QUESTIONS
-   ========================= */
+var fullBank = ${bankJSON};
+var list = [];
+var cur = 0;
+var userAns = [];
+var isDone = false;
+var mode = "";
+var selectedLevel = "ALL";
+var isVerified = localStorage.getItem('course_auth_${courseType}') === 'verified';
 
 function shuffleArray(arr) {
-
     var clone = arr.slice();
-
     for (var i = clone.length - 1; i > 0; i--) {
-
-        var j = Math.floor(
-            Math.random() * (i + 1)
-        );
-
-        var temp = clone[i];
-        clone[i] = clone[j];
-        clone[j] = temp;
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = clone[i]; clone[i] = clone[j]; clone[j] = temp;
     }
-
     return clone;
 }
 
-var shuffledBank = shuffleArray(bank);
-
-var selectedQuestions =
-    shuffledBank.slice(
-        0,
-        Math.min(qCount, shuffledBank.length)
-    );
-
-for (var i = 0; i < selectedQuestions.length; i++) {
-
-    var b = selectedQuestions[i];
-
-    list.push({
-        q: "[Câu " + (i + 1) + "] " + b.q,
-        options: b.o.slice(),
-        c: b.c,
-        e: b.e
-    });
+function selectLevel(lv) {
+    selectedLevel = lv;
+    document.getElementById('levelSelectBox').style.display = 'none';
+    document.getElementById('modeSelectBox').style.display = 'flex';
+    verifyModeMenu();
 }
 
-qCount = list.length;
-userAns = new Array(qCount).fill(null);
+function verifyModeMenu() {
+    if (isVerified) {
+        document.getElementById('modeWelcomeTxt').textContent = "✅ Quyền học viên hợp lệ – Mở khóa đầy đủ tính năng!";
+        document.getElementById('modeWelcomeTxt').style.color = "#22c55e";
+        document.getElementById('lock-practice').textContent = "🔓 Ôn tập tự do – Xem giải thích ngay, không giới hạn thời gian";
+        document.getElementById('lock-practice').style.color = "#00f2ff";
+        document.getElementById('lock-exam').textContent = "🔓 Thi thử thực chiến – 50 phút, tính điểm chuẩn Certiport";
+        document.getElementById('lock-exam').style.color = "#00f2ff";
+    } else {
+        document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 10 phút";
+        document.getElementById('modeWelcomeTxt').style.color = "#FF5722";
+        document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 10 phút, có giải thích";
+        document.getElementById('lock-practice').style.color = "#ffaa80";
+        document.getElementById('lock-exam').textContent = "⏱️ Thi thử dùng thử – Giới hạn 10 phút";
+        document.getElementById('lock-exam').style.color = "#ffaa80";
+    }
+}
 
-    function verifyModeMenu() {
-        if (isVerified) {
-            document.getElementById('modeWelcomeTxt').textContent = "✅ Quyền học viên hợp lệ – Mở khóa đầy đủ tính năng!";
-            document.getElementById('modeWelcomeTxt').style.color = "#22c55e";
-            document.getElementById('lock-practice').textContent = "🔓 Ôn tập tự do – Xem giải thích ngay, không giới hạn thời gian";
-            document.getElementById('lock-practice').style.color = "#00f2ff";
-            document.getElementById('lock-exam').textContent = "🔓 Thi thử thực chiến – 50 phút, tính điểm chuẩn Certiport";
-            document.getElementById('lock-exam').style.color = "#00f2ff";
-        } else {
-            document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 10 phút";
-            document.getElementById('modeWelcomeTxt').style.color = "#FF5722";
-            document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 10 phút, có giải thích";
-            document.getElementById('lock-practice').style.color = "#ffaa80";
-            document.getElementById('lock-exam').textContent = "⏱️ Thi thử dùng thử – Giới hạn 10 phút";
-            document.getElementById('lock-exam').style.color = "#ffaa80";
-        }
+function launchEngine(chosenMode) {
+    mode = chosenMode;
+    document.getElementById('modeSelectBox').style.display = "none";
+    document.getElementById('btnSubmit').style.display = mode === 'exam' ? 'inline-block' : 'none';
+
+    // Lọc bank theo level
+    var filtered = selectedLevel === 'ALL' ? fullBank : fullBank.filter(function(b) { return b.lv === selectedLevel; });
+    var shuffled = shuffleArray(filtered);
+    var selected = shuffled.slice(0, Math.min(qCount, shuffled.length));
+
+    list = [];
+    for (var i = 0; i < selected.length; i++) {
+        var b = selected[i];
+        list.push({ q: "[Câu " + (i+1) + "] " + b.q, options: b.o ? b.o.slice() : [], c: b.c, e: b.e, t: b.t });
+    }
+    qCount = list.length;
+    // userAns: single→null, multiple→[]
+    userAns = list.map(function(q) { return Array.isArray(q.c) ? [] : null; });
+
+    initQuiz();
+}
+
+function initQuiz() {
+    var g = document.getElementById('gridArea');
+    g.innerHTML = '';
+    for (var i = 0; i < qCount; i++) {
+        var d = document.createElement('div');
+        d.className = 'nav-item'; d.id = 'ni-' + i; d.textContent = i + 1;
+        (function(idx){ d.onclick = function() { cur = idx; renderQ(); }; })(i);
+        g.appendChild(d);
+    }
+    renderQ();
+    var mins = isVerified ? (mode === 'exam' ? 50 : 0) : 10;
+    if (mins > 0) {
+        startTimer(mins);
+    } else {
+        document.getElementById('timerContainer').innerHTML = "📖 Ôn luyện tự do";
+        document.getElementById('timerContainer').style.border = "2px solid #22c55e";
+        document.getElementById('timerContainer').style.color = "#22c55e";
+    }
+}
+
+function isAnswered(idx) {
+    var a = userAns[idx];
+    return Array.isArray(a) ? a.length > 0 : a !== null;
+}
+
+function isCorrectAnswer(idx) {
+    var q = list[idx]; var a = userAns[idx];
+    if (Array.isArray(q.c)) {
+        if (!Array.isArray(a) || a.length !== q.c.length) return false;
+        var sc = q.c.slice().sort(); var sa = a.slice().sort();
+        for (var i = 0; i < sc.length; i++) { if (sc[i] !== sa[i]) return false; }
+        return true;
+    }
+    return a === q.c;
+}
+
+function renderQ() {
+    var q = list[cur];
+    document.getElementById('lblIdx').textContent = cur + 1;
+    document.getElementById('lblText').textContent = q.q;
+    var area = document.getElementById('optsArea');
+    area.innerHTML = '';
+    var expBox = document.getElementById('explanationBox');
+    expBox.classList.remove('visible');
+
+    var isMultiple = Array.isArray(q.c);
+    var answered = isAnswered(cur);
+
+    // Hint số đáp án cần chọn
+    if (isMultiple) {
+        var hint = document.createElement('div');
+        hint.style.cssText = "font-size:0.8rem;color:#f59e0b;margin-bottom:10px;font-weight:bold;";
+        hint.textContent = "⚠️ Chọn " + q.c.length + " đáp án đúng";
+        area.appendChild(hint);
     }
 
-    function launchEngine(chosenMode) {
-        mode = chosenMode;
-        document.getElementById('modeSelectBox').style.display = "none";
-        if (mode === 'exam') {
-            document.getElementById('btnSubmit').style.display = 'inline-block';
-        } else {
-            // Chế độ ôn luyện: ẩn nút nộp bài
-            document.getElementById('btnSubmit').style.display = 'none';
+    for (var i = 0; i < q.options.length; i++) {
+        var div = document.createElement('div');
+        var isSelected = isMultiple ? userAns[cur].indexOf(i) >= 0 : userAns[cur] === i;
+        var isCorrectOpt = isMultiple ? q.c.indexOf(i) >= 0 : q.c === i;
+
+        var cls = 'option';
+        if (answered && mode === 'practice') {
+            if (isSelected && isCorrectOpt) cls += ' correct-ans';
+            else if (isSelected && !isCorrectOpt) cls += ' wrong-ans';
+            else if (!isSelected && isCorrectOpt) cls += ' show-correct';
+        } else if (isSelected) {
+            cls += ' selected';
         }
-        initQuiz();
-    }
 
-    function initQuiz() {
-        var g = document.getElementById('gridArea');
-        g.innerHTML = '';
-        for (var i = 0; i < qCount; i++) {
-            var d = document.createElement('div');
-            d.className = 'nav-item';
-            d.id = 'ni-' + i;
-            d.textContent = i + 1;
-            (function(idx){ d.onclick = function() { cur = idx; renderQ(); }; })(i);
-            g.appendChild(d);
-        }
-        renderQ();
-        var mins = isVerified
-             ? (mode === 'exam' ? 50 : 0)
-             : 10;
-            if (mins > 0) {
-                startTimer(mins);
-            } else {
-                document.getElementById('timerContainer').innerHTML = "📖 Ôn luyện tự do";
-                document.getElementById('timerContainer').style.border = "2px solid #22c55e";
-                document.getElementById('timerContainer').style.color = "#22c55e";
-            }
-    }
+        div.className = cls;
+        div.innerHTML = '<span style="min-width:22px;font-weight:900;color:#64748b;">' + String.fromCharCode(65+i) + '.</span>' + q.options[i];
 
-    function renderQ() {
-        document.getElementById('lblIdx').textContent = cur + 1;
-        document.getElementById('lblText').textContent = list[cur].q;
-        var area = document.getElementById('optsArea');
-        area.innerHTML = '';
-        var expBox = document.getElementById('explanationBox');
-        expBox.classList.remove('visible');
-
-        var answered = userAns[cur] !== null;
-
-        for (var i = 0; i < list[cur].options.length; i++) {
-            var div = document.createElement('div');
-            var isSelected = userAns[cur] === i;
-            var isCorrect = list[cur].c === i;
-
-            // FIX 5: Tô màu đúng/sai ngay sau khi chọn (chế độ practice)
-            var cls = 'option';
-            if (answered && mode === 'practice') {
-                if (isSelected && isCorrect) cls += ' correct-ans';
-                else if (isSelected && !isCorrect) cls += ' wrong-ans';
-                else if (!isSelected && isCorrect) cls += ' show-correct';
-            } else if (isSelected) {
-                cls += ' selected';
-            }
-
-            div.className = cls;
-            div.innerHTML = '<span style="min-width:22px; font-weight:900; color:#64748b;">' + String.fromCharCode(65+i) + '.</span>' + list[cur].options[i];
-
-            if (!isDone && !(answered && mode === 'practice')) {
-                (function(optIdx){
-                    div.onclick = function() {
-                        userAns[cur] = optIdx;
-                        document.getElementById('ni-' + cur).classList.add('answered');
-                        if (mode === 'practice') {
-                            // Cập nhật màu nav
-                            var ni = document.getElementById('ni-' + cur);
-                            ni.classList.remove('answered');
-                            if (optIdx === list[cur].c) ni.classList.add('correct-nav');
-                            else ni.classList.add('wrong-nav');
+        var canClick = !isDone && !(answered && !isMultiple && mode === 'practice');
+        if (canClick) {
+            (function(optIdx){
+                div.onclick = function() {
+                    if (isMultiple) {
+                        // Toggle chọn/bỏ chọn
+                        var idx2 = userAns[cur].indexOf(optIdx);
+                        if (idx2 >= 0) userAns[cur].splice(idx2, 1);
+                        else userAns[cur].push(optIdx);
+                        // Cập nhật nav
+                        var ni = document.getElementById('ni-' + cur);
+                        if (userAns[cur].length > 0) {
+                            ni.classList.remove('correct-nav','wrong-nav');
+                            ni.classList.add('answered');
                         }
                         renderQ();
-                        // Hiện giải thích nếu chế độ ôn luyện
-                        if (mode === 'practice') {
-                            document.getElementById('explanationText').textContent = list[cur].e;
+                        // Chỉ show giải thích khi đã chọn đủ số đáp án
+                        if (mode === 'practice' && userAns[cur].length === q.c.length) {
+                            var ni2 = document.getElementById('ni-' + cur);
+                            ni2.classList.remove('answered');
+                            ni2.classList.add(isCorrectAnswer(cur) ? 'correct-nav' : 'wrong-nav');
+                            document.getElementById('explanationText').textContent = q.e;
                             document.getElementById('explanationBox').classList.add('visible');
                         }
-                    };
-                })(i);
-            }
-            area.appendChild(div);
+                    } else {
+                        userAns[cur] = optIdx;
+                        var ni = document.getElementById('ni-' + cur);
+                        ni.classList.remove('answered');
+                        ni.classList.add(optIdx === q.c ? 'correct-nav' : 'wrong-nav');
+                        renderQ();
+                        if (mode === 'practice') {
+                            document.getElementById('explanationText').textContent = q.e;
+                            document.getElementById('explanationBox').classList.add('visible');
+                        }
+                    }
+                };
+            })(i);
         }
-
-        // Nếu đã trả lời và đang xem lại trong practice, hiện giải thích
-        if (answered && mode === 'practice') {
-            document.getElementById('explanationText').textContent = list[cur].e;
-            expBox.classList.add('visible');
-        }
-
-        for (var j = 0; j < qCount; j++) document.getElementById('ni-' + j).classList.remove('current');
-        document.getElementById('ni-' + cur).classList.add('current');
+        area.appendChild(div);
     }
 
-    function go(d) { cur = Math.max(0, Math.min(qCount-1, cur + d)); renderQ(); }
-
-    function startTimer(m) {
-        var sec = m * 60;
-        var t = setInterval(function() {
-            if (isDone) { clearInterval(t); return; }
-            sec--;
-            var mins = Math.floor(sec / 60), s = sec % 60;
-            document.getElementById('clock').textContent = (mins<10?'0':'')+mins+':'+(s<10?'0':'')+s;
-            if (sec <= 0) { clearInterval(t); alert("Hết thời gian làm bài!"); submitExamNow(); }
-        }, 1000);
+    if (answered && mode === 'practice') {
+        document.getElementById('explanationText').textContent = q.e;
+        expBox.classList.add('visible');
     }
 
-    function submitExamNow() {
-        if (isDone) return;
-        if (mode === 'exam' && isVerified) {
-            var answered = userAns.filter(a => a !== null).length;
-            if (!confirm("Bạn đã trả lời " + answered + "/" + qCount + " câu. Xác nhận nộp bài?")) return;
-        }
-        isDone = true;
-        var rights = 0;
-        for (var i = 0; i < qCount; i++) { if (userAns[i] === list[i].c) rights++; }
-        var score = Math.round((rights / qCount) * 1000);
-        document.getElementById('resScore').textContent = score + "/" + EXAM_CONFIG.MAX_SCORE + " điểm";
-        if (score >= EXAM_CONFIG.PASS_SCORE) {
-            document.getElementById('resScore').style.color = "#22c55e";
-            document.getElementById('resText').innerHTML = "🎉 XUẤT SẮC ĐẠT CHUẨN! Bạn trả lời đúng " + rights + "/" + qCount + " câu, đạt " + score + "/" + EXAM_CONFIG.MAX_SCORE + " điểm (Tiêu chuẩn PASS Certiport: 700đ).";
-        } else {
-            document.getElementById('resScore').style.color = "#FF5722";
-            document.getElementById('resText').innerHTML = "⚠️ CHƯA ĐẠT CHUẨN. Bạn đạt " + score + "/" + EXAM_CONFIG.MAX_SCORE + " điểm, cần ôn thêm để đạt mức " + EXAM_CONFIG.PASS_SCORE + " điểm. Hãy thử chế độ Ôn luyện để xem giải thích từng câu!";
-        }
-        document.getElementById('resBox').style.display = "flex";
-    }
+    for (var j = 0; j < qCount; j++) document.getElementById('ni-' + j).classList.remove('current');
+    document.getElementById('ni-' + cur).classList.add('current');
+}
 
-    function restartQuiz() {
-        isDone = false;
-        userAns = new Array(qCount).fill(null);
-        cur = 0;
-        document.getElementById('resBox').style.display = "none";
-        renderQ();
-        var allNi = document.querySelectorAll('.nav-item');
-        allNi.forEach(function(n) { n.className = 'nav-item'; });
-        document.getElementById('ni-0').classList.add('current');
-    }
+function go(d) { cur = Math.max(0, Math.min(qCount-1, cur + d)); renderQ(); }
 
-    window.onload = verifyModeMenu;
+function startTimer(m) {
+    var sec = m * 60;
+    var t = setInterval(function() {
+        if (isDone) { clearInterval(t); return; }
+        sec--;
+        var mins = Math.floor(sec / 60), s = sec % 60;
+        document.getElementById('clock').textContent = (mins<10?'0':'')+mins+':'+(s<10?'0':'')+s;
+        if (sec <= 0) { clearInterval(t); alert("Hết thời gian làm bài!"); submitExamNow(); }
+    }, 1000);
+}
+
+function submitExamNow() {
+    if (isDone) return;
+    if (mode === 'exam' && isVerified) {
+        var answeredCount = userAns.filter(function(a) { return Array.isArray(a) ? a.length > 0 : a !== null; }).length;
+        if (!confirm("Bạn đã trả lời " + answeredCount + "/" + qCount + " câu. Xác nhận nộp bài?")) return;
+    }
+    isDone = true;
+    var rights = 0;
+    for (var i = 0; i < qCount; i++) { if (isCorrectAnswer(i)) rights++; }
+    var score = Math.round((rights / qCount) * 1000);
+    document.getElementById('resScore').textContent = score + "/${EXAM_CONFIG.MAX_SCORE} điểm";
+    if (score >= ${EXAM_CONFIG.PASS_SCORE}) {
+        document.getElementById('resScore').style.color = "#22c55e";
+        document.getElementById('resText').innerHTML = "🎉 XUẤT SẮC ĐẠT CHUẨN! Bạn trả lời đúng " + rights + "/" + qCount + " câu, đạt " + score + "/${EXAM_CONFIG.MAX_SCORE} điểm.";
+    } else {
+        document.getElementById('resScore').style.color = "#FF5722";
+        document.getElementById('resText').innerHTML = "⚠️ CHƯA ĐẠT CHUẨN. Bạn đạt " + score + "/${EXAM_CONFIG.MAX_SCORE} điểm, cần đạt ${EXAM_CONFIG.PASS_SCORE} điểm.";
+    }
+    document.getElementById('resBox').style.display = "flex";
+}
+
+function restartQuiz() {
+    isDone = false;
+    userAns = list.map(function(q) { return Array.isArray(q.c) ? [] : null; });
+    cur = 0;
+    document.getElementById('resBox').style.display = "none";
+    renderQ();
+    document.querySelectorAll('.nav-item').forEach(function(n) { n.className = 'nav-item'; });
+    document.getElementById('ni-0').classList.add('current');
+}
+
+window.onload = function() {};
     </script>
     </body></html>`;
     }
