@@ -88,73 +88,56 @@ export default {
                 const tsv = await resp.text();
                 const rows = tsv.split("\n");
                const headers = rows[0]
-    .split("\t")
-    .map(h => h.trim().toLowerCase());
+                .split("\t")
+                .map(h => h.trim().toLowerCase());
+            
+            const courseIdx = headers.indexOf("course");
+            const phoneIdx = headers.indexOf("phone");
+            const expireIdx = headers.indexOf("expire");
+                           let isValid = false;
+            let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
 
-const courseIdx = headers.indexOf("course");
-const phoneIdx = headers.indexOf("phone");
-const expireIdx = headers.indexOf("expire");
-               let isValid = false;
-let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
-
-for (let i = 1; i < rows.length; i++) {
-    const cols = rows[i].split("\t");
-    if (cols.length < 3) continue;
-
-    const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
-    const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
-    const expireStr = (cols[expireIdx] || "").trim();
-                     
-                        if (
-                            sheetPhone === phone &&
-                            (
-                                sheetCourse === course ||
-                                sheetCourse.includes(course) ||
-                                course.includes(sheetCourse)
-                            )
-                        ) {
-
-                            if (expireStr) {
-
-                                const parts =
-                                    expireStr.includes("/")
-                                        ? expireStr.split("/")
-                                        : expireStr.split("-");
-
-                                const expireDate =
-                                    expireStr.includes("/")
-                                        ? new Date(
-                                            parseInt(parts[2]),
-                                            parseInt(parts[1]) - 1,
-                                            parseInt(parts[0]),
-                                            23, 59, 59
-                                        )
-                                        : new Date(
-                                            parseInt(parts[0]),
-                                            parseInt(parts[1]) - 1,
-                                            parseInt(parts[2]),
-                                            23, 59, 59
-                                        );
-
-                                if (new Date() > expireDate) {
-
-                                    reason =
-                                        "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
-
-                                    break;
-                                }
-                            }
-
-                            isValid = true;
-                            break;
-                        }
-                   
-                 return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
-                    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-                });
-            } catch (err) {
-                return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu!" }), { headers: { "Content-Type": "application/json" } });
-            }
+            for (let i = 1; i < rows.length; i++) {
+             const cols = rows[i].split("\t");
+             if (cols.length < 3) continue;
+             const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
+             const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
+             const expireStr = (cols[expireIdx] || "").trim();
+         
+             if (
+                 sheetPhone === phone &&
+                 (
+                     sheetCourse === course ||
+                     sheetCourse.includes(course) ||
+                     course.includes(sheetCourse)
+                 )
+             ) {
+                 if (expireStr) {
+                     const parts =
+                         expireStr.includes("/")
+                             ? expireStr.split("/")
+                             : expireStr.split("-");
+                     const expireDate =
+                         expireStr.includes("/")
+                             ? new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]), 23, 59, 59)
+                             : new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]), 23, 59, 59);
+                     if (new Date() > expireDate) {
+                         reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
+                         break;
+                     }
+                 }
+                 isValid = true;
+                 break;
+             }
+         }  
+         
+         return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
+             headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+         });
+         
+         } catch (err) {
+             return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu!" }), { headers: { "Content-Type": "application/json" } });
+         }
         }
 
         if (path === "/generative-ai") {
