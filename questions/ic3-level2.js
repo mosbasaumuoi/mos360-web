@@ -1145,7 +1145,8 @@ export const IC3_LEVEL2 = [
     ],
     answer: "Sai",
     explanation: "Trong văn hóa ứng xử số (Netiquette), khi không đồng tình với một ý kiến, bạn luôn cần giữ thái độ lịch sự, khách quan và tôn trọng, tránh bị cuốn vào việc dùng giọng điệu công kích, nóng nảy hay tiêu cực của đối phương."
-  {
+  },
+     {
     id: 59,
     level: "IC3_LEVEL2",
     test: 2,
