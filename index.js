@@ -58,6 +58,10 @@ const EXAM_CONFIG = {
     TRIAL_DURATION: 10
 };
 
+const DEVICE_CONFIG = {
+    MAX_DEVICES: 3
+};
+
 export default {
     async fetch(request, env) {
         const url = new URL(request.url);
@@ -65,81 +69,102 @@ export default {
 
         // ===== FIX 3: API xác thực – chuẩn hóa SĐT và tên khóa trước khi so khớp =====
         if (path === "/api/verify-code") {
-            const rawPhone = url.searchParams.get("phone") || "";
-            const rawCourse = url.searchParams.get("course") || "";
+    const rawPhone = url.searchParams.get("phone") || "";
+    const rawCourse = url.searchParams.get("course") || "";
+    const deviceId = url.searchParams.get("deviceId") || "";
 
-            // Chuẩn hóa SĐT: bỏ khoảng trắng, chuyển đầu +84 → 0
-            function normalizePhone(raw) {
-                let p = raw.trim();
-                if (p.startsWith("+84")) p = "0" + p.slice(3);
-                else if (p.startsWith("84") && p.length >= 11) p = "0" + p.slice(2);
-                return p;
+    function normalizePhone(raw) {
+        let p = raw.trim();
+        if (p.startsWith("+84")) p = "0" + p.slice(3);
+        else if (p.startsWith("84") && p.length >= 11) p = "0" + p.slice(2);
+        return p;
+    }
+
+    const phone = normalizePhone(rawPhone);
+    const course = rawCourse.replace(/\s+/g, " ").trim().toLowerCase();
+
+    if (!phone || !course || !deviceId) {
+        return new Response(JSON.stringify({ success: false, msg: "Thiếu thông tin tra cứu!" }), {
+            headers: { "Content-Type": "application/json" }
+        });
+    }
+
+    try {
+        // 1. Xác thực học viên từ sheet
+        const resp = await fetch(CONFIG.STUDENT_SHEET_URL + "&v=" + Date.now());
+        const tsv = await resp.text();
+        const rows = tsv.split("\n");
+        const courseIdx = 0, phoneIdx = 1, expireIdx = 3;
+
+        let isValid = false;
+        let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
+
+        for (let i = 1; i < rows.length; i++) {
+            const cols = rows[i].split("\t");
+            if (cols.length < 3) continue;
+
+            const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
+            const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
+            const expireStr = (cols[expireIdx] || "").trim();
+
+            if (sheetPhone === phone && (sheetCourse === course || sheetCourse.includes(course) || course.includes(sheetCourse))) {
+                if (expireStr) {
+                    const parts = expireStr.includes("/") ? expireStr.split("/") : expireStr.split("-");
+                    let year = parseInt(parts[2]); if (year < 100) year += 2000;
+                    const expireDate = expireStr.includes("/")
+                        ? new Date(year, parseInt(parts[1]) - 1, parseInt(parts[0]), 23, 59, 59)
+                        : new Date(year, parseInt(parts[1]) - 1, parseInt(parts[2]), 23, 59, 59);
+                    if (new Date() > expireDate) {
+                        reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
+                        break;
+                    }
+                }
+                isValid = true;
+                break;
             }
-
-            const phone = normalizePhone(rawPhone);
-            const course = rawCourse.replace(/\s+/g, " ").trim().toLowerCase();
-
-            if (!phone || !course) {
-                return new Response(JSON.stringify({ success: false, msg: "Thiếu thông tin tra cứu!" }), { headers: { "Content-Type": "application/json" } });
-            }
-
-            try {
-                const resp = await fetch(CONFIG.STUDENT_SHEET_URL + "&v=" + Date.now());
-                const tsv = await resp.text();
-                const rows = tsv.split("\n");
-               const headers = rows[0]
-                .split("\t")
-                .map(h => h.trim().toLowerCase());
-            
-            // Cố định theo vị trí: A=course, B=phone, C=date, D=expire
-               const courseIdx = 0;
-               const phoneIdx  = 1;
-               const expireIdx = 3;
-            let isValid = false;
-            let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
-
-            for (let i = 1; i < rows.length; i++) {
-             const cols = rows[i].split("\t");
-             if (cols.length < 3) continue;
-             const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
-             const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
-             const expireStr = (cols[expireIdx] || "").trim();
-         
-             if (
-                 sheetPhone === phone &&
-                 (
-                     sheetCourse === course ||
-                     sheetCourse.includes(course) ||
-                     course.includes(sheetCourse)
-                 )
-             ) {
-                 if (expireStr) {
-                     const parts =
-                         expireStr.includes("/")
-                             ? expireStr.split("/")
-                             : expireStr.split("-");
-                     const expireDate =
-                         expireStr.includes("/")
-                             ? new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]), 23, 59, 59)
-                             : new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]), 23, 59, 59);
-                     if (new Date() > expireDate) {
-                         reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
-                         break;
-                     }
-                 }
-                 isValid = true;
-                 break;
-             }
-         }  
-         
-         return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
-             headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-         });
-         
-         } catch (err) {
-             return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu!" }), { headers: { "Content-Type": "application/json" } });
-         }
         }
+
+        if (!isValid) {
+            return new Response(JSON.stringify({ success: false, msg: reason }), {
+                headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+            });
+        }
+
+        // 2. Kiểm tra giới hạn thiết bị qua KV
+        const kvKey = phone + "_" + course.replace(/\s+/g, "_");
+        const stored = await env.DEVICE_KV.get(kvKey);
+        let devices = stored ? JSON.parse(stored) : [];
+
+        if (devices.includes(deviceId)) {
+            // Thiết bị đã đăng ký trước đó → cho qua
+            return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!" }), {
+                headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+            });
+        }
+
+        if (devices.length >= DEVICE_CONFIG.MAX_DEVICES) {
+            return new Response(JSON.stringify({
+                success: false,
+                msg: "Tài khoản này đã đăng nhập trên " + DEVICE_CONFIG.MAX_DEVICES + " thiết bị. Vui lòng liên hệ MOS360 để được hỗ trợ!"
+            }), {
+                headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+            });
+        }
+
+        // Thêm thiết bị mới
+        devices.push(deviceId);
+        await env.DEVICE_KV.put(kvKey, JSON.stringify(devices));
+
+        return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!" }), {
+            headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+        });
+
+             } catch (err) {
+                 return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu!" }), {
+                     headers: { "Content-Type": "application/json" }
+                 });
+             }
+         }
 
         if (path === "/generative-ai") {
             return new Response(this.getQuizEnginePage("GENERATIVE AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
@@ -539,20 +564,36 @@ export default {
              else if (p.startsWith("84") && p.length >= 11) p = "0" + p.slice(2);
              return p;
          }
-        async function triggerRemoteVerification(courseName) {
-            var rawPhone = prompt("Nhập số điện thoại đăng ký [" + courseName + "] của bạn:");
-            if (!rawPhone) return;
-            var phone = normalizePhone(rawPhone);
-            try {
-                var res = await fetch("/api/verify-code?phone=" + encodeURIComponent(phone) + "&course=" + encodeURIComponent(courseName));
-                var data = await res.json();
-                if (data.success) {
-                    alert("🎉 Xác thực thành công [" + courseName + "]! Hệ thống mở khóa toàn bộ quyền Ôn Tập & Thi Thử.");
-                    localStorage.setItem('course_auth_' + courseName, 'verified');
-                    checkState();
-                } else { alert("❌ Không thành công: " + data.msg); }
-            } catch(e) { alert("Lỗi kết nối hệ thống!"); }
+        function getOrCreateDeviceId() {
+    var id = localStorage.getItem('mos360_device_id');
+    if (!id) {
+        id = 'dev_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+        localStorage.setItem('mos360_device_id', id);
+    }
+    return id;
+}
+
+async function triggerRemoteVerification(courseName) {
+    var rawPhone = prompt("Nhập số điện thoại đăng ký [" + courseName + "] của bạn:");
+    if (!rawPhone) return;
+
+    var phone = normalizePhone(rawPhone);
+    var deviceId = getOrCreateDeviceId();
+
+    try {
+        var res = await fetch("/api/verify-code?phone=" + encodeURIComponent(phone) + "&course=" + encodeURIComponent(courseName) + "&deviceId=" + encodeURIComponent(deviceId));
+        var data = await res.json();
+        if (data.success) {
+            alert("🎉 Xác thực thành công [" + courseName + "]! Hệ thống mở khóa toàn bộ quyền Ôn Tập & Thi Thử.");
+            localStorage.setItem('course_auth_' + courseName, 'verified');
+            checkState();
+        } else {
+            alert("❌ Không thành công: " + data.msg);
         }
+          } catch(e) {
+              alert("Lỗi kết nối hệ thống!");
+          }
+      }
         function startTrialAccess(targetUrl, courseName) {
             sessionStorage.setItem('mos360_active_course_context', courseName);
             window.location.href = targetUrl;
