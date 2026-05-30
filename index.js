@@ -782,17 +782,18 @@ export default {
 
     <script>
     var qCount = ${EXAM_CONFIG.QUESTION_COUNT};
-var fullBank = ${bankJSON};
-var list = [];
-var cur = 0;
-var userAns = [];
-var isDone = false;
-var mode = "";
-var selectedLevel = "ALL";
-var isVerified = localStorage.getItem('course_auth_${courseType}') === 'verified';
-
-function shuffleArray(arr) {
-    var clone = arr.slice();
+   var fullBank = ${bankJSON};
+   var list = [];
+   var cur = 0;
+   var userAns = [];
+   var isDone = false;
+   var mode = "";
+   var selectedLevel = "ALL";
+   var isVerified = localStorage.getItem('course_auth_${courseType}') === 'verified';
+   var hasLevels = ${hasLevels ? 'true' : 'false'};
+   
+   function shuffleArray(arr) {
+       var clone = arr.slice();
     for (var i = clone.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = clone[i]; clone[i] = clone[j]; clone[j] = temp;
@@ -1014,7 +1015,14 @@ function restartQuiz() {
     document.getElementById('ni-0').classList.add('current');
 }
 
-window.onload = function() {};
+window.onload = function() {
+    if (!hasLevels) {
+        // GENERATIVE AI: bỏ qua chọn level, hiện thẳng chọn mode
+        selectedLevel = 'ALL';
+        verifyModeMenu();
+    }
+    // IC3 GS6: hiện levelSelectBox (mặc định đã visible)
+};
     </script>
     </body></html>`;
     }
