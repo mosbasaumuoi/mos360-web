@@ -91,10 +91,11 @@ export default {
                 .split("\t")
                 .map(h => h.trim().toLowerCase());
             
-            const courseIdx = headers.indexOf("course");
-            const phoneIdx = headers.indexOf("phone");
-            const expireIdx = headers.indexOf("expire");
-                           let isValid = false;
+            // Cố định theo vị trí: A=course, B=phone, C=date, D=expire
+               const courseIdx = 0;
+               const phoneIdx  = 1;
+               const expireIdx = 3;
+            let isValid = false;
             let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
 
             for (let i = 1; i < rows.length; i++) {
