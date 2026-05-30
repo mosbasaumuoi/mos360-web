@@ -1005,7 +1005,7 @@ export const IC3_LEVEL2 = [
       "Privacy"
     ],
     answer: "System",
-    explanation: "Trong ứng dụng Settings của Windows, các thiết lập cốt lõi liên quan đến màn hình hiển thị (Display), âm thanh (Sound), và thông báo (Notifications) được quản lý tập trung trong mục System." [cite: 425, 426]
+    explanation: "Trong ứng dụng Settings của Windows, các thiết lập cốt lõi liên quan đến màn hình hiển thị (Display), âm thanh (Sound), và thông báo (Notifications) được quản lý tập trung trong mục System." 
   },
   {
     id: 53,
