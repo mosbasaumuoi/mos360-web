@@ -70,10 +70,10 @@ export default {
 
             // Chuẩn hóa SĐT: bỏ khoảng trắng, chuyển đầu +84 → 0
             function normalizePhone(raw) {
-                return raw
-                    .trim()
-                    .replace(/^\+84/, "0")
-                    .replace(/^84/, "0");
+                let p = raw.trim();
+                if (p.startsWith("+84")) p = "0" + p.slice(3);
+                else if (p.startsWith("84") && p.length >= 11) p = "0" + p.slice(2);
+                return p;
             }
 
             const phone = normalizePhone(rawPhone);
@@ -532,8 +532,11 @@ export default {
         }
         // FIX 3: Chuẩn hóa SĐT phía client trước khi gửi lên API
         function normalizePhone(raw) {
-            return raw.trim().replace(/^(\+84|84)/, "0");
-        }
+             let p = raw.trim();
+             if (p.startsWith("+84")) p = "0" + p.slice(3);
+             else if (p.startsWith("84") && p.length >= 11) p = "0" + p.slice(2);
+             return p;
+         }
         async function triggerRemoteVerification(courseName) {
             var rawPhone = prompt("Nhập số điện thoại đăng ký [" + courseName + "] của bạn:");
             if (!rawPhone) return;
