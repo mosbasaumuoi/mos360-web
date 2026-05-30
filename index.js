@@ -132,7 +132,7 @@ export default {
 
         // 2. Kiểm tra giới hạn thiết bị qua KV
         const kvKey = phone + "_" + course.replace(/\s+/g, "_");
-        const stored = await env.DEVICE_KV.get(kvKey);
+        const stored = await env.MOS360_USERS_KV.get(kvKey);
         let devices = stored ? JSON.parse(stored) : [];
 
         if (devices.includes(deviceId)) {
@@ -153,7 +153,7 @@ export default {
 
         // Thêm thiết bị mới
         devices.push(deviceId);
-        await env.DEVICE_KV.put(kvKey, JSON.stringify(devices));
+        await env.MOS360_USERS_KV.put(kvKey, JSON.stringify(devices));
 
         return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!" }), {
             headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
