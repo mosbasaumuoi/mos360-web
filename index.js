@@ -84,7 +84,7 @@ export default {
             }
 
             try {
-                const resp = await fetch(CONFIG.SHEET_URL + "&v=" + Date.now());
+                const resp = await fetch(CONFIG.STUDENT_SHEET_URL + "&v=" + Date.now());
                 const tsv = await resp.text();
                 const rows = tsv.split("\n");
                const headers = rows[0]
