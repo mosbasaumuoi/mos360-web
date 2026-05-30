@@ -1,7 +1,6 @@
 export const IC3_LEVEL3 = [
 
- export const IC3_LEVEL3_PART1 = [
-  {
+   {
     id: 1,
     level: "IC3_LEVEL3",
     category: "SECURITY_PRIVACY",
