@@ -988,7 +988,7 @@ export const IC3_LEVEL2 = [
       "CPU"
     ],
     answer: "GPU",
-    explanation: "GPU (Graphics Processing Unit) là bộ xử lý chuyên dụng chịu trách nhiệm tăng tốc và xử lý các tác vụ liên quan đến hình ảnh, video, đồ họa 2D/3D nhằm giảm tải cho bộ vi xử lý trung tâm (CPU)." [cite: 424, 425, 426]
+    explanation: "GPU (Graphics Processing Unit) là bộ xử lý chuyên dụng chịu trách nhiệm tăng tốc và xử lý các tác vụ liên quan đến hình ảnh, video, đồ họa 2D/3D nhằm giảm tải cho bộ vi xử lý trung tâm (CPU)." 
   },
   {
     id: 52,
