@@ -94,32 +94,7 @@ export default {
 const courseIdx = headers.indexOf("course");
 const phoneIdx = headers.indexOf("phone");
 const expireIdx = headers.indexOf("expire");
-          
-console.log("PHONE INPUT:", phone);
-console.log("COURSE INPUT:", course);
-console.log("ROW SAMPLE:", rows[1]);
-console.log("TOTAL ROWS:", rows.length);
-                let isValid = false;
-                let reason = "Mã số điện thoại chưa được đăng ký trên hệ thống!";
-
-                for (let i = 1; i < rows.length; i++) {
-                    
-                   const cols = rows[i].split("\t");
-                   
-                   const sheetCourse = (cols[courseIdx] || "")
-  .replace(/\r/g, "")
-  .replace(/\s+/g, " ")
-  .trim()
-  .toLowerCase();
-
-const rawSheetPhone = (cols[phoneIdx] || "")
-  .replace(/\r/g, "")
-  .trim();
-
-const expireStr = (cols[expireIdx] || "")
-  .replace(/\r/g, "")
-  .trim();
-                      
+                     
                         if (
                             sheetPhone === phone &&
                             (
