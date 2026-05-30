@@ -1097,12 +1097,12 @@ export const IC3_LEVEL2 = [
       "Tin nhắn văn bản",
       "Email"
     ],
-    answer: [
+    answer: {
       "Bạn thêm một đoạn dài trình bày quan điểm cá nhân của mình về sự đa dạng văn hóa vào nhật ký trực tuyến cá nhân của mình": "Bài đăng trên Blog",
       "Bạn thêm câu hỏi đóng góp vào một nhóm chủ đề thảo luận về trò chơi điện tử đang diễn ra": "Bài đăng trên diễn đàn",
       "Bạn liên hệ với huấn luyện viên của mình sau giờ học để báo ngắn gọn rằng bạn sẽ bỏ lỡ buổi tập hôm nay": "Tin nhắn văn bản",
       "Bạn liên lạc chính thức với một công ty để yêu cầu giải quyết việc nhận lại tiền hoàn trả": "Email"
-    ],
+    },
     explanation: "Nhật ký trực tuyến dài là Blog; Nhóm thảo luận chung là Diễn đàn (Forum); Thông báo khẩn ngắn gọn cho cá nhân là Tin nhắn; Trao đổi thủ tục hành chính, thương mại chính thức là Email." 
   },
    {
