@@ -148,9 +148,8 @@ for (let i = 1; i < rows.length; i++) {
                             isValid = true;
                             break;
                         }
-                    } 
-            }
-                return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
+                   
+                 return new Response(JSON.stringify({ success: isValid, msg: isValid ? "Kích hoạt thành công!" : reason }), {
                     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
                 });
             } catch (err) {
