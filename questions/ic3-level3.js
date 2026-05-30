@@ -110,7 +110,7 @@ export const IC3_LEVEL3 = [
     answer: 1,
     explanation: "Các bản cập nhật (patches) là tuyến phòng thủ quan trọng nhất để sửa lỗi bảo mật mà hacker có thể lợi dụng."
   },
-  export const IC3_LEVEL3_PART2 = [
+  
   {
     id: 11,
     level: "IC3_LEVEL3",
@@ -221,7 +221,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Kẻ tấn công đứng giữa người gửi và người nhận, nghe lén hoặc giả mạo thông tin mà cả hai bên đều không hay biết."
   },
-  export const IC3_LEVEL3_PART3 = [
+ 
   {
     id: 21,
     level: "IC3_LEVEL3",
@@ -382,7 +382,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Cookie ghi nhớ trạng thái (như đăng nhập, giỏ hàng) để web biết bạn là ai khi chuyển trang. Tuy nhiên, cần quản lý chúng vì lý do riêng tư."
   },
-  export const IC3_LEVEL3_PART4 = [
+ 
   {
     id: 31,
     level: "IC3_LEVEL3",
@@ -493,7 +493,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Lệnh Reset giúp loại bỏ các tiện ích mở rộng gây hại hoặc các thay đổi cấu hình sai sót, đưa Chrome về trạng thái sạch như khi mới cài đặt."
   },
-  export const IC3_LEVEL3_PART5 = [
+
   {
     id: 41,
     level: "IC3_LEVEL3",
@@ -604,7 +604,7 @@ export const IC3_LEVEL3 = [
     answer: 1,
     explanation: "Tài khoản Standard giúp bảo vệ hệ thống vì phần mềm độc hại sẽ không có quyền thay đổi các tệp tin hệ thống quan trọng."
   },
-  export const IC3_LEVEL3_PART6 = [
+ 
   {
     id: 51,
     level: "IC3_LEVEL3",
@@ -715,7 +715,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Deepfake sử dụng mạng thần kinh nhân tạo để thay đổi khuôn mặt hoặc giọng nói của một người trong video, tạo ra những nội dung giả mạo vô cùng tinh vi."
   },
-  export const IC3_LEVEL3_PART7 = [
+
   {
     id: 61,
     level: "IC3_LEVEL3",
@@ -871,7 +871,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Quy tắc 3-2-1 là tiêu chuẩn vàng trong lưu trữ dữ liệu để đảm bảo khả năng phục hồi tốt nhất trước mọi rủi ro."
   },
-  export const IC3_LEVEL3_PART8 = [
+ 
   {
     id: 71,
     level: "IC3_LEVEL3",
@@ -982,7 +982,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Khi thuật toán tạo ra các kết quả phân biệt đối xử (dựa trên giới tính, màu da, vùng miền), đó gọi là thiên kiến thuật toán."
   },
-  export const IC3_LEVEL3_FINAL_PART = [
+
   {
     id: 81,
     level: "IC3_LEVEL3",
