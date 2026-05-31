@@ -919,7 +919,7 @@ async function triggerRemoteVerification(courseName) {
                        <span class="lock-badge" id="lock-retry-exam" style="color:#fca5a5;"> </span>
                    </button>
                    ${hasLevels
-                       ? '<button onclick="document.getElementById(\'modeSelectBox\').style.display=\'none\'; document.getElementById(\'levelSelectBox\').style.display=\'flex\';" style="color:#64748b; font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer;">← Chọn lại cấp độ</button>'
+                       ? '<button id="btnBackToLevel" style="color:#64748b; font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer;">← Chọn lại cấp độ</button>'
                        : '<a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>'
                    }
                </div>
@@ -1254,19 +1254,20 @@ async function triggerRemoteVerification(courseName) {
 
         // Ảnh minh họa
         // Ảnh minh họa
-         var imgWrap = document.getElementById('questionImageWrap');
-         
-         if (q.img) {
-             imgWrap.innerHTML =
-  '<img src="' + q.img +
-  '" alt="Minh họa" loading="lazy" onerror="this.parentElement.style.display=\\'none\\'">';
-         
-             imgWrap.style.display = 'flex';
-         
-         } else {
-             imgWrap.innerHTML = '';
-             imgWrap.style.display = 'none';
-         }
+        var imgWrap = document.getElementById('questionImageWrap');
+        if (q.img) {
+            var imgEl = document.createElement('img');
+            imgEl.src = q.img;
+            imgEl.alt = 'Minh họa';
+            imgEl.loading = 'lazy';
+            imgEl.onerror = function() { imgWrap.style.display = 'none'; };
+            imgWrap.innerHTML = '';
+            imgWrap.appendChild(imgEl);
+            imgWrap.style.display = 'flex';
+        } else {
+            imgWrap.innerHTML = '';
+            imgWrap.style.display = 'none';
+        }
 
         var confirmed = isConfirmed(cur);
 
@@ -1652,6 +1653,13 @@ async function triggerRemoteVerification(courseName) {
 
     window.onload = function() {
         if (!hasLevels) { selectedLevel = 'ALL'; verifyModeMenu(); }
+        var btnBack = document.getElementById('btnBackToLevel');
+        if (btnBack) {
+            btnBack.addEventListener('click', function() {
+                document.getElementById('modeSelectBox').style.display = 'none';
+                document.getElementById('levelSelectBox').style.display = 'flex';
+            });
+        }
     };
     </script>
     </body></html>`;
