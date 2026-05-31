@@ -460,7 +460,7 @@ export default {
               <div style="background:rgba(255,87,34,0.06); padding:12px; border-radius:12px; border:1px dashed rgba(255,87,34,0.3); font-size:0.8rem; line-height:1.4; color:#ffaa80; margin-bottom:20px; text-align:center; font-weight:bold;">
                   🎁 Gói combo siêu lời đăng ký 2 khóa tặng ngay 1 khóa bất kỳ!
               </div>
-              <button class="btn-action" onclick="location.href='/courses'">XEM KHÓA HỌC</button>
+              <button class="btn-action" onclick="location.href=&apos;/courses&apos;">XEM KHÓA HỌC</button>
           </div>
 
           <div class="right-col">
@@ -490,7 +490,7 @@ export default {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-W19" onclick="triggerRemoteVerification('MOS WORD 2019')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub" id="btn-auth-W19" onclick="triggerRemoteVerification(&apos;MOS WORD 2019&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
@@ -499,7 +499,7 @@ export default {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-E19" onclick="triggerRemoteVerification('MOS EXCEL 2019')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub" id="btn-auth-E19" onclick="triggerRemoteVerification(&apos;MOS EXCEL 2019&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
@@ -508,7 +508,7 @@ export default {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-P19" onclick="triggerRemoteVerification('MOS PPT 2019')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub" id="btn-auth-P19" onclick="triggerRemoteVerification(&apos;MOS PPT 2019&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
         </div>
@@ -524,7 +524,7 @@ export default {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-W365" onclick="triggerRemoteVerification('MOS WORD 365')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub" id="btn-auth-W365" onclick="triggerRemoteVerification(&apos;MOS WORD 365&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
@@ -533,7 +533,7 @@ export default {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-E365" onclick="triggerRemoteVerification('MOS EXCEL 365')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub" id="btn-auth-E365" onclick="triggerRemoteVerification(&apos;MOS EXCEL 365&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
@@ -542,7 +542,7 @@ export default {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-P365" onclick="triggerRemoteVerification('MOS PPT 365')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub" id="btn-auth-P365" onclick="triggerRemoteVerification(&apos;MOS PPT 365&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
         </div>
@@ -561,8 +561,8 @@ export default {
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#FFD700,#cca400); color:#000;">ĐĂNG KÝ NGAY</a>
-                    <button class="btn-sub" id="btn-auth-IC3" onclick="triggerRemoteVerification('IC3 GS6')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
-                    <button class="btn-sub btn-trial" onclick="startTrialAccess('/ic3-test','IC3 GS6')">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
+                    <button class="btn-sub" id="btn-auth-IC3" onclick="triggerRemoteVerification(&apos;IC3 GS6&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/ic3-test&apos;,&apos;IC3 GS6&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
             </div>
             <div class="section-card" style="border-color:var(--cyan); display:flex; flex-direction:column; justify-content:space-between;">
@@ -574,8 +574,8 @@ export default {
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#00f2ff,#00a2ff); color:#000;">ĐĂNG KÝ NGAY</a>
-                    <button class="btn-sub" id="btn-auth-AI" onclick="triggerRemoteVerification('GENERATIVE AI')">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
-                    <button class="btn-sub btn-trial" onclick="startTrialAccess('/generative-ai','GENERATIVE AI')">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
+                    <button class="btn-sub" id="btn-auth-AI" onclick="triggerRemoteVerification(&apos;GENERATIVE AI&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/generative-ai&apos;,&apos;GENERATIVE AI&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
             </div>
         </div>
@@ -883,19 +883,19 @@ async function triggerRemoteVerification(courseName) {
                <div class="mode-selection-overlay" id="levelSelectBox" style="${levelBoxStyle}">
                    <h2 style="color:#fff; margin-bottom:6px;">CHỌN CẤP ĐỘ ÔN LUYỆN</h2>
                    <p style="font-size:0.85rem; margin-bottom:20px; color:#94a3b8;">IC3 GS6 gồm 3 cấp độ từ cơ bản đến nâng cao</p>
-                   <button class="mode-btn" onclick="selectLevel('ALL')">
+                   <button class="mode-btn" onclick="selectLevel(&apos;ALL&apos;)">
                        🌐 Tất cả các cấp độ
                        <span class="lock-badge" style="color:#94a3b8;">Trộn ngẫu nhiên từ Level 1 + 2 + 3</span>
                    </button>
-                   <button class="mode-btn" onclick="selectLevel('IC3_LEVEL1')">
+                   <button class="mode-btn" onclick="selectLevel(&apos;IC3_LEVEL1&apos;)">
                        🟢 Level 1 – Cơ bản
                        <span class="lock-badge" style="color:#94a3b8;">Kiến thức nền tảng máy tính & mạng</span>
                    </button>
-                   <button class="mode-btn" onclick="selectLevel('IC3_LEVEL2')">
+                   <button class="mode-btn" onclick="selectLevel(&apos;IC3_LEVEL2&apos;)">
                        🟡 Level 2 – Trung cấp
                        <span class="lock-badge" style="color:#94a3b8;">Ứng dụng văn phòng & internet</span>
                    </button>
-                   <button class="mode-btn" onclick="selectLevel('IC3_LEVEL3')">
+                   <button class="mode-btn" onclick="selectLevel(&apos;IC3_LEVEL3&apos;)">
                        🔴 Level 3 – Nâng cao
                        <span class="lock-badge" style="color:#94a3b8;">Bảo mật, đám mây & kỹ năng số</span>
                    </button>
@@ -906,11 +906,11 @@ async function triggerRemoteVerification(courseName) {
                <div class="mode-selection-overlay" id="modeSelectBox" style="${modeBoxStyle}">
                    <h2 style="color:#fff; margin-bottom:6px;">CHỌN CHẾ ĐỘ HỌC TẬP</h2>
                    <p style="font-size:0.85rem; margin-bottom:20px; font-weight:bold;" id="modeWelcomeTxt">Đang kiểm tra quyền truy cập...</p>
-                   <button class="mode-btn" onclick="launchEngine('practice')">
+                   <button class="mode-btn" onclick="launchEngine(&apos;practice&apos;)">
                        📖 Chế độ Ôn luyện tự do
                        <span class="lock-badge" id="lock-practice"> </span>
                    </button>
-                   <button class="mode-btn" onclick="launchEngine('exam')">
+                   <button class="mode-btn" onclick="launchEngine(&apos;exam&apos;)">
                        ⏱️ Chế độ Thi thử thực chiến
                        <span class="lock-badge" id="lock-exam"> </span>
                    </button>
@@ -928,7 +928,7 @@ async function triggerRemoteVerification(courseName) {
                     <h2 style="color:#00f2ff; font-weight:800;">KẾT QUẢ SÁT HẠCH</h2>
                     <div style="font-size:42px; font-weight:800; margin:15px 0;" id="resScore">0 / 1000</div>
                     <p style="margin-bottom:25px; color:#cbd5e1; font-size:0.95rem; max-width:420px; line-height:1.5;" id="resText"></p>
-                    <button onclick="location.href='/courses'" style="padding:12px 35px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:#fff; font-weight:800; border-radius:25px; cursor:pointer; margin-bottom:12px;">QUAY LẠI TRANG KHÓA HỌC</button>
+                    <button onclick="location.href=&apos;/courses&apos;" style="padding:12px 35px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:#fff; font-weight:800; border-radius:25px; cursor:pointer; margin-bottom:12px;">QUAY LẠI TRANG KHÓA HỌC</button>
                     <button onclick="retryWrongAnswers()" id="btnRetryWrong" style="padding:10px 25px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; font-weight:700; border-radius:20px; cursor:pointer; margin-bottom:8px;">🔁 ÔN LẠI CÁC CÂU SAI</button>
                     <button onclick="restartQuiz()" style="padding:10px 25px; background:#1e2235; border:1px solid #282f44; color:#94a3b8; font-weight:700; border-radius:20px; cursor:pointer;">LÀM LẠI BÀI THI</button>
                 </div>
