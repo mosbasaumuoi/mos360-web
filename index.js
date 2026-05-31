@@ -1259,7 +1259,7 @@ async function triggerRemoteVerification(courseName) {
          if (q.img) {
              imgWrap.innerHTML = `
                <img
-                 src="${q.img}"
+                 src="\${q.img}"
                  alt="Minh họa"
                  loading="lazy"
                  onerror="this.parentElement.style.display='none'">
