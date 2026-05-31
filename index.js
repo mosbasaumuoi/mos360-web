@@ -62,7 +62,7 @@ const DEVICE_CONFIG = {
     MAX_DEVICES: 3
 };
 
-const IMAGE_BASE_URL = "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/images/";
+const IMAGE_BASE_URL = "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/";
 const IMAGE_MAP = {
     // IC3 LEVEL 1
     "ic3_lv1_q05":  "ic3-level1/ic3_lv1_q05_hardware.svg",
@@ -1186,7 +1186,12 @@ async function triggerRemoteVerification(courseName) {
 
     function isAnswered(idx) {
         var q = list[idx];
-        if (q.t === 'matching') { var s = matchingState[idx]; return s && s.dropData.every(function(d) { return d !== null; }); }
+        if (q.t === 'matching') {
+            var s = matchingState[idx];
+            if (!s) return false;
+            // Cần fill đủ tất cả slots
+            return s.dropData.every(function(d) { return d !== null; });
+        }
         if (q.t === 'dragdrop') { var s2 = dragdropState[idx]; return s2 && s2.every(function(d) { return d !== null; }); }
         if (q.t === 'sort-order') return true;
         var a = userAns[idx];
@@ -1199,7 +1204,14 @@ async function triggerRemoteVerification(courseName) {
             var s = matchingState[idx];
             if (!s) return false;
             var keys = Object.keys(q.c);
-            return keys.every(function(k, i) { return s.dropData[i] === q.c[k]; });
+            var firstAns = q.c[keys[0]];
+            var isTextAns = typeof firstAns === 'string';
+            var rightT = q.o_right && q.o_right.length ? q.o_right : q.options;
+            return keys.every(function(k, i) {
+                if (s.dropData[i] === null) return false;
+                if (isTextAns) return rightT[s.dropData[i]] === q.c[k];
+                return s.dropData[i] === q.c[k];
+            });
         }
         if (q.t === 'dragdrop') {
             var s2 = dragdropState[idx];
@@ -1356,13 +1368,22 @@ async function triggerRemoteVerification(courseName) {
     function renderMatching(q, area, confirmed) {
         var leftKeys = Object.keys(q.c);
         var rightTexts = q.o_right && q.o_right.length ? q.o_right : q.options;
+
+        // Detect kiểu answer: text hay index
+        var firstVal = q.c[leftKeys[0]];
+        var isTextAnswer = typeof firstVal === 'string';
+
+        // dropData lưu: index của rightTexts (cả 2 kiểu)
         if (!matchingState[cur]) matchingState[cur] = { dropData: new Array(leftKeys.length).fill(null) };
         var state = matchingState[cur];
+
+        // Với text answer: đáp án có thể dùng lại nhiều lần
+        var reusable = isTextAnswer;
 
         if (!confirmed) {
             var hint = document.createElement('div');
             hint.style.cssText = "font-size:0.8rem;color:#f59e0b;font-weight:bold;margin-bottom:12px;";
-            hint.textContent = "Kéo thả hoặc nhấn chọn để ghép cặp";
+            hint.textContent = reusable ? "Nhấn chọn đáp án rồi nhấn vào ô cần ghép" : "Kéo thả hoặc nhấn chọn để ghép cặp";
             area.appendChild(hint);
         }
 
@@ -1384,9 +1405,20 @@ async function triggerRemoteVerification(courseName) {
         leftKeys.forEach(function(key, idx) {
             var zone = document.createElement('div');
             var droppedVal = state.dropData[idx];
-            var correctVal = q.c[key];
+            var correctVal = q.c[key]; // text hoặc index
+
+            // Kiểm tra đúng/sai
+            var isDropCorrect = false;
+            if (droppedVal !== null) {
+                if (isTextAnswer) {
+                    isDropCorrect = rightTexts[droppedVal] === correctVal;
+                } else {
+                    isDropCorrect = droppedVal === correctVal;
+                }
+            }
+
             zone.className = 'drop-zone' + (droppedVal !== null ? ' filled' : '');
-            if (droppedVal !== null && confirmed) zone.classList.add(droppedVal === correctVal ? 'correct-match' : 'wrong-match');
+            if (droppedVal !== null && confirmed) zone.classList.add(isDropCorrect ? 'correct-match' : 'wrong-match');
             zone.dataset.idx = idx;
             zone.textContent = droppedVal !== null ? rightTexts[droppedVal] : 'Thả vào đây';
 
@@ -1396,26 +1428,25 @@ async function triggerRemoteVerification(courseName) {
                 zone.addEventListener('drop', function(e) {
                     e.preventDefault(); zone.classList.remove('drag-over');
                     var val = parseInt(e.dataTransfer.getData('text/plain'));
-                    var old = state.dropData[idx];
-                    if (old !== null) { var ob = area.querySelector('.bank-item[data-val="'+old+'"]'); if (ob) ob.style.display = ''; }
-                    state.dropData.forEach(function(v,i2){ if (v===val && i2!==idx) state.dropData[i2]=null; });
+                    if (!reusable) {
+                        // Kiểu index: xóa slot cũ nếu val đang ở chỗ khác
+                        state.dropData.forEach(function(v,i2){ if (v===val && i2!==idx) state.dropData[i2]=null; });
+                    }
                     state.dropData[idx] = val;
-                    var bi = area.querySelector('.bank-item[data-val="'+val+'"]'); if (bi) bi.style.display='none';
                     renderQ();
                 });
-                // Mobile tap-to-select
+                // Mobile tap
                 zone.addEventListener('click', function() {
                     if (window._matchTapSel !== undefined) {
                         var val = window._matchTapSel;
-                        var old = state.dropData[idx];
-                        if (old !== null) { var ob = area.querySelector('.bank-item[data-val="'+old+'"]'); if(ob) ob.style.display=''; }
-                        state.dropData.forEach(function(v,i2){ if(v===val&&i2!==idx) state.dropData[i2]=null; });
+                        if (!reusable) {
+                            state.dropData.forEach(function(v,i2){ if(v===val&&i2!==idx) state.dropData[i2]=null; });
+                        }
                         state.dropData[idx] = val;
-                        var bi = area.querySelector('.bank-item[data-val="'+val+'"]'); if(bi) bi.style.display='none';
                         window._matchTapSel = undefined;
+                        document.querySelectorAll('.bank-item').forEach(function(b){ b.style.outline=''; });
                         renderQ();
                     } else if (droppedVal !== null) {
-                        var ob2 = area.querySelector('.bank-item[data-val="'+droppedVal+'"]'); if(ob2) ob2.style.display='';
                         state.dropData[idx] = null; renderQ();
                     }
                 });
@@ -1431,10 +1462,12 @@ async function triggerRemoteVerification(courseName) {
             var bank = document.createElement('div'); bank.className = 'answer-bank';
             rightTexts.forEach(function(text, val) {
                 var item = document.createElement('div'); item.className = 'bank-item'; item.draggable = true; item.dataset.val = val; item.textContent = text;
-                if (state.dropData.indexOf(val) >= 0) item.style.display = 'none';
+
+                // Chỉ ẩn nếu KHÔNG reusable và đã được dùng
+                if (!reusable && state.dropData.indexOf(val) >= 0) item.style.display = 'none';
+
                 item.addEventListener('dragstart', function(e) { e.dataTransfer.setData('text/plain', val); item.classList.add('dragging'); });
                 item.addEventListener('dragend', function() { item.classList.remove('dragging'); });
-                // Mobile tap
                 item.addEventListener('click', function() {
                     document.querySelectorAll('.bank-item').forEach(function(b){ b.style.outline=''; });
                     if (window._matchTapSel === val) { window._matchTapSel = undefined; }
