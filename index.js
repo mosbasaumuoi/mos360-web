@@ -1262,6 +1262,7 @@ async function triggerRemoteVerification(courseName) {
                 loading="lazy"
                 onerror="this.parentElement.style.display='none'">
             `;
+            }
             imgWrap.style.display = 'flex';
         } else {
             imgWrap.innerHTML = '';
