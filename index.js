@@ -1338,7 +1338,11 @@ async function triggerRemoteVerification(courseName) {
             } else if (isSelected) { cls += ' selected'; }
             cell.className = cls;
             cell.innerHTML =
-  '<div style="padding:20px">TEST MOS360 IMAGE FIX</div>';
+             '<img src="' + (opt.img || '') + '">' +
+             '<div class="img-opt-label">' +
+             String.fromCharCode(65 + i) + '. ' +
+             (opt.label || opt) +
+             '</div>';
             if (!isDone && !confirmed) {
                 (function(optIdx){ cell.onclick = function() { userAns[cur] = optIdx; renderQ(); }; })(i);
             }
