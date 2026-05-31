@@ -1337,8 +1337,13 @@ async function triggerRemoteVerification(courseName) {
                 else if (!isSelected && isCorrectOpt) cls += ' correct-img';
             } else if (isSelected) { cls += ' selected'; }
             cell.className = cls;
-            cell.innerHTML = '<img src="' + (opt.img || '') + '" onerror="this.style.height=\'80px\';this.style.background=\'#1e2235\'">'
-                + '<div class="img-opt-label">' + String.fromCharCode(65+i) + '. ' + (opt.label || opt) + '</div>';
+            cell.innerHTML =
+             '<img src="' + (opt.img || '') +
+             '" onerror="this.style.height=\'80px\';this.style.background=\'#1e2235\'">' +
+             '<div class="img-opt-label">' +
+             String.fromCharCode(65 + i) + '. ' +
+             (opt.label || opt) +
+             '</div>';
             if (!isDone && !confirmed) {
                 (function(optIdx){ cell.onclick = function() { userAns[cur] = optIdx; renderQ(); }; })(i);
             }
