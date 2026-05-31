@@ -710,6 +710,8 @@ async function triggerRemoteVerification(courseName) {
         }
 
        const hasLevels = courseType === "IC3 GS6";
+       const levelBoxStyle = hasLevels ? "" : "display:none;";
+       const modeBoxStyle = hasLevels ? "display:none;" : "";
        
        const bankJSON = JSON.stringify(
             questionBank.map(item => ({
@@ -878,7 +880,7 @@ async function triggerRemoteVerification(courseName) {
             <div class="main-quiz">
 
                 <!-- Bước 1: Chọn Level (chỉ IC3 GS6) -->
-               <div class="mode-selection-overlay" id="levelSelectBox" style="${hasLevels ? '' : 'display:none;'}">
+               <div class="mode-selection-overlay" id="levelSelectBox" style="${levelBoxStyle}">
                    <h2 style="color:#fff; margin-bottom:6px;">CHỌN CẤP ĐỘ ÔN LUYỆN</h2>
                    <p style="font-size:0.85rem; margin-bottom:20px; color:#94a3b8;">IC3 GS6 gồm 3 cấp độ từ cơ bản đến nâng cao</p>
                    <button class="mode-btn" onclick="selectLevel('ALL')">
@@ -901,7 +903,7 @@ async function triggerRemoteVerification(courseName) {
                </div>
                
                <!-- Bước 2: Chọn Mode -->
-               <div class="mode-selection-overlay" id="modeSelectBox" style="${hasLevels ? 'display:none;' : ''}">
+               <div class="mode-selection-overlay" id="modeSelectBox" style="${modeBoxStyle}">
                    <h2 style="color:#fff; margin-bottom:6px;">CHỌN CHẾ ĐỘ HỌC TẬP</h2>
                    <p style="font-size:0.85rem; margin-bottom:20px; font-weight:bold;" id="modeWelcomeTxt">Đang kiểm tra quyền truy cập...</p>
                    <button class="mode-btn" onclick="launchEngine('practice')">
@@ -916,7 +918,10 @@ async function triggerRemoteVerification(courseName) {
                        🔁 Ôn câu sai từ lần thi trước
                        <span class="lock-badge" id="lock-retry-exam" style="color:#fca5a5;"> </span>
                    </button>
-                   ${hasLevels ? `<button onclick="document.getElementById('modeSelectBox').style.display='none'; document.getElementById('levelSelectBox').style.display='flex';" style="color:#64748b; font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer; cursor:pointer;">← Chọn lại cấp độ</button>` : `<a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>`}
+                   ${hasLevels
+                       ? '<button onclick="document.getElementById(\'modeSelectBox\').style.display=\'none\'; document.getElementById(\'levelSelectBox\').style.display=\'flex\';" style="color:#64748b; font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer;">← Chọn lại cấp độ</button>'
+                       : '<a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>'
+                   }
                </div>
 
                 <div class="result-overlay" id="resBox">
@@ -974,7 +979,7 @@ async function triggerRemoteVerification(courseName) {
     var mode = "";
     var selectedLevel = "ALL";
     var isVerified = localStorage.getItem('course_auth_${courseType}') === 'verified';
-    var hasLevels = ${hasLevels ? 'true' : 'false'};
+    var hasLevels = ${hasLevels};
     var confirmedList = [];
     var matchingState = {};
     var dragdropState = {};
