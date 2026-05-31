@@ -430,6 +430,7 @@ export const IC3_LEVEL3 = [
   {
     id: 35,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q35",
     category: "IOT",
     difficulty: "medium",
     type: "single",
