@@ -1255,7 +1255,13 @@ async function triggerRemoteVerification(courseName) {
         // Ảnh minh họa
         var imgWrap = document.getElementById('questionImageWrap');
         if (q.img) {
-            imgWrap.innerHTML = '<img src="' + q.img + '" alt="Minh họa" loading="lazy" onerror="this.parentElement.style.display=\'none\'">';
+            imgWrap.innerHTML = `
+              <img
+                src="${q.img}"
+                alt="Minh họa"
+                loading="lazy"
+                onerror="this.parentElement.style.display='none'">
+            `;
             imgWrap.style.display = 'flex';
         } else {
             imgWrap.innerHTML = '';
