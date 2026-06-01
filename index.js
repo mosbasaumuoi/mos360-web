@@ -55,7 +55,7 @@ const EXAM_CONFIG = {
     PASS_SCORE: 700,
     MAX_SCORE: 1000,
 
-    TRIAL_DURATION: 10
+    TRIAL_DURATION: 6
 };
 
 const DEVICE_CONFIG = {
@@ -65,38 +65,38 @@ const DEVICE_CONFIG = {
 const IMAGE_BASE_URL = "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/";
 const IMAGE_MAP = {
     // IC3 LEVEL 1
-    "ic3_lv1_q08":  "ic3-level1/ic3_lv1_q08_hardware.svg",
-    "ic3_lv1_q09":  "ic3-level1/ic3_lv1_q09_hardware.svg",
-    "ic3_lv1_q20":  "ic3-level1/ic3_lv1_q20_operating_system.svg",
-    "ic3_lv1_q22":  "ic3-level1/ic3_lv1_q22_security.svg",
-    "ic3_lv1_q26":  "ic3-level1/ic3_lv1_q26_software.svg",
-    "ic3_lv1_q35":  "ic3-level1/ic3_lv1_q35_network.svg",    
-    "ic3_lv1_q47":  "ic3-level1/ic3_lv1_q47_data.svg",    
-    "ic3_lv1_q65":  "ic3-level1/ic3_lv1_q65_software.svg",
-    "ic3_lv1_q73":  "ic3-level1/ic3_lv1_q73_security.svg",
-    "ic3_lv1_q101":  "ic3-level1/ic3_lv1_q101_digital_citizenship.svg",
+    "ic3_lv1_q08": "ic3-level1/ic3_lv1_q08_hardware.svg",
+    "ic3_lv1_q09": "ic3-level1/ic3_lv1_q09_hardware.svg",
+    "ic3_lv1_q20": "ic3-level1/ic3_lv1_q20_operating_system.svg",
+    "ic3_lv1_q22": "ic3-level1/ic3_lv1_q22_security.svg",
+    "ic3_lv1_q26": "ic3-level1/ic3_lv1_q26_software.svg",
+    "ic3_lv1_q35": "ic3-level1/ic3_lv1_q35_network.svg",
+    "ic3_lv1_q47": "ic3-level1/ic3_lv1_q47_data.svg",
+    "ic3_lv1_q65": "ic3-level1/ic3_lv1_q65_software.svg",
+    "ic3_lv1_q73": "ic3-level1/ic3_lv1_q73_security.svg",
+    "ic3_lv1_q101": "ic3-level1/ic3_lv1_q101_digital_citizenship.svg",
     // IC3 LEVEL 2
-    "ic3_lv2_q01":  "ic3-level2/ic3_lv2_q01_hardware.svg",
-    "ic3_lv2_q04":  "ic3-level2/ic3_lv2_q04_software.svg",
-    "ic3_lv2_q17":  "ic3-level2/ic3_lv2_q17_network.svg",
-    "ic3_lv2_q19":  "ic3-level2/ic3_lv2_q19_data.svg",
-    "ic3_lv2_q21":  "ic3-level2/ic3_lv2_q21_security.svg",
-    "ic3_lv2_q34":  "ic3-level2/ic3_lv2_q34_data.svg",
-    "ic3_lv2_q42":  "ic3-level2/ic3_lv2_q42_software.svg",
-    "ic3_lv2_q50":  "ic3-level2/ic3_lv2_q50_security.svg",
-    "ic3_lv2_q61":  "ic3-level2/ic3_lv2_q61_hardware.svg",
-    "ic3_lv2_q105":  "ic3-level2/ic3_lv2_q105_network.svg",   
+    "ic3_lv2_q01": "ic3-level2/ic3_lv2_q01_hardware.svg",
+    "ic3_lv2_q04": "ic3-level2/ic3_lv2_q04_software.svg",
+    "ic3_lv2_q17": "ic3-level2/ic3_lv2_q17_network.svg",
+    "ic3_lv2_q19": "ic3-level2/ic3_lv2_q19_data.svg",
+    "ic3_lv2_q21": "ic3-level2/ic3_lv2_q21_security.svg",
+    "ic3_lv2_q34": "ic3-level2/ic3_lv2_q34_data.svg",
+    "ic3_lv2_q42": "ic3-level2/ic3_lv2_q42_software.svg",
+    "ic3_lv2_q50": "ic3-level2/ic3_lv2_q50_security.svg",
+    "ic3_lv2_q61": "ic3-level2/ic3_lv2_q61_hardware.svg",
+    "ic3_lv2_q105": "ic3-level2/ic3_lv2_q105_network.svg",
     // IC3 LEVEL 3
-    "ic3_lv3_q35":  "ic3-level3/ic3_lv3_q35_iot.svg",
-    "ic3_lv3_q41":  "ic3-level3/ic3_lv3_q41_network.svg",
-    "ic3_lv3_q43":  "ic3-level3/ic3_lv3_q43_network.svg",
-    "ic3_lv3_q46":  "ic3-level3/ic3_lv3_q46_cloud.svg",
-    "ic3_lv3_q48":  "ic3-level3/ic3_lv3_q48_cloud.svg",
-    "ic3_lv3_q52":  "ic3-level3/ic3_lv3_q52_security.svg",
-    "ic3_lv3_q59":  "ic3-level3/ic3_lv3_q59_network.svg",
-    "ic3_lv3_q66":  "ic3-level3/ic3_lv3_q66_security.svg",
-    "ic3_lv3_q75":  "ic3-level3/ic3_lv3_q75_tech.svg",
-    "ic3_lv3_q82":  "ic3-level3/ic3_lv3_q82_ai.svg",
+    "ic3_lv3_q35": "ic3-level3/ic3_lv3_q35_iot.svg",
+    "ic3_lv3_q41": "ic3-level3/ic3_lv3_q41_network.svg",
+    "ic3_lv3_q43": "ic3-level3/ic3_lv3_q43_network.svg",
+    "ic3_lv3_q46": "ic3-level3/ic3_lv3_q46_cloud.svg",
+    "ic3_lv3_q48": "ic3-level3/ic3_lv3_q48_cloud.svg",
+    "ic3_lv3_q52": "ic3-level3/ic3_lv3_q52_security.svg",
+    "ic3_lv3_q59": "ic3-level3/ic3_lv3_q59_network.svg",
+    "ic3_lv3_q66": "ic3-level3/ic3_lv3_q66_security.svg",
+    "ic3_lv3_q75": "ic3-level3/ic3_lv3_q75_tech.svg",
+    "ic3_lv3_q82": "ic3-level3/ic3_lv3_q82_ai.svg",
 };
 
 export default {
@@ -106,103 +106,103 @@ export default {
 
         // ===== FIX 3: API xác thực – chuẩn hóa SĐT và tên khóa trước khi so khớp =====
         if (path === "/api/verify-code") {
-    const rawPhone = url.searchParams.get("phone") || "";
-    const rawCourse = url.searchParams.get("course") || "";
-    const deviceId = url.searchParams.get("deviceId") || "";
+            const rawPhone = url.searchParams.get("phone") || "";
+            const rawCourse = url.searchParams.get("course") || "";
+            const deviceId = url.searchParams.get("deviceId") || "";
 
-    function normalizePhone(raw) {
-        let p = raw.trim();
-        if (p.startsWith("+84")) p = "0" + p.slice(3);
-        else if (p.startsWith("84") && p.length >= 11) p = "0" + p.slice(2);
-        return p;
-    }
+            function normalizePhone(raw) {
+                let p = raw.trim();
+                if (p.startsWith("+84")) p = "0" + p.slice(3);
+                else if (p.startsWith("84") && p.length >= 11) p = "0" + p.slice(2);
+                return p;
+            }
 
-    const phone = normalizePhone(rawPhone);
-    const course = rawCourse.replace(/\s+/g, " ").trim().toLowerCase();
+            const phone = normalizePhone(rawPhone);
+            const course = rawCourse.replace(/\s+/g, " ").trim().toLowerCase();
 
-    if (!phone || !course || !deviceId) {
-        return new Response(JSON.stringify({ success: false, msg: "Thiếu thông tin tra cứu!" }), {
-            headers: { "Content-Type": "application/json" }
-        });
-    }
+            if (!phone || !course || !deviceId) {
+                return new Response(JSON.stringify({ success: false, msg: "Thiếu thông tin tra cứu!" }), {
+                    headers: { "Content-Type": "application/json" }
+                });
+            }
 
-    try {
-        // 1. Xác thực học viên từ sheet
-        const resp = await fetch(CONFIG.STUDENT_SHEET_URL + "&v=" + Date.now());
-        const tsv = await resp.text();
-        const rows = tsv.split("\n");
-        const courseIdx = 0, phoneIdx = 1, expireIdx = 3;
+            try {
+                // 1. Xác thực học viên từ sheet
+                const resp = await fetch(CONFIG.STUDENT_SHEET_URL + "&v=" + Date.now());
+                const tsv = await resp.text();
+                const rows = tsv.split("\n");
+                const courseIdx = 0, phoneIdx = 1, expireIdx = 3;
 
-        let isValid = false;
-        let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
-        let expireStr = "";
+                let isValid = false;
+                let reason = "Không tìm thấy thông tin đăng ký. Vui lòng kiểm tra lại SĐT và khóa học!";
+                let expireStr = "";
 
-        for (let i = 1; i < rows.length; i++) {
-            const cols = rows[i].split("\t");
-            if (cols.length < 3) continue;
+                for (let i = 1; i < rows.length; i++) {
+                    const cols = rows[i].split("\t");
+                    if (cols.length < 3) continue;
 
-            const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
-            const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
-            expireStr = (cols[expireIdx] || "").trim();
+                    const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
+                    const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
+                    expireStr = (cols[expireIdx] || "").trim();
 
-            if (sheetPhone === phone && (sheetCourse === course || sheetCourse.includes(course) || course.includes(sheetCourse))) {
-                if (expireStr) {
-                    const parts = expireStr.includes("/") ? expireStr.split("/") : expireStr.split("-");
-                    let year = parseInt(parts[2]); if (year < 100) year += 2000;
-                    const expireDate = expireStr.includes("/")
-                        ? new Date(year, parseInt(parts[1]) - 1, parseInt(parts[0]), 23, 59, 59)
-                        : new Date(year, parseInt(parts[1]) - 1, parseInt(parts[2]), 23, 59, 59);
-                    if (new Date() > expireDate) {
-                        reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
+                    if (sheetPhone === phone && (sheetCourse === course || sheetCourse.includes(course) || course.includes(sheetCourse))) {
+                        if (expireStr) {
+                            const parts = expireStr.includes("/") ? expireStr.split("/") : expireStr.split("-");
+                            let year = parseInt(parts[2]); if (year < 100) year += 2000;
+                            const expireDate = expireStr.includes("/")
+                                ? new Date(year, parseInt(parts[1]) - 1, parseInt(parts[0]), 23, 59, 59)
+                                : new Date(year, parseInt(parts[1]) - 1, parseInt(parts[2]), 23, 59, 59);
+                            if (new Date() > expireDate) {
+                                reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
+                                break;
+                            }
+                        }
+                        isValid = true;
                         break;
                     }
                 }
-                isValid = true;
-                break;
+
+                if (!isValid) {
+                    return new Response(JSON.stringify({ success: false, msg: reason }), {
+                        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+                    });
+                }
+
+                // 2. Kiểm tra giới hạn thiết bị qua KV
+                const kvKey = phone + "_" + course.replace(/\s+/g, "_");
+                const stored = await env.MOS360_USERS_KV.get(kvKey);
+                let devices = stored ? JSON.parse(stored) : [];
+
+                if (devices.includes(deviceId)) {
+                    // Thiết bị đã đăng ký trước đó → cho qua
+                    return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!" }), {
+                        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+                    });
+                }
+
+                if (devices.length >= DEVICE_CONFIG.MAX_DEVICES) {
+                    return new Response(JSON.stringify({
+                        success: false,
+                        msg: "Tài khoản này đã đăng nhập trên " + DEVICE_CONFIG.MAX_DEVICES + " thiết bị. Vui lòng liên hệ MOS360 để được hỗ trợ!"
+                    }), {
+                        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+                    });
+                }
+
+                // Thêm thiết bị mới
+                devices.push(deviceId);
+                await env.MOS360_USERS_KV.put(kvKey, JSON.stringify(devices));
+
+                return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!", expire: expireStr }), {
+                    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+                });
+
+            } catch (err) {
+                return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu!" }), {
+                    headers: { "Content-Type": "application/json" }
+                });
             }
         }
-
-        if (!isValid) {
-            return new Response(JSON.stringify({ success: false, msg: reason }), {
-                headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-            });
-        }
-
-        // 2. Kiểm tra giới hạn thiết bị qua KV
-        const kvKey = phone + "_" + course.replace(/\s+/g, "_");
-        const stored = await env.MOS360_USERS_KV.get(kvKey);
-        let devices = stored ? JSON.parse(stored) : [];
-
-        if (devices.includes(deviceId)) {
-            // Thiết bị đã đăng ký trước đó → cho qua
-            return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!" }), {
-                headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-            });
-        }
-
-        if (devices.length >= DEVICE_CONFIG.MAX_DEVICES) {
-            return new Response(JSON.stringify({
-                success: false,
-                msg: "Tài khoản này đã đăng nhập trên " + DEVICE_CONFIG.MAX_DEVICES + " thiết bị. Vui lòng liên hệ MOS360 để được hỗ trợ!"
-            }), {
-                headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-            });
-        }
-
-        // Thêm thiết bị mới
-        devices.push(deviceId);
-        await env.MOS360_USERS_KV.put(kvKey, JSON.stringify(devices));
-
-        return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!", expire: expireStr }), {
-            headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-        });
-
-             } catch (err) {
-                 return new Response(JSON.stringify({ success: false, msg: "Lỗi kết nối máy chủ dữ liệu!" }), {
-                     headers: { "Content-Type": "application/json" }
-                 });
-             }
-         }
 
         if (path === "/generative-ai") {
             return new Response(this.getQuizEnginePage("GENERATIVE AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
@@ -709,11 +709,11 @@ async function triggerRemoteVerification(courseName) {
   `;
         }
 
-       const hasLevels = courseType === "IC3 GS6";
-       const levelBoxStyle = hasLevels ? "" : "display:none;";
-       const modeBoxStyle = hasLevels ? "display:none;" : "";
-       
-       const bankJSON = JSON.stringify(
+        const hasLevels = courseType === "IC3 GS6";
+        const levelBoxStyle = hasLevels ? "" : "display:none;";
+        const modeBoxStyle = hasLevels ? "display:none;" : "";
+
+        const bankJSON = JSON.stringify(
             questionBank.map(item => ({
                 q: item.question,
                 o: item.options || [],
@@ -795,7 +795,8 @@ async function triggerRemoteVerification(courseName) {
         .question-image-wrap img { max-width:100%; max-height:200px; object-fit:contain; border-radius:12px; }
 
         /* ===== MATCHING ===== */
-        .matching-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+        .matching-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; align-items:start; }
+        .matching-left-col, .matching-right-col { display:flex; flex-direction:column; gap:8px; }
         .matching-left-item { background:#1e2235; border:2px solid #29304a; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#e2e8f0; display:flex; align-items:center; gap:8px; min-height:48px; }
         .matching-dot { width:6px; height:6px; border-radius:50%; background:#00f2ff; flex-shrink:0; }
         .drop-zone { background:#161927; border:2px dashed #384260; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#64748b; min-height:48px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; cursor:pointer; }
@@ -919,9 +920,9 @@ async function triggerRemoteVerification(courseName) {
                        <span class="lock-badge" id="lock-retry-exam" style="color:#fca5a5;"> </span>
                    </button>
                    ${hasLevels
-                       ? '<button id="btnBackToLevel" style="color:#64748b; font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer;">← Chọn lại cấp độ</button>'
-                       : '<a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>'
-                   }
+                ? '<button id="btnBackToLevel" style="color:#64748b; font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer;">← Chọn lại cấp độ</button>'
+                : '<a href="/courses" style="color:#64748b; font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>'
+            }
                </div>
 
                 <div class="result-overlay" id="resBox">
@@ -1017,9 +1018,9 @@ async function triggerRemoteVerification(courseName) {
         } else {
             document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 10 phút";
             document.getElementById('modeWelcomeTxt').style.color = "#FF5722";
-            document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 10 phút, có giải thích";
+            document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 6 phút, có giải thích";
             document.getElementById('lock-practice').style.color = "#ffaa80";
-            document.getElementById('lock-exam').textContent = "⏱️ Thi thử dùng thử – Giới hạn 10 phút";
+            document.getElementById('lock-exam').textContent = "⏱️ Thi thử dùng thử – Giới hạn 6 phút";
             document.getElementById('lock-exam').style.color = "#ffaa80";
         }
         // Hiện nút ôn câu sai từ lần thi nếu có data
@@ -1033,6 +1034,25 @@ async function triggerRemoteVerification(courseName) {
     }
 
     function launchEngine(chosenMode) {
+        // Kiểm tra cooldown học thử (2 tiếng) cho người chưa đăng nhập
+        if (!isVerified) {
+            var cooldownKey = 'mos360_trial_last_${courseType}';
+            var lastTrial = localStorage.getItem(cooldownKey);
+            if (lastTrial) {
+                var elapsed = Date.now() - parseInt(lastTrial);
+                var cooldownMs = 2 * 60 * 60 * 1000; // 2 tiếng
+                if (elapsed < cooldownMs) {
+                    var remaining = Math.ceil((cooldownMs - elapsed) / 60000);
+                    var hrs = Math.floor(remaining / 60);
+                    var mins = remaining % 60;
+                    var timeStr = hrs > 0 ? hrs + ' giờ ' + (mins > 0 ? mins + ' phút' : '') : mins + ' phút';
+                    alert('⏳ Bạn cần chờ thêm ' + timeStr + ' nữa để học thử lại.\nĐăng nhập học viên để học không giới hạn!');
+                    return;
+                }
+            }
+            localStorage.setItem(cooldownKey, Date.now().toString());
+        }
+
         mode = chosenMode;
         isRetryMode = false;
         document.getElementById('modeSelectBox').style.display = "none";
@@ -1042,10 +1062,8 @@ async function triggerRemoteVerification(courseName) {
         var filtered = selectedLevel === 'ALL' ? fullBank : fullBank.filter(function(b) { return b.lv === selectedLevel; });
         var selected;
         if (mode === 'practice') {
-            // Ôn luyện: giữ đúng thứ tự gốc, lấy toàn bộ câu
             selected = filtered.slice();
         } else {
-            // Thi thử: shuffle + giới hạn 45 câu
             selected = shuffleArray(filtered).slice(0, Math.min(${EXAM_CONFIG.QUESTION_COUNT}, filtered.length));
         }
         buildList(selected);
@@ -1390,6 +1408,7 @@ async function triggerRemoteVerification(courseName) {
         var grid = document.createElement('div');
         grid.className = 'matching-grid';
         var leftCol = document.createElement('div');
+        leftCol.className = 'matching-left-col';
         var lLabel = document.createElement('div'); lLabel.className = 'matching-col-label'; lLabel.textContent = 'KHÁI NIỆM';
         leftCol.appendChild(lLabel);
         leftKeys.forEach(function(key) {
@@ -1399,6 +1418,7 @@ async function triggerRemoteVerification(courseName) {
         });
 
         var rightCol = document.createElement('div');
+        rightCol.className = 'matching-right-col';
         var rLabel = document.createElement('div'); rLabel.className = 'matching-col-label'; rLabel.textContent = confirmed ? 'KẾT QUẢ' : 'KÉO ĐÁP ÁN VÀO ĐÂY';
         rightCol.appendChild(rLabel);
 
