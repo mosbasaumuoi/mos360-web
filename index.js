@@ -1046,7 +1046,7 @@ async function triggerRemoteVerification(courseName) {
                     var hrs = Math.floor(remaining / 60);
                     var mins = remaining % 60;
                     var timeStr = hrs > 0 ? hrs + ' giờ ' + (mins > 0 ? mins + ' phút' : '') : mins + ' phút';
-                    alert('⏳ Bạn cần chờ thêm ' + timeStr + ' nữa để học thử lại.\nĐăng nhập học viên để học không giới hạn!');
+                    alert('⏳ Bạn cần chờ thêm ' + timeStr + ' nữa để học thử lại. Đăng nhập học viên để học không giới hạn!');
                     return;
                 }
             }
