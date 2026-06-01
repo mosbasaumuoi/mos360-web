@@ -498,6 +498,7 @@ export const IC3_LEVEL3 = [
   {
     id: 41,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q41",
     category: "DATA_SECURITY",
     difficulty: "medium",
     type: "single",
@@ -520,6 +521,7 @@ export const IC3_LEVEL3 = [
   {
     id: 43,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q43", 
     category: "NETWORKING",
     difficulty: "medium",
     type: "single",
@@ -553,6 +555,7 @@ export const IC3_LEVEL3 = [
   {
     id: 46,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q46", 
     category: "CLOUD_COMPUTING",
     difficulty: "medium",
     type: "single",
@@ -575,6 +578,7 @@ export const IC3_LEVEL3 = [
   {
     id: 48,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q48", 
     category: "IOT",
     difficulty: "medium",
     type: "single",
@@ -620,6 +624,7 @@ export const IC3_LEVEL3 = [
   {
     id: 52,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q52", 
     category: "SECURITY",
     difficulty: "hard",
     type: "single",
@@ -697,6 +702,7 @@ export const IC3_LEVEL3 = [
   {
     id: 59,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q59",
     category: "NETWORKING",
     difficulty: "medium",
     type: "single",
@@ -800,6 +806,7 @@ export const IC3_LEVEL3 = [
   {
     id: 66,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q66", 
     category: "NETWORKING",
     difficulty: "medium",
     type: "single",
@@ -920,6 +927,7 @@ export const IC3_LEVEL3 = [
   {
     id: 75,
     level: "IC3_LEVEL3",
+    image_key: "ic3_lv3_q75", 
     category: "INDUSTRY_4.0",
     difficulty: "hard",
     type: "multiple",
@@ -1003,6 +1011,7 @@ export const IC3_LEVEL3 = [
   {
     id: 82,
     level: "IC3_LEVEL3",
+   image_key: "ic3_lv3_q82",
     category: "AI_ETHICS",
     difficulty: "medium",
     type: "single",
