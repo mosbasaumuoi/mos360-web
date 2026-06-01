@@ -796,10 +796,10 @@ async function triggerRemoteVerification(courseName) {
 
         /* ===== MATCHING ===== */
         .matching-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; align-items:start; }
-        .matching-left-col, .matching-right-col { display:flex; flex-direction:column; gap:8px; }
-        .matching-left-item { background:#1e2235; border:2px solid #29304a; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#e2e8f0; display:flex; align-items:center; gap:8px; min-height:48px; }
+        .matching-left-col, .matching-right-col { display:contents; }
+        .matching-row-left { background:#1e2235; border:2px solid #29304a; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#e2e8f0; display:flex; align-items:center; gap:8px; }
         .matching-dot { width:6px; height:6px; border-radius:50%; background:#00f2ff; flex-shrink:0; }
-        .drop-zone { background:#161927; border:2px dashed #384260; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#64748b; min-height:48px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; cursor:pointer; }
+        .drop-zone { background:#161927; border:2px dashed #384260; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#64748b; display:flex; align-items:center; justify-content:center; transition:all 0.15s; cursor:pointer; }
         .drop-zone.drag-over { border-color:#00f2ff; background:rgba(0,242,255,0.05); }
         .drop-zone.filled { border-style:solid; border-color:#00f2ff; background:rgba(0,242,255,0.04); color:#e2e8f0; justify-content:flex-start; }
         .drop-zone.correct-match { border-color:#22c55e !important; background:rgba(34,197,94,0.12) !important; color:#22c55e !important; }
@@ -1016,7 +1016,7 @@ async function triggerRemoteVerification(courseName) {
             document.getElementById('lock-exam').textContent = "🔓 Thi thử thực chiến – 50 phút, tính điểm chuẩn Certiport";
             document.getElementById('lock-exam').style.color = "#00f2ff";
         } else {
-            document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 10 phút";
+            document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 6 phút";
             document.getElementById('modeWelcomeTxt').style.color = "#FF5722";
             document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 6 phút, có giải thích";
             document.getElementById('lock-practice').style.color = "#ffaa80";
@@ -1386,17 +1386,12 @@ async function triggerRemoteVerification(courseName) {
     function renderMatching(q, area, confirmed) {
         var leftKeys = Object.keys(q.c);
         var rightTexts = q.o_right && q.o_right.length ? q.o_right : q.options;
-
-        // Detect kiểu answer: text hay index
         var firstVal = q.c[leftKeys[0]];
         var isTextAnswer = typeof firstVal === 'string';
+        var reusable = isTextAnswer;
 
-        // dropData lưu: index của rightTexts (cả 2 kiểu)
         if (!matchingState[cur]) matchingState[cur] = { dropData: new Array(leftKeys.length).fill(null) };
         var state = matchingState[cur];
-
-        // Với text answer: đáp án có thể dùng lại nhiều lần
-        var reusable = isTextAnswer;
 
         if (!confirmed) {
             var hint = document.createElement('div');
@@ -1405,37 +1400,29 @@ async function triggerRemoteVerification(courseName) {
             area.appendChild(hint);
         }
 
-        var grid = document.createElement('div');
-        grid.className = 'matching-grid';
-        var leftCol = document.createElement('div');
-        leftCol.className = 'matching-left-col';
-        var lLabel = document.createElement('div'); lLabel.className = 'matching-col-label'; lLabel.textContent = 'KHÁI NIỆM';
-        leftCol.appendChild(lLabel);
-        leftKeys.forEach(function(key) {
-            var el = document.createElement('div'); el.className = 'matching-left-item';
-            el.innerHTML = '<span class="matching-dot"></span>' + key;
-            leftCol.appendChild(el);
-        });
+        // Header labels
+        var headerRow = document.createElement('div');
+        headerRow.style.cssText = "display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:6px;";
+        var lh = document.createElement('div'); lh.className = 'matching-col-label'; lh.textContent = 'KHÁI NIỆM';
+        var rh = document.createElement('div'); rh.className = 'matching-col-label'; rh.textContent = confirmed ? 'KẾT QUẢ' : 'KÉO ĐÁP ÁN VÀO ĐÂY';
+        headerRow.appendChild(lh); headerRow.appendChild(rh);
+        area.appendChild(headerRow);
 
-        var rightCol = document.createElement('div');
-        rightCol.className = 'matching-right-col';
-        var rLabel = document.createElement('div'); rLabel.className = 'matching-col-label'; rLabel.textContent = confirmed ? 'KẾT QUẢ' : 'KÉO ĐÁP ÁN VÀO ĐÂY';
-        rightCol.appendChild(rLabel);
+        // Grid — mỗi cặp left+right = 1 hàng → tự động cùng chiều cao
+        var grid = document.createElement('div');
+        grid.style.cssText = "display:grid; grid-template-columns:1fr 1fr; gap:8px 10px; margin-bottom:12px; align-items:stretch;";
 
         leftKeys.forEach(function(key, idx) {
+            // LEFT cell
+            var leftCell = document.createElement('div');
+            leftCell.className = 'matching-row-left';
+            leftCell.innerHTML = '<span class="matching-dot"></span>' + key;
+
+            // RIGHT cell (drop zone)
             var zone = document.createElement('div');
             var droppedVal = state.dropData[idx];
-            var correctVal = q.c[key]; // text hoặc index
-
-            // Kiểm tra đúng/sai
-            var isDropCorrect = false;
-            if (droppedVal !== null) {
-                if (isTextAnswer) {
-                    isDropCorrect = rightTexts[droppedVal] === correctVal;
-                } else {
-                    isDropCorrect = droppedVal === correctVal;
-                }
-            }
+            var correctVal = q.c[key];
+            var isDropCorrect = droppedVal !== null && (isTextAnswer ? rightTexts[droppedVal] === correctVal : droppedVal === correctVal);
 
             zone.className = 'drop-zone' + (droppedVal !== null ? ' filled' : '');
             if (droppedVal !== null && confirmed) zone.classList.add(isDropCorrect ? 'correct-match' : 'wrong-match');
@@ -1448,20 +1435,14 @@ async function triggerRemoteVerification(courseName) {
                 zone.addEventListener('drop', function(e) {
                     e.preventDefault(); zone.classList.remove('drag-over');
                     var val = parseInt(e.dataTransfer.getData('text/plain'));
-                    if (!reusable) {
-                        // Kiểu index: xóa slot cũ nếu val đang ở chỗ khác
-                        state.dropData.forEach(function(v,i2){ if (v===val && i2!==idx) state.dropData[i2]=null; });
-                    }
+                    if (!reusable) { state.dropData.forEach(function(v,i2){ if(v===val&&i2!==idx) state.dropData[i2]=null; }); }
                     state.dropData[idx] = val;
                     renderQ();
                 });
-                // Mobile tap
                 zone.addEventListener('click', function() {
                     if (window._matchTapSel !== undefined) {
                         var val = window._matchTapSel;
-                        if (!reusable) {
-                            state.dropData.forEach(function(v,i2){ if(v===val&&i2!==idx) state.dropData[i2]=null; });
-                        }
+                        if (!reusable) { state.dropData.forEach(function(v,i2){ if(v===val&&i2!==idx) state.dropData[i2]=null; }); }
                         state.dropData[idx] = val;
                         window._matchTapSel = undefined;
                         document.querySelectorAll('.bank-item').forEach(function(b){ b.style.outline=''; });
@@ -1471,21 +1452,20 @@ async function triggerRemoteVerification(courseName) {
                     }
                 });
             }
-            rightCol.appendChild(zone);
+
+            grid.appendChild(leftCell);
+            grid.appendChild(zone);
         });
+        area.appendChild(grid);
 
-        grid.appendChild(leftCol); grid.appendChild(rightCol); area.appendChild(grid);
-
+        // Bank
         if (!confirmed) {
             var blabel = document.createElement('div'); blabel.className = 'matching-col-label'; blabel.textContent = 'NGÂN HÀNG ĐÁP ÁN';
             area.appendChild(blabel);
             var bank = document.createElement('div'); bank.className = 'answer-bank';
             rightTexts.forEach(function(text, val) {
                 var item = document.createElement('div'); item.className = 'bank-item'; item.draggable = true; item.dataset.val = val; item.textContent = text;
-
-                // Chỉ ẩn nếu KHÔNG reusable và đã được dùng
                 if (!reusable && state.dropData.indexOf(val) >= 0) item.style.display = 'none';
-
                 item.addEventListener('dragstart', function(e) { e.dataTransfer.setData('text/plain', val); item.classList.add('dragging'); });
                 item.addEventListener('dragend', function() { item.classList.remove('dragging'); });
                 item.addEventListener('click', function() {
