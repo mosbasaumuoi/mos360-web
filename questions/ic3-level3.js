@@ -1040,6 +1040,39 @@ export const IC3_LEVEL3 = [
     ],
     answer: 1,
     explanation: "Việc xóa tài khoản (tài khoản không còn tồn tại) giúp ngăn chặn nguy cơ tin tặc chiếm đoạt tài khoản cũ để phát tán tin giả hoặc spam mà bạn không hề hay biết."
+  },
+   
+  {
+    id: 84,
+    level: "IC3_LEVEL3",
+    category: "FUTURE_TECHNOLOGY",
+    difficulty: "medium",
+    type: "single",
+    question: "Trong kỷ nguyên Công nghệ 4.0, đâu là tầm quan trọng của việc 'Học tập suốt đời' (Lifelong Learning) đối với một chuyên gia công nghệ?",
+    options: [
+      "Không quan trọng vì kiến thức đại học là đủ dùng cả đời",
+      "Rất quan trọng vì công nghệ thay đổi cực nhanh, đòi hỏi phải liên tục cập nhật kỹ năng mới",
+      "Chỉ cần học khi công ty bắt buộc",
+      "Chỉ cần đọc sách cũ là đủ"
+    ],
+    answer: 1,
+    explanation: "Công nghệ thay đổi theo hàm mũ. Kỹ năng bạn học hôm nay có thể lỗi thời sau vài năm, do đó khả năng tự học và thích nghi là tài sản lớn nhất của một công dân số."
+  },
+  {
+    id: 85,
+    level: "IC3_LEVEL3",
+    category: "CRITICAL_THINKING",
+    difficulty: "hard",
+    type: "single",
+    question: "Khi làm việc với các hệ thống AI (như ChatGPT), tại sao 'Prompt Engineering' (kỹ thuật đặt câu lệnh) lại trở thành một kỹ năng thiết yếu?",
+    options: [
+      "Vì AI chỉ hoạt động khi bạn gõ đúng từ khóa bằng tiếng Anh",
+      "Vì chất lượng đầu ra của AI phụ thuộc trực tiếp vào tính chính xác và ngữ cảnh của câu lệnh đầu vào",
+      "Vì nó giúp máy tính của bạn chạy nhanh hơn",
+      "Vì nó giúp bạn hack được hệ thống AI"
+    ],
+    answer: 1,
+    explanation: "AI là một công cụ hỗ trợ tư duy. Câu lệnh càng rõ ràng, chi tiết về ngữ cảnh, thì kết quả AI trả về càng sát với nhu cầu và có độ chính xác cao."
   }
 
 ];
