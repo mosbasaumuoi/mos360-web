@@ -288,12 +288,12 @@ export default {
         .highlight-list li::before { content: "✓"; display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: rgba(255,87,34,0.15); color: #FF5722; border-radius: 50%; font-size: 11px; font-weight: 900; }
 
         /* FIX 1: Bảng Vàng - carousel cuộn mượt */
-        #bang-vang-container { height: 520px; overflow: hidden; }
+        #bang-vang-container { height: 600px; overflow: hidden; }
         .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; background: rgba(0,0,0,0.2); border-radius: 16px; }
         .carousel-track { display: flex; align-items: center; gap: 20px; position: absolute; left: 0; top: 0; height: 100%; animation: scroll-left 60s linear infinite; width: max-content; }
         .carousel-track:hover { animation-play-state: paused; }
-        .student-item { flex: 0 0 auto; width: 200px; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .student-item img { max-width: 100%; max-height: 95%; object-fit: contain; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .student-item { flex: 0 0 auto; width: 320px; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .student-item img { max-width: 100%; max-height: 98%; object-fit: contain; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }
 
         /* FIX 2: Icon Zalo SVG chuẩn thương hiệu – nền xanh tròn, chữ Z trắng sắc nét */
