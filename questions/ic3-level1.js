@@ -160,6 +160,7 @@ export const IC3_LEVEL1 = [
   {
     id: 8,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q08",
     test: 1,
     category: "HARDWARE",
     difficulty: "easy",
@@ -177,6 +178,7 @@ export const IC3_LEVEL1 = [
   {
     id: 9,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q09",
     test: 1,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -420,6 +422,7 @@ export const IC3_LEVEL1 = [
   {
     id: 20,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q20",
     test: 1,
     category: "HARDWARE",
     difficulty: "hard",
@@ -460,6 +463,7 @@ export const IC3_LEVEL1 = [
   {
     id: 22,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q22",
     test: 1,
     category: "SECURITY",
     difficulty: "medium",
@@ -557,6 +561,7 @@ export const IC3_LEVEL1 = [
   {
     id: 26,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q26",
     test: 1,
     category: "SECURITY",
     difficulty: "medium",
@@ -749,6 +754,7 @@ export const IC3_LEVEL1 = [
   {
     id: 35,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q35",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -1053,6 +1059,7 @@ export const IC3_LEVEL1 = [
   {
     id: 47, // Tương ứng Câu 2 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q47",
     test: 2,
     category: "SOFTWARE",
     difficulty: "easy",
@@ -1411,6 +1418,7 @@ export const IC3_LEVEL1 = [
   {
     id: 65, // Tương ứng Câu 20 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q65",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",
@@ -1590,6 +1598,7 @@ export const IC3_LEVEL1 = [
   {
     id: 73, // Tương ứng Câu 28 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q73",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",
@@ -2221,6 +2230,7 @@ export const IC3_LEVEL1 = [
   {
     id: 101, // Tương ứng Test 1 - Câu 43
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q101",
     test: 1,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",

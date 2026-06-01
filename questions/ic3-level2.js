@@ -3,6 +3,7 @@ export const IC3_LEVEL2 = [
    {
     id: 1,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q01",
     test: 1,
     category: "CLOUD_DIGITAL_SERVICES",
     difficulty: "medium",
@@ -62,6 +63,7 @@ export const IC3_LEVEL2 = [
   {
     id: 4,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q04",
     test: 1,
     category: "OPERATING_SYSTEM",
     difficulty: "easy",
@@ -314,6 +316,7 @@ export const IC3_LEVEL2 = [
   {
     id: 17,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q17",
     test: 1,
     category: "DATA_MANAGEMENT",
     difficulty: "hard",
@@ -364,6 +367,7 @@ export const IC3_LEVEL2 = [
   {
     id: 19,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q19",
     test: 1,
     category: "OPERATING_SYSTEM",
     difficulty: "easy",
@@ -402,6 +406,7 @@ export const IC3_LEVEL2 = [
   {
     id: 21,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q21",
     test: 1,
     category: "CLOUD_DIGITAL_SERVICES",
     difficulty: "medium",
@@ -653,6 +658,7 @@ export const IC3_LEVEL2 = [
   {
     id: 34,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q34",
     test: 1,
     category: "SOFTWARE_APPLICATIONS",
     difficulty: "easy",
@@ -963,6 +969,7 @@ export const IC3_LEVEL2 = [
   {
     id: 50,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q50",
     test: 1,
     category: "SOFTWARE_APPLICATIONS",
     difficulty: "easy",
@@ -2068,6 +2075,7 @@ export const IC3_LEVEL2 = [
   {
     id: 105,
     level: "IC3_LEVEL2",
+    image_key: "ic3_lv2_q105",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "easy",
