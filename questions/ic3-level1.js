@@ -91,6 +91,7 @@ export const IC3_LEVEL1 = [
   {
     id: 5,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q05",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -251,6 +252,7 @@ export const IC3_LEVEL1 = [
   {
     id: 12,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q12",
     test: 1,
     category: "PRIVACY",
     difficulty: "medium",
@@ -378,6 +380,7 @@ export const IC3_LEVEL1 = [
   {
     id: 18,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q18",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -536,6 +539,7 @@ export const IC3_LEVEL1 = [
   {
     id: 25,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q25",
     test: 1,
     category: "NETWORK",
     difficulty: "easy",
@@ -710,6 +714,7 @@ export const IC3_LEVEL1 = [
   {
     id: 33,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q33",
     test: 1,
     category: "SECURITY",
     difficulty: "medium",
@@ -1001,6 +1006,7 @@ export const IC3_LEVEL1 = [
   {
     id: 45,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q45",
     test: 1,
     category: "NETWORK",
     difficulty: "medium",
@@ -1145,6 +1151,7 @@ export const IC3_LEVEL1 = [
   {
     id: 52, // Tương ứng Câu 7 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q52",
     test: 2,
     category: "OPERATING_SYSTEM",
     difficulty: "hard",
@@ -1288,6 +1295,7 @@ export const IC3_LEVEL1 = [
   {
     id: 60, // Tương ứng Câu 15 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q60",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -1479,6 +1487,7 @@ export const IC3_LEVEL1 = [
   {
     id: 68, // Tương ứng Câu 23 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q68",
     test: 2,
     category: "OPERATING_SYSTEM",
     difficulty: "medium",
@@ -1669,6 +1678,7 @@ export const IC3_LEVEL1 = [
   {
     id: 77, // Tương ứng Câu 32 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q77",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",
