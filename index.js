@@ -1704,7 +1704,7 @@ async function triggerRemoteVerification(courseName) {
         initQuiz();
     }
 
-    window.onload = function() {
+    window.addEventListener('DOMContentLoaded', function() {
         if (!hasLevels) { selectedLevel = 'ALL'; verifyModeMenu(); }
         var btnBack = document.getElementById('btnBackToLevel');
         if (btnBack) {
@@ -1713,7 +1713,7 @@ async function triggerRemoteVerification(courseName) {
                 document.getElementById('levelSelectBox').style.display = 'flex';
             });
         }
-    };
+    });
     </script>
     </body></html>`;
     }
