@@ -140,21 +140,17 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "HARDWARE",
-    difficulty: "easy",
-    type: "multiple",
+    difficulty: "medium",
+    type: "image-select",  // ← đổi type
     question: "Đâu là ba thiết bị nhập khi được kết nối với máy tính không có màn hình cảm ứng? (Chọn 3)",
     options: [
-      "Bàn phím (Keyboard)",
-      "Chuột máy tính (Mouse)",
-      "Máy quét (Scanner)",
-      "Màn hình thông thường (Monitor)",
-      "Máy in (Printer)"
+        { label: "Bàn phím",  img: "ic3_lv1_q07_opt_a" },
+        { label: "Màn hình",  img: "ic3_lv1_q07_opt_b" },
+        { label: "Chuột",     img: "ic3_lv1_q07_opt_c" },
+        { label: "Máy quét",  img: "ic3_lv1_q07_opt_d" },
+        { label: "Máy in",    img: "ic3_lv1_q07_opt_e" }
     ],
-    answer: [
-      "Bàn phím (Keyboard)",
-      "Chuột máy tính (Mouse)",
-      "Máy quét (Scanner)"
-    ],
+    answer: [0, 2, 3],  // ← index của đáp án đúng
     explanation: "Bàn phím, chuột và máy quét là các thiết bị dùng để đưa dữ liệu vào máy tính (Thiết bị nhập/Input devices)."
   },
   {
@@ -228,6 +224,7 @@ export const IC3_LEVEL1 = [
   {
     id: 11,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q11",
     test: 1,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -290,33 +287,40 @@ export const IC3_LEVEL1 = [
     explanation: "Tính năng tự động lưu và điền mật khẩu web do trình duyệt quản lý, bạn có thể bật/tắt nó trong phần cài đặt (Settings) của trình duyệt."
   },
   {
-    id: 14,
-    level: "IC3_LEVEL1",
-    test: 1,
-    category: "HARDWARE",
-    difficulty: "medium",
-    type: "matching",
-    question: "Ghép từng loại cáp (đầu nối) với tên gọi tương ứng dựa trên đặc điểm nhận dạng:",
-    left: [
-      "Đầu nối dẹt dẹp, có các đường tiếp xúc kim loại hở ở một mặt, thường dùng cho thiết bị Apple cũ/hiện tại",
-      "Đầu nối bo tròn các góc đối xứng, có thể đảo ngược hướng cắm khi sử dụng",
-      "Đầu nối hình chữ nhật lớn thông dụng trên máy tính và củ sạc",
-      "Đầu nối hình thang cân nhỏ, có hai móc khóa nhỏ ở mặt dưới"
-    ],
-    right: [
-      "Lightning",
-      "USB-C",
-      "USB",
-      "Micro USB"
-    ],
-    answer: {
-      "Đầu nối dẹt dẹp, có các đường tiếp xúc kim loại hở ở một mặt, thường dùng cho thiết bị Apple cũ/hiện tại": "Lightning",
-      "Đầu nối bo tròn các góc đối xứng, có thể đảo ngược hướng cắm khi sử dụng": "USB-C",
-      "Đầu nối hình chữ nhật lớn thông dụng trên máy tính và củ sạc": "USB",
-      "Đầu nối hình thang cân nhỏ, có hai móc khóa nhỏ ở mặt dưới": "Micro USB"
-    },
-    explanation: "Đây là các chuẩn kết nối ngoại vi phổ biến. Câu hỏi gốc sử dụng hình ảnh (A, B, C, D) đã được diễn giải lại sang văn bản mô tả để tương thích hoàn toàn với tính năng Matching trên web."
+  id: 14,
+  level: "IC3_LEVEL1",
+  test: 1,
+  category: "HARDWARE",
+  difficulty: "medium",
+  type: "matching",
+
+  question:
+    "Hãy kéo và thả từng loại đầu cáp kết nối vào đúng tên gọi tương ứng.",
+
+  left: [
+    "ic3_lv1_q14_opt_a",
+    "ic3_lv1_q14_opt_b",
+    "ic3_lv1_q14_opt_c",
+    "ic3_lv1_q14_opt_d"
+  ],
+
+  right: [
+    "Cáp Lightning (Apple)",
+    "Cáp Micro USB",
+    "Cáp USB-C",
+    "Cáp USB chuẩn A (Standard USB)"
+  ],
+
+  answer: {
+    "ic3_lv1_q14_opt_a": "Cáp Lightning (Apple)",
+    "ic3_lv1_q14_opt_b": "Cáp Micro USB",
+    "ic3_lv1_q14_opt_c": "Cáp USB-C",
+    "ic3_lv1_q14_opt_d": "Cáp USB chuẩn A (Standard USB)"
   },
+
+  explanation:
+    "Đầu cáp Lightning được sử dụng trên nhiều thiết bị Apple. Đầu Micro USB có dạng hình thang nhỏ. Đầu USB-C có thiết kế đối xứng và có thể cắm theo cả hai chiều. Đầu USB chuẩn A là đầu USB hình chữ nhật truyền thống thường thấy trên máy tính."
+},
   {
     id: 15,
     level: "IC3_LEVEL1",
@@ -512,6 +516,7 @@ export const IC3_LEVEL1 = [
   {
     id: 24,
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q24",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -627,36 +632,43 @@ export const IC3_LEVEL1 = [
     explanation: "Ngày sinh và Nơi sinh là các thông tin định danh pháp lý rất quan trọng giúp cấu thành PII. Màu mắt là đặc điểm sinh học phổ biến, không dùng để xác minh danh tính cá nhân bảo mật trực tuyến."
   },
   {
-    id: 29,
-    level: "IC3_LEVEL1",
-    test: 1,
-    category: "HARDWARE",
-    difficulty: "hard",
-    type: "matching",
-    question: "Ghép các loại cổng kết nối phần cứng của máy tính với mô tả nhận dạng thích hợp (Chuyển đổi từ câu hỏi ảnh sang lời):",
-    left: [
-      "Cổng hình thang với hai góc bo tròn lớn, thường dùng kết nối màn hình chất lượng cao hiện nay",
-      "Cổng hình thang cân đối xứng, rất phổ biến để truyền cả hình ảnh và âm thanh lên TV/Màn hình",
-      "Cổng hình chữ nhật nhỏ chứa biểu tượng ba mũi tên nhánh, dùng kết nối mạng dây",
-      "Cổng hình chữ nhật dẹp cực kỳ thông dụng để kết nối chuột, bàn phím, ổ cứng ngoại vi",
-      "Cổng tròn nhỏ kích thước 3.5mm dùng để kết nối tai nghe hoặc loa ngoại vi"
-    ],
-    right: [
-      "Display Port",
-      "HDMI Port",
-      "Ethernet Port",
-      "USB Port",
-      "Audio Port"
-    ],
-    answer: {
-      "Cổng hình thang với hai góc bo tròn lớn, thường dùng kết nối màn hình chất lượng cao hiện nay": "Display Port",
-      "Cổng hình thang cân đối xứng, rất phổ biến để truyền cả hình ảnh và âm thanh lên TV/Màn hình": "HDMI Port",
-      "Cổng hình chữ nhật nhỏ chứa biểu tượng ba mũi tên nhánh, dùng kết nối mạng dây": "Ethernet Port",
-      "Cổng hình chữ nhật dẹp cực kỳ thông dụng để kết nối chuột, bàn phím, ổ cứng ngoại vi": "USB Port",
-      "Cổng tròn nhỏ kích thước 3.5mm dùng để kết nối tai nghe hoặc loa ngoại vi": "Audio Port"
-    },
-    explanation: "Câu hỏi này gốc sử dụng ảnh chỉ vị trí các cổng (Hình A, B, C, D, E) đã được chuyển đổi tối ưu sang mô tả hình dáng văn bản để chạy mượt mà trên tính năng Nối chéo (Matching) của Web bạn."
+  id: 29,
+  level: "IC3_LEVEL1",
+  test: 1,
+  category: "HARDWARE",
+  difficulty: "hard",
+  type: "matching",
+
+  question:
+    "Quan sát hình ảnh và thực hiện kéo thả chính xác từng loại cổng kết nối với tên gọi tương ứng của chúng.",
+
+  left: [
+    "ic3_lv1_q29_opt_a",
+    "ic3_lv1_q29_opt_b",
+    "ic3_lv1_q29_opt_c",
+    "ic3_lv1_q29_opt_d",
+    "ic3_lv1_q29_opt_e"
+  ],
+
+  right: [
+    "Audio Port",
+    "USB Port",
+    "HDMI Port",
+    "Display Port",
+    "Ethernet Port"
+  ],
+
+  answer: {
+    "ic3_lv1_q29_opt_a": "Audio Port",
+    "ic3_lv1_q29_opt_b": "USB Port",
+    "ic3_lv1_q29_opt_c": "HDMI Port",
+    "ic3_lv1_q29_opt_d": "Display Port",
+    "ic3_lv1_q29_opt_e": "Ethernet Port"
   },
+
+  explanation:
+    "Audio Port là cổng âm thanh 3.5mm dạng tròn. USB Port là cổng USB hình chữ nhật dùng để kết nối thiết bị ngoại vi. HDMI Port dùng để truyền hình ảnh và âm thanh kỹ thuật số. Display Port là cổng xuất hình ảnh thường thấy trên máy tính và màn hình hiện đại. Ethernet Port là cổng mạng RJ45 dùng để kết nối mạng có dây."
+},
   {
     id: 30,
     level: "IC3_LEVEL1",
@@ -906,33 +918,40 @@ export const IC3_LEVEL1 = [
  
   // --- 5 CÂU CUỐI CỦA TEST 1 ---
   {
-    id: 41,
-    level: "IC3_LEVEL1",
-    test: 1,
-    category: "HARDWARE",
-    difficulty: "hard",
-    type: "matching",
-    question: "Ghép từng bộ phận phần cứng bên trong của máy tính với mô tả chức năng của nó (Chuyển đổi tối ưu từ câu hỏi ảnh gốc):",
-    left: [
-      "Bộ xử lý trung tâm (CPU)",
-      "Ổ đĩa cứng (HDD)",
-      "Bo mạch chủ (Motherboard)",
-      "Ổ cứng thể rắn (SSD)"
-    ],
-    right: [
-      "Đóng vai trò là bộ não của máy tính, xử lý các lệnh và dữ liệu",
-      "Thiết bị lưu trữ cơ điện từ sử dụng đĩa từ quay để ghi nhớ dữ liệu lâu dài",
-      "Bảng mạch chính lớn nhất kết nối và cho phép tất cả các linh kiện giao tiếp với nhau",
-      "Thiết bị lưu trữ tốc độ cao sử dụng bộ nhớ flash để lưu dữ liệu lâu dài"
-    ],
-    answer: {
-      "Bộ xử lý trung tâm (CPU)": "Đóng vai trò là bộ não của máy tính, xử lý các lệnh và dữ liệu",
-      "Ổ đĩa cứng (HDD)": "Thiết bị lưu trữ cơ điện từ sử dụng đĩa từ quay để ghi nhớ dữ liệu lâu dài",
-      "Bo mạch chủ (Motherboard)": "Bảng mạch chính lớn nhất kết nối và cho phép tất cả các linh kiện giao tiếp với nhau",
-      "Ổ cứng thể rắn (SSD)": "Thiết bị lưu trữ tốc độ cao sử dụng bộ nhớ flash để lưu dữ liệu lâu dài"
-    },
-    explanation: "Câu hỏi này được chuyển đổi trực quan từ định dạng chọn ảnh thực tế linh kiện sang mô tả chức năng chuẩn nhằm chạy mượt mà trên tính năng Nối chéo (Matching) của Web."
+  id: 41,
+  level: "IC3_LEVEL1",
+  test: 1,
+  category: "HARDWARE",
+  difficulty: "medium",
+  type: "matching",
+
+  question:
+    "Quan sát hình ảnh và thực hiện kéo thả chính xác từng linh kiện phần cứng máy tính vào tên gọi tương ứng.",
+
+  left: [
+    "ic3_lv1_q41_opt_a",
+    "ic3_lv1_q41_opt_b",
+    "ic3_lv1_q41_opt_c",
+    "ic3_lv1_q41_opt_d"
+  ],
+
+  right: [
+    "Bo mạch chủ (Motherboard)",
+    "Ổ đĩa cứng (HDD)",
+    "Ổ cứng thể rắn (SSD)",
+    "Bộ xử lý trung tâm (CPU)"
+  ],
+
+  answer: {
+    "ic3_lv1_q41_opt_a": "Bo mạch chủ (Motherboard)",
+    "ic3_lv1_q41_opt_b": "Ổ đĩa cứng (HDD)",
+    "ic3_lv1_q41_opt_c": "Ổ cứng thể rắn (SSD)",
+    "ic3_lv1_q41_opt_d": "Bộ xử lý trung tâm (CPU)"
   },
+
+  explanation:
+    "Bo mạch chủ (Motherboard) là bảng mạch chính kết nối và cho phép các linh kiện trong máy tính giao tiếp với nhau. Ổ đĩa cứng (HDD) lưu trữ dữ liệu bằng đĩa từ cơ học. Ổ cứng thể rắn (SSD) sử dụng bộ nhớ flash, cho tốc độ truy xuất nhanh hơn HDD. Bộ xử lý trung tâm (CPU) là thành phần thực hiện các phép tính và xử lý lệnh của máy tính."
+},
   {
     id: 42,
     level: "IC3_LEVEL1",
@@ -1210,6 +1229,7 @@ export const IC3_LEVEL1 = [
   {
     id: 55, // Tương ứng Câu 10 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q55",
     test: 2,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -1555,6 +1575,7 @@ export const IC3_LEVEL1 = [
   {
     id: 71, // Tương ứng Câu 26 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q71",
     test: 2,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -1645,6 +1666,7 @@ export const IC3_LEVEL1 = [
   {
     id: 75, // Tương ứng Câu 30 - Test 2
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q75",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -2055,6 +2077,7 @@ export const IC3_LEVEL1 = [
   {
     id: 94, // Tương ứng Test 1 - Câu 35
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q94",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -2307,6 +2330,7 @@ export const IC3_LEVEL1 = [
   {
     id: 104, // Quay lại dứt điểm phần câu hỏi thiếu sót của Test 2 - Câu 31 (Modem/Mạng)
     level: "IC3_LEVEL1",
+    image_key: "ic3_lv1_q104",
     test: 2,
     category: "HARDWARE",
     difficulty: "medium",
@@ -2338,6 +2362,38 @@ export const IC3_LEVEL1 = [
     answer: "Tương đương với hành vi la hét, quát tháo vào mặt người nhận và bị coi là rất bất lịch sự",
     explanation: "Trong quy tắc ứng xử mạng (Netiquette), việc viết hoa TOÀN BỘ câu chữ tạo cảm giác nặng nề, giống như bạn đang quát tháo thô bạo vào mặt người nghe, cần tuyệt đối tránh trong giao tiếp văn minh."
   },
+  {
+  id: 106,
+  level: "IC3_LEVEL1",
+  test: 2,
+  category: "SOFTWARE",
+  difficulty: "easy",
+  type: "matching",
+
+  question:
+    "Quan sát hình ảnh mô phỏng định dạng trang giấy và thực hiện kéo thả vào đúng hướng trang tương ứng.",
+
+  left: [
+    "ic3_lv1_q106_opt_a",
+    "ic3_lv1_q106_opt_b",
+    "ic3_lv1_q106_opt_c"
+  ],
+
+  right: [
+    "Khổ dọc (Portrait)",
+    "Khổ ngang (Landscape)",
+    "Khổ dọc (Portrait)"
+  ],
+
+  answer: {
+    "ic3_lv1_q106_opt_a": "Khổ dọc (Portrait)",
+    "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)",
+    "ic3_lv1_q106_opt_c": "Khổ dọc (Portrait)"
+  },
+
+  explanation:
+    "Trong soạn thảo văn bản và in ấn, hướng trang giấy gồm hai loại cơ bản: Khổ dọc (Portrait) có chiều cao lớn hơn chiều rộng, còn Khổ ngang (Landscape) có chiều rộng lớn hơn chiều cao."
+}
  
 ];
 export default IC3_LEVEL1;

@@ -1011,7 +1011,7 @@ export const IC3_LEVEL3 = [
   {
     id: 82,
     level: "IC3_LEVEL3",
-   image_key: "ic3_lv3_q82",
+    image_key: "ic3_lv3_q82",
     category: "AI_ETHICS",
     difficulty: "medium",
     type: "single",
@@ -1073,6 +1073,32 @@ export const IC3_LEVEL3 = [
     ],
     answer: 1,
     explanation: "AI là một công cụ hỗ trợ tư duy. Câu lệnh càng rõ ràng, chi tiết về ngữ cảnh, thì kết quả AI trả về càng sát với nhu cầu và có độ chính xác cao."
+  },
+  {
+    id: 86,
+    level: "IC3_LEVEL3",
+    test: 1,
+    category: "OPERATING_SYSTEM",
+    difficulty: "medium",
+
+    type: "single",
+
+    image_key: "ic3_lv3_q86_sysinfo",
+
+    question:
+      "Trong hình ảnh sau đây, thông tin nào là thông tin hệ thống (System Information) dùng để xác định số kiểu máy (Model Number) của PC?",
+
+    options: [
+      "10.0.18363 Build 18363",
+      "UEFI",
+      "81Y6",
+      "x64-based PC"
+    ],
+
+    answer: "81Y6",
+
+    explanation:
+      "Trong cửa sổ System Information của Windows, mục 'System Model' hiển thị mã kiểu máy do nhà sản xuất quy định. Trong hình, giá trị của System Model là '81Y6', đây chính là Model Number của máy tính."
   }
 
 ];
