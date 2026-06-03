@@ -1496,7 +1496,15 @@ async function triggerRemoteVerification(courseName) {
             // LEFT cell
             var leftCell = document.createElement('div');
             leftCell.className = 'matching-row-left';
-            leftCell.innerHTML = '<span class="matching-dot"></span>' + key;
+            if (key.match(/^ic3_lv\d+_q\d+_opt_/)) {
+                var imgEl = document.createElement('img');
+                imgEl.src = '${IMAGE_BASE_URL}' + (key.includes('lv1') ? 'ic3-level1/' : key.includes('lv2') ? 'ic3-level2/' : 'ic3-level3/') + key + '.svg';
+                imgEl.style.cssText = 'max-width:100%; max-height:80px; object-fit:contain; border-radius:6px;';
+                imgEl.onerror = function() { this.style.display='none'; };
+                leftCell.appendChild(imgEl);
+            } else {
+                leftCell.innerHTML = '<span class="matching-dot"></span>' + key;
+            }
 
             // RIGHT cell (drop zone)
             var zone = document.createElement('div');
