@@ -7,6 +7,10 @@ import IC3_LEVEL1 from "./questions/ic3-level1.js";
 import IC3_LEVEL2 from "./questions/ic3-level2.js";
 import IC3_LEVEL3 from "./questions/ic3-level3.js";
 import GENERATIVE_AI from "./questions/generative-ai.js";
+import { getAdminDashboardUI } from "./pages/admin.js";
+import { getProgressUI } from "./pages/progress.js";
+import { getFlashcardUI } from "./pages/flashcard.js";
+import { handleAdminAPI } from "./api/admin-api.js";
 
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
@@ -14,6 +18,7 @@ const CONFIG = {
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
     SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
     STUDENT_SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjb4deEYb7i_AMpimoccuyElyPF01QfQGEue2nQNrlRjU4xZlz3tH1qJt3jPUN8gqRHiHJQqWJBo9E/pub?output=tsv",
+    APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbx_5R2iNh744oh7Y508YUyrdHR7LDALBnLRzmnN4aJecwu3kmU0DNykoLZXg5-tyxRL/exec",
 
     SOCIALS: {
         ZALO: "https://zalo.me/0912888360",
@@ -64,59 +69,67 @@ const DEVICE_CONFIG = {
 
 const IMAGE_BASE_URL = "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/";
 const IMAGE_MAP = {
-    // IC3 LEVEL 1
-    "ic3_lv1_q08": "ic3-level1/ic3_lv1_q08_hardware.svg",
-    "ic3_lv1_q09": "ic3-level1/ic3_lv1_q09_hardware.svg",
-    "ic3_lv1_q20": "ic3-level1/ic3_lv1_q20_operating_system.svg",
-    "ic3_lv1_q22": "ic3-level1/ic3_lv1_q22_security.svg",
-    "ic3_lv1_q26": "ic3-level1/ic3_lv1_q26_software.svg",
-    "ic3_lv1_q35": "ic3-level1/ic3_lv1_q35_network.svg",
-    "ic3_lv1_q47": "ic3-level1/ic3_lv1_q47_data.svg",
-    "ic3_lv1_q65": "ic3-level1/ic3_lv1_q65_software.svg",
-    "ic3_lv1_q73": "ic3-level1/ic3_lv1_q73_security.svg",
+    // IC3 LEVEL 1 — ảnh minh họa câu hỏi
+    "ic3_lv1_q08":  "ic3-level1/ic3_lv1_q08_hardware.svg",
+    "ic3_lv1_q09":  "ic3-level1/ic3_lv1_q09_hardware.svg",
+    "ic3_lv1_q20":  "ic3-level1/ic3_lv1_q20_operating_system.svg",
+    "ic3_lv1_q22":  "ic3-level1/ic3_lv1_q22_security.svg",
+    "ic3_lv1_q26":  "ic3-level1/ic3_lv1_q26_software.svg",
+    "ic3_lv1_q28":  "ic3-level1/ic3_lv1_q28_sysinfo.svg",
+    "ic3_lv1_q35":  "ic3-level1/ic3_lv1_q35_network.svg",
+    "ic3_lv1_q47":  "ic3-level1/ic3_lv1_q47_data.svg",
+    "ic3_lv1_q65":  "ic3-level1/ic3_lv1_q65_software.svg",
+    "ic3_lv1_q73":  "ic3-level1/ic3_lv1_q73_security.svg",
     "ic3_lv1_q101": "ic3-level1/ic3_lv1_q101_digital_citizenship.svg",
+    // IC3 LEVEL 1 — ảnh options image-select câu 7 (5 opt)
     "ic3_lv1_q07_opt_a": "ic3-level1/ic3_lv1_q07_opt_a.svg",
     "ic3_lv1_q07_opt_b": "ic3-level1/ic3_lv1_q07_opt_b.svg",
     "ic3_lv1_q07_opt_c": "ic3-level1/ic3_lv1_q07_opt_c.svg",
     "ic3_lv1_q07_opt_d": "ic3-level1/ic3_lv1_q07_opt_d.svg",
     "ic3_lv1_q07_opt_e": "ic3-level1/ic3_lv1_q07_opt_e.svg",
+    // câu 14 (4 opt)
     "ic3_lv1_q14_opt_a": "ic3-level1/ic3_lv1_q14_opt_a.svg",
     "ic3_lv1_q14_opt_b": "ic3-level1/ic3_lv1_q14_opt_b.svg",
     "ic3_lv1_q14_opt_c": "ic3-level1/ic3_lv1_q14_opt_c.svg",
     "ic3_lv1_q14_opt_d": "ic3-level1/ic3_lv1_q14_opt_d.svg",
+    // câu 29 (5 opt)
     "ic3_lv1_q29_opt_a": "ic3-level1/ic3_lv1_q29_opt_a.svg",
     "ic3_lv1_q29_opt_b": "ic3-level1/ic3_lv1_q29_opt_b.svg",
     "ic3_lv1_q29_opt_c": "ic3-level1/ic3_lv1_q29_opt_c.svg",
     "ic3_lv1_q29_opt_d": "ic3-level1/ic3_lv1_q29_opt_d.svg",
     "ic3_lv1_q29_opt_e": "ic3-level1/ic3_lv1_q29_opt_e.svg",
+    // câu 41 (4 opt)
     "ic3_lv1_q41_opt_a": "ic3-level1/ic3_lv1_q41_opt_a.svg",
     "ic3_lv1_q41_opt_b": "ic3-level1/ic3_lv1_q41_opt_b.svg",
     "ic3_lv1_q41_opt_c": "ic3-level1/ic3_lv1_q41_opt_c.svg",
-    "ic3_lv1_q41_opt_d": "ic3-level1/ic3_lv1_q41_opt_d.svg",  
-
-    // IC3 LEVEL 2
-    "ic3_lv2_q01": "ic3-level2/ic3_lv2_q01_hardware.svg",
-    "ic3_lv2_q04": "ic3-level2/ic3_lv2_q04_software.svg",
-    "ic3_lv2_q17": "ic3-level2/ic3_lv2_q17_network.svg",
-    "ic3_lv2_q19": "ic3-level2/ic3_lv2_q19_data.svg",
-    "ic3_lv2_q21": "ic3-level2/ic3_lv2_q21_security.svg",
-    "ic3_lv2_q34": "ic3-level2/ic3_lv2_q34_data.svg",
-    "ic3_lv2_q42": "ic3-level2/ic3_lv2_q42_software.svg",
-    "ic3_lv2_q50": "ic3-level2/ic3_lv2_q50_security.svg",
-    "ic3_lv2_q61": "ic3-level2/ic3_lv2_q61_hardware.svg",
+    "ic3_lv1_q41_opt_d": "ic3-level1/ic3_lv1_q41_opt_d.svg",
+    // câu 106 (3 opt)
+    "ic3_lv1_q106_opt_a": "ic3-level1/ic3_lv1_q106_opt_a.svg",
+    "ic3_lv1_q106_opt_b": "ic3-level1/ic3_lv1_q106_opt_b.svg",
+    "ic3_lv1_q106_opt_c": "ic3-level1/ic3_lv1_q106_opt_c.svg",
+    // IC3 LEVEL 2 — ảnh minh họa
+    "ic3_lv2_q01":  "ic3-level2/ic3_lv2_q01_hardware.svg",
+    "ic3_lv2_q04":  "ic3-level2/ic3_lv2_q04_software.svg",
+    "ic3_lv2_q17":  "ic3-level2/ic3_lv2_q17_network.svg",
+    "ic3_lv2_q19":  "ic3-level2/ic3_lv2_q19_data.svg",
+    "ic3_lv2_q21":  "ic3-level2/ic3_lv2_q21_security.svg",
+    "ic3_lv2_q34":  "ic3-level2/ic3_lv2_q34_data.svg",
+    "ic3_lv2_q42":  "ic3-level2/ic3_lv2_q42_software.svg",
+    "ic3_lv2_q50":  "ic3-level2/ic3_lv2_q50_security.svg",
+    "ic3_lv2_q61":  "ic3-level2/ic3_lv2_q61_hardware.svg",
     "ic3_lv2_q105": "ic3-level2/ic3_lv2_q105_network.svg",
-    // IC3 LEVEL 3
-    "ic3_lv3_q35": "ic3-level3/ic3_lv3_q35_iot.svg",
-    "ic3_lv3_q41": "ic3-level3/ic3_lv3_q41_network.svg",
-    "ic3_lv3_q43": "ic3-level3/ic3_lv3_q43_network.svg",
-    "ic3_lv3_q46": "ic3-level3/ic3_lv3_q46_cloud.svg",
-    "ic3_lv3_q48": "ic3-level3/ic3_lv3_q48_cloud.svg",
-    "ic3_lv3_q52": "ic3-level3/ic3_lv3_q52_security.svg",
-    "ic3_lv3_q59": "ic3-level3/ic3_lv3_q59_network.svg",
-    "ic3_lv3_q66": "ic3-level3/ic3_lv3_q66_security.svg",
-    "ic3_lv3_q75": "ic3-level3/ic3_lv3_q75_tech.svg",
-    "ic3_lv3_q82": "ic3-level3/ic3_lv3_q82_ai.svg",
-    "ic3_lv3_q86_sysinfo": "ic3-level3/ic3_lv3_q86_sysinfo.svg",
+    // IC3 LEVEL 3 — ảnh minh họa
+    "ic3_lv3_q35":  "ic3-level3/ic3_lv3_q35_iot.svg",
+    "ic3_lv3_q41":  "ic3-level3/ic3_lv3_q41_network.svg",
+    "ic3_lv3_q43":  "ic3-level3/ic3_lv3_q43_network.svg",
+    "ic3_lv3_q46":  "ic3-level3/ic3_lv3_q46_cloud.svg",
+    "ic3_lv3_q48":  "ic3-level3/ic3_lv3_q48_cloud.svg",
+    "ic3_lv3_q52":  "ic3-level3/ic3_lv3_q52_security.svg",
+    "ic3_lv3_q59":  "ic3-level3/ic3_lv3_q59_network.svg",
+    "ic3_lv3_q66":  "ic3-level3/ic3_lv3_q66_security.svg",
+    "ic3_lv3_q75":  "ic3-level3/ic3_lv3_q75_tech.svg",
+    "ic3_lv3_q82":  "ic3-level3/ic3_lv3_q82_ai.svg",
+    "ic3_lv3_q86":  "ic3-level3/ic3_lv3_q86_sysinfo.svg",
 };
 
 export default {
@@ -124,7 +137,12 @@ export default {
         const url = new URL(request.url);
         const path = url.pathname;
 
-        // ===== FIX 3: API xác thực – chuẩn hóa SĐT và tên khóa trước khi so khớp =====
+        // ===== ADMIN API =====
+        if (path.startsWith("/api/admin/")) {
+            return handleAdminAPI(path, request, env);
+        }
+
+        // ===== FIX 3: API xác thực =====
         if (path === "/api/verify-code") {
             const rawPhone = url.searchParams.get("phone") || "";
             const rawCourse = url.searchParams.get("course") || "";
@@ -230,6 +248,12 @@ export default {
         if (path === "/ic3-test") {
             return new Response(this.getQuizEnginePage("IC3 GS6"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
         }
+        if (path === "/flashcard-ic3") {
+            return new Response(getFlashcardUI("IC3 GS6", [...IC3_LEVEL1,...IC3_LEVEL2,...IC3_LEVEL3], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        }
+        if (path === "/flashcard-ai") {
+            return new Response(getFlashcardUI("GENERATIVE AI", [...GENERATIVE_AI], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        }
 
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
         let studentData = "";
@@ -264,6 +288,11 @@ export default {
         if (path === "/courses") content = this.getCoursesUI();
         else if (path === "/login") content = this.getLoginUI();
         else if (path === "/library") content = this.getLibraryUI();
+        else if (path === "/progress") content = getProgressUI();
+        else if (path === "/admin-dashboard") {
+            const isAdmin = request.headers.get('Cookie')?.includes('mos360_admin=true');
+            content = getAdminDashboardUI();
+        }
         else content = this.getHomeUI(studentData);
 
         return new Response(this.layout(content), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
@@ -370,7 +399,9 @@ export default {
             <a href="/">TRANG CHỦ</a>
             <a href="/courses">KHÓA HỌC</a>
             <a href="/library">KHO MOS</a>
+            <a href="/progress" style="color:#00f2ff;">📈 TIẾN ĐỘ</a>
             <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank" class="admin-only-btn" id="adminPanelBtn">[QUẢN LÝ HỌC VIÊN]</a>
+            <a href="/admin-dashboard" class="admin-only-btn" id="adminDashBtn" style="margin-left:8px;">📊 DASHBOARD</a>
             <a href="/login" id="navLoginLink" style="color:var(--primary)">ĐĂNG NHẬP</a>
         </nav>
     </header>
@@ -422,12 +453,12 @@ export default {
             var isAdmin = localStorage.getItem('mos360_admin_session') === 'active';
             if (isAdmin) {
                 document.getElementById('adminPanelBtn').style.display = 'inline-block';
+                document.getElementById('adminDashBtn').style.display = 'inline-block';
                 var logLink = document.getElementById('navLoginLink');
                 if (logLink) {
                     logLink.textContent = "ĐĂNG XUẤT ADMIN"; logLink.href = "#";
                     logLink.onclick = function(e) {
                         e.preventDefault();
-                        // Chỉ xóa session trên thiết bị này, không ảnh hưởng thiết bị khác
                         localStorage.removeItem('mos360_admin_session');
                         window.location.href = "/";
                     };
@@ -734,17 +765,31 @@ async function triggerRemoteVerification(courseName) {
         const modeBoxStyle = hasLevels ? "display:none;" : "";
 
         const bankJSON = JSON.stringify(
-            questionBank.map(item => ({
-                q: item.question,
-                o: item.options || [],
-                o_left: item.left || [],
-                o_right: item.right || [],
-                c: item.answer,
-                e: item.explanation || "",
-                t: item.type || "single",
-                lv: item.level || "",
-                img: item.image_key && IMAGE_MAP[item.image_key] ? IMAGE_BASE_URL + IMAGE_MAP[item.image_key] : ""
-            }))
+            questionBank.map(item => {
+                // Resolve image-select options
+                let options = item.options || [];
+                if (item.type === 'image-select') {
+                    options = options.map(opt => {
+                        if (typeof opt === 'object' && opt.img) {
+                            const resolvedImg = IMAGE_MAP[opt.img] ? IMAGE_BASE_URL + IMAGE_MAP[opt.img] : opt.img;
+                            return { label: opt.label || '', img: resolvedImg };
+                        }
+                        return opt;
+                    });
+                }
+                return {
+                    q: item.question,
+                    o: options,
+                    o_left: item.left || [],
+                    o_right: item.right || [],
+                    c: item.answer,
+                    e: item.explanation || "",
+                    t: item.type || "single",
+                    lv: item.level || "",
+                    cat: item.category || "",
+                    img: item.image_key && IMAGE_MAP[item.image_key] ? IMAGE_BASE_URL + IMAGE_MAP[item.image_key] : ""
+                };
+            })
         );
 
         return `<!DOCTYPE html><html><head>
@@ -934,6 +979,10 @@ async function triggerRemoteVerification(courseName) {
                    <button class="mode-btn" onclick="launchEngine(&apos;exam&apos;)">
                        ⏱️ Chế độ Thi thử thực chiến
                        <span class="lock-badge" id="lock-exam"> </span>
+                   </button>
+                   <button class="mode-btn" onclick="goToFlashcard()" style="border-color:rgba(255,215,0,0.3); background:rgba(255,215,0,0.03);">
+                       📇 Học Flashcard
+                       <span class="lock-badge" style="color:#FFD700;">Lật thẻ ghi nhớ nhanh – không giới hạn</span>
                    </button>
                    <button class="mode-btn" id="btnRetryFromExam" onclick="launchRetryFromExam()" style="display:none; border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.05);">
                        🔁 Ôn câu sai từ lần thi trước
@@ -1374,13 +1423,20 @@ async function triggerRemoteVerification(courseName) {
     }
 
     // ===== IMAGE SELECT =====
+    function resolveImgKey(key) {
+        if (!key) return '';
+        if (key.startsWith('http')) return key;
+        // key là image_key → resolve qua IMAGE_MAP trên server, nhưng client dùng pattern
+        return key; // img đã được resolve server-side trong bankJSON
+    }
     function renderImageSelect(q, area, confirmed) {
         var grid = document.createElement('div');
         grid.className = 'img-select-grid';
+        var isMultiple = Array.isArray(q.c);
         q.options.forEach(function(opt, i) {
             var cell = document.createElement('div');
-            var isSelected = userAns[cur] === i;
-            var isCorrectOpt = q.c === i;
+            var isSelected = isMultiple ? (userAns[cur]||[]).indexOf(i) >= 0 : userAns[cur] === i;
+            var isCorrectOpt = isMultiple ? q.c.indexOf(i) >= 0 : q.c === i;
             var cls = 'img-opt';
             if (confirmed && mode === 'practice') {
                 if (isSelected && isCorrectOpt) cls += ' correct-img';
@@ -1388,14 +1444,27 @@ async function triggerRemoteVerification(courseName) {
                 else if (!isSelected && isCorrectOpt) cls += ' correct-img';
             } else if (isSelected) { cls += ' selected'; }
             cell.className = cls;
-            cell.innerHTML =
-             '<img src="' + (opt.img || '') + '">' +
-             '<div class="img-opt-label">' +
-             String.fromCharCode(65 + i) + '. ' +
-             (opt.label || opt) +
-             '</div>';
+            var imgSrc = opt && typeof opt === 'object' ? (opt.img || '') : '';
+            var label = opt && typeof opt === 'object' ? (opt.label || '') : String(opt);
+            var imgEl = document.createElement('img');
+            imgEl.src = imgSrc;
+            imgEl.onerror = function() { this.style.minHeight='60px'; this.style.background='#1e2235'; };
+            var labelEl = document.createElement('div');
+            labelEl.className = 'img-opt-label';
+            labelEl.textContent = String.fromCharCode(65+i) + '. ' + label;
+            cell.appendChild(imgEl);
+            cell.appendChild(labelEl);
             if (!isDone && !confirmed) {
-                (function(optIdx){ cell.onclick = function() { userAns[cur] = optIdx; renderQ(); }; })(i);
+                (function(optIdx){
+                    cell.onclick = function() {
+                        if (isMultiple) {
+                            if (!Array.isArray(userAns[cur])) userAns[cur] = [];
+                            var idx2 = userAns[cur].indexOf(optIdx);
+                            if (idx2 >= 0) userAns[cur].splice(idx2,1); else userAns[cur].push(optIdx);
+                        } else { userAns[cur] = optIdx; }
+                        renderQ();
+                    };
+                })(i);
             }
             grid.appendChild(cell);
         });
@@ -1646,6 +1715,11 @@ async function triggerRemoteVerification(courseName) {
         }, 1000);
     }
 
+    function goToFlashcard() {
+        var url = courseType === 'IC3 GS6' ? '/flashcard-ic3' : '/flashcard-ai';
+        window.location.href = url;
+    }
+
     // ===== SUBMIT =====
     function submitExamNow() {
         if (isDone) return;
@@ -1657,30 +1731,51 @@ async function triggerRemoteVerification(courseName) {
         isDone = true;
         var rights = 0;
         var wrongOriginalTexts = [];
+        var categoryResults = {};
         for (var i = 0; i < qCount; i++) {
-            if (isCorrectAnswer(i)) { rights++; }
-            else { wrongOriginalTexts.push(list[i].q.replace(/^\[Câu \d+\] /, '')); }
+            var q = list[i];
+            var correct = isCorrectAnswer(i);
+            if (correct) { rights++; } else { wrongOriginalTexts.push(q.q.replace(/^\[Câu \d+\] /, '')); }
+            // Category tracking
+            var cat = q.cat || 'OTHER';
+            if (!categoryResults[cat]) categoryResults[cat] = { correct: 0, total: 0 };
+            categoryResults[cat].total++;
+            if (correct) categoryResults[cat].correct++;
         }
         // Lưu câu sai để cross-mode (exam → practice)
         if (mode === 'exam' && wrongOriginalTexts.length > 0) {
             localStorage.setItem('mos360_exam_wrong_${courseType}', JSON.stringify(wrongOriginalTexts));
         }
-
         var score = Math.round((rights / qCount) * 1000);
-        document.getElementById('resScore').textContent = score + "/${EXAM_CONFIG.MAX_SCORE} điểm";
 
-        // Nút ôn câu sai: chỉ hiện ở practice
-        var btnRetry = document.getElementById('btnRetryWrong');
-        if (btnRetry) {
-            btnRetry.style.display = (mode === 'practice' && rights < qCount) ? 'inline-block' : 'none';
+        // Lưu tiến độ cá nhân
+        if (window.saveProgressSession) {
+            window.saveProgressSession('${courseType}', mode, rights, qCount, score, categoryResults);
+        } else {
+            // Inline save nếu không có trang progress
+            var pkey = 'mos360_progress_' + '${courseType}'.replace(/\\s+/g,'_');
+            var praw = localStorage.getItem(pkey);
+            var pdata = praw ? JSON.parse(praw) : { sessions: [], categoryStats: {} };
+            var now = new Date();
+            pdata.sessions.push({ date: now.toLocaleDateString('vi-VN'), mode: mode, correct: rights, total: qCount, score: score });
+            Object.keys(categoryResults).forEach(function(cat) {
+                if (!pdata.categoryStats[cat]) pdata.categoryStats[cat] = { correct: 0, total: 0 };
+                pdata.categoryStats[cat].correct += categoryResults[cat].correct;
+                pdata.categoryStats[cat].total += categoryResults[cat].total;
+            });
+            localStorage.setItem(pkey, JSON.stringify(pdata));
         }
+
+        document.getElementById('resScore').textContent = score + "/${EXAM_CONFIG.MAX_SCORE} điểm";
+        var btnRetry = document.getElementById('btnRetryWrong');
+        if (btnRetry) btnRetry.style.display = (mode === 'practice' && rights < qCount) ? 'inline-block' : 'none';
 
         if (score >= ${EXAM_CONFIG.PASS_SCORE}) {
             document.getElementById('resScore').style.color = "#22c55e";
             document.getElementById('resText').innerHTML = "🎉 XUẤT SẮC ĐẠT CHUẨN! Bạn trả lời đúng " + rights + "/" + qCount + " câu, đạt " + score + "/${EXAM_CONFIG.MAX_SCORE} điểm.";
         } else {
             document.getElementById('resScore').style.color = "#FF5722";
-            var hint = mode === 'practice' ? " Hãy ôn lại các câu sai!" : " Hãy vào chế độ Ôn luyện để ôn câu sai!";
+            var hint = mode === 'practice' ? " Hãy ôn lại các câu sai!" : " Vào Ôn luyện để ôn câu sai!";
             document.getElementById('resText').innerHTML = "⚠️ CHƯA ĐẠT CHUẨN. Bạn đạt " + score + "/${EXAM_CONFIG.MAX_SCORE} điểm, cần đạt ${EXAM_CONFIG.PASS_SCORE} điểm." + hint;
         }
         document.getElementById('resBox').style.display = "flex";

@@ -1095,7 +1095,7 @@ export const IC3_LEVEL3 = [
       "x64-based PC"
     ],
 
-    answer: "81Y6",
+    answer: 2,
 
     explanation:
       "Trong cửa sổ System Information của Windows, mục 'System Model' hiển thị mã kiểu máy do nhà sản xuất quy định. Trong hình, giá trị của System Model là '81Y6', đây chính là Model Number của máy tính."
