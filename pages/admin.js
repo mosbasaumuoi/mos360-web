@@ -141,6 +141,16 @@ export function getAdminDashboardUI() {
 
 <script>
 var allStudents = [];
+var ADMIN_TOKEN = 'mos360admin2026';
+
+function adminFetch(url, options) {
+    options = options || {};
+    options.headers = options.headers || {};
+    options.headers['X-Admin-Token'] = ADMIN_TOKEN;
+    // Also add token to URL
+    var sep = url.includes('?') ? '&' : '?';
+    return fetch(url + sep + 'token=' + ADMIN_TOKEN, options);
+}
 
 function parseExpire(str) {
     if (!str) return null;
@@ -171,7 +181,7 @@ function statusBadge(expireStr) {
 
 async function getDeviceCount(phone, course) {
     try {
-        var res = await fetch('/api/admin/devices?phone=' + encodeURIComponent(phone) + '&course=' + encodeURIComponent(course));
+        var res = await adminFetch('/api/admin/devices?phone=' + encodeURIComponent(phone) + '&course=' + encodeURIComponent(course));
         var data = await res.json();
         return data.count || 0;
     } catch(e) { return '?'; }
@@ -180,7 +190,7 @@ async function getDeviceCount(phone, course) {
 async function loadDashboard() {
     document.getElementById('tableBody').innerHTML = '<tr><td colspan="8" style="padding:40px; text-align:center; color:#64748b;">Đang tải...</td></tr>';
     try {
-        var res = await fetch('/api/admin/students');
+        var res = await adminFetch('/api/admin/students');
         var data = await res.json();
         allStudents = data.students || [];
         updateStats();
@@ -276,7 +286,7 @@ async function submitRenew() {
     var parts = date.split('-');
     var expireFormatted = parts[2] + '/' + parts[1] + '/' + parts[0];
     try {
-        var res = await fetch('/api/admin/renew', {
+        var res = await adminFetch('/api/admin/renew', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ phone, course, expire: expireFormatted })
@@ -300,7 +310,7 @@ async function submitAddStudent() {
     var today = new Date();
     var dateFormatted = today.getDate() + '/' + (today.getMonth()+1) + '/' + today.getFullYear();
     try {
-        var res = await fetch('/api/admin/add-student', {
+        var res = await adminFetch('/api/admin/add-student', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ course, phone, date: dateFormatted, expire: expireFormatted })
@@ -317,7 +327,7 @@ async function submitAddStudent() {
 async function resetDevices(phone, course) {
     if (!confirm('Reset thiết bị cho ' + phone + ' - ' + course + '?')) return;
     try {
-        var res = await fetch('/api/admin/reset-devices', {
+        var res = await adminFetch('/api/admin/reset-devices', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ phone, course })
