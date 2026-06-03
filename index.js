@@ -1498,7 +1498,8 @@ async function triggerRemoteVerification(courseName) {
             leftCell.className = 'matching-row-left';
             if (key.match(/^ic3_lv\d+_q\d+_opt_/)) {
                 var imgEl = document.createElement('img');
-                imgEl.src = '${IMAGE_BASE_URL}' + (key.includes('lv1') ? 'ic3-level1/' : key.includes('lv2') ? 'ic3-level2/' : 'ic3-level3/') + key + '.svg';
+                var lvFolder = key.indexOf('lv1') >= 0 ? 'ic3-level1' : key.indexOf('lv2') >= 0 ? 'ic3-level2' : 'ic3-level3';
+                imgEl.src = 'https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/' + lvFolder + '/' + key + '.svg';
                 imgEl.style.cssText = 'max-width:100%; max-height:80px; object-fit:contain; border-radius:6px;';
                 imgEl.onerror = function() { this.style.display='none'; };
                 leftCell.appendChild(imgEl);
