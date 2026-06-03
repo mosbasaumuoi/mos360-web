@@ -659,11 +659,11 @@ export const IC3_LEVEL1 = [
   ],
 
   answer: {
-    "ic3_lv1_q29_opt_a": "Audio Port",
-    "ic3_lv1_q29_opt_b": "USB Port",
-    "ic3_lv1_q29_opt_c": "HDMI Port",
+    "ic3_lv1_q29_opt_a": "HDMI Port",
+    "ic3_lv1_q29_opt_b": "Ethernet Port",
+    "ic3_lv1_q29_opt_c": "Audio Port", 
     "ic3_lv1_q29_opt_d": "Display Port",
-    "ic3_lv1_q29_opt_e": "Ethernet Port"
+    "ic3_lv1_q29_opt_e": "USB Port"
   },
 
   explanation:
