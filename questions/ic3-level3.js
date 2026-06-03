@@ -103,7 +103,6 @@ export const IC3_LEVEL3 = [
     id: 10,
     level: "IC3_LEVEL3",
     category: "OPERATING_SYSTEM"
-    image_key: "ic3_lv2_q10_data",,
     image_key: "ic3_lv1_q10_operating_system",
     difficulty: "medium",
     type: "single",
@@ -378,7 +377,7 @@ export const IC3_LEVEL3 = [
     id: 30,
     level: "IC3_LEVEL3",
     category: "SECURITY"
-    image_key: "ic3_lv3_q30_software",,
+    image_key: "ic3_lv3_q30_software",
     image_key: "ic3_lv2_q30_hardware",
     difficulty: "medium",
     type: "single",
