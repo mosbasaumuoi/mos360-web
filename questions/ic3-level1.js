@@ -91,7 +91,6 @@ export const IC3_LEVEL1 = [
   {
     id: 5,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q05",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -156,7 +155,7 @@ export const IC3_LEVEL1 = [
   {
     id: 8,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q08",
+    image_key: "ic3_lv1_q08_hardware",
     test: 1,
     category: "HARDWARE",
     difficulty: "easy",
@@ -174,7 +173,6 @@ export const IC3_LEVEL1 = [
   {
     id: 9,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q09",
     test: 1,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -198,7 +196,9 @@ export const IC3_LEVEL1 = [
     id: 10,
     level: "IC3_LEVEL1",
     test: 1,
-    category: "OPERATING_SYSTEM",
+    category: "OPERATING_SYSTEM"
+    image_key: "ic3_lv2_q10_data",,
+    image_key: "ic3_lv1_q10_operating_system",
     difficulty: "medium",
     type: "matching",
     question: "Bạn cần xác định các chức năng do Hệ điều hành của máy tính quản lý. Với mỗi tác vụ dưới đây, hãy chọn Đúng hoặc Sai.",
@@ -224,7 +224,6 @@ export const IC3_LEVEL1 = [
   {
     id: 11,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q11",
     test: 1,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -251,7 +250,6 @@ export const IC3_LEVEL1 = [
   {
     id: 12,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q12",
     test: 1,
     category: "PRIVACY",
     difficulty: "medium",
@@ -343,6 +341,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "HARDWARE",
+    image_key: "ic3_lv3_q16_software",
     difficulty: "medium",
     type: "matching",
     question: "Xác định đúng chức năng của các thiết bị phần cứng sau bằng cách chọn Nhập (Input) hoặc Xuất (Output):",
@@ -371,6 +370,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "SOFTWARE",
+    image_key: "ic3_lv1_q17_software",
     difficulty: "medium",
     type: "single",
     question: "Đâu là câu phát biểu đúng về các ứng dụng dựa trên môi trường web (Web-based apps)?",
@@ -386,7 +386,6 @@ export const IC3_LEVEL1 = [
   {
     id: 18,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q18",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -411,6 +410,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "PRIVACY",
+    image_key: "ic3_lv3_q19_network",
     difficulty: "medium",
     type: "single",
     question: "Đâu là lợi ích của việc duyệt web \"ở chế độ riêng tư\" hoặc \"ẩn danh\"?",
@@ -426,9 +426,9 @@ export const IC3_LEVEL1 = [
   {
     id: 20,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q20",
     test: 1,
     category: "HARDWARE",
+    image_key: "ic3_lv3_q20_security",
     difficulty: "hard",
     type: "single",
     question: "Loại cáp nào có thể truyền dữ liệu với tốc độ lên đến 480 Megabit/giây (Mbps)?",
@@ -447,6 +447,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "SECURITY",
+    image_key: "ic3_lv1_q21_security",
     difficulty: "medium",
     type: "multiple",
     question: "Khi nào người dùng nên cân nhắc việc thay đổi mật khẩu của họ? (Chọn 3)",
@@ -467,7 +468,7 @@ export const IC3_LEVEL1 = [
   {
     id: 22,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q22",
+    image_key: "ic3_lv1_q22_security",
     test: 1,
     category: "SECURITY",
     difficulty: "medium",
@@ -516,7 +517,6 @@ export const IC3_LEVEL1 = [
   {
     id: 24,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q24",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -548,7 +548,7 @@ export const IC3_LEVEL1 = [
   {
     id: 25,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q25",
+    image_key: "ic3_lv1_q25_network",
     test: 1,
     category: "NETWORK",
     difficulty: "easy",
@@ -566,7 +566,6 @@ export const IC3_LEVEL1 = [
   {
     id: 26,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q26",
     test: 1,
     category: "SECURITY",
     difficulty: "medium",
@@ -612,6 +611,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "PRIVACY",
+    image_key: "ic3_lv2_q28_security",
     difficulty: "medium",
     type: "matching",
     question: "Bạn cần xác định thông tin nhận dạng cá nhân (PII - Personally Identifiable Information) mà bạn không nên để lộ công khai trên mạng. Với mỗi thông tin dưới đây, hãy chọn Có nếu đó là thông tin định danh cá nhân quan trọng, hoặc Không nếu không phải.",
@@ -673,7 +673,9 @@ export const IC3_LEVEL1 = [
     id: 30,
     level: "IC3_LEVEL1",
     test: 1,
-    category: "PRIVACY",
+    category: "PRIVACY"
+    image_key: "ic3_lv3_q30_software",,
+    image_key: "ic3_lv2_q30_hardware",
     difficulty: "easy",
     type: "single",
     question: "Bạn hãy cho biết, duyệt web ở chế độ riêng tư (ẩn danh) đảm bảo điều gì sau đây?",
@@ -709,6 +711,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "DIGITAL_CITIZENSHIP",
+    image_key: "ic3_lv1_q32_digital_citizenship",
     difficulty: "medium",
     type: "matching",
     question: "Là một người sử dụng máy tính có đạo đức, bạn cần xác định những ví dụ về cách hành xử đúng mực trên mạng (Netiquette) trong môi trường làm việc văn phòng. Với mỗi câu phát biểu, hãy chọn Có nếu đó là ví dụ về cách hành xử đúng mực hoặc Không nếu không phải.",
@@ -731,7 +734,6 @@ export const IC3_LEVEL1 = [
   {
     id: 33,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q33",
     test: 1,
     category: "SECURITY",
     difficulty: "medium",
@@ -766,7 +768,6 @@ export const IC3_LEVEL1 = [
   {
     id: 35,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q35",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -837,6 +838,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "HARDWARE",
+    image_key: "ic3_lv1_q38_hardware",
     difficulty: "hard",
     type: "matching",
     question: "Ghép từng thiết bị lưu trữ dữ liệu máy tính với định nghĩa tương ứng chính xác của nó:",
@@ -1031,7 +1033,6 @@ export const IC3_LEVEL1 = [
   {
     id: 45,
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q45",
     test: 1,
     category: "NETWORK",
     difficulty: "medium",
@@ -1078,7 +1079,6 @@ export const IC3_LEVEL1 = [
   {
     id: 47, // Tương ứng Câu 2 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q47",
     test: 2,
     category: "SOFTWARE",
     difficulty: "easy",
@@ -1177,7 +1177,7 @@ export const IC3_LEVEL1 = [
   {
     id: 52, // Tương ứng Câu 7 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q52",
+    image_key: "ic3_lv1_q52_software",
     test: 2,
     category: "OPERATING_SYSTEM",
     difficulty: "hard",
@@ -1229,7 +1229,6 @@ export const IC3_LEVEL1 = [
   {
     id: 55, // Tương ứng Câu 10 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q55",
     test: 2,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -1322,7 +1321,6 @@ export const IC3_LEVEL1 = [
   {
     id: 60, // Tương ứng Câu 15 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q60",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -1438,7 +1436,6 @@ export const IC3_LEVEL1 = [
   {
     id: 65, // Tương ứng Câu 20 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q65",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",
@@ -1515,7 +1512,6 @@ export const IC3_LEVEL1 = [
   {
     id: 68, // Tương ứng Câu 23 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q68",
     test: 2,
     category: "OPERATING_SYSTEM",
     difficulty: "medium",
@@ -1575,7 +1571,6 @@ export const IC3_LEVEL1 = [
   {
     id: 71, // Tương ứng Câu 26 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q71",
     test: 2,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -1619,7 +1614,6 @@ export const IC3_LEVEL1 = [
   {
     id: 73, // Tương ứng Câu 28 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q73",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",
@@ -1666,7 +1660,6 @@ export const IC3_LEVEL1 = [
   {
     id: 75, // Tương ứng Câu 30 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q75",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -1709,7 +1702,6 @@ export const IC3_LEVEL1 = [
   {
     id: 77, // Tương ứng Câu 32 - Test 2
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q77",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",
@@ -2077,7 +2069,6 @@ export const IC3_LEVEL1 = [
   {
     id: 94, // Tương ứng Test 1 - Câu 35
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q94",
     test: 1,
     category: "SOFTWARE",
     difficulty: "medium",
@@ -2253,7 +2244,6 @@ export const IC3_LEVEL1 = [
   {
     id: 101, // Tương ứng Test 1 - Câu 43
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q101",
     test: 1,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "hard",
@@ -2330,7 +2320,6 @@ export const IC3_LEVEL1 = [
   {
     id: 104, // Quay lại dứt điểm phần câu hỏi thiếu sót của Test 2 - Câu 31 (Modem/Mạng)
     level: "IC3_LEVEL1",
-    image_key: "ic3_lv1_q104",
     test: 2,
     category: "HARDWARE",
     difficulty: "medium",

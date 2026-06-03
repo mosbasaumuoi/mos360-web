@@ -60,7 +60,7 @@ const EXAM_CONFIG = {
     PASS_SCORE: 700,
     MAX_SCORE: 1000,
 
-    TRIAL_DURATION: 6
+    TRIAL_DURATION: 10
 };
 
 const DEVICE_CONFIG = {
@@ -69,67 +69,63 @@ const DEVICE_CONFIG = {
 
 const IMAGE_BASE_URL = "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/";
 const IMAGE_MAP = {
-    // IC3 LEVEL 1 — ảnh minh họa câu hỏi
-    "ic3_lv1_q08":  "ic3-level1/ic3_lv1_q08_hardware.svg",
-    "ic3_lv1_q09":  "ic3-level1/ic3_lv1_q09_hardware.svg",
-    "ic3_lv1_q20":  "ic3-level1/ic3_lv1_q20_operating_system.svg",
-    "ic3_lv1_q22":  "ic3-level1/ic3_lv1_q22_security.svg",
-    "ic3_lv1_q26":  "ic3-level1/ic3_lv1_q26_software.svg",
-    "ic3_lv1_q28":  "ic3-level1/ic3_lv1_q28_sysinfo.svg",
-    "ic3_lv1_q35":  "ic3-level1/ic3_lv1_q35_network.svg",
-    "ic3_lv1_q47":  "ic3-level1/ic3_lv1_q47_data.svg",
-    "ic3_lv1_q65":  "ic3-level1/ic3_lv1_q65_software.svg",
-    "ic3_lv1_q73":  "ic3-level1/ic3_lv1_q73_security.svg",
-    "ic3_lv1_q101": "ic3-level1/ic3_lv1_q101_digital_citizenship.svg",
-    // IC3 LEVEL 1 — ảnh options image-select câu 7 (5 opt)
+    // IC3 LEVEL 1 — ảnh minh họa
+    "ic3_lv1_q08_hardware": "ic3-level1/ic3_lv1_q08_hardware.svg",
+    "ic3_lv1_q10_operating_system": "ic3-level1/ic3_lv1_q10_operating_system.svg",
+    "ic3_lv1_q17_software": "ic3-level1/ic3_lv1_q17_software.svg",
+    "ic3_lv1_q21_security": "ic3-level1/ic3_lv1_q21_security.svg",
+    "ic3_lv1_q22_security": "ic3-level1/ic3_lv1_q22_security.svg",
+    "ic3_lv1_q25_network": "ic3-level1/ic3_lv1_q25_network.svg",
+    "ic3_lv1_q32_digital_citizenship": "ic3-level1/ic3_lv1_q32_digital_citizenship.svg",
+    "ic3_lv1_q38_hardware": "ic3-level1/ic3_lv1_q38_hardware.svg",
+    "ic3_lv1_q41_software": "ic3-level1/ic3_lv1_q41_software.svg",
+    "ic3_lv1_q52_software": "ic3-level1/ic3_lv1_q52_software.svg",
+    "ic3_lv1_q53_data": "ic3-level1/ic3_lv1_q53_data.svg",
+    // IC3 LEVEL 1 — ảnh options image-select
     "ic3_lv1_q07_opt_a": "ic3-level1/ic3_lv1_q07_opt_a.svg",
     "ic3_lv1_q07_opt_b": "ic3-level1/ic3_lv1_q07_opt_b.svg",
     "ic3_lv1_q07_opt_c": "ic3-level1/ic3_lv1_q07_opt_c.svg",
     "ic3_lv1_q07_opt_d": "ic3-level1/ic3_lv1_q07_opt_d.svg",
     "ic3_lv1_q07_opt_e": "ic3-level1/ic3_lv1_q07_opt_e.svg",
-    // câu 14 (4 opt)
     "ic3_lv1_q14_opt_a": "ic3-level1/ic3_lv1_q14_opt_a.svg",
     "ic3_lv1_q14_opt_b": "ic3-level1/ic3_lv1_q14_opt_b.svg",
     "ic3_lv1_q14_opt_c": "ic3-level1/ic3_lv1_q14_opt_c.svg",
     "ic3_lv1_q14_opt_d": "ic3-level1/ic3_lv1_q14_opt_d.svg",
-    // câu 29 (5 opt)
     "ic3_lv1_q29_opt_a": "ic3-level1/ic3_lv1_q29_opt_a.svg",
     "ic3_lv1_q29_opt_b": "ic3-level1/ic3_lv1_q29_opt_b.svg",
     "ic3_lv1_q29_opt_c": "ic3-level1/ic3_lv1_q29_opt_c.svg",
     "ic3_lv1_q29_opt_d": "ic3-level1/ic3_lv1_q29_opt_d.svg",
     "ic3_lv1_q29_opt_e": "ic3-level1/ic3_lv1_q29_opt_e.svg",
-    // câu 41 (4 opt)
     "ic3_lv1_q41_opt_a": "ic3-level1/ic3_lv1_q41_opt_a.svg",
     "ic3_lv1_q41_opt_b": "ic3-level1/ic3_lv1_q41_opt_b.svg",
     "ic3_lv1_q41_opt_c": "ic3-level1/ic3_lv1_q41_opt_c.svg",
     "ic3_lv1_q41_opt_d": "ic3-level1/ic3_lv1_q41_opt_d.svg",
-    // câu 106 (3 opt)
     "ic3_lv1_q106_opt_a": "ic3-level1/ic3_lv1_q106_opt_a.svg",
     "ic3_lv1_q106_opt_b": "ic3-level1/ic3_lv1_q106_opt_b.svg",
     "ic3_lv1_q106_opt_c": "ic3-level1/ic3_lv1_q106_opt_c.svg",
     // IC3 LEVEL 2 — ảnh minh họa
-    "ic3_lv2_q01":  "ic3-level2/ic3_lv2_q01_hardware.svg",
-    "ic3_lv2_q04":  "ic3-level2/ic3_lv2_q04_software.svg",
-    "ic3_lv2_q17":  "ic3-level2/ic3_lv2_q17_network.svg",
-    "ic3_lv2_q19":  "ic3-level2/ic3_lv2_q19_data.svg",
-    "ic3_lv2_q21":  "ic3-level2/ic3_lv2_q21_security.svg",
-    "ic3_lv2_q34":  "ic3-level2/ic3_lv2_q34_data.svg",
-    "ic3_lv2_q42":  "ic3-level2/ic3_lv2_q42_software.svg",
-    "ic3_lv2_q50":  "ic3-level2/ic3_lv2_q50_security.svg",
-    "ic3_lv2_q61":  "ic3-level2/ic3_lv2_q61_hardware.svg",
-    "ic3_lv2_q105": "ic3-level2/ic3_lv2_q105_network.svg",
+    "ic3_lv2_q10_data": "ic3-level2/ic3_lv2_q10_data.svg",
+    "ic3_lv2_q21_data": "ic3-level2/ic3_lv2_q21_data.svg",
+    "ic3_lv2_q28_security": "ic3-level2/ic3_lv2_q28_security.svg",
+    "ic3_lv2_q30_hardware": "ic3-level2/ic3_lv2_q30_hardware.svg",
+    "ic3_lv2_q47_hardware": "ic3-level2/ic3_lv2_q47_hardware.svg",
     // IC3 LEVEL 3 — ảnh minh họa
-    "ic3_lv3_q35":  "ic3-level3/ic3_lv3_q35_iot.svg",
-    "ic3_lv3_q41":  "ic3-level3/ic3_lv3_q41_network.svg",
-    "ic3_lv3_q43":  "ic3-level3/ic3_lv3_q43_network.svg",
-    "ic3_lv3_q46":  "ic3-level3/ic3_lv3_q46_cloud.svg",
-    "ic3_lv3_q48":  "ic3-level3/ic3_lv3_q48_cloud.svg",
-    "ic3_lv3_q52":  "ic3-level3/ic3_lv3_q52_security.svg",
-    "ic3_lv3_q59":  "ic3-level3/ic3_lv3_q59_network.svg",
-    "ic3_lv3_q66":  "ic3-level3/ic3_lv3_q66_security.svg",
-    "ic3_lv3_q75":  "ic3-level3/ic3_lv3_q75_tech.svg",
-    "ic3_lv3_q82":  "ic3-level3/ic3_lv3_q82_ai.svg",
-    "ic3_lv3_q86":  "ic3-level3/ic3_lv3_q86_sysinfo.svg",
+    "ic3_lv3_q16_software": "ic3-level3/ic3_lv3_q16_software.svg",
+    "ic3_lv3_q19_network": "ic3-level3/ic3_lv3_q19_network.svg",
+    "ic3_lv3_q20_security": "ic3-level3/ic3_lv3_q20_security.svg",
+    "ic3_lv3_q30_software": "ic3-level3/ic3_lv3_q30_software.svg",
+    "ic3_lv3_q35_iot": "ic3-level3/ic3_lv3_q35_iot.svg",
+    "ic3_lv3_q41_network": "ic3-level3/ic3_lv3_q41_network.svg",
+    "ic3_lv3_q43_network": "ic3-level3/ic3_lv3_q43_network.svg",
+    "ic3_lv3_q46_cloud": "ic3-level3/ic3_lv3_q46_cloud.svg",
+    "ic3_lv3_q48_cloud": "ic3-level3/ic3_lv3_q48_cloud.svg",
+    "ic3_lv3_q52_security": "ic3-level3/ic3_lv3_q52_security.svg",
+    "ic3_lv3_q59_network": "ic3-level3/ic3_lv3_q59_network.svg",
+    "ic3_lv3_q66_security": "ic3-level3/ic3_lv3_q66_security.svg",
+    "ic3_lv3_q72_network": "ic3-level3/ic3_lv3_q72_network.svg",
+    "ic3_lv3_q75_tech": "ic3-level3/ic3_lv3_q75_tech.svg",
+    "ic3_lv3_q82_ai": "ic3-level3/ic3_lv3_q82_ai.svg",
+    "ic3_lv3_q86_sysinfo": "ic3-level3/ic3_lv3_q86_sysinfo.svg",
 };
 
 export default {
@@ -1085,11 +1081,11 @@ async function triggerRemoteVerification(courseName) {
             document.getElementById('lock-exam').textContent = "🔓 Thi thử thực chiến – 50 phút, tính điểm chuẩn Certiport";
             document.getElementById('lock-exam').style.color = "#00f2ff";
         } else {
-            document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 6 phút";
+            document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 10 phút";
             document.getElementById('modeWelcomeTxt').style.color = "#FF5722";
-            document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 6 phút, có giải thích";
+            document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 10 phút, có giải thích";
             document.getElementById('lock-practice').style.color = "#ffaa80";
-            document.getElementById('lock-exam').textContent = "⏱️ Thi thử dùng thử – Giới hạn 6 phút";
+            document.getElementById('lock-exam').textContent = "⏱️ Thi thử dùng thử – Giới hạn 10 phút";
             document.getElementById('lock-exam').style.color = "#ffaa80";
         }
         // Hiện nút ôn câu sai từ lần thi nếu có data
@@ -1103,13 +1099,13 @@ async function triggerRemoteVerification(courseName) {
     }
 
     function launchEngine(chosenMode) {
-        // Kiểm tra cooldown học thử (2 tiếng) cho người chưa đăng nhập
+        // Kiểm tra cooldown học thử (1 tiếng) cho người chưa đăng nhập
         if (!isVerified) {
             var cooldownKey = 'mos360_trial_last_${courseType}';
             var lastTrial = localStorage.getItem(cooldownKey);
             if (lastTrial) {
                 var elapsed = Date.now() - parseInt(lastTrial);
-                var cooldownMs = 2 * 60 * 60 * 1000; // 2 tiếng
+                var cooldownMs = 1 * 60 * 60 * 1000; // 1 tiếng
                 if (elapsed < cooldownMs) {
                     var remaining = Math.ceil((cooldownMs - elapsed) / 60000);
                     var hrs = Math.floor(remaining / 60);
