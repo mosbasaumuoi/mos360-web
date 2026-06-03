@@ -70,7 +70,7 @@ const DEVICE_CONFIG = {
 const IMAGE_BASE_URL = "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/";
 const IMAGE_MAP = {
     // IC3 LEVEL 1 — ảnh minh họa câu hỏi
-    "ic3_lv1_q08":  "ic3-level1/ic3_lv1_q08_hardware.svg",
+    "ic3_lv1_q08_hardware":  "ic3-level1/ic3_lv1_q08_hardware.svg",
     "ic3_lv1_q09":  "ic3-level1/ic3_lv1_q09_hardware.svg",
     "ic3_lv1_q20":  "ic3-level1/ic3_lv1_q20_operating_system.svg",
     "ic3_lv1_q22":  "ic3-level1/ic3_lv1_q22_security.svg",
@@ -119,8 +119,8 @@ const IMAGE_MAP = {
     "ic3_lv2_q61":  "ic3-level2/ic3_lv2_q61_hardware.svg",
     "ic3_lv2_q105": "ic3-level2/ic3_lv2_q105_network.svg",
     // IC3 LEVEL 3 — ảnh minh họa
-    "ic3_lv3_q35":  "ic3-level3/ic3_lv3_q35_iot.svg",
-    "ic3_lv3_q41":  "ic3-level3/ic3_lv3_q41_network.svg",
+    "ic3_lv3_q35_iot":  "ic3-level3/ic3_lv3_q35_iot.svg",
+    "ic3_lv3_q41_network":  "ic3-level3/ic3_lv3_q41_network.svg",
     "ic3_lv3_q43":  "ic3-level3/ic3_lv3_q43_network.svg",
     "ic3_lv3_q46":  "ic3-level3/ic3_lv3_q46_cloud.svg",
     "ic3_lv3_q48":  "ic3-level3/ic3_lv3_q48_cloud.svg",
@@ -129,7 +129,7 @@ const IMAGE_MAP = {
     "ic3_lv3_q66":  "ic3-level3/ic3_lv3_q66_security.svg",
     "ic3_lv3_q75":  "ic3-level3/ic3_lv3_q75_tech.svg",
     "ic3_lv3_q82":  "ic3-level3/ic3_lv3_q82_ai.svg",
-    "ic3_lv3_q86":  "ic3-level3/ic3_lv3_q86_sysinfo.svg",
+    "ic3_lv3_q86_sysinfo":  "ic3-level3/ic3_lv3_q86_sysinfo.svg",
 };
 
 export default {
