@@ -197,7 +197,7 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "OPERATING_SYSTEM",
-    image_key: "ic3_lv1_q10_operating_system",
+    image_key: "ic3_lv1_q14_opt_a",
     difficulty: "medium",
     type: "matching",
     question: "Bạn cần xác định các chức năng do Hệ điều hành của máy tính quản lý. Với mỗi tác vụ dưới đây, hãy chọn Đúng hoặc Sai.",
