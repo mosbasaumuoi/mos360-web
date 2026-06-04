@@ -1725,7 +1725,7 @@ async function triggerRemoteVerification(courseName) {
     }
 
     function goToFlashcard() {
-        var url = courseType === 'IC3 GS6' ? '/flashcard-ic3' : '/flashcard-ai';
+        var url = '${courseType}' === 'IC3 GS6' ? '/flashcard-ic3' : '/flashcard-ai';
         window.location.href = url;
     }
 
