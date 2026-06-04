@@ -1139,7 +1139,7 @@ async function triggerRemoteVerification(courseName) {
         list = [];
         for (var i = 0; i < selected.length; i++) {
             var b = selected[i];
-            list.push({ q: "[Câu " + (i+1) + "] " + b.q, options: b.o ? b.o.slice() : [], o_right: b.o_right || [], c: b.c, e: b.e, t: b.t, img: b.img || "" });
+            list.push({ q: "[Câu " + (i+1) + "] " + b.q, options: b.o ? b.o.slice() : [], o_left: b.o_left || [], o_right: b.o_right || [], c: b.c, e: b.e, t: b.t, img: b.img || "" });            
         }
         qCount = list.length;
         userAns = list.map(function(q) { return Array.isArray(q.c) ? [] : null; });
@@ -1469,7 +1469,7 @@ async function triggerRemoteVerification(courseName) {
 
     // ===== MATCHING =====
     function renderMatching(q, area, confirmed) {
-        var leftKeys = Object.keys(q.c);
+        var leftKeys = (q.o_left && q.o_left.length) ? q.o_left : Object.keys(q.c);
         var rightTexts = q.o_right && q.o_right.length ? q.o_right : q.options;
         var firstVal = q.c[leftKeys[0]];
         var isTextAnswer = typeof firstVal === 'string';
