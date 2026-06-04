@@ -1503,10 +1503,9 @@ async function triggerRemoteVerification(courseName) {
             leftCell.className = 'matching-row-left';
             if (key.startsWith('http') || key.startsWith('https')) {
                 var imgEl = document.createElement('img');
-                var lvFolder = key.indexOf('lv1') >= 0 ? 'ic3-level1' : key.indexOf('lv2') >= 0 ? 'ic3-level2' : 'ic3-level3';
-                imgEl.src = 'https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/' + lvFolder + '/' + key + '.svg';
+                imgEl.src = key;  // ← dùng thẳng key luôn
                 imgEl.style.cssText = 'max-width:100%; max-height:80px; object-fit:contain; border-radius:6px;';
-                imgEl.onerror = function() { this.alt = 'Lỗi ảnh: ' + this.src; };
+                imgEl.alt = '';
                 leftCell.appendChild(imgEl);
             } else {
                 leftCell.innerHTML = '<span class="matching-dot"></span>' + key;
