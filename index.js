@@ -1359,6 +1359,11 @@ async function triggerRemoteVerification(courseName) {
             imgWrap.innerHTML = '';
             imgWrap.appendChild(imgEl);
             imgWrap.style.display = 'flex';
+            // Câu 86 cần ảnh to hơn để đọc thông tin
+            if (q.img.indexOf('q86') >= 0) {
+                imgWrap.style.maxHeight = '380px';
+                imgEl.style.maxHeight = '380px';
+            }
         } else {
             imgWrap.innerHTML = '';
             imgWrap.style.display = 'none';
