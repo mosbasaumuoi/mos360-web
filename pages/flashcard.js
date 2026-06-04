@@ -197,6 +197,29 @@ function renderCard() {
     if (q.img) { imgEl.src = q.img; imgEl.style.display = 'block'; }
     else { imgEl.style.display = 'none'; }
 
+    // Hiện ảnh nếu có
+    var fcImg = document.getElementById('fcImg');
+    if (q.img) {
+        fcImg.src = q.img;
+        fcImg.style.display = 'block';
+    } else {
+        fcImg.style.display = 'none';
+    }
+
+    // Hiện ảnh matching trong mặt sau
+    var fcOpts = document.getElementById('fcOptions');
+    fcOpts.innerHTML = '';
+    if (q.t === 'matching' && q.o_left && q.o_left.length) {
+        q.o_left.forEach(function(imgUrl, i) {
+            if (imgUrl && imgUrl.startsWith('http')) {
+                var img = document.createElement('img');
+                img.src = imgUrl;
+                img.style.cssText = 'width:60px; height:60px; object-fit:contain; border-radius:6px; margin:4px;';
+                fcOpts.appendChild(img);
+            }
+        });
+    }
+
     // Back
     document.getElementById('fcAnswer').textContent = getCorrectText(q);
     document.getElementById('fcExplanation').textContent = q.e || '';
