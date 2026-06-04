@@ -500,7 +500,7 @@ export default {
                   cho sinh viên
               </div>
               <ul class="highlight-list">
-                  <li>Học thật, tiến bộ thật</li>
+                  <li>Học thật, tiến bộ thật, làm được thật</li>
                   <li>Thi thật 100%</li>
                   <li>Đồng hành trọn đời</li>
               </ul>
