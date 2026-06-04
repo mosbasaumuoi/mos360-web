@@ -776,7 +776,7 @@ async function triggerRemoteVerification(courseName) {
                 return {
                     q: item.question,
                     o: options,
-                    o_left: item.left || [],
+                    o_left: (item.left || []).map(k => IMAGE_MAP[k] ? IMAGE_BASE_URL + IMAGE_MAP[k] : k),
                     o_right: item.right || [],
                     c: item.answer,
                     e: item.explanation || "",
@@ -1501,7 +1501,7 @@ async function triggerRemoteVerification(courseName) {
             // LEFT cell
             var leftCell = document.createElement('div');
             leftCell.className = 'matching-row-left';
-            if (key.match(/^ic3_lv\d+_q\d+_opt_/)) {
+            if (key.startsWith('http') || key.startsWith('https')) {
                 var imgEl = document.createElement('img');
                 var lvFolder = key.indexOf('lv1') >= 0 ? 'ic3-level1' : key.indexOf('lv2') >= 0 ? 'ic3-level2' : 'ic3-level3';
                 imgEl.src = 'https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/' + lvFolder + '/' + key + '.svg';
