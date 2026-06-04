@@ -21,10 +21,10 @@ body { background:#08090e; color:#e2e8f0; min-height:100vh; display:flex; flex-d
 header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); padding:14px 20px; display:flex; align-items:center; justify-content:space-between; }
 .fc-container { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; }
 .fc-progress { font-size:0.8rem; color:#64748b; font-weight:700; margin-bottom:16px; letter-spacing:0.5px; }
-.fc-card-wrap { width:100%; max-width:600px; perspective:1000px; cursor:pointer; }
-.fc-card { width:100%; min-height:320px; position:relative; transform-style:preserve-3d; transition:transform 0.5s ease; border-radius:20px; }
+.fc-card-wrap { width:100%; max-width:600px; perspective:1000px; cursor:pointer; min-height:60vh; }
+.fc-card { width:100%; min-height:60vh; position:relative; transform-style:preserve-3d; transition:transform 0.5s ease; border-radius:20px; }
 .fc-card.flipped { transform:rotateY(180deg); }
-.fc-front, .fc-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:20px; padding:28px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px; }
+.fc-front, .fc-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:20px; padding:28px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px; overflow-y:auto; max-height:60vh; }
 .fc-front { background:#161927; border:2px solid rgba(0,242,255,0.2); }
 .fc-back { background:#131c2e; border:2px solid rgba(34,197,94,0.3); transform:rotateY(180deg); }
 .fc-hint { font-size:0.75rem; color:#384260; font-weight:700; letter-spacing:0.5px; margin-bottom:12px; }
@@ -134,7 +134,11 @@ function shuffleArray(arr) {
 
 function getCorrectText(q) {
     if (q.t === 'matching') {
-        return Object.entries(q.c).map(function(e){ return e[0] + ' → ' + e[1]; }).join(', ');
+        // Hiện text đáp án thay vì key ảnh
+        return Object.entries(q.c).map(function(e){ 
+            var leftLabel = e[0].match(/^ic3_lv\d+_q\d+_opt_/) ? '(hình ' + e[0].slice(-1).toUpperCase() + ')' : e[0];
+            return leftLabel + ' → ' + e[1]; 
+        }).join(', ');
     }
     if (Array.isArray(q.c)) {
         if (q.o && q.o.length) return q.c.map(function(i){ return q.o[i]; }).join(', ');
