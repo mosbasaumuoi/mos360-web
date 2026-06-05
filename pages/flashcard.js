@@ -3,6 +3,10 @@ export function getFlashcardUI(courseType, questionBank, imageBaseUrl, imageMap)
         questionBank.map(item => ({
             q: item.question,
             o: item.options || [],
+            o_left: (item.left || []).map(k =>
+                imageMap[k] ? imageBaseUrl + imageMap[k] : k
+            ),
+            o_right: item.right || [],
             c: item.answer,
             e: item.explanation || "",
             t: item.type || "single",
