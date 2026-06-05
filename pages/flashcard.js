@@ -130,18 +130,13 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
 <script>
 var fullBank = ${bankJSON};
 
-// DEBUG: log tất cả câu image-select và matching ngay khi load — xóa sau khi fix
+// DEBUG: log image-select url để kiểm tra
 (function() {
     var imgSel = fullBank.filter(function(q){ return q.t === 'image-select'; });
-    var matching = fullBank.filter(function(q){ return q.t === 'matching'; });
     if (imgSel.length) {
-        console.log('[DEBUG] image-select count:', imgSel.length);
-        console.log('[DEBUG] image-select o[0] sample:', JSON.stringify(imgSel[0].o));
-        console.log('[DEBUG] image-select o[0] keys:', imgSel[0].o && imgSel[0].o[0] ? Object.keys(imgSel[0].o[0]) : typeof imgSel[0].o[0]);
-    }
-    if (matching.length) {
-        console.log('[DEBUG] matching count:', matching.length);
-        console.log('[DEBUG] matching o_left sample:', JSON.stringify(matching[0].o_left));
+        console.log('[DEBUG] image-select o[0] full:', JSON.stringify(imgSel[0].o[0]));
+        console.log('[DEBUG] image-select o[0].url:', imgSel[0].o[0] && imgSel[0].o[0].url);
+        console.log('[DEBUG] image-select o[0].label:', imgSel[0].o[0] && imgSel[0].o[0].label);
     }
 })();
 
