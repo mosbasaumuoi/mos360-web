@@ -91,8 +91,8 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
             <div class="fc-front">
                 <div class="fc-hint">NHẤN ĐỂ XEM ĐÁP ÁN</div>
                 <img id="fcImg" class="fc-img" style="display:none;" src="" alt="">
-                <div class="fc-question" id="fcQuestion">Đang tải...</div>
                 <div class="fc-matching-imgs" id="fcMatchingImages"></div>
+                <div class="fc-question" id="fcQuestion">Đang tải...</div>
             </div>
             <div class="fc-back">
                 <div class="fc-answer-label">✅ ĐÁP ÁN</div>
@@ -216,6 +216,9 @@ function renderCard() {
     document.getElementById('fcCard').classList.remove('flipped');
     document.getElementById('fcProgress').textContent = 'Câu ' + (cur+1) + ' / ' + deck.length;
 
+    // Reset justify-content về center cho mọi loại câu
+    document.querySelector('.fc-front').style.justifyContent = 'center';
+
     // Front: câu hỏi + ảnh đơn
     document.getElementById('fcQuestion').textContent = q.q;
     var imgEl = document.getElementById('fcImg');
@@ -239,6 +242,8 @@ function renderCard() {
             }
         });
     } else if (q.t === 'image-select' && q.o && q.o.length) {
+        // Đổi justify-content để ảnh không bị đẩy ra ngoài
+        document.querySelector('.fc-front').style.justifyContent = 'flex-start';
         // Mặt trước: hiện lưới ảnh + label bên dưới
         var grid = document.createElement('div');
         grid.style.cssText = 'display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;';
