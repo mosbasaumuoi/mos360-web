@@ -332,16 +332,18 @@ function renderCard() {
         var correct = Array.isArray(q.c) ? q.c : [q.c];
         var grid = document.createElement('div');
         grid.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px;';
-        q.o.forEach(function(imgUrl, i) {
+        q.o.forEach(function(opt, i) {
             var isCorrect = correct.indexOf(i) >= 0;
+            var imgUrl = typeof opt === 'object' ? opt.url : opt;
+            var imgLabel = typeof opt === 'object' ? (opt.label || '') : '';
             var wrapper = document.createElement('div');
             wrapper.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px;';
             var img = document.createElement('img');
             img.src = imgUrl;
             img.style.cssText = 'width:80px; height:80px; object-fit:contain; border-radius:8px; border:2px solid ' + (isCorrect ? '#22c55e' : '#29304a') + '; background:#1e2235;';
             var label = document.createElement('span');
-            label.textContent = String.fromCharCode(65+i);
-            label.style.cssText = 'font-size:0.75rem; font-weight:800; color:' + (isCorrect ? '#22c55e' : '#64748b') + ';';
+            label.textContent = String.fromCharCode(65+i) + (imgLabel ? ' ' + imgLabel : '');
+            label.style.cssText = 'font-size:0.72rem; font-weight:800; color:' + (isCorrect ? '#22c55e' : '#64748b') + '; text-align:center; max-width:88px;';
             wrapper.appendChild(img);
             wrapper.appendChild(label);
             grid.appendChild(wrapper);
