@@ -143,10 +143,8 @@ function shuffleArray(arr) {
 
 function getCorrectText(q) {
     if (q.t === 'matching') {
-        return Object.entries(q.c).map(function(e){ 
-            var leftLabel = e[0].match(/^ic3_lv\d+_q\d+_opt_/) ? '(hình ' + e[0].slice(-1).toUpperCase() + ')' : e[0];
-            return leftLabel + ' → ' + e[1]; 
-        }).join(', ');
+        // Mặt sau dùng renderMatchingBack() để hiện ảnh+text, ở đây chỉ trả chuỗi đơn giản
+        return '';
     }
     if (q.t === 'image-select') {
         var correct = Array.isArray(q.c) ? q.c : [q.c];
@@ -209,7 +207,7 @@ function renderCard() {
     if (q.img) { imgEl.src = q.img; imgEl.style.display = 'block'; }
     else { imgEl.style.display = 'none'; }
 
-    // Front: ảnh matching (o_left) hiện ở mặt trước
+    // Front: ảnh matching / image-select hiện ở mặt trước
     var matchImgsDiv = document.getElementById('fcMatchingImages');
     matchImgsDiv.innerHTML = '';
     if (q.t === 'matching' && q.o_left && q.o_left.length) {
@@ -225,10 +223,39 @@ function renderCard() {
                 matchImgsDiv.appendChild(span);
             }
         });
+    } else if (q.t === 'image-select' && q.o && q.o.length) {
+        // Debug: kiểm tra URL ảnh (xóa sau khi fix xong)
+        console.log('[image-select] o =', q.o);
+        // Mặt trước: hiện tất cả ảnh options dạng lưới (chưa biết đúng sai)
+        var grid = document.createElement('div');
+        grid.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px;';
+        q.o.forEach(function(imgUrl, i) {
+            var wrapper = document.createElement('div');
+            wrapper.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px;';
+            var img = document.createElement('img');
+            img.src = imgUrl;
+            img.style.cssText = 'width:80px; height:80px; object-fit:contain; border-radius:8px; border:1px solid rgba(0,242,255,0.2); background:#1e2235;';
+            var label = document.createElement('span');
+            label.textContent = String.fromCharCode(65+i);
+            label.style.cssText = 'font-size:0.75rem; font-weight:800; color:#64748b;';
+            wrapper.appendChild(img);
+            wrapper.appendChild(label);
+            grid.appendChild(wrapper);
+        });
+        matchImgsDiv.appendChild(grid);
     }
 
     // Back: đáp án + giải thích
-    document.getElementById('fcAnswer').textContent = getCorrectText(q);
+    var answerEl = document.getElementById('fcAnswer');
+    var answerText = getCorrectText(q);
+    if (q.t === 'matching' || q.t === 'image-select') {
+        // dùng ảnh ở fcOptions, ẩn text fcAnswer
+        answerEl.textContent = '';
+        answerEl.style.display = 'none';
+    } else {
+        answerEl.style.display = '';
+        answerEl.textContent = answerText;
+    }
     document.getElementById('fcExplanation').textContent = q.e || '';
 
     // Back: options hint
@@ -241,6 +268,40 @@ function renderCard() {
             div.className = 'fc-opt' + (isCorrect ? ' correct' : '');
             div.innerHTML = '<span style="font-weight:800;">' + String.fromCharCode(65+i) + '.</span>' + opt;
             optsDiv.appendChild(div);
+        });
+    } else if (q.t === 'matching' && q.o_left && q.o_left.length) {
+        // Render từng cặp: ảnh/text bên trái → text bên phải
+        var correct = q.c || {};
+        q.o_left.forEach(function(leftVal, i) {
+            var rightKeys = Object.keys(correct);
+            // tìm key tương ứng với index i (key có dạng opt_a, opt_b,...)
+            var matchKey = rightKeys[i] || '';
+            var rightVal = correct[matchKey] || '';
+            var row = document.createElement('div');
+            row.style.cssText = 'display:flex; align-items:center; gap:10px; margin-bottom:8px; background:#1e2235; border-radius:8px; padding:8px 10px;';
+            // Left: ảnh hoặc text
+            if (leftVal && leftVal.startsWith('http')) {
+                var img = document.createElement('img');
+                img.src = leftVal;
+                img.style.cssText = 'width:60px; height:60px; object-fit:contain; border-radius:6px; flex-shrink:0;';
+                row.appendChild(img);
+            } else {
+                var span = document.createElement('span');
+                span.textContent = leftVal || ('Hình ' + String.fromCharCode(65+i));
+                span.style.cssText = 'font-size:0.85rem; color:#94a3b8; min-width:60px; text-align:center;';
+                row.appendChild(span);
+            }
+            // Arrow
+            var arrow = document.createElement('span');
+            arrow.textContent = '→';
+            arrow.style.cssText = 'color:#22c55e; font-weight:800; font-size:1rem;';
+            row.appendChild(arrow);
+            // Right: tên gọi
+            var rightSpan = document.createElement('span');
+            rightSpan.textContent = rightVal;
+            rightSpan.style.cssText = 'font-size:0.88rem; color:#fff; font-weight:600;';
+            row.appendChild(rightSpan);
+            optsDiv.appendChild(row);
         });
     } else if (q.t === 'image-select' && q.o && q.o.length) {
         var correct = Array.isArray(q.c) ? q.c : [q.c];
