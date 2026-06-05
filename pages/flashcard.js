@@ -2,7 +2,9 @@ export function getFlashcardUI(courseType, questionBank, imageBaseUrl, imageMap)
     const bankJSON = JSON.stringify(
         questionBank.map(item => ({
             q: item.question,
-            o: item.options || [],
+            o: item.type === 'image-select'
+                ? (item.options || []).map(k => imageMap[k] ? imageBaseUrl + imageMap[k] : k)
+                : item.options || [],
             o_left: (item.left || []).map(k =>
                 imageMap[k] ? imageBaseUrl + imageMap[k] : k
             ),
@@ -31,6 +33,8 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
 .fc-front, .fc-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:20px; padding:28px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:320px; overflow-y:auto; max-height:60vh; }
 .fc-front { background:#161927; border:2px solid rgba(0,242,255,0.2); }
 .fc-back { background:#131c2e; border:2px solid rgba(34,197,94,0.3); transform:rotateY(180deg); }
+.fc-matching-imgs { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px; }
+.fc-matching-imgs img { width:72px; height:72px; object-fit:contain; border-radius:8px; border:1px solid rgba(0,242,255,0.2); background:#1e2235; }
 .fc-hint { font-size:0.75rem; color:#384260; font-weight:700; letter-spacing:0.5px; margin-bottom:12px; }
 .fc-question { font-size:1.1rem; font-weight:700; color:#fff; line-height:1.5; }
 .fc-img { max-width:100%; max-height:180px; object-fit:contain; border-radius:10px; margin-bottom:12px; }
@@ -82,14 +86,9 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
         <div class="fc-card" id="fcCard">
             <div class="fc-front">
                 <div class="fc-hint">NHẤN ĐỂ XEM ĐÁP ÁN</div>
-
                 <img id="fcImg" class="fc-img" style="display:none;" src="" alt="">
-
-                <div id="fcMatchingImages"
-                    style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:12px;">
-                </div>
-
                 <div class="fc-question" id="fcQuestion">Đang tải...</div>
+                <div class="fc-matching-imgs" id="fcMatchingImages"></div>
             </div>
             <div class="fc-back">
                 <div class="fc-answer-label">✅ ĐÁP ÁN</div>
@@ -144,11 +143,14 @@ function shuffleArray(arr) {
 
 function getCorrectText(q) {
     if (q.t === 'matching') {
-        // Hiện text đáp án thay vì key ảnh
         return Object.entries(q.c).map(function(e){ 
             var leftLabel = e[0].match(/^ic3_lv\d+_q\d+_opt_/) ? '(hình ' + e[0].slice(-1).toUpperCase() + ')' : e[0];
             return leftLabel + ' → ' + e[1]; 
         }).join(', ');
+    }
+    if (q.t === 'image-select') {
+        var correct = Array.isArray(q.c) ? q.c : [q.c];
+        return 'Đáp án: ' + correct.map(function(i){ return 'Hình ' + String.fromCharCode(65+i); }).join(', ');
     }
     if (Array.isArray(q.c)) {
         if (q.o && q.o.length) return q.c.map(function(i){ return q.o[i]; }).join(', ');
@@ -201,55 +203,35 @@ function renderCard() {
     document.getElementById('fcCard').classList.remove('flipped');
     document.getElementById('fcProgress').textContent = 'Câu ' + (cur+1) + ' / ' + deck.length;
 
-    // Front
+    // Front: câu hỏi + ảnh đơn
     document.getElementById('fcQuestion').textContent = q.q;
-    var matchingDiv = document.getElementById('fcMatchingImages');
-    matchingDiv.innerHTML = '';
-
-    if (q.t === 'matching' && q.o_left && q.o_left.length) {
-
-        matchingDiv.style.display = 'flex';
-
-        q.o_left.forEach(function(imgUrl) {
-
-            if (imgUrl && imgUrl.startsWith('http')) {
-
-                var img = document.createElement('img');
-
-                img.src = imgUrl;
-
-                img.style.cssText =
-                    'width:80px;height:80px;object-fit:contain;' +
-                    'border-radius:8px;border:1px solid #384260;' +
-                    'background:#1e2235;padding:4px;';
-
-                matchingDiv.appendChild(img);
-            }
-        });
-
-    } else {
-
-        matchingDiv.style.display = 'none';
-
-    }
     var imgEl = document.getElementById('fcImg');
     if (q.img) { imgEl.src = q.img; imgEl.style.display = 'block'; }
     else { imgEl.style.display = 'none'; }
 
-    // Hiện ảnh nếu có
-    var fcImg = document.getElementById('fcImg');
-    if (q.img) {
-        fcImg.src = q.img;
-        fcImg.style.display = 'block';
-    } else {
-        fcImg.style.display = 'none';
+    // Front: ảnh matching (o_left) hiện ở mặt trước
+    var matchImgsDiv = document.getElementById('fcMatchingImages');
+    matchImgsDiv.innerHTML = '';
+    if (q.t === 'matching' && q.o_left && q.o_left.length) {
+        q.o_left.forEach(function(imgUrl) {
+            if (imgUrl && imgUrl.startsWith('http')) {
+                var img = document.createElement('img');
+                img.src = imgUrl;
+                matchImgsDiv.appendChild(img);
+            } else if (imgUrl) {
+                var span = document.createElement('span');
+                span.textContent = imgUrl;
+                span.style.cssText = 'font-size:0.85rem; color:#94a3b8; padding:4px 8px; background:#1e2235; border-radius:6px;';
+                matchImgsDiv.appendChild(span);
+            }
+        });
     }
-    
-    // Back
+
+    // Back: đáp án + giải thích
     document.getElementById('fcAnswer').textContent = getCorrectText(q);
     document.getElementById('fcExplanation').textContent = q.e || '';
 
-    // Options hint on back
+    // Back: options hint
     var optsDiv = document.getElementById('fcOptions');
     optsDiv.innerHTML = '';
     if (q.t === 'single' || q.t === 'multiple') {
@@ -260,6 +242,25 @@ function renderCard() {
             div.innerHTML = '<span style="font-weight:800;">' + String.fromCharCode(65+i) + '.</span>' + opt;
             optsDiv.appendChild(div);
         });
+    } else if (q.t === 'image-select' && q.o && q.o.length) {
+        var correct = Array.isArray(q.c) ? q.c : [q.c];
+        var grid = document.createElement('div');
+        grid.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px;';
+        q.o.forEach(function(imgUrl, i) {
+            var isCorrect = correct.indexOf(i) >= 0;
+            var wrapper = document.createElement('div');
+            wrapper.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px;';
+            var img = document.createElement('img');
+            img.src = imgUrl;
+            img.style.cssText = 'width:80px; height:80px; object-fit:contain; border-radius:8px; border:2px solid ' + (isCorrect ? '#22c55e' : '#29304a') + '; background:#1e2235;';
+            var label = document.createElement('span');
+            label.textContent = String.fromCharCode(65+i);
+            label.style.cssText = 'font-size:0.75rem; font-weight:800; color:' + (isCorrect ? '#22c55e' : '#64748b') + ';';
+            wrapper.appendChild(img);
+            wrapper.appendChild(label);
+            grid.appendChild(wrapper);
+        });
+        optsDiv.appendChild(grid);
     }
 
     updateStats();
