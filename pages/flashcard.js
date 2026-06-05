@@ -3,7 +3,10 @@ export function getFlashcardUI(courseType, questionBank, imageBaseUrl, imageMap)
         questionBank.map(item => ({
             q: item.question,
             o: item.type === 'image-select'
-                ? (item.options || []).map(k => imageMap[k] ? imageBaseUrl + imageMap[k] : k)
+                ? (item.options || []).map(opt => {
+                    const key = typeof opt === 'object' ? (opt.img || opt.image || opt.key || opt.src) : opt;
+                    return { label: typeof opt === 'object' ? (opt.label || '') : '', url: imageMap[key] ? imageBaseUrl + imageMap[key] : key };
+                })
                 : item.options || [],
             o_left: (item.left || []).map(k =>
                 imageMap[k] ? imageBaseUrl + imageMap[k] : k
@@ -240,23 +243,28 @@ function renderCard() {
             }
         });
     } else if (q.t === 'image-select' && q.o && q.o.length) {
-        // Debug: kiểm tra URL ảnh (xóa sau khi fix xong)
-        console.log('[image-select] o =', JSON.stringify(q.o));
-        console.log('[image-select] o[0] keys =', q.o[0] ? Object.keys(q.o[0]) : 'empty');
-        // Mặt trước: hiện tất cả ảnh options dạng lưới (chưa biết đúng sai)
+        // Mặt trước: hiện lưới ảnh + label bên dưới
         var grid = document.createElement('div');
-        grid.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px;';
-        q.o.forEach(function(imgUrl, i) {
+        grid.style.cssText = 'display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:12px;';
+        q.o.forEach(function(opt, i) {
+            var imgUrl = typeof opt === 'object' ? opt.url : opt;
+            var optLabel = typeof opt === 'object' && opt.label ? opt.label : '';
             var wrapper = document.createElement('div');
-            wrapper.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px;';
+            wrapper.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:4px; max-width:90px;';
             var img = document.createElement('img');
             img.src = imgUrl;
             img.style.cssText = 'width:80px; height:80px; object-fit:contain; border-radius:8px; border:1px solid rgba(0,242,255,0.2); background:#1e2235;';
-            var label = document.createElement('span');
-            label.textContent = String.fromCharCode(65+i);
-            label.style.cssText = 'font-size:0.75rem; font-weight:800; color:#64748b;';
+            var letter = document.createElement('span');
+            letter.textContent = String.fromCharCode(65+i);
+            letter.style.cssText = 'font-size:0.75rem; font-weight:800; color:#64748b;';
             wrapper.appendChild(img);
-            wrapper.appendChild(label);
+            wrapper.appendChild(letter);
+            if (optLabel) {
+                var lbl = document.createElement('span');
+                lbl.textContent = optLabel;
+                lbl.style.cssText = 'font-size:0.7rem; color:#94a3b8; text-align:center; line-height:1.3;';
+                wrapper.appendChild(lbl);
+            }
             grid.appendChild(wrapper);
         });
         matchImgsDiv.appendChild(grid);
@@ -288,14 +296,14 @@ function renderCard() {
         });
     } else if (q.t === 'matching' && q.o_left && q.o_left.length) {
         // Render từng cặp: ảnh/text bên trái → text bên phải
+        optsDiv.style.textAlign = 'left';
         var correct = q.c || {};
         q.o_left.forEach(function(leftVal, i) {
             var rightKeys = Object.keys(correct);
-            // tìm key tương ứng với index i (key có dạng opt_a, opt_b,...)
             var matchKey = rightKeys[i] || '';
             var rightVal = correct[matchKey] || '';
             var row = document.createElement('div');
-            row.style.cssText = 'display:flex; align-items:center; gap:10px; margin-bottom:8px; background:#1e2235; border-radius:8px; padding:8px 10px;';
+            row.style.cssText = 'display:flex; align-items:center; gap:10px; margin-bottom:8px; background:#1e2235; border-radius:8px; padding:8px 12px; text-align:left;';
             // Left: ảnh hoặc text
             if (leftVal && leftVal.startsWith('http')) {
                 var img = document.createElement('img');
@@ -305,18 +313,18 @@ function renderCard() {
             } else {
                 var span = document.createElement('span');
                 span.textContent = leftVal || ('Hình ' + String.fromCharCode(65+i));
-                span.style.cssText = 'font-size:0.85rem; color:#94a3b8; min-width:60px; text-align:center;';
+                span.style.cssText = 'font-size:0.85rem; color:#94a3b8; min-width:120px; flex-shrink:0; text-align:left;';
                 row.appendChild(span);
             }
             // Arrow
             var arrow = document.createElement('span');
             arrow.textContent = '→';
-            arrow.style.cssText = 'color:#22c55e; font-weight:800; font-size:1rem;';
+            arrow.style.cssText = 'color:#22c55e; font-weight:800; font-size:1rem; flex-shrink:0;';
             row.appendChild(arrow);
             // Right: tên gọi
             var rightSpan = document.createElement('span');
             rightSpan.textContent = rightVal;
-            rightSpan.style.cssText = 'font-size:0.88rem; color:#fff; font-weight:600;';
+            rightSpan.style.cssText = 'font-size:0.88rem; color:#fff; font-weight:600; text-align:left;';
             row.appendChild(rightSpan);
             optsDiv.appendChild(row);
         });
