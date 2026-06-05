@@ -130,15 +130,6 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
 <script>
 var fullBank = ${bankJSON};
 
-// DEBUG: log image-select url để kiểm tra
-(function() {
-    var imgSel = fullBank.filter(function(q){ return q.t === 'image-select'; });
-    if (imgSel.length) {
-        console.log('[DEBUG] image-select o[0] full:', JSON.stringify(imgSel[0].o[0]));
-        console.log('[DEBUG] image-select o[0].url:', imgSel[0].o[0] && imgSel[0].o[0].url);
-        console.log('[DEBUG] image-select o[0].label:', imgSel[0].o[0] && imgSel[0].o[0].label);
-    }
-})();
 
 var deck = [];
 var cur = 0;
@@ -218,6 +209,7 @@ function renderCard() {
 
     // Reset justify-content về center cho mọi loại câu
     document.querySelector('.fc-front').style.justifyContent = 'center';
+
 
     // Front: câu hỏi + ảnh đơn
     document.getElementById('fcQuestion').textContent = q.q;
