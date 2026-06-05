@@ -4,8 +4,9 @@ export function getFlashcardUI(courseType, questionBank, imageBaseUrl, imageMap)
             q: item.question,
             o: item.type === 'image-select'
                 ? (item.options || []).map(opt => {
-                    const key = typeof opt === 'object' ? (opt.img || opt.image || opt.key || opt.src) : opt;
-                    return { label: typeof opt === 'object' ? (opt.label || '') : '', url: imageMap[key] ? imageBaseUrl + imageMap[key] : key };
+                    const key = typeof opt === 'object' ? (opt.img || opt.image || opt.key || opt.src || '') : opt;
+                    const resolvedUrl = imageMap[key] ? imageBaseUrl + imageMap[key] : (opt.url || key);
+                    return { label: typeof opt === 'object' ? (opt.label || '') : '', url: resolvedUrl };
                 })
                 : item.options || [],
             o_left: (item.left || []).map(k =>
@@ -303,7 +304,7 @@ function renderCard() {
             var matchKey = rightKeys[i] || '';
             var rightVal = correct[matchKey] || '';
             var row = document.createElement('div');
-            row.style.cssText = 'display:flex; align-items:center; gap:10px; margin-bottom:8px; background:#1e2235; border-radius:8px; padding:8px 12px; text-align:left;';
+            row.style.cssText = 'display:flex; align-items:flex-start; gap:8px; margin-bottom:8px; background:#1e2235; border-radius:8px; padding:8px 12px; text-align:left;';
             // Left: ảnh hoặc text
             if (leftVal && leftVal.startsWith('http')) {
                 var img = document.createElement('img');
@@ -313,18 +314,18 @@ function renderCard() {
             } else {
                 var span = document.createElement('span');
                 span.textContent = leftVal || ('Hình ' + String.fromCharCode(65+i));
-                span.style.cssText = 'font-size:0.85rem; color:#94a3b8; min-width:120px; flex-shrink:0; text-align:left;';
+                span.style.cssText = 'font-size:0.85rem; color:#94a3b8; flex:1; text-align:left; line-height:1.4; word-break:break-word;';
                 row.appendChild(span);
             }
             // Arrow
             var arrow = document.createElement('span');
             arrow.textContent = '→';
-            arrow.style.cssText = 'color:#22c55e; font-weight:800; font-size:1rem; flex-shrink:0;';
+            arrow.style.cssText = 'color:#22c55e; font-weight:800; font-size:1rem; flex-shrink:0; padding-top:1px;';
             row.appendChild(arrow);
             // Right: tên gọi
             var rightSpan = document.createElement('span');
             rightSpan.textContent = rightVal;
-            rightSpan.style.cssText = 'font-size:0.88rem; color:#fff; font-weight:600; text-align:left;';
+            rightSpan.style.cssText = 'font-size:0.88rem; color:#fff; font-weight:700; text-align:left; flex-shrink:0; max-width:45%; line-height:1.4; word-break:break-word;';
             row.appendChild(rightSpan);
             optsDiv.appendChild(row);
         });
