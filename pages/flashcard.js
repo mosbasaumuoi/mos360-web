@@ -82,7 +82,13 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
         <div class="fc-card" id="fcCard">
             <div class="fc-front">
                 <div class="fc-hint">NHẤN ĐỂ XEM ĐÁP ÁN</div>
+
                 <img id="fcImg" class="fc-img" style="display:none;" src="" alt="">
+
+                <div id="fcMatchingImages"
+                    style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:12px;">
+                </div>
+
                 <div class="fc-question" id="fcQuestion">Đang tải...</div>
             </div>
             <div class="fc-back">
@@ -197,6 +203,35 @@ function renderCard() {
 
     // Front
     document.getElementById('fcQuestion').textContent = q.q;
+    var matchingDiv = document.getElementById('fcMatchingImages');
+    matchingDiv.innerHTML = '';
+
+    if (q.t === 'matching' && q.o_left && q.o_left.length) {
+
+        matchingDiv.style.display = 'flex';
+
+        q.o_left.forEach(function(imgUrl) {
+
+            if (imgUrl && imgUrl.startsWith('http')) {
+
+                var img = document.createElement('img');
+
+                img.src = imgUrl;
+
+                img.style.cssText =
+                    'width:80px;height:80px;object-fit:contain;' +
+                    'border-radius:8px;border:1px solid #384260;' +
+                    'background:#1e2235;padding:4px;';
+
+                matchingDiv.appendChild(img);
+            }
+        });
+
+    } else {
+
+        matchingDiv.style.display = 'none';
+
+    }
     var imgEl = document.getElementById('fcImg');
     if (q.img) { imgEl.src = q.img; imgEl.style.display = 'block'; }
     else { imgEl.style.display = 'none'; }
@@ -209,21 +244,7 @@ function renderCard() {
     } else {
         fcImg.style.display = 'none';
     }
-
-    // Hiện ảnh matching trong mặt sau
-    var fcOpts = document.getElementById('fcOptions');
-    fcOpts.innerHTML = '';
-    if (q.t === 'matching' && q.o_left && q.o_left.length) {
-        q.o_left.forEach(function(imgUrl, i) {
-            if (imgUrl && imgUrl.startsWith('http')) {
-                var img = document.createElement('img');
-                img.src = imgUrl;
-                img.style.cssText = 'width:60px; height:60px; object-fit:contain; border-radius:6px; margin:4px;';
-                fcOpts.appendChild(img);
-            }
-        });
-    }
-
+    
     // Back
     document.getElementById('fcAnswer').textContent = getCorrectText(q);
     document.getElementById('fcExplanation').textContent = q.e || '';
