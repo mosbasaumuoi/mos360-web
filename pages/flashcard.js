@@ -125,6 +125,22 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
 
 <script>
 var fullBank = ${bankJSON};
+
+// DEBUG: log tất cả câu image-select và matching ngay khi load — xóa sau khi fix
+(function() {
+    var imgSel = fullBank.filter(function(q){ return q.t === 'image-select'; });
+    var matching = fullBank.filter(function(q){ return q.t === 'matching'; });
+    if (imgSel.length) {
+        console.log('[DEBUG] image-select count:', imgSel.length);
+        console.log('[DEBUG] image-select o[0] sample:', JSON.stringify(imgSel[0].o));
+        console.log('[DEBUG] image-select o[0] keys:', imgSel[0].o && imgSel[0].o[0] ? Object.keys(imgSel[0].o[0]) : typeof imgSel[0].o[0]);
+    }
+    if (matching.length) {
+        console.log('[DEBUG] matching count:', matching.length);
+        console.log('[DEBUG] matching o_left sample:', JSON.stringify(matching[0].o_left));
+    }
+})();
+
 var deck = [];
 var cur = 0;
 var isFlipped = false;
@@ -225,7 +241,8 @@ function renderCard() {
         });
     } else if (q.t === 'image-select' && q.o && q.o.length) {
         // Debug: kiểm tra URL ảnh (xóa sau khi fix xong)
-        console.log('[image-select] o =', q.o);
+        console.log('[image-select] o =', JSON.stringify(q.o));
+        console.log('[image-select] o[0] keys =', q.o[0] ? Object.keys(q.o[0]) : 'empty');
         // Mặt trước: hiện tất cả ảnh options dạng lưới (chưa biết đúng sai)
         var grid = document.createElement('div');
         grid.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px;';
