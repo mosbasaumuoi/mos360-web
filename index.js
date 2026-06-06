@@ -31,7 +31,48 @@ const CONFIG = {
     ADMIN: {
         USER: "admin@mos360",
         PASS: "Mos360"
-    }
+    },
+
+    // URL Apps Script Web App đã deploy — tra cứu dự thi
+    // Thay bằng URL thật sau khi deploy Apps Script
+    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbze-RXZCpIc-YdiMnOC5z7c5G1XtzklHc3da_T3-6c7jf3v-iFxWKN8F7xdVjBHANCMIw/exec",
+
+    // Links form đăng ký
+    FORMS: {
+        HOC: "https://docs.google.com/forms/d/e/1FAIpQLSegb6K7afTKsw5Go0E0H9MYcNZ6guOxkzSWrUe3nMli0AXQqQ/viewform",
+        THI: "https://docs.google.com/forms/d/1a7tW5YzmX4-lFEl4lXHcpYD430ztM7NOnNdHPWjMwuA/viewform",
+        OFFLINE: "https://docs.google.com/forms/d/1rQt3B9eae_dYlc9PLrwsljxY9LLfMtoumEC1_n12lOc/viewform"
+    },
+
+    // Links tải tiện ích
+    TOOLS: {
+        MOS360: "https://drive.google.com/file/d/1yMepEUJIS8CVUKJauhfxAE84eBXhOXj2/view",
+        OFFICE: "https://drive.google.com/file/d/1nYo6f5VDqgsgbp_-_IA6tO9muyohHOhg/view",
+        FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
+        WINRAR: "https://drive.google.com/file/d/1NJVEBHJBpPr6R_y7PP_oZM0qn8hFyoG1/view",
+        UNIKEY: "https://drive.google.com/file/d/1niMPJWesSzTmvNRLAvxxNNv4llL0WlcT/view",
+        TEAMVIEWER: "https://drive.google.com/file/d/1dBlMqaSqkjYqC-rvjoyVf5q3NaDVSoHL/view",
+        ULTRAVIEWER: "https://www.ultraviewer.net/vi/download.html",
+        HD_MOS360: "https://docs.google.com/document/d/1j2zrxTZWvuPa6CaffkKlS9UMbU4xFLWC/edit",
+        HD_OFFICE: "https://docs.google.com/document/d/1RXFli_WC_2hiTtOTZHTx-Ln5VHCBkJLI/edit",
+        HD_THI: "https://iigvietnam.com/wp-content/uploads/2021/09/Huong-dan-du-thi-MOS-2016-update-05.08.2020_compressed.pdf"
+    },
+
+    // Lịch thi VMU 2026 — cập nhật theo thông báo CITAD
+    SCHEDULE: [
+        { dot: 1, dates: "10–11/01/2026", from: "", to: "", deadline: "" },
+        { dot: 2, dates: "14–15/03/2026", from: "23/02/2026", to: "05/03/2026", deadline: "02/03/2026" },
+        { dot: 3, dates: "18–19/04/2026", from: "17/03/2026", to: "09/04/2026", deadline: "06/04/2026" },
+        { dot: 4, dates: "23–24/05/2026", from: "20/04/2026", to: "14/05/2026", deadline: "11/05/2026" },
+        { dot: 5, dates: "27–28/06/2026", from: "25/05/2026", to: "18/06/2026", deadline: "15/06/2026" },
+        { dot: 6, dates: "25–26/07/2026", from: "29/06/2026", to: "16/07/2026", deadline: "13/07/2026" },
+        { dot: 7, dates: "29–30/08/2026", from: "27/07/2026", to: "13/08/2026", deadline: "10/08/2026" },
+        { dot: 8, dates: "26–27/09/2026", from: "31/08/2026", to: "19/09/2026", deadline: "16/09/2026" },
+        { dot: 9, dates: "24–25/10/2026", from: "28/09/2026", to: "15/10/2026", deadline: "12/10/2026" },
+        { dot: 10, dates: "28–29/11/2026", from: "26/10/2026", to: "19/11/2026", deadline: "16/11/2026" },
+        { dot: 11, dates: "26–27/12/2026", from: "30/11/2026", to: "17/12/2026", deadline: "14/12/2026" },
+        { dot: 12, dates: "30–31/01/2027", from: "04/12/2026", to: "21/01/2027", deadline: "18/01/2027" }
+    ]
 };
 
 /* ========================
@@ -245,7 +286,7 @@ export default {
             return new Response(this.getQuizEnginePage("IC3 GS6"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
         }
         if (path === "/flashcard-ic3") {
-            return new Response(getFlashcardUI("IC3 GS6", [...IC3_LEVEL1,...IC3_LEVEL2,...IC3_LEVEL3], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+            return new Response(getFlashcardUI("IC3 GS6", [...IC3_LEVEL1, ...IC3_LEVEL2, ...IC3_LEVEL3], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
         }
         if (path === "/flashcard-ai") {
             return new Response(getFlashcardUI("GENERATIVE AI", [...GENERATIVE_AI], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
@@ -477,50 +518,522 @@ export default {
     },
 
     getHomeUI(studentData) {
+        const scheduleRows = CONFIG.SCHEDULE.map(row => {
+            const parseDate = str => {
+                if (!str) return null;
+                const p = str.split('/');
+                return p.length === 3 ? new Date(+p[2], +p[1] - 1, +p[0]) : null;
+            };
+            const getMonth = dates => {
+                const m = dates.match(/(\d{2})\/(\d{4})$/);
+                return m ? new Date(+m[2], +m[1] - 1, 1) : null;
+            };
+            const now = new Date();
+            const curMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const maxMonth = new Date(now.getFullYear(), now.getMonth() + 6, 1);
+            const examMonth = getMonth(row.dates);
+            if (!examMonth || examMonth < curMonth || examMonth >= maxMonth) return '';
+            const dl = parseDate(row.deadline);
+            let tag = '', rowStyle = '';
+            if (dl && now > dl) {
+                tag = '<span class="htag tag-done">Đã đóng</span>';
+            } else if (dl) {
+                const diff = (dl - now) / 86400000;
+                if (diff <= 5) {
+                    tag = '<span class="htag tag-soon">⚠ Sắp đóng</span>';
+                    rowStyle = 'background:rgba(245,158,11,0.04)';
+                } else if (parseDate(row.from) && now >= parseDate(row.from)) {
+                    tag = '<span class="htag tag-open">🟢 Đang mở</span>';
+                    rowStyle = 'background:rgba(34,197,94,0.04)';
+                } else {
+                    tag = '<span class="htag tag-future">Sắp mở</span>';
+                }
+            } else {
+                tag = '<span class="htag tag-future">Sắp TB</span>';
+            }
+            return `<tr style="${rowStyle}"><td style="font-weight:700">Đợt ${row.dot}</td><td>${row.dates}</td><td style="color:#f59e0b;font-weight:700">${row.deadline || '—'}</td><td>${tag}</td></tr>`;
+        }).join('');
+
         return `
-      <div class="hero-banner">
-          <div class="hero-content">
-              <h1>HỆ THỐNG LUYỆN THI <span>CHỨNG CHỈ QUỐC TẾ</span> CHUYÊN NGHIỆP</h1>
-              <p>Học trực quan, luyện đề thực chiến bám sát kho đề thi Certiport thực tế. Cam kết chuẩn đầu ra tối ưu cho học viên và người đi làm.</p>
-              <div style="max-width:240px; margin:0 auto;"><a href="/courses" class="btn-action">XEM KHÓA HỌC NGAY</a></div>
-          </div>
+<!-- NEW HOMEPAGE 2026 -->
+<style>
+:root { --p:#FF5722; --bg:#06070d; --card:#111422; --border:rgba(255,255,255,0.06); --cyan:#00f2ff; }
+.hn-hero { min-height:90vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:80px 24px 60px; position:relative; overflow:hidden; }
+.hn-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(255,87,34,0.06),transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(0,242,255,0.04),transparent 60%); }
+.hn-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(ellipse 80% 80% at 50% 30%,black,transparent 70%); }
+.hn-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,87,34,0.1); border:1px solid rgba(255,87,34,0.3); border-radius:100px; padding:6px 16px; font-size:0.78rem; font-weight:700; color:var(--p); letter-spacing:0.5px; margin-bottom:20px; }
+.hn-h1 { font-size:clamp(1.9rem,5.5vw,3.6rem); font-weight:900; line-height:1.12; letter-spacing:-1px; margin-bottom:8px; }
+.hn-h1 .g1 { background:linear-gradient(135deg,#FF5722,#ff8a65); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hn-h1 .g2 { background:linear-gradient(135deg,var(--cyan),#00a2ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hn-sub { color:#94a3b8; font-size:clamp(0.9rem,2vw,1.1rem); max-width:520px; margin:0 auto 32px; line-height:1.7; }
+.hn-acts { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hn-btn-p { padding:13px 28px; background:var(--p); color:#fff; border-radius:10px; font-weight:800; font-size:0.95rem; text-decoration:none; transition:all 0.15s; }
+.hn-btn-p:hover { background:#e64a19; transform:translateY(-1px); }
+.hn-btn-s { padding:13px 28px; background:rgba(255,255,255,0.06); color:#fff; border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; border:1px solid rgba(255,255,255,0.12); transition:all 0.15s; }
+.hn-btn-s:hover { background:rgba(255,255,255,0.1); }
+.hn-stats { display:flex; gap:36px; justify-content:center; margin-top:52px; flex-wrap:wrap; }
+.hn-stat .num { font-size:1.8rem; font-weight:800; color:#fff; font-family:monospace; }
+.hn-stat .num span { color:var(--p); }
+.hn-stat .lbl { font-size:0.73rem; color:#475569; font-weight:600; margin-top:2px; }
+
+.hn-section { padding:72px 24px; }
+.hn-inner { max-width:1100px; margin:0 auto; }
+.hn-tag { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--p); margin-bottom:10px; }
+.hn-h2 { font-size:clamp(1.4rem,3.5vw,2.1rem); font-weight:800; letter-spacing:-0.5px; margin-bottom:8px; }
+.hn-desc { color:#94a3b8; font-size:0.93rem; margin-bottom:32px; max-width:520px; line-height:1.65; }
+
+/* Course cards */
+.hn-course-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+.hn-course { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:all 0.2s; }
+.hn-course:hover { border-color:rgba(255,87,34,0.35); transform:translateY(-3px); box-shadow:0 12px 36px rgba(0,0,0,0.4); }
+.hn-course-thumb { height:140px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.hn-course-thumb::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 30%,rgba(255,87,34,0.1),transparent 60%); }
+.hn-course-thumb .hn-ico { font-size:2.6rem; z-index:1; }
+.hn-cbadge { position:absolute; top:10px; right:10px; padding:3px 9px; border-radius:100px; font-size:0.67rem; font-weight:700; }
+.cbadge-hot { background:rgba(255,87,34,0.2); color:#ff8a65; border:1px solid rgba(255,87,34,0.3); }
+.cbadge-new { background:rgba(0,242,255,0.12); color:var(--cyan); border:1px solid rgba(0,242,255,0.25); }
+.cbadge-gold { background:rgba(255,215,0,0.12); color:#FFD700; border:1px solid rgba(255,215,0,0.25); }
+.cbadge-ai { background:rgba(167,139,250,0.12); color:#a78bfa; border:1px solid rgba(167,139,250,0.25); }
+.hn-cbody { padding:16px; }
+.hn-ctitle { font-size:0.97rem; font-weight:700; margin-bottom:4px; }
+.hn-cdesc { font-size:0.8rem; color:#94a3b8; line-height:1.5; margin-bottom:10px; }
+.hn-cprice { font-size:1.15rem; font-weight:800; color:var(--cyan); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.hn-cprice .old { font-size:0.8rem; color:#475569; text-decoration:line-through; font-weight:400; }
+.hn-cbtns { display:flex; gap:7px; }
+.hn-cbtn-p { flex:1; padding:8px; background:var(--p); color:#fff; border:none; border-radius:8px; font-weight:800; font-size:0.8rem; cursor:pointer; text-decoration:none; text-align:center; transition:all 0.15s; }
+.hn-cbtn-p:hover { background:#e64a19; }
+.hn-cbtn-s { padding:8px 12px; background:rgba(255,255,255,0.04); color:#94a3b8; border:1px solid rgba(255,255,255,0.1); border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; white-space:nowrap; transition:all 0.15s; }
+.hn-cbtn-s:hover { color:#fff; background:rgba(255,255,255,0.08); }
+
+/* Video feature */
+.hn-video-wrap { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; display:grid; grid-template-columns:1fr 1fr; }
+.hn-video-left { padding:28px; display:flex; flex-direction:column; justify-content:center; }
+.hn-video-left h3 { font-size:1.1rem; font-weight:800; margin-bottom:8px; }
+.hn-video-left p { font-size:0.85rem; color:#94a3b8; line-height:1.6; margin-bottom:20px; }
+.hn-video-right { background:linear-gradient(135deg,#07121e,#0d1a30); display:flex; align-items:center; justify-content:center; min-height:220px; cursor:pointer; position:relative; transition:all 0.2s; }
+.hn-video-right:hover .hn-play { background:var(--cyan); color:#000; transform:scale(1.1); }
+.hn-play { width:60px; height:60px; background:rgba(0,242,255,0.12); border:2px solid var(--cyan); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--cyan); transition:all 0.25s; }
+
+/* Tools */
+.hn-tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
+.hn-tool { background:var(--card); border:1px solid var(--border); border-radius:11px; padding:13px 15px; display:flex; align-items:center; gap:11px; text-decoration:none; color:inherit; transition:all 0.2s; }
+.hn-tool:hover { border-color:rgba(255,87,34,0.3); transform:translateY(-2px); }
+.hn-tool-ico { width:38px; height:38px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0; }
+.hn-tool-name { font-size:0.84rem; font-weight:700; margin-bottom:1px; }
+.hn-tool-type { font-size:0.69rem; color:#475569; font-weight:600; }
+.hn-tool-arr { margin-left:auto; color:#475569; transition:all 0.15s; flex-shrink:0; font-size:0.85rem; }
+.hn-tool:hover .hn-tool-arr { color:var(--p); transform:translateX(3px); }
+
+/* Register tabs */
+.hn-reg-tabs { display:flex; gap:0; border:1px solid var(--border); border-radius:10px; overflow:hidden; width:fit-content; margin-bottom:24px; }
+.hn-rtab { padding:9px 22px; background:transparent; border:none; border-right:1px solid var(--border); color:#94a3b8; font-weight:600; font-size:0.83rem; cursor:pointer; font-family:inherit; transition:all 0.15s; }
+.hn-rtab:last-child { border-right:none; }
+.hn-rtab.active { background:var(--p); color:#fff; }
+.hn-rpanel { display:none; }
+.hn-rpanel.active { display:block; }
+.hn-form-wrap { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.hn-fh { padding:20px 22px; border-bottom:1px solid var(--border); display:flex; gap:13px; align-items:flex-start; }
+.hn-fh-ico { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0; }
+.hn-fh h3 { font-size:1rem; font-weight:700; margin-bottom:3px; }
+.hn-fh p { font-size:0.8rem; color:#94a3b8; line-height:1.55; }
+.hn-fi { padding:16px 22px; display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); gap:10px; border-bottom:1px solid var(--border); }
+.hn-fi-item { display:flex; gap:8px; align-items:flex-start; }
+.hn-fi-ico { font-size:0.9rem; margin-top:1px; flex-shrink:0; }
+.hn-fi-txt { font-size:0.79rem; color:#94a3b8; line-height:1.5; }
+.hn-fi-txt strong { color:#fff; display:block; font-size:0.82rem; margin-bottom:1px; }
+.hn-fcta { padding:20px 22px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.hn-fcta a { display:inline-flex; align-items:center; gap:7px; padding:10px 20px; background:var(--p); color:#fff; border-radius:9px; font-weight:800; font-size:0.87rem; text-decoration:none; transition:all 0.15s; }
+.hn-fcta a:hover { background:#e64a19; }
+.hn-fnote { font-size:0.76rem; color:#475569; line-height:1.55; }
+
+/* Schedule */
+.hn-sch-wrap { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.hn-sch-top { padding:16px 22px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+.hn-sch-top h3 { font-size:0.92rem; font-weight:700; }
+.hn-legend { display:flex; gap:12px; font-size:0.72rem; color:#475569; }
+.hn-legend span { display:flex; align-items:center; gap:4px; }
+.hn-ldot { width:7px; height:7px; border-radius:50%; display:inline-block; }
+table.hn-table { width:100%; border-collapse:collapse; }
+.hn-table thead th { padding:9px 16px; text-align:left; font-size:0.7rem; font-weight:700; color:#475569; letter-spacing:0.5px; text-transform:uppercase; border-bottom:1px solid var(--border); white-space:nowrap; }
+.hn-table tbody td { padding:11px 16px; font-size:0.83rem; border-bottom:1px solid var(--border); }
+.hn-table tbody tr:last-child td { border-bottom:none; }
+.hn-table tbody tr:hover { background:rgba(255,255,255,0.02); }
+.htag { padding:2px 8px; border-radius:100px; font-size:0.67rem; font-weight:700; white-space:nowrap; }
+.tag-done { background:rgba(71,85,105,0.3); color:#475569; }
+.tag-open { background:rgba(34,197,94,0.12); color:#22c55e; border:1px solid rgba(34,197,94,0.25); }
+.tag-soon { background:rgba(245,158,11,0.12); color:#f59e0b; border:1px solid rgba(245,158,11,0.25); }
+.tag-future { background:rgba(0,242,255,0.07); color:var(--cyan); border:1px solid rgba(0,242,255,0.18); }
+
+/* Lookup */
+.hn-lookup-box { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px; max-width:580px; }
+.hn-linput-wrap { display:flex; gap:10px; margin-bottom:18px; }
+.hn-linput { flex:1; padding:11px 15px; background:#090b11; border:1px solid rgba(255,255,255,0.1); border-radius:9px; color:#fff; font-size:0.9rem; font-family:inherit; outline:none; transition:border-color 0.15s; }
+.hn-linput:focus { border-color:var(--p); }
+.hn-linput::placeholder { color:#475569; }
+.hn-lbtn { padding:11px 22px; background:var(--p); color:#fff; border:none; border-radius:9px; font-weight:800; font-size:0.9rem; cursor:pointer; font-family:inherit; transition:all 0.15s; white-space:nowrap; }
+.hn-lbtn:hover { background:#e64a19; }
+.hn-lresult { background:#090b11; border:1px solid var(--border); border-radius:11px; padding:18px; display:none; }
+.hn-lresult.show { display:block; }
+.hn-lresult h4 { font-size:0.7rem; color:#475569; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
+.hn-lf { display:flex; gap:12px; align-items:baseline; margin-bottom:7px; }
+.hn-lf-key { font-size:0.78rem; color:#475569; min-width:96px; flex-shrink:0; }
+.hn-lf-val { font-size:0.88rem; font-weight:700; color:#fff; }
+.hn-lf-val.hl { color:var(--cyan); }
+.hn-lf-val.ok { color:#22c55e; }
+.hn-lnote { font-size:0.73rem; color:#475569; margin-top:12px; padding-top:11px; border-top:1px solid var(--border); line-height:1.55; }
+.hn-lmsg { padding:14px; text-align:center; font-size:0.84rem; color:#475569; display:none; border-radius:10px; background:#090b11; border:1px solid var(--border); }
+.hn-lmsg.show { display:block; }
+
+/* Bảng vàng */
+.hn-bvang { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+.hn-bvang-hdr { padding:16px 22px; border-bottom:1px solid var(--border); font-weight:700; font-size:0.92rem; }
+
+/* Divider */
+.hn-divider { border:none; border-top:1px solid var(--border); margin:0; }
+
+@media(max-width:768px) {
+  .hn-video-wrap { grid-template-columns:1fr; }
+  .hn-video-right { min-height:160px; }
+  .hn-reg-tabs { width:100%; }
+  .hn-rtab { flex:1; text-align:center; font-size:0.75rem; padding:9px 6px; }
+}
+</style>
+
+<!-- HERO -->
+<div class="hn-hero">
+  <div class="hn-hero-bg"></div>
+  <div class="hn-grid"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hn-badge">✦ Trung tâm MOS360 · Hải Phòng</div>
+    <h1 class="hn-h1">Xóa tan nỗi lo<br><span class="g1">chuẩn đầu ra</span> <span class="g2">cho sinh viên</span></h1>
+    <p class="hn-sub">Học thật · Tiến bộ thật · Làm được thật.<br>MOS chỉ là chứng nhận — kỹ năng mới là tài sản thật sự.</p>
+    <div class="hn-acts">
+      <a href="/courses" class="hn-btn-p">Xem khóa học →</a>
+      <a href="#hn-register" class="hn-btn-s">Đăng ký ngay</a>
+    </div>
+    <div class="hn-stats">
+      <div class="hn-stat"><div class="num">700<span>+</span></div><div class="lbl">Bằng văn bản</div></div>
+      <div class="hn-stat"><div class="num">98<span>%</span></div><div class="lbl">Sát đề thi thật</div></div>
+      <div class="hn-stat"><div class="num">1<span>:1</span></div><div class="lbl">Hỗ trợ trực tiếp</div></div>
+      <div class="hn-stat"><div class="num">100<span>%</span></div><div class="lbl">Cam kết đầu ra</div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="hn-divider">
+
+<!-- BẢNG VÀNG CHỨNG CHỈ -->
+<div class="hn-section" style="padding:48px 24px">
+  <div class="hn-inner">
+    <div class="hn-tag">🏆 Bảng vàng</div>
+    <h2 class="hn-h2">Chứng chỉ Quốc tế của học viên MOS360</h2>
+    <p class="hn-desc" style="margin-bottom:20px">Hơn 700 học viên đã nhận chứng chỉ MOS & IC3 từ Certiport. Kết quả thật — không làm đẹp.</p>
+    <div class="hn-bvang">
+      <div class="hn-bvang-hdr">🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</div>
+      <div style="height:520px; overflow:hidden; padding:4px;">
+        <div class="carousel-viewport" style="border-radius:10px;">
+          <div class="carousel-track">\${studentData}</div>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
 
-      <div class="stats-bar">
-          <div class="stat-item"><h2>100%</h2><p>Thi đậu ngay lần đầu</p></div>
-          <div class="stat-item"><h2>1.200+</h2><p>Học viên nhận chứng chỉ</p></div>
-          <div class="stat-item"><h2>600+</h2><p>Truy cập học trực tuyến</p></div>
+<hr class="hn-divider">
+
+<!-- KHÓA HỌC NỔI BẬT -->
+<div class="hn-section" id="hn-courses">
+  <div class="hn-inner">
+    <div class="hn-tag">📚 Khóa học</div>
+    <h2 class="hn-h2">Luyện thi chứng chỉ quốc tế</h2>
+    <p class="hn-desc">Học trực tiếp trên phần mềm giao diện 98% sát đề thi. Cam kết đầu ra — hoàn tiền 100% nếu chưa đạt.</p>
+
+    <div class="hn-course-grid">
+      <!-- MOS Word + Excel -->
+      <div class="hn-course">
+        <div class="hn-course-thumb" style="background:linear-gradient(135deg,#071a10,#0a2818)">
+          <span class="hn-ico">📊</span>
+          <span class="hn-cbadge cbadge-hot">🔥 Bán chạy</span>
+        </div>
+        <div class="hn-cbody">
+          <div class="hn-ctitle">Luyện thi MOS Word + Excel 2019</div>
+          <div class="hn-cdesc">Combo 2 môn phổ biến nhất. Giao diện phần mềm 98% sát đề thi thật.</div>
+          <div class="hn-cprice">800.000đ <span class="old">1.200.000đ</span></div>
+          <div class="hn-cbtns">
+            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <button class="hn-cbtn-s" onclick="openVideoModal('https://www.youtube.com/watch?v=LPmScfHMk_o')">▶ Học thử</button>
+            <button class="hn-cbtn-s" onclick="openVideoModal('https://www.youtube.com/watch?v=RA_UIuxwkzk')">🎯 Thi thử</button>
+          </div>
+        </div>
       </div>
-
-      <div class="main-container">
-          <div class="featured-highlights-box">
-              <div class="featured-main-title">
-                  Xóa tan nỗi lo
-                  <span>CHUẨN ĐẦU RA</span>
-                  cho sinh viên
-              </div>
-              <ul class="highlight-list">
-                  <li>Học thật, tiến bộ thật, làm được thật</li>
-                  <li>Thi thật 100%</li>
-                  <li>Đồng hành trọn đời</li>
-              </ul>
-              <div style="background:rgba(255,87,34,0.06); padding:12px; border-radius:12px; border:1px dashed rgba(255,87,34,0.3); font-size:0.8rem; line-height:1.4; color:#ffaa80; margin-bottom:20px; text-align:center; font-weight:bold;">
-                  🎁 Gói combo siêu lời đăng ký 2 khóa tặng ngay 1 khóa bất kỳ!
-              </div>
-              <button class="btn-action" onclick="location.href=&apos;/courses&apos;">XEM KHÓA HỌC</button>
+      <!-- MOS PPT -->
+      <div class="hn-course">
+        <div class="hn-course-thumb" style="background:linear-gradient(135deg,#1a0a07,#2e1206)">
+          <span class="hn-ico">📑</span>
+          <span class="hn-cbadge cbadge-new">✨ Mới</span>
+        </div>
+        <div class="hn-cbody">
+          <div class="hn-ctitle">Luyện thi MOS PowerPoint 2019</div>
+          <div class="hn-cdesc">Thuyết trình chuyên nghiệp chuẩn quốc tế. Thiết yếu cho sinh viên và văn phòng.</div>
+          <div class="hn-cprice">400.000đ <span class="old">600.000đ</span></div>
+          <div class="hn-cbtns">
+            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <button class="hn-cbtn-s" onclick="openVideoModal('https://youtu.be/o7mmLCeA1D0')">▶ Học thử</button>
+            <button class="hn-cbtn-s" onclick="openVideoModal('https://youtu.be/jPt1uNLbU5U')">🎯 Thi thử</button>
           </div>
-
-          <div class="right-col">
-              <div class="section-card" id="bang-vang-container">
-                  <h3 style="margin-bottom:15px; font-size:1rem; letter-spacing:0.5px;">🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</h3>
-                  <div class="carousel-viewport">
-                      <div class="carousel-track">${studentData}</div>
-                  </div>
-              </div>
+        </div>
+      </div>
+      <!-- IC3 -->
+      <div class="hn-course">
+        <div class="hn-course-thumb" style="background:linear-gradient(135deg,#0a1a1a,#0f2828)">
+          <span class="hn-ico">🌐</span>
+          <span class="hn-cbadge cbadge-gold">IC3 GS6</span>
+        </div>
+        <div class="hn-cbody">
+          <div class="hn-ctitle">Luyện thi IC3 GS6 (3 phần)</div>
+          <div class="hn-cdesc">Computing Fundamentals · Key Applications · Living Online. Chứng chỉ IC3 quốc tế Certiport.</div>
+          <div class="hn-cprice">200.000đ <span class="old">450.000đ</span></div>
+          <div class="hn-cbtns">
+            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <a href="/ic3-test" class="hn-cbtn-s">🎯 Vào phòng thi</a>
           </div>
-      </div>`;
+        </div>
+      </div>
+      <!-- AI -->
+      <div class="hn-course">
+        <div class="hn-course-thumb" style="background:linear-gradient(135deg,#18100a,#2a1a06)">
+          <span class="hn-ico">🤖</span>
+          <span class="hn-cbadge cbadge-ai">⚡ AI</span>
+        </div>
+        <div class="hn-cbody">
+          <div class="hn-ctitle">Luyện thi Generative AI</div>
+          <div class="hn-cdesc">Kỹ năng sử dụng AI trong học tập & công việc. Prompt, tạo nội dung, tự động hóa.</div>
+          <div class="hn-cprice" style="color:#a78bfa">100.000đ <span class="old">400.000đ</span></div>
+          <div class="hn-cbtns">
+            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <a href="/generative-ai" class="hn-cbtn-s">🎯 Vào phòng thi</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video giới thiệu phần mềm -->
+    <div style="margin-top:40px">
+      <div class="hn-tag">🎥 Video giới thiệu</div>
+      <h3 class="hn-h2" style="font-size:1.4rem;margin-bottom:6px">Xem phần mềm MOS360 hoạt động</h3>
+      <p class="hn-desc" style="margin-bottom:18px">Giao diện thi thật 98% — học và thi thử ngay trên phần mềm trước khi quyết định.</p>
+      <div class="hn-video-wrap">
+        <div class="hn-video-left">
+          <h3>Hướng dẫn sử dụng phần mềm MOS360</h3>
+          <p>Xem tổng quan: cách cài đặt, giao diện, học và thi thử từng môn Word · Excel · PowerPoint. Học mọi lúc, không giới hạn số lần.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="hn-btn-p" style="font-size:0.85rem;padding:9px 18px;border:none;cursor:pointer" onclick="openVideoModal('https://youtu.be/FVIEmeH-mU8')">▶ Xem ngay</button>
+            <a href="#hn-register" class="hn-btn-s" style="font-size:0.85rem;padding:9px 18px">Đăng ký học →</a>
+          </div>
+        </div>
+        <div class="hn-video-right" onclick="openVideoModal('https://youtu.be/FVIEmeH-mU8')">
+          <div class="hn-play">▶</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="hn-divider">
+
+<!-- TIỆN ÍCH & CÀI ĐẶT -->
+<div class="hn-section" id="hn-tools">
+  <div class="hn-inner">
+    <div class="hn-tag">🧰 Tiện ích</div>
+    <h2 class="hn-h2">Tải & Cài đặt</h2>
+    <p class="hn-desc">Tất cả phần mềm và hướng dẫn cần thiết. Miễn phí — hỗ trợ cài đặt 1:1 qua Zalo.</p>
+    <div class="hn-tools-grid">
+      <a href="\${CONFIG.TOOLS.MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">🖥️</div><div><div class="hn-tool-name">Phần mềm MOS360</div><div class="hn-tool-type">Luyện thi & thi thử</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📦</div><div><div class="hn-tool-name">Office 2019 Pro Plus</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,242,255,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.ULTRAVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.08)">📡</div><div><div class="hn-tool-name">UltraViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.HD_MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📖</div><div><div class="hn-tool-name">Cài phần mềm MOS360</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.HD_OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📖</div><div><div class="hn-tool-name">Cài Office 2019</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="\${CONFIG.TOOLS.HD_THI}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📋</div><div><div class="hn-tool-name">Hướng dẫn bài thi MOS</div><div class="hn-tool-type">Tài liệu chính thức IIG</div></div><span class="hn-tool-arr">↗</span></a>
+    </div>
+  </div>
+</div>
+
+<hr class="hn-divider">
+
+<!-- ĐĂNG KÝ -->
+<div class="hn-section" id="hn-register">
+  <div class="hn-inner">
+    <div class="hn-tag">📝 Đăng ký</div>
+    <h2 class="hn-h2">Đăng ký ngay hôm nay</h2>
+    <p class="hn-desc">Chọn hình thức phù hợp — học online, thi chứng chỉ, hoặc học trực tiếp tại trung tâm.</p>
+    <div class="hn-reg-tabs">
+      <button class="hn-rtab active" onclick="switchReg2('hoc')">📱 Đăng ký học</button>
+      <button class="hn-rtab" onclick="switchReg2('thi')">📋 Đăng ký thi</button>
+      <button class="hn-rtab" onclick="switchReg2('off')">🏫 Học Offline</button>
+    </div>
+    <div class="hn-rpanel active" id="hn-reg-hoc">
+      <div class="hn-form-wrap">
+        <div class="hn-fh"><div class="hn-fh-ico" style="background:rgba(255,87,34,0.1)">📱</div><div><h3>Đăng ký học MOS360 Online</h3><p>Học 100% trên phần mềm MOS360. Mọi lúc, mọi nơi, không giới hạn số buổi. Giáo viên hỗ trợ 1:1.</p></div></div>
+        <div class="hn-fi">
+          <div class="hn-fi-item"><span class="hn-fi-ico">✅</span><div class="hn-fi-txt"><strong>Học trên phần mềm MOS360</strong>Giao diện giống thi thật 98%</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">✅</span><div class="hn-fi-txt"><strong>Giáo viên hỗ trợ 1:1</strong>Tối ưu thời gian học</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">✅</span><div class="hn-fi-txt"><strong>Không giới hạn số buổi</strong>Học đến khi thành thạo</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">🏆</span><div class="hn-fi-txt"><strong>Cam kết đầu ra</strong>Hoàn tiền 100% nếu chưa đạt</div></div>
+        </div>
+        <div class="hn-fcta"><a href="\${CONFIG.FORMS.HOC}" target="_blank">📝 Điền form đăng ký →</a><div class="hn-fnote">Sau khi đăng ký, MOS360 liên hệ qua Zalo trong 24h<br>Hotline: <strong style="color:#fff">0912.888.360</strong></div></div>
+      </div>
+    </div>
+    <div class="hn-rpanel" id="hn-reg-thi">
+      <div class="hn-form-wrap">
+        <div class="hn-fh"><div class="hn-fh-ico" style="background:rgba(34,197,94,0.1)">📋</div><div><h3>Đăng ký thi MOS tại VMU — Đợt 5 (27–28/6/2026)</h3><p>Thi tại Trường ĐH Hàng Hải Việt Nam. Hạn đóng lệ phí: <strong style="color:#f59e0b">15/6/2026</strong>. Lệ phí: <strong style="color:#fff">950.000đ/môn</strong>.</p></div></div>
+        <div class="hn-fi">
+          <div class="hn-fi-item"><span class="hn-fi-ico">📅</span><div class="hn-fi-txt"><strong>Thời gian thi</strong>27–28/6/2026</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">📍</span><div class="hn-fi-txt"><strong>Địa điểm</strong>Trường ĐH Hàng Hải Việt Nam</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">💰</span><div class="hn-fi-txt"><strong>Lệ phí</strong>950.000đ/môn</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">🏦</span><div class="hn-fi-txt"><strong>Vietcombank 1912888360</strong>Nguyễn Thị Thảo · Nội dung: Tên + SĐT + Môn</div></div>
+        </div>
+        <div class="hn-fcta"><a href="\${CONFIG.FORMS.THI}" target="_blank">📝 Điền form đăng ký thi →</a><div class="hn-fnote">Sau khi CK, chụp màn hình gửi Zalo/FB MOS360 xác nhận<br>SV VMU thi bắt buộc 2 môn Word + Excel</div></div>
+      </div>
+    </div>
+    <div class="hn-rpanel" id="hn-reg-off">
+      <div class="hn-form-wrap">
+        <div class="hn-fh"><div class="hn-fh-ico" style="background:rgba(245,158,11,0.1)">🏫</div><div><h3>Đăng ký học Offline tại Trung tâm</h3><p>Tầng 1 – 57 Lê Văn Thuyết A, Quận Nam, Hải Phòng (cạnh C2, ĐH Hàng Hải).</p></div></div>
+        <div class="hn-fi">
+          <div class="hn-fi-item"><span class="hn-fi-ico">🌅</span><div class="hn-fi-txt"><strong>Ca sáng</strong>08h–09h · 09h–10h · 10h–11h</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">☀️</span><div class="hn-fi-txt"><strong>Ca chiều</strong>14h–15h · 15h–16h · 16h–17h</div></div>
+          <div class="hn-fi-item"><span class="hn-fi-ico">👥</span><div class="hn-fi-txt"><strong>Tối đa 16 học viên/ca</strong>Đăng ký sớm để chọn ca</div></div>
+        </div>
+        <div class="hn-fcta"><a href="\${CONFIG.FORMS.OFFLINE}" target="_blank">📝 Đăng ký lịch học offline →</a><div class="hn-fnote">Có thể đăng ký nhiều ca/ngày · Trung tâm xác nhận qua Zalo</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="hn-divider">
+
+<!-- LỊCH THI -->
+<div class="hn-section" id="hn-schedule">
+  <div class="hn-inner">
+    <div class="hn-tag">📅 Lịch thi</div>
+    <h2 class="hn-h2">Lịch thi MOS 2026</h2>
+    <p class="hn-desc">6 tháng tới tại Trường ĐH Hàng Hải Việt Nam. Lệ phí: <strong style="color:var(--cyan)">950.000đ/môn</strong>.</p>
+    <div class="hn-sch-wrap">
+      <div class="hn-sch-top">
+        <h3>📍 VMU — Trường ĐH Hàng Hải Việt Nam · Hải Phòng</h3>
+        <div class="hn-legend">
+          <span><span class="hn-ldot" style="background:#22c55e"></span>Đang mở ĐK</span>
+          <span><span class="hn-ldot" style="background:#f59e0b"></span>Sắp đóng ĐK</span>
+          <span><span class="hn-ldot" style="background:var(--cyan)"></span>Sắp mở</span>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="hn-table">
+          <thead><tr><th>Đợt</th><th>Ngày thi</th><th>Hạn đóng LP</th><th>Trạng thái</th></tr></thead>
+          <tbody>\${scheduleRows || '<tr><td colspan="4" style="text-align:center;padding:20px;color:#475569">Không có đợt thi trong 6 tháng tới</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>
+    <p style="font-size:0.74rem;color:#475569;margin-top:10px;line-height:1.6">* Lịch do CITAD – ĐH Hàng Hải công bố. Hạn đóng LP tính trước 3 ngày kết thúc ĐK. Liên hệ Zalo <strong style="color:#fff">0912.888.360</strong> xác nhận.</p>
+  </div>
+</div>
+
+<hr class="hn-divider">
+
+<!-- TRA CỨU DỰ THI -->
+<div class="hn-section" id="hn-lookup">
+  <div class="hn-inner">
+    <div class="hn-tag">🔍 Tra cứu</div>
+    <h2 class="hn-h2">Tra cứu thông tin dự thi</h2>
+    <p class="hn-desc">Kiểm tra thông tin đăng ký trước kỳ thi. Nhập số điện thoại để tra cứu.</p>
+    <div class="hn-lookup-box">
+      <div class="hn-linput-wrap">
+        <input class="hn-linput" id="hnLookupInput" type="tel" placeholder="Nhập số điện thoại (VD: 0912888360)" onkeydown="if(event.key==='Enter')hnDoLookup()">
+        <button class="hn-lbtn" onclick="hnDoLookup()">Tra cứu</button>
+      </div>
+      <div class="hn-lresult" id="hnLookupResult">
+        <h4>Thông tin đăng ký thi</h4>
+        <div id="hnLookupFields"></div>
+        <div class="hn-lnote">Nếu thông tin sai → Zalo <strong style="color:#fff">0912.888.360</strong> để chỉnh sửa. Nếu đúng → không cần báo lại. 🎉</div>
+      </div>
+      <div class="hn-lmsg" id="hnLookupMsg"></div>
+      <p style="font-size:0.75rem;color:#475569;margin-top:16px;line-height:1.6">📌 Phòng thi và ca thi sẽ được bổ sung 3–5 ngày trước kỳ thi.</p>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div id="hnVideoModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeVideoModal()">
+  <div style="position:relative;width:100%;max-width:820px;aspect-ratio:16/9" onclick="event.stopPropagation()">
+    <button onclick="closeVideoModal()" style="position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;font-family:inherit;font-weight:700">✕ Đóng</button>
+    <iframe id="hnVideoFrame" allowfullscreen style="width:100%;height:100%;border:none;border-radius:12px"></iframe>
+  </div>
+</div>
+
+<script>
+// Video Modal
+function openVideoModal(url) {
+  var embed = url.replace('youtu.be/','youtube.com/embed/').replace('watch?v=','embed/');
+  var idx = embed.indexOf('youtube.com/embed/');
+  if(idx > -1) {
+    var id = embed.substring(idx+18).split(/[&?]/)[0];
+    embed = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+  }
+  document.getElementById('hnVideoFrame').src = embed;
+  var modal = document.getElementById('hnVideoModal');
+  modal.style.display = 'flex';
+}
+function closeVideoModal() {
+  document.getElementById('hnVideoModal').style.display = 'none';
+  document.getElementById('hnVideoFrame').src = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeVideoModal(); });
+
+// Register tabs
+function switchReg2(id) {
+  var ids = ['hoc','thi','off'];
+  document.querySelectorAll('.hn-rtab').forEach(function(t,i){ t.classList.toggle('active', ids[i]===id); });
+  document.querySelectorAll('.hn-rpanel').forEach(function(p){ p.classList.toggle('active', p.id==='hn-reg-'+id); });
+}
+
+// Tra cứu — gọi Apps Script Web App
+async function hnDoLookup() {
+  var phone = document.getElementById('hnLookupInput').value.trim();
+  var result = document.getElementById('hnLookupResult');
+  var msg = document.getElementById('hnLookupMsg');
+  result.classList.remove('show');
+  msg.classList.remove('show');
+  if (!phone) { msg.textContent = 'Vui lòng nhập số điện thoại.'; msg.classList.add('show'); return; }
+  msg.textContent = 'Đang tra cứu...'; msg.classList.add('show');
+  try {
+    var url = '\${CONFIG.APPS_SCRIPT_LOOKUP}?action=lookup&phone=' + encodeURIComponent(phone);
+    var res = await fetch(url);
+    var data = await res.json();
+    msg.classList.remove('show');
+    if (data.success && data.data) {
+      var fields = document.getElementById('hnLookupFields');
+      var html = '';
+      Object.keys(data.data).forEach(function(k) {
+        var v = data.data[k];
+        var extra = (k.includes('Phòng') || k.includes('Ca') || k.includes('SĐT')) ? ' hl' : '';
+        html += '<div class="hn-lf"><span class="hn-lf-key">' + k + '</span><span class="hn-lf-val' + extra + '">' + v + '</span></div>';
+      });
+      fields.innerHTML = html;
+      result.classList.add('show');
+    } else {
+      msg.textContent = data.msg || 'Không tìm thấy thông tin.';
+      msg.classList.add('show');
+    }
+  } catch(e) {
+    msg.textContent = 'Không kết nối được. Vui lòng thử lại hoặc liên hệ Zalo 0912.888.360.';
+    msg.classList.add('show');
+  }
+}
+</script>`;
     },
-
     getCoursesUI() {
         return `<div style="max-width:1200px; margin:30px auto; padding:0 15px;">
         <h2 style="color:var(--primary); text-align:center; margin-bottom:10px; font-weight:800; font-size:1.8rem;">LỘ TRÌNH LUYỆN THI CHỨNG CHỈ QUỐC TẾ</h2>
