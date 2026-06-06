@@ -35,7 +35,7 @@ const CONFIG = {
 
     // URL Apps Script Web App đã deploy — tra cứu dự thi
     // Thay bằng URL thật sau khi deploy Apps Script
-    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbze-RXZCpIc-YdiMnOC5z7c5G1XtzklHc3da_T3-6c7jf3v-iFxWKN8F7xdVjBHANCMIw/exec",
+    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec",
 
     // Links form đăng ký
     FORMS: {
@@ -732,7 +732,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
       <div class="hn-bvang-hdr">🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</div>
       <div style="height:520px; overflow:hidden; padding:4px;">
         <div class="carousel-viewport" style="border-radius:10px;">
-          <div class="carousel-track">\${studentData}</div>
+          <div class="carousel-track">${studentData}</div>
         </div>
       </div>
     </div>
@@ -848,16 +848,16 @@ table.hn-table { width:100%; border-collapse:collapse; }
     <h2 class="hn-h2">Tải & Cài đặt</h2>
     <p class="hn-desc">Tất cả phần mềm và hướng dẫn cần thiết. Miễn phí — hỗ trợ cài đặt 1:1 qua Zalo.</p>
     <div class="hn-tools-grid">
-      <a href="\${CONFIG.TOOLS.MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">🖥️</div><div><div class="hn-tool-name">Phần mềm MOS360</div><div class="hn-tool-type">Luyện thi & thi thử</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📦</div><div><div class="hn-tool-name">Office 2019 Pro Plus</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,242,255,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.ULTRAVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.08)">📡</div><div><div class="hn-tool-name">UltraViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.HD_MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📖</div><div><div class="hn-tool-name">Cài phần mềm MOS360</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.HD_OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📖</div><div><div class="hn-tool-name">Cài Office 2019</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="\${CONFIG.TOOLS.HD_THI}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📋</div><div><div class="hn-tool-name">Hướng dẫn bài thi MOS</div><div class="hn-tool-type">Tài liệu chính thức IIG</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">🖥️</div><div><div class="hn-tool-name">Phần mềm MOS360</div><div class="hn-tool-type">Luyện thi & thi thử</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📦</div><div><div class="hn-tool-name">Office 2019 Pro Plus</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,242,255,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.ULTRAVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.08)">📡</div><div><div class="hn-tool-name">UltraViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.HD_MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📖</div><div><div class="hn-tool-name">Cài phần mềm MOS360</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.HD_OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📖</div><div><div class="hn-tool-name">Cài Office 2019</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.HD_THI}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📋</div><div><div class="hn-tool-name">Hướng dẫn bài thi MOS</div><div class="hn-tool-type">Tài liệu chính thức IIG</div></div><span class="hn-tool-arr">↗</span></a>
     </div>
   </div>
 </div>
@@ -884,7 +884,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
           <div class="hn-fi-item"><span class="hn-fi-ico">✅</span><div class="hn-fi-txt"><strong>Không giới hạn số buổi</strong>Học đến khi thành thạo</div></div>
           <div class="hn-fi-item"><span class="hn-fi-ico">🏆</span><div class="hn-fi-txt"><strong>Cam kết đầu ra</strong>Hoàn tiền 100% nếu chưa đạt</div></div>
         </div>
-        <div class="hn-fcta"><a href="\${CONFIG.FORMS.HOC}" target="_blank">📝 Điền form đăng ký →</a><div class="hn-fnote">Sau khi đăng ký, MOS360 liên hệ qua Zalo trong 24h<br>Hotline: <strong style="color:#fff">0912.888.360</strong></div></div>
+        <div class="hn-fcta"><a href="${CONFIG.FORMS.HOC}" target="_blank">📝 Điền form đăng ký →</a><div class="hn-fnote">Sau khi đăng ký, MOS360 liên hệ qua Zalo trong 24h<br>Hotline: <strong style="color:#fff">0912.888.360</strong></div></div>
       </div>
     </div>
     <div class="hn-rpanel" id="hn-reg-thi">
@@ -896,7 +896,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
           <div class="hn-fi-item"><span class="hn-fi-ico">💰</span><div class="hn-fi-txt"><strong>Lệ phí</strong>950.000đ/môn</div></div>
           <div class="hn-fi-item"><span class="hn-fi-ico">🏦</span><div class="hn-fi-txt"><strong>Vietcombank 1912888360</strong>Nguyễn Thị Thảo · Nội dung: Tên + SĐT + Môn</div></div>
         </div>
-        <div class="hn-fcta"><a href="\${CONFIG.FORMS.THI}" target="_blank">📝 Điền form đăng ký thi →</a><div class="hn-fnote">Sau khi CK, chụp màn hình gửi Zalo/FB MOS360 xác nhận<br>SV VMU thi bắt buộc 2 môn Word + Excel</div></div>
+        <div class="hn-fcta"><a href="${CONFIG.FORMS.THI}" target="_blank">📝 Điền form đăng ký thi →</a><div class="hn-fnote">Sau khi CK, chụp màn hình gửi Zalo/FB MOS360 xác nhận<br>SV VMU thi bắt buộc 2 môn Word + Excel</div></div>
       </div>
     </div>
     <div class="hn-rpanel" id="hn-reg-off">
@@ -907,7 +907,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
           <div class="hn-fi-item"><span class="hn-fi-ico">☀️</span><div class="hn-fi-txt"><strong>Ca chiều</strong>14h–15h · 15h–16h · 16h–17h</div></div>
           <div class="hn-fi-item"><span class="hn-fi-ico">👥</span><div class="hn-fi-txt"><strong>Tối đa 16 học viên/ca</strong>Đăng ký sớm để chọn ca</div></div>
         </div>
-        <div class="hn-fcta"><a href="\${CONFIG.FORMS.OFFLINE}" target="_blank">📝 Đăng ký lịch học offline →</a><div class="hn-fnote">Có thể đăng ký nhiều ca/ngày · Trung tâm xác nhận qua Zalo</div></div>
+        <div class="hn-fcta"><a href="${CONFIG.FORMS.OFFLINE}" target="_blank">📝 Đăng ký lịch học offline →</a><div class="hn-fnote">Có thể đăng ký nhiều ca/ngày · Trung tâm xác nhận qua Zalo</div></div>
       </div>
     </div>
   </div>
@@ -933,7 +933,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
       <div style="overflow-x:auto">
         <table class="hn-table">
           <thead><tr><th>Đợt</th><th>Ngày thi</th><th>Hạn đóng LP</th><th>Trạng thái</th></tr></thead>
-          <tbody>\${scheduleRows || '<tr><td colspan="4" style="text-align:center;padding:20px;color:#475569">Không có đợt thi trong 6 tháng tới</td></tr>'}</tbody>
+          <tbody>${scheduleRows || '<tr><td colspan="4" style="text-align:center;padding:20px;color:#475569">Không có đợt thi trong 6 tháng tới</td></tr>'}</tbody>
         </table>
       </div>
     </div>
@@ -1009,7 +1009,7 @@ async function hnDoLookup() {
   if (!phone) { msg.textContent = 'Vui lòng nhập số điện thoại.'; msg.classList.add('show'); return; }
   msg.textContent = 'Đang tra cứu...'; msg.classList.add('show');
   try {
-    var url = '\${CONFIG.APPS_SCRIPT_LOOKUP}?action=lookup&phone=' + encodeURIComponent(phone);
+    var url = '${CONFIG.APPS_SCRIPT_LOOKUP}?action=lookup&phone=' + encodeURIComponent(phone);
     var res = await fetch(url);
     var data = await res.json();
     msg.classList.remove('show');
