@@ -790,12 +790,13 @@ table.hn-table { width:100%; border-collapse:collapse; }
           <span class="hn-cbadge cbadge-gold">IC3 GS6</span>
         </div>
         <div class="hn-cbody">
-          <div class="hn-ctitle">Luyện thi IC3 GS6 (3 phần)</div>
-          <div class="hn-cdesc">Computing Fundamentals · Key Applications · Living Online. Chứng chỉ IC3 quốc tế Certiport.</div>
+          <div class="hn-ctitle">Luyện thi IC3 GS6</div>
+          <div class="hn-cdesc">Level 1 · Level 2 · Level 3. Computing Fundamentals · Key Applications · Living Online. Chứng chỉ IC3 quốc tế Certiport.</div>
           <div class="hn-cprice">200.000đ <span class="old">450.000đ</span></div>
           <div class="hn-cbtns">
             <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
-            <a href="/ic3-test" class="hn-cbtn-s">🎯 Vào phòng thi</a>
+            <a href="/ic3-test" class="hn-cbtn-s">▶ Học thử</a>
+            <a href="/ic3-test" class="hn-cbtn-s">🎯 Thi thử</a>
           </div>
         </div>
       </div>
@@ -811,7 +812,8 @@ table.hn-table { width:100%; border-collapse:collapse; }
           <div class="hn-cprice" style="color:#a78bfa">100.000đ <span class="old">400.000đ</span></div>
           <div class="hn-cbtns">
             <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
-            <a href="/generative-ai" class="hn-cbtn-s">🎯 Vào phòng thi</a>
+            <a href="/generative-ai" class="hn-cbtn-s">▶ Học thử</a>
+            <a href="/generative-ai" class="hn-cbtn-s">🎯 Thi thử</a>
           </div>
         </div>
       </div>
@@ -1164,19 +1166,46 @@ table.hn-table { width:100%; border-collapse:collapse; }
   <div class="hn-inner">
     <div class="hn-tag">🔍 Tra cứu</div>
     <h2 class="hn-h2">Tra cứu thông tin dự thi</h2>
-    <p class="hn-desc">Kiểm tra thông tin đăng ký trước kỳ thi. Nhập số điện thoại để tra cứu.</p>
+    <p class="hn-desc">Chọn đợt thi và nhập số điện thoại để xem thông tin phòng thi, ca thi.</p>
     <div class="hn-lookup-box">
-      <div class="hn-linput-wrap">
-        <input class="hn-linput" id="hnLookupInput" type="tel" placeholder="Nhập số điện thoại (VD: 0912888360)" onkeydown="if(event.key==='Enter')hnDoLookup()">
-        <button class="hn-lbtn" onclick="hnDoLookup()">Tra cứu</button>
+      <!-- Bước 1: Chọn đợt thi -->
+      <div class="hn-field" style="margin-bottom:14px">
+        <label class="hn-label">Bước 1 — Chọn đợt thi <span class="req">*</span></label>
+        <select class="hn-select" id="hnLookupDot">
+          <option value="">-- Chọn đợt thi --</option>
+          <option value="1">Đợt 1 — 10–11/01/2026</option>
+          <option value="2">Đợt 2 — 14–15/03/2026</option>
+          <option value="3">Đợt 3 — 18–19/04/2026</option>
+          <option value="4">Đợt 4 — 23–24/05/2026</option>
+          <option value="5">Đợt 5 — 27–28/06/2026</option>
+          <option value="6">Đợt 6 — 25–26/07/2026</option>
+          <option value="7">Đợt 7 — 29–30/08/2026</option>
+          <option value="8">Đợt 8 — 26–27/09/2026</option>
+          <option value="9">Đợt 9 — 24–25/10/2026</option>
+          <option value="10">Đợt 10 — 28–29/11/2026</option>
+          <option value="11">Đợt 11 — 26–27/12/2026</option>
+          <option value="12">Đợt 12 — 30–31/01/2027</option>
+        </select>
       </div>
+      <!-- Bước 2: Nhập SĐT -->
+      <div class="hn-field" style="margin-bottom:14px">
+        <label class="hn-label">Bước 2 — Số điện thoại đã đăng ký <span class="req">*</span></label>
+        <div class="hn-linput-wrap">
+          <input class="hn-linput" id="hnLookupInput" type="tel" placeholder="0912888360" onkeydown="if(event.key==='Enter')hnDoLookup()">
+          <button class="hn-lbtn" onclick="hnDoLookup()">Tra cứu</button>
+        </div>
+      </div>
+      <!-- Kết quả -->
       <div class="hn-lresult" id="hnLookupResult">
-        <h4>Thông tin đăng ký thi</h4>
+        <h4 id="hnLookupTitle">Thông tin dự thi</h4>
         <div id="hnLookupFields"></div>
         <div class="hn-lnote">Nếu thông tin sai → Zalo <strong style="color:#fff">0912.888.360</strong> để chỉnh sửa. Nếu đúng → không cần báo lại. 🎉</div>
       </div>
       <div class="hn-lmsg" id="hnLookupMsg"></div>
-      <p style="font-size:0.75rem;color:#475569;margin-top:16px;line-height:1.6">📌 Phòng thi và ca thi sẽ được bổ sung 3–5 ngày trước kỳ thi.</p>
+      <p style="font-size:0.75rem;color:#475569;margin-top:16px;line-height:1.6">
+        📌 Phòng thi và ca thi sẽ được bổ sung 3–5 ngày trước kỳ thi.<br>
+        📞 Chưa thấy tên → liên hệ Zalo <strong style="color:#fff">0912.888.360</strong> kiểm tra lại.
+      </p>
     </div>
   </div>
 </div>
@@ -1339,30 +1368,44 @@ function showMsg(el, type, text) {
 
 // Tra cứu — gọi Apps Script Web App
 async function hnDoLookup() {
+  var dot = document.getElementById('hnLookupDot').value.trim();
   var phone = document.getElementById('hnLookupInput').value.trim();
   var result = document.getElementById('hnLookupResult');
   var msg = document.getElementById('hnLookupMsg');
   result.classList.remove('show');
   msg.classList.remove('show');
-  if (!phone) { msg.textContent = 'Vui lòng nhập số điện thoại.'; msg.classList.add('show'); return; }
+
+  if (!dot) { msg.textContent = '⚠ Vui lòng chọn đợt thi.'; msg.classList.add('show'); return; }
+  if (!phone) { msg.textContent = '⚠ Vui lòng nhập số điện thoại.'; msg.classList.add('show'); return; }
+
   msg.textContent = 'Đang tra cứu...'; msg.classList.add('show');
   try {
-    var url = '${CONFIG.APPS_SCRIPT_LOOKUP}?action=lookup&phone=' + encodeURIComponent(phone);
+    var url = '${CONFIG.APPS_SCRIPT_LOOKUP}?action=lookup&phone=' + encodeURIComponent(phone) + '&dot=' + encodeURIComponent(dot);
     var res = await fetch(url);
     var data = await res.json();
     msg.classList.remove('show');
-    if (data.success && data.data) {
+    var payload = data.data || data; // tương thích cả ok:true lẫn success:true
+    if ((data.ok || data.success) && payload && typeof payload === 'object') {
       var fields = document.getElementById('hnLookupFields');
+      // Hiện tiêu đề đợt thi
+      var dotLabel = document.getElementById('hnLookupDot').options[document.getElementById('hnLookupDot').selectedIndex].text;
+      document.getElementById('hnLookupTitle').textContent = '📋 ' + dotLabel;
       var html = '';
-      Object.keys(data.data).forEach(function(k) {
-        var v = data.data[k];
-        var extra = (k.includes('Phòng') || k.includes('Ca') || k.includes('SĐT')) ? ' hl' : '';
-        html += '<div class="hn-lf"><span class="hn-lf-key">' + k + '</span><span class="hn-lf-val' + extra + '">' + v + '</span></div>';
+      var highlight = ['Phòng thi','Ca thi','Ngày thi','Đợt','Môn thi'];
+      Object.keys(payload).forEach(function(k) {
+        var v = payload[k];
+        if (!v || k === 'Ghi chú admin') return;
+        var isHL = highlight.some(function(h){ return k.includes(h); });
+        var color = isHL ? 'color:var(--cyan);font-size:1rem' : '';
+        html += '<div class="hn-lf" style="margin-bottom:10px">'
+             + '<span class="hn-lf-key">' + k + '</span>'
+             + '<span class="hn-lf-val" style="' + color + '">' + v + '</span>'
+             + '</div>';
       });
-      fields.innerHTML = html;
+      fields.innerHTML = html || '<div style="color:#475569">Không có dữ liệu chi tiết.</div>';
       result.classList.add('show');
     } else {
-      msg.textContent = data.msg || 'Không tìm thấy thông tin.';
+      msg.textContent = data.msg || 'Không tìm thấy thông tin cho đợt thi này.';
       msg.classList.add('show');
     }
   } catch(e) {
