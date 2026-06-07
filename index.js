@@ -35,7 +35,7 @@ const CONFIG = {
 
     // URL Apps Script Web App đã deploy — tra cứu dự thi
     // Thay bằng URL thật sau khi deploy Apps Script
-    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec",
+    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbx_5R2iNh744oh7Y508YUyrdHR7LDALBnLRzmnN4aJecwu3kmU0DNykoLZXg5-tyxRL/exec",
 
     // Links form đăng ký
     FORMS: {
@@ -864,50 +864,266 @@ table.hn-table { width:100%; border-collapse:collapse; }
 
 <hr class="hn-divider">
 
+<!-- CSS FORM -->
+<style>
+.hn-field { margin-bottom:16px; }
+.hn-label { display:block; font-size:0.8rem; font-weight:700; color:#94a3b8; margin-bottom:6px; letter-spacing:0.3px; }
+.hn-label .req { color:#f97316; margin-left:2px; }
+.hn-input, .hn-select, .hn-textarea {
+  width:100%; padding:10px 14px; background:#090b14; border:1px solid rgba(255,255,255,0.1);
+  border-radius:9px; color:#fff; font-size:0.88rem; font-family:inherit; outline:none;
+  transition:border-color 0.15s;
+}
+.hn-input:focus, .hn-select:focus, .hn-textarea:focus { border-color:#FF5722; }
+.hn-input::placeholder, .hn-textarea::placeholder { color:#374151; }
+.hn-select option { background:#111; }
+.hn-textarea { resize:vertical; min-height:72px; }
+.hn-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.hn-row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.hn-checkbox-group { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+.hn-checkbox-item { display:flex; align-items:center; gap:7px; cursor:pointer; }
+.hn-checkbox-item input[type=checkbox] { width:16px; height:16px; accent-color:#FF5722; cursor:pointer; }
+.hn-checkbox-item span { font-size:0.85rem; color:#e2e8f0; font-weight:500; }
+.hn-submit { width:100%; padding:13px; background:#FF5722; color:#fff; border:none; border-radius:10px;
+  font-weight:800; font-size:0.95rem; cursor:pointer; font-family:inherit; transition:all 0.15s;
+  margin-top:4px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.hn-submit:hover { background:#e64a19; transform:translateY(-1px); }
+.hn-submit:disabled { background:#374151; cursor:not-allowed; transform:none; }
+.hn-form-msg { padding:12px 16px; border-radius:9px; font-size:0.85rem; font-weight:600; margin-top:14px; display:none; }
+.hn-form-msg.ok { background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.3); color:#22c55e; display:block; }
+.hn-form-msg.err { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); color:#f87171; display:block; }
+.hn-info-box { background:rgba(255,87,34,0.06); border:1px solid rgba(255,87,34,0.2); border-radius:10px; padding:14px 16px; margin-bottom:20px; font-size:0.82rem; color:#94a3b8; line-height:1.6; }
+.hn-info-box strong { color:#fff; }
+.hn-divider-form { border:none; border-top:1px solid rgba(255,255,255,0.06); margin:20px 0; }
+@media(max-width:600px) { .hn-row,.hn-row3 { grid-template-columns:1fr; } }
+</style>
+
 <!-- ĐĂNG KÝ -->
 <div class="hn-section" id="hn-register">
   <div class="hn-inner">
     <div class="hn-tag">📝 Đăng ký</div>
     <h2 class="hn-h2">Đăng ký ngay hôm nay</h2>
-    <p class="hn-desc">Chọn hình thức phù hợp — học online, thi chứng chỉ, hoặc học trực tiếp tại trung tâm.</p>
+    <p class="hn-desc">Điền thông tin bên dưới — MOS360 nhận ngay và liên hệ xác nhận qua Zalo trong 24h.</p>
+
     <div class="hn-reg-tabs">
       <button class="hn-rtab active" onclick="switchReg2('hoc')">📱 Đăng ký học</button>
-      <button class="hn-rtab" onclick="switchReg2('thi')">📋 Đăng ký thi</button>
+      <button class="hn-rtab" onclick="switchReg2('thi')">📋 Đăng ký thi MOS</button>
       <button class="hn-rtab" onclick="switchReg2('off')">🏫 Học Offline</button>
     </div>
+
+    <!-- FORM ĐĂNG KÝ HỌC -->
     <div class="hn-rpanel active" id="hn-reg-hoc">
-      <div class="hn-form-wrap">
-        <div class="hn-fh"><div class="hn-fh-ico" style="background:rgba(255,87,34,0.1)">📱</div><div><h3>Đăng ký học MOS360 Online</h3><p>Học 100% trên phần mềm MOS360. Mọi lúc, mọi nơi, không giới hạn số buổi. Giáo viên hỗ trợ 1:1.</p></div></div>
-        <div class="hn-fi">
-          <div class="hn-fi-item"><span class="hn-fi-ico">✅</span><div class="hn-fi-txt"><strong>Học trên phần mềm MOS360</strong>Giao diện giống thi thật 98%</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">✅</span><div class="hn-fi-txt"><strong>Giáo viên hỗ trợ 1:1</strong>Tối ưu thời gian học</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">✅</span><div class="hn-fi-txt"><strong>Không giới hạn số buổi</strong>Học đến khi thành thạo</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">🏆</span><div class="hn-fi-txt"><strong>Cam kết đầu ra</strong>Hoàn tiền 100% nếu chưa đạt</div></div>
+      <div class="hn-form-wrap" style="padding:24px">
+        <div class="hn-info-box">
+          ✅ Học 100% trên phần mềm MOS360 · Giao diện sát đề 98% · Giáo viên hỗ trợ 1:1 · Không giới hạn số buổi<br>
+          🏆 <strong>Cam kết đầu ra — hoàn tiền 100% nếu chưa đạt</strong>
         </div>
-        <div class="hn-fcta"><a href="${CONFIG.FORMS.HOC}" target="_blank">📝 Điền form đăng ký →</a><div class="hn-fnote">Sau khi đăng ký, MOS360 liên hệ qua Zalo trong 24h<br>Hotline: <strong style="color:#fff">0912.888.360</strong></div></div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Họ và tên <span class="req">*</span></label>
+            <input class="hn-input" id="hoc_ten" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">SĐT (Zalo) <span class="req">*</span></label>
+            <input class="hn-input" id="hoc_sdt" type="tel" placeholder="0912888360" required>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Ngày, tháng, năm sinh</label>
+            <input class="hn-input" id="hoc_ngaysinh" placeholder="01/01/2005">
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Trường đang học</label>
+            <select class="hn-select" id="hoc_truong">
+              <option value="">-- Chọn trường --</option>
+              <option>ĐH Hàng Hải Việt Nam</option>
+              <option>ĐH Hải Phòng</option>
+              <option>ĐH Quản lý & Công nghệ HP</option>
+              <option>CĐ Hàng Hải I</option>
+              <option>Khác</option>
+            </select>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Năm học</label>
+            <select class="hn-select" id="hoc_namhoc">
+              <option value="">-- Năm học --</option>
+              <option>Năm 1</option><option>Năm 2</option><option>Năm 3</option><option>Năm 4</option><option>Đã tốt nghiệp</option>
+            </select>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Khoa / Lớp</label>
+            <input class="hn-input" id="hoc_khoa" placeholder="VD: Khoa Kinh tế - KTB66ĐH">
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Khóa học muốn đăng ký <span class="req">*</span></label>
+          <div class="hn-checkbox-group">
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_we" value="Word + Excel 2019"><span>📊 Luyện thi Word + Excel</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ppt" value="PowerPoint 2019"><span>📑 Luyện thi PowerPoint</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ic3" value="IC3 GS6"><span>🌐 Luyện thi IC3 GS6</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ai" value="Generative AI"><span>🤖 Generative AI</span></label>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Biết đến MOS360 qua</label>
+            <select class="hn-select" id="hoc_kenh">
+              <option value="">-- Chọn kênh --</option>
+              <option>Facebook</option><option>TikTok</option><option>YouTube</option>
+              <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
+            </select>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Mã giảm giá (nếu có)</label>
+            <input class="hn-input" id="hoc_magg" placeholder="Nhập mã giảm giá">
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Link Facebook của em</label>
+          <input class="hn-input" id="hoc_fb" placeholder="https://facebook.com/...">
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Ghi chú thêm</label>
+          <textarea class="hn-textarea" id="hoc_ghichu" placeholder="Câu hỏi hoặc yêu cầu đặc biệt..."></textarea>
+        </div>
+        <button class="hn-submit" onclick="submitForm('hoc')" id="btn_hoc">
+          <span>📝 Gửi đăng ký học</span>
+        </button>
+        <div class="hn-form-msg" id="msg_hoc"></div>
+        <p style="font-size:0.75rem;color:#475569;margin-top:12px;text-align:center">
+          Sau khi gửi, MOS360 liên hệ Zalo trong 24h · Hotline: <strong style="color:#fff">0912.888.360</strong>
+        </p>
       </div>
     </div>
+
+    <!-- FORM ĐĂNG KÝ THI -->
     <div class="hn-rpanel" id="hn-reg-thi">
-      <div class="hn-form-wrap">
-        <div class="hn-fh"><div class="hn-fh-ico" style="background:rgba(34,197,94,0.1)">📋</div><div><h3>Đăng ký thi MOS tại VMU — Đợt 5 (27–28/6/2026)</h3><p>Thi tại Trường ĐH Hàng Hải Việt Nam. Hạn đóng lệ phí: <strong style="color:#f59e0b">15/6/2026</strong>. Lệ phí: <strong style="color:#fff">950.000đ/môn</strong>.</p></div></div>
-        <div class="hn-fi">
-          <div class="hn-fi-item"><span class="hn-fi-ico">📅</span><div class="hn-fi-txt"><strong>Thời gian thi</strong>27–28/6/2026</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">📍</span><div class="hn-fi-txt"><strong>Địa điểm</strong>Trường ĐH Hàng Hải Việt Nam</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">💰</span><div class="hn-fi-txt"><strong>Lệ phí</strong>950.000đ/môn</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">🏦</span><div class="hn-fi-txt"><strong>Vietcombank 1912888360</strong>Nguyễn Thị Thảo · Nội dung: Tên + SĐT + Môn</div></div>
+      <div class="hn-form-wrap" style="padding:24px">
+        <div class="hn-info-box">
+          📅 <strong>Đợt 5 — 27–28/6/2026</strong> tại Trường ĐH Hàng Hải Việt Nam<br>
+          💰 Lệ phí: <strong style="color:#00f2ff">950.000đ/môn</strong> · Hạn đóng: <strong style="color:#f59e0b">15/6/2026</strong><br>
+          🏦 Chuyển khoản: <strong>Vietcombank 1912888360</strong> — Nguyễn Thị Thảo · Nội dung: Tên + SĐT + Môn thi
         </div>
-        <div class="hn-fcta"><a href="${CONFIG.FORMS.THI}" target="_blank">📝 Điền form đăng ký thi →</a><div class="hn-fnote">Sau khi CK, chụp màn hình gửi Zalo/FB MOS360 xác nhận<br>SV VMU thi bắt buộc 2 môn Word + Excel</div></div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Họ và tên <span class="req">*</span></label>
+            <input class="hn-input" id="thi_ten" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">SĐT <span class="req">*</span></label>
+            <input class="hn-input" id="thi_sdt" type="tel" placeholder="0912888360" required>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Mã số sinh viên (HVN nếu ngoài trường)</label>
+            <input class="hn-input" id="thi_masv" placeholder="VD: 106001 hoặc HVN">
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Giới tính</label>
+            <select class="hn-select" id="thi_gioitinh">
+              <option value="M">Nam (M)</option>
+              <option value="F">Nữ (F)</option>
+            </select>
+          </div>
+        </div>
+        <div class="hn-row3">
+          <div class="hn-field">
+            <label class="hn-label">Ngày sinh <span class="req">*</span></label>
+            <input class="hn-input" id="thi_ngay" placeholder="VD: 15" maxlength="2">
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Tháng sinh <span class="req">*</span></label>
+            <input class="hn-input" id="thi_thang" placeholder="VD: 03" maxlength="2">
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Năm sinh <span class="req">*</span></label>
+            <input class="hn-input" id="thi_nam" placeholder="VD: 2005" maxlength="4">
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Số CCCD <span class="req">*</span></label>
+            <input class="hn-input" id="thi_cccd" placeholder="12 số trên CCCD" maxlength="12">
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Địa chỉ trên VNeID (đã sáp nhập) <span class="req">*</span></label>
+            <input class="hn-input" id="thi_diachi" placeholder="VD: Số 14/53 Xóm Trung, P.Gia Viên, TP.HP">
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Đăng ký thi môn <span class="req">*</span> <span style="font-weight:400;color:#475569">(SV VMU bắt buộc Word + Excel)</span></label>
+          <div class="hn-checkbox-group">
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_word" checked><span>📄 Word 2019 (W)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_excel" checked><span>📊 Excel 2019 (E)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_ppt"><span>📑 PowerPoint 2019 (P)</span></label>
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Đã từng thi MOS chưa?</label>
+          <select class="hn-select" id="thi_datungThi">
+            <option value="N">Chưa thi lần nào</option>
+            <option value="Y">Đã thi rồi</option>
+          </select>
+        </div>
+        <button class="hn-submit" style="background:#22c55e" onclick="submitForm('thi')" id="btn_thi">
+          <span>📋 Gửi đăng ký thi</span>
+        </button>
+        <div class="hn-form-msg" id="msg_thi"></div>
+        <p style="font-size:0.75rem;color:#475569;margin-top:12px;text-align:center">
+          Sau khi gửi, vui lòng chuyển khoản lệ phí và chụp màn hình gửi Zalo/FB MOS360 xác nhận
+        </p>
       </div>
     </div>
+
+    <!-- FORM ĐĂNG KÝ OFFLINE -->
     <div class="hn-rpanel" id="hn-reg-off">
-      <div class="hn-form-wrap">
-        <div class="hn-fh"><div class="hn-fh-ico" style="background:rgba(245,158,11,0.1)">🏫</div><div><h3>Đăng ký học Offline tại Trung tâm</h3><p>Tầng 1 – 57 Lê Văn Thuyết A, Quận Nam, Hải Phòng (cạnh C2, ĐH Hàng Hải).</p></div></div>
-        <div class="hn-fi">
-          <div class="hn-fi-item"><span class="hn-fi-ico">🌅</span><div class="hn-fi-txt"><strong>Ca sáng</strong>08h–09h · 09h–10h · 10h–11h</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">☀️</span><div class="hn-fi-txt"><strong>Ca chiều</strong>14h–15h · 15h–16h · 16h–17h</div></div>
-          <div class="hn-fi-item"><span class="hn-fi-ico">👥</span><div class="hn-fi-txt"><strong>Tối đa 16 học viên/ca</strong>Đăng ký sớm để chọn ca</div></div>
+      <div class="hn-form-wrap" style="padding:24px">
+        <div class="hn-info-box">
+          📍 <strong>Tầng 1 – 57 Lê Văn Thuyết A</strong>, Quận Nam, Hải Phòng (cạnh C2, ĐH Hàng Hải)<br>
+          👥 Tối đa 16 học viên/ca · Có thể đăng ký nhiều ca trong một ngày
         </div>
-        <div class="hn-fcta"><a href="${CONFIG.FORMS.OFFLINE}" target="_blank">📝 Đăng ký lịch học offline →</a><div class="hn-fnote">Có thể đăng ký nhiều ca/ngày · Trung tâm xác nhận qua Zalo</div></div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Họ và tên <span class="req">*</span></label>
+            <input class="hn-input" id="off_ten" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">SĐT (Zalo) <span class="req">*</span></label>
+            <input class="hn-input" id="off_sdt" type="tel" placeholder="0912888360" required>
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Ngày muốn học <span class="req">*</span></label>
+          <input class="hn-input" id="off_ngay" type="date">
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Chọn ca học <span class="req">*</span></label>
+          <div class="hn-checkbox-group" style="flex-direction:column;gap:8px">
+            <div style="font-size:0.78rem;color:#475569;font-weight:700;margin-bottom:2px">🌅 Buổi sáng</div>
+            <label class="hn-checkbox-item"><input type="checkbox" id="off_ca1"><span>Ca 1 — 08h00 đến 09h00</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="off_ca2"><span>Ca 2 — 09h00 đến 10h00</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="off_ca3"><span>Ca 3 — 10h00 đến 11h00</span></label>
+            <div style="font-size:0.78rem;color:#475569;font-weight:700;margin:6px 0 2px">☀️ Buổi chiều</div>
+            <label class="hn-checkbox-item"><input type="checkbox" id="off_ca4"><span>Ca 4 — 14h00 đến 15h00</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="off_ca5"><span>Ca 5 — 15h00 đến 16h00</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="off_ca6"><span>Ca 6 — 16h00 đến 17h00</span></label>
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Ghi chú</label>
+          <textarea class="hn-textarea" id="off_ghichu" placeholder="Yêu cầu đặc biệt hoặc câu hỏi..."></textarea>
+        </div>
+        <button class="hn-submit" style="background:#f59e0b;color:#000" onclick="submitForm('off')" id="btn_off">
+          <span>🏫 Gửi đăng ký lịch học</span>
+        </button>
+        <div class="hn-form-msg" id="msg_off"></div>
+        <p style="font-size:0.75rem;color:#475569;margin-top:12px;text-align:center">
+          Trung tâm xác nhận lịch và gửi nhắc nhở qua Zalo trước buổi học
+        </p>
       </div>
     </div>
   </div>
@@ -997,6 +1213,128 @@ function switchReg2(id) {
   var ids = ['hoc','thi','off'];
   document.querySelectorAll('.hn-rtab').forEach(function(t,i){ t.classList.toggle('active', ids[i]===id); });
   document.querySelectorAll('.hn-rpanel').forEach(function(p){ p.classList.toggle('active', p.id==='hn-reg-'+id); });
+}
+
+// Submit form → Apps Script
+var AS_URL = '${CONFIG.APPS_SCRIPT_LOOKUP}';
+
+async function submitForm(type) {
+  var btn = document.getElementById('btn_' + type);
+  var msgEl = document.getElementById('msg_' + type);
+  msgEl.className = 'hn-form-msg';
+  msgEl.textContent = '';
+
+  var payload = { action: 'dk' + type };
+  var ok = true;
+
+  if (type === 'hoc') {
+    var ten = document.getElementById('hoc_ten').value.trim();
+    var sdt = document.getElementById('hoc_sdt').value.trim();
+    if (!ten || !sdt) { showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ Họ tên và SĐT'); return; }
+    var khoahoc = [];
+    ['we','ppt','ic3','ai'].forEach(function(k) {
+      var el = document.getElementById('hoc_kh_' + k);
+      if (el && el.checked) khoahoc.push(el.value);
+    });
+    if (!khoahoc.length) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 khóa học'); return; }
+    Object.assign(payload, {
+      ten: ten, sdt: sdt,
+      ngaysinh: document.getElementById('hoc_ngaysinh').value,
+      truong: document.getElementById('hoc_truong').value,
+      namhoc: document.getElementById('hoc_namhoc').value,
+      khoa: document.getElementById('hoc_khoa').value,
+      khoahoc: khoahoc.join(', '),
+      kenh: document.getElementById('hoc_kenh').value,
+      magiamgia: document.getElementById('hoc_magg').value,
+      facebook: document.getElementById('hoc_fb').value,
+      ghichu: document.getElementById('hoc_ghichu').value
+    });
+  }
+
+  if (type === 'thi') {
+    var ten = document.getElementById('thi_ten').value.trim();
+    var sdt = document.getElementById('thi_sdt').value.trim();
+    var cccd = document.getElementById('thi_cccd').value.trim();
+    var ngay = document.getElementById('thi_ngay').value.trim();
+    var thang = document.getElementById('thi_thang').value.trim();
+    var nam = document.getElementById('thi_nam').value.trim();
+    var diachi = document.getElementById('thi_diachi').value.trim();
+    if (!ten || !sdt || !cccd || !ngay || !thang || !nam || !diachi) {
+      showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ các trường bắt buộc (*)'); return;
+    }
+    var word = document.getElementById('thi_word').checked ? 'W' : '';
+    var excel = document.getElementById('thi_excel').checked ? 'E' : '';
+    var ppt = document.getElementById('thi_ppt').checked ? 'P' : '';
+    if (!word && !excel && !ppt) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 môn thi'); return; }
+    Object.assign(payload, {
+      ten: ten, sdt: sdt, cccd: cccd,
+      masv: document.getElementById('thi_masv').value,
+      gioitinh: document.getElementById('thi_gioitinh').value,
+      ngay: ngay, thang: thang, nam: nam,
+      diachi: diachi,
+      word: word, excel: excel, ppt: ppt,
+      ngonngu: 'V',
+      datungThi: document.getElementById('thi_datungThi').value,
+      dotthi: 'Đợt 5 - 27/28.06.2026'
+    });
+  }
+
+  if (type === 'off') {
+    var ten = document.getElementById('off_ten').value.trim();
+    var sdt = document.getElementById('off_sdt').value.trim();
+    var ngay = document.getElementById('off_ngay').value;
+    if (!ten || !sdt || !ngay) { showMsg(msgEl, 'err', '⚠ Vui lòng điền Họ tên, SĐT và Ngày học'); return; }
+    var anyCA = ['ca1','ca2','ca3','ca4','ca5','ca6'].some(function(c) {
+      return document.getElementById('off_' + c).checked;
+    });
+    if (!anyCA) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 ca học'); return; }
+    Object.assign(payload, {
+      ten: ten, sdt: sdt, ngay: ngay,
+      ca1: document.getElementById('off_ca1').checked ? '✓' : '',
+      ca2: document.getElementById('off_ca2').checked ? '✓' : '',
+      ca3: document.getElementById('off_ca3').checked ? '✓' : '',
+      ca4: document.getElementById('off_ca4').checked ? '✓' : '',
+      ca5: document.getElementById('off_ca5').checked ? '✓' : '',
+      ca6: document.getElementById('off_ca6').checked ? '✓' : '',
+      ghichu: document.getElementById('off_ghichu').value
+    });
+  }
+
+  // Gửi lên Apps Script
+  btn.disabled = true;
+  btn.innerHTML = '<span>⏳ Đang gửi...</span>';
+  try {
+    var res = await fetch(AS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (data.ok) {
+      showMsg(msgEl, 'ok', '✅ ' + data.msg);
+      // Reset form sau khi gửi thành công
+      setTimeout(function() {
+        document.querySelectorAll('#hn-reg-' + type + ' input, #hn-reg-' + type + ' select, #hn-reg-' + type + ' textarea').forEach(function(el) {
+          if (el.type === 'checkbox') el.checked = (el.id === 'thi_word' || el.id === 'thi_excel');
+          else el.value = '';
+        });
+      }, 1500);
+    } else {
+      showMsg(msgEl, 'err', '❌ ' + (data.msg || 'Gửi thất bại, thử lại hoặc liên hệ Zalo 0912.888.360'));
+    }
+  } catch(err) {
+    showMsg(msgEl, 'err', '❌ Không kết nối được. Vui lòng thử lại hoặc liên hệ Zalo 0912.888.360');
+  } finally {
+    btn.disabled = false;
+    var labels = { hoc: '📝 Gửi đăng ký học', thi: '📋 Gửi đăng ký thi', off: '🏫 Gửi đăng ký lịch học' };
+    btn.innerHTML = '<span>' + labels[type] + '</span>';
+  }
+}
+
+function showMsg(el, type, text) {
+  el.className = 'hn-form-msg ' + type;
+  el.textContent = text;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // Tra cứu — gọi Apps Script Web App
