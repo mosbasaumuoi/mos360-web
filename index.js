@@ -35,7 +35,7 @@ const CONFIG = {
 
     // URL Apps Script Web App đã deploy — tra cứu dự thi
     // Thay bằng URL thật sau khi deploy Apps Script
-    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbx_5R2iNh744oh7Y508YUyrdHR7LDALBnLRzmnN4aJecwu3kmU0DNykoLZXg5-tyxRL/exec",
+    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec",
 
     // Links form đăng ký
     FORMS: {
@@ -321,6 +321,13 @@ export default {
             studentData = "<div style='color:#64748b;padding:20px;'>Hệ thống đang đồng bộ dữ liệu...</div>";
         }
 
+        // Đọc promo config từ KV
+        let promoConfig = { active: false };
+        try {
+            const promoRaw = await env.MOS360_USERS_KV.get('promo_config');
+            if (promoRaw) promoConfig = JSON.parse(promoRaw);
+        } catch (e) { }
+
         let content = "";
         if (path === "/courses") content = this.getCoursesUI();
         else if (path === "/login") content = this.getLoginUI();
@@ -330,7 +337,7 @@ export default {
             const isAdmin = request.headers.get('Cookie')?.includes('mos360_admin=true');
             content = getAdminDashboardUI();
         }
-        else content = this.getHomeUI(studentData);
+        else content = this.getHomeUI(studentData, promoConfig);
 
         return new Response(this.layout(content), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
     },
@@ -517,7 +524,80 @@ export default {
     </body></html>`;
     },
 
-    getHomeUI(studentData) {
+    getHomeUI(studentData, promoConfig = {}) {
+        const promo = promoConfig || {};
+        const isPromoActive = promo.active && promo.title;
+
+        // Tính countdown deadline
+        let countdownHtml = '';
+        if (isPromoActive && promo.deadline) {
+            const dl = new Date(promo.deadline);
+            const now = new Date();
+            const diff = dl - now;
+            if (diff > 0) {
+                const days = Math.floor(diff / 86400000);
+                const hrs = Math.floor((diff % 86400000) / 3600000);
+                countdownHtml = `<span style="font-family:monospace;font-weight:800;color:#fff;background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:6px;margin-left:8px">Còn ${days} ngày ${hrs} giờ</span>`;
+            } else {
+                // Hết hạn — không hiện
+                promo.active = false;
+            }
+        }
+
+        // Banner sticky
+        const bannerHtml = (isPromoActive && promo.showBanner !== false) ? `
+<div id="promoBanner" style="background:linear-gradient(90deg,${promo.color || '#FF5722'},${promo.color2 || '#e64a19'});padding:10px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;position:relative">
+  <span style="font-size:0.88rem;font-weight:700;color:#fff">${promo.badge || '🔥'} ${promo.title}</span>
+  ${countdownHtml}
+  ${promo.subtitle ? `<span style="font-size:0.82rem;color:rgba(255,255,255,0.85)">— ${promo.subtitle}</span>` : ''}
+  <a href="#hn-promo" style="padding:4px 14px;background:rgba(0,0,0,0.25);color:#fff;border-radius:100px;font-size:0.78rem;font-weight:800;text-decoration:none">Xem ngay →</a>
+  <button onclick="document.getElementById('promoBanner').remove()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.6);font-size:1.2rem;cursor:pointer;line-height:1">×</button>
+</div>` : '';
+
+        // Section KM
+        const discountItems = (promo.discounts || []).map(d => `
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;text-align:center">
+    <div style="font-size:1.8rem;font-weight:900;color:${promo.color || '#FF5722'};margin-bottom:4px">${d.label}</div>
+    <div style="font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:4px">${d.title}</div>
+    <div style="font-size:0.78rem;color:#94a3b8">${d.note || ''}</div>
+  </div>`).join('');
+
+        const promoSectionHtml = (isPromoActive && promo.showSection !== false) ? `
+<div class="hn-section" id="hn-promo" style="padding:56px 24px;background:linear-gradient(180deg,rgba(${promo.colorRgb || '255,87,34'},0.06) 0%,transparent 100%)">
+  <div class="hn-inner">
+    <div class="hn-tag" style="color:${promo.color || '#FF5722'}">${promo.badge || '🔥'} Khuyến mãi</div>
+    <h2 class="hn-h2">${promo.title}</h2>
+    ${promo.subtitle ? `<p class="hn-desc">${promo.subtitle}</p>` : ''}
+    ${promo.deadline ? `<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,87,34,0.1);border:1px solid rgba(255,87,34,0.3);border-radius:100px;padding:6px 16px;margin-bottom:28px;font-size:0.82rem;font-weight:700;color:#fff">⏰ Hết hạn: <strong>${new Date(promo.deadline).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}</strong>${countdownHtml}</div>` : ''}
+    ${discountItems ? `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px">${discountItems}</div>` : ''}
+    <a href="#hn-register" class="hn-btn-p" style="font-size:0.9rem;padding:12px 28px">Đăng ký ngay →</a>
+  </div>
+</div>
+<hr class="hn-divider">` : '';
+
+        // Testimonials từ feedback thật
+        const testimonials = [
+            { name: 'Tú Linh Nguyễn', score: 'W: 884 · E: 1000', text: 'Phần mềm dễ hiểu, GV hướng dẫn siêu chi tiết. Nội dung bài học sát bài thi, luyện đúng để được 1000/1000. Nên học ở đây nha!' },
+            { name: 'Đào Minh Hà Phương', score: 'W: 950 · E: 950', text: 'Trước đây mình gần như "mù công nghệ". Nhờ GV tận tình, mình đã đạt 950 điểm MOS cho cả Word và Excel — kết quả mà trước đây mình chưa từng nghĩ tới.' },
+            { name: 'Phong Đoàn', score: '1000 điểm', text: 'Ôn siêu sát đề thi, học là bao đỗ. Mình được 981 điểm chỉ trong 2 ngày luyện.' },
+            { name: 'Đinh Thiếu', score: 'W: 950 · E: 1000', text: 'Word còn dư 15 phút, Excel còn dư 28 phút. Đề giống phần mềm luyện thi gần như 100%!' },
+            { name: 'Nguyễn Xuân Quang', score: 'E: 1000 · W: 925', text: 'Đề giống đúng không ạ? — Vâng, giống ạ. Em chưa biết sai ở đâu. Xuất sắc quá!' },
+            { name: 'Vũ Thị Hường', score: 'W: 907 · E: 981', score2: 'Suýt 1000 luôn!', text: 'Mỗi môn em chỉ mất 15 phút để làm xong. Cảm ơn chị rất nhiều ạ.' },
+            { name: 'Phạm Văn Trình', score: 'Gần 100%', text: 'Em cảm ơn chị đã giúp đỡ và hỗ trợ bọn em rất nhiệt tình. Chúc trung tâm ngày càng phát triển hơn. Em sẽ recommend thêm bạn tới học ạ.' },
+            { name: 'Trần Đức Hải', score: '5⭐', text: 'Mình thấy ôn đề sát với đề thi nên rất dễ đạt điểm.' },
+        ];
+        const testimonialsHtml = testimonials.map((t, i) => `
+  <div class="hn-tcard" style="flex-shrink:0;width:300px;background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:20px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FF5722,#ff8a65);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:1rem;flex-shrink:0">${t.name.charAt(0)}</div>
+      <div>
+        <div style="font-size:0.88rem;font-weight:700;color:#fff">${t.name}</div>
+        <div style="font-size:0.75rem;color:#22c55e;font-weight:700">${t.score}</div>
+      </div>
+    </div>
+    <p style="font-size:0.83rem;color:#94a3b8;line-height:1.6;font-style:italic">"${t.text}"</p>
+  </div>`).join('');
+
         const scheduleRows = CONFIG.SCHEDULE.map(row => {
             const parseDate = str => {
                 if (!str) return null;
@@ -556,6 +636,7 @@ export default {
 
         return `
 <!-- NEW HOMEPAGE 2026 -->
+${bannerHtml}
 <style>
 :root { --p:#FF5722; --bg:#06070d; --card:#111422; --border:rgba(255,255,255,0.06); --cyan:#00f2ff; }
 .hn-hero { min-height:90vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:80px 24px 60px; position:relative; overflow:hidden; }
@@ -576,6 +657,10 @@ export default {
 .hn-stat .num span { color:var(--p); }
 .hn-stat .lbl { font-size:0.73rem; color:#475569; font-weight:600; margin-top:2px; }
 
+.hn-tscroll{display:flex;gap:16px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.hn-tscroll::-webkit-scrollbar{height:4px}
+.hn-tscroll::-webkit-scrollbar-thumb{background:rgba(255,87,34,0.4);border-radius:2px}
+.hn-tcard{scroll-snap-align:start}
 .hn-section { padding:72px 24px; }
 .hn-inner { max-width:1100px; margin:0 auto; }
 .hn-tag { display:inline-flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--p); margin-bottom:10px; }
@@ -740,6 +825,20 @@ table.hn-table { width:100%; border-collapse:collapse; }
 </div>
 
 <hr class="hn-divider">
+
+<!-- TESTIMONIALS -->
+<div class="hn-section" style="padding:56px 24px">
+  <div class="hn-inner">
+    <div class="hn-tag">💬 Học viên nói gì</div>
+    <h2 class="hn-h2">Kết quả thật từ học viên MOS360</h2>
+    <p class="hn-desc" style="margin-bottom:24px">100% đề xuất · 33+ lượt đánh giá · Điểm số xác thực từ hệ thống Certiport.</p>
+    <div class="hn-tscroll">${testimonialsHtml}</div>
+  </div>
+</div>
+
+<hr class="hn-divider">
+
+${promoSectionHtml}
 
 <!-- KHÓA HỌC NỔI BẬT -->
 <div class="hn-section" id="hn-courses">

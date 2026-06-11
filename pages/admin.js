@@ -11,12 +11,90 @@ export function getAdminDashboardUI() {
             <p style="color:#64748b; font-size:0.85rem; margin-top:4px;">Quản lý học viên MOS360</p>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button onclick="loadDashboard()" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔄 Làm mới</button>
+            <button onclick="document.getElementById('tabStudents').style.display='block';document.getElementById('tabPromo').style.display='none';this.style.background='#1e2235'" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">👥 Học viên</button>
+            <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='block'" style="padding:9px 18px; background:rgba(255,87,34,0.15); border:1px solid rgba(255,87,34,0.4); color:#FF5722; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔥 Khuyến mãi</button>
+            <button onclick="loadDashboard()" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔄 Làm mới</button>
             <button onclick="showAddStudentModal()" style="padding:9px 18px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:#fff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">➕ Thêm học viên</button>
         </div>
     </div>
 
-    <!-- Stats Cards -->
+    <!-- TAB KHUYẾN MÃI -->
+    <div id="tabPromo" style="display:none">
+      <div style="background:#111422;border:1px solid rgba(255,87,34,0.2);border-radius:16px;padding:28px;max-width:700px">
+        <h2 style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">🔥 Quản lý Khuyến mãi</h2>
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:24px">Bật/tắt và chỉnh nội dung — áp dụng ngay lên trang chủ, không cần deploy lại.</p>
+
+        <!-- Bật/tắt -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding:14px;background:rgba(255,87,34,0.06);border:1px solid rgba(255,87,34,0.2);border-radius:10px">
+          <input type="checkbox" id="promoActive" style="width:20px;height:20px;accent-color:#FF5722;cursor:pointer" onchange="updatePromoPreview()">
+          <label for="promoActive" style="font-weight:800;color:#fff;cursor:pointer;font-size:0.95rem">Bật khuyến mãi</label>
+          <span style="font-size:0.78rem;color:#64748b">— Tắt = ẩn hoàn toàn khỏi trang chủ</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:80px 1fr;gap:12px;margin-bottom:14px">
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:6px">ICON / BADGE</label>
+            <input id="promoBadge" type="text" value="🔥" oninput="updatePromoPreview()" style="width:100%;padding:9px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:1.2rem;text-align:center">
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:6px">TIÊU ĐỀ <span style="color:#ef4444">*</span></label>
+            <input id="promoTitle" type="text" placeholder="VD: Tháng 6 — Giảm 30% khi đăng ký nhóm" oninput="updatePromoPreview()" style="width:100%;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.88rem">
+          </div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:6px">MÔ TẢ NGẮN (hiện trên banner)</label>
+          <input id="promoSubtitle" type="text" placeholder="VD: Đăng ký nhóm 5 người — tiết kiệm ngay 150.000đ/người" oninput="updatePromoPreview()" style="width:100%;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.88rem">
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:6px">MÀU CHỦ ĐẠO</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="promoColor" type="color" value="#FF5722" onchange="updatePromoPreview()" style="width:44px;height:36px;border:none;border-radius:8px;cursor:pointer;padding:2px">
+              <input type="text" oninput="document.getElementById('promoColor').value=this.value;updatePromoPreview()" placeholder="#FF5722" style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem">
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:6px">NGÀY HẾT HẠN</label>
+            <input id="promoDeadline" type="datetime-local" onchange="updatePromoPreview()" style="width:100%;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:20px;margin-bottom:20px">
+          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:0.85rem;color:#94a3b8">
+            <input type="checkbox" id="promoShowBanner" checked style="accent-color:#FF5722"> Hiện banner trên cùng
+          </label>
+          <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:0.85rem;color:#94a3b8">
+            <input type="checkbox" id="promoShowSection" checked style="accent-color:#FF5722"> Hiện section chi tiết
+          </label>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:6px">
+            CÁC MỨC GIẢM GIÁ (JSON) — <span style="font-weight:400">để trống nếu không cần</span>
+          </label>
+          <textarea id="promoDiscounts" rows="6" placeholder='[
+  {"label":"–30%","title":"Nhóm 10 người","note":"Tiết kiệm 240.000đ/người"},
+  {"label":"–10%","title":"Nhóm 5 người","note":"Tiết kiệm 80.000đ/người"}
+]' style="width:100%;padding:10px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#94a3b8;font-size:0.8rem;font-family:monospace;resize:vertical"></textarea>
+        </div>
+
+        <!-- Preview -->
+        <div style="margin-bottom:20px">
+          <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:8px">PREVIEW BANNER</label>
+          <div id="promoPreview" style="border-radius:8px;overflow:hidden"></div>
+        </div>
+
+        <div style="display:flex;gap:10px">
+          <button id="btnSavePromo" onclick="savePromo()" style="flex:1;padding:12px;background:linear-gradient(135deg,#FF5722,#ff784e);color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.95rem;cursor:pointer">💾 Lưu & Kích hoạt</button>
+          <button onclick="document.getElementById('promoActive').checked=false;savePromo()" style="padding:12px 20px;background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.3);border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer">⏹ Tắt KM</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB HỌC VIÊN -->
+    <div id="tabStudents">
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:24px;" id="statsCards">
         <div class="stat-card" style="background:#111422; border:1px solid rgba(0,242,255,0.2); border-radius:14px; padding:20px;">
             <div style="font-size:0.75rem; color:#64748b; font-weight:700; letter-spacing:0.5px;">TỔNG HỌC VIÊN ACTIVE</div>
@@ -136,6 +214,7 @@ export function getAdminDashboardUI() {
             </div>
         </div>
     </div>
+    </div><!-- end tabStudents -->
 
 </div>
 
@@ -338,6 +417,80 @@ async function resetDevices(phone, course) {
     } catch(e) { alert('Lỗi kết nối!'); }
 }
 
-window.addEventListener('DOMContentLoaded', loadDashboard);
+window.addEventListener('DOMContentLoaded', () => { loadDashboard(); loadPromo(); });
+
+// ── QUẢN LÝ KHUYẾN MÃI ─────────────────────────────────
+async function loadPromo() {
+  try {
+    var res = await adminFetch('/api/admin/promo');
+    var data = await res.json();
+    if (!data.success) return;
+    var p = data.promo;
+    document.getElementById('promoActive').checked   = !!p.active;
+    document.getElementById('promoBadge').value      = p.badge    || '🔥';
+    document.getElementById('promoTitle').value      = p.title    || '';
+    document.getElementById('promoSubtitle').value   = p.subtitle || '';
+    document.getElementById('promoColor').value      = p.color    || '#FF5722';
+    document.getElementById('promoDeadline').value   = p.deadline || '';
+    document.getElementById('promoShowBanner').checked  = p.showBanner  !== false;
+    document.getElementById('promoShowSection').checked = p.showSection !== false;
+    document.getElementById('promoDiscounts').value  = JSON.stringify(p.discounts || [], null, 2);
+    updatePromoPreview();
+  } catch(e) { console.error('loadPromo:', e); }
+}
+
+async function savePromo() {
+  var btn = document.getElementById('btnSavePromo');
+  btn.disabled = true; btn.textContent = '⏳ Đang lưu...';
+  try {
+    var discounts = [];
+    try { discounts = JSON.parse(document.getElementById('promoDiscounts').value || '[]'); } catch(e) {}
+    var payload = {
+      active:      document.getElementById('promoActive').checked,
+      badge:       document.getElementById('promoBadge').value.trim(),
+      title:       document.getElementById('promoTitle').value.trim(),
+      subtitle:    document.getElementById('promoSubtitle').value.trim(),
+      color:       document.getElementById('promoColor').value,
+      deadline:    document.getElementById('promoDeadline').value,
+      showBanner:  document.getElementById('promoShowBanner').checked,
+      showSection: document.getElementById('promoShowSection').checked,
+      discounts:   discounts
+    };
+    var res = await adminFetch('/api/admin/promo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    alert(data.success ? '✅ Đã lưu! Refresh trang chủ để thấy thay đổi.' : '❌ ' + data.msg);
+  } catch(e) { alert('❌ Lỗi kết nối!'); }
+  finally { btn.disabled = false; btn.textContent = '💾 Lưu & Kích hoạt'; }
+}
+
+function updatePromoPreview() {
+  var active   = document.getElementById('promoActive').checked;
+  var badge    = document.getElementById('promoBadge').value;
+  var title    = document.getElementById('promoTitle').value;
+  var subtitle = document.getElementById('promoSubtitle').value;
+  var color    = document.getElementById('promoColor').value;
+  var deadline = document.getElementById('promoDeadline').value;
+  var prev     = document.getElementById('promoPreview');
+  if (!active || !title) {
+    prev.innerHTML = '<div style="color:#475569;font-size:0.85rem;text-align:center;padding:20px">Bật khuyến mãi và nhập tiêu đề để xem preview</div>';
+    return;
+  }
+  var dl = deadline ? new Date(deadline) : null;
+  var countdown = '';
+  if (dl) {
+    var diff = dl - new Date();
+    if (diff > 0) {
+      countdown = ' · Còn ' + Math.floor(diff/86400000) + ' ngày';
+    }
+  }
+  prev.innerHTML = '<div style="background:linear-gradient(90deg,'+color+','+color+'cc);padding:10px 16px;border-radius:8px;font-size:0.85rem;font-weight:700;color:#fff">'
+    + badge + ' ' + title
+    + (subtitle ? ' — ' + subtitle : '')
+    + countdown + ' <span style="opacity:0.7">← Banner preview</span></div>';
+}
 </script>`;
 }
