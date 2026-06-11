@@ -35,7 +35,7 @@ const CONFIG = {
 
     // URL Apps Script Web App đã deploy — tra cứu dự thi
     // Thay bằng URL thật sau khi deploy Apps Script
-    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec",
+    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbze-RXZCpIc-YdiMnOC5z7c5G1XtzklHc3da_T3-6c7jf3v-iFxWKN8F7xdVjBHANCMIw/exec",
 
     // Links form đăng ký
     FORMS: {
