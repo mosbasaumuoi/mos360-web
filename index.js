@@ -1610,7 +1610,7 @@ async function hnDoLookup() {
                     <span style="background:rgba(0,242,255,0.1); color:var(--cyan); padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">AI DIGITAL</span>
                     <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:var(--cyan);">Luyện thi GENERATIVE AI</h3>
                     <p style="color:#94a3b8; font-size:0.85rem; line-height:1.5;">Bộ ngân hàng 45 câu xáo trộn ngẫu nhiên đạt tiêu chuẩn từ đề thi quốc tế.</p>
-                    <div class="price-tag">200.000đ <span>400.000đ</span></div>
+                    <div class="price-tag">100.000đ <span>400.000đ</span></div>
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#00f2ff,#00a2ff); color:#000;">ĐĂNG KÝ NGAY</a>
