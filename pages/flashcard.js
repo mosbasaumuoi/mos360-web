@@ -1,25 +1,46 @@
 export function getFlashcardUI(courseType, questionBank, imageBaseUrl, imageMap) {
     const bankJSON = JSON.stringify(
-        questionBank.map(item => ({
-            q: item.question,
-            o: item.type === 'image-select'
+        questionBank.map(item => {
+            const type = item.type || "single";
+            const opts = type === 'image-select'
                 ? (item.options || []).map(opt => {
                     const key = typeof opt === 'object' ? (opt.img || opt.image || opt.key || opt.src || '') : opt;
                     const resolvedUrl = imageMap[key] ? imageBaseUrl + imageMap[key] : (opt.url || key);
                     return { label: typeof opt === 'object' ? (opt.label || '') : '', url: resolvedUrl };
                 })
-                : item.options || [],
-            o_left: (item.left || []).map(k =>
-                imageMap[k] ? imageBaseUrl + imageMap[k] : k
-            ),
-            o_right: item.right || [],
-            c: item.answer,
-            e: item.explanation || "",
-            t: item.type || "single",
-            lv: item.level || "",
-            cat: item.category || "",
-            img: item.image_key && imageMap[item.image_key] ? imageBaseUrl + imageMap[item.image_key] : ""
-        }))
+                : item.options || [];
+
+            // === FIX: Chuẩn hóa answer sang index số cho single/multiple ===
+            let answer = item.answer;
+            if (type === 'single' || type === 'multiple') {
+                const rawOpts = item.options || [];
+                if (Array.isArray(answer)) {
+                    answer = answer.map(a => {
+                        if (typeof a === 'number') return a;
+                        const idx = rawOpts.indexOf(a);
+                        return idx >= 0 ? idx : a;
+                    });
+                } else if (typeof answer === 'string') {
+                    const idx = rawOpts.indexOf(answer);
+                    if (idx >= 0) answer = idx;
+                }
+            }
+
+            return {
+                q: item.question,
+                o: opts,
+                o_left: (item.left || []).map(k =>
+                    imageMap[k] ? imageBaseUrl + imageMap[k] : k
+                ),
+                o_right: item.right || [],
+                c: answer,
+                e: item.explanation || "",
+                t: type,
+                lv: item.level || "",
+                cat: item.category || "",
+                img: item.image_key && imageMap[item.image_key] ? imageBaseUrl + imageMap[item.image_key] : ""
+            };
+        })
     );
 
     return `<!DOCTYPE html><html><head>

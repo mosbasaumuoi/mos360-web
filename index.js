@@ -1000,20 +1000,41 @@ ${promoSectionHtml}
 </style>
 
 <!-- ĐĂNG KÝ -->
+<style>
+.hn-acc { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:12px; transition:border-color 0.2s; }
+.hn-acc:hover { border-color:rgba(255,87,34,0.3); }
+.hn-acc-hdr { display:flex; align-items:center; justify-content:space-between; padding:18px 20px; cursor:pointer; user-select:none; gap:12px; }
+.hn-acc-hdr-left { display:flex; align-items:center; gap:12px; }
+.hn-acc-ico { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+.hn-acc-title { font-size:0.97rem; font-weight:800; color:#fff; margin-bottom:2px; }
+.hn-acc-sub { font-size:0.76rem; color:#64748b; }
+.hn-acc-chevron { color:#64748b; font-size:0.85rem; transition:transform 0.25s; }
+.hn-acc.open .hn-acc-chevron { transform:rotate(180deg); color:var(--p); }
+.hn-acc-body { display:none; padding:0 20px 20px; }
+.hn-acc.open .hn-acc-body { display:block; padding-top:0; border-top:1px solid var(--border); }
+.hn-acc.open .hn-acc-hdr { border-bottom:none; }
+</style>
+
 <div class="hn-section" id="hn-register">
   <div class="hn-inner">
     <div class="hn-tag">📝 Đăng ký</div>
     <h2 class="hn-h2">Đăng ký ngay hôm nay</h2>
-    <p class="hn-desc">Điền thông tin bên dưới — MOS360 nhận ngay và liên hệ xác nhận qua Zalo trong 24h.</p>
+    <p class="hn-desc">Nhấn vào loại đăng ký bên dưới để mở form — MOS360 liên hệ Zalo trong 24h.</p>
 
-    <div class="hn-reg-tabs">
-      <button class="hn-rtab active" onclick="switchReg2('hoc')">📱 Đăng ký học</button>
-      <button class="hn-rtab" onclick="switchReg2('thi')">📋 Đăng ký thi MOS</button>
-      <button class="hn-rtab" onclick="switchReg2('off')">🏫 Học Offline</button>
-    </div>
-
-    <!-- FORM ĐĂNG KÝ HỌC -->
-    <div class="hn-rpanel active" id="hn-reg-hoc">
+    <!-- ACCORDION: ĐĂNG KÝ HỌC -->
+    <div class="hn-acc" id="hn-acc-hoc">
+      <div class="hn-acc-hdr" onclick="toggleAcc('hoc')">
+        <div class="hn-acc-hdr-left">
+          <div class="hn-acc-ico" style="background:rgba(255,87,34,0.12)">📱</div>
+          <div>
+            <div class="hn-acc-title">Đăng ký học online</div>
+            <div class="hn-acc-sub">MOS Word · Excel · PowerPoint · IC3 GS6 · Generative AI</div>
+          </div>
+        </div>
+        <span class="hn-acc-chevron">▼</span>
+      </div>
+      <div class="hn-acc-body">
+    <div id="hn-reg-hoc">
       <div class="hn-form-wrap" style="padding:24px">
         <div class="hn-info-box">
           ✅ Học 100% trên phần mềm MOS360 · Giao diện sát đề 98% · Giáo viên hỗ trợ 1:1 · Không giới hạn số buổi<br>
@@ -1099,9 +1120,22 @@ ${promoSectionHtml}
         </p>
       </div>
     </div>
+    </div></div><!-- end acc-body hoc -->
 
-    <!-- FORM ĐĂNG KÝ THI -->
-    <div class="hn-rpanel" id="hn-reg-thi">
+    <!-- ACCORDION: ĐĂNG KÝ THI -->
+    <div class="hn-acc" id="hn-acc-thi">
+      <div class="hn-acc-hdr" onclick="toggleAcc('thi')">
+        <div class="hn-acc-hdr-left">
+          <div class="hn-acc-ico" style="background:rgba(34,197,94,0.12)">📋</div>
+          <div>
+            <div class="hn-acc-title">Đăng ký thi MOS</div>
+            <div class="hn-acc-sub">Đợt 5 — 27–28/6/2026 · Lệ phí 950.000đ/môn</div>
+          </div>
+        </div>
+        <span class="hn-acc-chevron">▼</span>
+      </div>
+      <div class="hn-acc-body">
+    <div id="hn-reg-thi">
       <div class="hn-form-wrap" style="padding:24px">
         <div class="hn-info-box">
           📅 <strong>Đợt 5 — 27–28/6/2026</strong> tại Trường ĐH Hàng Hải Việt Nam<br>
@@ -1179,9 +1213,22 @@ ${promoSectionHtml}
         </p>
       </div>
     </div>
+    </div></div><!-- end acc-body thi -->
 
-    <!-- FORM ĐĂNG KÝ OFFLINE -->
-    <div class="hn-rpanel" id="hn-reg-off">
+    <!-- ACCORDION: HỌC OFFLINE -->
+    <div class="hn-acc" id="hn-acc-off">
+      <div class="hn-acc-hdr" onclick="toggleAcc('off')">
+        <div class="hn-acc-hdr-left">
+          <div class="hn-acc-ico" style="background:rgba(245,158,11,0.12)">🏫</div>
+          <div>
+            <div class="hn-acc-title">Học Offline tại trung tâm</div>
+            <div class="hn-acc-sub">57 Lê Văn Thuyết A · 6 ca/ngày · Tối đa 16 học viên</div>
+          </div>
+        </div>
+        <span class="hn-acc-chevron">▼</span>
+      </div>
+      <div class="hn-acc-body">
+    <div id="hn-reg-off">
       <div class="hn-form-wrap" style="padding:24px">
         <div class="hn-info-box">
           📍 <strong>Tầng 1 – 57 Lê Văn Thuyết A</strong>, Quận Nam, Hải Phòng (cạnh C2, ĐH Hàng Hải)<br>
@@ -1227,6 +1274,8 @@ ${promoSectionHtml}
         </p>
       </div>
     </div>
+    </div></div><!-- end acc-body off -->
+
   </div>
 </div>
 
@@ -1336,15 +1385,22 @@ function closeVideoModal() {
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeVideoModal(); });
 
-// Register tabs
-function switchReg2(id) {
-  var ids = ['hoc','thi','off'];
-  document.querySelectorAll('.hn-rtab').forEach(function(t,i){ t.classList.toggle('active', ids[i]===id); });
-  document.querySelectorAll('.hn-rpanel').forEach(function(p){ p.classList.toggle('active', p.id==='hn-reg-'+id); });
+// Accordion register
+function toggleAcc(id) {
+  var acc = document.getElementById('hn-acc-' + id);
+  if (!acc) return;
+  var isOpen = acc.classList.contains('open');
+  // Close all first
+  ['hoc','thi','off'].forEach(function(k) {
+    var el = document.getElementById('hn-acc-' + k);
+    if (el) el.classList.remove('open');
+  });
+  // Toggle clicked
+  if (!isOpen) acc.classList.add('open');
 }
 
-// Submit form → Apps Script
-var AS_URL = '${CONFIG.APPS_SCRIPT_LOOKUP}';
+// Submit form → Apps Script (URL ghi dữ liệu vào Google Sheet)
+var AS_URL = '${CONFIG.APPS_SCRIPT_URL}';
 
 async function submitForm(type) {
   var btn = document.getElementById('btn_' + type);
@@ -1766,14 +1822,36 @@ async function triggerRemoteVerification(courseName) {
                         return opt;
                     });
                 }
+
+                // === FIX: Chuẩn hóa answer sang index số để isCorrectAnswer() hoạt động đúng ===
+                // Bank lưu answer là string/array-of-string, nhưng userAns lưu index.
+                // Phải convert TRƯỚC khi đưa vào bankJSON.
+                let answer = item.answer;
+                const type = item.type || "single";
+                if (type === 'single' || type === 'multiple') {
+                    const opts = options; // đã resolve ở trên
+                    if (Array.isArray(answer)) {
+                        // multiple: array of strings → array of indexes
+                        answer = answer.map(a => {
+                            if (typeof a === 'number') return a;
+                            const idx = opts.indexOf(a);
+                            return idx >= 0 ? idx : a;
+                        });
+                    } else if (typeof answer === 'string') {
+                        // single: string → index
+                        const idx = opts.indexOf(answer);
+                        if (idx >= 0) answer = idx;
+                    }
+                }
+
                 return {
                     q: item.question,
                     o: options,
                     o_left: (item.left || []).map(k => IMAGE_MAP[k] ? IMAGE_BASE_URL + IMAGE_MAP[k] : k),
                     o_right: item.right || [],
-                    c: item.answer,
+                    c: answer,
                     e: item.explanation || "",
-                    t: item.type || "single",
+                    t: type,
                     lv: item.level || "",
                     cat: item.category || "",
                     img: item.image_key && IMAGE_MAP[item.image_key] ? IMAGE_BASE_URL + IMAGE_MAP[item.image_key] : ""
