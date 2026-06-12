@@ -18,7 +18,7 @@ const CONFIG = {
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
     SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
     STUDENT_SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjb4deEYb7i_AMpimoccuyElyPF01QfQGEue2nQNrlRjU4xZlz3tH1qJt3jPUN8gqRHiHJQqWJBo9E/pub?output=tsv",
-    APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbx_5R2iNh744oh7Y508YUyrdHR7LDALBnLRzmnN4aJecwu3kmU0DNykoLZXg5-tyxRL/exec",
+    APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbze-RXZCpIc-YdiMnOC5z7c5G1XtzklHc3da_T3-6c7jf3v-iFxWKN8F7xdVjBHANCMIw/exec",
 
     SOCIALS: {
         ZALO: "https://zalo.me/0912888360",
@@ -330,6 +330,7 @@ export default {
 
         let content = "";
         if (path === "/courses") content = this.getCoursesUI();
+        else if (path === "/register") content = this.getHomeUI(studentData, promoConfig, 'register');
         else if (path === "/login") content = this.getLoginUI();
         else if (path === "/library") content = this.getLibraryUI();
         else if (path === "/progress") content = getProgressUI();
@@ -442,6 +443,7 @@ export default {
         <nav>
             <a href="/">TRANG CHỦ</a>
             <a href="/courses">KHÓA HỌC</a>
+            <a href="/register" style="color:#FF5722;">📝 ĐĂNG KÝ</a>
             <a href="/library">KHO MOS</a>
             <a href="/progress" style="color:#00f2ff;">📈 TIẾN ĐỘ</a>
             <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank" class="admin-only-btn" id="adminPanelBtn">[QUẢN LÝ HỌC VIÊN]</a>
@@ -524,7 +526,7 @@ export default {
     </body></html>`;
     },
 
-    getHomeUI(studentData, promoConfig = {}) {
+    getHomeUI(studentData, promoConfig = {}, mode = 'home') {
         const promo = promoConfig || {};
         const isPromoActive = promo.active && promo.title;
 
@@ -570,7 +572,7 @@ export default {
     ${promo.subtitle ? `<p class="hn-desc">${promo.subtitle}</p>` : ''}
     ${promo.deadline ? `<div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,87,34,0.1);border:1px solid rgba(255,87,34,0.3);border-radius:100px;padding:6px 16px;margin-bottom:28px;font-size:0.82rem;font-weight:700;color:#fff">⏰ Hết hạn: <strong>${new Date(promo.deadline).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}</strong>${countdownHtml}</div>` : ''}
     ${discountItems ? `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px">${discountItems}</div>` : ''}
-    <a href="#hn-register" class="hn-btn-p" style="font-size:0.9rem;padding:12px 28px">Đăng ký ngay →</a>
+    <a href="/register#hn-register" class="hn-btn-p" style="font-size:0.9rem;padding:12px 28px">Đăng ký ngay →</a>
   </div>
 </div>
 <hr class="hn-divider">` : '';
@@ -785,6 +787,21 @@ table.hn-table { width:100%; border-collapse:collapse; }
 </style>
 
 <!-- HERO -->
+${mode === 'register' ? `
+<div class="hn-hero" style="padding-bottom:24px">
+  <div class="hn-hero-bg"></div>
+  <div class="hn-grid"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hn-badge">✦ Trung tâm MOS360 · Hải Phòng</div>
+    <h1 class="hn-h1" style="font-size:1.9rem">📝 Đăng ký & Tra cứu</h1>
+    <p class="hn-sub">Đăng ký học · Đăng ký thi MOS · Đăng ký học Offline · Tra cứu thông tin dự thi — tất cả trong một trang.</p>
+    <div class="hn-acts">
+      <a href="/" class="hn-btn-s">← Về trang chủ</a>
+      <a href="/courses" class="hn-btn-p">Xem khóa học →</a>
+    </div>
+  </div>
+</div>
+` : `
 <div class="hn-hero">
   <div class="hn-hero-bg"></div>
   <div class="hn-grid"></div>
@@ -794,7 +811,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
     <p class="hn-sub">Học thật · Tiến bộ thật · Làm được thật.<br>MOS chỉ là chứng nhận — kỹ năng mới là tài sản thật sự.</p>
     <div class="hn-acts">
       <a href="/courses" class="hn-btn-p">Xem khóa học →</a>
-      <a href="#hn-register" class="hn-btn-s">Đăng ký ngay</a>
+      <a href="/register#hn-register" class="hn-btn-s">Đăng ký ngay</a>
     </div>
     <div class="hn-stats">
       <div class="hn-stat"><div class="num">700<span>+</span></div><div class="lbl">Bằng văn bản</div></div>
@@ -804,9 +821,11 @@ table.hn-table { width:100%; border-collapse:collapse; }
     </div>
   </div>
 </div>
+`}
 
 <hr class="hn-divider">
 
+${mode !== 'register' ? `
 <!-- BẢNG VÀNG CHỨNG CHỈ -->
 <div class="hn-section" style="padding:48px 24px">
   <div class="hn-inner">
@@ -859,7 +878,7 @@ ${promoSectionHtml}
           <div class="hn-cdesc">Combo 2 môn phổ biến nhất. Giao diện phần mềm 98% sát đề thi thật.</div>
           <div class="hn-cprice">800.000đ <span class="old">1.200.000đ</span></div>
           <div class="hn-cbtns">
-            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <button class="hn-cbtn-s" onclick="openVideoModal('https://www.youtube.com/watch?v=LPmScfHMk_o')">▶ Học thử</button>
             <button class="hn-cbtn-s" onclick="openVideoModal('https://www.youtube.com/watch?v=RA_UIuxwkzk')">🎯 Thi thử</button>
           </div>
@@ -876,7 +895,7 @@ ${promoSectionHtml}
           <div class="hn-cdesc">Thuyết trình chuyên nghiệp chuẩn quốc tế. Thiết yếu cho sinh viên và văn phòng.</div>
           <div class="hn-cprice">400.000đ <span class="old">600.000đ</span></div>
           <div class="hn-cbtns">
-            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <button class="hn-cbtn-s" onclick="openVideoModal('https://youtu.be/o7mmLCeA1D0')">▶ Học thử</button>
             <button class="hn-cbtn-s" onclick="openVideoModal('https://youtu.be/jPt1uNLbU5U')">🎯 Thi thử</button>
           </div>
@@ -893,7 +912,7 @@ ${promoSectionHtml}
           <div class="hn-cdesc">Level 1 · Level 2 · Level 3. Computing Fundamentals · Key Applications · Living Online. Chứng chỉ IC3 quốc tế Certiport.</div>
           <div class="hn-cprice">200.000đ <span class="old">450.000đ</span></div>
           <div class="hn-cbtns">
-            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <a href="/ic3-test" class="hn-cbtn-s">▶ Học thử</a>
             <a href="/ic3-test" class="hn-cbtn-s">🎯 Thi thử</a>
           </div>
@@ -910,7 +929,7 @@ ${promoSectionHtml}
           <div class="hn-cdesc">Kỹ năng sử dụng AI trong học tập & công việc. Prompt, tạo nội dung, tự động hóa.</div>
           <div class="hn-cprice" style="color:#a78bfa">100.000đ <span class="old">400.000đ</span></div>
           <div class="hn-cbtns">
-            <a href="#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <a href="/generative-ai" class="hn-cbtn-s">▶ Học thử</a>
             <a href="/generative-ai" class="hn-cbtn-s">🎯 Thi thử</a>
           </div>
@@ -929,7 +948,7 @@ ${promoSectionHtml}
           <p>Xem tổng quan: cách cài đặt, giao diện, học và thi thử từng môn Word · Excel · PowerPoint. Học mọi lúc, không giới hạn số lần.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
             <button class="hn-btn-p" style="font-size:0.85rem;padding:9px 18px;border:none;cursor:pointer" onclick="openVideoModal('https://youtu.be/FVIEmeH-mU8')">▶ Xem ngay</button>
-            <a href="#hn-register" class="hn-btn-s" style="font-size:0.85rem;padding:9px 18px">Đăng ký học →</a>
+            <a href="/register#hn-register" class="hn-btn-s" style="font-size:0.85rem;padding:9px 18px">Đăng ký học →</a>
           </div>
         </div>
         <div class="hn-video-right" onclick="openVideoModal('https://youtu.be/FVIEmeH-mU8')">
@@ -964,6 +983,7 @@ ${promoSectionHtml}
 </div>
 
 <hr class="hn-divider">
+` : ''}
 
 <!-- CSS FORM -->
 <style>
@@ -999,6 +1019,7 @@ ${promoSectionHtml}
 @media(max-width:600px) { .hn-row,.hn-row3 { grid-template-columns:1fr; } }
 </style>
 
+${mode !== 'home' ? `
 <!-- ĐĂNG KÝ -->
 <style>
 .hn-acc { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:12px; transition:border-color 0.2s; }
@@ -1357,6 +1378,17 @@ ${promoSectionHtml}
     </div>
   </div>
 </div>
+` : `
+<!-- CTA: ĐĂNG KÝ TRANG RIÊNG -->
+<div class="hn-section" style="padding:48px 24px">
+  <div class="hn-inner" style="text-align:center">
+    <div class="hn-tag" style="justify-content:center">📝 Đăng ký & Tra cứu</div>
+    <h2 class="hn-h2">Đăng ký học · Đăng ký thi · Tra cứu dự thi</h2>
+    <p class="hn-desc">Tất cả các form đăng ký và tra cứu đã được chuyển sang một trang riêng để dễ sử dụng hơn.</p>
+    <a href="/register" class="hn-btn-p" style="display:inline-block;margin-top:8px">📝 Đến trang Đăng ký →</a>
+  </div>
+</div>
+`}
 
 <!-- VIDEO MODAL -->
 <div id="hnVideoModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeVideoModal()">
@@ -1408,7 +1440,8 @@ async function submitForm(type) {
   msgEl.className = 'hn-form-msg';
   msgEl.textContent = '';
 
-  var payload = { action: 'dk' + type };
+  var actionMap = { hoc: 'dkhoc', thi: 'dkthi', off: 'dkoffline' };
+  var payload = { action: actionMap[type] || ('dk' + type) };
   var ok = true;
 
   if (type === 'hoc') {
