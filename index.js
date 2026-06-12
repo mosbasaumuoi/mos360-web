@@ -17,6 +17,7 @@ const CONFIG = {
     LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
     SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
+    SHEET_TONGHOP_URL: "https://docs.google.com/spreadsheets/d/16xxaXIvvJ-ovuSJ8HU1osUGHzkg_3GlB6n2GjJW6Bco/edit",
     STUDENT_SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjb4deEYb7i_AMpimoccuyElyPF01QfQGEue2nQNrlRjU4xZlz3tH1qJt3jPUN8gqRHiHJQqWJBo9E/pub?output=tsv",
     APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbweC3d-SKm29ltW6Y13hWqYuw8Q-4X23QEbF0AhQL_IfA2YiWYzVkIOyV4n-sxApEpcMA/exec",
 
@@ -447,6 +448,7 @@ export default {
             <a href="/library">KHO MOS</a>
             <a href="/progress" style="color:#00f2ff;">📈 TIẾN ĐỘ</a>
             <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank" class="admin-only-btn" id="adminPanelBtn">[QUẢN LÝ HỌC VIÊN]</a>
+            <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank" class="admin-only-btn" id="adminRegSheetBtn">[DỮ LIỆU ĐĂNG KÝ]</a>
             <a href="/admin-dashboard" class="admin-only-btn" id="adminDashBtn" style="margin-left:8px;">📊 DASHBOARD</a>
             <a href="/login" id="navLoginLink" style="color:var(--primary)">ĐĂNG NHẬP</a>
         </nav>
@@ -499,6 +501,7 @@ export default {
             var isAdmin = localStorage.getItem('mos360_admin_session') === 'active';
             if (isAdmin) {
                 document.getElementById('adminPanelBtn').style.display = 'inline-block';
+                document.getElementById('adminRegSheetBtn').style.display = 'inline-block';
                 document.getElementById('adminDashBtn').style.display = 'inline-block';
                 var logLink = document.getElementById('navLoginLink');
                 if (logLink) {
