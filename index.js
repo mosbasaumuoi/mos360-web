@@ -18,7 +18,7 @@ const CONFIG = {
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
     SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
     STUDENT_SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjb4deEYb7i_AMpimoccuyElyPF01QfQGEue2nQNrlRjU4xZlz3tH1qJt3jPUN8gqRHiHJQqWJBo9E/pub?output=tsv",
-    APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbze-RXZCpIc-YdiMnOC5z7c5G1XtzklHc3da_T3-6c7jf3v-iFxWKN8F7xdVjBHANCMIw/exec",
+    APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbweC3d-SKm29ltW6Y13hWqYuw8Q-4X23QEbF0AhQL_IfA2YiWYzVkIOyV4n-sxApEpcMA/exec",
 
     SOCIALS: {
         ZALO: "https://zalo.me/0912888360",
@@ -35,7 +35,7 @@ const CONFIG = {
 
     // URL Apps Script Web App đã deploy — tra cứu dự thi
     // Thay bằng URL thật sau khi deploy Apps Script
-    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbze-RXZCpIc-YdiMnOC5z7c5G1XtzklHc3da_T3-6c7jf3v-iFxWKN8F7xdVjBHANCMIw/exec",
+    APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbweC3d-SKm29ltW6Y13hWqYuw8Q-4X23QEbF0AhQL_IfA2YiWYzVkIOyV4n-sxApEpcMA/exec",
 
     // Links form đăng ký
     FORMS: {
