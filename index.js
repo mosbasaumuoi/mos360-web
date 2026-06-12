@@ -1527,7 +1527,8 @@ async function submitForm(type) {
       body: JSON.stringify(payload)
     });
     var data = await res.json();
-    if (data.ok) {
+    var isOk = (data.ok === true) || (data.success === true);
+    if (isOk) {
       showMsg(msgEl, 'ok', '✅ ' + data.msg);
       // Reset form sau khi gửi thành công
       setTimeout(function() {
