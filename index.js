@@ -950,11 +950,11 @@ ${promoSectionHtml}
           <h3>Hướng dẫn sử dụng phần mềm MOS360</h3>
           <p>Xem tổng quan: cách cài đặt, giao diện, học và thi thử từng môn Word · Excel · PowerPoint. Học mọi lúc, không giới hạn số lần.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="hn-btn-p" style="font-size:0.85rem;padding:9px 18px;border:none;cursor:pointer" onclick="openVideoModal('https://youtu.be/FVIEmeH-mU8')">▶ Xem ngay</button>
+            <button class="hn-btn-p" style="font-size:0.85rem;padding:9px 18px;border:none;cursor:pointer" onclick="openVideoModal('https://www.youtube.com/watch?v=rmXrwT0Iu8U')">▶ Xem ngay</button>
             <a href="/register#hn-register" class="hn-btn-s" style="font-size:0.85rem;padding:9px 18px">Đăng ký học →</a>
           </div>
         </div>
-        <div class="hn-video-right" onclick="openVideoModal('https://youtu.be/FVIEmeH-mU8')">
+        <div class="hn-video-right" onclick="openVideoModal('https://www.youtube.com/watch?v=rmXrwT0Iu8U')">
           <div class="hn-play">▶</div>
         </div>
       </div>
@@ -1691,6 +1691,7 @@ async function hnDoLookup() {
                     <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:#FFD700;">Luyện thi IC3 GS6</h3>
                     <p style="color:var(--muted); font-size:0.85rem; line-height:1.5;">Phòng ôn luyện bao gồm cả chế độ luyện tập tự do và thi thử tính giờ thực tế.</p>
                     <div class="price-tag">200.000đ <span>450.000đ</span></div>
+                    <a href="https://drive.google.com/PLACEHOLDER_IC3" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:#B8860B;text-decoration:none;margin-top:8px;">📄 Tài liệu giới thiệu khóa học →</a>
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#FFD700,#cca400); color:#fff;">ĐĂNG KÝ NGAY</a>
@@ -1704,6 +1705,7 @@ async function hnDoLookup() {
                     <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:var(--cyan);">Luyện thi GENERATIVE AI</h3>
                     <p style="color:var(--muted); font-size:0.85rem; line-height:1.5;">Bộ ngân hàng 45 câu xáo trộn ngẫu nhiên đạt tiêu chuẩn từ đề thi quốc tế.</p>
                     <div class="price-tag">100.000đ <span>400.000đ</span></div>
+                    <a href="https://drive.google.com/PLACEHOLDER_GENAI" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:var(--cyan);text-decoration:none;margin-top:8px;">📄 Tài liệu giới thiệu khóa học →</a>
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,var(--cyan),#00a2ff); color:#fff;">ĐĂNG KÝ NGAY</a>
