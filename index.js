@@ -2047,11 +2047,11 @@ async function triggerRemoteVerification(courseName) {
         <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:25px;">Chức năng bảo mật phân tầng dành riêng cho quản trị viên</p>
         <div style="margin-bottom:15px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">TÀI KHOẢN ADMIN</label>
-            <input type="text" id="admUser" placeholder="admin@mos360" style="width:100%; padding:14px; background:#F1F4F9; border:1px solid #282f44; color:var(--text); border-radius:10px; font-weight:bold;">
+            <input type="text" id="admUser" placeholder="admin@mos360" style="width:100%; padding:14px; background:#F1F4F9; border:1px solid var(--border); color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
         <div style="margin-bottom:25px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">MẬT KHẨU</label>
-            <input type="password" id="admPass" placeholder="••••••••" style="width:100%; padding:14px; background:#F1F4F9; border:1px solid #282f44; color:var(--text); border-radius:10px; font-weight:bold;">
+            <input type="password" id="admPass" placeholder="••••••••" style="width:100%; padding:14px; background:#F1F4F9; border:1px solid var(--border); color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
         <!-- FIX 4: Đăng nhập admin chỉ set localStorage, không thu hồi session thiết bị khác -->
         <button class="btn-action" onclick="handleAdminLoginGate()">XÁC THỰC QUYỀN TRUY CẬP</button>
@@ -2089,9 +2089,9 @@ async function triggerRemoteVerification(courseName) {
   <!DOCTYPE html>
   <html>
   <body style="
-      background:#08090e;
-      color:white;
-      font-family:sans-serif;
+      background:#F7F9FC;
+      color:#1C1D1F;
+      font-family:'Plus Jakarta Sans', sans-serif;
       display:flex;
       justify-content:center;
       align-items:center;
@@ -2100,8 +2100,8 @@ async function triggerRemoteVerification(courseName) {
   ">
       <div>
           <h2>⚠ Không tìm thấy Question Bank</h2>
-          <p>${courseType}</p>
-          <a href="/courses">Quay lại</a>
+          <p style="color:#64748B; margin:8px 0 16px;">${courseType}</p>
+          <a href="/courses" style="color:#FF5722; font-weight:700; text-decoration:none;">← Quay lại</a>
       </div>
   </body>
   </html>
@@ -2166,46 +2166,48 @@ async function triggerRemoteVerification(courseName) {
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Phòng Luyện Thi: ${courseType}</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, sans-serif; }
-        body { --text: #ffffff; --muted: #94a3b8; --cyan: #00d4ff; --border: rgba(255,255,255,0.06); background: #08090e; color: #e2e8f0; padding: 15px; }
-        .container { max-width: 1200px; margin: 0 auto; background: #121522; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
-        header { background: #171b2a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .timer-box { border: 2px solid var(--cyan); padding: 6px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; color: var(--cyan); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', 'Segoe UI', -apple-system, sans-serif; }
+        body { --text: #1C1D1F; --muted: #64748B; --cyan: #0068FF; --border: #E2E8F0; background: #F7F9FC; color: #1C1D1F; padding: 15px; }
+        .container { max-width: 1200px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 24px rgba(15,23,42,0.04); }
+        header { background: #FFFFFF; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); gap:12px; }
+        .qe-brand { display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--text); font-weight:800; font-size:0.95rem; flex-shrink:0; }
+        .qe-brand img { height:28px; width:28px; border-radius:6px; }
+        .timer-box { border: 2px solid var(--cyan); padding: 6px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; color: var(--cyan); background: rgba(0,104,255,0.06); }
 
-        .mode-selection-overlay { position: absolute; inset: 0; background: #0c0e17; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-radius: 12px; }
-        .mode-btn { width: 100%; max-width: 380px; padding: 16px; margin: 8px 0; border: 2px solid #282f44; background: #161927; color: white; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: left; }
-        .mode-btn:hover { border-color: var(--cyan); background: rgba(0,104,255,0.04); }
+        .mode-selection-overlay { position: absolute; inset: 0; background: #FFFFFF; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-radius: 12px; }
+        .mode-btn { width: 100%; max-width: 380px; padding: 16px; margin: 8px 0; border: 2px solid var(--border); background: #F7F9FC; color: var(--text); border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: left; }
+        .mode-btn:hover { border-color: var(--cyan); background: rgba(0,104,255,0.05); }
         .lock-badge { font-size: 0.75rem; display: block; margin-top: 4px; font-weight: normal; }
 
         .quiz-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 20px; }
-        .main-quiz { background: #161927; padding: 20px; border-radius: 12px; min-height: 440px; display: flex; flex-direction: column; position: relative; }
+        .main-quiz { background: #FFFFFF; padding: 20px; border-radius: 12px; min-height: 440px; display: flex; flex-direction: column; position: relative; border: 1px solid var(--border); }
 
         .question-box { font-size: 1.05rem; font-weight: 700; line-height: 1.5; margin-bottom: 20px; color: var(--text); }
-        .option { display: flex; align-items: flex-start; padding: 14px 16px; background: #1e2235; border: 2px solid #29304a; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; gap: 10px; }
-        .option.selected { border-color: var(--cyan); background: rgba(0,104,255,0.04); color: var(--cyan); }
+        .option { display: flex; align-items: flex-start; padding: 14px 16px; background: #F7F9FC; border: 2px solid var(--border); border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; gap: 10px; color: var(--text); }
+        .option.selected { border-color: var(--cyan); background: rgba(0,104,255,0.06); color: var(--cyan); }
         /* FIX 5: Màu phản hồi đúng/sai ngay lập tức cho chế độ ôn luyện */
-        .option.correct-ans { border-color: #22c55e !important; background: rgba(34,197,94,0.12) !important; color: #22c55e !important; }
-        .option.wrong-ans { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; color: #ef4444 !important; }
-        .option.show-correct { border-color: #22c55e !important; background: rgba(34,197,94,0.06) !important; color: #86efac !important; }
+        .option.correct-ans { border-color: #22c55e !important; background: rgba(34,197,94,0.12) !important; color: #16a34a !important; }
+        .option.wrong-ans { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; color: #dc2626 !important; }
+        .option.show-correct { border-color: #22c55e !important; background: rgba(34,197,94,0.08) !important; color: #16a34a !important; }
         /* FIX 5: Hộp giải thích trượt xuống */
-        .explanation-box { background: rgba(0,104,255,0.06); border: 1px solid rgba(0,104,255,0.2); border-radius: 10px; padding: 14px 16px; margin-top: 12px; font-size: 0.88rem; line-height: 1.6; color: var(--muted); display: none; animation: slideDown 0.25s ease; }
+        .explanation-box { background: rgba(0,104,255,0.05); border: 1px solid rgba(0,104,255,0.18); border-radius: 10px; padding: 14px 16px; margin-top: 12px; font-size: 0.88rem; line-height: 1.6; color: var(--text); display: none; animation: slideDown 0.25s ease; }
         .explanation-box.visible { display: block; }
         .explanation-box strong { color: var(--cyan); }
         @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
 
-        .right-sidebar { background: #161927; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; }
+        .right-sidebar { background: #FFFFFF; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; border: 1px solid var(--border); }
         .nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; overflow-y: auto; max-height: 350px; }
-        .nav-item { height: 36px; background: #1e2235; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; border-radius: 6px; cursor: pointer; color: var(--muted); }
-        .nav-item.current { border: 1px solid var(--cyan); color: var(--cyan); background: rgba(0,104,255,0.05); }
-        .nav-item.answered { background: #384260; color: var(--text); }
-        .nav-item.correct-nav { background: #166534; color: #86efac; }
-        .nav-item.wrong-nav { background: #7f1d1d; color: #fca5a5; }
+        .nav-item { height: 36px; background: #F1F4F9; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; border-radius: 6px; cursor: pointer; color: var(--muted); }
+        .nav-item.current { border: 1px solid var(--cyan); color: var(--cyan); background: rgba(0,104,255,0.06); }
+        .nav-item.answered { background: #E2E8F0; color: var(--text); }
+        .nav-item.correct-nav { background: rgba(34,197,94,0.16); color: #16a34a; }
+        .nav-item.wrong-nav { background: rgba(239,68,68,0.14); color: #dc2626; }
 
         .control-btns { display: flex; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 20px; }
-        .btn-ctrl { padding: 12px 18px; background: #23293f; color: var(--text); border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
-        .btn-submit { background: #16a34a; font-weight: 800; }
+        .btn-ctrl { padding: 12px 18px; background: #F1F4F9; color: var(--text); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
+        .btn-submit { background: #16a34a; color: #fff; border-color: #16a34a; font-weight: 800; }
 
-        .result-overlay { position: absolute; inset: 0; background: #0c0e17; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 1000; display: none; border-radius: 12px; }
+        .result-overlay { position: absolute; inset: 0; background: #FFFFFF; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 1000; display: none; border-radius: 12px; }
 
         /* ===== NÚT XÁC NHẬN ĐÁP ÁN - Thiết kế lại ===== */
         .btn-confirm-wrap { display:none; margin-top:14px; }
@@ -2213,7 +2215,7 @@ async function triggerRemoteVerification(courseName) {
         .btn-confirm {
             padding: 11px 36px;
             background: linear-gradient(135deg, var(--cyan), #00a2ff);
-            color: #000;
+            color: #fff;
             border: none;
             border-radius: 25px;
             font-weight: 800;
@@ -2232,53 +2234,53 @@ async function triggerRemoteVerification(courseName) {
         /* ===== MATCHING ===== */
         .matching-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; align-items:start; }
         .matching-left-col, .matching-right-col { display:contents; }
-        .matching-row-left { background:#1e2235; border:2px solid #29304a; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#e2e8f0; display:flex; align-items:center; gap:8px; }
+        .matching-row-left { background:#F7F9FC; border:2px solid var(--border); border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:var(--text); display:flex; align-items:center; gap:8px; }
         .matching-dot { width:6px; height:6px; border-radius:50%; background:var(--cyan); flex-shrink:0; }
-        .drop-zone { background:#161927; border:2px dashed #384260; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:var(--muted); display:flex; align-items:center; justify-content:center; transition:all 0.15s; cursor:pointer; }
-        .drop-zone.drag-over { border-color:var(--cyan); background:rgba(0,104,255,0.05); }
-        .drop-zone.filled { border-style:solid; border-color:var(--cyan); background:rgba(0,104,255,0.04); color:#e2e8f0; justify-content:flex-start; }
-        .drop-zone.correct-match { border-color:#22c55e !important; background:rgba(34,197,94,0.12) !important; color:#22c55e !important; }
-        .drop-zone.wrong-match { border-color:#ef4444 !important; background:rgba(239,68,68,0.1) !important; color:#ef4444 !important; }
+        .drop-zone { background:#F7F9FC; border:2px dashed var(--border); border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:var(--muted); display:flex; align-items:center; justify-content:center; transition:all 0.15s; cursor:pointer; }
+        .drop-zone.drag-over { border-color:var(--cyan); background:rgba(0,104,255,0.06); }
+        .drop-zone.filled { border-style:solid; border-color:var(--cyan); background:rgba(0,104,255,0.05); color:var(--text); justify-content:flex-start; }
+        .drop-zone.correct-match { border-color:#22c55e !important; background:rgba(34,197,94,0.12) !important; color:#16a34a !important; }
+        .drop-zone.wrong-match { border-color:#ef4444 !important; background:rgba(239,68,68,0.1) !important; color:#dc2626 !important; }
         .answer-bank { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
-        .bank-item { background:#23293f; border:2px solid #384260; border-radius:8px; padding:9px 13px; font-size:0.84rem; font-weight:600; color:#e2e8f0; cursor:grab; user-select:none; transition:all 0.15s; }
+        .bank-item { background:#F1F4F9; border:2px solid var(--border); border-radius:8px; padding:9px 13px; font-size:0.84rem; font-weight:600; color:var(--text); cursor:grab; user-select:none; transition:all 0.15s; }
         .bank-item:hover { border-color:var(--cyan); }
         .bank-item.dragging { opacity:0.4; }
         .matching-col-label { font-size:11px; color:var(--muted); font-weight:800; margin-bottom:7px; letter-spacing:0.5px; }
 
         /* ===== DRAGDROP (fill-in-blank) ===== */
-        .sentence-box { background:#161927; border:1px solid #29304a; border-radius:10px; padding:16px; font-size:1rem; font-weight:600; color:#e2e8f0; line-height:2.6; margin-bottom:12px; }
-        .inline-drop { display:inline-flex; align-items:center; justify-content:center; min-width:110px; height:32px; background:#1e2235; border:2px dashed #384260; border-radius:6px; padding:0 10px; margin:0 5px; color:var(--muted); font-size:0.84rem; vertical-align:middle; cursor:pointer; transition:all 0.15s; }
+        .sentence-box { background:#F7F9FC; border:1px solid var(--border); border-radius:10px; padding:16px; font-size:1rem; font-weight:600; color:var(--text); line-height:2.6; margin-bottom:12px; }
+        .inline-drop { display:inline-flex; align-items:center; justify-content:center; min-width:110px; height:32px; background:#F1F4F9; border:2px dashed var(--border); border-radius:6px; padding:0 10px; margin:0 5px; color:var(--muted); font-size:0.84rem; vertical-align:middle; cursor:pointer; transition:all 0.15s; }
         .inline-drop.drag-over { border-color:var(--cyan); background:rgba(0,104,255,0.08); }
         .inline-drop.filled { border-style:solid; border-color:var(--cyan); background:rgba(0,104,255,0.06); color:var(--cyan); }
-        .inline-drop.correct-fill { border-color:#22c55e !important; background:rgba(34,197,94,0.12) !important; color:#22c55e !important; }
-        .inline-drop.wrong-fill { border-color:#ef4444 !important; background:rgba(239,68,68,0.1) !important; color:#ef4444 !important; }
+        .inline-drop.correct-fill { border-color:#22c55e !important; background:rgba(34,197,94,0.12) !important; color:#16a34a !important; }
+        .inline-drop.wrong-fill { border-color:#ef4444 !important; background:rgba(239,68,68,0.1) !important; color:#dc2626 !important; }
 
         /* ===== SORT ORDER ===== */
         .sort-list { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
-        .sort-item { background:#1e2235; border:2px solid #29304a; border-radius:8px; padding:12px 15px; font-size:0.9rem; font-weight:600; color:#e2e8f0; display:flex; align-items:center; gap:12px; cursor:grab; user-select:none; transition:border-color 0.15s; }
-        .sort-item:hover { border-color:#384260; }
-        .sort-item.drag-over-sort { border-color:var(--cyan); background:rgba(0,104,255,0.04); }
+        .sort-item { background:#F7F9FC; border:2px solid var(--border); border-radius:8px; padding:12px 15px; font-size:0.9rem; font-weight:600; color:var(--text); display:flex; align-items:center; gap:12px; cursor:grab; user-select:none; transition:border-color 0.15s; }
+        .sort-item:hover { border-color:#CBD5E1; }
+        .sort-item.drag-over-sort { border-color:var(--cyan); background:rgba(0,104,255,0.05); }
         .sort-item.correct-sort { border-color:#22c55e !important; background:rgba(34,197,94,0.08) !important; }
         .sort-item.wrong-sort { border-color:#ef4444 !important; background:rgba(239,68,68,0.06) !important; }
-        .sort-handle { color:#384260; font-size:1.1rem; flex-shrink:0; }
-        .sort-num { background:#23293f; color:var(--cyan); font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:4px; min-width:24px; text-align:center; flex-shrink:0; }
+        .sort-handle { color:#CBD5E1; font-size:1.1rem; flex-shrink:0; }
+        .sort-num { background:#F1F4F9; color:var(--cyan); font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:4px; min-width:24px; text-align:center; flex-shrink:0; }
 
         /* ===== IMAGE SELECT ===== */
         .img-select-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
-        .img-opt { background:#161927; border:2px solid #29304a; border-radius:10px; padding:12px; cursor:pointer; transition:all 0.15s; text-align:center; }
-        .img-opt:hover { border-color:#384260; }
+        .img-opt { background:#F7F9FC; border:2px solid var(--border); border-radius:10px; padding:12px; cursor:pointer; transition:all 0.15s; text-align:center; }
+        .img-opt:hover { border-color:#CBD5E1; }
         .img-opt.selected { border-color:var(--cyan); background:rgba(0,104,255,0.05); }
         .img-opt.correct-img { border-color:#22c55e !important; background:rgba(34,197,94,0.1) !important; }
         .img-opt.wrong-img { border-color:#ef4444 !important; background:rgba(239,68,68,0.08) !important; }
-        .img-opt img { width:100%; aspect-ratio:4/3; object-fit:contain; border-radius:6px; margin-bottom:7px; background:#1e2235; }
+        .img-opt img { width:100%; aspect-ratio:4/3; object-fit:contain; border-radius:6px; margin-bottom:7px; background:#F1F4F9; }
         .img-opt-label { font-size:0.8rem; font-weight:700; color:var(--muted); }
 
         /* ===== ÔN CÂU SAI - Banner ===== */
-        .retry-banner { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:10px; padding:10px 16px; margin-bottom:14px; font-size:0.85rem; font-weight:700; color:#fca5a5; display:none; }
+        .retry-banner { background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:10px; padding:10px 16px; margin-bottom:14px; font-size:0.85rem; font-weight:700; color:#dc2626; display:none; }
         .retry-banner.visible { display:block; }
 
         /* ===== THÔNG BÁO HẾT HẠN ===== */
-        .expire-banner { background:rgba(255,87,34,0.1); border:1px solid rgba(255,87,34,0.3); border-radius:12px; padding:12px 16px; margin:10px 20px; font-size:0.85rem; font-weight:700; color:#ffaa80; display:none; align-items:center; gap:10px; }
+        .expire-banner { background:rgba(255,87,34,0.08); border:1px solid rgba(255,87,34,0.25); border-radius:12px; padding:12px 16px; margin:10px 20px; font-size:0.85rem; font-weight:700; color:#c2410c; display:none; align-items:center; gap:10px; }
         .expire-banner.visible { display:flex; }
 
         /* ===== MOBILE TOUCH cho drag-drop ===== */
@@ -2301,8 +2303,9 @@ async function triggerRemoteVerification(courseName) {
     </style></head><body>
     <div class="container">
         <header>
-            <div>
-                <h3 style="color:var(--text);">🎯 Phòng Ôn Luyện & Sát Hạch: ${courseType}</h3>
+            <a href="/" class="qe-brand"><img src="${CONFIG.LOGO_URL}"> MOS360</a>
+            <div style="flex:1;">
+                <h3 style="color:var(--text); font-size:1rem;">🎯 Phòng Ôn Luyện & Sát Hạch: ${courseType}</h3>
                 <p style="color:var(--muted); font-size:0.75rem; margin-top:2px;">Tiêu chuẩn đạt: ${EXAM_CONFIG.PASS_SCORE} / ${EXAM_CONFIG.MAX_SCORE} điểm | ${EXAM_CONFIG.QUESTION_COUNT} Câu hỏi
                 </p>
             </div>
@@ -2356,7 +2359,7 @@ async function triggerRemoteVerification(courseName) {
                    </button>
                    <button class="mode-btn" id="btnRetryFromExam" onclick="launchRetryFromExam()" style="display:none; border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.05);">
                        🔁 Ôn câu sai từ lần thi trước
-                       <span class="lock-badge" id="lock-retry-exam" style="color:#fca5a5;"> </span>
+                       <span class="lock-badge" id="lock-retry-exam" style="color:#dc2626;"> </span>
                    </button>
                    ${hasLevels
                 ? '<button id="btnBackToLevel" style="color:var(--muted); font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer;">← Chọn lại cấp độ</button>'
@@ -2367,10 +2370,10 @@ async function triggerRemoteVerification(courseName) {
                 <div class="result-overlay" id="resBox">
                     <h2 style="color:var(--cyan); font-weight:800;">KẾT QUẢ SÁT HẠCH</h2>
                     <div style="font-size:42px; font-weight:800; margin:15px 0;" id="resScore">0 / 1000</div>
-                    <p style="margin-bottom:25px; color:#334155; font-size:0.95rem; max-width:420px; line-height:1.5;" id="resText"></p>
-                    <button onclick="location.href=&apos;/courses&apos;" style="padding:12px 35px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:var(--text); font-weight:800; border-radius:25px; cursor:pointer; margin-bottom:12px;">QUAY LẠI TRANG KHÓA HỌC</button>
-                    <button onclick="retryWrongAnswers()" id="btnRetryWrong" style="padding:10px 25px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; font-weight:700; border-radius:20px; cursor:pointer; margin-bottom:8px;">🔁 ÔN LẠI CÁC CÂU SAI</button>
-                    <button onclick="restartQuiz()" style="padding:10px 25px; background:#1e2235; border:1px solid #282f44; color:var(--muted); font-weight:700; border-radius:20px; cursor:pointer;">LÀM LẠI BÀI THI</button>
+                    <p style="margin-bottom:25px; color:var(--muted); font-size:0.95rem; max-width:420px; line-height:1.5;" id="resText"></p>
+                    <button onclick="location.href=&apos;/courses&apos;" style="padding:12px 35px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:#fff; font-weight:800; border-radius:25px; cursor:pointer; margin-bottom:12px;">QUAY LẠI TRANG KHÓA HỌC</button>
+                    <button onclick="retryWrongAnswers()" id="btnRetryWrong" style="padding:10px 25px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.35); color:#dc2626; font-weight:700; border-radius:20px; cursor:pointer; margin-bottom:8px;">🔁 ÔN LẠI CÁC CÂU SAI</button>
+                    <button onclick="restartQuiz()" style="padding:10px 25px; background:#F1F4F9; border:1px solid var(--border); color:var(--text); font-weight:700; border-radius:20px; cursor:pointer;">LÀM LẠI BÀI THI</button>
                 </div>
 
                 <div style="font-size:11px; color:var(--cyan); font-weight:800; letter-spacing:0.5px; margin-bottom:10px;">
@@ -2395,15 +2398,15 @@ async function triggerRemoteVerification(courseName) {
             <div class="right-sidebar">
                 <h4 style="margin-bottom:8px; font-size:12px; color:var(--muted);">DANH SÁCH CÂU HỎI</h4>
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                    <button id="navPagePrev" onclick="changeNavPage(-1)" style="background:#1e2235; border:1px solid #29304a; color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9664;</button>
+                    <button id="navPagePrev" onclick="changeNavPage(-1)" style="background:#F1F4F9; border:1px solid var(--border); color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9664;</button>
                     <span id="navPageLabel" style="font-size:11px; color:var(--muted); font-weight:700;">1–10</span>
-                    <button id="navPageNext" onclick="changeNavPage(1)" style="background:#1e2235; border:1px solid #29304a; color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9654;</button>
+                    <button id="navPageNext" onclick="changeNavPage(1)" style="background:#F1F4F9; border:1px solid var(--border); color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9654;</button>
                 </div>
                 <div class="nav-grid" id="gridArea"></div>
                 <div style="margin-top:12px; font-size:11px; color:var(--muted); line-height:1.6;">
                     <span style="color:#22c55e;">■</span> Đúng &nbsp;
                     <span style="color:#ef4444;">■</span> Sai &nbsp;
-                    <span style="color:#384260;">■</span> Đã chọn
+                    <span style="color:#94A3B8;">■</span> Đã chọn
                 </div>
             </div>
         </div>
@@ -2823,7 +2826,7 @@ async function triggerRemoteVerification(courseName) {
             var label = opt && typeof opt === 'object' ? (opt.label || '') : String(opt);
             var imgEl = document.createElement('img');
             imgEl.src = imgSrc;
-            imgEl.onerror = function() { this.style.minHeight='60px'; this.style.background='#1e2235'; };
+            imgEl.onerror = function() { this.style.minHeight='60px'; this.style.background='#F1F4F9'; };
             var labelEl = document.createElement('div');
             labelEl.className = 'img-opt-label';
             labelEl.textContent = String.fromCharCode(65+i) + '. ' + label;
