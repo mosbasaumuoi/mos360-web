@@ -318,9 +318,9 @@ export default {
             // Nhân 3 lần để hiệu ứng cuộn không bị hết nội dung
             studentData = htmlContent
                 ? htmlContent + htmlContent + htmlContent
-                : "<div style='color:#64748b;padding:20px;'>Đang cập nhật bảng vàng...</div>";
+                : "<div style='color:#5A6A85;padding:20px;'>Đang cập nhật bảng vàng...</div>";
         } catch (e) {
-            studentData = "<div style='color:#64748b;padding:20px;'>Hệ thống đang đồng bộ dữ liệu...</div>";
+            studentData = "<div style='color:#5A6A85;padding:20px;'>Hệ thống đang đồng bộ dữ liệu...</div>";
         }
 
         // Đọc promo config từ KV
@@ -351,7 +351,7 @@ export default {
     <title>${CONFIG.TITLE}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #FF5722; --bg: #F7F9FC; --card: #FFFFFF; --text: #1C1D1F; --border: #E2E8F0; --cyan: #0068FF; --muted: #64748B; }
+        :root { --primary: #FF5722; --bg: #F0F4FA; --card: #FFFFFF; --text: #0F1F40; --border: #CFD8EA; --cyan: #0052CC; --muted: #5A6A85; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid var(--border); }
@@ -362,7 +362,7 @@ export default {
         nav a:hover { color: var(--text); }
         .admin-only-btn { display: none; background: rgba(255,215,0,0.12); color: #B8860B !important; border: 1px solid #DAA520; padding: 6px 12px; border-radius: 6px; font-weight: 800; }
 
-        .hero-banner { position: relative; width: 100%; min-height: 340px; background: linear-gradient(135deg, #EEF3FB 0%, #E4ECFB 100%); overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; border-bottom: 1px solid var(--border); }
+        .hero-banner { position: relative; width: 100%; min-height: 340px; background: linear-gradient(135deg, #E2ECFA 0%, #D6E4F7 100%); overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; border-bottom: 1px solid var(--border); }
         .hero-content { position: relative; z-index: 2; max-width: 800px; }
         .hero-content h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 15px; color: var(--text); }
         .hero-content h1 span { background: linear-gradient(to right, #FF5722, #ff8a65); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -385,7 +385,7 @@ export default {
 
         /* FIX 1: Bảng Vàng - carousel cuộn mượt */
         #bang-vang-container { height: 600px; overflow: hidden; }
-        .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; background: #F1F4F9; border-radius: 16px; }
+        .carousel-viewport { width: 100%; height: 100%; overflow: hidden; position: relative; background: #E2ECFA; border-radius: 16px; }
         .carousel-track { display: flex; align-items: center; gap: 20px; position: absolute; left: 0; top: 0; height: 100%; animation: scroll-left 60s linear infinite; width: max-content; }
         .carousel-track:hover { animation-play-state: paused; }
         .student-item { flex: 0 0 auto; width: 320px; height: 100%; display: flex; align-items: center; justify-content: center; }
@@ -397,7 +397,7 @@ export default {
         .social-sticky-item { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(15,23,42,0.15); text-decoration: none; }
         .social-sticky-item:hover { transform: scale(1.15); }
         .social-sticky-item svg { width: 48px; height: 48px; }
-        .s-zalo { box-shadow: 0 4px 14px rgba(0,104,255,0.35); }
+        .s-zalo { box-shadow: 0 4px 14px rgba(0,104,255,0.4); }
         .s-zalo svg {
               width: 48px;
               height: 48px;
@@ -413,15 +413,15 @@ export default {
         .course-block-title { display: flex; align-items: center; gap: 12px; margin: 40px 0 20px 0; padding-bottom: 10px; border-bottom: 2px solid var(--border); color: var(--text); }
         .course-block-title svg { width: 28px; height: 28px; fill: var(--primary); }
         .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .price-tag { font-size: 1.3rem; font-weight: 800; color: var(--cyan); margin: 15px 0; display: flex; align-items: center; gap: 8px; }
+        .price-tag { font-size: 1.3rem; font-weight: 800; color: #0052CC; margin: 15px 0; display: flex; align-items: center; gap: 8px; }
         .price-tag span { font-size: 0.85rem; color: var(--muted); text-decoration: line-through; font-weight: normal; }
         .course-btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; }
 
-        .btn-action { background: linear-gradient(135deg, #FF5722, #ff784e); color: white; border: none; padding: 12px; border-radius: 25px; font-weight: 800; cursor: pointer; width: 100%; text-decoration: none; display: inline-block; text-align: center; box-shadow: 0 4px 12px rgba(255,87,34,0.2); transition: transform 0.15s; }
-        .btn-sub { padding: 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid var(--border); background: #F7F9FC; color: #334155; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.2s; }
+        .btn-action { background: linear-gradient(135deg, #FF5722, #ff784e); color: var(--text); border: none; padding: 12px; border-radius: 25px; font-weight: 800; cursor: pointer; width: 100%; text-decoration: none; display: inline-block; text-align: center; box-shadow: 0 4px 12px rgba(255,87,34,0.2); transition: transform 0.15s; }
+        .btn-sub { padding: 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; border: 1px solid var(--border); background: #F0F4FA; color: #334155; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.2s; }
         .btn-sub:hover { background: #EDF1F7; color: var(--text); }
-        .btn-trial { background: rgba(0,104,255,0.06); color: var(--cyan); border: 1px solid rgba(0,104,255,0.2); }
-        .btn-confirm { display:none; margin-top:12px; padding:12px 30px; background:linear-gradient(135deg,#00a2ff,#0068ff); color:#fff; border:none; border-radius:10px; font-weight:800; font-size:0.95rem; cursor:pointer; width:100%; }
+        .btn-trial { background: rgba(0,82,204,0.06); color: #0052CC; border: 1px solid rgba(0,82,204,0.2); }
+        .btn-confirm { display:none; margin-top:12px; padding:12px 30px; background:linear-gradient(135deg,#2684FF,#0068ff); color:#fff; border:none; border-radius:10px; font-weight:800; font-size:0.95rem; cursor:pointer; width:100%; }
         .btn-confirm.visible { display:block; }
 
         footer { padding: 40px 5%; background: #FFFFFF; border-top: 1px solid var(--border); margin-top: 40px; }
@@ -435,7 +435,7 @@ export default {
             .stats-bar { gap: 15px; flex-wrap: wrap; }
             .main-container { grid-template-columns: 1fr; gap: 20px; padding: 0 4%; }
             .footer-grid { grid-template-columns: 1fr; }
-            .social-sticky-bar { position: relative; top: 0; transform: none; right: 0; flex-direction: row; justify-content: center; padding: 15px; background: #F7F9FC; border-radius: 12px; margin: 10px 4%; gap: 15px; }
+            .social-sticky-bar { position: relative; top: 0; transform: none; right: 0; flex-direction: row; justify-content: center; padding: 15px; background: #F0F4FA; border-radius: 12px; margin: 10px 4%; gap: 15px; }
         }
     </style>
     </head><body>
@@ -455,9 +455,9 @@ export default {
         </nav>
     </header>
 
-    <nav style="background:#F7F9FC; padding:12px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:15px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;">
+    <nav style="background:#E2ECFA; padding:12px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:15px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;">
         <span style="color:var(--muted); font-weight:bold;">🎯 Lối tắt phòng thi:</span>
-        <a href="/generative-ai" style="color:var(--cyan); text-decoration:none; font-weight:bold;">✨ Luyện thi GENERATIVE AI</a>
+        <a href="/generative-ai" style="color:#0052CC; text-decoration:none; font-weight:bold;">✨ Luyện thi GENERATIVE AI</a>
         <a href="/ic3-lv1" style="color:#16a34a; text-decoration:none; font-weight:bold;">🟢 IC3 GS6 Level 1</a>
         <a href="/ic3-lv2" style="color:#d97706; text-decoration:none; font-weight:bold;">🟡 IC3 GS6 Level 2</a>
         <a href="/ic3-lv3" style="color:#dc2626; text-decoration:none; font-weight:bold;">🔴 IC3 GS6 Level 3</a>
@@ -466,10 +466,13 @@ export default {
     <!-- FIX 2: Icon Zalo SVG logo chuẩn thương hiệu chính thức -->
     <div class="social-sticky-bar" id="stickySocialBar">
         <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="social-sticky-item s-zalo" title="Zalo">
-            <!-- SVG Zalo logo chính thức: nền xanh tròn bo góc, chữ Zalo trắng -->
+            <!-- Zalo official: nền tròn xanh #0068FF, wordmark trắng chuẩn -->
             <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <rect width="48" height="48" rx="12" fill="#0068FF"/>
-                <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="900" font-size="16" letter-spacing="-0.5">Zalo</text>
+                <circle cx="24" cy="24" r="24" fill="#0068FF"/>
+                <!-- Wordmark "Zalo" — font bold, kerning chặt -->
+                <text x="24" y="28" text-anchor="middle" fill="white"
+                      font-family="'Helvetica Neue', Arial, sans-serif"
+                      font-weight="800" font-size="17" letter-spacing="-0.3">Zalo</text>
             </svg>
         </a>
         <a href="${CONFIG.SOCIALS.FACEBOOK}" target="_blank" class="social-sticky-item s-fb" title="Facebook">
@@ -538,10 +541,10 @@ export default {
         <h2 id="hnSylTitle" style="font-size:1.25rem;font-weight:800;color:var(--text);line-height:1.3"></h2>
         <p id="hnSylSubtitle" style="font-size:0.85rem;color:var(--muted);margin-top:4px"></p>
       </div>
-      <button onclick="closeSyllabusModal()" style="background:#F1F4F9;border:none;width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:var(--muted);flex-shrink:0;line-height:1">✕</button>
+      <button onclick="closeSyllabusModal()" style="background:#E2ECFA;border:none;width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:var(--muted);flex-shrink:0;line-height:1">✕</button>
     </div>
     <div id="hnSylBody" style="padding:22px 26px;overflow-y:auto;flex:1"></div>
-    <div style="padding:16px 26px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;flex-shrink:0;background:#F7F9FC">
+    <div style="padding:16px 26px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;flex-shrink:0;background:#F0F4FA">
       <span style="font-size:0.78rem;color:var(--muted)">📌 Trung tâm Tin học MOS360 — Hải Phòng</span>
       <a id="hnSylDownload" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--primary);color:#fff;border-radius:9px;font-weight:800;font-size:0.85rem;text-decoration:none;transition:all 0.15s">⬇️ Tải tài liệu đầy đủ (PDF)</a>
     </div>
@@ -553,9 +556,9 @@ export default {
 .hn-syl-section h3 { font-size:1rem; font-weight:800; color:var(--text); margin-bottom:8px; }
 .hn-syl-section p { font-size:0.88rem; color:#334155; line-height:1.7; margin-bottom:8px; }
 .hn-syl-table { width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:0.84rem; }
-.hn-syl-table th { background:#F7F9FC; text-align:left; padding:9px 12px; font-weight:700; color:var(--text); border:1px solid var(--border); }
+.hn-syl-table th { background:#F0F4FA; text-align:left; padding:9px 12px; font-weight:700; color:var(--text); border:1px solid var(--border); }
 .hn-syl-table td { padding:9px 12px; border:1px solid var(--border); color:#334155; vertical-align:top; }
-.hn-syl-module { border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:12px; background:#F7F9FC; }
+.hn-syl-module { border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:12px; background:#F0F4FA; }
 .hn-syl-module h4 { font-size:0.92rem; font-weight:800; color:var(--primary); margin-bottom:8px; }
 .hn-syl-module .lvl { font-size:0.8rem; font-weight:700; color:var(--cyan); margin-top:10px; margin-bottom:3px; }
 .hn-syl-module .lvl-goal, .hn-syl-module .lvl-content { font-size:0.83rem; color:#334155; line-height:1.6; margin-bottom:4px; }
@@ -904,14 +907,14 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeSyll
 <!-- NEW HOMEPAGE 2026 -->
 ${bannerHtml}
 <style>
-:root { --p:#FF5722; --bg:#F7F9FC; --card:#FFFFFF; --border:#E2E8F0; --cyan:#0068FF; --muted:#64748B; --text:#1C1D1F; }
+:root { --p:#FF5722; --bg:#F0F4FA; --card:#FFFFFF; --border:#CFD8EA; --cyan:#0052CC; --muted:#5A6A85; --text:#0F1F40; }
 .hn-hero { min-height:90vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:80px 24px 60px; position:relative; overflow:hidden; }
-.hn-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(255,87,34,0.06),transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(0,104,255,0.04),transparent 60%); }
-.hn-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(15,23,42,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,0.015) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(ellipse 80% 80% at 50% 30%,black,transparent 70%); }
+.hn-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(255,87,34,0.05),transparent 70%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(0,82,204,0.07),transparent 60%),radial-gradient(ellipse 40% 30% at 20% 60%,rgba(0,82,204,0.04),transparent 60%); }
+.hn-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(0,38,100,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,38,100,0.03) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(ellipse 80% 80% at 50% 30%,black,transparent 70%); }
 .hn-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,87,34,0.1); border:1px solid rgba(255,87,34,0.3); border-radius:100px; padding:6px 16px; font-size:0.78rem; font-weight:700; color:var(--p); letter-spacing:0.5px; margin-bottom:20px; }
 .hn-h1 { font-size:clamp(1.9rem,5.5vw,3.6rem); font-weight:900; line-height:1.12; letter-spacing:-1px; margin-bottom:8px; }
 .hn-h1 .g1 { background:linear-gradient(135deg,#FF5722,#ff8a65); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.hn-h1 .g2 { background:linear-gradient(135deg,var(--cyan),#00a2ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hn-h1 .g2 { background:linear-gradient(135deg,var(--cyan),#2684FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .hn-sub { color:var(--muted); font-size:clamp(0.9rem,2vw,1.1rem); max-width:520px; margin:0 auto 32px; line-height:1.7; }
 .hn-acts { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 .hn-btn-p { padding:13px 28px; background:var(--p); color:#fff; border-radius:10px; font-weight:800; font-size:0.95rem; text-decoration:none; transition:all 0.15s; }
@@ -944,7 +947,7 @@ ${bannerHtml}
 .hn-syl-btn { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); z-index:2; display:inline-flex; align-items:center; gap:6px; padding:7px 16px; background:rgba(255,255,255,0.92); border:1px solid rgba(15,23,42,0.08); color:var(--text); font-weight:700; font-size:0.78rem; border-radius:100px; cursor:pointer; font-family:inherit; backdrop-filter:blur(4px); box-shadow:0 2px 10px rgba(15,23,42,0.08); transition:all 0.15s; white-space:nowrap; }
 .hn-syl-btn:hover { background:#fff; transform:translateX(-50%) translateY(-1px); box-shadow:0 4px 14px rgba(15,23,42,0.12); }
 .cbadge-hot { background:rgba(255,87,34,0.2); color:#ff8a65; border:1px solid rgba(255,87,34,0.3); }
-.cbadge-new { background:rgba(0,104,255,0.12); color:var(--cyan); border:1px solid rgba(0,104,255,0.25); }
+.cbadge-new { background:rgba(0,82,204,0.12); color:var(--cyan); border:1px solid rgba(0,82,204,0.25); }
 .cbadge-gold { background:rgba(255,215,0,0.12); color:#FFD700; border:1px solid rgba(255,215,0,0.25); }
 .cbadge-ai { background:rgba(167,139,250,0.12); color:#a78bfa; border:1px solid rgba(167,139,250,0.25); }
 .hn-cbody { padding:16px; }
@@ -963,9 +966,9 @@ ${bannerHtml}
 .hn-video-left { padding:28px; display:flex; flex-direction:column; justify-content:center; }
 .hn-video-left h3 { font-size:1.1rem; font-weight:800; margin-bottom:8px; }
 .hn-video-left p { font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:20px; }
-.hn-video-right { background:linear-gradient(135deg,#EEF3FB,#E4ECFB); display:flex; align-items:center; justify-content:center; min-height:220px; cursor:pointer; position:relative; transition:all 0.2s; }
+.hn-video-right { background:linear-gradient(135deg,#E2ECFA,#D6E4F7); display:flex; align-items:center; justify-content:center; min-height:220px; cursor:pointer; position:relative; transition:all 0.2s; }
 .hn-video-right:hover .hn-play { background:var(--cyan); color:#fff; transform:scale(1.1); }
-.hn-play { width:60px; height:60px; background:rgba(0,104,255,0.12); border:2px solid var(--cyan); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--cyan); transition:all 0.25s; }
+.hn-play { width:60px; height:60px; background:rgba(0,82,204,0.12); border:2px solid var(--cyan); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--cyan); transition:all 0.25s; }
 
 /* Tools */
 .hn-tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
@@ -1015,17 +1018,17 @@ table.hn-table { width:100%; border-collapse:collapse; }
 .tag-done { background:rgba(71,85,105,0.3); color:var(--muted); }
 .tag-open { background:rgba(34,197,94,0.12); color:#22c55e; border:1px solid rgba(34,197,94,0.25); }
 .tag-soon { background:rgba(245,158,11,0.12); color:#f59e0b; border:1px solid rgba(245,158,11,0.25); }
-.tag-future { background:rgba(0,104,255,0.07); color:var(--cyan); border:1px solid rgba(0,104,255,0.18); }
+.tag-future { background:rgba(0,82,204,0.07); color:var(--cyan); border:1px solid rgba(0,82,204,0.18); }
 
 /* Lookup */
 .hn-lookup-box { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px; max-width:580px; }
 .hn-linput-wrap { display:flex; gap:10px; margin-bottom:18px; }
-.hn-linput { flex:1; padding:11px 15px; background:#F1F4F9; border:1px solid rgba(15,23,42,0.06); border-radius:9px; color:var(--text); font-size:0.9rem; font-family:inherit; outline:none; transition:border-color 0.15s; }
+.hn-linput { flex:1; padding:11px 15px; background:#E2ECFA; border:1px solid rgba(15,23,42,0.06); border-radius:9px; color:var(--text); font-size:0.9rem; font-family:inherit; outline:none; transition:border-color 0.15s; }
 .hn-linput:focus { border-color:var(--p); }
 .hn-linput::placeholder { color:var(--muted); }
 .hn-lbtn { padding:11px 22px; background:var(--p); color:#fff; border:none; border-radius:9px; font-weight:800; font-size:0.9rem; cursor:pointer; font-family:inherit; transition:all 0.15s; white-space:nowrap; }
 .hn-lbtn:hover { background:#e64a19; }
-.hn-lresult { background:#F1F4F9; border:1px solid var(--border); border-radius:11px; padding:18px; display:none; }
+.hn-lresult { background:#E2ECFA; border:1px solid var(--border); border-radius:11px; padding:18px; display:none; }
 .hn-lresult.show { display:block; }
 .hn-lresult h4 { font-size:0.7rem; color:var(--muted); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
 .hn-lf { display:flex; gap:12px; align-items:baseline; margin-bottom:7px; }
@@ -1034,7 +1037,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
 .hn-lf-val.hl { color:var(--cyan); }
 .hn-lf-val.ok { color:#22c55e; }
 .hn-lnote { font-size:0.73rem; color:var(--muted); margin-top:12px; padding-top:11px; border-top:1px solid var(--border); line-height:1.55; }
-.hn-lmsg { padding:14px; text-align:center; font-size:0.84rem; color:var(--muted); display:none; border-radius:10px; background:#F1F4F9; border:1px solid var(--border); }
+.hn-lmsg { padding:14px; text-align:center; font-size:0.84rem; color:var(--muted); display:none; border-radius:10px; background:#E2ECFA; border:1px solid var(--border); }
 .hn-lmsg.show { display:block; }
 
 /* Bảng vàng */
@@ -1042,7 +1045,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
 .hn-bvang-hdr { padding:16px 22px; border-bottom:1px solid var(--border); font-weight:700; font-size:0.92rem; }
 
 /* Divider */
-.hn-divider { border:none; border-top:1px solid var(--border); margin:0; }
+.hn-divider { border:none; border-top:1px solid #CFD8EA; margin:0; }
 
 @media(max-width:768px) {
   .hn-video-wrap { grid-template-columns:1fr; }
@@ -1277,7 +1280,7 @@ ${promoSectionHtml}
       <a href="${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,104,255,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.ULTRAVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.08)">📡</div><div><div class="hn-tool-name">UltraViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.HD_MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📖</div><div><div class="hn-tool-name">Cài phần mềm MOS360</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.HD_OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📖</div><div><div class="hn-tool-name">Cài Office 2019</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
@@ -1295,7 +1298,7 @@ ${promoSectionHtml}
 .hn-label { display:block; font-size:0.8rem; font-weight:700; color:var(--muted); margin-bottom:6px; letter-spacing:0.3px; }
 .hn-label .req { color:#f97316; margin-left:2px; }
 .hn-input, .hn-select, .hn-textarea {
-  width:100%; padding:10px 14px; background:#F7F9FC; border:1px solid var(--border);
+  width:100%; padding:10px 14px; background:#F0F4FA; border:1px solid var(--border);
   border-radius:9px; color:var(--text); font-size:0.88rem; font-family:inherit; outline:none;
   transition:border-color 0.15s;
 }
@@ -1955,7 +1958,7 @@ async function hnDoLookup() {
         </div>
         <div class="course-grid">
             <div class="section-card">
-                <span style="background:rgba(0,104,255,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
+                <span style="background:rgba(0,82,204,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS WORD 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
@@ -1964,7 +1967,7 @@ async function hnDoLookup() {
                 </div>
             </div>
             <div class="section-card">
-                <span style="background:rgba(0,104,255,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
+                <span style="background:rgba(0,82,204,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS EXCEL 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
@@ -1973,7 +1976,7 @@ async function hnDoLookup() {
                 </div>
             </div>
             <div class="section-card">
-                <span style="background:rgba(0,104,255,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
+                <span style="background:rgba(0,82,204,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS PPT 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <div class="course-btn-group">
@@ -2035,14 +2038,14 @@ async function hnDoLookup() {
             </div>
             <div class="section-card" style="border-color:var(--cyan); display:flex; flex-direction:column; justify-content:space-between;">
                 <div>
-                    <span style="background:rgba(0,104,255,0.1); color:var(--cyan); padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">AI DIGITAL</span>
+                    <span style="background:rgba(0,82,204,0.1); color:var(--cyan); padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">AI DIGITAL</span>
                     <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:var(--cyan);">Luyện thi GENERATIVE AI</h3>
                     <p style="color:var(--muted); font-size:0.85rem; line-height:1.5;">Bộ ngân hàng 45 câu xáo trộn ngẫu nhiên đạt tiêu chuẩn từ đề thi quốc tế.</p>
                     <div class="price-tag">100.000đ <span>400.000đ</span></div>
-                    <button onclick="openSyllabusModal('genai')" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:var(--cyan);background:rgba(0,104,255,0.06);border:1px solid rgba(0,104,255,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;">📘 Giáo trình học</button>
+                    <button onclick="openSyllabusModal('genai')" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;">📘 Giáo trình học</button>
                 </div>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,var(--cyan),#00a2ff); color:#fff;">ĐĂNG KÝ NGAY</a>
+                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,var(--cyan),#2684FF); color:#fff;">ĐĂNG KÝ NGAY</a>
                     <button class="btn-sub" id="btn-auth-AI" onclick="triggerRemoteVerification(&apos;GENERATIVE AI&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                     <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/generative-ai&apos;,&apos;GENERATIVE AI&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
@@ -2118,11 +2121,11 @@ async function triggerRemoteVerification(courseName) {
         <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:25px;">Chức năng bảo mật phân tầng dành riêng cho quản trị viên</p>
         <div style="margin-bottom:15px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">TÀI KHOẢN ADMIN</label>
-            <input type="text" id="admUser" placeholder="admin@mos360" style="width:100%; padding:14px; background:#F1F4F9; border:1px solid #282f44; color:var(--text); border-radius:10px; font-weight:bold;">
+            <input type="text" id="admUser" placeholder="admin@mos360" style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
         <div style="margin-bottom:25px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">MẬT KHẨU</label>
-            <input type="password" id="admPass" placeholder="••••••••" style="width:100%; padding:14px; background:#F1F4F9; border:1px solid #282f44; color:var(--text); border-radius:10px; font-weight:bold;">
+            <input type="password" id="admPass" placeholder="••••••••" style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
         <!-- FIX 4: Đăng nhập admin chỉ set localStorage, không thu hồi session thiết bị khác -->
         <button class="btn-action" onclick="handleAdminLoginGate()">XÁC THỰC QUYỀN TRUY CẬP</button>
@@ -2160,8 +2163,8 @@ async function triggerRemoteVerification(courseName) {
   <!DOCTYPE html>
   <html>
   <body style="
-      background:#08090e;
-      color:white;
+      background:#F0F4FA;
+      color:var(--text);
       font-family:sans-serif;
       display:flex;
       justify-content:center;
@@ -2239,52 +2242,52 @@ async function triggerRemoteVerification(courseName) {
     <title>Phòng Luyện Thi: ${courseType}</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, sans-serif; }
-        body { --text: #ffffff; --muted: #94a3b8; --cyan: #00d4ff; --border: rgba(255,255,255,0.06); background: #08090e; color: #e2e8f0; padding: 15px; }
-        .container { max-width: 1200px; margin: 0 auto; background: #121522; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
-        header { background: #171b2a; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .timer-box { border: 2px solid var(--cyan); padding: 6px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; color: var(--cyan); }
+        body { --text: #0F1F40; --muted: #5A6A85; --cyan: #0052CC; --border: #CFD8EA; background: #F0F4FA; color: #0F1F40; padding: 15px; }
+        .container { max-width: 1200px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
+        header { background: #F0F4FA; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .timer-box { border: 2px solid var(--cyan); padding: 6px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; color: #0052CC; }
 
-        .mode-selection-overlay { position: absolute; inset: 0; background: #0c0e17; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-radius: 12px; }
-        .mode-btn { width: 100%; max-width: 380px; padding: 16px; margin: 8px 0; border: 2px solid #282f44; background: #161927; color: white; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: left; }
-        .mode-btn:hover { border-color: var(--cyan); background: rgba(0,104,255,0.04); }
+        .mode-selection-overlay { position: absolute; inset: 0; background: #F0F4FA; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-radius: 12px; }
+        .mode-btn { width: 100%; max-width: 380px; padding: 16px; margin: 8px 0; border: 2px solid #CFD8EA; background: #FFFFFF; color: var(--text); border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: left; }
+        .mode-btn:hover { border-color: #0052CC; background: rgba(0,82,204,0.04); }
         .lock-badge { font-size: 0.75rem; display: block; margin-top: 4px; font-weight: normal; }
 
         .quiz-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 20px; }
-        .main-quiz { background: #161927; padding: 20px; border-radius: 12px; min-height: 440px; display: flex; flex-direction: column; position: relative; }
+        .main-quiz { background: #FFFFFF; padding: 20px; border-radius: 12px; min-height: 440px; display: flex; flex-direction: column; position: relative; }
 
         .question-box { font-size: 1.05rem; font-weight: 700; line-height: 1.5; margin-bottom: 20px; color: var(--text); }
-        .option { display: flex; align-items: flex-start; padding: 14px 16px; background: #1e2235; border: 2px solid #29304a; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; gap: 10px; }
-        .option.selected { border-color: var(--cyan); background: rgba(0,104,255,0.04); color: var(--cyan); }
+        .option { display: flex; align-items: flex-start; padding: 14px 16px; background: #F0F4FA; border: 2px solid #CFD8EA; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; gap: 10px; }
+        .option.selected { border-color: #0052CC; background: rgba(0,82,204,0.04); color: #0052CC; }
         /* FIX 5: Màu phản hồi đúng/sai ngay lập tức cho chế độ ôn luyện */
         .option.correct-ans { border-color: #22c55e !important; background: rgba(34,197,94,0.12) !important; color: #22c55e !important; }
         .option.wrong-ans { border-color: #ef4444 !important; background: rgba(239,68,68,0.1) !important; color: #ef4444 !important; }
         .option.show-correct { border-color: #22c55e !important; background: rgba(34,197,94,0.06) !important; color: #86efac !important; }
         /* FIX 5: Hộp giải thích trượt xuống */
-        .explanation-box { background: rgba(0,104,255,0.06); border: 1px solid rgba(0,104,255,0.2); border-radius: 10px; padding: 14px 16px; margin-top: 12px; font-size: 0.88rem; line-height: 1.6; color: var(--muted); display: none; animation: slideDown 0.25s ease; }
+        .explanation-box { background: rgba(0,82,204,0.06); border: 1px solid rgba(0,82,204,0.2); border-radius: 10px; padding: 14px 16px; margin-top: 12px; font-size: 0.88rem; line-height: 1.6; color: var(--muted); display: none; animation: slideDown 0.25s ease; }
         .explanation-box.visible { display: block; }
-        .explanation-box strong { color: var(--cyan); }
+        .explanation-box strong { color: #0052CC; }
         @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
 
-        .right-sidebar { background: #161927; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; }
+        .right-sidebar { background: #FFFFFF; padding: 15px; border-radius: 12px; display: flex; flex-direction: column; }
         .nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; overflow-y: auto; max-height: 350px; }
-        .nav-item { height: 36px; background: #1e2235; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; border-radius: 6px; cursor: pointer; color: var(--muted); }
-        .nav-item.current { border: 1px solid var(--cyan); color: var(--cyan); background: rgba(0,104,255,0.05); }
-        .nav-item.answered { background: #384260; color: var(--text); }
-        .nav-item.correct-nav { background: #166534; color: #86efac; }
-        .nav-item.wrong-nav { background: #7f1d1d; color: #fca5a5; }
+        .nav-item { height: 36px; background: #EEF3FB; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; border-radius: 6px; cursor: pointer; color: var(--muted); }
+        .nav-item.current { border: 1px solid var(--cyan); color: #0052CC; background: rgba(0,82,204,0.05); }
+        .nav-item.answered { background: #CFD8EA; color: var(--text); }
+        .nav-item.correct-nav { background: rgba(34,197,94,0.16); color: #16a34a; }
+        .nav-item.wrong-nav { background: rgba(239,68,68,0.14); color: #dc2626; }
 
         .control-btns { display: flex; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 20px; }
-        .btn-ctrl { padding: 12px 18px; background: #23293f; color: var(--text); border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
+        .btn-ctrl { padding: 12px 18px; background: #E2ECFA; color: var(--text); border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
         .btn-submit { background: #16a34a; font-weight: 800; }
 
-        .result-overlay { position: absolute; inset: 0; background: #0c0e17; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 1000; display: none; border-radius: 12px; }
+        .result-overlay { position: absolute; inset: 0; background: #F0F4FA; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 1000; display: none; border-radius: 12px; }
 
         /* ===== NÚT XÁC NHẬN ĐÁP ÁN - Thiết kế lại ===== */
         .btn-confirm-wrap { display:none; margin-top:14px; }
         .btn-confirm-wrap.visible { display:flex; justify-content:center; }
         .btn-confirm {
             padding: 11px 36px;
-            background: linear-gradient(135deg, var(--cyan), #00a2ff);
+            background: linear-gradient(135deg, #0052CC, #2684FF);
             color: #000;
             border: none;
             border-radius: 25px;
@@ -2292,10 +2295,10 @@ async function triggerRemoteVerification(courseName) {
             font-size: 0.9rem;
             cursor: pointer;
             letter-spacing: 0.3px;
-            box-shadow: 0 4px 15px rgba(0,104,255,0.3);
+            box-shadow: 0 4px 15px rgba(0,82,204,0.3);
             transition: transform 0.15s, box-shadow 0.15s;
         }
-        .btn-confirm:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,104,255,0.4); }
+        .btn-confirm:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,82,204,0.4); }
 
         /* ===== ẢNH MINH HỌA ===== */
         .question-image-wrap { width:100%; max-height:200px; border-radius:12px; overflow:hidden; margin-bottom:14px; display:none; justify-content:center; }
@@ -2304,45 +2307,45 @@ async function triggerRemoteVerification(courseName) {
         /* ===== MATCHING ===== */
         .matching-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; align-items:start; }
         .matching-left-col, .matching-right-col { display:contents; }
-        .matching-row-left { background:#1e2235; border:2px solid #29304a; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:#e2e8f0; display:flex; align-items:center; gap:8px; }
+        .matching-row-left { background:#F0F4FA; border:2px solid #CFD8EA; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:var(--text); display:flex; align-items:center; gap:8px; }
         .matching-dot { width:6px; height:6px; border-radius:50%; background:var(--cyan); flex-shrink:0; }
-        .drop-zone { background:#161927; border:2px dashed #384260; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:var(--muted); display:flex; align-items:center; justify-content:center; transition:all 0.15s; cursor:pointer; }
-        .drop-zone.drag-over { border-color:var(--cyan); background:rgba(0,104,255,0.05); }
-        .drop-zone.filled { border-style:solid; border-color:var(--cyan); background:rgba(0,104,255,0.04); color:#e2e8f0; justify-content:flex-start; }
+        .drop-zone { background:#FFFFFF; border:2px dashed #CFD8EA; border-radius:8px; padding:11px 13px; font-size:0.86rem; font-weight:600; color:var(--muted); display:flex; align-items:center; justify-content:center; transition:all 0.15s; cursor:pointer; }
+        .drop-zone.drag-over { border-color:var(--cyan); background:rgba(0,82,204,0.05); }
+        .drop-zone.filled { border-style:solid; border-color:var(--cyan); background:rgba(0,82,204,0.04); color:var(--text); justify-content:flex-start; }
         .drop-zone.correct-match { border-color:#22c55e !important; background:rgba(34,197,94,0.12) !important; color:#22c55e !important; }
         .drop-zone.wrong-match { border-color:#ef4444 !important; background:rgba(239,68,68,0.1) !important; color:#ef4444 !important; }
         .answer-bank { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
-        .bank-item { background:#23293f; border:2px solid #384260; border-radius:8px; padding:9px 13px; font-size:0.84rem; font-weight:600; color:#e2e8f0; cursor:grab; user-select:none; transition:all 0.15s; }
+        .bank-item { background:#E2ECFA; border:2px solid #CFD8EA; border-radius:8px; padding:9px 13px; font-size:0.84rem; font-weight:600; color:var(--text); cursor:grab; user-select:none; transition:all 0.15s; }
         .bank-item:hover { border-color:var(--cyan); }
         .bank-item.dragging { opacity:0.4; }
         .matching-col-label { font-size:11px; color:var(--muted); font-weight:800; margin-bottom:7px; letter-spacing:0.5px; }
 
         /* ===== DRAGDROP (fill-in-blank) ===== */
-        .sentence-box { background:#161927; border:1px solid #29304a; border-radius:10px; padding:16px; font-size:1rem; font-weight:600; color:#e2e8f0; line-height:2.6; margin-bottom:12px; }
-        .inline-drop { display:inline-flex; align-items:center; justify-content:center; min-width:110px; height:32px; background:#1e2235; border:2px dashed #384260; border-radius:6px; padding:0 10px; margin:0 5px; color:var(--muted); font-size:0.84rem; vertical-align:middle; cursor:pointer; transition:all 0.15s; }
-        .inline-drop.drag-over { border-color:var(--cyan); background:rgba(0,104,255,0.08); }
-        .inline-drop.filled { border-style:solid; border-color:var(--cyan); background:rgba(0,104,255,0.06); color:var(--cyan); }
+        .sentence-box { background:#FFFFFF; border:1px solid #CFD8EA; border-radius:10px; padding:16px; font-size:1rem; font-weight:600; color:var(--text); line-height:2.6; margin-bottom:12px; }
+        .inline-drop { display:inline-flex; align-items:center; justify-content:center; min-width:110px; height:32px; background:#F0F4FA; border:2px dashed #CFD8EA; border-radius:6px; padding:0 10px; margin:0 5px; color:var(--muted); font-size:0.84rem; vertical-align:middle; cursor:pointer; transition:all 0.15s; }
+        .inline-drop.drag-over { border-color:var(--cyan); background:rgba(0,82,204,0.08); }
+        .inline-drop.filled { border-style:solid; border-color:var(--cyan); background:rgba(0,82,204,0.06); color:var(--cyan); }
         .inline-drop.correct-fill { border-color:#22c55e !important; background:rgba(34,197,94,0.12) !important; color:#22c55e !important; }
         .inline-drop.wrong-fill { border-color:#ef4444 !important; background:rgba(239,68,68,0.1) !important; color:#ef4444 !important; }
 
         /* ===== SORT ORDER ===== */
         .sort-list { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
-        .sort-item { background:#1e2235; border:2px solid #29304a; border-radius:8px; padding:12px 15px; font-size:0.9rem; font-weight:600; color:#e2e8f0; display:flex; align-items:center; gap:12px; cursor:grab; user-select:none; transition:border-color 0.15s; }
-        .sort-item:hover { border-color:#384260; }
-        .sort-item.drag-over-sort { border-color:var(--cyan); background:rgba(0,104,255,0.04); }
+        .sort-item { background:#F0F4FA; border:2px solid #CFD8EA; border-radius:8px; padding:12px 15px; font-size:0.9rem; font-weight:600; color:var(--text); display:flex; align-items:center; gap:12px; cursor:grab; user-select:none; transition:border-color 0.15s; }
+        .sort-item:hover { border-color:#CFD8EA; }
+        .sort-item.drag-over-sort { border-color:var(--cyan); background:rgba(0,82,204,0.04); }
         .sort-item.correct-sort { border-color:#22c55e !important; background:rgba(34,197,94,0.08) !important; }
         .sort-item.wrong-sort { border-color:#ef4444 !important; background:rgba(239,68,68,0.06) !important; }
-        .sort-handle { color:#384260; font-size:1.1rem; flex-shrink:0; }
-        .sort-num { background:#23293f; color:var(--cyan); font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:4px; min-width:24px; text-align:center; flex-shrink:0; }
+        .sort-handle { color:#CFD8EA; font-size:1.1rem; flex-shrink:0; }
+        .sort-num { background:#E2ECFA; color:var(--cyan); font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:4px; min-width:24px; text-align:center; flex-shrink:0; }
 
         /* ===== IMAGE SELECT ===== */
         .img-select-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
-        .img-opt { background:#161927; border:2px solid #29304a; border-radius:10px; padding:12px; cursor:pointer; transition:all 0.15s; text-align:center; }
-        .img-opt:hover { border-color:#384260; }
-        .img-opt.selected { border-color:var(--cyan); background:rgba(0,104,255,0.05); }
+        .img-opt { background:#FFFFFF; border:2px solid #CFD8EA; border-radius:10px; padding:12px; cursor:pointer; transition:all 0.15s; text-align:center; }
+        .img-opt:hover { border-color:#CFD8EA; }
+        .img-opt.selected { border-color:var(--cyan); background:rgba(0,82,204,0.05); }
         .img-opt.correct-img { border-color:#22c55e !important; background:rgba(34,197,94,0.1) !important; }
         .img-opt.wrong-img { border-color:#ef4444 !important; background:rgba(239,68,68,0.08) !important; }
-        .img-opt img { width:100%; aspect-ratio:4/3; object-fit:contain; border-radius:6px; margin-bottom:7px; background:#1e2235; }
+        .img-opt img { width:100%; aspect-ratio:4/3; object-fit:contain; border-radius:6px; margin-bottom:7px; background:#F0F4FA; }
         .img-opt-label { font-size:0.8rem; font-weight:700; color:var(--muted); }
 
         /* ===== ÔN CÂU SAI - Banner ===== */
@@ -2442,7 +2445,7 @@ async function triggerRemoteVerification(courseName) {
                     <p style="margin-bottom:25px; color:#334155; font-size:0.95rem; max-width:420px; line-height:1.5;" id="resText"></p>
                     <button onclick="location.href=&apos;/courses&apos;" style="padding:12px 35px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:var(--text); font-weight:800; border-radius:25px; cursor:pointer; margin-bottom:12px;">QUAY LẠI TRANG KHÓA HỌC</button>
                     <button onclick="retryWrongAnswers()" id="btnRetryWrong" style="padding:10px 25px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; font-weight:700; border-radius:20px; cursor:pointer; margin-bottom:8px;">🔁 ÔN LẠI CÁC CÂU SAI</button>
-                    <button onclick="restartQuiz()" style="padding:10px 25px; background:#1e2235; border:1px solid #282f44; color:var(--muted); font-weight:700; border-radius:20px; cursor:pointer;">LÀM LẠI BÀI THI</button>
+                    <button onclick="restartQuiz()" style="padding:10px 25px; background:#F0F4FA; border:1px solid #CFD8EA; color:var(--muted); font-weight:700; border-radius:20px; cursor:pointer;">LÀM LẠI BÀI THI</button>
                 </div>
 
                 <div style="font-size:11px; color:var(--cyan); font-weight:800; letter-spacing:0.5px; margin-bottom:10px;">
@@ -2467,15 +2470,15 @@ async function triggerRemoteVerification(courseName) {
             <div class="right-sidebar">
                 <h4 style="margin-bottom:8px; font-size:12px; color:var(--muted);">DANH SÁCH CÂU HỎI</h4>
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                    <button id="navPagePrev" onclick="changeNavPage(-1)" style="background:#1e2235; border:1px solid #29304a; color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9664;</button>
+                    <button id="navPagePrev" onclick="changeNavPage(-1)" style="background:#E2ECFA; border:1px solid #CFD8EA; color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9664;</button>
                     <span id="navPageLabel" style="font-size:11px; color:var(--muted); font-weight:700;">1–10</span>
-                    <button id="navPageNext" onclick="changeNavPage(1)" style="background:#1e2235; border:1px solid #29304a; color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9654;</button>
+                    <button id="navPageNext" onclick="changeNavPage(1)" style="background:#E2ECFA; border:1px solid #CFD8EA; color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9654;</button>
                 </div>
                 <div class="nav-grid" id="gridArea"></div>
                 <div style="margin-top:12px; font-size:11px; color:var(--muted); line-height:1.6;">
                     <span style="color:#22c55e;">■</span> Đúng &nbsp;
                     <span style="color:#ef4444;">■</span> Sai &nbsp;
-                    <span style="color:#384260;">■</span> Đã chọn
+                    <span style="color:#CFD8EA;">■</span> Đã chọn
                 </div>
             </div>
         </div>
@@ -2895,7 +2898,7 @@ async function triggerRemoteVerification(courseName) {
             var label = opt && typeof opt === 'object' ? (opt.label || '') : String(opt);
             var imgEl = document.createElement('img');
             imgEl.src = imgSrc;
-            imgEl.onerror = function() { this.style.minHeight='60px'; this.style.background='#1e2235'; };
+            imgEl.onerror = function() { this.style.minHeight='60px'; this.style.background='#F0F4FA'; };
             var labelEl = document.createElement('div');
             labelEl.className = 'img-opt-label';
             labelEl.textContent = String.fromCharCode(65+i) + '. ' + label;
