@@ -1,6 +1,6 @@
 export const IC3_LEVEL2 = [
 
-   {
+  {
     id: 1,
     level: "IC3_LEVEL2",
     test: 1,
@@ -146,7 +146,7 @@ export const IC3_LEVEL2 = [
   {
     id: 8,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q08", 
+    image_key: "ic3_lv2_q08",
     test: 1,
     category: "COMMUNICATION_COLLABORATION",
     difficulty: "medium",
@@ -199,7 +199,7 @@ export const IC3_LEVEL2 = [
     answer: "Mã hóa (Encryption)",
     explanation: "Encryption (Mã hóa) biến văn bản gốc (Plaintext) thành văn bản mã hóa (Ciphertext) và bắt buộc phải dùng khóa (Key) thích hợp mới có thể giải mã đảo ngược quy trình. Hashing (Hàm băm) là cơ chế một chiều không thể đảo ngược bằng khóa."
   },
-  
+
   {
     id: 11,
     level: "IC3_LEVEL2",
@@ -280,7 +280,7 @@ export const IC3_LEVEL2 = [
   {
     id: 15,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q15", 
+    image_key: "ic3_lv2_q15",
     test: 1,
     category: "OPERATING_SYSTEM",
     difficulty: "medium",
@@ -403,7 +403,7 @@ export const IC3_LEVEL2 = [
     ],
     explanation: "Tập tin chỉ đọc (Read-Only) vẫn có thể sao chép thoải mái nhưng không cho phép lưu đè thay đổi trực tiếp lên file đó. Mặc định các file tạo ra đều là Đọc-Ghi (Read-Write) để người dùng tự do biên tập dữ liệu."
   },
-  
+
   {
     id: 21,
     level: "IC3_LEVEL2",
@@ -601,11 +601,11 @@ export const IC3_LEVEL2 = [
     ],
     explanation: "Bàn phím giúp nhập ký tự điều khiển, máy quét ảnh (Scanner) giúp số hóa hình ảnh giấy tờ đưa vào máy tính nên là thiết bị nhập (Input). Màn hình và máy in nhận dữ liệu từ máy tính để hiển thị/in ra ngoài nên thuộc nhóm thiết bị xuất (Output)."
   },
-  
+
   {
     id: 31,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q31", 
+    image_key: "ic3_lv2_q31",
     test: 1,
     category: "COMMUNICATION_COLLABORATION",
     difficulty: "easy",
@@ -791,7 +791,7 @@ export const IC3_LEVEL2 = [
     answer: "Inkjet",
     explanation: "Inkjet chính là máy in phun[cite: 422]. Nó hoạt động bằng cơ chế điều khiển các đầu phun li ti để bắn/phun trực tiếp các giọt mực lỏng lên bề mặt giấy để tạo thành hình ảnh hoặc văn bản."
   },
-  
+
   {
     id: 41,
     level: "IC3_LEVEL2",
@@ -820,7 +820,7 @@ export const IC3_LEVEL2 = [
   {
     id: 42,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q42", 
+    image_key: "ic3_lv2_q42",
     test: 1,
     category: "DATA_MANAGEMENT",
     difficulty: "easy",
@@ -988,7 +988,7 @@ export const IC3_LEVEL2 = [
     answer: "Thư nháp (Drafts)",
     explanation: "Thư mục Drafts (Thư nháp) tự động hoặc chủ động lưu giữ lại toàn bộ các bức thư đang được biên tập dở dang, giúp người dùng có thể quay lại chỉnh sửa và hoàn thiện tiếp trong tương lai."
   },
-  
+
   {
     id: 51,
     level: "IC3_LEVEL2",
@@ -1004,7 +1004,7 @@ export const IC3_LEVEL2 = [
       "CPU"
     ],
     answer: "GPU",
-    explanation: "GPU (Graphics Processing Unit) là bộ xử lý chuyên dụng chịu trách nhiệm tăng tốc và xử lý các tác vụ liên quan đến hình ảnh, video, đồ họa 2D/3D nhằm giảm tải cho bộ vi xử lý trung tâm (CPU)." 
+    explanation: "GPU (Graphics Processing Unit) là bộ xử lý chuyên dụng chịu trách nhiệm tăng tốc và xử lý các tác vụ liên quan đến hình ảnh, video, đồ họa 2D/3D nhằm giảm tải cho bộ vi xử lý trung tâm (CPU)."
   },
   {
     id: 52,
@@ -1021,12 +1021,12 @@ export const IC3_LEVEL2 = [
       "Privacy"
     ],
     answer: "System",
-    explanation: "Trong ứng dụng Settings của Windows, các thiết lập cốt lõi liên quan đến màn hình hiển thị (Display), âm thanh (Sound), và thông báo (Notifications) được quản lý tập trung trong mục System." 
+    explanation: "Trong ứng dụng Settings của Windows, các thiết lập cốt lõi liên quan đến màn hình hiển thị (Display), âm thanh (Sound), và thông báo (Notifications) được quản lý tập trung trong mục System."
   },
   {
     id: 53,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q53", 
+    image_key: "ic3_lv2_q53",
     test: 1,
     category: "DATA_MANAGEMENT",
     difficulty: "hard",
@@ -1050,7 +1050,7 @@ export const IC3_LEVEL2 = [
       "Tập tin hình vạch quét có độ nén cao hỗ trợ chứa nhiều hình ảnh tĩnh (hoặc ảnh động giới hạn bảng màu) trong một tập tin": "GIF",
       "Tập tin văn bản định dạng phong phú hỗ trợ văn bản và đồ họa được định dạng cơ bản": "RTF"
     },
-    explanation: "PNG hỗ trợ độ trong suốt (transparency) và nén không mất dữ liệu; TXT là văn bản thuần túy (plain text); GIF hỗ trợ nhiều khung hình trong một tập tin (ảnh động); RTF (Rich Text Format) cho phép định dạng chữ và chèn hình ảnh cơ bản." 
+    explanation: "PNG hỗ trợ độ trong suốt (transparency) và nén không mất dữ liệu; TXT là văn bản thuần túy (plain text); GIF hỗ trợ nhiều khung hình trong một tập tin (ảnh động); RTF (Rich Text Format) cho phép định dạng chữ và chèn hình ảnh cơ bản."
   },
   {
     id: 54,
@@ -1067,7 +1067,7 @@ export const IC3_LEVEL2 = [
       "Gửi thư tới tất cả phụ huynh bằng cách sử dụng trường Bcc"
     ],
     answer: "Gửi thư tới tất cả phụ huynh bằng cách sử dụng trường Bcc",
-    explanation: "Khi gửi email hàng loạt cho một danh sách số lượng lớn người nhận không có mối quan hệ cá nhân với nhau (như toàn thể phụ huynh), việc sử dụng trường Bcc (Blind Carbon Copy) giúp ẩn danh sách địa chỉ email của mọi người, bảo vệ quyền riêng tư và tránh lộ thông tin cá nhân." 
+    explanation: "Khi gửi email hàng loạt cho một danh sách số lượng lớn người nhận không có mối quan hệ cá nhân với nhau (như toàn thể phụ huynh), việc sử dụng trường Bcc (Blind Carbon Copy) giúp ẩn danh sách địa chỉ email của mọi người, bảo vệ quyền riêng tư và tránh lộ thông tin cá nhân."
   },
   {
     id: 55,
@@ -1092,7 +1092,7 @@ export const IC3_LEVEL2 = [
       "Tổ chức tài chính cho phép xử lý và hoàn tất các giao dịch chuyển tiền trực tuyến": "Ngân hàng thanh toán",
       "Đơn vị phát hành, cung cấp thẻ ghi nợ (Debit) hoặc thẻ tín dụng (Credit) cho người tiêu dùng": "Nhà phát hành (Issuer)"
     },
-    explanation: "Merchant là người bán sản phẩm/dịch vụ; Ngân hàng thanh toán đứng giữa để xử lý kỹ thuật dòng tiền giao dịch; Issuer là tổ chức/ngân hàng cấp thẻ trực tiếp cho người dùng cuối." 
+    explanation: "Merchant là người bán sản phẩm/dịch vụ; Ngân hàng thanh toán đứng giữa để xử lý kỹ thuật dòng tiền giao dịch; Issuer là tổ chức/ngân hàng cấp thẻ trực tiếp cho người dùng cuối."
   },
   {
     id: 56,
@@ -1120,9 +1120,9 @@ export const IC3_LEVEL2 = [
       "Bạn liên hệ với huấn luyện viên của mình sau giờ học để báo ngắn gọn rằng bạn sẽ bỏ lỡ buổi tập hôm nay": "Tin nhắn văn bản",
       "Bạn liên lạc chính thức với một công ty để yêu cầu giải quyết việc nhận lại tiền hoàn trả": "Email"
     },
-    explanation: "Nhật ký trực tuyến dài là Blog; Nhóm thảo luận chung là Diễn đàn (Forum); Thông báo khẩn ngắn gọn cho cá nhân là Tin nhắn; Trao đổi thủ tục hành chính, thương mại chính thức là Email." 
+    explanation: "Nhật ký trực tuyến dài là Blog; Nhóm thảo luận chung là Diễn đàn (Forum); Thông báo khẩn ngắn gọn cho cá nhân là Tin nhắn; Trao đổi thủ tục hành chính, thương mại chính thức là Email."
   },
-   {
+  {
     id: 57,
     level: "IC3_LEVEL2",
     test: 2,
@@ -1163,7 +1163,7 @@ export const IC3_LEVEL2 = [
     answer: "Sai",
     explanation: "Trong văn hóa ứng xử số (Netiquette), khi không đồng tình với một ý kiến, bạn luôn cần giữ thái độ lịch sự, khách quan và tôn trọng, tránh bị cuốn vào việc dùng giọng điệu công kích, nóng nảy hay tiêu cực của đối phương."
   },
-     {
+  {
     id: 59,
     level: "IC3_LEVEL2",
     test: 2,
@@ -1178,9 +1178,9 @@ export const IC3_LEVEL2 = [
       "Bcc"
     ],
     answer: "Cc",
-    explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này." 
+    explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này."
   },
-        {
+  {
     id: 60,
     level: "IC3_LEVEL2",
     test: 2,
@@ -1202,11 +1202,11 @@ export const IC3_LEVEL2 = [
     ],
     explanation: "Trước khi thuyết trình trực tuyến, bạn cần tắt bớt các tab riêng tư để tránh lộ dữ liệu cá nhân khi share screen [cite: 82, 83], kiểm tra kỹ thuật thiết bị phần cứng để bảo đảm quá trình diễn ra trơn tru [cite: 82, 83] và chuẩn bị nội dung chuẩn mực, lịch sự phù hợp với người nghe[cite: 82, 83]."
   },
-    
+
   {
     id: 61,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q61", 
+    image_key: "ic3_lv2_q61",
     test: 2,
     category: "DATA_MANAGEMENT",
     difficulty: "medium",
@@ -1360,7 +1360,7 @@ export const IC3_LEVEL2 = [
   {
     id: 69,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q69", 
+    image_key: "ic3_lv2_q69",
     test: 2,
     category: "HARDWARE",
     difficulty: "easy",
@@ -1392,7 +1392,7 @@ export const IC3_LEVEL2 = [
     answer: "Sự khác biệt về múi giờ (Time zones)",
     explanation: "Sự chênh lệch múi giờ (Time zones) là thách thức hậu cần lớn nhất khi làm việc từ xa quốc tế, đòi hỏi người chủ trì chọn khung giờ phù hợp để không rơi vào ban đêm hoặc giờ nghỉ ngơi của các quốc gia thành viên khác."
   },
-      
+
   {
     id: 71,
     level: "IC3_LEVEL2",
@@ -1459,7 +1459,7 @@ export const IC3_LEVEL2 = [
   {
     id: 74,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q74", 
+    image_key: "ic3_lv2_q74",
     test: 2,
     category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
@@ -1580,7 +1580,7 @@ export const IC3_LEVEL2 = [
   {
     id: 80,
     level: "IC3_LEVEL2",
-    image_key: "ic3_lv2_q80", 
+    image_key: "ic3_lv2_q80",
     test: 2,
     category: "COMMUNICATION_COLLABORATION",
     difficulty: "hard",
@@ -1595,7 +1595,7 @@ export const IC3_LEVEL2 = [
     answer: "Lời chào đầu thư",
     explanation: "Trong bức thư trên, phần 'Kính gửi bà Smith' (Dear Ms. Smith) là lời chào trang trọng, đúng mực. Ngược lại, việc viết hoa toàn bộ từ, lạm dụng nhiều dấu chấm than (!!!) và dùng từ ngữ suồng sã ('Cảm ơn nha') là vi phạm các quy tắc lịch sự trong email chuyên nghiệp."
   },
-      
+
   {
     id: 81,
     level: "IC3_LEVEL2",
@@ -1791,7 +1791,7 @@ export const IC3_LEVEL2 = [
     ],
     explanation: "Amazon Prime Video và Disney+ là những nền tảng xem video/phim trực tuyến hàng đầu thế giới. Trong khi đó, Spotify và Sirius XM chủ yếu tập trung vào mảng phát trực tuyến âm thanh (Audio/Music/Podcast/Radio)."
   },
-     
+
   {
     id: 91,
     level: "IC3_LEVEL2",
@@ -2002,7 +2002,7 @@ export const IC3_LEVEL2 = [
     ],
     explanation: "Theo phương pháp học tập chủ động, việc tự tra cứu tài liệu Trợ giúp (Help) giúp nắm vững lý thuyết vận hành ứng dụng [cite: 359, 360], và việc hướng dẫn lại cho người khác (Learning by teaching) giúp củng cố kiến thức sâu sắc nhất[cite: 359, 360]. Việc xem review khen chê [cite: 360] hoặc thi chứng chỉ ngay khi chưa thành thạo [cite: 360] không giúp cải thiện trực tiếp kỹ năng thao tác phần mềm."
   },
-      
+
   {
     id: 101,
     level: "IC3_LEVEL2",
@@ -2093,6 +2093,897 @@ export const IC3_LEVEL2 = [
     ],
     answer: "Rời khỏi phòng họp",
     explanation: "Khi có cuộc gọi bắt buộc phải nghe lúc đang họp, hành vi lịch sự và đúng chuẩn mực nhất là giữ lặng lẽ, xin phép rời khỏi phòng họp sang một không gian riêng tư (hành lang, phòng trống) để đàm thoại, không gây tiếng ồn ảnh hưởng tới sự tập trung của toàn bộ cuộc họp[cite: 375, 376]."
+  },
+
+  // ── BỔ SUNG THÊM (62 câu) ─────────────────────────────
+  // ── PHẦN 1: PHẦN MỀM VĂN PHÒNG & CÔNG CỤ ───────────────
+  {
+    id: 106, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Người dùng có thể tìm thấy các tùy chọn định dạng và in trên trang nào trong hộp thoại Word Options?",
+    options: ["Display", "Language", "Proofing", "General"],
+    answer: "Display",
+    explanation: "Trong Word Options, tab 'Display' chứa các cài đặt liên quan đến hiển thị văn bản trên màn hình và tùy chọn in ấn."
+  },
+  {
+    id: 107, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Trên thẻ Home trong Word, nhóm nào cho phép người dùng đặt giãn cách dòng mặc định?",
+    options: ["Styles", "Font", "Paragraph", "Layout"],
+    answer: "Paragraph",
+    explanation: "Nhóm Paragraph trên thẻ Home chứa các công cụ định dạng đoạn văn bao gồm giãn cách dòng (line spacing), căn lề, thụt lề và khoảng cách trước/sau đoạn."
+  },
+  {
+    id: 108, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang sử dụng Microsoft Word trên Windows 10 để viết bài về công ty 'ABusiness' (bắt đầu bằng 2 chữ hoa). Mỗi khi gõ tên công ty, phần mềm tự sửa chữ in hoa. Bạn thay đổi tùy chọn này ở đâu?",
+    options: [
+      "Trong Language Preference của Office",
+      "Trong cài đặt Grammar & Refinements",
+      "Trong các tùy chọn hệ điều hành của máy tính",
+      "Trong AutoCorrect Options"
+    ],
+    answer: "Trong AutoCorrect Options",
+    explanation: "AutoCorrect Options trong Word cho phép tùy chỉnh hoặc tắt tính năng tự động sửa chữ viết hoa, bao gồm cả việc bỏ qua các từ viết hoa đặc biệt theo ý người dùng."
+  },
+  {
+    id: 109, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Bạn đang sử dụng chương trình mới lần đầu tiên và cần lưu công việc. Dựa trên chuẩn phần mềm phổ biến, bạn nên tìm tính năng Save ở menu nào?",
+    options: ["View", "Help", "File", "Share", "Edit"],
+    answer: "File",
+    explanation: "Theo chuẩn giao diện phần mềm, lệnh Save và Save As luôn nằm trong menu File — đây là quy ước chung cho hầu hết mọi ứng dụng văn phòng."
+  },
+  {
+    id: 110, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "easy",
+    type: "multiple",
+    question: "Những phím tắt nào được sử dụng phổ biến trên các ứng dụng phần mềm? (Chọn 2)",
+    options: ["Shift+S", "Ctrl+C", "Ctrl+F", "Ctrl+D", "Shift+P"],
+    answer: ["Ctrl+C", "Ctrl+F"],
+    explanation: "Ctrl+C (sao chép) và Ctrl+F (tìm kiếm) là hai phím tắt chuẩn xuất hiện trong hầu hết mọi ứng dụng phần mềm trên Windows."
+  },
+  {
+    id: 111, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Bạn có thể sử dụng tổ hợp phím nào để lưu tài liệu?",
+    options: ["Ctrl+D", "Ctrl+S", "Ctrl+C", "Ctrl+P"],
+    answer: "Ctrl+S",
+    explanation: "Ctrl+S là phím tắt chuẩn để lưu tập tin trong hầu hết mọi ứng dụng trên Windows và macOS (Command+S trên Mac)."
+  },
+  {
+    id: 112, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Nếu một người dùng có nhiều dữ liệu để hiển thị, ứng dụng nào phù hợp nhất? (Chọn 2)",
+    options: ["Google Docs", "Teams", "Excel", "Access", "PowerPoint"],
+    answer: ["Excel", "Access"],
+    explanation: "Excel và Access đều được thiết kế để xử lý và hiển thị lượng dữ liệu lớn: Excel dưới dạng bảng tính, Access dưới dạng cơ sở dữ liệu có thể lọc và truy vấn phức tạp."
+  },
+  {
+    id: 113, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Công cụ phần mềm nào sẽ tốt nhất để tạo ra biểu đồ trực quan trong kinh doanh? (Chọn 2)",
+    options: ["Affinity Designer", "Adobe Illustrator", "Google Sheets", "Microsoft Excel", "Intuit QuickBooks"],
+    answer: ["Google Sheets", "Microsoft Excel"],
+    explanation: "Google Sheets và Microsoft Excel đều có công cụ tạo biểu đồ mạnh mẽ tích hợp sẵn, phù hợp để trực quan hóa dữ liệu kinh doanh như doanh thu, xu hướng, so sánh..."
+  },
+  {
+    id: 114, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Trong tiết khoa học, bạn cần phân tích các bảng số liệu. Bạn nên sử dụng phần mềm nào?",
+    options: ["Google Sheets", "Microsoft PowerPoint", "Adobe InDesign", "Intuit QuickBooks"],
+    answer: "Google Sheets",
+    explanation: "Google Sheets là ứng dụng bảng tính phù hợp nhất để phân tích số liệu: hỗ trợ công thức, hàm thống kê, biểu đồ và dễ chia sẻ cộng tác."
+  },
+  {
+    id: 115, level: "IC3_LEVEL2", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "matching",
+    question: "Nối mỗi ứng dụng với loại nội dung tương ứng phù hợp nhất.",
+    left: [
+      "Bạn thực hiện các thao tác trên một tập hợp dữ liệu bằng bảng tính sử dụng các công thức.",
+      "Bạn xuất dự án bao gồm nhiều trang với mục lục và các chỉ mục được tạo tự động.",
+      "Bản trình chiếu trực quan, sinh động tự động chuyển tiếp từ chủ đề này sang chủ đề khác mà không cần người điều khiển."
+    ],
+    right: ["Microsoft Excel", "Microsoft Word", "Microsoft PowerPoint"],
+    answer: {
+      "Bạn thực hiện các thao tác trên một tập hợp dữ liệu bằng bảng tính sử dụng các công thức.": "Microsoft Excel",
+      "Bạn xuất dự án bao gồm nhiều trang với mục lục và các chỉ mục được tạo tự động.": "Microsoft Word",
+      "Bản trình chiếu trực quan, sinh động tự động chuyển tiếp từ chủ đề này sang chủ đề khác mà không cần người điều khiển.": "Microsoft PowerPoint"
+    },
+    explanation: "Excel → xử lý dữ liệu và công thức. Word → tài liệu dài có cấu trúc (mục lục, chỉ mục). PowerPoint → trình chiếu tự động (kiosk mode)."
+  },
+
+  // ── PHẦN 2: BIỂU ĐỒ & TRỰC QUAN HÓA DỮ LIỆU ───────────
+  {
+    id: 116, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "single",
+    question: "Loại biểu đồ hoặc đồ thị nào được dùng để quan sát sự tương quan và phân bổ của dữ liệu?",
+    options: ["Table Chart", "Scatter Plot Graph", "Line Graph", "Pie Chart"],
+    answer: "Scatter Plot Graph",
+    explanation: "Scatter Plot (biểu đồ phân tán) hiển thị mối quan hệ giữa hai biến số và phân bổ của một tập dữ liệu lớn, giúp nhận biết xu hướng, cụm dữ liệu và ngoại lệ."
+  },
+  {
+    id: 117, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn đang chuẩn bị thuyết trình về quá trình tăng dân số ở thành phố qua nhiều năm. Hình thức trực quan nào hiệu quả nhất để thể hiện sự gia tăng theo thời gian? (Chọn 2)",
+    options: [
+      "Biểu đồ tròn (Pie Chart)",
+      "Biểu đồ dạng bản đồ (Map)",
+      "Biểu đồ thanh (Bar Chart)",
+      "Biểu đồ đường (Line Chart)"
+    ],
+    answer: ["Biểu đồ thanh (Bar Chart)", "Biểu đồ đường (Line Chart)"],
+    explanation: "Line Chart (biểu đồ đường) lý tưởng để hiển thị xu hướng theo thời gian. Bar Chart (biểu đồ thanh) phù hợp để so sánh giá trị tại các thời điểm khác nhau. Cả hai đều hiệu quả hơn Pie Chart khi dữ liệu có yếu tố thời gian."
+  },
+  {
+    id: 118, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Bạn có một lượng lớn dữ liệu thô để chia sẻ với khách hàng và quyết định tạo bản trình chiếu trực quan. Ghép mỗi mục tiêu trình bày với loại biểu đồ phù hợp.",
+    left: [
+      "Để hiển thị các thay đổi hoặc xu hướng trong dữ liệu theo thời gian.",
+      "Để tóm tắt các phép đo chính xác.",
+      "Để hiển thị một số so sánh xếp hạng của dữ liệu.",
+      "Để hiển thị mối quan hệ của các phần dữ liệu với tổng thể."
+    ],
+    right: ["Line Chart", "Table", "Bar Chart", "Pie Chart"],
+    answer: {
+      "Để hiển thị các thay đổi hoặc xu hướng trong dữ liệu theo thời gian.": "Line Chart",
+      "Để tóm tắt các phép đo chính xác.": "Table",
+      "Để hiển thị một số so sánh xếp hạng của dữ liệu.": "Bar Chart",
+      "Để hiển thị mối quan hệ của các phần dữ liệu với tổng thể.": "Pie Chart"
+    },
+    explanation: "Line Chart → xu hướng thời gian. Table → số liệu chính xác. Bar Chart → so sánh/xếp hạng. Pie Chart → tỉ lệ phần/tổng thể."
+  },
+  {
+    id: 119, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Ghép từng loại biểu đồ với mục tiêu hiển thị trực quan tương ứng.",
+    left: [
+      "Minh họa các mối quan hệ từng phần (Part to whole) đơn giản trong một tập dữ liệu nhỏ.",
+      "Cho thấy mối tương quan và sự phân bổ của một lượng lớn dữ liệu.",
+      "Hiển thị cách một hoặc nhiều chuỗi dữ liệu thay đổi theo thời gian."
+    ],
+    right: ["Biểu đồ tròn (Pie Chart)", "Biểu đồ phân tán (Scatter Plot)", "Biểu đồ đường (Line Graph)"],
+    answer: {
+      "Minh họa các mối quan hệ từng phần (Part to whole) đơn giản trong một tập dữ liệu nhỏ.": "Biểu đồ tròn (Pie Chart)",
+      "Cho thấy mối tương quan và sự phân bổ của một lượng lớn dữ liệu.": "Biểu đồ phân tán (Scatter Plot)",
+      "Hiển thị cách một hoặc nhiều chuỗi dữ liệu thay đổi theo thời gian.": "Biểu đồ đường (Line Graph)"
+    },
+    explanation: "Pie Chart → part-to-whole với ít phần. Scatter Plot → phân bổ và tương quan dữ liệu lớn. Line Graph → thay đổi theo chuỗi thời gian."
+  },
+  {
+    id: 120, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Để truyền đạt kết quả các tập dữ liệu, chọn Đúng nếu định dạng trực quan phù hợp với mô tả, Sai nếu không.",
+    left: [
+      "Một bảng sẽ là tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.",
+      "Để hiển thị các xu hướng thay đổi theo thời gian, bạn nên sử dụng biểu đồ đường.",
+      "Hiển thị số lượng bán các sản phẩm khác nhau có thể được biểu diễn bằng biểu đồ cột.",
+      "Hiển thị thứ hạng so sánh của dữ liệu, có thể được biểu diễn bằng biểu đồ thanh."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Một bảng sẽ là tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.": "Sai",
+      "Để hiển thị các xu hướng thay đổi theo thời gian, bạn nên sử dụng biểu đồ đường.": "Đúng",
+      "Hiển thị số lượng bán các sản phẩm khác nhau có thể được biểu diễn bằng biểu đồ cột.": "Đúng",
+      "Hiển thị thứ hạng so sánh của dữ liệu, có thể được biểu diễn bằng biểu đồ thanh.": "Đúng"
+    },
+    explanation: "Part-to-whole tốt nhất dùng Pie Chart, không phải bảng. Xu hướng thời gian → Line Chart. So sánh số lượng → Column/Bar Chart đều đúng."
+  },
+  {
+    id: 121, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Xác định loại biểu đồ thích hợp cho từng mô tả dữ liệu.",
+    left: [
+      "___ sẽ là cách tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.",
+      "Cho biết một hoặc nhiều chuỗi dữ liệu thay đổi như thế nào theo thời gian, bạn nên sử dụng ___.",
+      "Hiển thị khối lượng bán hàng của các sản phẩm khác nhau được minh họa tốt nhất bằng ___."
+    ],
+    right: ["Pie Chart", "Line Chart", "Column Chart"],
+    answer: {
+      "___ sẽ là cách tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.": "Pie Chart",
+      "Cho biết một hoặc nhiều chuỗi dữ liệu thay đổi như thế nào theo thời gian, bạn nên sử dụng ___.": "Line Chart",
+      "Hiển thị khối lượng bán hàng của các sản phẩm khác nhau được minh họa tốt nhất bằng ___.": "Column Chart"
+    },
+    explanation: "Pie Chart → tỉ lệ phần/tổng. Line Chart → thay đổi theo thời gian. Column Chart → so sánh khối lượng giữa các danh mục."
+  },
+  {
+    id: 122, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "easy",
+    type: "single",
+    question: "Sử dụng ___ có thể giúp những người bị mù màu phân biệt giữa các thành phần biểu đồ khác nhau.",
+    options: ["Bright Colors", "Numbers", "Textures", "Small Text"],
+    answer: "Textures",
+    explanation: "Textures (chất liệu/hoa văn) giúp phân biệt các phần của biểu đồ dựa trên hình dạng thay vì màu sắc — giải pháp tốt nhất cho người dùng bị mù màu."
+  },
+
+  // ── PHẦN 3: THIẾT KẾ WEB & TYPOGRAPHY ───────────────────
+  {
+    id: 123, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "easy",
+    type: "single",
+    question: "Thuật ngữ Readability là gì?",
+    options: [
+      "Phòng chữ màu đỏ.",
+      "Văn bản trắng trang.",
+      "Kích thước phông chữ rất lớn để có thể nhìn rõ.",
+      "Chất lượng văn bản được rõ ràng hoặc có thể đọc được."
+    ],
+    answer: "Chất lượng văn bản được rõ ràng hoặc có thể đọc được.",
+    explanation: "Readability (khả năng đọc được) là mức độ dễ dàng mà người đọc có thể hiểu và xử lý văn bản — bị ảnh hưởng bởi phông chữ, cỡ chữ, giãn cách và độ tương phản màu sắc."
+  },
+  {
+    id: 124, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "single",
+    question: "Kích thước phông chữ nào được sử dụng phổ biến nhất cho các tiêu đề?",
+    options: ["18-28 pts", "10-14 pts", "8-12 pts", "30-50 pts"],
+    answer: "18-28 pts",
+    explanation: "Tiêu đề trang Web thường dùng cỡ 18–28pt để nổi bật so với nội dung (thường 11–16pt), tạo phân cấp thị giác rõ ràng mà không quá to."
+  },
+  {
+    id: 125, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Cách phổ biến nhất để phân biệt tiêu đề đoạn (Paragraph Headings) và nội dung (Body Text) trên trang Web là gì? (Chọn 2)",
+    options: [
+      "Sử dụng cùng một phông chữ cho cả tiêu đề và nội dung.",
+      "Sử dụng cùng một kích thước phông chữ cho cả tiêu đề và nội dung.",
+      "Chỉ sử dụng phông chữ Serif.",
+      "Sử dụng một phông chữ cho tiêu đề và một phông chữ khác cho văn bản nội dung.",
+      "Sử dụng phông chữ lớn hơn cho tiêu đề so với văn bản nội dung."
+    ],
+    answer: [
+      "Sử dụng một phông chữ cho tiêu đề và một phông chữ khác cho văn bản nội dung.",
+      "Sử dụng phông chữ lớn hơn cho tiêu đề so với văn bản nội dung."
+    ],
+    explanation: "Phân cấp thị giác tốt nhất đạt được bằng cách: (1) dùng font khác nhau cho heading và body, (2) heading lớn hơn body. Hai kỹ thuật này giúp mắt người đọc dễ dàng phân biệt cấu trúc nội dung."
+  },
+  {
+    id: 126, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào được biết đến với việc sử dụng phông chữ Serif? (Chọn 2)",
+    options: [
+      "Báo (Newspapers)",
+      "Đề mục và tiêu đề (Headings and Titles)",
+      "Phương tiện truyền thông xã hội (Social Media)",
+      "Sách (Books)"
+    ],
+    answer: ["Báo (Newspapers)", "Sách (Books)"],
+    explanation: "Phông Serif (có chân) truyền thống được dùng trong in ấn vật lý như báo và sách vì các 'chân' giúp mắt người đọc theo dõi dòng chữ dễ hơn trên giấy."
+  },
+  {
+    id: 127, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Hành động nào sau đây có thể cải thiện khả năng đọc (Readability)? (Chọn 3)",
+    options: [
+      "Sử dụng kích thước phông chữ từ 15-25px.",
+      "Sử dụng nhiều màu chữ khác nhau.",
+      "Thêm hoặc xóa khoảng cách giữa các dòng.",
+      "Giữ độ dài dòng ngắn, khoảng 66 kí tự.",
+      "Sử dụng các sắc thái nhẹ của văn bản.",
+      "Pha trộn nhiều phông chữ màu đỏ và xanh lá cây."
+    ],
+    answer: [
+      "Sử dụng kích thước phông chữ từ 15-25px.",
+      "Thêm hoặc xóa khoảng cách giữa các dòng.",
+      "Giữ độ dài dòng ngắn, khoảng 66 kí tự."
+    ],
+    explanation: "Ba yếu tố cải thiện readability: (1) cỡ chữ 15–25px đủ lớn trên màn hình, (2) line-height phù hợp giúp mắt không bị nhảy dòng, (3) dòng ngắn ~66 ký tự là độ rộng tối ưu cho mắt người đọc."
+  },
+  {
+    id: 128, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "matching",
+    question: "Một nhóm sinh viên tạo nội dung cho trang Web và cần tuân theo tiêu chuẩn trợ năng phông chữ. Chọn Đúng nếu hành động tuân theo tiêu chuẩn trợ năng, Sai nếu không.",
+    left: [
+      "Nên sử dụng phông chữ Serif vì chúng dễ đọc nhất trên mạng.",
+      "Kích thước phông chữ nội dung văn bản phải từ 15-25px.",
+      "Độ dài tối ưu của một dòng văn bản là 45-90 kí tự. Chiều rộng lý tưởng là 66 kí tự.",
+      "Khoảng trắng giữa tiêu đề và nội dung văn bản phải nằm trong khoảng 15-30px."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Nên sử dụng phông chữ Serif vì chúng dễ đọc nhất trên mạng.": "Sai",
+      "Kích thước phông chữ nội dung văn bản phải từ 15-25px.": "Đúng",
+      "Độ dài tối ưu của một dòng văn bản là 45-90 kí tự. Chiều rộng lý tưởng là 66 kí tự.": "Đúng",
+      "Khoảng trắng giữa tiêu đề và nội dung văn bản phải nằm trong khoảng 15-30px.": "Đúng"
+    },
+    explanation: "Trên màn hình, Sans-serif (không chân) dễ đọc hơn Serif. Cỡ chữ 15–25px, độ rộng dòng 45–90 ký tự và khoảng cách heading–body 15–30px là các tiêu chuẩn trợ năng web phổ biến."
+  },
+  {
+    id: 129, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang tạo nội dung cho trang Web và cần tuân thủ các tiêu chuẩn về khả năng tiếp cận. Ghép mỗi ô trống với đáp án đúng.",
+    left: [
+      "Kiểu phông chữ ưa chuộng nhất cho trang Web là ___.",
+      "Bạn cần duy trì ___ giữa màu chữ và màu nền.",
+      "Kích thước phông chữ tối thiểu cho văn bản nội dung trang Web là ___."
+    ],
+    right: ["Sans-serif", "độ tương phản cao", "11 point / 15 pixel"],
+    answer: {
+      "Kiểu phông chữ ưa chuộng nhất cho trang Web là ___.": "Sans-serif",
+      "Bạn cần duy trì ___ giữa màu chữ và màu nền.": "độ tương phản cao",
+      "Kích thước phông chữ tối thiểu cho văn bản nội dung trang Web là ___.": "11 point / 15 pixel"
+    },
+    explanation: "Chuẩn WCAG khuyến nghị: phông Sans-serif cho màn hình, tỉ lệ tương phản tối thiểu 4.5:1 (chữ thường) và cỡ chữ tối thiểu 11pt/15px để đảm bảo khả năng đọc."
+  },
+
+  // ── PHẦN 4: ACCESSIBILITY ────────────────────────────────
+  {
+    id: 130, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào sẽ giúp trang Web dễ tiếp cận hơn với người dùng bị khiếm thị? (Chọn 2)",
+    options: [
+      "Sử dụng màu sắc để truyền tải thông tin.",
+      "Sử dụng màu sắc tương phản.",
+      "Sử dụng nền tối với phông chữ màu xanh nước biển, nâu hoặc đen.",
+      "Sử dụng chất liệu (Textures) và hoa văn (Patterns).",
+      "Tránh phối màu đơn sắc."
+    ],
+    answer: ["Sử dụng màu sắc tương phản.", "Sử dụng chất liệu (Textures) và hoa văn (Patterns)."],
+    explanation: "Màu sắc tương phản cao giúp người khiếm thị nhìn rõ hơn. Textures và patterns bổ sung thông tin thị giác không dựa vào màu sắc — cần thiết cho người mù màu."
+  },
+  {
+    id: 131, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "easy",
+    type: "single",
+    question: "Văn bản thay thế (Alt Text) là gì?",
+    options: [
+      "Cung cấp cho người dùng các ngôn ngữ thay thế để xem các trang Web.",
+      "Thay đổi nội dung trên một trang Web.",
+      "Cho phép các đoạn kết thay thế trong một câu chuyện.",
+      "Mô tả chức năng của hình ảnh."
+    ],
+    answer: "Mô tả chức năng của hình ảnh.",
+    explanation: "Alt Text là văn bản mô tả nội dung và chức năng của hình ảnh, được đọc bởi screen reader để hỗ trợ người dùng khiếm thị hiểu nội dung hình ảnh trên trang Web."
+  },
+  {
+    id: 132, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "easy",
+    type: "single",
+    question: "Đối tượng nào sau đây chủ yếu sử dụng văn bản thay thế (Alternative Text)?",
+    options: [
+      "Những người không biết đọc",
+      "Những người có trở ngại về lời nói",
+      "Người khiếm thính",
+      "Người khiếm thị"
+    ],
+    answer: "Người khiếm thị",
+    explanation: "Alt Text chủ yếu phục vụ người khiếm thị dùng phần mềm đọc màn hình (screen reader) — phần mềm đọc to nội dung Alt Text để mô tả hình ảnh mà người dùng không nhìn thấy được."
+  },
+  {
+    id: 133, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang thêm Alt Text vào hình ảnh trên trang Web. Với mỗi loại thông tin, chọn Có nếu cần thêm vào Alt Text, Không nếu không cần.",
+    left: [
+      "Bản quyền hình ảnh.",
+      "Mô tả ngắn về hình ảnh.",
+      "Bối cảnh và chi tiết liên quan đến mục đích của hình ảnh."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Bản quyền hình ảnh.": "Có",
+      "Mô tả ngắn về hình ảnh.": "Có",
+      "Bối cảnh và chi tiết liên quan đến mục đích của hình ảnh.": "Không"
+    },
+    explanation: "Alt Text nên bao gồm bản quyền (để tham chiếu nguồn) và mô tả ngắn (để người khiếm thị hiểu). Chi tiết ngữ cảnh quá dài làm Alt Text rườm rà — thông tin đó nên đặt trong caption hoặc nội dung xung quanh."
+  },
+  {
+    id: 134, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "medium",
+    type: "multiple",
+    question: "Thành phần trang Web nào phù hợp để sử dụng thuộc tính văn bản thay thế (Alt Text)? (Chọn 2)",
+    options: [
+      "Chỉ mục (Index)",
+      "Mục lục (Table of Contents)",
+      "Hình ảnh (Image)",
+      "Chú thích (Caption)",
+      "URL dài (Lengthy URL)"
+    ],
+    answer: ["Hình ảnh (Image)", "URL dài (Lengthy URL)"],
+    explanation: "Alt Text dùng cho Image (mô tả nội dung hình ảnh) và URL dài (thay thế bằng văn bản mô tả thay vì hiển thị chuỗi URL khó đọc) — giúp trải nghiệm tốt hơn cho người dùng screen reader."
+  },
+  {
+    id: 135, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "medium",
+    type: "single",
+    question: "Độ tương phản màu ảnh hưởng đến người khiếm thị như thế nào?",
+    options: [
+      "Độ tương phản màu không ảnh hưởng đến người khiếm thị.",
+      "Tăng độ tương phản giữa đối tượng và nền làm cho đối tượng dễ nhìn thấy hơn.",
+      "Cung cấp nhiều màu sắc giúp người khiếm thị tập trung dễ dàng hơn.",
+      "Tăng độ tương phản giữa đối tượng và nền làm cho đối tượng ít nhìn thấy hơn."
+    ],
+    answer: "Tăng độ tương phản giữa đối tượng và nền làm cho đối tượng dễ nhìn thấy hơn.",
+    explanation: "Độ tương phản cao (ví dụ: chữ đen trên nền trắng) giúp người có thị lực kém phân biệt được văn bản và các phần tử giao diện dễ dàng hơn."
+  },
+  {
+    id: 136, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "medium",
+    type: "multiple",
+    question: "Khi nói đến khả năng tiếp cận cho người dùng khiếm thị, tùy chọn nào cần được xem xét? (Chọn 3)",
+    options: [
+      "Văn bản lớn để đọc nhất.",
+      "Sử dụng phông chữ có kết cấu rất khó đọc.",
+      "Màu neon sáng để đọc hơn.",
+      "Màu sắc tương phản cao và thấp có thể khó đọc.",
+      "Nền trắng truyền thống với văn bản đen hoặc nền đen với văn bản trắng thường dễ đọc nhất."
+    ],
+    answer: [
+      "Văn bản lớn để đọc nhất.",
+      "Màu sắc tương phản cao và thấp có thể khó đọc.",
+      "Nền trắng truyền thống với văn bản đen hoặc nền đen với văn bản trắng thường dễ đọc nhất."
+    ],
+    explanation: "Ba yếu tố quan trọng cho người khiếm thị: (1) cỡ chữ lớn, (2) cần kiểm tra độ tương phản — quá cao hay quá thấp đều khó đọc, (3) đen/trắng là kết hợp truyền thống dễ đọc nhất."
+  },
+  {
+    id: 137, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang tạo trang Web đăng tiếp cận. Với mỗi hành động thiết kế, chọn Có nếu đó là tiêu chuẩn thực tiễn tốt nhất cho người khiếm thị, Không nếu không phải.",
+    left: [
+      "Sử dụng màu sắc tương phản.",
+      "Sử dụng hoa tiết (Textures) để thể hiện độ tương phản.",
+      "Sử dụng màu sắc để truyền tải thông tin.",
+      "Sử dụng bảng màu đơn sắc."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Sử dụng màu sắc tương phản.": "Có",
+      "Sử dụng hoa tiết (Textures) để thể hiện độ tương phản.": "Có",
+      "Sử dụng màu sắc để truyền tải thông tin.": "Không",
+      "Sử dụng bảng màu đơn sắc.": "Không"
+    },
+    explanation: "Tương phản và texture hỗ trợ khả năng tiếp cận. Dùng màu sắc là phương tiện DUY NHẤT để truyền tải thông tin (không có text thay thế) là vấn đề — người mù màu sẽ bỏ lỡ thông tin. Bảng màu đơn sắc thiếu tương phản."
+  },
+  {
+    id: 138, level: "IC3_LEVEL2", test: 1,
+    category: "ACCESSIBILITY", difficulty: "medium",
+    type: "single",
+    question: "Phần mềm tiện ích bổ sung nào có lợi cho người dùng gặp khó khăn với việc đọc hoặc bị suy giảm thị lực?",
+    options: ["Photoshop", "Audacity", "Text-to-speech", "PowerPoint"],
+    answer: "Text-to-speech",
+    explanation: "Phần mềm Text-to-speech (chuyển văn bản thành giọng nói) giúp người khiếm thị hoặc khó đọc có thể nghe nội dung văn bản thay vì phải đọc trực tiếp."
+  },
+
+  // ── PHẦN 5: CHỈNH SỬA ẢNH & VIDEO ──────────────────────
+  {
+    id: 139, level: "IC3_LEVEL2", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "single",
+    question: "Phần mềm bổ trợ nào cho phép người dùng thực hiện các chỉnh sửa và thay đổi nâng cao đối với hình ảnh?",
+    options: ["Grammarly", "Text-to-speech", "Photoshop", "Screencast"],
+    answer: "Photoshop",
+    explanation: "Adobe Photoshop là phần mềm chỉnh sửa ảnh chuyên nghiệp hàng đầu, cho phép thực hiện các thao tác nâng cao: xử lý màu sắc, cắt xén, chỉnh sửa tầng (layer), hiệu ứng..."
+  },
+  {
+    id: 140, level: "IC3_LEVEL2", test: 1,
+    category: "MEDIA_EDITING", difficulty: "easy",
+    type: "single",
+    question: "Bộ phần mềm nào tốt nhất để chụp và chỉnh sửa nội dung Video, âm thanh và hình ảnh?",
+    options: ["Microsoft Office", "Adobe Creative Suite", "Apple iWorks", "Google Docs"],
+    answer: "Adobe Creative Suite",
+    explanation: "Adobe Creative Suite (Premiere Pro, After Effects, Audition, Photoshop...) là bộ công cụ toàn diện nhất cho sản xuất và chỉnh sửa media chuyên nghiệp."
+  },
+  {
+    id: 141, level: "IC3_LEVEL2", test: 1,
+    category: "MEDIA_EDITING", difficulty: "easy",
+    type: "single",
+    question: "Tên quy trình của máy tính để chuyển đổi hình ảnh hoặc cảnh quay thành dạng cuối cùng là gì?",
+    options: ["Rendering", "Rasterizing", "Initializing", "Computing"],
+    answer: "Rendering",
+    explanation: "Rendering là quá trình máy tính xử lý và tổng hợp tất cả các yếu tố (hình ảnh, ánh sáng, hiệu ứng) để tạo ra output cuối cùng — một ảnh hoặc khung video hoàn chỉnh."
+  },
+  {
+    id: 142, level: "IC3_LEVEL2", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào giúp chỉnh sửa Video trên iPhone? (Chọn 3)",
+    options: [
+      "Cắt (Trimming)",
+      "Điều chỉnh độ sáng (Adjusting Brightness)",
+      "Viền (Edging)",
+      "Điêu khắc (Sculpting)",
+      "Thêm bộ lọc (Adding Filters)"
+    ],
+    answer: ["Cắt (Trimming)", "Điều chỉnh độ sáng (Adjusting Brightness)", "Thêm bộ lọc (Adding Filters)"],
+    explanation: "Ứng dụng Photos trên iPhone tích hợp sẵn các công cụ chỉnh sửa video: Trimming (cắt xén), Brightness (độ sáng) và Filters (bộ lọc màu sắc)."
+  },
+  {
+    id: 143, level: "IC3_LEVEL2", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "single",
+    question: "Bạn đã chụp bức ảnh sân trước và có một con sóc đang ngồi trên bãi cỏ mà bạn muốn loại bỏ. Công cụ nào giúp tự động loại bỏ con sóc và thay thế bằng nhiều cỏ hơn?",
+    options: ["Sử dụng Magic Wand", "Sử dụng Spot Healing Brush", "Layer > New Fill Layer"],
+    answer: "Sử dụng Spot Healing Brush",
+    explanation: "Spot Healing Brush trong Photoshop tự động phân tích vùng xung quanh và lấp đầy vùng được chọn bằng texture phù hợp — lý tưởng để xóa đối tượng nhỏ không mong muốn khỏi ảnh."
+  },
+  {
+    id: 144, level: "IC3_LEVEL2", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đã được giao nhiệm vụ tạo Video trình chiếu về ý nghĩa lịch sử của các di tích. Với mỗi phát biểu về chỉnh sửa Video và âm thanh, chọn Đúng hoặc Sai.",
+    left: [
+      "Bạn có thể sử dụng hình ảnh tĩnh và một số kĩ thuật chỉnh sửa đơn giản để tạo Video trực quan hấp dẫn.",
+      "Bạn có thể tạo một Video trau chuốt chỉ bằng cách sử dụng các cảnh quay có sẵn.",
+      "Nói chung, việc lồng tiếng một Video cũ hơn dễ sử dụng lại là không khả thi."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Bạn có thể sử dụng hình ảnh tĩnh và một số kĩ thuật chỉnh sửa đơn giản để tạo Video trực quan hấp dẫn.": "Đúng",
+      "Bạn có thể tạo một Video trau chuốt chỉ bằng cách sử dụng các cảnh quay có sẵn.": "Đúng",
+      "Nói chung, việc lồng tiếng một Video cũ hơn dễ sử dụng lại là không khả thi.": "Sai"
+    },
+    explanation: "Ảnh tĩnh kết hợp hiệu ứng hoàn toàn đủ để tạo Video lịch sử hấp dẫn. Footage có sẵn vẫn có thể tạo video chuyên nghiệp. Lồng tiếng video cũ là hoàn toàn khả thi với các công cụ hiện đại."
+  },
+  {
+    id: 145, level: "IC3_LEVEL2", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào là cách chỉnh sửa Video được dùng để biến đổi Video với mục đích thay đổi ý nghĩa gốc? (Chọn 2)",
+    options: [
+      "Chỉnh sửa bằng cách ghép nhiều phần nhỏ của các Video khác nhau lại với nhau.",
+      "Hiển thị một đoạn Clip tóm tắt của một đoạn Video dài hơn.",
+      "Ghi công cho những người xuất hiện trong Video và người quay phim ở cuối Video.",
+      "Hiển thị siêu liên kết đến các nguồn đáng tin cậy để tăng độ tin cậy cho Video."
+    ],
+    answer: [
+      "Chỉnh sửa bằng cách ghép nhiều phần nhỏ của các Video khác nhau lại với nhau.",
+      "Hiển thị một đoạn Clip tóm tắt của một đoạn Video dài hơn."
+    ],
+    explanation: "Ghép nhiều clip rời rạc có thể tạo ra ngữ cảnh sai lệch. Clip tóm tắt cắt bỏ phần ngữ cảnh quan trọng, có thể làm thay đổi ý nghĩa. Hai kỹ thuật này thường được dùng để tạo 'deepfake' thông tin."
+  },
+
+  // ── PHẦN 6: LƯU ĐỒ & SƠ ĐỒ ─────────────────────────────
+  {
+    id: 146, level: "IC3_LEVEL2", test: 1,
+    category: "DIAGRAMS", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang tạo một lưu đồ. Nối từng mô tả kí hiệu với kí hiệu tương ứng.",
+    left: [
+      "Dữ liệu: Có thể trình bày bất kì loại dữ liệu nào trong một lưu đồ.",
+      "Quyết định: Thể hiện điểm quyết định giữa hai hoặc nhiều đường trong bảng.",
+      "Độ trễ: Thể hiện độ trễ trong quy trình.",
+      "Điểm cuối: Thể hiện điểm bắt đầu hoặc kết thúc quy trình."
+    ],
+    right: ["Hình bình hành", "Hình thoi", "Hình chữ nhật bo góc", "Hình oval"],
+    answer: {
+      "Dữ liệu: Có thể trình bày bất kì loại dữ liệu nào trong một lưu đồ.": "Hình bình hành",
+      "Quyết định: Thể hiện điểm quyết định giữa hai hoặc nhiều đường trong bảng.": "Hình thoi",
+      "Độ trễ: Thể hiện độ trễ trong quy trình.": "Hình chữ nhật bo góc",
+      "Điểm cuối: Thể hiện điểm bắt đầu hoặc kết thúc quy trình.": "Hình oval"
+    },
+    explanation: "Ký hiệu lưu đồ chuẩn ISO: bình hành = dữ liệu vào/ra, thoi = quyết định (có/không), chữ nhật bo góc = trễ/chờ, oval = điểm bắt đầu/kết thúc (terminator)."
+  },
+  {
+    id: 147, level: "IC3_LEVEL2", test: 1,
+    category: "DIAGRAMS", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang soạn một sơ đồ để đi kèm với tập hợp các hướng dẫn. Ghép từng mô tả với ký hiệu tương ứng trong lưu đồ.",
+    left: [
+      "Được sử dụng để biểu diễn Đầu vào (Input) hoặc Đầu ra (Output).",
+      "Đánh dấu phần đầu và phần cuối của một sơ đồ.",
+      "Một quyết định (Decision) như 'Có so với Không' hoặc 'Đúng so với Sai'.",
+      "Các quy trình trong một sơ đồ."
+    ],
+    right: ["Hình chữ nhật bo góc", "Hình oval", "Hình thoi", "Hình chữ nhật"],
+    answer: {
+      "Được sử dụng để biểu diễn Đầu vào (Input) hoặc Đầu ra (Output).": "Hình chữ nhật bo góc",
+      "Đánh dấu phần đầu và phần cuối của một sơ đồ.": "Hình oval",
+      "Một quyết định (Decision) như 'Có so với Không' hoặc 'Đúng so với Sai'.": "Hình thoi",
+      "Các quy trình trong một sơ đồ.": "Hình chữ nhật"
+    },
+    explanation: "Ký hiệu lưu đồ: chữ nhật bo góc = I/O, oval = terminator (đầu/cuối), thoi = decision, chữ nhật = process (bước xử lý)."
+  },
+  {
+    id: 148, level: "IC3_LEVEL2", test: 1,
+    category: "DIAGRAMS", difficulty: "medium",
+    type: "multiple",
+    question: "Công cụ phần mềm nào sẽ tốt nhất để tạo sơ đồ? (Chọn 2)",
+    options: ["Adobe Illustrator", "Affinity Designer", "SmartDraw", "Intuit QuickBooks", "Microsoft Visio"],
+    answer: ["SmartDraw", "Microsoft Visio"],
+    explanation: "SmartDraw và Microsoft Visio được thiết kế chuyên biệt để tạo sơ đồ và lưu đồ với thư viện ký hiệu phong phú, hỗ trợ nhiều loại diagram chuẩn (flowchart, org chart, network diagram...)."
+  },
+  {
+    id: 149, level: "IC3_LEVEL2", test: 1,
+    category: "DIAGRAMS", difficulty: "easy",
+    type: "single",
+    question: "Bạn cần tạo một loạt các sơ đồ tổ chức. Phần mềm kinh doanh nào giúp bạn nhanh chóng đưa ra các sơ đồ phân cấp?",
+    options: ["Microsoft PowerPoint", "Adobe Illustrator", "Intuit QuickBooks", "Microsoft Excel"],
+    answer: "Microsoft PowerPoint",
+    explanation: "Microsoft PowerPoint có tính năng SmartArt với nhiều mẫu sơ đồ tổ chức (Organizational Chart) phân cấp sẵn có, cho phép tạo nhanh chóng mà không cần vẽ thủ công."
+  },
+
+  // ── PHẦN 7: TRÌNH BÀY & WEBCAST ─────────────────────────
+  {
+    id: 150, level: "IC3_LEVEL2", test: 1,
+    category: "PRESENTATION", difficulty: "easy",
+    type: "single",
+    question: "Bạn cần thuyết trình một loạt hình ảnh và nội dung viết tay trong lớp lịch sử. Bạn nên sử dụng ứng dụng nào?",
+    options: ["Google Slides", "Quicken", "Microsoft Excel", "Audacity"],
+    answer: "Google Slides",
+    explanation: "Google Slides là ứng dụng tạo bài trình chiếu trực tuyến, cho phép dễ dàng chèn hình ảnh, viết chú thích và chia sẻ với cả lớp."
+  },
+  {
+    id: 151, level: "IC3_LEVEL2", test: 1,
+    category: "PRESENTATION", difficulty: "medium",
+    type: "single",
+    question: "Lớp học lịch sử đang tham gia chuyến đi thực tế đến bảo tàng. Một số bạn cùng lớp không thể tham dự. Giáo viên yêu cầu một tình nguyện viên phát trực tuyến chuyến đi. Ứng dụng nào thích hợp để tạo Webcast?",
+    options: ["Microsoft PowerPoint", "Adobe InDesign", "Google Chrome", "Zoom"],
+    answer: "Zoom",
+    explanation: "Zoom hỗ trợ live streaming và phát trực tuyến cho nhiều người xem cùng lúc, phù hợp để Webcast chuyến đi thực tế cho những người không thể tham dự trực tiếp."
+  },
+  {
+    id: 152, level: "IC3_LEVEL2", test: 1,
+    category: "PRESENTATION", difficulty: "medium",
+    type: "matching",
+    question: "Bạn cần một dự án để trình bày hiểu biết về một cuốn tiểu thuyết cho lớp tiếng Anh. Nối từng ứng dụng với tác vụ phù hợp.",
+    left: [
+      "Thiết kế một tấm áp phích cho cuốn tiểu thuyết.",
+      "Thu âm một bản Podcast đánh giá cuốn tiểu thuyết.",
+      "Gặp bạn cùng lớp trên mạng để thảo luận về cuốn tiểu thuyết.",
+      "Tìm và sửa lỗi bài luận về cuốn tiểu thuyết."
+    ],
+    right: ["Adobe Photoshop", "Audacity", "Microsoft Teams", "Grammarly"],
+    answer: {
+      "Thiết kế một tấm áp phích cho cuốn tiểu thuyết.": "Adobe Photoshop",
+      "Thu âm một bản Podcast đánh giá cuốn tiểu thuyết.": "Audacity",
+      "Gặp bạn cùng lớp trên mạng để thảo luận về cuốn tiểu thuyết.": "Microsoft Teams",
+      "Tìm và sửa lỗi bài luận về cuốn tiểu thuyết.": "Grammarly"
+    },
+    explanation: "Photoshop → thiết kế đồ họa. Audacity → thu âm và chỉnh sửa audio. Teams → họp và giao tiếp nhóm trực tuyến. Grammarly → kiểm tra ngữ pháp và chính tả văn bản."
+  },
+  {
+    id: 153, level: "IC3_LEVEL2", test: 1,
+    category: "PRESENTATION", difficulty: "medium",
+    type: "matching",
+    question: "Nối từng loại phương tiện kĩ thuật số với mục tiêu giao tiếp tương ứng.",
+    left: [
+      "Tạo một khóa học để mọi người có thể nghe trong lúc di chuyển.",
+      "Trình diễn vũ đạo mới cho đội múa của trường.",
+      "Công khai xác nhận chất lượng sản phẩm yêu thích của bạn."
+    ],
+    right: ["Âm thanh (Podcast)", "Video", "Mạng xã hội"],
+    answer: {
+      "Tạo một khóa học để mọi người có thể nghe trong lúc di chuyển.": "Âm thanh (Podcast)",
+      "Trình diễn vũ đạo mới cho đội múa của trường.": "Video",
+      "Công khai xác nhận chất lượng sản phẩm yêu thích của bạn.": "Mạng xã hội"
+    },
+    explanation: "Podcast/audio phù hợp cho nội dung nghe khi di chuyển. Video cần thiết khi nội dung có yếu tố chuyển động (vũ đạo). Mạng xã hội là kênh phổ biến nhất để chia sẻ đánh giá sản phẩm."
+  },
+
+  // ── PHẦN 8: THIẾT KẾ WEB & PROTOTYPE ───────────────────
+  {
+    id: 154, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "easy",
+    type: "single",
+    question: "Câu hỏi nào tốt nhất để một người đặt ra khi xác định mục đích của dự án?",
+    options: [
+      "Các số liệu nhân khẩu học của khán giả như thế nào?",
+      "Khách hàng phải trả bao nhiêu tiền cho dự án?",
+      "Bạn nên sử dụng cài đặt trước nào?",
+      "Bạn muốn người khác biết hoặc đạt được điều gì từ thông tin bạn chia sẻ?"
+    ],
+    answer: "Bạn muốn người khác biết hoặc đạt được điều gì từ thông tin bạn chia sẻ?",
+    explanation: "Câu hỏi về mục tiêu người dùng là nền tảng của mọi dự án sáng tạo nội dung — xác định rõ người nhận cần biết hoặc đạt được gì giúp định hướng toàn bộ quyết định thiết kế."
+  },
+  {
+    id: 155, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang phát triển trang Web chấp nhận đơn đặt hàng trực tuyến. Bạn quyết định tạo Prototype trước khi công bố. Chọn Đúng nếu Prototype đạt được mục tiêu đó, Sai nếu không.",
+    left: [
+      "Bạn muốn một người dùng kiểm tra khả năng điều hướng và đặt hàng trên trang Web.",
+      "Bạn muốn thu thập thông tin phản hồi từ khách hàng về các sản phẩm được bán.",
+      "Bạn muốn kiểm tra độ chính xác của quy trình từ đặt hàng đến vận chuyển."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Bạn muốn một người dùng kiểm tra khả năng điều hướng và đặt hàng trên trang Web.": "Đúng",
+      "Bạn muốn thu thập thông tin phản hồi từ khách hàng về các sản phẩm được bán.": "Sai",
+      "Bạn muốn kiểm tra độ chính xác của quy trình từ đặt hàng đến vận chuyển.": "Đúng"
+    },
+    explanation: "Prototype phù hợp để kiểm tra luồng điều hướng và quy trình xử lý đơn hàng. Tuy nhiên, thu thập feedback về sản phẩm cần trang Web thật với dữ liệu thật, không phải Prototype."
+  },
+  {
+    id: 156, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn được giao thiết kế trang Web với mục tiêu: Giúp sinh viên điền thời gian xin nghỉ học, cho phép nêu lí do vắng mặt, hỗ trợ kết nối Internet chậm, hoàn thành trong hai tuần. Hai tiêu chí nào ràng buộc về thiết kế? (Chọn 2)",
+    options: [
+      "Trang Web phải dễ sử dụng.",
+      "Trang Web cần đưa ra phương pháp để sinh viên chỉ ra lí do vắng mặt.",
+      "Trang Web cần hoạt động tốt với kết nối Internet chậm.",
+      "Bạn cần phải hoàn thành trang Web này trong hai tuần nữa."
+    ],
+    answer: [
+      "Trang Web cần đưa ra phương pháp để sinh viên chỉ ra lí do vắng mặt.",
+      "Trang Web cần hoạt động tốt với kết nối Internet chậm."
+    ],
+    explanation: "Các tiêu chí thiết kế ràng buộc là những yêu cầu kỹ thuật cụ thể phải đáp ứng: (1) phải có tính năng nhập lý do, (2) phải tối ưu cho kết nối chậm. 'Dễ sử dụng' và 'thời hạn 2 tuần' là mục tiêu/constraint dự án, không phải ràng buộc kỹ thuật thiết kế."
+  },
+  {
+    id: 157, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn thiết kế trang Web để theo dõi sự tham gia câu lạc bộ của sinh viên và tổ chức kiểm thử khả năng sử dụng (usability testing). Bạn thực hiện hai hành động nào để đảm bảo nhận được dữ liệu chất lượng? (Chọn 2)",
+    options: [
+      "Lắng nghe sinh viên và ghi lại bất kỳ câu hỏi nào của họ về cách sử dụng trang Web.",
+      "Hướng dẫn sinh viên cách sử dụng trang Web.",
+      "Theo dõi các sinh viên sử dụng trang Web và lưu ý xem họ gặp vấn đề gì không.",
+      "Cho sinh viên biết lý do nhà trường yêu cầu bạn tạo trang Web."
+    ],
+    answer: [
+      "Lắng nghe sinh viên và ghi lại bất kỳ câu hỏi nào của họ về cách sử dụng trang Web.",
+      "Theo dõi các sinh viên sử dụng trang Web và lưu ý xem họ gặp vấn đề gì không."
+    ],
+    explanation: "Usability testing tốt cần quan sát tự nhiên: ghi lại câu hỏi người dùng (cho thấy điểm mơ hồ trong thiết kế) và quan sát hành vi thực tế (phát hiện điểm khó dùng). Hướng dẫn trước sẽ làm sai lệch kết quả."
+  },
+  {
+    id: 158, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang chuẩn bị chạy thử nghiệm trên Prototype của trang Web mới. Chọn Đúng nếu đó là mục tiêu nghiên cứu tốt để thử nghiệm với Prototype, Sai nếu không phải.",
+    left: [
+      "Tôi muốn kiểm tra việc điều hướng trong trang Web của mình.",
+      "Tôi muốn thử nghiệm Prototype của mình.",
+      "Tôi muốn kiểm tra xem người dùng có thể tìm thấy các sản phẩm cụ thể hay không.",
+      "Tôi muốn kiểm tra xem phiên bản Prototype nào mà người dùng thích."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Tôi muốn kiểm tra việc điều hướng trong trang Web của mình.": "Đúng",
+      "Tôi muốn thử nghiệm Prototype của mình.": "Sai",
+      "Tôi muốn kiểm tra xem người dùng có thể tìm thấy các sản phẩm cụ thể hay không.": "Đúng",
+      "Tôi muốn kiểm tra xem phiên bản Prototype nào mà người dùng thích.": "Đúng"
+    },
+    explanation: "'Thử nghiệm Prototype' quá chung chung, không phải câu hỏi nghiên cứu cụ thể. Ba mục tiêu còn lại đều cụ thể, đo lường được và phù hợp để kiểm thử bằng Prototype."
+  },
+  {
+    id: 159, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn đang bắt đầu mở cửa hàng bánh tại nhà và tạo trang Web đặt hàng trực tuyến. Lí do nào nên tạo Prototype cho biểu mẫu đặt hàng? (Chọn 2)",
+    options: [
+      "Để cho phép khách hàng đặt hàng trước khi ra mắt trang Web.",
+      "Để tìm ra những sai sót trong thiết kế của bạn.",
+      "Để quảng cáo về cửa hàng của mình.",
+      "Để kiểm nghiệm xem giải pháp đó có hiệu quả hay không."
+    ],
+    answer: [
+      "Để tìm ra những sai sót trong thiết kế của bạn.",
+      "Để kiểm nghiệm xem giải pháp đó có hiệu quả hay không."
+    ],
+    explanation: "Prototype giúp phát hiện lỗi thiết kế sớm (trước khi lập trình thật) và xác nhận giải pháp hoạt động đúng ý định — tiết kiệm thời gian và chi phí sửa lỗi về sau."
+  },
+  {
+    id: 160, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Trường bạn yêu cầu thiết kế trang Web theo dõi tham gia câu lạc bộ. Bạn tập hợp nhóm để đưa ra ý tưởng giải quyết vấn đề (brainstorming). Hành động nào có ích cho quá trình này? (Chọn 2)",
+    options: [
+      "Khuyến khích các ý tưởng táo bạo.",
+      "Chỉ chia sẻ những ý tưởng mà bạn cảm thấy rất tự tin.",
+      "Không chỉ trích các ý tưởng của những thành viên khác trong nhóm.",
+      "Đặt giới hạn mỗi thành viên chỉ đưa ra một hoặc hai ý tưởng."
+    ],
+    answer: ["Khuyến khích các ý tưởng táo bạo.", "Không chỉ trích các ý tưởng của những thành viên khác trong nhóm."],
+    explanation: "Nguyên tắc brainstorming hiệu quả: (1) khuyến khích mọi ý tưởng, kể cả táo bạo — để kích thích sáng tạo, (2) không phán xét trong giai đoạn tạo ý tưởng — để mọi người tự do đề xuất."
+  },
+  {
+    id: 161, level: "IC3_LEVEL2", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn là trưởng nhóm thiết kế. Nhóm đang sáng tác áp phích cho sự kiện gây quỹ. Khách hàng muốn thay đổi mà nhóm cho là sẽ làm áp phích kém hiệu quả hơn. Bạn nên thực hiện ba hành động nào? (Chọn 3)",
+    options: [
+      "Yêu cầu khách hàng giải thích lý do thay đổi và tác động của chúng đối với áp phích.",
+      "Hướng cuộc thảo luận tập trung vào các lựa chọn thiết kế, không phản ứng theo cảm xúc.",
+      "Nhắc nhở khách hàng rằng nhóm có kiến thức và kinh nghiệm để thiết kế áp phích tốt.",
+      "Tạo mẫu áp phích theo những thay đổi của khách hàng và gửi cho họ.",
+      "Nói với khách hàng rằng bạn không muốn thực hiện các thay đổi đó.",
+      "Bới với khách hàng rằng ý tưởng của họ không hoàn nghĩnh."
+    ],
+    answer: [
+      "Yêu cầu khách hàng giải thích lý do thay đổi và tác động của chúng đối với áp phích.",
+      "Hướng cuộc thảo luận tập trung vào các lựa chọn thiết kế, không phản ứng theo cảm xúc.",
+      "Tạo mẫu áp phích theo những thay đổi của khách hàng và gửi cho họ."
+    ],
+    explanation: "Giao tiếp chuyên nghiệp với khách hàng: (1) hiểu rõ lý do yêu cầu thay đổi, (2) thảo luận dựa trên dữ liệu thiết kế, (3) tôn trọng quyết định khách hàng bằng cách thực hiện yêu cầu. Phản đối cảm tính hoặc từ chối không phải cách chuyên nghiệp."
+  },
+
+  // ── PHẦN 9: BẢN QUYỀN & SỞ HỮU TRÍ TUỆ ────────────────
+  {
+    id: 162, level: "IC3_LEVEL2", test: 1,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "single",
+    question: "Kịch bản nào sau đây là được phép sử dụng bộ phim thương mại? (Lưu ý: Bạn không sở hữu quyền đối với bộ phim)",
+    options: [
+      "Bạn chiếu phim bên cạnh nhà mình và mời các hàng xóm xem miễn phí.",
+      "Bạn đăng phim lên trang Web và cho phép mọi người trả tiền để xem.",
+      "Bạn tạo bản sao của bộ phim và đưa cho một người bạn, người đó đồng ý sẽ xóa sau khi xem.",
+      "Bạn sử dụng bài hát trong khung hình tĩnh từ bộ phim vào một bài đánh giá mà bạn đăng trực tuyến. Trang Web tạo ra doanh thu quảng cáo cho bạn."
+    ],
+    answer: "Bạn sử dụng bài hát trong khung hình tĩnh từ bộ phim vào một bài đánh giá mà bạn đăng trực tuyến. Trang Web tạo ra doanh thu quảng cáo cho bạn.",
+    explanation: "Sử dụng một phần nhỏ (khung hình tĩnh + bài hát) trong bài đánh giá có tính bình luận/phê bình có thể được coi là Fair Use. Ba trường hợp còn lại đều vi phạm bản quyền rõ ràng (chiếu công cộng, bán quyền xem, sao chép)."
+  },
+  {
+    id: 163, level: "IC3_LEVEL2", test: 1,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "matching",
+    question: "Các tranh chấp về Bản quyền sử dụng hợp lí (Fair Use Copyright) được giải quyết bằng cách xem xét các yếu tố về tác phẩm bị sao chép. Với mỗi phát biểu, chọn Đúng nếu là yếu tố Fair Use, Sai nếu không phải.",
+    left: [
+      "Mục đích và công dụng của bản sao.",
+      "Bản chất của tác phẩm được sao chép.",
+      "Số lượng và tính chất của phần được lấy trong tác phẩm gốc.",
+      "Cho dù bản sao được sử dụng bởi học sinh hay giáo viên.",
+      "Ảnh hưởng của bản sao đối với thị trường tiềm năng đối với tác phẩm gốc."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Mục đích và công dụng của bản sao.": "Đúng",
+      "Bản chất của tác phẩm được sao chép.": "Đúng",
+      "Số lượng và tính chất của phần được lấy trong tác phẩm gốc.": "Đúng",
+      "Cho dù bản sao được sử dụng bởi học sinh hay giáo viên.": "Sai",
+      "Ảnh hưởng của bản sao đối với thị trường tiềm năng đối với tác phẩm gốc.": "Đúng"
+    },
+    explanation: "4 tiêu chí Fair Use theo luật bản quyền Mỹ: (1) mục đích sử dụng, (2) bản chất tác phẩm, (3) lượng được lấy, (4) tác động thị trường. Người dùng là học sinh hay giáo viên không phải tiêu chí chính thức."
+  },
+  {
+    id: 164, level: "IC3_LEVEL2", test: 1,
+    category: "COPYRIGHT", difficulty: "easy",
+    type: "single",
+    question: "Điều gì được tạo ra từ ý tưởng của con người, được quốc tế bảo vệ bằng bản quyền, bằng sáng chế, nhãn hiệu hoặc bí mật thương mại?",
+    options: ["Tài sản hữu hình", "Bất động sản", "Thuộc tính tưởng tượng", "Sở hữu trí tuệ"],
+    answer: "Sở hữu trí tuệ",
+    explanation: "Sở hữu trí tuệ (Intellectual Property) là các sản phẩm sáng tạo của trí tuệ con người, được bảo vệ pháp lý thông qua bản quyền, bằng sáng chế, nhãn hiệu và bí mật thương mại."
+  },
+  {
+    id: 165, level: "IC3_LEVEL2", test: 1,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "single",
+    question: "Điều kiện nào của Creative Commons cho phép sao chép, phân phối, hiển thị hoặc trình diễn bản gốc của tác phẩm nhưng không thể thực hiện sửa đổi nếu không có sự cho phép của chủ sở hữu?",
+    options: ["NoDerivatives", "Attribution", "NonCommercial", "ShareAlike"],
+    answer: "NoDerivatives",
+    explanation: "CC NoDerivatives (ND) cho phép tái phân phối tác phẩm gốc nhưng cấm tạo tác phẩm phái sinh (chỉnh sửa, remix, dịch thuật...) mà không có phép. Thường ký hiệu là 'CC BY-ND'."
+  },
+  {
+    id: 166, level: "IC3_LEVEL2", test: 1,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "single",
+    question: "Loại bản phát hành nào cho phép người dùng sử dụng hình ảnh của một cá nhân cho mục đích thương mại?",
+    options: ["Media Release", "Location Release", "Model Release", "Marketing Release"],
+    answer: "Model Release",
+    explanation: "Model Release (Bản phát hành người mẫu) là văn bản pháp lý trong đó cá nhân đồng ý cho phép sử dụng hình ảnh của họ cho các mục đích thương mại cụ thể."
+  },
+  {
+    id: 167, level: "IC3_LEVEL2", test: 1,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "single",
+    question: "Tùy chọn nào được sử dụng để bảo vệ một sáng chế không bị sao chép?",
+    options: ["Trademark", "Cloud Storage", "Patent", "Copyright"],
+    answer: "Patent",
+    explanation: "Bằng sáng chế (Patent) là quyền độc quyền pháp lý bảo vệ các phát minh và sáng chế kỹ thuật, ngăn người khác sản xuất, sử dụng hoặc bán phát minh đó mà không có phép."
   }
 
 ];

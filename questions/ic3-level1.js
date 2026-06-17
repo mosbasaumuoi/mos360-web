@@ -2382,7 +2382,7 @@ export const IC3_LEVEL1 = [
     explanation:
       "Trong soạn thảo văn bản và in ấn, hướng trang giấy gồm hai loại cơ bản: Khổ dọc (Portrait) có chiều cao lớn hơn chiều rộng, còn Khổ ngang (Landscape) có chiều rộng lớn hơn chiều cao."
   },
-  
+
   // ── BỔ SUNG THÊM (56 câu) ─────────────────────────────
   // ── PHẦN 1: PHẦN CỨNG & PHẦN MỀM ───────────────────────
   {
@@ -2923,7 +2923,7 @@ export const IC3_LEVEL1 = [
   // ── PHẦN 6: ĐÁM MÂY & PHIÊN BẢN ────────────────────────
   {
     id: 151, level: "IC3_LEVEL1", test: 1,
-    category: "CLOUD_COMPUTING", difficulty: "easy",
+    category: "NETWORK", difficulty: "easy",
     type: "single",
     question: "Phát biểu sau đây là Đúng hay Sai: 'Một lợi ích của lập phiên bản đám mây là người dùng có thể lưu trữ nhiều phiên bản của một tập tin.'",
     options: ["Đúng", "Sai"],
@@ -2932,7 +2932,7 @@ export const IC3_LEVEL1 = [
   },
   {
     id: 152, level: "IC3_LEVEL1", test: 1,
-    category: "CLOUD_COMPUTING", difficulty: "hard",
+    category: "NETWORK", difficulty: "hard",
     type: "single",
     question: "Bạn lưu và chỉnh sửa tệp trên Google Drive với Cloud Versioning bật. Bạn xóa phiên bản trực tiếp (live version) mà không chỉ định số khởi tạo (Generation Number). Kết quả nào xảy ra?",
     options: [
@@ -2946,7 +2946,7 @@ export const IC3_LEVEL1 = [
   },
   {
     id: 153, level: "IC3_LEVEL1", test: 1,
-    category: "CLOUD_COMPUTING", difficulty: "medium",
+    category: "NETWORK", difficulty: "medium",
     type: "multiple",
     question: "Trường hợp nào sẽ tạo ra một phiên bản đám mây mới trong Google Docs? (Chọn 2)",
     options: [
@@ -3068,7 +3068,7 @@ export const IC3_LEVEL1 = [
   // ── PHẦN 8: MÔI TRƯỜNG & XÃ HỘI ────────────────────────
   {
     id: 162, level: "IC3_LEVEL1", test: 1,
-    category: "TECHNOLOGY_SOCIETY", difficulty: "medium",
+    category: "DIGITAL_CITIZENSHIP", difficulty: "medium",
     type: "multiple",
     question: "Trung tâm dữ liệu điện toán đám mây tác động tiêu cực đến môi trường theo cách nào? (Chọn 2)",
     options: [

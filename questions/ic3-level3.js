@@ -1,9 +1,9 @@
 export const IC3_LEVEL3 = [
 
-   {
+  {
     id: 1,
     level: "IC3_LEVEL3",
-    category: "SECURITY_PRIVACY",
+    category: "SECURITY",
     difficulty: "medium",
     type: "single",
     question: "Tùy chọn nào sau đây là hành động giúp xóa dữ liệu cá nhân khỏi thiết bị một cách triệt để nhất?",
@@ -14,7 +14,7 @@ export const IC3_LEVEL3 = [
   {
     id: 2,
     level: "IC3_LEVEL3",
-    category: "SOFTWARE_LICENSING",
+    category: "COPYRIGHT",
     difficulty: "medium",
     type: "single",
     question: "Loại phần mềm nào không cho phép người dùng chia sẻ hoặc sửa đổi mã nguồn?",
@@ -25,7 +25,7 @@ export const IC3_LEVEL3 = [
   {
     id: 3,
     level: "IC3_LEVEL3",
-    category: "SUSTAINABILITY",
+    category: "DIGITAL_CITIZENSHIP",
     difficulty: "easy",
     type: "single",
     question: "Người dùng nên làm gì với các thiết bị CNTT đã lỗi thời để bảo vệ môi trường?",
@@ -36,7 +36,7 @@ export const IC3_LEVEL3 = [
   {
     id: 4,
     level: "IC3_LEVEL3",
-    category: "HARDWARE_SOFTWARE_INTERACTION",
+    category: "OPERATING_SYSTEM",
     difficulty: "hard",
     type: "single",
     question: "Để một ứng dụng hoạt động, phần cứng và phần mềm của máy tính phải có chung điểm gì?",
@@ -47,7 +47,7 @@ export const IC3_LEVEL3 = [
   {
     id: 5,
     level: "IC3_LEVEL3",
-    category: "FILE_FORMATS",
+    category: "COPYRIGHT",
     difficulty: "medium",
     type: "single",
     question: "Định dạng tập tin Video nào dưới đây là chuẩn phổ biến nhất cho việc phát trực tuyến (streaming) chất lượng cao?",
@@ -111,11 +111,11 @@ export const IC3_LEVEL3 = [
     answer: 1,
     explanation: "Các bản cập nhật (patches) là tuyến phòng thủ quan trọng nhất để sửa lỗi bảo mật mà hacker có thể lợi dụng."
   },
-  
+
   {
     id: 11,
     level: "IC3_LEVEL3",
-    category: "DATA_SECURITY",
+    category: "SECURITY",
     difficulty: "medium",
     type: "single",
     question: "Phương pháp nào là cách hiệu quả nhất để ngăn chặn truy cập trái phép vào dữ liệu ngay cả khi ổ cứng bị đánh cắp?",
@@ -170,7 +170,7 @@ export const IC3_LEVEL3 = [
   {
     id: 16,
     level: "IC3_LEVEL3",
-    category: "SOFTWARE_APPLICATIONS",
+    category: "COPYRIGHT",
     image_key: "ic3_lv3_q16_software",
     difficulty: "hard",
     type: "single",
@@ -226,7 +226,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Kẻ tấn công đứng giữa người gửi và người nhận, nghe lén hoặc giả mạo thông tin mà cả hai bên đều không hay biết."
   },
- 
+
   {
     id: 21,
     level: "IC3_LEVEL3",
@@ -311,7 +311,7 @@ export const IC3_LEVEL3 = [
   {
     id: 26,
     level: "IC3_LEVEL3",
-    category: "SOFTWARE_LICENSING",
+    category: "COPYRIGHT",
     difficulty: "medium",
     type: "single",
     question: "Phần mềm 'Freeware' khác với 'Open Source' ở điểm nào?",
@@ -391,7 +391,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Cookie ghi nhớ trạng thái (như đăng nhập, giỏ hàng) để web biết bạn là ai khi chuyển trang. Tuy nhiên, cần quản lý chúng vì lý do riêng tư."
   },
- 
+
   {
     id: 31,
     level: "IC3_LEVEL3",
@@ -510,7 +510,7 @@ export const IC3_LEVEL3 = [
     id: 41,
     level: "IC3_LEVEL3",
     image_key: "ic3_lv3_q41_network",
-    category: "DATA_SECURITY",
+    category: "SECURITY",
     difficulty: "medium",
     type: "single",
     question: "Giao thức bảo mật nào hiện nay được khuyến nghị sử dụng để mã hóa các kết nối không dây (Wi-Fi) thay cho WEP đã cũ?",
@@ -532,7 +532,7 @@ export const IC3_LEVEL3 = [
   {
     id: 43,
     level: "IC3_LEVEL3",
-    image_key: "ic3_lv3_q43_network", 
+    image_key: "ic3_lv3_q43_network",
     category: "NETWORKING",
     difficulty: "medium",
     type: "single",
@@ -566,7 +566,7 @@ export const IC3_LEVEL3 = [
   {
     id: 46,
     level: "IC3_LEVEL3",
-    image_key: "ic3_lv3_q46_cloud", 
+    image_key: "ic3_lv3_q46_cloud",
     category: "CLOUD_COMPUTING",
     difficulty: "medium",
     type: "single",
@@ -578,7 +578,7 @@ export const IC3_LEVEL3 = [
   {
     id: 47,
     level: "IC3_LEVEL3",
-    category: "SUSTAINABILITY",
+    category: "DIGITAL_CITIZENSHIP",
     image_key: "ic3_lv2_q47_hardware",
     difficulty: "medium",
     type: "single",
@@ -590,7 +590,7 @@ export const IC3_LEVEL3 = [
   {
     id: 48,
     level: "IC3_LEVEL3",
-    image_key: "ic3_lv3_q48_cloud", 
+    image_key: "ic3_lv3_q48_cloud",
     category: "IOT",
     difficulty: "medium",
     type: "single",
@@ -621,7 +621,7 @@ export const IC3_LEVEL3 = [
     answer: 1,
     explanation: "Tài khoản Standard giúp bảo vệ hệ thống vì phần mềm độc hại sẽ không có quyền thay đổi các tệp tin hệ thống quan trọng."
   },
- 
+
   {
     id: 51,
     level: "IC3_LEVEL3",
@@ -636,7 +636,7 @@ export const IC3_LEVEL3 = [
   {
     id: 52,
     level: "IC3_LEVEL3",
-    image_key: "ic3_lv3_q52_security", 
+    image_key: "ic3_lv3_q52_security",
     category: "SECURITY",
     difficulty: "hard",
     type: "single",
@@ -739,7 +739,7 @@ export const IC3_LEVEL3 = [
   {
     id: 61,
     level: "IC3_LEVEL3",
-    category: "DATA_MANAGEMENT",
+    category: "DATA_PRIVACY",
     difficulty: "medium",
     type: "single",
     question: "Việc sử dụng tệp tin 'Đọc-Ghi' (Read-Write) đối với tệp được chia sẻ trên đám mây có nghĩa là gì?",
@@ -755,7 +755,7 @@ export const IC3_LEVEL3 = [
   {
     id: 62,
     level: "IC3_LEVEL3",
-    category: "AI_ETHICS",
+    category: "AI",
     difficulty: "hard",
     type: "single",
     question: "Tại sao tính 'minh bạch' (transparency) lại quan trọng trong các hệ thống AI?",
@@ -819,7 +819,7 @@ export const IC3_LEVEL3 = [
   {
     id: 66,
     level: "IC3_LEVEL3",
-    image_key: "ic3_lv3_q66_security", 
+    image_key: "ic3_lv3_q66_security",
     category: "NETWORKING",
     difficulty: "medium",
     type: "single",
@@ -879,7 +879,7 @@ export const IC3_LEVEL3 = [
   {
     id: 70,
     level: "IC3_LEVEL3",
-    category: "DATA_MANAGEMENT",
+    category: "DATA_PRIVACY",
     difficulty: "medium",
     type: "single",
     question: "Sao lưu (Backup) dữ liệu 3-2-1 có nghĩa là gì?",
@@ -892,7 +892,7 @@ export const IC3_LEVEL3 = [
     answer: 0,
     explanation: "Quy tắc 3-2-1 là tiêu chuẩn vàng trong lưu trữ dữ liệu để đảm bảo khả năng phục hồi tốt nhất trước mọi rủi ro."
   },
- 
+
   {
     id: 71,
     level: "IC3_LEVEL3",
@@ -941,8 +941,8 @@ export const IC3_LEVEL3 = [
   {
     id: 75,
     level: "IC3_LEVEL3",
-    image_key: "ic3_lv3_q75_tech", 
-    category: "INDUSTRY_4.0",
+    image_key: "ic3_lv3_q75_tech",
+    category: "AI",
     difficulty: "hard",
     type: "multiple",
     question: "Các trụ cột chính của cuộc cách mạng công nghiệp 4.0 bao gồm: (Chọn 3)",
@@ -975,7 +975,7 @@ export const IC3_LEVEL3 = [
   {
     id: 78,
     level: "IC3_LEVEL3",
-    category: "SUSTAINABILITY",
+    category: "DIGITAL_CITIZENSHIP",
     difficulty: "medium",
     type: "single",
     question: "Tại sao việc tái sử dụng thiết bị CNTT (như quyên góp máy tính cũ cho trường học) lại có lợi?",
@@ -1026,7 +1026,7 @@ export const IC3_LEVEL3 = [
     id: 82,
     level: "IC3_LEVEL3",
     image_key: "ic3_lv3_q82_ai",
-    category: "AI_ETHICS",
+    category: "AI",
     difficulty: "medium",
     type: "single",
     question: "Một công ty sử dụng AI để tự động từ chối hồ sơ xin việc nếu ứng viên có địa chỉ cư trú ở một khu vực nhất định. Đây là ví dụ về gì?",
@@ -1055,11 +1055,11 @@ export const IC3_LEVEL3 = [
     answer: 1,
     explanation: "Việc xóa tài khoản (tài khoản không còn tồn tại) giúp ngăn chặn nguy cơ tin tặc chiếm đoạt tài khoản cũ để phát tán tin giả hoặc spam mà bạn không hề hay biết."
   },
-   
+
   {
     id: 84,
     level: "IC3_LEVEL3",
-    category: "FUTURE_TECHNOLOGY",
+    category: "AI",
     difficulty: "medium",
     type: "single",
     question: "Trong kỷ nguyên Công nghệ 4.0, đâu là tầm quan trọng của việc 'Học tập suốt đời' (Lifelong Learning) đối với một chuyên gia công nghệ?",
@@ -1113,6 +1113,1066 @@ export const IC3_LEVEL3 = [
 
     explanation:
       "Trong cửa sổ System Information của Windows, mục 'System Model' hiển thị mã kiểu máy do nhà sản xuất quy định. Trong hình, giá trị của System Model là '81Y6', đây chính là Model Number của máy tính."
+  },
+
+  // ── BỔ SUNG THÊM (66 câu) ─────────────────────────────
+  // ══════════════════════════════════════════════════════════
+  // BÀI 2: CÔNG DÂN KỶ NGUYÊN SỐ
+  // ══════════════════════════════════════════════════════════
+
+  // ── PHẦN 1: AN TOÀN & BẢO MẬT TRỰC TUYẾN ───────────────
+  {
+    id: 87, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "easy",
+    type: "single",
+    question: "Một trong những hành động quan trọng nhất để bảo vệ quyền riêng tư sau khi duyệt Internet là gì?",
+    options: [
+      "Sử dụng cùng một thông tin đăng nhập và mật khẩu cho nhiều trang Web.",
+      "Xóa Cookies trình duyệt của bạn.",
+      "Hãy đăng nhập vào trang Web cuối cùng bạn truy cập.",
+      "Sử dụng các trình duyệt khác nhau."
+    ],
+    answer: "Xóa Cookies trình duyệt của bạn.",
+    explanation: "Cookies lưu lại thông tin duyệt web, tài khoản và hành vi trực tuyến. Xóa Cookies thường xuyên ngăn chặn việc theo dõi và bảo vệ thông tin cá nhân sau mỗi phiên duyệt web."
+  },
+  {
+    id: 88, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "multiple",
+    question: "Hành động nào có thể xâm phạm đến quyền riêng tư trực tuyến của bạn? (Chọn 3)",
+    options: [
+      "Đăng bài trong một diễn đàn.",
+      "Sử dụng cùng một thông tin đăng nhập và mật khẩu cho nhiều tài khoản.",
+      "Luôn đăng nhập vào các trang Web mà không đăng xuất.",
+      "Tải tập tin.",
+      "Cho phép và giữ Cookies của trình duyệt.",
+      "Mở tập tin đính kèm Email."
+    ],
+    answer: [
+      "Sử dụng cùng một thông tin đăng nhập và mật khẩu cho nhiều tài khoản.",
+      "Luôn đăng nhập vào các trang Web mà không đăng xuất.",
+      "Cho phép và giữ Cookies của trình duyệt."
+    ],
+    explanation: "Ba hành động này tạo ra lỗ hổng quyền riêng tư: (1) dùng cùng mật khẩu — nếu một tài khoản bị hack, tất cả bị hack; (2) không đăng xuất — người khác có thể truy cập tài khoản; (3) giữ cookies — cho phép theo dõi hành vi trực tuyến."
+  },
+  {
+    id: 89, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "single",
+    question: "Cách tốt nhất để bảo vệ quyền riêng tư trực tuyến tại nơi làm việc là gì?",
+    options: [
+      "Không sử dụng thiết bị làm việc để làm bất cứ việc gì cá nhân.",
+      "Gửi Email cá nhân bằng tài khoản công việc của bạn.",
+      "Xóa tất cả Cookies sau khi thực hiện mua sắm cá nhân trên máy tính làm việc.",
+      "Đảm bảo rằng không ai nhìn thấy khi bạn lướt Internet."
+    ],
+    answer: "Không sử dụng thiết bị làm việc để làm bất cứ việc gì cá nhân.",
+    explanation: "Thiết bị công ty có thể bị giám sát bởi IT. Cách bảo vệ tốt nhất là không bao giờ dùng thiết bị hoặc tài khoản công ty cho việc cá nhân — tách biệt hoàn toàn hai môi trường."
+  },
+  {
+    id: 90, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Những tình huống nào làm mất tính riêng tư khi cho phép nhà tuyển dụng hoặc quản trị viên trường có thể xem được Email của bạn? Chọn Có hoặc Không cho mỗi tình huống.",
+    left: [
+      "Gửi Email từ máy tính làm việc bằng tài khoản cá nhân.",
+      "Gửi Email từ máy tính làm việc bằng tài khoản làm việc.",
+      "Gửi Email từ máy tính của trường bằng tài khoản cá nhân.",
+      "Gửi Email từ điện thoại thông minh bằng tài khoản làm việc.",
+      "Gửi Email từ máy tính ở cơ quan bằng tài khoản của trường."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Gửi Email từ máy tính làm việc bằng tài khoản cá nhân.": "Không",
+      "Gửi Email từ máy tính làm việc bằng tài khoản làm việc.": "Có",
+      "Gửi Email từ máy tính của trường bằng tài khoản cá nhân.": "Không",
+      "Gửi Email từ điện thoại thông minh bằng tài khoản làm việc.": "Có",
+      "Gửi Email từ máy tính ở cơ quan bằng tài khoản của trường.": "Có"
+    },
+    explanation: "Quyền riêng tư bị xâm phạm khi: dùng tài khoản công ty/trường (dù trên thiết bị cá nhân) hoặc dùng máy tính công ty/trường (dù tài khoản cá nhân bị theo dõi qua mạng). Tài khoản cá nhân trên thiết bị cá nhân qua mạng riêng là an toàn."
+  },
+  {
+    id: 91, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Với mỗi phát biểu về bảo vệ thông tin nhận dạng cá nhân (PII), hãy chọn Đúng hoặc Sai.",
+    left: [
+      "Thông tin nhận dạng cá nhân (PII) mà các trang Web thu thập có thể được dùng cho các mục đích đánh cắp danh tính.",
+      "Việc sử dụng xác thực đa yếu tố làm tăng nguy cơ người khác truy cập PII của bạn.",
+      "Việc đăng xuất tài khoản trực tuyến vĩnh viễn sẽ xoá PII của bạn khỏi máy chủ lưu trữ trang Web."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Thông tin nhận dạng cá nhân (PII) mà các trang Web thu thập có thể được dùng cho các mục đích đánh cắp danh tính.": "Đúng",
+      "Việc sử dụng xác thực đa yếu tố làm tăng nguy cơ người khác truy cập PII của bạn.": "Sai",
+      "Việc đăng xuất tài khoản trực tuyến vĩnh viễn sẽ xoá PII của bạn khỏi máy chủ lưu trữ trang Web.": "Sai"
+    },
+    explanation: "PII bị thu thập có thể bị lạm dụng cho đánh cắp danh tính — Đúng. Xác thực đa yếu tố (MFA) làm GIẢM nguy cơ bị hack, không tăng — Sai. Đăng xuất không xóa dữ liệu khỏi server của trang Web — Sai."
+  },
+  {
+    id: 92, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Xác định yếu tố xác thực tương ứng với từng ví dụ.",
+    left: [
+      "Dấu vân tay và nhận dạng khuôn mặt là những ví dụ về yếu tố xác thực ___.",
+      "Điện thoại thông minh và thẻ ra vào của nhân viên là những ví dụ về yếu tố xác thực ___.",
+      "Mật khẩu và số nhận dạng cá nhân (PIN) là những ví dụ về yếu tố xác thực ___."
+    ],
+    right: ["Sinh trắc học", "Vật lí", "Logic"],
+    answer: {
+      "Dấu vân tay và nhận dạng khuôn mặt là những ví dụ về yếu tố xác thực ___.": "Sinh trắc học",
+      "Điện thoại thông minh và thẻ ra vào của nhân viên là những ví dụ về yếu tố xác thực ___.": "Vật lí",
+      "Mật khẩu và số nhận dạng cá nhân (PIN) là những ví dụ về yếu tố xác thực ___.": "Logic"
+    },
+    explanation: "Ba loại yếu tố xác thực: Sinh trắc học (biometric) = những gì bạn là, Vật lí (possession) = những gì bạn có, Logic (knowledge) = những gì bạn biết."
+  },
+  {
+    id: 93, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "easy",
+    type: "single",
+    question: "Hãy chọn từ thích hợp điền vào chỗ trống: 'Người dùng nên cố gắng giữ bí mật thông tin cá nhân và thông tin của cấp trên của họ, ___ không nên được viết ra và để lại bất cứ nơi nào mà người khác có thể tình cờ nhìn thấy chúng.'",
+    options: ["Phone numbers", "Email addresses", "Passwords", "Work hours"],
+    answer: "Passwords",
+    explanation: "Mật khẩu là thông tin bảo mật tuyệt đối không nên viết ra hoặc để ở nơi dễ nhìn thấy. Một mật khẩu bị lộ có thể dẫn đến xâm phạm toàn bộ tài khoản và dữ liệu liên quan."
+  },
+  {
+    id: 94, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "easy",
+    type: "single",
+    question: "Một trong những cách tốt nhất để giữ bí mật thông tin tài khoản và mật khẩu là gì?",
+    options: [
+      "Trả tiền cho một người bạn để giữ thông tin an toàn.",
+      "Chia sẻ thông tin với gia đình và bạn bè.",
+      "Sử dụng miếng dán bảo vệ màn hình.",
+      "Tránh chia sẻ thông tin với người khác."
+    ],
+    answer: "Tránh chia sẻ thông tin với người khác.",
+    explanation: "Mật khẩu và thông tin tài khoản là thông tin cá nhân tuyệt đối — không nên chia sẻ với bất kỳ ai, kể cả người thân. Đây là nguyên tắc bảo mật cơ bản nhất."
+  },
+  {
+    id: 95, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn thân của bạn muốn bạn trao đổi tài khoản và mật khẩu trực tuyến. Giáo viên đã hướng dẫn rằng việc cho phép người khác biết mật khẩu sẽ có những rủi ro. Chọn Đúng nếu chia sẻ mật khẩu là rủi ro, Sai nếu không.",
+    left: [
+      "Mẹ của bạn đang ở trong bệnh viện và cần bạn thanh toán hóa đơn điện. Mẹ cung cấp thông tin đăng nhập của mẹ để bạn thanh toán với công ty điện lực.",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản mạng xã hội của bạn.",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản PayPal của bạn."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Mẹ của bạn đang ở trong bệnh viện và cần bạn thanh toán hóa đơn điện. Mẹ cung cấp thông tin đăng nhập của mẹ để bạn thanh toán với công ty điện lực.": "Sai",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản mạng xã hội của bạn.": "Đúng",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản PayPal của bạn.": "Đúng"
+    },
+    explanation: "Trường hợp mẹ chia sẻ mật khẩu với con để xử lý tình huống khẩn cấp là chấp nhận được (không phải rủi ro). Tuy nhiên, bạn bè có mật khẩu mạng xã hội và PayPal của bạn là rủi ro rõ ràng — có thể dẫn đến lạm dụng tài khoản hoặc tài chính."
+  },
+  {
+    id: 96, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn nên thực hiện thao tác nào trước khi bán máy tính xách tay cho người khác? (Chọn 2)",
+    options: [
+      "Cập nhật BIOS (Flash the BIOS)",
+      "Tháo RAM",
+      "Xóa tất cả các thiết bị lưu trữ",
+      "Định dạng ổ cứng của bạn",
+      "Hủy cấp quyền bất kỳ phần mềm nào"
+    ],
+    answer: ["Định dạng ổ cứng của bạn", "Hủy cấp quyền bất kỳ phần mềm nào"],
+    explanation: "Trước khi bán máy: (1) định dạng ổ cứng để xóa sạch dữ liệu cá nhân (không thể phục hồi), (2) deauthorize phần mềm có giới hạn thiết bị (Adobe, iTunes...) để có thể dùng trên máy mới."
+  },
+  {
+    id: 97, level: "IC3_LEVEL3", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "single",
+    question: "Nếu ai đó chọn chia sẻ thông tin tài khoản với một người bạn thân, người bạn đó nên làm gì với thông tin đó?",
+    options: [
+      "Sử dụng thông tin để mua hàng.",
+      "Mạo danh bạn bè như một trò đùa.",
+      "Đánh cắp và chia sẻ thông tin nhận dạng cá nhân.",
+      "Giữ thông tin an toàn."
+    ],
+    answer: "Giữ thông tin an toàn.",
+    explanation: "Khi được tin tưởng với thông tin tài khoản của người khác, trách nhiệm là giữ bí mật và bảo vệ thông tin đó — không bao giờ lạm dụng dù chỉ là 'trò đùa'."
+  },
+
+  // ── PHẦN 2: DANH TÍNH & QUYỀN RIÊNG TƯ SỐ ──────────────
+  {
+    id: 98, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_IDENTITY", difficulty: "medium",
+    type: "single",
+    question: "Tùy chọn quyền riêng tư nào của Facebook cho phép người dùng chia sẻ thông tin với tất cả bạn bè của họ, ngoại trừ một số lựa chọn?",
+    options: ["Only me", "Friends", "Specific friends", "Public", "Friends except"],
+    answer: "Friends except",
+    explanation: "'Friends except' cho phép chia sẻ với toàn bộ danh sách bạn bè NGOẠI TRỪ những người bạn chỉ định — hữu ích khi không muốn một số người cụ thể thấy bài đăng."
+  },
+  {
+    id: 99, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_IDENTITY", difficulty: "medium",
+    type: "single",
+    question: "Mục đích của đạo luật HIPAA (Health Insurance Portability and Accountability Act) là gì?",
+    options: [
+      "Để giúp các cá nhân hiểu rõ hơn về thông tin y tế của họ.",
+      "Để ràng buộc các chuyên gia y tế một cách hợp pháp với một cuộc sống bí mật và hoài nghi.",
+      "Để đảm bảo rằng thông tin y tế được chia sẻ với tất cả các thành viên trong gia đình.",
+      "Để bảo vệ hợp pháp thông tin y tế cá nhân bằng cách hạn chế quyền truy cập đến thông tin y tế của cá nhân họ hoặc người giám hộ đáng tin cậy."
+    ],
+    answer: "Để bảo vệ hợp pháp thông tin y tế cá nhân bằng cách hạn chế quyền truy cập đến thông tin y tế của cá nhân họ hoặc người giám hộ đáng tin cậy.",
+    explanation: "HIPAA là luật Mỹ bảo vệ thông tin y tế cá nhân (PHI — Protected Health Information), quy định ai được phép truy cập, sử dụng và chia sẻ dữ liệu y tế của bệnh nhân."
+  },
+  {
+    id: 100, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_IDENTITY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn cần phải cập nhật kiến thức về quyền công dân kĩ thuật số. Với mỗi phát biểu, hãy chọn Có nếu bạn cần thường xuyên xem lại kiến thức đó, Không nếu không cần.",
+    left: [
+      "Luật về bản quyền.",
+      "Các quy tắc ứng xử (Etiquette) trên môi trường kĩ thuật số.",
+      "Cài đặt quyền riêng tư trên mạng truyền thông xã hội."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Luật về bản quyền.": "Có",
+      "Các quy tắc ứng xử (Etiquette) trên môi trường kĩ thuật số.": "Có",
+      "Cài đặt quyền riêng tư trên mạng truyền thông xã hội.": "Có"
+    },
+    explanation: "Tất cả ba đều cần cập nhật thường xuyên: luật bản quyền thay đổi theo công nghệ, quy tắc ứng xử số phát triển theo nền tảng mới, và cài đặt riêng tư mạng xã hội thay đổi liên tục theo chính sách của từng nền tảng."
+  },
+  {
+    id: 101, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_IDENTITY", difficulty: "medium",
+    type: "matching",
+    question: "Sắp xếp các bước để cài đặt quyền riêng tư tài khoản Facebook theo đúng thứ tự. Ghép số thứ tự với mỗi bước.",
+    left: [
+      "Chọn mũi tên thả xuống của Tài khoản (Account)",
+      "Chọn Cài đặt (Settings)",
+      "Chọn Quyền riêng tư (Privacy)",
+      "Chọn Tiếp tục",
+      "Chọn Kiểm tra một vài cài đặt quan trọng",
+      "Chọn Ai có thể xem những gì bạn chia sẻ"
+    ],
+    right: ["Bước 1", "Bước 2", "Bước 3", "Bước 4", "Bước 5", "Bước 6"],
+    answer: {
+      "Chọn mũi tên thả xuống của Tài khoản (Account)": "Bước 1",
+      "Chọn Cài đặt (Settings)": "Bước 2",
+      "Chọn Quyền riêng tư (Privacy)": "Bước 3",
+      "Chọn Tiếp tục": "Bước 4",
+      "Chọn Kiểm tra một vài cài đặt quan trọng": "Bước 5",
+      "Chọn Ai có thể xem những gì bạn chia sẻ": "Bước 6"
+    },
+    explanation: "Quy trình kiểm tra quyền riêng tư Facebook: Account → Settings → Privacy → Continue → Privacy Checkup → Who can see what you share. Đây là luồng điều hướng chuẩn của Facebook Privacy Shortcuts."
+  },
+  {
+    id: 102, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_IDENTITY", difficulty: "medium",
+    type: "multiple",
+    question: "Người dùng kỹ thuật số nên có kiến thức hiện tại về điều gì? (Chọn 2)",
+    options: [
+      "Dữ liệu bị xâm nhập",
+      "Hố sâu Internet",
+      "Lịch sử máy tính ban đầu",
+      "Công nghệ mới nhất"
+    ],
+    answer: ["Dữ liệu bị xâm nhập", "Công nghệ mới nhất"],
+    explanation: "Công dân số cần theo dõi: (1) các vụ rò rỉ dữ liệu (data breaches) để biết tài khoản của mình có bị ảnh hưởng không, (2) công nghệ mới nhất để không bị lạc hậu và dễ bị tấn công."
+  },
+  {
+    id: 103, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_IDENTITY", difficulty: "easy",
+    type: "single",
+    question: "Bạn lên kế hoạch tìm kiếm công việc trong ngành CNTT. Bạn cần cập nhật kiến thức về các công nghệ kĩ thuật số mới nhất. Bạn nên làm gì?",
+    options: [
+      "Hàng tháng, viết một bài đăng trên Blog về công nghệ mới bạn quan tâm.",
+      "Đăng kí và đọc thông báo từ các trang Web công nghệ uy tín.",
+      "Làm mới kiến thức bằng cách tham gia một lớp học mới ba năm một lần.",
+      "Tình nguyện tạo bản tin hàng tháng cho một trường học địa phương."
+    ],
+    answer: "Đăng kí và đọc thông báo từ các trang Web công nghệ uy tín.",
+    explanation: "Đăng ký newsletter từ các nguồn uy tín (TechCrunch, Wired, IEEE...) là cách hiệu quả nhất để cập nhật liên tục, không định kỳ 3 năm một lần hay chỉ viết blog cá nhân."
+  },
+
+  // ── PHẦN 3: AN NINH MẠNG & TỘI PHẠM SỐ ─────────────────
+  {
+    id: 104, level: "IC3_LEVEL3", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn muốn trở thành công dân kĩ thuật số có trách nhiệm. Ghép nối từng loại hoạt động trực tuyến bất hợp pháp với ví dụ về hành vi của nó.",
+    left: [
+      "Người bán ô tô trực tuyến tuyên bố họ đang trong quân đội, nhưng sẽ giao xe cho bạn sau khi bạn thanh toán.",
+      "Bạn nhận được một yêu cầu kết bạn trùng lặp trên Facebook từ một người đã là bạn của bạn.",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào một liên kết để đăng nhập và chứng minh danh tính."
+    ],
+    right: ["Gian lận trên Internet (Internet Fraud)", "Lừa đảo (Phishing)", "Giả mạo (Spoofing)"],
+    answer: {
+      "Người bán ô tô trực tuyến tuyên bố họ đang trong quân đội, nhưng sẽ giao xe cho bạn sau khi bạn thanh toán.": "Gian lận trên Internet (Internet Fraud)",
+      "Bạn nhận được một yêu cầu kết bạn trùng lặp trên Facebook từ một người đã là bạn của bạn.": "Lừa đảo (Phishing)",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào một liên kết để đăng nhập và chứng minh danh tính.": "Giả mạo (Spoofing)"
+    },
+    explanation: "Internet Fraud = gian lận mua bán trực tuyến. Phishing = đánh lừa qua tài khoản giả mạo để lấy thông tin. Spoofing = giả mạo tổ chức uy tín (ngân hàng, cơ quan...) để đánh cắp thông tin đăng nhập."
+  },
+  {
+    id: 105, level: "IC3_LEVEL3", test: 1,
+    category: "CYBERSECURITY", difficulty: "easy",
+    type: "single",
+    question: "___ xảy ra khi ai đó sử dụng các từ hoặc hình ảnh có hại trên mạng để đe doạ, làm tổn thương, xấu hổ hoặc cố tình gây ra ảnh hưởng tiêu cực đến người khác.",
+    options: ["Cyberbullying", "Challenging", "Policing", "Tweeting"],
+    answer: "Cyberbullying",
+    explanation: "Cyberbullying (bắt nạt trực tuyến) là hành vi sử dụng công nghệ số để quấy rối, đe dọa, làm bẽ mặt hay gây tổn hại tâm lý cho người khác — một vấn đề nghiêm trọng đặc biệt với thanh thiếu niên."
+  },
+  {
+    id: 106, level: "IC3_LEVEL3", test: 1,
+    category: "CYBERSECURITY", difficulty: "easy",
+    type: "single",
+    question: "Phát biểu sau đây là Đúng hay Sai: 'Nếu một cá nhân tận mắt chứng kiến hành vi nguy hiểm, bất hợp pháp hoặc gây hại, thì hành động thích hợp là báo cho nhà chức trách.'",
+    options: ["Đúng", "Sai"],
+    answer: "Đúng",
+    explanation: "Đúng. Báo cáo hành vi nguy hiểm hoặc bất hợp pháp trực tuyến cho nhà chức trách (cơ quan thực thi pháp luật, nền tảng mạng xã hội...) là trách nhiệm của công dân kỹ thuật số có ý thức."
+  },
+  {
+    id: 107, level: "IC3_LEVEL3", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "matching",
+    question: "Một người bạn của bạn bị bắt nạt. Bạn ấy cần báo cáo hành vi bắt nạt với ai? Nối từng hành vi bắt nạt với cơ quan có thẩm quyền phù hợp.",
+    left: [
+      "Kẻ bắt nạt đăng những lời lẽ tấn công bạn trên một tài khoản mạng xã hội bị tấn công.",
+      "Kẻ bắt nạt viết lời lẽ từ bài đăng trên mạng xã hội liên tục khoá trong lớp thể dục của người bạn kia.",
+      "Kẻ bắt nạt đe dọa sẽ gây tổn thương thể chất tới bạn của bạn."
+    ],
+    right: ["Nhà cung cấp mạng xã hội", "Khoa trong trường", "Cơ quan hành pháp"],
+    answer: {
+      "Kẻ bắt nạt đăng những lời lẽ tấn công bạn trên một tài khoản mạng xã hội bị tấn công.": "Nhà cung cấp mạng xã hội",
+      "Kẻ bắt nạt viết lời lẽ từ bài đăng trên mạng xã hội liên tục khoá trong lớp thể dục của người bạn kia.": "Khoa trong trường",
+      "Kẻ bắt nạt đe dọa sẽ gây tổn thương thể chất tới bạn của bạn.": "Cơ quan hành pháp"
+    },
+    explanation: "Báo cáo đúng kênh: tấn công trên mạng xã hội → báo platform. Bắt nạt trong trường học → báo ban quản lý trường. Đe dọa bạo lực thể chất → báo cảnh sát ngay lập tức."
+  },
+  {
+    id: 108, level: "IC3_LEVEL3", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "matching",
+    question: "Một trách nhiệm của việc trở thành công dân kĩ thuật số tốt là báo cáo hành vi nguy hiểm. Chọn Đúng nếu hành vi là nguy hiểm/bất hợp pháp/có hại, Sai nếu không.",
+    left: [
+      "Sau khi lướt qua một vài trang Web chơi Game, một trang bật lên (Pop Up) yêu cầu trả tiền để mở khóa máy tính của bạn.",
+      "Yêu cầu bạn phải tạo một tài khoản để truy cập các chương trình giảm giá. Tài khoản muốn tên, địa chỉ, điện thoại và ngày sinh của bạn.",
+      "Tạo nhiều hồ sơ trên một trang mạng xã hội — một hồ sơ cho mục đích cá nhân và một hồ sơ cho mục đích kinh doanh.",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào liên kết để đăng nhập."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Sau khi lướt qua một vài trang Web chơi Game, một trang bật lên (Pop Up) yêu cầu trả tiền để mở khóa máy tính của bạn.": "Đúng",
+      "Yêu cầu bạn phải tạo một tài khoản để truy cập các chương trình giảm giá. Tài khoản muốn tên, địa chỉ, điện thoại và ngày sinh của bạn.": "Sai",
+      "Tạo nhiều hồ sơ trên một trang mạng xã hội — một hồ sơ cho mục đích cá nhân và một hồ sơ cho mục đích kinh doanh.": "Sai",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào liên kết để đăng nhập.": "Đúng"
+    },
+    explanation: "Pop-up đòi tiền chuộc = Ransomware → nguy hiểm. Email ngân hàng đòi nhấp link = Phishing → nguy hiểm. Thu thập thông tin để đăng ký giảm giá là bình thường. Tạo hai hồ sơ riêng biệt là hợp pháp."
+  },
+  {
+    id: 109, level: "IC3_LEVEL3", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "multiple",
+    question: "Nếu một thách thức Internet gây ra rủi ro về sức khỏe và liên quan đến hoạt động bất hợp pháp, thì điều đó nên được báo cho ai? (Chọn 2)",
+    options: [
+      "Nền tảng truyền thông xã hội của bài viết",
+      "Một người bạn",
+      "Một cuộc trò chuyện nhóm",
+      "Ông bà",
+      "Cảnh sát"
+    ],
+    answer: ["Nền tảng truyền thông xã hội của bài viết", "Cảnh sát"],
+    explanation: "Nội dung gây hại và bất hợp pháp cần được báo cáo cho: (1) nền tảng mạng xã hội (để gỡ xuống nhanh chóng), (2) cảnh sát (vì vi phạm pháp luật cần cơ quan thực thi xử lý)."
+  },
+
+  // ── PHẦN 4: MÔI TRƯỜNG & E-WASTE ───────────────────────
+  {
+    id: 110, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_CITIZENSHIP", difficulty: "medium",
+    type: "matching",
+    question: "Với mỗi phát biểu về rác thải điện tử (E-waste), hãy chọn Đúng hoặc Sai.",
+    left: [
+      "Hơn 60% rác thải điện tử được tái chế.",
+      "Rác thải điện tử là loại chất thải phát triển chậm nhất trên toàn thế giới.",
+      "Rác thải điện tử chứa các kim loại quý như vàng và bạc có thể được phục hồi và tái sử dụng.",
+      "Rác thải điện tử chứa các kim loại độc hại như chì và thủy ngân có thể gây bệnh cho con người nếu ngấm vào nguồn nước ngầm."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Hơn 60% rác thải điện tử được tái chế.": "Sai",
+      "Rác thải điện tử là loại chất thải phát triển chậm nhất trên toàn thế giới.": "Sai",
+      "Rác thải điện tử chứa các kim loại quý như vàng và bạc có thể được phục hồi và tái sử dụng.": "Đúng",
+      "Rác thải điện tử chứa các kim loại độc hại như chì và thủy ngân có thể gây bệnh cho con người nếu ngấm vào nguồn nước ngầm.": "Đúng"
+    },
+    explanation: "Thực tế: chỉ ~20% e-waste được tái chế đúng cách. E-waste là loại chất thải phát triển NHANH nhất. E-waste chứa cả kim loại quý (có thể tái chế) và kim loại độc hại (nguy hiểm cho môi trường nếu không xử lý đúng)."
+  },
+  {
+    id: 111, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_CITIZENSHIP", difficulty: "medium",
+    type: "multiple",
+    question: "Kim loại quý nào được tái chế từ rác thải điện tử? (Chọn 3)",
+    options: ["Titanium", "Đồng (Copper)", "Sắt (Iron)", "Thiếc (Tin)", "Bạc (Silver)", "Vàng (Gold)"],
+    answer: ["Đồng (Copper)", "Bạc (Silver)", "Vàng (Gold)"],
+    explanation: "Thiết bị điện tử chứa đồng (trong mạch điện), bạc (tiếp điểm điện) và vàng (kết nối bo mạch chủ). Tái chế e-waste đúng cách giúp thu hồi các kim loại quý hiếm này."
+  },
+  {
+    id: 112, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_CITIZENSHIP", difficulty: "medium",
+    type: "multiple",
+    question: "Người dùng có thể thực hiện những phương pháp công nghệ lành mạnh nào để bảo vệ môi trường? (Chọn 3)",
+    options: [
+      "Hãy thử thanh toán không cần giấy tờ.",
+      "Sử dụng các ứng dụng có thể giúp theo dõi mức tiêu thụ nhiên liệu và nước.",
+      "Tái chế thiết bị cũ.",
+      "In tất cả các tài liệu mong muốn.",
+      "Vứt bỏ các thiết bị cũ."
+    ],
+    answer: [
+      "Hãy thử thanh toán không cần giấy tờ.",
+      "Sử dụng các ứng dụng có thể giúp theo dõi mức tiêu thụ nhiên liệu và nước.",
+      "Tái chế thiết bị cũ."
+    ],
+    explanation: "Ba hành động thân thiện với môi trường: thanh toán kỹ thuật số giảm giấy, theo dõi tiêu thụ tài nguyên giúp tiết kiệm, tái chế thiết bị cũ ngăn e-waste. In tất cả và vứt bỏ thiết bị đều gây hại cho môi trường."
+  },
+  {
+    id: 113, level: "IC3_LEVEL3", test: 1,
+    category: "DIGITAL_CITIZENSHIP", difficulty: "medium",
+    type: "multiple",
+    question: "Hành động nào có nhiều khả năng làm cho người khác nhận thức được những tiến bộ công nghệ? (Chọn 2)",
+    options: [
+      "Xem phim được sản xuất bằng công nghệ.",
+      "Tham gia một số nhóm công nghệ trên mạng xã hội và đọc các bài đăng của họ.",
+      "Đăng kí một nguồn cấp tin tức công nghệ.",
+      "Sử dụng thiết bị máy tính hàng ngày."
+    ],
+    answer: [
+      "Tham gia một số nhóm công nghệ trên mạng xã hội và đọc các bài đăng của họ.",
+      "Đăng kí một nguồn cấp tin tức công nghệ."
+    ],
+    explanation: "Tham gia cộng đồng công nghệ và đọc tin tức công nghệ là cách chủ động, có mục đích để nâng cao nhận thức về tiến bộ kỹ thuật. Xem phim hay dùng máy tính hàng ngày không nhằm mục đích học hỏi về công nghệ mới."
+  },
+
+  // ── PHẦN 5: TÀI SẢN TRÍ TUỆ & BẢN QUYỀN ───────────────
+  {
+    id: 114, level: "IC3_LEVEL3", test: 1,
+    category: "INTELLECTUAL_PROPERTY", difficulty: "medium",
+    type: "matching",
+    question: "Với mỗi phát biểu sau đây, hãy chọn Bảo vệ nếu là phát biểu giúp bảo vệ tài sản trí tuệ, hoặc Rủi ro nếu là phát biểu mang lại rủi ro.",
+    left: [
+      "Đăng kí bản quyền, nhãn hiệu và bằng sáng chế.",
+      "Yêu cầu từng nhân viên kí thỏa thuận không tiết lộ.",
+      "Cấp quyền truy cập không giới hạn các sản phẩm của bạn cho bên thứ ba.",
+      "Thảo luận ý tưởng của bạn với thật nhiều người để đánh giá sự quan tâm."
+    ],
+    right: ["Bảo vệ", "Rủi ro"],
+    answer: {
+      "Đăng kí bản quyền, nhãn hiệu và bằng sáng chế.": "Bảo vệ",
+      "Yêu cầu từng nhân viên kí thỏa thuận không tiết lộ.": "Bảo vệ",
+      "Cấp quyền truy cập không giới hạn các sản phẩm của bạn cho bên thứ ba.": "Rủi ro",
+      "Thảo luận ý tưởng của bạn với thật nhiều người để đánh giá sự quan tâm.": "Rủi ro"
+    },
+    explanation: "Đăng ký IP và NDA là các biện pháp bảo vệ pháp lý. Cấp quyền không giới hạn cho bên thứ ba và chia sẻ ý tưởng chưa được bảo vệ với nhiều người đều tạo rủi ro bị sao chép hoặc đánh cắp IP."
+  },
+  {
+    id: 115, level: "IC3_LEVEL3", test: 1,
+    category: "INTELLECTUAL_PROPERTY", difficulty: "medium",
+    type: "single",
+    question: "Để tránh bị đồng sở hữu tài sản trí tuệ, người dùng phải làm gì?",
+    options: [
+      "Mã hóa dữ liệu để một chủ sở hữu chung mất quyền truy cập.",
+      "Thuê một chuyên gia CNTT để bảo vệ thông tin tài sản.",
+      "Xác định chỉ một người là chủ sở hữu và lập giấy tờ hợp pháp với luật sư.",
+      "Đặt mật khẩu mạnh cho tất cả các máy tính liên quan đến lưu trữ nội dung."
+    ],
+    answer: "Xác định chỉ một người là chủ sở hữu và lập giấy tờ hợp pháp với luật sư.",
+    explanation: "Để tránh tranh chấp đồng sở hữu, cần xác định rõ một chủ sở hữu duy nhất ngay từ đầu và lập văn bản pháp lý chính thức — đây là cách duy nhất có giá trị pháp lý."
+  },
+  {
+    id: 116, level: "IC3_LEVEL3", test: 1,
+    category: "INTELLECTUAL_PROPERTY", difficulty: "easy",
+    type: "single",
+    question: "Tùy chọn nào sau đây là một ví dụ về tài sản cá nhân?",
+    options: [
+      "Hình ảnh từ một chuyến đi đường.",
+      "Một Video được quay bằng Camera của công ty.",
+      "Một tài liệu kỹ thuật được viết trên thiết bị của công ty.",
+      "Một Blog được viết cho một doanh nghiệp."
+    ],
+    answer: "Hình ảnh từ một chuyến đi đường.",
+    explanation: "Hình ảnh chụp trong chuyến đi cá nhân là tài sản riêng của bạn. Video quay bằng máy công ty, tài liệu viết trên thiết bị công ty và Blog viết cho doanh nghiệp đều thuộc về tổ chức/công ty."
+  },
+  {
+    id: 117, level: "IC3_LEVEL3", test: 1,
+    category: "INTELLECTUAL_PROPERTY", difficulty: "medium",
+    type: "multiple",
+    question: "Các chủ doanh nghiệp nên cân nhắc làm gì để bảo vệ tài sản công ty tốt nhất? (Chọn 2)",
+    options: [
+      "Một luật sư gian xảo",
+      "Hiểu biết CPA",
+      "Một biểu mẫu không tiết lộ cho nhân viên và đối tác ký.",
+      "Bằng kinh doanh",
+      "Đăng ký tên doanh nghiệp, tên miền và sản phẩm của họ."
+    ],
+    answer: [
+      "Một biểu mẫu không tiết lộ cho nhân viên và đối tác ký.",
+      "Đăng ký tên doanh nghiệp, tên miền và sản phẩm của họ."
+    ],
+    explanation: "NDA (thỏa thuận không tiết lộ) bảo vệ bí mật kinh doanh. Đăng ký tên doanh nghiệp, domain và nhãn hiệu ngăn người khác sử dụng danh tính thương hiệu của bạn."
+  },
+  {
+    id: 118, level: "IC3_LEVEL3", test: 1,
+    category: "INTELLECTUAL_PROPERTY", difficulty: "medium",
+    type: "single",
+    question: "Bạn sao chép một đoạn Video dài 30 giây từ Internet. Bạn không biết ai đã tạo ra Video này. Tùy chọn nào là trường hợp sử dụng đoạn Video KHÔNG hợp pháp?",
+    options: [
+      "Bạn sử dụng đoạn Video trong bản tin.",
+      "Bạn sử dụng đoạn Video để dạy học.",
+      "Bạn tạo nên một bản Parody có sử dụng đoạn Video đó.",
+      "Bạn tạo nên một quảng cáo chính trị có sử dụng đoạn Video đó."
+    ],
+    answer: "Bạn tạo nên một quảng cáo chính trị có sử dụng đoạn Video đó.",
+    explanation: "Dùng tác phẩm không rõ bản quyền cho quảng cáo chính trị (mục đích thương mại/chính trị) là không hợp pháp. Bản tin, dạy học và Parody có thể được bảo vệ theo nguyên tắc Fair Use (phê bình, giáo dục, nhại lại)."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // BÀI 3: QUẢN LÝ THÔNG TIN
+  // ══════════════════════════════════════════════════════════
+
+  // ── PHẦN 6: TÌM KIẾM & BOOLEAN ──────────────────────────
+  {
+    id: 119, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "easy",
+    type: "single",
+    question: "Bộ lọc tìm kiếm nào sẽ cung cấp cho người dùng kết quả về các mặt hàng họ có thể mua?",
+    options: ["Shopping", "Images", "Maps", "Videos"],
+    answer: "Shopping",
+    explanation: "Bộ lọc 'Shopping' (Mua sắm) trong công cụ tìm kiếm như Google lọc kết quả chỉ hiển thị sản phẩm đang bán, giá cả và thông tin người bán."
+  },
+  {
+    id: 120, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "easy",
+    type: "single",
+    question: "Có thể sử dụng toán tử tìm kiếm nào để xem kết quả chứa nhiều từ khóa?",
+    options: ["AND", "EXCEPT", "BUT", "OR"],
+    answer: "AND",
+    explanation: "Toán tử AND trong tìm kiếm Boolean yêu cầu kết quả phải chứa TẤT CẢ các từ khóa được chỉ định, giúp thu hẹp kết quả tìm kiếm và tăng độ chính xác."
+  },
+  {
+    id: 121, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Khi nào nên sử dụng toán tử tìm kiếm Boolean? Ghép mỗi mô tả với toán tử tương ứng.",
+    left: [
+      "Để thu hẹp kết quả tìm kiếm, kết hợp các thuật ngữ tìm kiếm bằng cách sử dụng toán tử ___.",
+      "Để mở rộng kết quả tìm kiếm, bao gồm nhiều lựa chọn tìm kiếm bằng cách sử dụng toán tử ___.",
+      "Để thu hẹp kết quả tìm kiếm, không chứa một số từ, bằng cách sử dụng toán tử ___."
+    ],
+    right: ["AND", "OR", "NOT"],
+    answer: {
+      "Để thu hẹp kết quả tìm kiếm, kết hợp các thuật ngữ tìm kiếm bằng cách sử dụng toán tử ___.": "AND",
+      "Để mở rộng kết quả tìm kiếm, bao gồm nhiều lựa chọn tìm kiếm bằng cách sử dụng toán tử ___.": "OR",
+      "Để thu hẹp kết quả tìm kiếm, không chứa một số từ, bằng cách sử dụng toán tử ___.": "NOT"
+    },
+    explanation: "Ba toán tử Boolean cơ bản: AND = tất cả các từ phải có mặt (thu hẹp). OR = ít nhất một từ phải có mặt (mở rộng). NOT = loại trừ từ chỉ định (thu hẹp theo hướng khác)."
+  },
+  {
+    id: 122, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang tiến hành nghiên cứu trực tuyến bằng toán tử Boolean. Chọn Đúng nếu tìm kiếm sẽ đạt được kết quả mong muốn, Sai nếu không.",
+    left: [
+      "Để mở rộng kết quả tìm kiếm, hãy loại trừ các từ bằng cách sử dụng toán tử NOT.",
+      "Để mở rộng kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm thay thế bằng toán tử OR.",
+      "Để thu hẹp kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm bằng toán tử AND."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Để mở rộng kết quả tìm kiếm, hãy loại trừ các từ bằng cách sử dụng toán tử NOT.": "Sai",
+      "Để mở rộng kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm thay thế bằng toán tử OR.": "Đúng",
+      "Để thu hẹp kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm bằng toán tử AND.": "Đúng"
+    },
+    explanation: "NOT thu hẹp (loại trừ) chứ không mở rộng kết quả — Sai. OR mở rộng bằng cách bao gồm thêm lựa chọn — Đúng. AND thu hẹp bằng cách yêu cầu cả hai từ cùng xuất hiện — Đúng."
+  },
+  {
+    id: 123, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang nghiên cứu trên mạng trong một tiết học. Với mỗi chủ đề tìm kiếm, chọn Có nếu cần dùng toán tử Boolean để tìm nhanh hơn, Không nếu không cần.",
+    left: [
+      "Các sở thú bên ngoài Châu Phi.",
+      "Thông tin chung về ngựa vằn.",
+      "Một câu trích dẫn cụ thể của một tác giả nào đó.",
+      "Voi ở nam bán cầu."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Các sở thú bên ngoài Châu Phi.": "Có",
+      "Thông tin chung về ngựa vằn.": "Không",
+      "Một câu trích dẫn cụ thể của một tác giả nào đó.": "Có",
+      "Voi ở nam bán cầu.": "Có"
+    },
+    explanation: "Boolean cần thiết khi tìm kiếm có nhiều tiêu chí cụ thể: 'sở thú' AND NOT 'Châu Phi', câu trích dẫn của tác giả cụ thể, voi ở một vùng địa lý cụ thể. Tìm kiếm chung về ngựa vằn chỉ cần một từ khóa đơn giản."
+  },
+  {
+    id: 124, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang tìm kiếm vị trí 'Project Manager' làm việc với SQL trên Internet nhưng không biết tiếng Tây Ban Nha. Tùy chọn tìm kiếm Boolean nào phù hợp nhất để thu hẹp kết quả?",
+    options: [
+      "\"Project Manager\" AND NOT SQL AND Spanish",
+      "\"Project Manager\" AND SQL AND NOT Spanish",
+      "\"Project Manager\" AND NOT (SQL OR Spanish)",
+      "\"Project Manager\" AND NOT SQL AND NOT Spanish"
+    ],
+    answer: "\"Project Manager\" AND SQL AND NOT Spanish",
+    explanation: "Cần tìm: có 'Project Manager' VÀ có 'SQL' VÀ KHÔNG có 'Spanish'. Câu truy vấn \"Project Manager\" AND SQL AND NOT Spanish đáp ứng đúng ba tiêu chí này."
+  },
+  {
+    id: 125, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn phải thực hiện tìm kiếm nhiều loại thông tin. Ghép nối từng loại tìm kiếm với công cụ tìm kiếm phù hợp nhất.",
+    left: [
+      "Liệt kê các vị trí trang Web phù hợp với từ khóa.",
+      "Xác định nhạc, phim, quảng cáo và chương trình truyền hình dựa trên một mẫu âm thanh ngắn.",
+      "Báo cáo lần xuất hiện đầu tiên và lần xuất hiện tiếp theo của một hình ảnh trực tuyến."
+    ],
+    right: ["Google", "Shazam", "TinEye"],
+    answer: {
+      "Liệt kê các vị trí trang Web phù hợp với từ khóa.": "Google",
+      "Xác định nhạc, phim, quảng cáo và chương trình truyền hình dựa trên một mẫu âm thanh ngắn.": "Shazam",
+      "Báo cáo lần xuất hiện đầu tiên và lần xuất hiện tiếp theo của một hình ảnh trực tuyến.": "TinEye"
+    },
+    explanation: "Google = công cụ tìm kiếm web đa năng. Shazam = nhận diện bài hát/âm thanh. TinEye = tìm kiếm hình ảnh ngược (reverse image search) và theo dõi lịch sử xuất hiện của ảnh."
+  },
+  {
+    id: 126, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn phải thực hiện tìm kiếm nhiều thông tin. Nối từng mục đích tìm kiếm với loại tìm kiếm tương ứng.",
+    left: [
+      "Các tùy chọn bên thứ ba khi mua phần mềm.",
+      "Một trang cụ thể.",
+      "Số liệu thống kê dân số."
+    ],
+    right: ["Giao dịch (Transaction)", "Điều hướng (Navigation)", "Thông tin (Information)"],
+    answer: {
+      "Các tùy chọn bên thứ ba khi mua phần mềm.": "Giao dịch (Transaction)",
+      "Một trang cụ thể.": "Điều hướng (Navigation)",
+      "Số liệu thống kê dân số.": "Thông tin (Information)"
+    },
+    explanation: "Ba loại tìm kiếm: Transaction (giao dịch) = tìm để mua/bán/so sánh sản phẩm. Navigation (điều hướng) = tìm để đến một trang cụ thể. Information (thông tin) = tìm để học hỏi, nghiên cứu."
+  },
+  {
+    id: 127, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang cố gắng thiết kế một yêu cầu tìm kiếm hiệu quả và cần chọn đúng công cụ. Chọn Đúng nếu công cụ tìm kiếm sẽ trả về kết quả mong muốn, Sai nếu không.",
+    left: [
+      "Shazam có thể xác định tên của một bài hát.",
+      "TinEye có thể báo cáo lần xuất hiện đầu tiên của một hình ảnh trực tuyến.",
+      "Google xác minh các bài đăng tin tức giả mạo hoặc gây hiểu lầm.",
+      "Shodan cho phép bạn tìm kiếm TV thông minh, nhà máy điện, tủ lạnh hoặc bất kì loại thiết bị IoT nào được kết nối với Internet."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Shazam có thể xác định tên của một bài hát.": "Đúng",
+      "TinEye có thể báo cáo lần xuất hiện đầu tiên của một hình ảnh trực tuyến.": "Đúng",
+      "Google xác minh các bài đăng tin tức giả mạo hoặc gây hiểu lầm.": "Sai",
+      "Shodan cho phép bạn tìm kiếm TV thông minh, nhà máy điện, tủ lạnh hoặc bất kì loại thiết bị IoT nào được kết nối với Internet.": "Đúng"
+    },
+    explanation: "Shazam và TinEye làm đúng chức năng mô tả. Shodan là công cụ tìm kiếm thiết bị IoT kết nối Internet — Đúng. Google là công cụ tìm kiếm thông thường, không có chức năng fact-checking/xác minh tin giả — Sai."
+  },
+
+  // ── PHẦN 7: ĐÁNH GIÁ ĐỘ TIN CẬY THÔNG TIN ─────────────
+  {
+    id: 128, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "medium",
+    type: "multiple",
+    question: "Người dùng nên tìm kiếm những phẩm chất nào trong kết quả tìm kiếm trực tuyến? (Chọn 2)",
+    options: [
+      "Không liên quan (Irrelevance)",
+      "Quan trọng (Importance)",
+      "Hiện hành (Currency)",
+      "Thiên kiến (Bias)",
+      "Tính khách quan (Objectivity)"
+    ],
+    answer: ["Hiện hành (Currency)", "Tính khách quan (Objectivity)"],
+    explanation: "Hai phẩm chất quan trọng nhất của nguồn tin đáng tin cậy: Currency (thông tin cập nhật, không lỗi thời) và Objectivity (khách quan, không thiên vị). Đây là một phần của framework CRAAP (Currency, Relevance, Authority, Accuracy, Purpose)."
+  },
+  {
+    id: 129, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "medium",
+    type: "multiple",
+    question: "Người dùng nên tìm kiếm điều gì để xác định độ tin cậy của tác giả? (Chọn 3)",
+    options: [
+      "Các bình luận trên mạng xã hội thảo luận về dữ liệu của tác giả.",
+      "Kinh nghiệm sống của tác giả.",
+      "Các bài viết khác cùng chủ đề.",
+      "Trình độ học vấn của tác giả.",
+      "Thông tin về cuộc sống gia đình của tác giả."
+    ],
+    answer: [
+      "Kinh nghiệm sống của tác giả.",
+      "Các bài viết khác cùng chủ đề.",
+      "Trình độ học vấn của tác giả."
+    ],
+    explanation: "Ba yếu tố đánh giá độ tin cậy tác giả: kinh nghiệm thực tế, học vấn chuyên môn và lịch sử công bố trong lĩnh vực. Bình luận mạng xã hội và thông tin cá nhân không phản ánh chuyên môn."
+  },
+  {
+    id: 130, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "medium",
+    type: "multiple",
+    question: "Khi tìm kiếm thông tin đáng tin cậy trên mạng, người dùng nên cẩn trọng với điều nào? (Chọn 2)",
+    options: [
+      "Ý kiến của bạn bè và thành viên gia đình được trình bày dưới dạng cơ sở lập luận.",
+      "Các bài báo trên Web đã được đánh giá bởi các học giả đáng tin cậy.",
+      "Những trang Web có chú thích nguồn của thông tin.",
+      "Các bài đăng trên mạng xã hội không trích dẫn nguồn của chúng.",
+      "Bài báo khoa học có thông tin rõ ràng về tác giả và lí lịch của họ."
+    ],
+    answer: [
+      "Ý kiến của bạn bè và thành viên gia đình được trình bày dưới dạng cơ sở lập luận.",
+      "Các bài đăng trên mạng xã hội không trích dẫn nguồn của chúng."
+    ],
+    explanation: "Hai dấu hiệu thiếu tin cậy: (1) ý kiến cá nhân không có bằng chứng được trình bày như sự thật, (2) bài đăng không trích dẫn nguồn — không thể kiểm chứng. Bài báo có peer review, chú thích nguồn và thông tin tác giả rõ ràng là các dấu hiệu đáng tin cậy."
+  },
+  {
+    id: 131, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "easy",
+    type: "single",
+    question: "Tài nguyên nào tốt nhất để một người sử dụng khi viết báo cáo về các hành tinh?",
+    options: [
+      "Một tiểu thuyết hư cầu",
+      "Một bài đăng trên mạng xã hội",
+      "Một trang Blog",
+      "Một tạp chí khoa học"
+    ],
+    answer: "Một tạp chí khoa học",
+    explanation: "Tạp chí khoa học (scientific journal) có quy trình peer review (bình duyệt đồng nghiệp), đảm bảo độ chính xác và đáng tin cậy cao nhất cho báo cáo học thuật về chủ đề khoa học như hành tinh."
+  },
+  {
+    id: 132, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "medium",
+    type: "single",
+    question: "Lí do nào có nhiều khả năng nhất khiến một số trang Web miền .edu hiển thị thông tin sai lệch?",
+    options: [
+      "Trường hướng tới mục tiêu tối đa hóa lợi nhuận cho các cổ đông.",
+      "Họ muốn thông tin sai lệch cho quần chúng.",
+      "Họ thích xuyên tạc về sinh viên của họ.",
+      "Các nhà giáo dục của họ không đáng tin cậy."
+    ],
+    answer: "Trường hướng tới mục tiêu tối đa hóa lợi nhuận cho các cổ đông.",
+    explanation: "Một số trường tư vì lợi nhuận (for-profit) có thể đưa ra thông tin thiên vị để thu hút sinh viên và tối đa hóa doanh thu — điều này làm giảm độ tin cậy của trang Web .edu của họ."
+  },
+  {
+    id: 133, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đã được giao xác thực quan điểm về kết quả tìm kiếm. Với mỗi phát biểu, hãy chọn Đúng hoặc Sai.",
+    left: [
+      "Khuynh hướng cánh tả ủng hộ bình đẳng xã hội, chủ nghĩa tự do và các ý tưởng cách mạng.",
+      "Khuynh hướng cánh hữu ủng hộ doanh nghiệp tự do, quyền sở hữu tư nhân và các ý tưởng bảo thủ.",
+      "Những câu chuyện được đăng tải bởi một mạng truyền thông lớn luôn thể hiện cả hai mặt với một góc nhìn bình đẳng.",
+      "Tất cả các bài đăng trên Internet đều có góc nhìn trung lập."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Khuynh hướng cánh tả ủng hộ bình đẳng xã hội, chủ nghĩa tự do và các ý tưởng cách mạng.": "Đúng",
+      "Khuynh hướng cánh hữu ủng hộ doanh nghiệp tự do, quyền sở hữu tư nhân và các ý tưởng bảo thủ.": "Đúng",
+      "Những câu chuyện được đăng tải bởi một mạng truyền thông lớn luôn thể hiện cả hai mặt với một góc nhìn bình đẳng.": "Sai",
+      "Tất cả các bài đăng trên Internet đều có góc nhìn trung lập.": "Sai"
+    },
+    explanation: "Cánh tả và cánh hữu có đặc điểm như mô tả — Đúng. Ngay cả các hãng truyền thông lớn cũng có thiên kiến biên tập — Sai. Không có nội dung nào hoàn toàn trung lập 100% — Sai."
+  },
+  {
+    id: 134, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "medium",
+    type: "multiple",
+    question: "Lựa chọn nào đóng vai trò tốt nhất trong việc định hình quan điểm của một người? (Chọn 3)",
+    options: [
+      "Đội thể thao yêu thích",
+      "Trình độ học vấn",
+      "Thực phẩm yêu thích",
+      "Tuổi tác",
+      "Địa vị xã hội"
+    ],
+    answer: ["Trình độ học vấn", "Tuổi tác", "Địa vị xã hội"],
+    explanation: "Ba yếu tố có tác động lớn nhất đến quan điểm cá nhân: học vấn (định hình tư duy phân tích), tuổi tác (kinh nghiệm sống), và địa vị xã hội (hoàn cảnh, quyền lợi). Đội bóng yêu thích và thức ăn là sở thích cá nhân, ít ảnh hưởng đến quan điểm tổng thể."
+  },
+  {
+    id: 135, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "hard",
+    type: "multiple",
+    question: "Câu chuyện về tài liệu ôn tập đại học xuất hiện trên News Feed mạng xã hội với nội dung: 'Nghiên cứu trên 1000 sinh viên cho thấy cải thiện 25% điểm thi. Giáo sư nói: Nếu sinh viên không dùng tài liệu này, họ có thể không đạt điểm cao.' Câu chuyện chứa hai nguy biện Logic nào? (Chọn 2)",
+    options: [
+      "Nguy biện tấn công cá nhân (Ad Hominem) — công kích cá nhân chứ không tập trung vào vấn đề.",
+      "Nguy biện song đề sai (False Dilemma) — hạn chế các lựa chọn có thể có.",
+      "Nguy biện lời dụng người nổi tiếng (Appeal To Authority) — dựa vào uy tín của chuyên gia.",
+      "Nguy biện viện vào truyền thống (Appeal To Tradition) — bỏ qua những vấn đề trong quá khứ."
+    ],
+    answer: [
+      "Nguy biện song đề sai (False Dilemma) — hạn chế các lựa chọn có thể có.",
+      "Nguy biện viện vào truyền thống (Appeal To Tradition) — bỏ qua những vấn đề trong quá khứ."
+    ],
+    explanation: "False Dilemma: câu chuyện ám chỉ chỉ có hai lựa chọn (dùng tài liệu hoặc không đậu), bỏ qua các phương án khác. Appeal To Tradition: ngụ ý rằng phương pháp học truyền thống không đạt hiệu quả bằng tài liệu này — một lập luận thiên vị."
+  },
+
+  // ── PHẦN 8: BẢN QUYỀN & CREATIVE COMMONS ───────────────
+  {
+    id: 136, level: "IC3_LEVEL3", test: 2,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "matching",
+    question: "Bạn cần tìm ảnh có giấy phép Creative Commons cho bài thuyết trình. Ghép từng loại giấy phép Creative Commons với mô tả của nó.",
+    left: [
+      "Ghi công phải được trao cho người sáng tạo.",
+      "Chỉ cho phép sử dụng tác phẩm phi thương mại.",
+      "Không cho phép các dẫn xuất hoặc chuyển thể của tác phẩm.",
+      "Các tác phẩm được điều chỉnh phải được chia sẻ theo cùng một điều khoản."
+    ],
+    right: ["CC BY", "CC BY-NC", "CC BY-ND", "CC BY-SA"],
+    answer: {
+      "Ghi công phải được trao cho người sáng tạo.": "CC BY",
+      "Chỉ cho phép sử dụng tác phẩm phi thương mại.": "CC BY-NC",
+      "Không cho phép các dẫn xuất hoặc chuyển thể của tác phẩm.": "CC BY-ND",
+      "Các tác phẩm được điều chỉnh phải được chia sẻ theo cùng một điều khoản.": "CC BY-SA"
+    },
+    explanation: "Bốn điều kiện CC: BY = Attribution (ghi công). NC = NonCommercial (phi thương mại). ND = NoDerivatives (không phái sinh). SA = ShareAlike (chia sẻ tương tự). Các điều kiện này kết hợp tạo ra 6 loại giấy phép CC chính."
+  },
+  {
+    id: 137, level: "IC3_LEVEL3", test: 2,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang nghiên cứu về bảo hộ sở hữu trí tuệ. Ghép từng loại vi phạm sở hữu trí tuệ với mô tả của nó.",
+    left: [
+      "Sao chép, phân phối hoặc tạo tác phẩm phái sinh mà không được phép của người giữ bản quyền.",
+      "Trộm cắp hoặc chiếm đoạt cho các mục đích kinh tế — là tội phạm liên bang.",
+      "Sử dụng Logo hoặc tên tương tự với Logo hoặc tên của một bên khác.",
+      "Sử dụng hoặc bán phát minh mà không được phép của người nắm giữ quyền."
+    ],
+    right: ["Bản quyền (Copyright)", "Bí mật thương mại (Trade Secrets)", "Thương hiệu (Trademark)", "Bằng sáng chế (Patent)"],
+    answer: {
+      "Sao chép, phân phối hoặc tạo tác phẩm phái sinh mà không được phép của người giữ bản quyền.": "Bản quyền (Copyright)",
+      "Trộm cắp hoặc chiếm đoạt cho các mục đích kinh tế — là tội phạm liên bang.": "Bí mật thương mại (Trade Secrets)",
+      "Sử dụng Logo hoặc tên tương tự với Logo hoặc tên của một bên khác.": "Thương hiệu (Trademark)",
+      "Sử dụng hoặc bán phát minh mà không được phép của người nắm giữ quyền.": "Bằng sáng chế (Patent)"
+    },
+    explanation: "4 loại IP: Copyright bảo vệ tác phẩm sáng tạo. Trade Secrets bảo vệ thông tin kinh doanh bí mật. Trademark bảo vệ nhận diện thương hiệu. Patent bảo vệ phát minh và sáng chế."
+  },
+  {
+    id: 138, level: "IC3_LEVEL3", test: 2,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào là lí do mà một tác giả có thể xuất bản thông tin mang tính thiên vị? (Chọn 2)",
+    options: [
+      "Thông tin phù hợp nhất với niềm tin của họ.",
+      "Họ là những kẻ nói dối.",
+      "Họ thích làm sai lệch sự thật.",
+      "Họ có thể nhận được các quyền lợi về tiền bạc hoặc địa vị."
+    ],
+    answer: [
+      "Thông tin phù hợp nhất với niềm tin của họ.",
+      "Họ có thể nhận được các quyền lợi về tiền bạc hoặc địa vị."
+    ],
+    explanation: "Thiên kiến trong thông tin thường xuất phát từ: (1) confirmation bias — xu hướng tìm kiếm thông tin xác nhận niềm tin có sẵn, và (2) động cơ tài chính hoặc địa vị — muốn bảo vệ lợi ích cá nhân hay uy tín."
+  },
+  {
+    id: 139, level: "IC3_LEVEL3", test: 2,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "single",
+    question: "Những loại công việc sáng tạo nào Creative Commons KHÔNG cấp phép?",
+    options: ["Artwork", "Music", "Movies", "Software"],
+    answer: "Software",
+    explanation: "Creative Commons không được thiết kế cho phần mềm — phần mềm có hệ thống giấy phép riêng (GPL, MIT, Apache...). CC áp dụng cho tác phẩm sáng tạo như nghệ thuật, âm nhạc, phim ảnh và văn bản."
+  },
+  {
+    id: 140, level: "IC3_LEVEL3", test: 2,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "multiple",
+    question: "Trích dẫn (Citation) trang Web thường bao gồm những gì? (Chọn 3)",
+    options: ["Book Title", "Publication Date", "URL", "Publisher", "Website Name"],
+    answer: ["Publication Date", "URL", "Website Name"],
+    explanation: "Trích dẫn trang Web chuẩn cần: Publication Date (ngày xuất bản/cập nhật), URL (địa chỉ trang Web cụ thể), và Website Name (tên trang Web/tổ chức chủ sở hữu). Book Title và Publisher dùng cho trích dẫn sách."
+  },
+  {
+    id: 141, level: "IC3_LEVEL3", test: 2,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "single",
+    question: "Khi tạo tờ rơi quảng cáo doanh nghiệp, Natasha tìm thấy một hình ảnh trên creativecommons.org. Tại sao cô ấy không được phép sử dụng hình ảnh cho dự án của mình?",
+    options: [
+      "Hình ảnh yêu cầu Attribution.",
+      "Hình ảnh liệt kê điều kiện ShareAlike.",
+      "Hình ảnh liệt kê điều kiện Phi thương mại (NonCommercial).",
+      "Hình ảnh không liệt kê điều kiện Creative Commons."
+    ],
+    answer: "Hình ảnh liệt kê điều kiện Phi thương mại (NonCommercial).",
+    explanation: "Điều kiện NonCommercial (NC) của Creative Commons cấm sử dụng tác phẩm cho mục đích thương mại. Tờ rơi quảng cáo doanh nghiệp là mục đích thương mại → Natasha không được phép sử dụng ảnh này."
+  },
+  {
+    id: 142, level: "IC3_LEVEL3", test: 2,
+    category: "COPYRIGHT", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang thực hiện nghiên cứu trực tuyến. Bạn thấy một loạt Video có vẻ hỗ trợ giả thuyết của mình. Hai phương pháp chỉnh sửa âm thanh nào cho biết rằng Video đã bị chỉnh sửa để thay đổi thông điệp gốc? Chọn Đúng nếu phương pháp cho thấy chỉnh sửa có chủ ý, Sai nếu không.",
+    left: [
+      "Âm thanh gốc đã được thay thế bằng nhạc nền.",
+      "Phụ đề đã được thêm vào âm thanh gốc.",
+      "Từ ngữ được sắp xếp lại hoặc thêm vào.",
+      "Giọng thuyết minh giới thiệu người quay phim đã được thêm vào cuối Video."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Âm thanh gốc đã được thay thế bằng nhạc nền.": "Đúng",
+      "Phụ đề đã được thêm vào âm thanh gốc.": "Sai",
+      "Từ ngữ được sắp xếp lại hoặc thêm vào.": "Đúng",
+      "Giọng thuyết minh giới thiệu người quay phim đã được thêm vào cuối Video.": "Sai"
+    },
+    explanation: "Thay thế âm thanh gốc và sắp xếp lại từ ngữ là những kỹ thuật thao túng rõ ràng làm thay đổi thông điệp. Thêm phụ đề (hỗ trợ tiếp cận) và giọng thuyết minh cuối video (ghi nhận tác giả) là bình thường."
+  },
+
+  // ── PHẦN 9: SỬ DỤNG THÔNG TIN HỢP PHÁP ─────────────────
+  {
+    id: 143, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "matching",
+    question: "Bạn vừa tốt nghiệp CNTT và được nhận vào Phòng CNTT của một tập đoàn lớn. Làm thế nào bạn có thể cập nhật kiến thức kĩ thuật số? Với mỗi phát biểu, chọn Đúng nếu phát biểu giúp cập nhật kiến thức, Sai nếu không.",
+    left: [
+      "Tình nguyện ngồi vào ban cố vấn của một tổ chức phi lợi nhuận.",
+      "Đọc nguồn cấp tin tức công nghệ hàng tuần liên quan đến lĩnh vực của bạn.",
+      "Nói chuyện với các đồng nghiệp có kinh nghiệm về các công nghệ mới."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Tình nguyện ngồi vào ban cố vấn của một tổ chức phi lợi nhuận.": "Sai",
+      "Đọc nguồn cấp tin tức công nghệ hàng tuần liên quan đến lĩnh vực của bạn.": "Đúng",
+      "Nói chuyện với các đồng nghiệp có kinh nghiệm về các công nghệ mới.": "Đúng"
+    },
+    explanation: "Đọc tin tức công nghệ và học hỏi từ đồng nghiệp có kinh nghiệm là cách trực tiếp cập nhật kiến thức kỹ thuật số. Tình nguyện cho tổ chức phi lợi nhuận là tốt nhưng không trực tiếp cập nhật kiến thức CNTT chuyên nghiệp."
+  },
+  {
+    id: 144, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "single",
+    question: "Tài nguyên nào tốt nhất để sử dụng khi viết báo cáo về các hành tinh?",
+    options: [
+      "Một tiểu thuyết hư cầu",
+      "Một bài đăng trên mạng xã hội",
+      "Một trang Blog",
+      "Một tạp chí khoa học"
+    ],
+    answer: "Một tạp chí khoa học",
+    explanation: "Tạp chí khoa học có peer review đảm bảo thông tin chính xác và được kiểm chứng bởi các chuyên gia trong lĩnh vực — nguồn tin cậy nhất cho báo cáo về chủ đề khoa học."
+  },
+  {
+    id: 145, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "multiple",
+    question: "Các chủ doanh nghiệp nên làm gì để bảo vệ tài sản công ty tốt nhất? (Chọn 2)",
+    options: [
+      "Một luật sư gian xảo",
+      "Hiểu biết CPA",
+      "Một biểu mẫu không tiết lộ cho nhân viên và đối tác ký.",
+      "Bằng kinh doanh",
+      "Đăng ký tên doanh nghiệp, tên miền và sản phẩm của họ."
+    ],
+    answer: [
+      "Một biểu mẫu không tiết lộ cho nhân viên và đối tác ký.",
+      "Đăng ký tên doanh nghiệp, tên miền và sản phẩm của họ."
+    ],
+    explanation: "NDA (Non-Disclosure Agreement) bảo vệ bí mật nội bộ. Đăng ký tên doanh nghiệp, domain và nhãn hiệu tạo hàng rào pháp lý ngăn người khác sử dụng danh tính thương hiệu của bạn."
+  },
+  {
+    id: 146, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang thực hiện nghiên cứu trực tuyến. Khi nào bạn nên sử dụng toán tử tìm kiếm (Boolean)? Chọn câu trả lời đúng nhất.",
+    options: [
+      "Khi tìm kiếm thông tin chung về một chủ đề",
+      "Khi cần thu hẹp hoặc mở rộng kết quả tìm kiếm một cách có chủ đích",
+      "Khi muốn tìm ảnh trên Internet",
+      "Khi tìm kiếm tên của một người cụ thể"
+    ],
+    answer: "Khi cần thu hẹp hoặc mở rộng kết quả tìm kiếm một cách có chủ đích",
+    explanation: "Toán tử Boolean (AND, OR, NOT) hữu ích nhất khi bạn có nhiều tiêu chí tìm kiếm cụ thể và cần kiểm soát độ rộng của kết quả — không cần thiết cho tìm kiếm đơn giản."
+  },
+  {
+    id: 147, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "single",
+    question: "Loại bản phát hành nào cho phép người dùng sử dụng hình ảnh của một cá nhân?",
+    options: ["Media Release", "Location Release", "Model Release", "Marketing Release"],
+    answer: "Model Release",
+    explanation: "Model Release (Bản phát hành người mẫu) là văn bản pháp lý trong đó cá nhân đồng ý cho phép sử dụng hình ảnh của họ cho các mục đích thương mại hoặc xuất bản."
+  },
+  {
+    id: 148, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "single",
+    question: "Trích dẫn (Citation) trang Web thường bao gồm những thành phần nào? Chọn câu trả lời đúng nhất.",
+    options: [
+      "Tên tác giả, tiêu đề bài viết và ngày xuất bản",
+      "URL, ngày xuất bản và tên trang Web",
+      "Tiêu đề sách, nhà xuất bản và năm phát hành",
+      "Tên tác giả, nhà xuất bản và ISBN"
+    ],
+    answer: "URL, ngày xuất bản và tên trang Web",
+    explanation: "Trích dẫn trang Web theo chuẩn APA/MLA cần tối thiểu: URL (để người đọc tìm lại nguồn), ngày xuất bản/cập nhật (để đánh giá tính hiện hành) và tên trang Web (để xác định nguồn)."
+  },
+  {
+    id: 149, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "single",
+    question: "Khi nào bạn cần sử dụng toán tử NOT trong tìm kiếm Boolean?",
+    options: [
+      "Khi muốn mở rộng kết quả tìm kiếm",
+      "Khi muốn tìm tất cả các từ khóa cùng lúc",
+      "Khi muốn loại trừ một số từ khỏi kết quả tìm kiếm",
+      "Khi muốn tìm ít nhất một trong các từ khóa"
+    ],
+    answer: "Khi muốn loại trừ một số từ khỏi kết quả tìm kiếm",
+    explanation: "Toán tử NOT loại bỏ các kết quả chứa từ chỉ định. Ví dụ: 'jaguar NOT car' tìm về con báo jaguar nhưng loại trừ kết quả về xe hơi Jaguar — hữu ích khi từ khóa có nhiều nghĩa."
+  },
+  {
+    id: 150, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "matching",
+    question: "Bạn phải tìm kiếm nguồn của nhiều loại thông tin. Chọn Đúng nếu công cụ tìm kiếm phù hợp với mục đích, Sai nếu không.",
+    left: [
+      "Dùng Google để liệt kê các vị trí trang Web phù hợp với từ khóa.",
+      "Dùng Shazam để báo cáo lần xuất hiện đầu tiên của một hình ảnh trực tuyến.",
+      "Dùng TinEye để xác định nhạc dựa trên một mẫu âm thanh ngắn."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Dùng Google để liệt kê các vị trí trang Web phù hợp với từ khóa.": "Đúng",
+      "Dùng Shazam để báo cáo lần xuất hiện đầu tiên của một hình ảnh trực tuyến.": "Sai",
+      "Dùng TinEye để xác định nhạc dựa trên một mẫu âm thanh ngắn.": "Sai"
+    },
+    explanation: "Google = tìm kiếm web bằng từ khóa — Đúng. Shazam nhận diện âm nhạc, không phải hình ảnh (TinEye mới làm điều này) — Sai. TinEye tìm kiếm hình ảnh ngược, không nhận diện âm nhạc (Shazam mới làm điều này) — Sai."
+  },
+  {
+    id: 151, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào đúng khi nói về lí do tại sao tác giả có thể xuất bản thông tin thiên vị? (Chọn 2)",
+    options: [
+      "Thông tin phù hợp nhất với niềm tin của họ.",
+      "Họ là những kẻ thiếu đạo đức.",
+      "Họ không biết sự thật.",
+      "Họ có thể nhận được các quyền lợi về tiền bạc hoặc địa vị."
+    ],
+    answer: [
+      "Thông tin phù hợp nhất với niềm tin của họ.",
+      "Họ có thể nhận được các quyền lợi về tiền bạc hoặc địa vị."
+    ],
+    explanation: "Thiên kiến thông tin thường có nguyên nhân: (1) xác nhận thiên kiến (confirmation bias) — tác giả chọn thông tin phù hợp quan điểm sẵn có của mình, (2) động cơ tài chính hay địa vị — được tài trợ hoặc muốn bảo vệ lợi ích."
+  },
+  {
+    id: 152, level: "IC3_LEVEL3", test: 2,
+    category: "INFORMATION_USE", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang đánh giá độ tin cậy của thông tin được tìm thấy trực tuyến. Người dùng có thể tin tưởng vào tiêu đề URL nào khi nhập thông tin thẻ tín dụng?",
+    options: [".com", "https://", "www.", "http://"],
+    answer: "https://",
+    explanation: "HTTPS (HyperText Transfer Protocol Secure) mã hóa dữ liệu truyền tải giữa trình duyệt và máy chủ. Ký tự 's' trong 'https' đảm bảo kết nối được mã hóa SSL/TLS — bắt buộc khi nhập thông tin nhạy cảm như thẻ tín dụng."
   }
 
 ];
