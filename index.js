@@ -87,6 +87,26 @@ const COURSE_MAP = {
     "GENERATIVE AI": [...GENERATIVE_AI]
 };
 
+// ===== CATEGORY TRANSLATIONS — hiển thị tên tiếng Việt chuẩn =====
+const CATEGORY_TRANSLATIONS = {
+    HARDWARE: "💻 Thiết bị phần cứng",
+    SOFTWARE: "📦 Phần mềm & Ứng dụng",
+    OPERATING_SYSTEM: "🖥️ Hệ điều hành",
+    NETWORK: "🌐 Mạng & Internet",
+    SECURITY: "🔐 An ninh bảo mật",
+    PRIVACY: "🛡️ Quyền riêng tư",
+    DIGITAL_CITIZENSHIP: "🌍 Công dân kỹ thuật số",
+    CLOUD_COMPUTING: "☁️ Điện toán đám mây",
+    IOT: "📡 Internet vạn vật (IoT)",
+    DATA: "📊 Thông tin & Dữ liệu",
+    CRITICAL_THINKING: "🧠 Tư duy phản biện",
+    AI_DIGITAL: "🤖 Trí tuệ nhân tạo (AI)",
+    FILE_FORMAT: "📁 Định dạng tệp tin",
+    TROUBLESHOOTING: "🔧 Xử lý sự cố",
+    BROWSER: "🌐 Trình duyệt Web",
+    TECHNOLOGY_SOCIETY: "🏛️ Công nghệ & Xã hội"
+};
+
 /* =========================
    EXAM CONTRACT V21
    ========================= */

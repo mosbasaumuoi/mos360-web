@@ -54,17 +54,22 @@ export function getProgressUI() {
 
 <script>
 var CATEGORY_LABELS = {
-    'HARDWARE': '💻 Phần cứng',
-    'SOFTWARE': '📦 Phần mềm',
-    'OPERATING_SYSTEM': '🖥️ Hệ điều hành',
-    'NETWORK': '🌐 Mạng máy tính',
-    'SECURITY': '🔐 Bảo mật',
-    'CLOUD_COMPUTING': '☁️ Điện toán đám mây',
-    'IOT': '📡 IoT',
-    'DIGITAL_CITIZENSHIP': '🌍 Kỹ năng số',
-    'CRITICAL_THINKING': '🧠 Tư duy phê phán',
-    'DATA': '📊 Dữ liệu',
-    'AI_DIGITAL': '🤖 AI & Kỹ thuật số'
+    'HARDWARE':            '💻 Thiết bị phần cứng',
+    'SOFTWARE':            '📦 Phần mềm & Ứng dụng',
+    'OPERATING_SYSTEM':    '🖥️ Hệ điều hành',
+    'NETWORK':             '🌐 Mạng & Internet',
+    'SECURITY':            '🔐 An ninh bảo mật',
+    'PRIVACY':             '🛡️ Quyền riêng tư',
+    'DIGITAL_CITIZENSHIP': '🌍 Công dân kỹ thuật số',
+    'CLOUD_COMPUTING':     '☁️ Điện toán đám mây',
+    'IOT':                 '📡 Internet vạn vật (IoT)',
+    'DATA':                '📊 Thông tin & Dữ liệu',
+    'CRITICAL_THINKING':   '🧠 Tư duy phản biện',
+    'AI_DIGITAL':          '🤖 Trí tuệ nhân tạo (AI)',
+    'FILE_FORMAT':         '📁 Định dạng tệp tin',
+    'TROUBLESHOOTING':     '🔧 Xử lý sự cố',
+    'BROWSER':             '🌐 Trình duyệt Web',
+    'TECHNOLOGY_SOCIETY':  '🏛️ Công nghệ & Xã hội'
 };
 
 function getProgressKey(course) {

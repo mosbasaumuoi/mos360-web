@@ -1,5 +1,5 @@
 export const IC3_LEVEL1 = [
-  
+
   {
     id: 1,
     level: "IC3_LEVEL1",
@@ -143,11 +143,11 @@ export const IC3_LEVEL1 = [
     type: "image-select",  // ← đổi type
     question: "Đâu là ba thiết bị nhập khi được kết nối với máy tính không có màn hình cảm ứng? (Chọn 3)",
     options: [
-        { label: "Bàn phím",  img: "ic3_lv1_q07_opt_a" },
-        { label: "Màn hình",  img: "ic3_lv1_q07_opt_b" },
-        { label: "Chuột",     img: "ic3_lv1_q07_opt_c" },
-        { label: "Máy quét",  img: "ic3_lv1_q07_opt_d" },
-        { label: "Máy in",    img: "ic3_lv1_q07_opt_e" }
+      { label: "Bàn phím", img: "ic3_lv1_q07_opt_a" },
+      { label: "Màn hình", img: "ic3_lv1_q07_opt_b" },
+      { label: "Chuột", img: "ic3_lv1_q07_opt_c" },
+      { label: "Máy quét", img: "ic3_lv1_q07_opt_d" },
+      { label: "Máy in", img: "ic3_lv1_q07_opt_e" }
     ],
     answer: [0, 2, 3],  // ← index của đáp án đúng
     explanation: "Bàn phím, chuột và máy quét là các thiết bị dùng để đưa dữ liệu vào máy tính (Thiết bị nhập/Input devices)."
@@ -219,7 +219,7 @@ export const IC3_LEVEL1 = [
     },
     explanation: "Hệ điều hành quản lý phần cứng và giao tiếp ngoại vi. Việc tìm kiếm internet hay chỉnh sửa văn bản là công việc của các phần mềm ứng dụng cụ thể (Trình duyệt, Trình soạn thảo)."
   },
-  
+
   {
     id: 11,
     level: "IC3_LEVEL1",
@@ -284,40 +284,40 @@ export const IC3_LEVEL1 = [
     explanation: "Tính năng tự động lưu và điền mật khẩu web do trình duyệt quản lý, bạn có thể bật/tắt nó trong phần cài đặt (Settings) của trình duyệt."
   },
   {
-  id: 14,
-  level: "IC3_LEVEL1",
-  test: 1,
-  category: "HARDWARE",
-  difficulty: "medium",
-  type: "matching",
+    id: 14,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "HARDWARE",
+    difficulty: "medium",
+    type: "matching",
 
-  question:
-    "Hãy kéo và thả từng loại đầu cáp kết nối vào đúng tên gọi tương ứng.",
+    question:
+      "Hãy kéo và thả từng loại đầu cáp kết nối vào đúng tên gọi tương ứng.",
 
-  left: [
-    "ic3_lv1_q14_opt_a",
-    "ic3_lv1_q14_opt_b",
-    "ic3_lv1_q14_opt_c",
-    "ic3_lv1_q14_opt_d"
-  ],
+    left: [
+      "ic3_lv1_q14_opt_a",
+      "ic3_lv1_q14_opt_b",
+      "ic3_lv1_q14_opt_c",
+      "ic3_lv1_q14_opt_d"
+    ],
 
-  right: [
-    "Cáp Lightning (Apple)",
-    "Cáp Micro USB",
-    "Cáp USB-C",
-    "Cáp USB chuẩn A (Standard USB)"
-  ],
+    right: [
+      "Cáp Lightning (Apple)",
+      "Cáp Micro USB",
+      "Cáp USB-C",
+      "Cáp USB chuẩn A (Standard USB)"
+    ],
 
-  answer: {
-    "ic3_lv1_q14_opt_a": "Cáp Lightning (Apple)",
-    "ic3_lv1_q14_opt_b": "Cáp Micro USB",
-    "ic3_lv1_q14_opt_c": "Cáp USB-C",
-    "ic3_lv1_q14_opt_d": "Cáp USB chuẩn A (Standard USB)"
+    answer: {
+      "ic3_lv1_q14_opt_a": "Cáp Lightning (Apple)",
+      "ic3_lv1_q14_opt_b": "Cáp Micro USB",
+      "ic3_lv1_q14_opt_c": "Cáp USB-C",
+      "ic3_lv1_q14_opt_d": "Cáp USB chuẩn A (Standard USB)"
+    },
+
+    explanation:
+      "Đầu cáp Lightning được sử dụng trên nhiều thiết bị Apple. Đầu Micro USB có dạng hình thang nhỏ. Đầu USB-C có thiết kế đối xứng và có thể cắm theo cả hai chiều. Đầu USB chuẩn A là đầu USB hình chữ nhật truyền thống thường thấy trên máy tính."
   },
-
-  explanation:
-    "Đầu cáp Lightning được sử dụng trên nhiều thiết bị Apple. Đầu Micro USB có dạng hình thang nhỏ. Đầu USB-C có thiết kế đối xứng và có thể cắm theo cả hai chiều. Đầu USB chuẩn A là đầu USB hình chữ nhật truyền thống thường thấy trên máy tính."
-},
   {
     id: 15,
     level: "IC3_LEVEL1",
@@ -440,7 +440,7 @@ export const IC3_LEVEL1 = [
     answer: "Micro USB",
     explanation: "Cáp kết nối chuẩn USB 2.0 (như Micro USB thông thường) có tốc độ băng thông truyền tải dữ liệu tiêu chuẩn tối đa là 480 Mbps."
   },
-  
+
   {
     id: 21,
     level: "IC3_LEVEL1",
@@ -631,43 +631,43 @@ export const IC3_LEVEL1 = [
     explanation: "Ngày sinh và Nơi sinh là các thông tin định danh pháp lý rất quan trọng giúp cấu thành PII. Màu mắt là đặc điểm sinh học phổ biến, không dùng để xác minh danh tính cá nhân bảo mật trực tuyến."
   },
   {
-  id: 29,
-  level: "IC3_LEVEL1",
-  test: 1,
-  category: "HARDWARE",
-  difficulty: "hard",
-  type: "matching",
+    id: 29,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "HARDWARE",
+    difficulty: "hard",
+    type: "matching",
 
-  question:
-    "Quan sát hình ảnh và thực hiện kéo thả chính xác từng loại cổng kết nối với tên gọi tương ứng của chúng.",
+    question:
+      "Quan sát hình ảnh và thực hiện kéo thả chính xác từng loại cổng kết nối với tên gọi tương ứng của chúng.",
 
-  left: [
-    "ic3_lv1_q29_opt_a",
-    "ic3_lv1_q29_opt_b",
-    "ic3_lv1_q29_opt_c",
-    "ic3_lv1_q29_opt_d",
-    "ic3_lv1_q29_opt_e"
-  ],
+    left: [
+      "ic3_lv1_q29_opt_a",
+      "ic3_lv1_q29_opt_b",
+      "ic3_lv1_q29_opt_c",
+      "ic3_lv1_q29_opt_d",
+      "ic3_lv1_q29_opt_e"
+    ],
 
-  right: [
-    "Audio Port",
-    "USB Port",
-    "HDMI Port",
-    "Display Port",
-    "Ethernet Port"
-  ],
+    right: [
+      "Audio Port",
+      "USB Port",
+      "HDMI Port",
+      "Display Port",
+      "Ethernet Port"
+    ],
 
-  answer: {
-    "ic3_lv1_q29_opt_a": "HDMI Port",
-    "ic3_lv1_q29_opt_b": "Ethernet Port",
-    "ic3_lv1_q29_opt_c": "Audio Port", 
-    "ic3_lv1_q29_opt_d": "Display Port",
-    "ic3_lv1_q29_opt_e": "USB Port"
+    answer: {
+      "ic3_lv1_q29_opt_a": "HDMI Port",
+      "ic3_lv1_q29_opt_b": "Ethernet Port",
+      "ic3_lv1_q29_opt_c": "Audio Port",
+      "ic3_lv1_q29_opt_d": "Display Port",
+      "ic3_lv1_q29_opt_e": "USB Port"
+    },
+
+    explanation:
+      "Audio Port là cổng âm thanh 3.5mm dạng tròn. USB Port là cổng USB hình chữ nhật dùng để kết nối thiết bị ngoại vi. HDMI Port dùng để truyền hình ảnh và âm thanh kỹ thuật số. Display Port là cổng xuất hình ảnh thường thấy trên máy tính và màn hình hiện đại. Ethernet Port là cổng mạng RJ45 dùng để kết nối mạng có dây."
   },
-
-  explanation:
-    "Audio Port là cổng âm thanh 3.5mm dạng tròn. USB Port là cổng USB hình chữ nhật dùng để kết nối thiết bị ngoại vi. HDMI Port dùng để truyền hình ảnh và âm thanh kỹ thuật số. Display Port là cổng xuất hình ảnh thường thấy trên máy tính và màn hình hiện đại. Ethernet Port là cổng mạng RJ45 dùng để kết nối mạng có dây."
-},
   {
     id: 30,
     level: "IC3_LEVEL1",
@@ -687,7 +687,7 @@ export const IC3_LEVEL1 = [
     answer: "Lịch sử của người dùng không được lưu trữ",
     explanation: "Duyệt web riêng tư đảm bảo các thông tin như lịch sử duyệt web, cookie và dữ liệu biểu mẫu không bị ghi lại cục bộ sau khi đóng cửa sổ."
   },
-  
+
   {
     id: 31,
     level: "IC3_LEVEL1",
@@ -916,43 +916,43 @@ export const IC3_LEVEL1 = [
     },
     explanation: "iOS và Mac OS độc quyền của Apple; Windows phát triển bởi Microsoft; Android và Chrome OS thuộc quyền quản lý của Google."
   },
- 
+
   // --- 5 CÂU CUỐI CỦA TEST 1 ---
   {
-  id: 41,
-  level: "IC3_LEVEL1",
-  test: 1,
-  category: "HARDWARE",
-  difficulty: "medium",
-  type: "matching",
+    id: 41,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "HARDWARE",
+    difficulty: "medium",
+    type: "matching",
 
-  question:
-    "Quan sát hình ảnh và thực hiện kéo thả chính xác từng linh kiện phần cứng máy tính vào tên gọi tương ứng.",
+    question:
+      "Quan sát hình ảnh và thực hiện kéo thả chính xác từng linh kiện phần cứng máy tính vào tên gọi tương ứng.",
 
-  left: [
-    "ic3_lv1_q41_opt_a",
-    "ic3_lv1_q41_opt_b",
-    "ic3_lv1_q41_opt_c",
-    "ic3_lv1_q41_opt_d"
-  ],
+    left: [
+      "ic3_lv1_q41_opt_a",
+      "ic3_lv1_q41_opt_b",
+      "ic3_lv1_q41_opt_c",
+      "ic3_lv1_q41_opt_d"
+    ],
 
-  right: [
-    "Bo mạch chủ (Motherboard)",
-    "Ổ đĩa cứng (HDD)",
-    "Ổ cứng thể rắn (SSD)",
-    "Bộ xử lý trung tâm (CPU)"
-  ],
+    right: [
+      "Bo mạch chủ (Motherboard)",
+      "Ổ đĩa cứng (HDD)",
+      "Ổ cứng thể rắn (SSD)",
+      "Bộ xử lý trung tâm (CPU)"
+    ],
 
-  answer: {
-    "ic3_lv1_q41_opt_a": "Bo mạch chủ (Motherboard)",
-    "ic3_lv1_q41_opt_b": "Ổ đĩa cứng (HDD)",
-    "ic3_lv1_q41_opt_c": "Ổ cứng thể rắn (SSD)",
-    "ic3_lv1_q41_opt_d": "Bộ xử lý trung tâm (CPU)"
+    answer: {
+      "ic3_lv1_q41_opt_a": "Bo mạch chủ (Motherboard)",
+      "ic3_lv1_q41_opt_b": "Ổ đĩa cứng (HDD)",
+      "ic3_lv1_q41_opt_c": "Ổ cứng thể rắn (SSD)",
+      "ic3_lv1_q41_opt_d": "Bộ xử lý trung tâm (CPU)"
+    },
+
+    explanation:
+      "Bo mạch chủ (Motherboard) là bảng mạch chính kết nối và cho phép các linh kiện trong máy tính giao tiếp với nhau. Ổ đĩa cứng (HDD) lưu trữ dữ liệu bằng đĩa từ cơ học. Ổ cứng thể rắn (SSD) sử dụng bộ nhớ flash, cho tốc độ truy xuất nhanh hơn HDD. Bộ xử lý trung tâm (CPU) là thành phần thực hiện các phép tính và xử lý lệnh của máy tính."
   },
-
-  explanation:
-    "Bo mạch chủ (Motherboard) là bảng mạch chính kết nối và cho phép các linh kiện trong máy tính giao tiếp với nhau. Ổ đĩa cứng (HDD) lưu trữ dữ liệu bằng đĩa từ cơ học. Ổ cứng thể rắn (SSD) sử dụng bộ nhớ flash, cho tốc độ truy xuất nhanh hơn HDD. Bộ xử lý trung tâm (CPU) là thành phần thực hiện các phép tính và xử lý lệnh của máy tính."
-},
   {
     id: 42,
     level: "IC3_LEVEL1",
@@ -1146,7 +1146,7 @@ export const IC3_LEVEL1 = [
     answer: "Dấu ngã (~)",
     explanation: "Theo quy chuẩn tìm kiếm nâng cao (như của Google trước đây), dấu ngã (~) đặt trước từ khóa dùng để yêu cầu hệ thống tìm kiếm cả từ khóa đó và các từ đồng nghĩa (synonyms) của nó."
   },
-  
+
   {
     id: 51, // Tương ứng Câu 6 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
@@ -1339,7 +1339,7 @@ export const IC3_LEVEL1 = [
     ],
     explanation: "Đánh giá độ tin cậy của một nguồn thông tin trên mạng dựa trên 3 trụ cột chính: Uy tín chuyên môn của tác giả, Nguồn gốc xuất xứ dữ liệu, và Tính cập nhật (Thời gian xuất bản/chỉnh sửa mới nhất)."
   },
-  
+
   {
     id: 61, // Tương ứng Câu 16 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
@@ -1566,7 +1566,7 @@ export const IC3_LEVEL1 = [
     },
     explanation: "Luật bản quyền bảo vệ rất nhiều loại hình tác phẩm (văn học, phần mềm, âm nhạc, mã nguồn,...). Bản quyền tự động hình thành ngay khi tác phẩm được sáng tạo và thể hiện dưới một hình thức vật chất nhất định, không bắt buộc phải đăng ký mới có quyền."
   },
-  
+
   {
     id: 71, // Tương ứng Câu 26 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
@@ -1787,7 +1787,7 @@ export const IC3_LEVEL1 = [
     answer: "Hiển thị thông báo xung đột, đánh dấu các phiên bản thay đổi và cho phép người sở hữu (Owner) lựa chọn giữ lại phiên bản phù hợp",
     explanation: "Các ứng dụng đám mây hiện đại khi gặp xung đột chỉnh sửa đồng thời (Edit conflict) sẽ đánh dấu ghi vết phiên bản và cung cấp giao diện trực quan để người dùng kiểm duyệt, so sánh, đưa ra quyết định giữ lại nội dung chính xác nhất."
   },
-  
+
   {
     id: 81, // Tương ứng Câu 34 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
@@ -2006,7 +2006,7 @@ export const IC3_LEVEL1 = [
     answer: "Thiết bị điều chế và giải điều chế (Modem)",
     explanation: "Từ MODEM là viết tắt của Modulator / Demodulator (Bộ điều chế và giải điều chế tín hiệu). Chức năng chính của nó là chuyển đổi qua lại giữa tín hiệu số (Digital) từ máy tính sang tín hiệu tương tự (Analog) của đường truyền viễn thông để truyền đi xa."
   },
- 
+
   {
     id: 91, // Tiếp tục mạch Test 1 - Câu 32 (Ứng xử đúng mực trên mạng)
     level: "IC3_LEVEL1",
@@ -2351,37 +2351,738 @@ export const IC3_LEVEL1 = [
     explanation: "Trong quy tắc ứng xử mạng (Netiquette), việc viết hoa TOÀN BỘ câu chữ tạo cảm giác nặng nề, giống như bạn đang quát tháo thô bạo vào mặt người nghe, cần tuyệt đối tránh trong giao tiếp văn minh."
   },
   {
-  id: 106,
-  level: "IC3_LEVEL1",
-  test: 2,
-  category: "SOFTWARE",
-  difficulty: "easy",
-  type: "matching",
+    id: 106,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "SOFTWARE",
+    difficulty: "easy",
+    type: "matching",
 
-  question:
-    "Quan sát hình ảnh mô phỏng định dạng trang giấy và thực hiện kéo thả vào đúng hướng trang tương ứng.",
+    question:
+      "Quan sát hình ảnh mô phỏng định dạng trang giấy và thực hiện kéo thả vào đúng hướng trang tương ứng.",
 
-  left: [
-    "ic3_lv1_q106_opt_a",
-    "ic3_lv1_q106_opt_b",
-    "ic3_lv1_q106_opt_c"
-  ],
+    left: [
+      "ic3_lv1_q106_opt_a",
+      "ic3_lv1_q106_opt_b",
+      "ic3_lv1_q106_opt_c"
+    ],
 
-  right: [
-    "Khổ dọc (Portrait)",
-    "Khổ ngang (Landscape)",
-    "Khổ dọc (Portrait)"
-  ],
+    right: [
+      "Khổ dọc (Portrait)",
+      "Khổ ngang (Landscape)",
+      "Khổ dọc (Portrait)"
+    ],
 
-  answer: {
-    "ic3_lv1_q106_opt_a": "Khổ dọc (Portrait)",
-    "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)",
-    "ic3_lv1_q106_opt_c": "Khổ dọc (Portrait)"
+    answer: {
+      "ic3_lv1_q106_opt_a": "Khổ dọc (Portrait)",
+      "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)",
+      "ic3_lv1_q106_opt_c": "Khổ dọc (Portrait)"
+    },
+
+    explanation:
+      "Trong soạn thảo văn bản và in ấn, hướng trang giấy gồm hai loại cơ bản: Khổ dọc (Portrait) có chiều cao lớn hơn chiều rộng, còn Khổ ngang (Landscape) có chiều rộng lớn hơn chiều cao."
+  },
+  
+  // ── BỔ SUNG THÊM (56 câu) ─────────────────────────────
+  // ── PHẦN 1: PHẦN CỨNG & PHẦN MỀM ───────────────────────
+  {
+    id: 107, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Phần mềm giao tiếp và cung cấp ___ cho phần cứng.",
+    options: ["Chỉ dẫn (Instructions)", "Phần mềm độc hại (Malware)", "Hỗ trợ (Assistance)", "Đề nghị (Suggestions)"],
+    answer: "Chỉ dẫn (Instructions)",
+    explanation: "Phần mềm (software) đóng vai trò trung gian, cung cấp các chỉ dẫn (instructions) để phần cứng biết cần phải làm gì."
+  },
+  {
+    id: 108, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Để một ứng dụng hoạt động, phần cứng và phần mềm của máy tính phải có chung điểm gì?",
+    options: ["Mã bổ sung (Supplemental Code)", "Mạng (Network)", "Chương trình đặc biệt (Special Program)", "Ngôn ngữ nhị phân (Binary Language)"],
+    answer: "Ngôn ngữ nhị phân (Binary Language)",
+    explanation: "Phần cứng và phần mềm đều hoạt động dựa trên ngôn ngữ nhị phân (0 và 1) — đây là ngôn ngữ duy nhất máy tính có thể hiểu và thực thi."
+  },
+  {
+    id: 109, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "___ liên quan đến máy móc được lập trình để suy nghĩ và thực hiện các hành động như con người.",
+    options: ["Trí tuệ nhân tạo (Artificial Intelligence)", "RNGs", "iRobot", "Hệ thống SCADA"],
+    answer: "Trí tuệ nhân tạo (Artificial Intelligence)",
+    explanation: "Trí tuệ nhân tạo (AI) là lĩnh vực khoa học máy tính tập trung vào việc tạo ra các hệ thống có khả năng suy nghĩ và hành xử giống con người."
+  },
+  {
+    id: 110, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Loại phần mềm nào không cho phép chia sẻ hoặc sửa đổi mã nguồn?",
+    options: ["Closed Source", "Shareware", "Public Domain", "Freeware"],
+    answer: "Closed Source",
+    explanation: "Phần mềm Closed Source (mã nguồn đóng) không công khai mã nguồn; người dùng không được phép xem, chỉnh sửa hay phân phối lại mã."
+  },
+  {
+    id: 111, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Loại phần mềm nào sau đây không được cấp phép, không được bảo vệ bản quyền?",
+    options: ["Phần mềm miễn phí (Freeware)", "Miền công cộng (Public Domain)", "Copyleft", "Cho phép (Permissive)"],
+    answer: "Miền công cộng (Public Domain)",
+    explanation: "Phần mềm Public Domain không có bản quyền, không cần cấp phép — bất kỳ ai cũng có thể dùng, sửa đổi hay phân phối tự do."
+  },
+  {
+    id: 112, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Loại giấy phép kĩ thuật số nào thường cho phép sử dụng miễn phí? (Chọn 2)",
+    options: ["Creative Commons", "Per-seat", "Per-user", "Public Domain", "Site"],
+    answer: ["Creative Commons", "Public Domain"],
+    explanation: "Creative Commons và Public Domain đều cho phép sử dụng tác phẩm miễn phí, mặc dù Creative Commons có thể đi kèm một số điều kiện nhất định."
+  },
+  {
+    id: 113, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào sau đây là lí do cho việc tạo phiên bản (Version) phần mềm? (Chọn 2)",
+    options: [
+      "Cho phép khách hàng nhận ra các phiên bản cập nhật.",
+      "Cho phép các thiết bị máy tính sử dụng ít bộ nhớ hơn.",
+      "Cho phép các nhà bán lẻ tính thêm tiền.",
+      "Cho phép các nhà xuất bản phần mềm theo dõi doanh số bán hàng.",
+      "Cho phép lập trình viên theo dõi các thay đổi."
+    ],
+    answer: ["Cho phép khách hàng nhận ra các phiên bản cập nhật.", "Cho phép lập trình viên theo dõi các thay đổi."],
+    explanation: "Đánh số phiên bản giúp người dùng nhận biết bản mới nhất và giúp nhóm phát triển quản lý lịch sử thay đổi của mã nguồn."
+  },
+  {
+    id: 114, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Tùy chọn nào sau đây được chỉ định cho mỗi phiên bản (Version) phần mềm?",
+    options: ["Mã hóa khác biệt", "Hướng dẫn chuyên đề", "Cài đặt không thể thay đổi", "Tên phiên bản duy nhất"],
+    answer: "Tên phiên bản duy nhất",
+    explanation: "Mỗi phiên bản phần mềm được gán một tên/số phiên bản duy nhất (ví dụ: Windows 11, Chrome 124) để phân biệt với các bản trước và sau."
+  },
+  {
+    id: 115, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Phần mềm phiên bản nào cho phép người dùng truy cập một ứng dụng qua Internet?",
+    options: ["Online", "Wi-Fi", "Local", "Diagnostic"],
+    answer: "Online",
+    explanation: "Phần mềm Online (hay SaaS – Software as a Service) cho phép người dùng truy cập và sử dụng ứng dụng trực tiếp qua trình duyệt Internet mà không cần cài đặt."
+  },
+  {
+    id: 116, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Bạn mua một chương trình phần mềm để thực hiện dự án. Sau khi hoàn thành, một người bạn muốn mượn phần mềm. Bạn không biết việc cho mượn có được phép không. Nơi nào phù hợp nhất để tìm thông tin này?",
+    options: [
+      "Bảng đánh giá phần mềm điện tử (ESRB)",
+      "Danh sách kiểm soát truy nhập (ACL)",
+      "Hệ thống quản lí nội dung (CMS)",
+      "Thỏa thuận giấy phép người dùng cuối (EULA)"
+    ],
+    answer: "Thỏa thuận giấy phép người dùng cuối (EULA)",
+    explanation: "EULA (End User License Agreement) là tài liệu pháp lý quy định rõ quyền và giới hạn sử dụng phần mềm, bao gồm việc có được phép chia sẻ hay chuyển nhượng không."
+  },
+  {
+    id: 117, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "easy",
+    type: "single",
+    question: "Hãy cho biết, phát biểu sau đây là Đúng hay Sai: 'Người dùng có thể làm bất cứ điều gì mà họ muốn sau khi đã cài đặt phần mềm. Họ không bắt buộc phải đọc giấy phép phần mềm.'",
+    options: ["Đúng", "Sai"],
+    answer: "Sai",
+    explanation: "Sai. Phần mềm đi kèm với EULA ràng buộc pháp lý. Người dùng bị giới hạn bởi các điều khoản sử dụng dù có đọc hay không — vi phạm có thể bị khởi kiện."
+  },
+  {
+    id: 118, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Người dùng có thể tìm thấy tính năng phổ biến nào trong phần mềm Adobe? (Chọn 3)",
+    options: ["Toolbox", "Dialog Box", "Task Ribbon", "Options Bar", "Menu Bar"],
+    answer: ["Toolbox", "Options Bar", "Menu Bar"],
+    explanation: "Hầu hết phần mềm Adobe (Photoshop, Illustrator…) đều có ba thành phần giao diện chính: Toolbox (hộp công cụ), Options Bar (thanh tùy chọn) và Menu Bar (thanh menu)."
+  },
+  {
+    id: 119, level: "IC3_LEVEL1", test: 1,
+    category: "SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Microsoft Office giúp bạn dễ dàng sử dụng các tính năng phổ biến trên Word, Excel và PowerPoint. Giao diện người dùng nào giúp dễ dàng dùng các tính năng chung trên các ứng dụng Microsoft Office?",
+    options: ["Panels", "Ribbon", "Task Bar", "Options Menu"],
+    answer: "Ribbon",
+    explanation: "Ribbon là thanh công cụ dải băng xuất hiện đồng nhất trên tất cả ứng dụng Microsoft Office, giúp người dùng dễ tìm và sử dụng các tính năng phổ biến."
   },
 
-  explanation:
-    "Trong soạn thảo văn bản và in ấn, hướng trang giấy gồm hai loại cơ bản: Khổ dọc (Portrait) có chiều cao lớn hơn chiều rộng, còn Khổ ngang (Landscape) có chiều rộng lớn hơn chiều cao."
-}
- 
+  // ── PHẦN 2: HỆ ĐIỀU HÀNH & CÀI ĐẶT ────────────────────
+  {
+    id: 120, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    type: "multiple",
+    question: "Tại sao người dùng cần biết hệ điều hành và phiên bản đang dùng? (Chọn 2)",
+    options: [
+      "Các bản cập nhật phiên bản khả dụng",
+      "Các tác vụ khác nhau giữa các hệ điều hành",
+      "Phần mềm có giá đắt",
+      "Nhiều ứng dụng miễn phí"
+    ],
+    answer: ["Các bản cập nhật phiên bản khả dụng", "Các tác vụ khác nhau giữa các hệ điều hành"],
+    explanation: "Biết phiên bản hệ điều hành giúp người dùng cài đúng bản cập nhật bảo mật và hiểu rằng các thao tác có thể khác nhau giữa Windows, macOS, Linux..."
+  },
+  {
+    id: 121, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang gặp sự cố với máy tính Windows. Trước khi liên hệ hỗ trợ, bạn cần thu thập thông tin về bộ xử lý, RAM và phiên bản hệ điều hành. Tùy chọn nào giúp bạn tìm thấy thông tin hệ thống này?",
+    options: ["File > Info", "Desktop > System Info", "Settings > About", "Settings > System Info"],
+    answer: "Settings > About",
+    explanation: "Trên Windows, vào Settings > System > About để xem đầy đủ thông tin thiết bị: tên, CPU, RAM, phiên bản Windows và kiến trúc hệ thống."
+  },
+  {
+    id: 122, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    image_key: "ic3_lv1_q16_win_settings",
+    type: "image-select",
+    question: "Bạn cần tìm phiên bản Windows máy tính đang chạy. Bạn nên thực hiện hành động này ở khu vực nào của cửa sổ Cài đặt (Settings)?",
+    options: [
+      { label: "Hệ thống (System)", img: "ic3_lv1_q16_opt_system" },
+      { label: "Thiết bị (Devices)", img: "ic3_lv1_q16_opt_devices" },
+      { label: "Điện thoại (Phone)", img: "ic3_lv1_q16_opt_phone" },
+      { label: "Ứng dụng (Apps)", img: "ic3_lv1_q16_opt_apps" }
+    ],
+    answer: 0,
+    explanation: "Biểu tượng 'Hệ thống (System)' trong Settings chứa mục 'About' hiển thị phiên bản Windows, tên thiết bị và thông số phần cứng cơ bản."
+  },
+  {
+    id: 123, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    image_key: "ic3_lv1_q17_sysinfo",
+    type: "image-select",
+    question: "Trong hình ảnh System Information sau đây, thông tin nào dùng để xác định số kiểu máy (Model Number) của PC?",
+    options: [
+      { label: "10.0.18363 Build 18363", img: "ic3_lv1_q17_opt_a" },
+      { label: "x64-based PC", img: "ic3_lv1_q17_opt_b" },
+      { label: "81Y6", img: "ic3_lv1_q17_opt_c" },
+      { label: "UEFI", img: "ic3_lv1_q17_opt_d" }
+    ],
+    answer: 2,
+    explanation: "Trong cửa sổ System Information, mục 'System Model' hiển thị Model Number do nhà sản xuất quy định. Trong hình, giá trị đó là '81Y6'."
+  },
+  {
+    id: 124, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "easy",
+    type: "single",
+    question: "Hãy chọn từ thích hợp: 'Số kiểu máy tính (Computer Model Number) là một số được cá nhân hóa do nhà sản xuất ___ của nó cấp cho một máy tính.'",
+    options: ["Model", "OS", "Software", "Hardware"],
+    answer: "Hardware",
+    explanation: "Model Number được nhà sản xuất phần cứng (Hardware manufacturer) ấn định cho từng dòng máy cụ thể, không phải do phần mềm hay hệ điều hành tạo ra."
+  },
+  {
+    id: 125, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang sử dụng Microsoft Word trên Windows 10 để viết bài về công ty 'ABusiness' (bắt đầu bằng 2 chữ hoa). Mỗi khi gõ tên công ty, phần mềm tự sửa chữ in hoa. Bạn thay đổi tùy chọn này ở đâu?",
+    options: [
+      "Trong Language Preference của Office",
+      "Trong cài đặt Grammar & Refinements",
+      "Trong các tùy chọn hệ điều hành của máy tính",
+      "Trong AutoCorrect Options"
+    ],
+    answer: "Trong AutoCorrect Options",
+    explanation: "AutoCorrect Options trong Word cho phép tùy chỉnh hoặc tắt tính năng tự động sửa chữ viết hoa, bao gồm cả việc bỏ qua các từ viết hoa đặc biệt."
+  },
+  {
+    id: 126, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "easy",
+    type: "single",
+    question: "Bạn đang sử dụng chương trình mới lần đầu tiên và cần lưu công việc. Dựa trên chuẩn phần mềm phổ biến, bạn nên tìm tính năng Save ở menu nào?",
+    options: ["View", "Help", "File", "Share", "Edit"],
+    answer: "File",
+    explanation: "Theo chuẩn giao diện phần mềm (Windows/macOS), lệnh Save và Save As luôn nằm trong menu File — đây là quy ước chung cho hầu hết mọi ứng dụng."
+  },
+  {
+    id: 127, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    type: "single",
+    question: "Bạn tuỳ chỉnh Google Chrome và muốn đưa Chrome về trạng thái mặc định bằng một lệnh trong menu Settings. Bạn nên chọn lệnh nào?",
+    options: [
+      "On startup (khi khởi động)",
+      "You and Google (bạn và Google)",
+      "Appearance (hình thức hiển thị)",
+      "Reset and clean up (đặt lại và dọn dẹp)"
+    ],
+    answer: "Reset and clean up (đặt lại và dọn dẹp)",
+    explanation: "Tùy chọn 'Reset and clean up' trong Settings của Chrome cho phép đặt lại toàn bộ cài đặt về mặc định ban đầu chỉ với vài bước."
+  },
+  {
+    id: 128, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    type: "single",
+    question: "Máy tính dùng Windows 10 đã cài Edge, Internet Explorer và Chrome. Mỗi khi nhấp link trong Email thì trang Web mở trong Edge. Bạn muốn thay đổi để link mở trong Chrome. Tùy chọn nào phù hợp nhất?",
+    options: [
+      "Các ứng dụng mặc định (Default Apps)",
+      "Trình quản lí tác vụ (Task Manager)",
+      "Các thông báo (Notifications)",
+      "Các cài đặt quyền riêng tư cho Email"
+    ],
+    answer: "Các ứng dụng mặc định (Default Apps)",
+    explanation: "Default Apps trong Windows Settings cho phép chọn trình duyệt mặc định mở link từ Email và các nguồn khác."
+  },
+  {
+    id: 129, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    type: "single",
+    question: "Điện thoại thông minh đã cài Firefox, Chrome và trình duyệt của nhà sản xuất. Tất cả trang Web đang mở trong trình duyệt của nhà sản xuất. Trên Android hoặc iPhone, tùy chọn nào giúp thay đổi trình duyệt mặc định?",
+    options: [
+      "Trong cài đặt của phần trình duyệt",
+      "Thiết lập Email",
+      "Quản lý công việc (Task Manager)",
+      "Trong cửa hàng ứng dụng trên điện thoại"
+    ],
+    answer: "Trong cài đặt của phần trình duyệt",
+    explanation: "Trên Android/iOS, vào Settings của thiết bị, tìm mục Browser hoặc Default Browser để chọn trình duyệt mặc định cho toàn bộ hệ thống."
+  },
+  {
+    id: 130, level: "IC3_LEVEL1", test: 1,
+    category: "OPERATING_SYSTEM", difficulty: "medium",
+    type: "single",
+    question: "Trước khi đặt lại máy Mac, người dùng phải đăng xuất khỏi tất cả ứng dụng đã cấp phép. Người dùng nên chọn tùy chọn nào để bắt đầu quá trình này?",
+    options: ["Finder", "Settings", "System Preferences", "Disk Utility"],
+    answer: "System Preferences",
+    explanation: "Trên macOS, System Preferences là nơi quản lý tài khoản Apple ID và đăng xuất khỏi các dịch vụ — bước cần thiết trước khi reset máy."
+  },
+
+  // ── PHẦN 3: THIẾT BỊ & PHẦN CỨNG ───────────────────────
+  {
+    id: 131, level: "IC3_LEVEL1", test: 1,
+    category: "HARDWARE", difficulty: "medium",
+    type: "matching",
+    question: "Xác định xem các thiết bị kĩ thuật số có đáp ứng các yêu cầu sau đây không. Chọn Đúng hoặc Sai cho mỗi phát biểu.",
+    left: [
+      "Điện thoại thông minh có khả năng kiểm tra Email, gửi tin nhắn và nhận cuộc gọi thoại mà không cần Wi-Fi.",
+      "Một máy tính bảng là đủ để hợp nhất và chỉnh sửa các video lớn cho trang Web của khách hàng.",
+      "Máy tính xách tay có thể di động để dùng trong lớp học, truy cập đám mây và chạy hầu hết ứng dụng văn phòng."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Điện thoại thông minh có khả năng kiểm tra Email, gửi tin nhắn và nhận cuộc gọi thoại mà không cần Wi-Fi.": "Đúng",
+      "Một máy tính bảng là đủ để hợp nhất và chỉnh sửa các video lớn cho trang Web của khách hàng.": "Sai",
+      "Máy tính xách tay có thể di động để dùng trong lớp học, truy cập đám mây và chạy hầu hết ứng dụng văn phòng.": "Đúng"
+    },
+    explanation: "Điện thoại dùng được mạng di động (4G/5G) nên không cần Wi-Fi. Tablet thường không đủ mạnh để xử lý video nặng. Laptop đáp ứng đủ các nhu cầu di động, đám mây và ứng dụng."
+  },
+  {
+    id: 132, level: "IC3_LEVEL1", test: 1,
+    category: "HARDWARE", difficulty: "easy",
+    type: "single",
+    question: "Kích thước tập tin nào sau đây là lớn nhất?",
+    options: ["16 gigabyte (GB)", "3 petabyte (PB)", "1,44 megabyte (MB)", "640 kilobyte (KB)", "2 terabyte (TB)"],
+    answer: "3 petabyte (PB)",
+    explanation: "Thứ tự đơn vị lưu trữ tăng dần: KB < MB < GB < TB < PB. Petabyte lớn hơn Terabyte 1.000 lần, nên 3 PB là lớn nhất trong danh sách."
+  },
+  {
+    id: 133, level: "IC3_LEVEL1", test: 1,
+    category: "HARDWARE", difficulty: "medium",
+    type: "single",
+    question: "Kích thước tập tin nào yêu cầu nhiều dung lượng lưu trữ hơn?",
+    options: ["32 Gigabytes (GB)", "128 Megabytes (MB)", "4 Petabytes (PB)", "8 Terabytes (TB)"],
+    answer: "4 Petabytes (PB)",
+    explanation: "4 PB = 4.000 TB, lớn hơn nhiều so với 8 TB. Petabyte là đơn vị lưu trữ rất lớn, thường dùng cho hệ thống lưu trữ doanh nghiệp và trung tâm dữ liệu."
+  },
+  {
+    id: 134, level: "IC3_LEVEL1", test: 1,
+    category: "HARDWARE", difficulty: "medium",
+    type: "matching",
+    question: "Ghép nối từng nhu cầu cụ thể với thiết bị kĩ thuật số thích hợp nhất.",
+    left: [
+      "Có khả năng hợp nhất và chỉnh sửa các Video lớn cho trang Web của khách hàng.",
+      "Có khả năng kiểm tra Email, gửi tin nhắn và nhận cuộc gọi thoại mà không cần Wi-Fi.",
+      "Tính di động để dùng trong lớp học, hỗ trợ ghi chú, truy cập đám mây và chạy hầu hết ứng dụng văn phòng."
+    ],
+    right: ["Máy tính để bàn (Desktop Computer)", "Smartphone", "Tablet"],
+    answer: {
+      "Có khả năng hợp nhất và chỉnh sửa các Video lớn cho trang Web của khách hàng.": "Máy tính để bàn (Desktop Computer)",
+      "Có khả năng kiểm tra Email, gửi tin nhắn và nhận cuộc gọi thoại mà không cần Wi-Fi.": "Smartphone",
+      "Tính di động để dùng trong lớp học, hỗ trợ ghi chú, truy cập đám mây và chạy hầu hết ứng dụng văn phòng.": "Tablet"
+    },
+    explanation: "Desktop phù hợp xử lý video nặng. Smartphone có SIM nên dùng mạng di động được. Tablet cân bằng giữa di động và hiệu năng cho công việc văn phòng."
+  },
+  {
+    id: 135, level: "IC3_LEVEL1", test: 1,
+    category: "HARDWARE", difficulty: "medium",
+    type: "matching",
+    question: "Bạn cần khắc phục các sự cố trên máy tính và điện thoại. Hãy ghép mỗi vấn đề với cách khắc phục phù hợp.",
+    left: [
+      "Màn hình máy tính bị đóng băng khi đang làm việc với tập tin dự án.",
+      "Màn trập máy ảnh trên điện thoại phát ra âm thanh nhưng bạn không đang chụp ảnh.",
+      "Khi khởi động máy tính, bạn nghe tiếng tích tắc nhịp nhàng bên trong thùng máy.",
+      "Các trang Web hiển thị nội dung chậm khi bạn đang tìm kiếm thông tin trên Internet."
+    ],
+    right: [
+      "Kiểm tra mức sử dụng tài nguyên trên Task Manager.",
+      "Kiểm tra các quyền ứng dụng.",
+      "Kiểm tra hiện tượng mòn đầu đọc/ghi trên ổ đĩa cứng.",
+      "Kiểm tra kết nối mạng."
+    ],
+    answer: {
+      "Màn hình máy tính bị đóng băng khi đang làm việc với tập tin dự án.": "Kiểm tra mức sử dụng tài nguyên trên Task Manager.",
+      "Màn trập máy ảnh trên điện thoại phát ra âm thanh nhưng bạn không đang chụp ảnh.": "Kiểm tra các quyền ứng dụng.",
+      "Khi khởi động máy tính, bạn nghe tiếng tích tắc nhịp nhàng bên trong thùng máy.": "Kiểm tra hiện tượng mòn đầu đọc/ghi trên ổ đĩa cứng.",
+      "Các trang Web hiển thị nội dung chậm khi bạn đang tìm kiếm thông tin trên Internet.": "Kiểm tra kết nối mạng."
+    },
+    explanation: "Màn hình đóng băng → CPU/RAM quá tải → Task Manager. Âm thanh máy ảnh bất thường → ứng dụng đang dùng camera ngầm → kiểm tra quyền. Tiếng tích tắc → ổ cứng có thể hỏng. Web chậm → lỗi mạng."
+  },
+  {
+    id: 136, level: "IC3_LEVEL1", test: 1,
+    category: "HARDWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Người dùng nhấn nút nguồn nhưng máy tính không khởi động. Người dùng có thể thực hiện hành động nào để khắc phục sự cố? (Chọn 3)",
+    options: [
+      "Đảm bảo đã cắm dây nguồn",
+      "Chuyển sang một máy tính mới",
+      "Đảm bảo ổ cắm đang hoạt động",
+      "Xem cầu dao có bị nổ không",
+      "Chờ 24 giờ trước khi thử bật lại máy tính"
+    ],
+    answer: [
+      "Đảm bảo đã cắm dây nguồn",
+      "Đảm bảo ổ cắm đang hoạt động",
+      "Xem cầu dao có bị nổ không"
+    ],
+    explanation: "Trình tự kiểm tra nguồn điện cơ bản: (1) dây nguồn đã cắm chưa, (2) ổ cắm có điện không, (3) cầu dao có bị nhảy không. Đây là các bước troubleshooting đầu tiên trước khi kết luận máy hỏng."
+  },
+  {
+    id: 137, level: "IC3_LEVEL1", test: 1,
+    category: "HARDWARE", difficulty: "medium",
+    type: "single",
+    question: "Ngày nay, các thiết bị có thể trở nên lỗi thời rất nhanh. Người dùng nên làm gì với thiết bị mà họ muốn loại bỏ?",
+    options: ["Lưu trữ cho các thế hệ tương lai", "Tái chế", "Ném đi", "Sử dụng cho một dự án nghệ thuật"],
+    answer: "Tái chế",
+    explanation: "Tái chế thiết bị điện tử đúng cách ngăn kim loại nặng (chì, thủy ngân…) ô nhiễm môi trường và cho phép thu hồi vật liệu có giá trị như vàng, đồng, bạc."
+  },
+
+  // ── PHẦN 4: TRÌNH DUYỆT & TIỆN ÍCH ────────────────────
+  {
+    id: 138, level: "IC3_LEVEL1", test: 1,
+    category: "BROWSER", difficulty: "easy",
+    type: "single",
+    question: "Trình duyệt bạn dùng là Chrome. Bạn muốn thêm tiện ích mở rộng để tự động hiển thị trang Web tiếng Tây Ban Nha bằng tiếng Anh. Tiện ích nào phù hợp?",
+    options: ["Dark Reader", "Google Translate", "Read-a-Loud", "Screencastify"],
+    answer: "Google Translate",
+    explanation: "Google Translate Extension trên Chrome tự động phát hiện và dịch trang Web sang ngôn ngữ bạn chọn, bao gồm dịch tiếng Tây Ban Nha sang tiếng Anh."
+  },
+  {
+    id: 139, level: "IC3_LEVEL1", test: 1,
+    category: "BROWSER", difficulty: "easy",
+    type: "single",
+    question: "Chương trình nào có thể được dùng để đóng một ứng dụng đang bị đóng băng?",
+    options: ["Task Manager", "Windows Update", "Settings", "Finder"],
+    answer: "Task Manager",
+    explanation: "Task Manager (Ctrl+Shift+Esc trên Windows) cho phép xem và kết thúc (End Task) bất kỳ ứng dụng đang không phản hồi nào."
+  },
+  {
+    id: 140, level: "IC3_LEVEL1", test: 1,
+    category: "BROWSER", difficulty: "easy",
+    type: "single",
+    question: "Biểu tượng nào mà một số trình duyệt Web hiển thị ở bên trái thanh địa chỉ để cho biết trang Web an toàn?",
+    options: ["Bell", "Lightbulb", "Lock", "Key"],
+    answer: "Lock",
+    explanation: "Biểu tượng ổ khóa (Lock) xuất hiện khi trang Web dùng HTTPS — kết nối được mã hóa SSL/TLS, bảo vệ dữ liệu giữa trình duyệt và máy chủ."
+  },
+  {
+    id: 141, level: "IC3_LEVEL1", test: 1,
+    category: "BROWSER", difficulty: "easy",
+    type: "single",
+    question: "Người dùng có thể tin tưởng vào tiêu đề URL nào khi nhập thông tin thẻ tín dụng?",
+    options: [".com", "https://", "www.", "http://"],
+    answer: "https://",
+    explanation: "HTTPS (HyperText Transfer Protocol Secure) mã hóa dữ liệu truyền tải, bảo vệ thông tin nhạy cảm như số thẻ tín dụng khỏi bị đánh cắp."
+  },
+
+  // ── PHẦN 5: ĐỊNH DẠNG TẬP TIN ───────────────────────────
+  {
+    id: 142, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "easy",
+    type: "single",
+    question: "Định dạng tập tin Video phổ biến nhất được dùng để đăng lên mạng xã hội là gì?",
+    options: ["MP4", "PRO", "SAV", "JPEG"],
+    answer: "MP4",
+    explanation: "MP4 là định dạng video phổ biến nhất trên mạng xã hội vì nén tốt (file nhỏ), chất lượng cao và được hỗ trợ bởi hầu hết mọi nền tảng và thiết bị."
+  },
+  {
+    id: 143, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "medium",
+    type: "matching",
+    question: "Trước khi phân phối bản ghi âm của bạn, bạn muốn xác định định dạng âm thanh mang lại chất lượng tốt nhất cho kích thước tập tin nhỏ nhất. Ghép từng định dạng với mô tả của nó.",
+    left: [
+      "Có khả năng lưu giữ âm thanh, Video và các phương tiện khác bằng cách chứa dữ liệu chữ không phải mã.",
+      "Là một giải pháp thay thế dựa trên Windows cho loại tệp MP3 phổ biến và thông dụng hơn.",
+      "Thường được sử dụng trên hệ thống Windows.",
+      "Sử dụng tính năng nén giúp tiết kiệm không gian trong khi vẫn duy trì chất lượng gần như hoàn hảo của nguồn âm thanh gốc."
+    ],
+    right: ["MP4", "WMA", "WAV", "MP3"],
+    answer: {
+      "Có khả năng lưu giữ âm thanh, Video và các phương tiện khác bằng cách chứa dữ liệu chữ không phải mã.": "MP4",
+      "Là một giải pháp thay thế dựa trên Windows cho loại tệp MP3 phổ biến và thông dụng hơn.": "WMA",
+      "Thường được sử dụng trên hệ thống Windows.": "WAV",
+      "Sử dụng tính năng nén giúp tiết kiệm không gian trong khi vẫn duy trì chất lượng gần như hoàn hảo của nguồn âm thanh gốc.": "MP3"
+    },
+    explanation: "MP4 là container multimedia, WMA là định dạng Windows thay thế MP3, WAV là định dạng audio chuẩn Windows không nén, MP3 là định dạng nén audio phổ biến nhất toàn cầu."
+  },
+  {
+    id: 144, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "medium",
+    type: "multiple",
+    question: "Loại tập tin WAV thường được dùng cho những loại phương tiện nào? (Chọn 3)",
+    options: ["DVDs", "Social Media Posts", "Web Videos", "CDs", "TV", "Web Pages"],
+    answer: ["DVDs", "CDs", "TV"],
+    explanation: "WAV là định dạng audio không nén chất lượng cao, thường dùng trong sản xuất chuyên nghiệp cho DVD, CD và phát sóng truyền hình — không phù hợp với web do kích thước file lớn."
+  },
+  {
+    id: 145, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "medium",
+    type: "multiple",
+    question: "Tập tin có độ phân giải cao so với tập tin độ phân giải thấp có những đặc điểm nào? (Chọn 3)",
+    options: [
+      "Số lượng Pixel bị giảm",
+      "Thời gian tải xuống lâu hơn",
+      "Thời gian tải xuống ngắn hơn",
+      "Kích thước tập tin lớn hơn",
+      "Độ sắc nét và rõ ràng hơn"
+    ],
+    answer: ["Thời gian tải xuống lâu hơn", "Kích thước tập tin lớn hơn", "Độ sắc nét và rõ ràng hơn"],
+    explanation: "Độ phân giải cao = nhiều pixel hơn = file lớn hơn = tải xuống lâu hơn, nhưng hình ảnh rõ nét, chi tiết hơn."
+  },
+  {
+    id: 146, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "easy",
+    type: "single",
+    question: "Tác dụng của việc tăng độ phân giải hình ảnh trước khi chụp ảnh là gì?",
+    options: [
+      "Kích thước tập tin giảm xuống.",
+      "Hình ảnh bị vỡ nét.",
+      "Kích thước hình ảnh nhỏ hơn.",
+      "Chất lượng hình ảnh được cải thiện."
+    ],
+    answer: "Chất lượng hình ảnh được cải thiện.",
+    explanation: "Tăng độ phân giải (resolution) trước khi chụp ảnh giúp ghi lại nhiều chi tiết hơn, tạo ra ảnh sắc nét và chất lượng cao hơn, mặc dù kích thước file cũng lớn hơn."
+  },
+  {
+    id: 147, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "easy",
+    type: "single",
+    question: "Điều gì xảy ra khi bạn phóng to một hình ảnh Bitmap nhỏ được tải xuống từ trang Web?",
+    options: [
+      "Độ phân giải ảnh giảm xuống.",
+      "Hình ảnh bị vỡ nét.",
+      "Kích thước tập tin ảnh giảm xuống.",
+      "Hình ảnh rõ nét hơn."
+    ],
+    answer: "Hình ảnh bị vỡ nét.",
+    explanation: "Bitmap (ảnh raster) được tạo từ số pixel cố định. Khi phóng to vượt quá kích thước gốc, các pixel bị kéo giãn khiến ảnh trở nên vỡ, mờ nhòe (pixel hóa)."
+  },
+  {
+    id: 148, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang post Video lên trang Web công ty. Người dùng than phiền Video tải quá lâu. Với mỗi hành động, chọn Có nếu hành động giúp tải Video nhanh hơn, ngược lại chọn Không.",
+    left: [
+      "Tăng tốc độ bit (bitrate) của Video.",
+      "Chuyển đổi Video thành HTML5.",
+      "Giảm độ phân giải của Video.",
+      "Thay thế Video bằng phiên bản chưa nén."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Tăng tốc độ bit (bitrate) của Video.": "Không",
+      "Chuyển đổi Video thành HTML5.": "Có",
+      "Giảm độ phân giải của Video.": "Có",
+      "Thay thế Video bằng phiên bản chưa nén.": "Không"
+    },
+    explanation: "Tăng bitrate và dùng phiên bản chưa nén làm file nặng hơn → tải chậm hơn. Chuyển sang HTML5 tối ưu hóa phát video trên web. Giảm độ phân giải giảm kích thước file."
+  },
+  {
+    id: 149, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "easy",
+    type: "single",
+    question: "Hãy cho biết, phát biểu sau đây là Đúng hay Sai: 'Các thiết bị cũ có thể phát nội dung HD tốt tương tự thiết bị mới hơn, vì vậy bạn nên luôn xuất ra định dạng 1080p.'",
+    options: ["Đúng", "Sai"],
+    answer: "Sai",
+    explanation: "Sai. Thiết bị cũ thường không có đủ sức xử lý để phát nội dung HD 1080p mượt mà. Cần xuất video ở độ phân giải phù hợp với thiết bị mục tiêu."
+  },
+  {
+    id: 150, level: "IC3_LEVEL1", test: 1,
+    category: "FILE_FORMAT", difficulty: "medium",
+    type: "single",
+    question: "Định dạng tập tin nào có khả năng chứa âm thanh, Video và các phương tiện khác bằng cách chứa dữ liệu không phải mã (Code)?",
+    options: ["MP4", "WAV", "WMA", "MP3"],
+    answer: "MP4",
+    explanation: "MP4 là định dạng container (container format) có thể chứa nhiều loại dữ liệu: video, audio, phụ đề và metadata — tất cả trong một tập tin duy nhất mà không phải là mã lập trình."
+  },
+
+  // ── PHẦN 6: ĐÁM MÂY & PHIÊN BẢN ────────────────────────
+  {
+    id: 151, level: "IC3_LEVEL1", test: 1,
+    category: "CLOUD_COMPUTING", difficulty: "easy",
+    type: "single",
+    question: "Phát biểu sau đây là Đúng hay Sai: 'Một lợi ích của lập phiên bản đám mây là người dùng có thể lưu trữ nhiều phiên bản của một tập tin.'",
+    options: ["Đúng", "Sai"],
+    answer: "Đúng",
+    explanation: "Cloud Versioning (lập phiên bản đám mây) cho phép lưu lịch sử các lần thay đổi của tập tin, giúp người dùng khôi phục về bất kỳ phiên bản trước đó nào."
+  },
+  {
+    id: 152, level: "IC3_LEVEL1", test: 1,
+    category: "CLOUD_COMPUTING", difficulty: "hard",
+    type: "single",
+    question: "Bạn lưu và chỉnh sửa tệp trên Google Drive với Cloud Versioning bật. Bạn xóa phiên bản trực tiếp (live version) mà không chỉ định số khởi tạo (Generation Number). Kết quả nào xảy ra?",
+    options: [
+      "Một bản sao của phiên bản không hiện hành thay thế phiên bản trực tiếp và nhận số khởi tạo mới.",
+      "Phiên bản trực tiếp bị xóa vĩnh viễn.",
+      "Phiên bản trực tiếp trở thành phiên bản không hiện hành và số khởi tạo được giữ nguyên.",
+      "Phiên bản không hiện hành bị xóa vĩnh viễn."
+    ],
+    answer: "Phiên bản trực tiếp trở thành phiên bản không hiện hành và số khởi tạo được giữ nguyên.",
+    explanation: "Trong Google Cloud Storage với versioning, khi xóa object không chỉ định generation number thì live version trở thành noncurrent version — dữ liệu không bị mất và generation number vẫn giữ nguyên."
+  },
+  {
+    id: 153, level: "IC3_LEVEL1", test: 1,
+    category: "CLOUD_COMPUTING", difficulty: "medium",
+    type: "multiple",
+    question: "Trường hợp nào sẽ tạo ra một phiên bản đám mây mới trong Google Docs? (Chọn 2)",
+    options: [
+      "Xem nội dung của một thư mục",
+      "Tải lên một tập tin mới",
+      "Tải xuống tập tin",
+      "Sao chép một thư mục",
+      "Thêm nhận xét (Comments) vào Google Doc"
+    ],
+    answer: ["Tải lên một tập tin mới", "Thêm nhận xét (Comments) vào Google Doc"],
+    explanation: "Upload file mới hoặc thay đổi nội dung (kể cả thêm comment) đều tạo phiên bản mới trong Google Drive. Chỉ xem, tải xuống hay sao chép không tạo phiên bản mới."
+  },
+
+  // ── PHẦN 7: KHẮC PHỤC SỰ CỐ ────────────────────────────
+  {
+    id: 154, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "medium",
+    type: "single",
+    question: "Bạn cần tìm Driver cho máy tính Windows 10. Trình quản lý thiết bị hiển thị 'thiết bị không xác định' với một số thành phần. Bạn nên làm gì?",
+    options: [
+      "Từ trình quản lý thiết bị, tìm nhanh các thay đổi phần cứng.",
+      "Mua phần mềm cài đặt Driver từ cửa hàng đã bán máy tính.",
+      "Khởi động lại máy tính và dùng công cụ sửa chữa cho Windows 10.",
+      "Dùng số dòng máy (Model Number) để tìm Driver trên trang Web của nhà sản xuất."
+    ],
+    answer: "Dùng số dòng máy (Model Number) để tìm Driver trên trang Web của nhà sản xuất.",
+    explanation: "Cách hiệu quả nhất để tìm đúng Driver là vào trang Web chính thức của nhà sản xuất, tìm theo Model Number của máy để tải đúng phiên bản Driver tương thích."
+  },
+  {
+    id: 155, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang đi du lịch, điện thoại không nhận được tin nhắn nhiều giờ và không thể thực hiện cuộc gọi đi. Bước đầu tiên cần làm là gì?",
+    options: [
+      "Tắt và bật lại điện thoại của bạn.",
+      "Gọi hỗ trợ kỹ thuật.",
+      "Nếu bạn có thẻ SIM, hãy thay thế nó.",
+      "Thực hiện khôi phục cài đặt gốc (Factory Reset)."
+    ],
+    answer: "Tắt và bật lại điện thoại của bạn.",
+    explanation: "Restart (tắt và bật lại) là bước đầu tiên trong mọi quy trình troubleshooting — giải quyết hầu hết sự cố kết nối tạm thời mà không làm mất dữ liệu."
+  },
+  {
+    id: 156, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "medium",
+    type: "single",
+    question: "Hình ảnh và văn bản trên màn hình laptop của bạn xuất hiện méo mó. Việc đầu tiên bạn nên làm là gì?",
+    options: [
+      "Gọi hỗ trợ kỹ thuật.",
+      "Gắn thêm một màn hình ngoài.",
+      "Kiểm tra cài đặt hiển thị.",
+      "Tải xuống tài liệu hướng dẫn sử dụng của máy tính."
+    ],
+    answer: "Kiểm tra cài đặt hiển thị.",
+    explanation: "Màn hình méo thường do cài đặt độ phân giải hoặc tần số quét (refresh rate) không phù hợp. Kiểm tra Display Settings trước khi xem xét lỗi phần cứng."
+  },
+  {
+    id: 157, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "medium",
+    type: "single",
+    question: "Bạn lên kế hoạch bán máy tính. Bạn xóa các tập tin cá nhân trên ổ cứng và dọn sạch Recycle Bin. Trên ổ cứng của bạn còn lại dữ liệu nào?",
+    options: [
+      "Tham chiếu đến các tập tin trên ổ cứng vẫn còn. Dữ liệu tập tin bị xóa hoàn toàn.",
+      "Tất cả. Tham chiếu đến các tập tin vẫn còn. Dữ liệu tập tin vẫn còn.",
+      "Tham chiếu đến các tập tin sẽ bị xóa. Dữ liệu tập tin vẫn còn.",
+      "Không còn gì. Tham chiếu và dữ liệu tập tin đều bị xóa hoàn toàn."
+    ],
+    answer: "Tham chiếu đến các tập tin sẽ bị xóa. Dữ liệu tập tin vẫn còn.",
+    explanation: "Khi xóa và dọn Recycle Bin, Windows chỉ xóa bảng tham chiếu (file allocation table) nhưng dữ liệu thực tế vẫn còn trên ổ cứng cho đến khi bị ghi đè. Cần dùng phần mềm xóa an toàn trước khi bán máy."
+  },
+  {
+    id: 158, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "medium",
+    type: "single",
+    question: "Bạn bấm nút nguồn nhưng máy Mac không khởi động. Bạn đã khắc phục xong. Trước khi đặt lại máy Mac để bán, bạn nên bắt đầu bằng việc vào đâu?",
+    options: ["Finder", "Settings", "System Preferences", "Disk Utility"],
+    answer: "System Preferences",
+    explanation: "Trên macOS, cần vào System Preferences > Apple ID để đăng xuất khỏi iCloud và thu hồi cấp phép phần mềm trước khi reset và bán máy."
+  },
+  {
+    id: 159, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "medium",
+    type: "single",
+    question: "Bạn làm việc như trợ lí quản trị mạng trong phòng lab. Bạn đến sớm và phát hiện không truy cập được Internet. Thứ tự bước khắc phục sự cố mạng nào sau đây là đúng?",
+    options: [
+      "Kiểm tra phần cứng → ipconfig → ping/tracert → kiểm tra DNS → kiểm tra Virus → Liên hệ ISP",
+      "Liên hệ ISP → Kiểm tra phần cứng → ipconfig → ping → DNS → Virus",
+      "Kiểm tra Virus → DNS → ipconfig → ping → phần cứng → ISP",
+      "ipconfig → DNS → Virus → phần cứng → ping → ISP"
+    ],
+    answer: "Kiểm tra phần cứng → ipconfig → ping/tracert → kiểm tra DNS → kiểm tra Virus → Liên hệ ISP",
+    explanation: "Quy trình troubleshooting mạng chuẩn: bắt đầu từ lớp vật lý (phần cứng) → kiểm tra IP (ipconfig) → kiểm tra kết nối (ping/tracert) → DNS → bảo mật (antivirus) → liên hệ ISP nếu tất cả đều ổn."
+  },
+  {
+    id: 160, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "medium",
+    type: "multiple",
+    question: "Loại dữ liệu nào sẽ bị xóa khi thiết bị di động Android được khôi phục cài đặt gốc? (Chọn 3)",
+    options: [
+      "Các hình ảnh",
+      "Ứng dụng nhắn tin văn bản",
+      "Trình bảo vệ màn hình được tải sẵn",
+      "Thông tin tài khoản Google của người dùng",
+      "Các ứng dụng đã tải xuống"
+    ],
+    answer: ["Các hình ảnh", "Thông tin tài khoản Google của người dùng", "Các ứng dụng đã tải xuống"],
+    explanation: "Factory reset xóa toàn bộ dữ liệu người dùng: ảnh, ứng dụng đã cài, tài khoản Google. Phần mềm hệ thống được cài sẵn (như trình bảo vệ màn hình gốc) không bị ảnh hưởng."
+  },
+  {
+    id: 161, level: "IC3_LEVEL1", test: 1,
+    category: "TROUBLESHOOTING", difficulty: "easy",
+    type: "single",
+    question: "Tùy chọn nào là hành động giúp xóa dữ liệu cá nhân khỏi thiết bị?",
+    options: ["Quét nhanh", "Cập nhật phần mềm", "Tắt thiết bị", "Khôi phục cài đặt gốc"],
+    answer: "Khôi phục cài đặt gốc",
+    explanation: "Factory Reset (khôi phục cài đặt gốc) xóa toàn bộ dữ liệu cá nhân và đưa thiết bị về trạng thái xuất xưởng — cần thiết trước khi bán hoặc chuyển nhượng thiết bị."
+  },
+
+  // ── PHẦN 8: MÔI TRƯỜNG & XÃ HỘI ────────────────────────
+  {
+    id: 162, level: "IC3_LEVEL1", test: 1,
+    category: "TECHNOLOGY_SOCIETY", difficulty: "medium",
+    type: "multiple",
+    question: "Trung tâm dữ liệu điện toán đám mây tác động tiêu cực đến môi trường theo cách nào? (Chọn 2)",
+    options: [
+      "Sử dụng chất làm mát hóa học, thường được làm từ các vật liệu nguy hiểm.",
+      "Sử dụng một lượng điện đáng kể được lấy từ các nguồn không thể tái tạo.",
+      "Đổ nhiệt thải vào các nguồn nước gần đó, làm tăng nhiệt vượt quá mức sinh vật thủy sinh có thể tồn tại.",
+      "Được xây dựng ở vùng khí hậu lạnh, gây tổn hại đến môi trường sống của gấu Bắc Cực và động vật hoang dã."
+    ],
+    answer: [
+      "Sử dụng chất làm mát hóa học, thường được làm từ các vật liệu nguy hiểm.",
+      "Được xây dựng ở vùng khí hậu lạnh, gây tổn hại đến môi trường sống của gấu Bắc Cực và động vật hoang dã."
+    ],
+    explanation: "Hai tác động môi trường chính của data center: (1) dùng chất làm mát độc hại và (2) đặt ở vùng lạnh để tận dụng nhiệt độ tự nhiên, ảnh hưởng đến hệ sinh thái địa phương."
+  }
+
 ];
 export default IC3_LEVEL1;
