@@ -2435,28 +2435,67 @@ async function triggerRemoteVerification(courseName) {
                
                <!-- Bước 2: Chọn Mode -->
                <div class="mode-selection-overlay" id="modeSelectBox" style="${modeBoxStyle}">
-                   <h2 style="color:var(--text); margin-bottom:6px;">CHỌN CHẾ ĐỘ HỌC TẬP</h2>
-                   <p style="font-size:0.85rem; margin-bottom:20px; font-weight:bold;" id="modeWelcomeTxt">Đang kiểm tra quyền truy cập...</p>
-                   <button class="mode-btn" onclick="launchEngine(&apos;practice&apos;)">
-                       📖 Chế độ Ôn luyện tự do
-                       <span class="lock-badge" id="lock-practice"> </span>
+                   <h2 style="color:var(--text); margin-bottom:4px; font-size:1.2rem;">CHỌN CHẾ ĐỘ HỌC TẬP</h2>
+                   <p style="font-size:0.82rem; margin-bottom:18px; font-weight:700; color:var(--cyan);" id="modeWelcomeTxt">Đang kiểm tra quyền truy cập...</p>
+
+                   <!-- ROW 1: ÔN LUYỆN -->
+                   <div style="width:100%; max-width:420px; text-align:left; margin-bottom:6px;">
+                       <span style="font-size:0.7rem; font-weight:800; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">📖 Ôn luyện</span>
+                   </div>
+                   <button class="mode-btn" onclick="launchEngine(&apos;topic&apos;)" id="btn-mode-topic">
+                       📌 Ôn luyện theo chủ đề
+                       <span class="lock-badge" id="lock-topic">Chọn 1 chủ đề · 15 câu · Có đáp án</span>
                    </button>
-                   <button class="mode-btn" onclick="launchEngine(&apos;exam&apos;)">
-                       ⏱️ Chế độ Thi thử thực chiến
-                       <span class="lock-badge" id="lock-exam"> </span>
+                   <button class="mode-btn" onclick="launchEngine(&apos;practice&apos;)" id="btn-mode-practice">
+                       🔀 Ôn luyện tự do (hỗn hợp)
+                       <span class="lock-badge" id="lock-practice">Ngẫu nhiên từ tất cả chủ đề · 15 câu · Có đáp án</span>
                    </button>
-                   <button class="mode-btn" onclick="goToFlashcard()" style="border-color:rgba(255,215,0,0.3); background:rgba(255,215,0,0.03);">
-                       📇 Học Flashcard
-                       <span class="lock-badge" style="color:#FFD700;">Lật thẻ ghi nhớ nhanh – không giới hạn</span>
+
+                   <!-- ROW 2: THI THỬ -->
+                   <div style="width:100%; max-width:420px; text-align:left; margin:10px 0 6px;">
+                       <span style="font-size:0.7rem; font-weight:800; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">⏱️ Thi thử</span>
+                   </div>
+                   <button class="mode-btn" onclick="launchEngine(&apos;exam&apos;)" id="btn-mode-exam" style="border-color:rgba(255,87,34,0.3); background:rgba(255,87,34,0.03);">
+                       🎯 Thi thử thực chiến
+                       <span class="lock-badge" id="lock-exam">45 câu · Tính giờ · Không hiện đáp án</span>
                    </button>
-                   <button class="mode-btn" id="btnRetryFromExam" onclick="launchRetryFromExam()" style="display:none; border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.05);">
+
+                   <!-- ROW 3: FLASHCARD -->
+                   <div style="width:100%; max-width:420px; text-align:left; margin:10px 0 6px;">
+                       <span style="font-size:0.7rem; font-weight:800; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">📇 Ghi nhớ</span>
+                   </div>
+                   <button class="mode-btn" onclick="launchFlashcard(&apos;topic&apos;)" style="border-color:rgba(255,215,0,0.3); background:rgba(255,215,0,0.03);">
+                       📌 Flashcard theo chủ đề
+                       <span class="lock-badge" style="color:#B8860B;">Lật thẻ theo từng chủ đề</span>
+                   </button>
+                   <button class="mode-btn" onclick="launchFlashcard(&apos;all&apos;)" style="border-color:rgba(255,215,0,0.3); background:rgba(255,215,0,0.03);">
+                       🔀 Flashcard hỗn hợp
+                       <span class="lock-badge" style="color:#B8860B;">Lật thẻ toàn bộ câu hỏi</span>
+                   </button>
+
+                   <!-- ÔN CÂU SAI -->
+                   <button class="mode-btn" id="btnRetryFromExam" onclick="launchRetryFromExam()" style="display:none; border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.05); margin-top:8px;">
                        🔁 Ôn câu sai từ lần thi trước
-                       <span class="lock-badge" id="lock-retry-exam" style="color:#fca5a5;"> </span>
+                       <span class="lock-badge" id="lock-retry-exam" style="color:#dc2626;"> </span>
                    </button>
-                   ${hasLevels
-                ? '<button id="btnBackToLevel" style="color:var(--muted); font-size:0.8rem; margin-top:15px; background:none; border:none; cursor:pointer;">← Chọn lại cấp độ</button>'
-                : '<a href="/courses" style="color:var(--muted); font-size:0.8rem; margin-top:15px; text-decoration:none;">← Quay lại danh mục khóa học</a>'
-            }
+
+                   <a href="/courses" style="color:var(--muted); font-size:0.8rem; margin-top:14px; text-decoration:none; display:block;">← Quay lại danh mục khóa học</a>
+               </div>
+
+               <!-- Bước 2b: Chọn Chủ đề (cho mode topic) -->
+               <div class="mode-selection-overlay" id="topicSelectBox" style="display:none; overflow-y:auto;">
+                   <h2 style="color:var(--text); margin-bottom:4px; font-size:1.1rem;">CHỌN CHỦ ĐỀ ÔN LUYỆN</h2>
+                   <p style="font-size:0.82rem; margin-bottom:14px; color:var(--muted);">Mỗi lần ôn 15 câu ngẫu nhiên trong chủ đề</p>
+                   <div id="topicList" style="width:100%; max-width:420px;"></div>
+                   <button style="color:var(--muted); font-size:0.8rem; margin-top:14px; background:none; border:none; cursor:pointer;" onclick="showModeSelect()">← Quay lại chọn chế độ</button>
+               </div>
+
+               <!-- Bước 2c: Chọn Chủ đề Flashcard -->
+               <div class="mode-selection-overlay" id="fcTopicSelectBox" style="display:none; overflow-y:auto;">
+                   <h2 style="color:var(--text); margin-bottom:4px; font-size:1.1rem;">FLASHCARD THEO CHỦ ĐỀ</h2>
+                   <p style="font-size:0.82rem; margin-bottom:14px; color:var(--muted);">Chọn chủ đề để bắt đầu lật thẻ</p>
+                   <div id="fcTopicList" style="width:100%; max-width:420px;"></div>
+                   <button style="color:var(--muted); font-size:0.8rem; margin-top:14px; background:none; border:none; cursor:pointer;" onclick="showModeSelect()">← Quay lại chọn chế độ</button>
                </div>
 
                 <div class="result-overlay" id="resBox">
@@ -2682,6 +2721,13 @@ async function triggerRemoteVerification(courseName) {
         navPage = 0;
         renderNavGrid();
         cur = 0; isDone = false;
+        // Cập nhật title header
+        var titleEl = document.getElementById('quizTitle');
+        if (titleEl) {
+            var modeNames = { practice: '🔀 Ôn luyện hỗn hợp', exam: '🎯 Thi thử thực chiến', topic: '📌 Ôn theo chủ đề' };
+            var catPart = selectedCategory ? (' — ' + catLabel(selectedCategory)) : '';
+            titleEl.textContent = (modeNames[mode] || mode) + catPart + ' | ${courseType}';
+        }
         renderQ();
         checkExpireBanner();
 
@@ -3263,6 +3309,122 @@ async function triggerRemoteVerification(courseName) {
         document.getElementById('resBox').style.display = "flex";
     }
 
+    // ===== CATEGORY TRANSLATIONS (inline) =====
+    var CAT_TRANS = ${JSON.stringify(CATEGORY_TRANSLATIONS)};
+    function catLabel(key) { return CAT_TRANS[key] || key; }
+
+    // ===== STRATIFIED SAMPLING =====
+    // Lấy n câu từ bank theo tỉ lệ mỗi category, mỗi cat tối thiểu minPerCat câu
+    function stratifiedSample(bank, n, minPerCat) {
+        minPerCat = minPerCat || 2;
+        // Nhóm theo category
+        var groups = {};
+        bank.forEach(function(q) {
+            var c = q.cat || 'OTHER';
+            if (!groups[c]) groups[c] = [];
+            groups[c].push(q);
+        });
+        var cats = Object.keys(groups);
+        var total = bank.length;
+        var result = [];
+
+        // Bước 1: đảm bảo mỗi cat ít nhất minPerCat câu
+        var allocated = {};
+        var remaining = n;
+        cats.forEach(function(c) {
+            var min = Math.min(minPerCat, groups[c].length);
+            allocated[c] = min;
+            remaining -= min;
+        });
+
+        // Bước 2: phân bổ phần còn lại theo tỉ lệ
+        if (remaining > 0) {
+            var weights = {};
+            var totalW = 0;
+            cats.forEach(function(c) {
+                weights[c] = groups[c].length / total;
+                totalW += weights[c];
+            });
+            cats.forEach(function(c) {
+                var extra = Math.round((weights[c] / totalW) * remaining);
+                var cap = groups[c].length - allocated[c];
+                allocated[c] += Math.min(extra, cap);
+            });
+        }
+
+        // Bước 3: lấy ngẫu nhiên từ mỗi group
+        cats.forEach(function(c) {
+            var shuffled = shuffleArray(groups[c].slice());
+            result = result.concat(shuffled.slice(0, allocated[c]));
+        });
+
+        // Điều chỉnh tổng về đúng n
+        result = shuffleArray(result);
+        if (result.length > n) result = result.slice(0, n);
+        return result;
+    }
+
+    // ===== SHOW/HIDE OVERLAY HELPERS =====
+    function showModeSelect() {
+        document.getElementById('modeSelectBox').style.display = 'flex';
+        document.getElementById('topicSelectBox').style.display = 'none';
+        document.getElementById('fcTopicSelectBox').style.display = 'none';
+    }
+
+    function showTopicSelect(forFlashcard) {
+        var boxId = forFlashcard ? 'fcTopicSelectBox' : 'topicSelectBox';
+        var listId = forFlashcard ? 'fcTopicList' : 'topicList';
+        document.getElementById('modeSelectBox').style.display = 'none';
+        document.getElementById(boxId).style.display = 'flex';
+        // Build topic buttons
+        var groups = {};
+        fullBank.forEach(function(q) {
+            var c = q.cat || 'OTHER';
+            if (!groups[c]) groups[c] = 0;
+            groups[c]++;
+        });
+        var listEl = document.getElementById(listId);
+        listEl.innerHTML = '';
+        Object.keys(groups).sort().forEach(function(cat) {
+            var btn = document.createElement('button');
+            btn.className = 'mode-btn';
+            btn.style.textAlign = 'left';
+            btn.innerHTML = catLabel(cat) +
+                '<span class="lock-badge" style="color:var(--muted);">' + groups[cat] + ' câu</span>';
+            btn.onclick = function() {
+                if (forFlashcard) {
+                    var ct = '${courseType}';
+                    var base = ct.indexOf('GENERATIVE AI') >= 0 ? '/flashcard-ai' : '/flashcard-ic3';
+                    window.location.href = base + '?cat=' + encodeURIComponent(cat);
+                } else {
+                    launchTopicMode(cat);
+                }
+            };
+            listEl.appendChild(btn);
+        });
+    }
+
+    function launchFlashcard(type) {
+        if (type === 'topic') {
+            showTopicSelect(true);
+        } else {
+            var ct = '${courseType}';
+            var url = ct.indexOf('GENERATIVE AI') >= 0 ? '/flashcard-ai' : '/flashcard-ic3';
+            window.location.href = url;
+        }
+    }
+
+    function launchTopicMode(cat) {
+        document.getElementById('topicSelectBox').style.display = 'none';
+        selectedCategory = cat;
+        mode = 'practice';
+        // Lọc theo category, lấy 15 câu ngẫu nhiên
+        var filtered = fullBank.filter(function(q) { return q.cat === cat; });
+        var selected = shuffleArray(filtered.slice()).slice(0, 15);
+        buildList(selected);
+        initQuiz();
+    }
+
     function restartQuiz() {
         isRetryMode = false;
         document.getElementById('retryBanner').classList.remove('visible');
@@ -3270,26 +3432,25 @@ async function triggerRemoteVerification(courseName) {
         document.getElementById('btnConfirmWrap').classList.remove('visible');
         isDone = false;
         navPage = 0;
-        var filtered = selectedLevel === 'ALL' ? fullBank : fullBank.filter(function(b) { return b.lv === selectedLevel; });
         var selected;
-        if (mode === 'practice') {
-            selected = filtered.slice();
+        if (mode === 'topic' && selectedCategory) {
+            var filtered = fullBank.filter(function(q) { return q.cat === selectedCategory; });
+            selected = shuffleArray(filtered.slice()).slice(0, 15);
+        } else if (mode === 'practice') {
+            // Ôn hỗn hợp: stratified 15 câu
+            selected = stratifiedSample(fullBank, 15, 1);
         } else {
-            selected = shuffleArray(filtered).slice(0, Math.min(${EXAM_CONFIG.QUESTION_COUNT}, filtered.length));
+            // Thi thử: stratified 45 câu, mỗi cat min 2
+            selected = stratifiedSample(fullBank, ${EXAM_CONFIG.QUESTION_COUNT}, 2);
         }
         buildList(selected);
         initQuiz();
     }
 
     window.addEventListener('DOMContentLoaded', function() {
-        if (!hasLevels) { selectedLevel = 'ALL'; verifyModeMenu(); }
-        var btnBack = document.getElementById('btnBackToLevel');
-        if (btnBack) {
-            btnBack.addEventListener('click', function() {
-                document.getElementById('modeSelectBox').style.display = 'none';
-                document.getElementById('levelSelectBox').style.display = 'flex';
-            });
-        }
+        selectedLevel = 'ALL';
+        selectedCategory = null;
+        verifyModeMenu();
     });
     </script>
     </body></html>`;
