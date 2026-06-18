@@ -10,6 +10,7 @@ import GENERATIVE_AI from "./questions/generative-ai.js";
 import { getAdminDashboardUI } from "./pages/admin.js";
 import { getProgressUI } from "./pages/progress.js";
 import { getFlashcardUI } from "./pages/flashcard.js";
+import { getIC3IntroUI, getGenAIIntroUI } from "./pages/course-intro.js";
 import { handleAdminAPI } from "./api/admin-api.js";
 
 const CONFIG = {
@@ -352,6 +353,8 @@ export default {
 
         let content = "";
         if (path === "/courses") content = this.getCoursesUI();
+        else if (path === "/course-intro/ic3") content = getIC3IntroUI();
+        else if (path === "/course-intro/genai") content = getGenAIIntroUI();
         else if (path === "/register") content = this.getHomeUI(studentData, promoConfig, 'register');
         else if (path === "/login") content = this.getLoginUI();
         else if (path === "/library") content = this.getLibraryUI();
@@ -2268,9 +2271,9 @@ async function triggerRemoteVerification(courseName) {
         .timer-box { border: 2px solid var(--cyan); padding: 6px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; color: #0052CC; }
 
         .mode-selection-overlay { position: absolute; inset: 0; background: #F0F4FA; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-radius: 12px; }
-        .mode-btn { width: 100%; max-width: 380px; padding: 16px; margin: 8px 0; border: 2px solid #CFD8EA; background: #FFFFFF; color: var(--text); border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: left; }
+        .mode-btn { width: 100%; max-width: 420px; padding: 14px 16px; margin: 6px 0; border: 2px solid #CFD8EA; background: #FFFFFF; color: var(--text); border-radius: 12px; font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: all 0.2s; text-align: left; box-sizing: border-box; }
         .mode-btn:hover { border-color: #0052CC; background: rgba(0,82,204,0.04); }
-        .lock-badge { font-size: 0.75rem; display: block; margin-top: 4px; font-weight: normal; }
+        .lock-badge { font-size: 0.73rem; display: block; margin-top: 3px; font-weight: 600; line-height: 1.4; }
 
         .quiz-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 20px; }
         .main-quiz { background: #FFFFFF; padding: 20px; border-radius: 12px; min-height: 440px; display: flex; flex-direction: column; position: relative; }
