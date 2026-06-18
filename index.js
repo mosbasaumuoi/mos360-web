@@ -89,7 +89,11 @@ const COURSE_MAP = {
 };
 
 // ===== CATEGORY TRANSLATIONS — hiển thị tên tiếng Việt chuẩn =====
+// Đầy đủ TẤT CẢ category code có thật trong questions/ic3-level1.js, ic3-level2.js,
+// ic3-level3.js và generative-ai.js (trước đây dict này chỉ khớp ~category của Level 1,
+// nên Level 2/3/AI bị hiện code tiếng Anh thô khi chọn "Ôn theo chủ đề").
 const CATEGORY_TRANSLATIONS = {
+    // --- IC3 Level 1 ---
     HARDWARE: "💻 Thiết bị phần cứng",
     SOFTWARE: "📦 Phần mềm & Ứng dụng",
     OPERATING_SYSTEM: "🖥️ Hệ điều hành",
@@ -97,15 +101,67 @@ const CATEGORY_TRANSLATIONS = {
     SECURITY: "🔐 An ninh bảo mật",
     PRIVACY: "🛡️ Quyền riêng tư",
     DIGITAL_CITIZENSHIP: "🌍 Công dân kỹ thuật số",
-    CLOUD_COMPUTING: "☁️ Điện toán đám mây",
-    IOT: "📡 Internet vạn vật (IoT)",
-    DATA: "📊 Thông tin & Dữ liệu",
-    CRITICAL_THINKING: "🧠 Tư duy phản biện",
-    AI_DIGITAL: "🤖 Trí tuệ nhân tạo (AI)",
     FILE_FORMAT: "📁 Định dạng tệp tin",
     TROUBLESHOOTING: "🔧 Xử lý sự cố",
     BROWSER: "🌐 Trình duyệt Web",
-    TECHNOLOGY_SOCIETY: "🏛️ Công nghệ & Xã hội"
+    // --- IC3 Level 2 ---
+    ACCESSIBILITY: "♿ Khả năng truy cập (Accessibility)",
+    CLOUD_DIGITAL_SERVICES: "☁️ Dịch vụ số & Điện toán đám mây",
+    COMMUNICATION_COLLABORATION: "💬 Giao tiếp & Cộng tác",
+    COPYRIGHT: "©️ Bản quyền nội dung",
+    DATA_MANAGEMENT: "🗂️ Quản lý tệp & dữ liệu",
+    DATA_VISUALIZATION: "📊 Trực quan hóa dữ liệu",
+    DIAGRAMS: "📐 Sơ đồ & lưu đồ",
+    MEDIA_EDITING: "🎬 Chỉnh sửa hình ảnh/âm thanh/video",
+    PRESENTATION: "📽️ Trình chiếu",
+    PRODUCTIVITY_SOFTWARE: "📝 Word/Excel/PowerPoint",
+    SOFTWARE_APPLICATIONS: "🧩 Tính năng phần mềm chung",
+    WEB_DESIGN: "🎨 Thiết kế Web",
+    // --- IC3 Level 3 ---
+    AI: "🤖 Trí tuệ nhân tạo (AI)",
+    CLOUD_COMPUTING: "☁️ Điện toán đám mây",
+    CRITICAL_THINKING: "🧠 Tư duy phản biện",
+    CYBERSECURITY: "🔐 An ninh mạng",
+    DATA_PRIVACY: "🛡️ Bảo mật quyền riêng tư",
+    DIGITAL_IDENTITY: "🪪 Danh tính số",
+    INFORMATION_LITERACY: "📚 Đánh giá thông tin",
+    INFORMATION_SEARCH: "🔍 Tìm kiếm thông tin",
+    INFORMATION_USE: "📖 Sử dụng thông tin",
+    INTELLECTUAL_PROPERTY: "©️ Sở hữu trí tuệ",
+    IOT: "📡 Internet vạn vật (IoT)",
+    NETWORKING: "🌐 Mạng máy tính",
+    ONLINE_SAFETY: "🛟 An toàn trực tuyến",
+    // --- Generative AI ---
+    FOUNDATION: "🌱 Khái niệm nền tảng AI",
+    PROMPTING: "✍️ Prompt Engineering",
+    ETHICS: "⚖️ Đạo đức & rủi ro AI",
+    TOOLS: "🛠️ Công cụ AI"
+};
+
+// ===== TOPIC DOMAINS — gom các category kỹ thuật theo đúng 7 chuyên đề IC3 GS6 /
+// 4 module Generative AI trong giáo trình (pages/course-intro.js), để "Ôn luyện theo
+// chủ đề" khớp với cấu trúc giáo trình học viên đang đọc, thay vì hiện 30+ category
+// kỹ thuật rời rạc của ngân hàng câu hỏi. =====
+const IC3_TOPIC_DOMAINS = [
+    { title: "1. Công nghệ thông tin cơ bản", cats: ["HARDWARE", "SOFTWARE", "OPERATING_SYSTEM", "NETWORK", "NETWORKING", "TROUBLESHOOTING", "BROWSER", "FILE_FORMAT", "CLOUD_COMPUTING", "CLOUD_DIGITAL_SERVICES", "IOT", "ACCESSIBILITY", "DATA_MANAGEMENT", "SOFTWARE_APPLICATIONS", "AI"] },
+    { title: "2. Công dân kỷ nguyên số", cats: ["DIGITAL_CITIZENSHIP", "DIGITAL_IDENTITY", "COPYRIGHT", "INTELLECTUAL_PROPERTY"] },
+    { title: "3. Quản lý thông tin", cats: ["CRITICAL_THINKING", "INFORMATION_SEARCH", "INFORMATION_LITERACY", "INFORMATION_USE"] },
+    { title: "4. Sáng tạo nội dung", cats: ["DATA_VISUALIZATION", "WEB_DESIGN", "DIAGRAMS", "MEDIA_EDITING", "PRESENTATION", "PRODUCTIVITY_SOFTWARE"] },
+    { title: "5. Giao tiếp", cats: ["COMMUNICATION_COLLABORATION"] },
+    { title: "6. Cộng tác", cats: [] },
+    { title: "7. An toàn và an ninh", cats: ["SECURITY", "CYBERSECURITY", "PRIVACY", "DATA_PRIVACY", "ONLINE_SAFETY"] }
+];
+const GENAI_TOPIC_DOMAINS = [
+    { title: "1. Giới thiệu Generative AI & khái niệm nền tảng", cats: ["FOUNDATION"] },
+    { title: "2. Công cụ, kỹ thuật & Prompt Engineering", cats: ["PROMPTING", "TOOLS"] },
+    { title: "3. Ứng dụng thực tiễn & triển khai", cats: [] },
+    { title: "4. Đạo đức, trách nhiệm & rủi ro AI", cats: ["ETHICS"] }
+];
+const TOPIC_DOMAINS_BY_COURSE = {
+    "IC3 GS6 LEVEL 1": IC3_TOPIC_DOMAINS,
+    "IC3 GS6 LEVEL 2": IC3_TOPIC_DOMAINS,
+    "IC3 GS6 LEVEL 3": IC3_TOPIC_DOMAINS,
+    "GENERATIVE AI": GENAI_TOPIC_DOMAINS
 };
 
 /* =========================
@@ -555,263 +611,6 @@ export default {
         window.addEventListener('resize', adjustLayoutMobile);
         window.addEventListener('DOMContentLoaded', adjustLayoutMobile);
     </script>
-<!-- SYLLABUS MODAL -->
-<div id="hnSyllabusModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,0.55);align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeSyllabusModal()">
-  <div style="position:relative;width:100%;max-width:760px;max-height:88vh;background:#fff;border-radius:18px;box-shadow:0 24px 60px rgba(15,23,42,0.25);display:flex;flex-direction:column;overflow:hidden" onclick="event.stopPropagation()">
-    <div id="hnSylHeader" style="padding:22px 26px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-shrink:0">
-      <div>
-        <div id="hnSylTag" style="font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:6px"></div>
-        <h2 id="hnSylTitle" style="font-size:1.25rem;font-weight:800;color:var(--text);line-height:1.3"></h2>
-        <p id="hnSylSubtitle" style="font-size:0.85rem;color:var(--muted);margin-top:4px"></p>
-      </div>
-      <button onclick="closeSyllabusModal()" style="background:#E2ECFA;border:none;width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:var(--muted);flex-shrink:0;line-height:1">✕</button>
-    </div>
-    <div id="hnSylBody" style="padding:22px 26px;overflow-y:auto;flex:1"></div>
-    <div style="padding:16px 26px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;flex-shrink:0;background:#F0F4FA">
-      <span style="font-size:0.78rem;color:var(--muted)">📌 Trung tâm Tin học MOS360 — Hải Phòng</span>
-      <a id="hnSylDownload" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--primary);color:#fff;border-radius:9px;font-weight:800;font-size:0.85rem;text-decoration:none;transition:all 0.15s">⬇️ Tải tài liệu đầy đủ (PDF)</a>
-    </div>
-  </div>
-</div>
-
-<style>
-.hn-syl-section { margin-bottom:18px; }
-.hn-syl-section h3 { font-size:1rem; font-weight:800; color:var(--text); margin-bottom:8px; }
-.hn-syl-section p { font-size:0.88rem; color:#334155; line-height:1.7; margin-bottom:8px; }
-.hn-syl-table { width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:0.84rem; }
-.hn-syl-table th { background:#F0F4FA; text-align:left; padding:9px 12px; font-weight:700; color:var(--text); border:1px solid var(--border); }
-.hn-syl-table td { padding:9px 12px; border:1px solid var(--border); color:#334155; vertical-align:top; }
-.hn-syl-module { border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:12px; background:#F0F4FA; }
-.hn-syl-module h4 { font-size:0.92rem; font-weight:800; color:var(--primary); margin-bottom:8px; }
-.hn-syl-module .lvl { font-size:0.8rem; font-weight:700; color:var(--cyan); margin-top:10px; margin-bottom:3px; }
-.hn-syl-module .lvl-goal, .hn-syl-module .lvl-content { font-size:0.83rem; color:#334155; line-height:1.6; margin-bottom:4px; }
-.hn-syl-module .lvl-goal-label, .hn-syl-module .lvl-content-label { font-weight:700; color:var(--text); }
-.hn-syl-list { margin:0 0 8px 0; padding-left:20px; font-size:0.88rem; color:#334155; line-height:1.7; }
-.hn-syl-list li { margin-bottom:3px; }
-@media(max-width:600px){
-  #hnSyllabusModal > div { max-height:94vh; border-radius:14px; }
-  #hnSylHeader, #hnSylBody { padding:16px 18px; }
-}
-</style>
-
-<script>
-// ===== SYLLABUS DATA =====
-const SYLLABUS_DATA = {
-  ic3: {
-    tag: 'IC3 GS6 · Certiport',
-    title: 'IC3 GS6 — Level 1, 2 & 3',
-    subtitle: 'Computing Fundamentals · Key Applications · Living Online',
-    download: 'https://drive.google.com/PLACEHOLDER_LEVEL_1',
-    html: \`
-<div class="hn-syl-section">
-<h3>1. Giới thiệu chung về chứng chỉ IC3 GS6</h3>
-<p>IC3 (Internet and Computing Core Certification) là chứng chỉ quốc tế do Certiport (thuộc Pearson VUE) cấp, xác nhận năng lực sử dụng máy tính, Internet và các ứng dụng kỹ thuật số cơ bản. Phiên bản GS6 (Global Standard 6) là phiên bản mới nhất, phù hợp với bối cảnh công nghệ và kỹ năng số hiện đại.</p>
-<p>Chứng chỉ gồm 3 cấp độ (Level), tương ứng 3 bài thi riêng biệt. Học viên cần hoàn thành cả 3 Level để được công nhận đạt chuẩn IC3 GS6 toàn diện.</p>
-<table class="hn-syl-table">
-<tr><th>Cấp độ</th><th>Tên gọi</th><th>Nội dung chính</th></tr>
-<tr><td><strong>Level 1</strong></td><td>Computing Fundamentals</td><td>Kiến thức nền tảng về máy tính, phần cứng, phần mềm, mạng, công dân số</td></tr>
-<tr><td><strong>Level 2</strong></td><td>Key Applications</td><td>Kỹ năng sử dụng Word, Excel, PowerPoint và các ứng dụng văn phòng</td></tr>
-<tr><td><strong>Level 3</strong></td><td>Living Online</td><td>Làm việc và giao tiếp trực tuyến, an toàn mạng, cộng tác số</td></tr>
-</table>
-<p>Tài liệu trình bày chi tiết nội dung cả 3 Level theo <strong>7 chuyên đề</strong> xuyên suốt — mỗi chuyên đề có mục tiêu và nội dung tăng dần từ Level 1 đến Level 3.</p>
-</div>
-
-<div class="hn-syl-section">
-<h3>2. Nội dung chi tiết — 7 chuyên đề</h3>
-
-<div class="hn-syl-module">
-<h4>Chuyên đề 1: CÔNG NGHỆ THÔNG TIN CƠ BẢN</h4>
-<div class="lvl">Level 1</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Truy cập và điều hướng môi trường số; xác định thiết bị và kết nối; giải thích khái niệm phần mềm, phần cứng, hệ điều hành, mạng cơ bản.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Hệ điều hành, phần mềm vs phần cứng, các loại thiết bị số, cổng kết nối, khái niệm mạng (LAN, Wi-Fi, Internet), điện toán đám mây.</div>
-<div class="lvl">Level 2</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tùy chỉnh môi trường kỹ thuật số.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Thiết lập cài đặt hệ thống, quản lý ứng dụng/cửa sổ làm việc, tổ chức tệp/thư mục, cá nhân hóa giao diện thiết bị.</div>
-<div class="lvl">Level 3</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Xác định, khắc phục sự cố và giải quyết vấn đề kỹ thuật.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Nhận diện sự cố thường gặp, quy trình troubleshooting, khi nào cần liên hệ IT support.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Chuyên đề 2: CÔNG DÂN KỶ NGUYÊN SỐ</h4>
-<div class="lvl">Level 1</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tạo, quản lý và bảo vệ danh tính/danh tiếng kỹ thuật số; nhận biết hành vi và nội dung số không phù hợp.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Danh tính số, dấu chân kỹ thuật số, bảo vệ danh tiếng trực tuyến, quyền riêng tư cá nhân.</div>
-<div class="lvl">Level 2</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Áp dụng các tiêu chuẩn nghi thức kỹ thuật số.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Quy tắc ứng xử (etiquette) trong học tập, công việc, mạng xã hội; xử lý tình huống giao tiếp số không phù hợp.</div>
-<div class="lvl">Level 3</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Trình bày các phương pháp tốt nhất cho công dân kỹ thuật số.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Bảo vệ danh tiếng dài hạn, tôn trọng bản quyền và quyền riêng tư người khác, hành xử có đạo đức trong môi trường số.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Chuyên đề 3: QUẢN LÝ THÔNG TIN</h4>
-<div class="lvl">Level 1</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tìm kiếm thông tin trên web, thu hẹp tiêu chí tìm kiếm, đánh giá tính hợp lý của thông tin.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Công cụ tìm kiếm, kỹ thuật tìm kiếm nâng cao, phân loại website, đánh giá độ tin cậy nguồn tin.</div>
-<div class="lvl">Level 2</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Quản lý thu thập, lưu trữ và truy xuất dữ liệu trực tuyến.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Thu thập/tổ chức thông tin từ nhiều nguồn, lưu trữ trên máy cá nhân và cloud, đặt tên/sắp xếp tệp hợp lý.</div>
-<div class="lvl">Level 3</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Đánh giá nguồn thông tin kỹ thuật số từ kết quả tìm kiếm.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Đánh giá độ tin cậy/tính chính xác/tính thời sự, phân biệt nguồn chính thống, nhận diện tin giả.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Chuyên đề 4: SÁNG TẠO NỘI DUNG</h4>
-<div class="lvl">Level 1</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tạo tài liệu/bản trình chiếu cơ bản, hiểu tham chiếu trong tài liệu, lưu và sao lưu công việc, khái niệm in ấn.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Word (Backstage View, tạo/lưu/in), PowerPoint cơ bản, tham chiếu tài liệu, backup dữ liệu.</div>
-<div class="lvl">Level 2</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Sử dụng lại tài nguyên kỹ thuật số một cách có trách nhiệm.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Word/Excel/PowerPoint mức trung bình: định dạng, công thức Excel cơ bản, biểu đồ/bảng, slide; sử dụng lại tài nguyên đúng bản quyền.</div>
-<div class="lvl">Level 3</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tạo, chỉnh sửa, xuất bản nội dung phương tiện kỹ thuật số cho đối tượng cụ thể.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Word/Excel/PowerPoint nâng cao — tài liệu, bảng tính, bài trình chiếu hoàn chỉnh; xuất bản/chia sẻ đa định dạng (PDF, link, online).</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Chuyên đề 5: GIAO TIẾP / TRUYỀN THÔNG</h4>
-<div class="lvl">Level 1</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Thể hiện bản thân qua phương tiện kỹ thuật số, tương tác trong môi trường số.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Mạng xã hội/blog, email, nhắn tin, video call, netiquette, chia sẻ nội dung có trách nhiệm.</div>
-<div class="lvl">Level 2</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tương tác với người khác trong môi trường kỹ thuật số.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Email/tin nhắn/video call cho công việc-học tập, chọn kênh giao tiếp phù hợp, thảo luận nhóm trực tuyến hiệu quả.</div>
-<div class="lvl">Level 3</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tùy chỉnh tin nhắn và phương tiện cho đối tượng cụ thể.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Điều chỉnh nội dung/văn phong/hình thức theo người nhận; chọn định dạng và kênh truyền thông hiệu quả nhất.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Chuyên đề 6: CỘNG TÁC</h4>
-<div class="lvl">Level 1</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Xác định các khái niệm và tiêu chuẩn nghi thức cộng tác kỹ thuật số.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Cộng tác đồng bộ/bất đồng bộ, công cụ làm việc nhóm trực tuyến, quy tắc ứng xử khi cộng tác.</div>
-<div class="lvl">Level 2</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Sử dụng công cụ kỹ thuật số để cộng tác tạo nội dung.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Cộng tác chỉnh sửa tài liệu/bảng tính/trình chiếu (Google Docs, Sheets, Slides, Microsoft 365); chia sẻ quyền truy cập, version history, comment.</div>
-<div class="lvl">Level 3</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Sử dụng công cụ cộng tác để cùng nhau kiểm tra vấn đề và sự cố.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Quản lý công việc, theo dõi lỗi/sự cố, lịch chung, không gian làm việc chia sẻ; phối hợp nhóm từ xa hiệu quả.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Chuyên đề 7: AN TOÀN VÀ AN NINH</h4>
-<div class="lvl">Level 1</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Mô tả mối đe dọa bảo mật, bảo vệ thiết bị/nội dung, nhận thức công nghệ thu thập dữ liệu, rủi ro sức khỏe.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Mối đe dọa bảo mật (virus, malware, phishing, hacking), bảo vệ thiết bị/dữ liệu, cookies, ergonomics.</div>
-<div class="lvl">Level 2</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tránh các mối đe dọa sức khỏe tâm lý khi dùng công nghệ số (Catfishing, FOMO).</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Nhận diện Catfishing, FOMO, nghiện mạng xã hội; cách phòng tránh, thói quen sử dụng công nghệ lành mạnh.</div>
-<div class="lvl">Level 3</div>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Quản lý bảo mật thiết bị (mã hóa, sinh trắc học, virus).</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Mã hóa dữ liệu, xác thực sinh trắc học, quản lý mật khẩu an toàn, phòng chống virus/malware, cập nhật bảo mật định kỳ.</div>
-</div>
-</div>
-
-<div class="hn-syl-section">
-<h3>3. Hướng dẫn ôn luyện trên Web</h3>
-<ul class="hn-syl-list">
-<li>Đọc tài liệu lý thuyết theo thứ tự Chuyên đề 1 → 7, và theo từng Level (1 → 2 → 3).</li>
-<li>Vào mục "Luyện thi IC3 GS6" → chọn "Ôn luyện" theo từng chủ đề để làm trắc nghiệm.</li>
-<li>Sau khi ôn đủ các chủ đề, làm bài "Thi thử" tổng hợp để làm quen cấu trúc đề thi thật.</li>
-<li>Theo dõi tiến độ tại mục "Tiến độ" để biết chủ đề cần ôn lại.</li>
-<li>Có thắc mắc, liên hệ giảng viên/trung tâm qua Zalo để được hỗ trợ trực tiếp.</li>
-</ul>
-</div>
-\`
-  },
-  genai: {
-    tag: 'Generative AI Foundations',
-    title: 'Generative AI Foundations',
-    subtitle: 'Làm chủ Generative AI & Chinh phục chứng chỉ quốc tế',
-    download: 'https://drive.google.com/PLACEHOLDER_GENAI',
-    html: \`
-<div class="hn-syl-section">
-<h3>1. Giới thiệu chung</h3>
-<p>Generative AI Foundations là chứng chỉ quốc tế cung cấp nền tảng kiến thức về Trí tuệ nhân tạo tạo sinh (Generative AI) — lĩnh vực công nghệ đang phát triển mạnh mẽ, ảnh hưởng sâu rộng đến học tập, công việc và đời sống hiện đại.</p>
-<p>Khóa học giúp học viên nhận diện vai trò và ứng dụng thực tiễn của Generative AI, xây dựng lộ trình học tập và phương pháp chuẩn bị phù hợp để chinh phục chứng chỉ quốc tế.</p>
-<table class="hn-syl-table">
-<tr><th>Mô-đun</th><th>Nội dung chính</th></tr>
-<tr><td><strong>Module 1</strong></td><td>Giới thiệu Generative AI & khung khái niệm cơ bản</td></tr>
-<tr><td><strong>Module 2</strong></td><td>Công cụ, kỹ thuật & Prompt Engineering</td></tr>
-<tr><td><strong>Module 3</strong></td><td>Ứng dụng thực tế & triển khai trong công việc</td></tr>
-<tr><td><strong>Module 4</strong></td><td>Đạo đức, trách nhiệm & chuẩn bị đạt chứng chỉ</td></tr>
-</table>
-</div>
-
-<div class="hn-syl-section">
-<h3>2. Mục tiêu khóa học</h3>
-<ul class="hn-syl-list">
-<li>Nắm vững kiến thức nền tảng về Generative AI và các công cụ tạo sinh nội dung.</li>
-<li>Biết cách ứng dụng Generative AI vào học tập, công việc và sáng tạo nội dung số.</li>
-<li>Xây dựng kỹ năng prompt engineering, đánh giá và kiểm soát output của AI.</li>
-<li>Hiểu rõ các khía cạnh đạo đức, pháp lý và trách nhiệm khi sử dụng AI.</li>
-<li>Tự tin chuẩn bị cho bài thi chứng chỉ Generative AI Foundations và đạt kết quả cao.</li>
-</ul>
-</div>
-
-<div class="hn-syl-section">
-<h3>3. Nội dung chi tiết các Module</h3>
-
-<div class="hn-syl-module">
-<h4>Module 1: Giới thiệu Generative AI & khung khái niệm cơ bản</h4>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Làm rõ khái niệm Generative AI và khác biệt với AI truyền thống; khám phá LLMs, GANs, Autoencoders; tìm hiểu quy trình input → prompt → output; phân tích tác động xã hội và xu hướng nghề nghiệp.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Khái niệm AI tạo sinh vs AI phân loại/dự đoán; kiến trúc mô hình nền tảng (LLM, GAN, Autoencoder); quy trình hoạt động input → prompt → output; xu hướng phát triển AI và cơ hội nghề nghiệp.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Module 2: Công cụ, kỹ thuật & Prompt Engineering</h4>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Làm quen các nền tảng AI hàng đầu (ChatGPT, DALL·E, Copilot, Midjourney…); học Prompt Engineering; thực hành few-shot, zero-shot, chaining prompt; tạo văn bản/hình ảnh/âm thanh/video bằng AI.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Tổng quan công cụ Generative AI phổ biến và ứng dụng đặc trưng; nguyên tắc thiết kế prompt rõ ràng, hiệu quả; kỹ thuật nâng cao zero-shot/few-shot/chain-of-thought; thực hành tạo nội dung đa phương tiện bằng AI.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Module 3: Ứng dụng thực tế & triển khai trong công việc</h4>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Khám phá AI hỗ trợ giáo dục, marketing, thiết kế, truyền thông, lập trình; thực hành xây dựng dự án thực tế; đánh giá chất lượng đầu ra, quản lý rủi ro và giới hạn của AI.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Ứng dụng AI trong giáo dục (bài giảng, tài liệu), marketing (nội dung quảng cáo, ý tưởng), thiết kế (hình ảnh, layout), truyền thông (bài viết, kịch bản), lập trình (sinh/tối ưu code); quy trình ý tưởng → yêu cầu → sản phẩm; nhận diện rủi ro hallucination và giới hạn mô hình.</div>
-</div>
-
-<div class="hn-syl-module">
-<h4>Module 4: Đạo đức, trách nhiệm & chuẩn bị đạt chứng chỉ</h4>
-<div class="lvl-goal"><span class="lvl-goal-label">Mục tiêu:</span> Tìm hiểu nguyên tắc đạo đức, bảo mật dữ liệu, quyền riêng tư, bản quyền nội dung AI; phân tích khung pháp lý quốc tế; nắm cấu trúc bài thi và chiến lược ôn luyện.</div>
-<div class="lvl-content"><span class="lvl-content-label">Nội dung:</span> Nguyên tắc đạo đức (minh bạch, công bằng, tránh bias); bảo mật dữ liệu, quyền riêng tư, bản quyền nội dung AI tạo ra; khung pháp lý và tiêu chuẩn quốc tế về AI tạo sinh; cấu trúc bài thi, các dạng câu hỏi và chiến lược ôn luyện hiệu quả.</div>
-</div>
-</div>
-
-<div class="hn-syl-section">
-<h3>4. Hướng dẫn ôn luyện trên Web</h3>
-<ul class="hn-syl-list">
-<li>Đọc tài liệu lý thuyết theo thứ tự Module 1 → Module 4 để nắm chắc kiến thức từ nền tảng đến nâng cao.</li>
-<li>Vào mục "Luyện thi Generative AI" → chọn "Ôn luyện" theo từng Module để làm bài trắc nghiệm.</li>
-<li>Sau khi ôn đủ các Module, làm bài "Thi thử" tổng hợp để làm quen cấu trúc đề thi thật.</li>
-<li>Theo dõi tiến độ tại mục "Tiến độ" để biết Module cần ôn lại.</li>
-<li>Có thắc mắc, liên hệ giảng viên/trung tâm qua Zalo để được hỗ trợ trực tiếp.</li>
-</ul>
-</div>
-\`
-  }
-};
-
-function openSyllabusModal(key) {
-  var data = SYLLABUS_DATA[key];
-  if (!data) return;
-  document.getElementById('hnSylTag').textContent = data.tag;
-  document.getElementById('hnSylTitle').textContent = data.title;
-  document.getElementById('hnSylSubtitle').textContent = data.subtitle;
-  document.getElementById('hnSylBody').innerHTML = data.html;
-  document.getElementById('hnSylDownload').href = data.download;
-  var modal = document.getElementById('hnSyllabusModal');
-  modal.style.display = 'flex';
-  document.getElementById('hnSylBody').scrollTop = 0;
-}
-function closeSyllabusModal() {
-  document.getElementById('hnSyllabusModal').style.display = 'none';
-}
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeSyllabusModal(); });
-</script>
 
     </body></html>`;
     },
@@ -1198,7 +997,7 @@ ${promoSectionHtml}
         <div class="hn-course-thumb" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7)">
           <span class="hn-ico">🌐</span>
           <span class="hn-cbadge" style="background:rgba(22,163,74,0.15); color:#16a34a; border:1px solid rgba(22,163,74,0.3);">IC3 GS6 · LV1</span>
-          <button class="hn-syl-btn" onclick="event.stopPropagation();openSyllabusModal('ic3')">📘 Giáo trình học</button>
+          <a href="/course-intro/ic3" class="hn-syl-btn" onclick="event.stopPropagation()">📘 Giáo trình học</a>
         </div>
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi IC3 GS6 — Level 1</div>
@@ -1216,7 +1015,7 @@ ${promoSectionHtml}
         <div class="hn-course-thumb" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7)">
           <span class="hn-ico">🌐</span>
           <span class="hn-cbadge" style="background:rgba(217,119,6,0.15); color:#d97706; border:1px solid rgba(217,119,6,0.3);">IC3 GS6 · LV2</span>
-          <button class="hn-syl-btn" onclick="event.stopPropagation();openSyllabusModal('ic3')">📘 Giáo trình học</button>
+          <a href="/course-intro/ic3" class="hn-syl-btn" onclick="event.stopPropagation()">📘 Giáo trình học</a>
         </div>
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi IC3 GS6 — Level 2</div>
@@ -1234,7 +1033,7 @@ ${promoSectionHtml}
         <div class="hn-course-thumb" style="background:linear-gradient(135deg,#FFF1F2,#FFE4E6)">
           <span class="hn-ico">🌐</span>
           <span class="hn-cbadge" style="background:rgba(220,38,38,0.15); color:#dc2626; border:1px solid rgba(220,38,38,0.3);">IC3 GS6 · LV3</span>
-          <button class="hn-syl-btn" onclick="event.stopPropagation();openSyllabusModal('ic3')">📘 Giáo trình học</button>
+          <a href="/course-intro/ic3" class="hn-syl-btn" onclick="event.stopPropagation()">📘 Giáo trình học</a>
         </div>
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi IC3 GS6 — Level 3</div>
@@ -1252,7 +1051,7 @@ ${promoSectionHtml}
         <div class="hn-course-thumb" style="background:linear-gradient(135deg,#FFF8E6,#FFEFCC)">
           <span class="hn-ico">🤖</span>
           <span class="hn-cbadge cbadge-ai">⚡ AI</span>
-          <button class="hn-syl-btn" onclick="event.stopPropagation();openSyllabusModal('genai')">📘 Giáo trình học</button>
+          <a href="/course-intro/genai" class="hn-syl-btn" onclick="event.stopPropagation()">📘 Giáo trình học</a>
         </div>
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi Generative AI</div>
@@ -2021,7 +1820,7 @@ async function hnDoLookup() {
                     <h3 style="margin:12px 0 8px 0; font-size:1.1rem; color:#16a34a;">IC3 GS6 — Level 1</h3>
                     <p style="color:var(--muted); font-size:0.82rem; line-height:1.5;">Computing Fundamentals. Luyện tập tự do và thi thử tính giờ.</p>
                     <div class="price-tag" style="color:#16a34a;">100.000đ <span>250.000đ</span></div>
-                    <button onclick="openSyllabusModal('ic3')" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#16a34a;background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;">📘 Giáo trình học</button>
+                    <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#16a34a;background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff;">ĐĂNG KÝ NGAY</a>
@@ -2036,7 +1835,7 @@ async function hnDoLookup() {
                     <h3 style="margin:12px 0 8px 0; font-size:1.1rem; color:#d97706;">IC3 GS6 — Level 2</h3>
                     <p style="color:var(--muted); font-size:0.82rem; line-height:1.5;">Key Applications. Luyện tập tự do và thi thử tính giờ.</p>
                     <div class="price-tag" style="color:#d97706;">100.000đ <span>250.000đ</span></div>
-                    <button onclick="openSyllabusModal('ic3')" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#d97706;background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;">📘 Giáo trình học</button>
+                    <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#d97706;background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#d97706,#f59e0b); color:#fff;">ĐĂNG KÝ NGAY</a>
@@ -2051,7 +1850,7 @@ async function hnDoLookup() {
                     <h3 style="margin:12px 0 8px 0; font-size:1.1rem; color:#dc2626;">IC3 GS6 — Level 3</h3>
                     <p style="color:var(--muted); font-size:0.82rem; line-height:1.5;">Living Online. Luyện tập tự do và thi thử tính giờ.</p>
                     <div class="price-tag" style="color:#dc2626;">100.000đ <span>250.000đ</span></div>
-                    <button onclick="openSyllabusModal('ic3')" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#dc2626;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;">📘 Giáo trình học</button>
+                    <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#dc2626;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#dc2626,#ef4444); color:#fff;">ĐĂNG KÝ NGAY</a>
@@ -2065,7 +1864,7 @@ async function hnDoLookup() {
                     <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:var(--cyan);">Luyện thi GENERATIVE AI</h3>
                     <p style="color:var(--muted); font-size:0.85rem; line-height:1.5;">Bộ ngân hàng 45 câu xáo trộn ngẫu nhiên đạt tiêu chuẩn từ đề thi quốc tế.</p>
                     <div class="price-tag">100.000đ <span>400.000đ</span></div>
-                    <button onclick="openSyllabusModal('genai')" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;">📘 Giáo trình học</button>
+                    <a href="/course-intro/genai" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,var(--cyan),#2684FF); color:#fff;">ĐĂNG KÝ NGAY</a>
@@ -2209,6 +2008,11 @@ async function triggerRemoteVerification(courseName) {
         const hasLevels = false;
         const levelBoxStyle = "display:none;";
         const modeBoxStyle = "";
+
+        // Cấu trúc 7 chuyên đề (IC3) / 4 module (GenAI) dùng cho "Ôn luyện theo chủ đề",
+        // khớp với giáo trình hiển thị ở pages/course-intro.js
+        const topicDomains = TOPIC_DOMAINS_BY_COURSE[courseType] || [];
+        const topicDomainsJSON = JSON.stringify(topicDomains);
 
         const bankJSON = JSON.stringify(
             questionBank.map(item => {
@@ -2549,12 +2353,15 @@ async function triggerRemoteVerification(courseName) {
     <script>
     var qCount = ${EXAM_CONFIG.QUESTION_COUNT};
     var fullBank = ${bankJSON};
+    var topicDomains = ${topicDomainsJSON};
     var list = [];
     var cur = 0;
     var userAns = [];
     var isDone = false;
     var mode = "";
     var selectedLevel = "ALL";
+    var selectedCategory = null;      // array các category kỹ thuật thuộc chuyên đề đang ôn (mode === 'topic')
+    var selectedCategoryLabel = "";   // tên hiển thị của chuyên đề (vd: "1. Công nghệ thông tin cơ bản")
     var isVerified = localStorage.getItem('course_auth_${courseType}') === 'verified';
     var hasLevels = ${hasLevels};
     var confirmedList = [];
@@ -2632,8 +2439,16 @@ async function triggerRemoteVerification(courseName) {
         mode = chosenMode;
         isRetryMode = false;
         document.getElementById('modeSelectBox').style.display = "none";
-        document.getElementById('btnSubmit').style.display = mode === 'exam' ? 'inline-block' : 'none';
         document.getElementById('retryBanner').classList.remove('visible');
+
+        // Chế độ "Ôn theo chủ đề" cần hiển thị danh sách chủ đề trước,
+        // không build/chạy quiz ngay — chờ người dùng chọn 1 chủ đề ở launchTopicMode().
+        if (mode === 'topic') {
+            showTopicSelect(false);
+            return;
+        }
+
+        document.getElementById('btnSubmit').style.display = mode === 'exam' ? 'inline-block' : 'none';
 
         var filtered = selectedLevel === 'ALL' ? fullBank : fullBank.filter(function(b) { return b.lv === selectedLevel; });
         var selected;
@@ -2728,7 +2543,7 @@ async function triggerRemoteVerification(courseName) {
         var titleEl = document.getElementById('quizTitle');
         if (titleEl) {
             var modeNames = { practice: '🔀 Ôn luyện hỗn hợp', exam: '🎯 Thi thử thực chiến', topic: '📌 Ôn theo chủ đề' };
-            var catPart = selectedCategory ? (' — ' + catLabel(selectedCategory)) : '';
+            var catPart = (mode === 'topic' && selectedCategoryLabel) ? (' — ' + selectedCategoryLabel) : '';
             titleEl.textContent = (modeNames[mode] || mode) + catPart + ' | ${courseType}';
         }
         renderQ();
@@ -2897,7 +2712,7 @@ async function triggerRemoteVerification(courseName) {
 
         updateConfirmBtn();
 
-        if (confirmed && mode === 'practice') {
+        if (confirmed && mode !== 'exam') {
             document.getElementById('explanationText').textContent = q.e;
             expBox.classList.add('visible');
         }
@@ -2919,7 +2734,7 @@ async function triggerRemoteVerification(courseName) {
             var isSelected = isMultiple ? userAns[cur].indexOf(i) >= 0 : userAns[cur] === i;
             var isCorrectOpt = isMultiple ? q.c.indexOf(i) >= 0 : q.c === i;
             var cls = 'option';
-            if (confirmed && mode === 'practice') {
+            if (confirmed && mode !== 'exam') {
                 if (isSelected && isCorrectOpt) cls += ' correct-ans';
                 else if (isSelected && !isCorrectOpt) cls += ' wrong-ans';
                 else if (!isSelected && isCorrectOpt) cls += ' show-correct';
@@ -2957,7 +2772,7 @@ async function triggerRemoteVerification(courseName) {
             var isSelected = isMultiple ? (userAns[cur]||[]).indexOf(i) >= 0 : userAns[cur] === i;
             var isCorrectOpt = isMultiple ? q.c.indexOf(i) >= 0 : q.c === i;
             var cls = 'img-opt';
-            if (confirmed && mode === 'practice') {
+            if (confirmed && mode !== 'exam') {
                 if (isSelected && isCorrectOpt) cls += ' correct-img';
                 else if (isSelected && !isCorrectOpt) cls += ' wrong-img';
                 else if (!isSelected && isCorrectOpt) cls += ' correct-img';
@@ -3197,7 +3012,7 @@ async function triggerRemoteVerification(courseName) {
             var item = document.createElement('div');
             var correctPos = Array.isArray(q.c) ? q.c.indexOf(optIdx) : -1;
             var cls = 'sort-item';
-            if (confirmed && mode === 'practice') {
+            if (confirmed && mode !== 'exam') {
                 cls += (pos === correctPos) ? ' correct-sort' : ' wrong-sort';
             }
             item.className = cls;
@@ -3299,14 +3114,14 @@ async function triggerRemoteVerification(courseName) {
 
         document.getElementById('resScore').textContent = score + "/${EXAM_CONFIG.MAX_SCORE} điểm";
         var btnRetry = document.getElementById('btnRetryWrong');
-        if (btnRetry) btnRetry.style.display = (mode === 'practice' && rights < qCount) ? 'inline-block' : 'none';
+        if (btnRetry) btnRetry.style.display = (mode !== 'exam' && rights < qCount) ? 'inline-block' : 'none';
 
         if (score >= ${EXAM_CONFIG.PASS_SCORE}) {
             document.getElementById('resScore').style.color = "#22c55e";
             document.getElementById('resText').innerHTML = "🎉 XUẤT SẮC ĐẠT CHUẨN! Bạn trả lời đúng " + rights + "/" + qCount + " câu, đạt " + score + "/${EXAM_CONFIG.MAX_SCORE} điểm.";
         } else {
             document.getElementById('resScore').style.color = "#FF5722";
-            var hint = mode === 'practice' ? " Hãy ôn lại các câu sai!" : " Vào Ôn luyện để ôn câu sai!";
+            var hint = mode !== 'exam' ? " Hãy ôn lại các câu sai!" : " Vào Ôn luyện để ôn câu sai!";
             document.getElementById('resText').innerHTML = "⚠️ CHƯA ĐẠT CHUẨN. Bạn đạt " + score + "/${EXAM_CONFIG.MAX_SCORE} điểm, cần đạt ${EXAM_CONFIG.PASS_SCORE} điểm." + hint;
         }
         document.getElementById('resBox').style.display = "flex";
@@ -3379,28 +3194,25 @@ async function triggerRemoteVerification(courseName) {
         var listId = forFlashcard ? 'fcTopicList' : 'topicList';
         document.getElementById('modeSelectBox').style.display = 'none';
         document.getElementById(boxId).style.display = 'flex';
-        // Build topic buttons
-        var groups = {};
-        fullBank.forEach(function(q) {
-            var c = q.cat || 'OTHER';
-            if (!groups[c]) groups[c] = 0;
-            groups[c]++;
-        });
+
+        // Đếm số câu hỏi có sẵn cho từng chuyên đề (domain), dựa trên category thật trong fullBank
         var listEl = document.getElementById(listId);
         listEl.innerHTML = '';
-        Object.keys(groups).sort().forEach(function(cat) {
+        topicDomains.forEach(function(domain, dIdx) {
+            var count = fullBank.filter(function(q) { return domain.cats.indexOf(q.cat) >= 0; }).length;
+            if (count === 0) return; // chuyên đề chưa có câu hỏi trong ngân hàng — không hiện để tránh chọn vào rồi trống
             var btn = document.createElement('button');
             btn.className = 'mode-btn';
             btn.style.textAlign = 'left';
-            btn.innerHTML = catLabel(cat) +
-                '<span class="lock-badge" style="color:var(--muted);">' + groups[cat] + ' câu</span>';
+            btn.innerHTML = domain.title +
+                '<span class="lock-badge" style="color:var(--muted);">' + count + ' câu</span>';
             btn.onclick = function() {
                 if (forFlashcard) {
                     var ct = '${courseType}';
                     var base = ct.indexOf('GENERATIVE AI') >= 0 ? '/flashcard-ai' : '/flashcard-ic3';
-                    window.location.href = base + '?cat=' + encodeURIComponent(cat);
+                    window.location.href = base + '?cats=' + encodeURIComponent(domain.cats.join(',')) + '&label=' + encodeURIComponent(domain.title);
                 } else {
-                    launchTopicMode(cat);
+                    launchTopicMode(dIdx);
                 }
             };
             listEl.appendChild(btn);
@@ -3417,12 +3229,16 @@ async function triggerRemoteVerification(courseName) {
         }
     }
 
-    function launchTopicMode(cat) {
+    function launchTopicMode(domainIdx) {
         document.getElementById('topicSelectBox').style.display = 'none';
-        selectedCategory = cat;
-        mode = 'practice';
-        // Lọc theo category, lấy 15 câu ngẫu nhiên
-        var filtered = fullBank.filter(function(q) { return q.cat === cat; });
+        var domain = topicDomains[domainIdx];
+        if (!domain) return;
+        selectedCategory = domain.cats;
+        selectedCategoryLabel = domain.title;
+        mode = 'topic';
+        document.getElementById('btnSubmit').style.display = 'none';
+        // Lọc theo các category thuộc chuyên đề, lấy 15 câu ngẫu nhiên
+        var filtered = fullBank.filter(function(q) { return selectedCategory.indexOf(q.cat) >= 0; });
         var selected = shuffleArray(filtered.slice()).slice(0, 15);
         buildList(selected);
         initQuiz();
@@ -3437,7 +3253,7 @@ async function triggerRemoteVerification(courseName) {
         navPage = 0;
         var selected;
         if (mode === 'topic' && selectedCategory) {
-            var filtered = fullBank.filter(function(q) { return q.cat === selectedCategory; });
+            var filtered = fullBank.filter(function(q) { return selectedCategory.indexOf(q.cat) >= 0; });
             selected = shuffleArray(filtered.slice()).slice(0, 15);
         } else if (mode === 'practice') {
             // Ôn hỗn hợp: stratified 15 câu
@@ -3453,6 +3269,7 @@ async function triggerRemoteVerification(courseName) {
     window.addEventListener('DOMContentLoaded', function() {
         selectedLevel = 'ALL';
         selectedCategory = null;
+        selectedCategoryLabel = '';
         verifyModeMenu();
     });
     </script>

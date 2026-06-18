@@ -54,6 +54,7 @@ export function getProgressUI() {
 
 <script>
 var CATEGORY_LABELS = {
+    // --- IC3 Level 1 ---
     'HARDWARE':            '💻 Thiết bị phần cứng',
     'SOFTWARE':            '📦 Phần mềm & Ứng dụng',
     'OPERATING_SYSTEM':    '🖥️ Hệ điều hành',
@@ -61,15 +62,41 @@ var CATEGORY_LABELS = {
     'SECURITY':            '🔐 An ninh bảo mật',
     'PRIVACY':             '🛡️ Quyền riêng tư',
     'DIGITAL_CITIZENSHIP': '🌍 Công dân kỹ thuật số',
-    'CLOUD_COMPUTING':     '☁️ Điện toán đám mây',
-    'IOT':                 '📡 Internet vạn vật (IoT)',
-    'DATA':                '📊 Thông tin & Dữ liệu',
-    'CRITICAL_THINKING':   '🧠 Tư duy phản biện',
-    'AI_DIGITAL':          '🤖 Trí tuệ nhân tạo (AI)',
     'FILE_FORMAT':         '📁 Định dạng tệp tin',
     'TROUBLESHOOTING':     '🔧 Xử lý sự cố',
     'BROWSER':             '🌐 Trình duyệt Web',
-    'TECHNOLOGY_SOCIETY':  '🏛️ Công nghệ & Xã hội'
+    // --- IC3 Level 2 ---
+    'ACCESSIBILITY':              '♿ Khả năng truy cập (Accessibility)',
+    'CLOUD_DIGITAL_SERVICES':     '☁️ Dịch vụ số & Điện toán đám mây',
+    'COMMUNICATION_COLLABORATION':'💬 Giao tiếp & Cộng tác',
+    'COPYRIGHT':                  '©️ Bản quyền nội dung',
+    'DATA_MANAGEMENT':            '🗂️ Quản lý tệp & dữ liệu',
+    'DATA_VISUALIZATION':         '📊 Trực quan hóa dữ liệu',
+    'DIAGRAMS':                   '📐 Sơ đồ & lưu đồ',
+    'MEDIA_EDITING':              '🎬 Chỉnh sửa hình ảnh/âm thanh/video',
+    'PRESENTATION':               '📽️ Trình chiếu',
+    'PRODUCTIVITY_SOFTWARE':      '📝 Word/Excel/PowerPoint',
+    'SOFTWARE_APPLICATIONS':      '🧩 Tính năng phần mềm chung',
+    'WEB_DESIGN':                 '🎨 Thiết kế Web',
+    // --- IC3 Level 3 ---
+    'AI':                    '🤖 Trí tuệ nhân tạo (AI)',
+    'CLOUD_COMPUTING':       '☁️ Điện toán đám mây',
+    'CRITICAL_THINKING':     '🧠 Tư duy phản biện',
+    'CYBERSECURITY':         '🔐 An ninh mạng',
+    'DATA_PRIVACY':          '🛡️ Bảo mật quyền riêng tư',
+    'DIGITAL_IDENTITY':      '🪪 Danh tính số',
+    'INFORMATION_LITERACY':  '📚 Đánh giá thông tin',
+    'INFORMATION_SEARCH':    '🔍 Tìm kiếm thông tin',
+    'INFORMATION_USE':       '📖 Sử dụng thông tin',
+    'INTELLECTUAL_PROPERTY': '©️ Sở hữu trí tuệ',
+    'IOT':                   '📡 Internet vạn vật (IoT)',
+    'NETWORKING':            '🌐 Mạng máy tính',
+    'ONLINE_SAFETY':         '🛟 An toàn trực tuyến',
+    // --- Generative AI ---
+    'FOUNDATION': '🌱 Khái niệm nền tảng AI',
+    'PROMPTING':  '✍️ Prompt Engineering',
+    'ETHICS':     '⚖️ Đạo đức & rủi ro AI',
+    'TOOLS':      '🛠️ Công cụ AI'
 };
 
 function getProgressKey(course) {

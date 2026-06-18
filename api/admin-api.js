@@ -81,6 +81,40 @@ export async function handleAdminAPI(path, request, env) {
         }
     }
 
+    // GET /api/admin/promo — lấy cấu hình khuyến mãi hiện tại
+    // (dùng cho trang admin dashboard nạp lại form khi mở lại; trang chủ đọc trực tiếp
+    // từ KV trong index.js, không qua route này)
+    if (path === '/api/admin/promo' && request.method === 'GET') {
+        try {
+            const raw = await env.MOS360_USERS_KV.get('promo_config');
+            const promo = raw ? JSON.parse(raw) : {
+                active: false,
+                title: '',
+                subtitle: '',
+                badge: '',
+                deadline: '',
+                color: '#FF5722',
+                showBanner: true,
+                showSection: true,
+                discounts: []
+            };
+            return json({ success: true, promo });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // POST /api/admin/promo — lưu cấu hình khuyến mãi
+    if (path === '/api/admin/promo' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            await env.MOS360_USERS_KV.put('promo_config', JSON.stringify(body));
+            return json({ success: true, msg: 'Đã lưu cấu hình khuyến mãi!' });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
     return json({ success: false, msg: 'API not found' }, 404);
 }
 

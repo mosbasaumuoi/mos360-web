@@ -104,6 +104,7 @@ header { background:#111422; border-bottom:1px solid rgba(255,255,255,0.06); pad
             <option value="wrong">Ôn câu sai</option>
         </select>
     </div>
+    <div id="fcTopicBanner" style="display:none; font-size:0.8rem; font-weight:700; color:#00f2ff; background:rgba(0,242,255,0.08); border:1px solid rgba(0,242,255,0.2); border-radius:10px; padding:8px 14px; margin-bottom:12px;"></div>
 
     <div class="fc-progress" id="fcProgress">Câu 1 / 0</div>
 
@@ -186,6 +187,14 @@ function getCorrectText(q) {
     return String(q.c);
 }
 
+function getTopicParamsFromURL() {
+    var params = new URLSearchParams(window.location.search);
+    var catsRaw = params.get('cats');
+    var label = params.get('label') || '';
+    var cats = catsRaw ? catsRaw.split(',').filter(Boolean) : null;
+    return { cats: cats, label: label };
+}
+
 function initFlashcard() {
     var lv = document.getElementById('fcLevel') ? document.getElementById('fcLevel').value : 'ALL';
     var mode = document.getElementById('fcMode') ? document.getElementById('fcMode').value : 'all';
@@ -195,6 +204,20 @@ function initFlashcard() {
 
     var filtered = fullBank;
     if (lv !== 'ALL') filtered = filtered.filter(function(b){ return b.lv === lv; });
+
+    var topic = getTopicParamsFromURL();
+    if (topic.cats && topic.cats.length) {
+        filtered = filtered.filter(function(b){ return topic.cats.indexOf(b.cat) >= 0; });
+    }
+    var topicBanner = document.getElementById('fcTopicBanner');
+    if (topicBanner) {
+        if (topic.cats && topic.cats.length) {
+            topicBanner.style.display = 'block';
+            topicBanner.textContent = '📌 Chủ đề: ' + (topic.label || 'Đã chọn');
+        } else {
+            topicBanner.style.display = 'none';
+        }
+    }
 
     if (mode === 'wrong') {
         var wrongRaw = localStorage.getItem('mos360_fc_wrong_' + courseType);
