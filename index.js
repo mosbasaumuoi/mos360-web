@@ -2074,7 +2074,7 @@ async function triggerRemoteVerification(courseName) {
         header { background: #F0F4FA; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .timer-box { border: 2px solid var(--cyan); padding: 6px 14px; border-radius: 8px; font-size: 16px; font-weight: 800; color: #0052CC; }
 
-        .mode-selection-overlay { position: absolute; inset: 0; background: #F0F4FA; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; border-radius: 12px; }
+        .mode-selection-overlay { position: absolute; inset: 0; background: #F0F4FA; z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 24px 20px; text-align: center; border-radius: 12px; overflow-y: auto; }
         .mode-btn { width: 100%; max-width: 420px; padding: 14px 16px; margin: 6px 0; border: 2px solid #CFD8EA; background: #FFFFFF; color: var(--text); border-radius: 12px; font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: all 0.2s; text-align: left; box-sizing: border-box; }
         .mode-btn:hover { border-color: #0052CC; background: rgba(0,82,204,0.04); }
         .lock-badge { font-size: 0.73rem; display: block; margin-top: 3px; font-weight: 600; line-height: 1.4; }
@@ -2394,15 +2394,19 @@ async function triggerRemoteVerification(courseName) {
         if (isVerified) {
             document.getElementById('modeWelcomeTxt').textContent = "✅ Quyền học viên hợp lệ – Mở khóa đầy đủ tính năng!";
             document.getElementById('modeWelcomeTxt').style.color = "#22c55e";
+            document.getElementById('lock-topic').textContent = "🔓 Chọn 1 chủ đề · 15 câu · Không giới hạn thời gian";
+            document.getElementById('lock-topic').style.color = "var(--cyan)";
             document.getElementById('lock-practice').textContent = "🔓 Ôn tập tự do – Xem giải thích ngay, không giới hạn thời gian";
             document.getElementById('lock-practice').style.color = "var(--cyan)";
             document.getElementById('lock-exam').textContent = "🔓 Thi thử thực chiến – 50 phút, tính điểm chuẩn Certiport";
             document.getElementById('lock-exam').style.color = "var(--cyan)";
         } else {
-            document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Trải nghiệm dùng thử 10 phút";
+            document.getElementById('modeWelcomeTxt').textContent = "⚠️ Chưa đăng nhập – Ôn theo chủ đề & Thi thử giới hạn dùng thử";
             document.getElementById('modeWelcomeTxt').style.color = "#FF5722";
-            document.getElementById('lock-practice').textContent = "⏱️ Ôn luyện dùng thử – Giới hạn 10 phút, có giải thích";
-            document.getElementById('lock-practice').style.color = "#ffaa80";
+            document.getElementById('lock-topic').textContent = "⏱️ Dùng thử – Chọn 1 chủ đề · 15 câu · Giới hạn 10 phút";
+            document.getElementById('lock-topic').style.color = "#ffaa80";
+            document.getElementById('lock-practice').textContent = "🔓 Ngẫu nhiên từ tất cả chủ đề · Có giải thích, không giới hạn thời gian";
+            document.getElementById('lock-practice').style.color = "var(--cyan)";
             document.getElementById('lock-exam').textContent = "⏱️ Thi thử dùng thử – Giới hạn 10 phút";
             document.getElementById('lock-exam').style.color = "#ffaa80";
         }
@@ -2549,7 +2553,16 @@ async function triggerRemoteVerification(courseName) {
         renderQ();
         checkExpireBanner();
 
-        var mins = isVerified ? (mode === 'exam' ? 50 : 0) : 10;
+        var mins;
+        if (mode === 'exam') {
+            mins = isVerified ? 50 : 10;
+        } else if (mode === 'practice') {
+            // Ôn luyện tự do (hỗn hợp): luôn mở, không giới hạn thời gian, không cần đăng nhập
+            mins = 0;
+        } else {
+            // topic: vẫn giới hạn 10 phút cho người chưa đăng nhập, mở khi đã xác thực
+            mins = isVerified ? 0 : 10;
+        }
         if (mins > 0) {
             startTimer(mins);
         } else {
