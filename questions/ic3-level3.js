@@ -378,7 +378,6 @@ export const IC3_LEVEL3 = [
     level: "IC3_LEVEL3",
     category: "SECURITY",
     image_key: "ic3_lv3_q30_software",
-    image_key: "ic3_lv2_q30_hardware",
     difficulty: "medium",
     type: "single",
     question: "Cookie trong trình duyệt web chủ yếu được dùng để làm gì?",

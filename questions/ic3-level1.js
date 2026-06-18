@@ -673,8 +673,6 @@ export const IC3_LEVEL1 = [
     level: "IC3_LEVEL1",
     test: 1,
     category: "PRIVACY",
-    image_key: "ic3_lv3_q30_software",
-    image_key: "ic3_lv2_q30_hardware",
     difficulty: "easy",
     type: "single",
     question: "Bạn hãy cho biết, duyệt web ở chế độ riêng tư (ẩn danh) đảm bảo điều gì sau đây?",
