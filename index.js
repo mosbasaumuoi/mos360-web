@@ -2080,7 +2080,7 @@ async function triggerRemoteVerification(courseName) {
         .lock-badge { font-size: 0.73rem; display: block; margin-top: 3px; font-weight: 600; line-height: 1.4; }
 
         .quiz-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 20px; }
-        .main-quiz { background: #FFFFFF; padding: 20px; border-radius: 12px; min-height: 440px; display: flex; flex-direction: column; position: relative; }
+        .main-quiz { background: #FFFFFF; padding: 20px; border-radius: 12px; min-height: auto; display: flex; flex-direction: column; position: relative; }
 
         .question-box { font-size: 1.05rem; font-weight: 700; line-height: 1.5; margin-bottom: 20px; color: var(--text); }
         .option { display: flex; align-items: flex-start; padding: 14px 16px; background: #F0F4FA; border: 2px solid #CFD8EA; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; gap: 10px; }
@@ -2333,7 +2333,7 @@ async function triggerRemoteVerification(courseName) {
                 </div>
             </div>
 
-            <div class="right-sidebar">
+            <div class="right-sidebar" id="rightSidebar" style="display:none;">
                 <h4 style="margin-bottom:8px; font-size:12px; color:var(--muted);">DANH SÁCH CÂU HỎI</h4>
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
                     <button id="navPagePrev" onclick="changeNavPage(-1)" style="background:#E2ECFA; border:1px solid #CFD8EA; color:var(--muted); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:12px; font-weight:800;">&#9664;</button>
@@ -2390,7 +2390,13 @@ async function triggerRemoteVerification(courseName) {
         verifyModeMenu();
     }
 
+    function setSidebar(visible) {
+        var sb = document.getElementById('rightSidebar');
+        if (sb) sb.style.display = visible ? 'flex' : 'none';
+    }
+
     function verifyModeMenu() {
+        setSidebar(false);
         if (isVerified) {
             document.getElementById('modeWelcomeTxt').textContent = "✅ Quyền học viên hợp lệ – Mở khóa đầy đủ tính năng!";
             document.getElementById('modeWelcomeTxt').style.color = "#22c55e";
@@ -2466,6 +2472,7 @@ async function triggerRemoteVerification(courseName) {
     }
 
     function buildList(selected) {
+        setSidebar(true);
         list = [];
         for (var i = 0; i < selected.length; i++) {
             var b = selected[i];
@@ -3197,12 +3204,14 @@ async function triggerRemoteVerification(courseName) {
 
     // ===== SHOW/HIDE OVERLAY HELPERS =====
     function showModeSelect() {
+        setSidebar(false);
         document.getElementById('modeSelectBox').style.display = 'flex';
         document.getElementById('topicSelectBox').style.display = 'none';
         document.getElementById('fcTopicSelectBox').style.display = 'none';
     }
 
     function showTopicSelect(forFlashcard) {
+        setSidebar(false);
         var boxId = forFlashcard ? 'fcTopicSelectBox' : 'topicSelectBox';
         var listId = forFlashcard ? 'fcTopicList' : 'topicList';
         document.getElementById('modeSelectBox').style.display = 'none';
