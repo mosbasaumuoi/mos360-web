@@ -2103,6 +2103,19 @@ async function triggerRemoteVerification(courseName) {
         .nav-item.correct-nav { background: rgba(34,197,94,0.16); color: #16a34a; }
         .nav-item.wrong-nav { background: rgba(239,68,68,0.14); color: #dc2626; }
 
+        .nav-item.marked { box-shadow: inset 0 0 0 2px #f59e0b; }
+        .nav-item.marked::after { content: '🚩'; font-size: 8px; position: relative; top: -10px; left: 10px; }
+        .exam-extra-btns { display: none; gap: 10px; margin-top: 14px; }
+        .btn-mark { padding: 10px 16px; background: #FFF7ED; border: 1px solid #FED7AA; color: #C2410C; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.82rem; flex: 1; }
+        .btn-mark.active { background: #f59e0b; color: #fff; border-color: #f59e0b; }
+        .btn-summary { padding: 10px 16px; background: #EFF6FF; border: 1px solid #BFDBFE; color: #1D4ED8; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.82rem; flex: 1; }
+        .summary-overlay { display: none; position: absolute; inset: 0; background: #F0F4FA; z-index: 1000; flex-direction: column; padding: 24px 20px; border-radius: 12px; overflow-y: auto; }
+        .summary-overlay.visible { display: flex; }
+        .summary-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin: 16px 0; }
+        @media (max-width: 600px) { .summary-grid { grid-template-columns: repeat(5, 1fr); } }
+        .summary-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+        .summary-legend span { display: inline-flex; align-items: center; gap: 5px; }
+        .summary-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
         .control-btns { display: flex; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 20px; }
         .btn-ctrl { padding: 12px 18px; background: #E2ECFA; color: var(--text); border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
         .btn-submit { background: #16a34a; font-weight: 800; }
@@ -2326,6 +2339,26 @@ async function triggerRemoteVerification(courseName) {
                 </div>
                 <div class="explanation-box" id="explanationBox"><strong>💡 Giải thích:</strong> <span id="explanationText"></span></div>
 
+                <div class="exam-extra-btns" id="examExtraBtns">
+                    <button class="btn-mark" id="btnMarkReview" onclick="toggleMarkReview()">🚩 Đánh dấu xem lại</button>
+                    <button class="btn-summary" onclick="showSummaryScreen()">📋 Tổng quan bài thi</button>
+                </div>
+
+                <div class="summary-overlay" id="summaryOverlay">
+                    <h2 style="color:var(--text); margin-bottom:4px; font-size:1.15rem;">📋 TỔNG QUAN BÀI THI</h2>
+                    <p style="font-size:0.85rem; color:var(--muted); margin-bottom:4px;" id="summaryStats"></p>
+                    <div class="summary-legend">
+                        <span><i style="background:#CFD8EA;"></i> Đã làm</span>
+                        <span><i style="background:#EEF3FB; box-shadow: inset 0 0 0 2px #f59e0b;"></i> Đã đánh dấu xem lại</span>
+                        <span><i style="background:#EEF3FB;"></i> Chưa làm</span>
+                    </div>
+                    <div class="summary-grid" id="summaryGrid"></div>
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <button class="btn-ctrl" style="flex:1;" onclick="hideSummaryScreen()">← QUAY LẠI LÀM BÀI</button>
+                        <button class="btn-ctrl btn-submit" style="flex:1;" onclick="submitExamNow()">NỘP BÀI CHẤM ĐIỂM</button>
+                    </div>
+                </div>
+
                 <div class="control-btns">
                     <button class="btn-ctrl" onclick="go(-1)">← TRƯỚC</button>
                     <button class="btn-ctrl btn-submit" id="btnSubmit" onclick="submitExamNow()">NỘP BÀI CHẤM ĐIỂM</button>
@@ -2369,6 +2402,7 @@ async function triggerRemoteVerification(courseName) {
     var dragdropState = {};
     var sortState = {};
     var isRetryMode = false;
+    var markedForReview = {}; // {questionIndex: true} — chỉ dùng ở chế độ thi thử
     var navPage = 0; // trang hiện tại của sidebar (10 câu/trang)
     var NAV_PAGE_SIZE = 10;
 
@@ -2459,6 +2493,7 @@ async function triggerRemoteVerification(courseName) {
         }
 
         document.getElementById('btnSubmit').style.display = mode === 'exam' ? 'inline-block' : 'none';
+        document.getElementById('examExtraBtns').style.display = mode === 'exam' ? 'flex' : 'none';
 
         var filtered = selectedLevel === 'ALL' ? fullBank : fullBank.filter(function(b) { return b.lv === selectedLevel; });
         var selected;
@@ -2473,6 +2508,7 @@ async function triggerRemoteVerification(courseName) {
 
     function buildList(selected) {
         setSidebar(true);
+        markedForReview = {};
         list = [];
         for (var i = 0; i < selected.length; i++) {
             var b = selected[i];
@@ -2497,6 +2533,7 @@ async function triggerRemoteVerification(courseName) {
         document.getElementById('resBox').style.display = "none";
         document.getElementById('retryBanner').classList.add('visible');
         document.getElementById('btnSubmit').style.display = mode === 'exam' ? 'inline-block' : 'none';
+        document.getElementById('examExtraBtns').style.display = mode === 'exam' ? 'flex' : 'none';
         buildList(wrongItems);
         cur = 0; isDone = false;
         initQuiz();
@@ -2516,6 +2553,7 @@ async function triggerRemoteVerification(courseName) {
             if (i === cur) cls += ' current';
             else if (confirmedList[i]) cls += isCorrectAnswer(i) ? ' correct-nav' : ' wrong-nav';
             else if (isAnswered(i)) cls += ' answered';
+            if (markedForReview[i]) cls += ' marked';
             d.className = cls;
             d.id = 'ni-' + i;
             d.textContent = i + 1;
@@ -2592,6 +2630,7 @@ async function triggerRemoteVerification(courseName) {
         isRetryMode = true;
         document.getElementById('modeSelectBox').style.display = "none";
         document.getElementById('btnSubmit').style.display = 'none';
+        document.getElementById('examExtraBtns').style.display = 'none';
         document.getElementById('retryBanner').classList.add('visible');
         buildList(wrongItems);
         initQuiz();
@@ -2791,6 +2830,64 @@ async function triggerRemoteVerification(courseName) {
         }
 
         syncNavPageToCur();
+        updateMarkBtn();
+    }
+
+    function updateMarkBtn() {
+        var btn = document.getElementById('btnMarkReview');
+        if (!btn) return;
+        if (markedForReview[cur]) {
+            btn.classList.add('active');
+            btn.textContent = '🚩 Đã đánh dấu — Bỏ đánh dấu';
+        } else {
+            btn.classList.remove('active');
+            btn.textContent = '🚩 Đánh dấu xem lại';
+        }
+    }
+
+    function toggleMarkReview() {
+        var wasMarked = !!markedForReview[cur];
+        if (wasMarked) {
+            delete markedForReview[cur];
+            updateMarkBtn();
+            renderNavGrid();
+        } else {
+            markedForReview[cur] = true;
+            // "Làm sau": đánh dấu xong tự chuyển sang câu tiếp theo để tiếp tục làm bài
+            if (cur < qCount - 1) { go(1); }
+            else { updateMarkBtn(); renderNavGrid(); }
+        }
+    }
+
+    // ===== TỔNG QUAN BÀI THI (Go to Summary) =====
+    function showSummaryScreen() {
+        var grid = document.getElementById('summaryGrid');
+        grid.innerHTML = '';
+        var answeredCount = 0, markedCount = 0;
+        for (var i = 0; i < qCount; i++) {
+            var d = document.createElement('div');
+            var cls = 'nav-item';
+            var answered = isAnswered(i);
+            if (answered) { cls += ' answered'; answeredCount++; }
+            if (markedForReview[i]) { cls += ' marked'; markedCount++; }
+            d.className = cls;
+            d.textContent = i + 1;
+            (function(idx){ d.onclick = function() { jumpFromSummary(idx); }; })(i);
+            grid.appendChild(d);
+        }
+        document.getElementById('summaryStats').textContent =
+            'Đã làm: ' + answeredCount + '/' + qCount + ' câu · Đã đánh dấu xem lại: ' + markedCount + ' câu';
+        document.getElementById('summaryOverlay').classList.add('visible');
+    }
+
+    function hideSummaryScreen() {
+        document.getElementById('summaryOverlay').classList.remove('visible');
+    }
+
+    function jumpFromSummary(idx) {
+        cur = idx;
+        hideSummaryScreen();
+        renderQ();
     }
 
     // ===== SINGLE / MULTIPLE =====
@@ -3312,6 +3409,7 @@ async function triggerRemoteVerification(courseName) {
         selectedCategoryLabel = domain.title;
         mode = 'topic';
         document.getElementById('btnSubmit').style.display = 'none';
+        document.getElementById('examExtraBtns').style.display = 'none';
         // Lọc theo các category thuộc chuyên đề, lấy 15 câu ngẫu nhiên
         var filtered = fullBank.filter(function(q) { return selectedCategory.indexOf(q.cat) >= 0; });
         var selected = shuffleArray(filtered.slice()).slice(0, 15);
