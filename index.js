@@ -291,19 +291,26 @@ export default {
 
                     const sheetPhone = normalizePhone((cols[phoneIdx] || "").trim());
                     const sheetCourse = (cols[courseIdx] || "").replace(/\s+/g, " ").trim().toLowerCase();
-                    expireStr = (cols[expireIdx] || "").trim();
+                    const rawExpire = (cols[expireIdx] || "").trim();
 
                     if (sheetPhone === phone && (sheetCourse === course || sheetCourse.includes(course) || course.includes(sheetCourse))) {
-                        if (expireStr) {
-                            const parts = expireStr.includes("/") ? expireStr.split("/") : expireStr.split("-");
-                            let year = parseInt(parts[2]); if (year < 100) year += 2000;
-                            const expireDate = expireStr.includes("/")
-                                ? new Date(year, parseInt(parts[1]) - 1, parseInt(parts[0]), 23, 59, 59)
-                                : new Date(year, parseInt(parts[1]) - 1, parseInt(parts[2]), 23, 59, 59);
+                        if (rawExpire) {
+                            // ── FIX 1+2: parse đúng cả DD/MM/YYYY và YYYY-MM-DD,
+                            // và tính end-of-day theo múi giờ Việt Nam (UTC+7 = 16:59:59 UTC)
+                            let dd, mm, yyyy;
+                            if (rawExpire.includes("/")) {
+                                [dd, mm, yyyy] = rawExpire.split("/").map(Number);
+                            } else {
+                                [yyyy, mm, dd] = rawExpire.split("-").map(Number);
+                            }
+                            if (yyyy < 100) yyyy += 2000;
+                            // 23:59:59 Vietnam = 16:59:59 UTC
+                            const expireDate = new Date(Date.UTC(yyyy, mm - 1, dd, 16, 59, 59));
                             if (new Date() > expireDate) {
                                 reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
                                 break;
                             }
+                            expireStr = rawExpire; // giữ chuỗi gốc để gửi về client
                         }
                         isValid = true;
                         break;
@@ -316,31 +323,22 @@ export default {
                     });
                 }
 
-                // 2. Kiểm tra giới hạn thiết bị qua KV
+                // 2. Kiểm tra / cập nhật danh sách thiết bị qua KV
                 const kvKey = phone + "_" + course.replace(/\s+/g, "_");
                 const stored = await env.MOS360_USERS_KV.get(kvKey);
                 let devices = stored ? JSON.parse(stored) : [];
 
-                if (devices.includes(deviceId)) {
-                    // Thiết bị đã đăng ký trước đó → cho qua
-                    return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!" }), {
-                        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-                    });
+                if (!devices.includes(deviceId)) {
+                    // ── FIX 3+4: Nếu đã đủ slot thì xoay vòng (bỏ thiết bị cũ nhất) thay vì chặn.
+                    // → học viên bị xoá localStorage / đổi trình duyệt / đổi máy vẫn đăng nhập lại được.
+                    if (devices.length >= DEVICE_CONFIG.MAX_DEVICES) {
+                        devices.shift(); // bỏ thiết bị cũ nhất
+                    }
+                    devices.push(deviceId);
+                    await env.MOS360_USERS_KV.put(kvKey, JSON.stringify(devices));
                 }
 
-                if (devices.length >= DEVICE_CONFIG.MAX_DEVICES) {
-                    return new Response(JSON.stringify({
-                        success: false,
-                        msg: "Tài khoản này đã đăng nhập trên " + DEVICE_CONFIG.MAX_DEVICES + " thiết bị. Vui lòng liên hệ MOS360 để được hỗ trợ!"
-                    }), {
-                        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
-                    });
-                }
-
-                // Thêm thiết bị mới
-                devices.push(deviceId);
-                await env.MOS360_USERS_KV.put(kvKey, JSON.stringify(devices));
-
+                // ── FIX 4: luôn trả về expire để client refresh được sau khi localStorage bị xoá
                 return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!", expire: expireStr }), {
                     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
                 });
@@ -1919,7 +1917,9 @@ async function triggerRemoteVerification(courseName) {
         if (data.success) {
             alert("🎉 Xác thực thành công [" + courseName + "]! Hệ thống mở khóa toàn bộ quyền Ôn Tập & Thi Thử.");
             localStorage.setItem('course_auth_' + courseName, 'verified');
+            localStorage.setItem('course_phone_' + courseName, phone); // dùng cho silent re-verify
             if (data.expire) localStorage.setItem('course_expire_' + courseName, data.expire);
+            localStorage.setItem('course_ping_' + courseName, String(Date.now()));
             checkState();
         } else {
             alert("❌ Không thành công: " + data.msg);
@@ -2080,7 +2080,7 @@ async function triggerRemoteVerification(courseName) {
         .lock-badge { font-size: 0.73rem; display: block; margin-top: 3px; font-weight: 600; line-height: 1.4; }
 
         .quiz-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 20px; }
-        .main-quiz { background: #FFFFFF; padding: 20px; border-radius: 12px; min-height: auto; display: flex; flex-direction: column; position: relative; }
+        .main-quiz { background: #FFFFFF; padding: 20px; border-radius: 12px; min-height: 580px; display: flex; flex-direction: column; position: relative; }
 
         .question-box { font-size: 1.05rem; font-weight: 700; line-height: 1.5; margin-bottom: 20px; color: var(--text); }
         .option { display: flex; align-items: flex-start; padding: 14px 16px; background: #F0F4FA; border: 2px solid #CFD8EA; border-radius: 10px; cursor: pointer; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; gap: 10px; }
@@ -2598,23 +2598,76 @@ async function triggerRemoteVerification(courseName) {
     }
 
     // ===== THÔNG BÁO HẾT HẠN =====
+    function parseExpireDate(raw) {
+        // Hỗ trợ cả "DD/MM/YYYY" (định dạng VN) và "YYYY-MM-DD" (ISO).
+        // Tất cả đều tính hết ngày theo múi giờ Việt Nam (UTC+7 = 16:59:59 UTC).
+        if (!raw) return null;
+        var dd, mm, yyyy;
+        if (raw.includes("/")) {
+            var p = raw.split("/");
+            dd = +p[0]; mm = +p[1]; yyyy = +p[2];
+        } else {
+            var p = raw.split("-");
+            yyyy = +p[0]; mm = +p[1]; dd = +p[2];
+        }
+        if (yyyy < 100) yyyy += 2000;
+        // 23:59:59 Vietnam time = 16:59:59 UTC
+        return new Date(Date.UTC(yyyy, mm - 1, dd, 16, 59, 59));
+    }
+
     function checkExpireBanner() {
         var expireRaw = localStorage.getItem('course_expire_${courseType}');
         if (!expireRaw || !isVerified) return;
         try {
-            var expireDate = new Date(expireRaw);
+            var expireDate = parseExpireDate(expireRaw);
+            if (!expireDate || isNaN(expireDate.getTime())) return;
             var now = new Date();
             var diffDays = Math.ceil((expireDate - now) / (1000 * 60 * 60 * 24));
             var banner = document.getElementById('expireBanner');
             var msg = document.getElementById('expireMsg');
             if (diffDays <= 0) {
-                msg.textContent = "Tài khoản của bạn đã hết hạn!";
+                msg.textContent = "Tài khoản của bạn đã hết hạn! Liên hệ MOS360 để gia hạn.";
                 banner.classList.add('visible');
+                // Xoá auth cục bộ để học viên biết cần gia hạn
+                localStorage.removeItem('course_auth_${courseType}');
             } else if (diffDays <= 7) {
-                msg.textContent = "Tài khoản sắp hết hạn trong " + diffDays + " ngày.";
+                msg.textContent = "Tài khoản sắp hết hạn trong " + diffDays + " ngày. Gia hạn ngay để không gián đoạn!";
                 banner.classList.add('visible');
             }
         } catch(e) {}
+    }
+
+    // ===== TỰ ĐỘNG XÁC THỰC LẠI (SILENT RE-VERIFY) =====
+    // Mỗi lần deploy, nếu localStorage vẫn còn phone + deviceId thì tự ping lại server
+    // trong nền → học viên không cần đăng nhập lại thủ công.
+    function silentRevalidate() {
+        var phone = localStorage.getItem('course_phone_${courseType}');
+        var deviceId = localStorage.getItem('mos360_device_id');
+        if (!phone || !deviceId) return;
+        // Chỉ ping lại nếu chưa xác thực hoặc đã > 12 giờ kể từ lần cuối ping
+        var lastPing = parseInt(localStorage.getItem('course_ping_${courseType}') || '0');
+        var now = Date.now();
+        if (isVerified && now - lastPing < 12 * 60 * 60 * 1000) return;
+        fetch('/api/verify-code?phone=' + encodeURIComponent(phone) +
+              '&course=' + encodeURIComponent('${courseType}') +
+              '&deviceId=' + encodeURIComponent(deviceId))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    localStorage.setItem('course_auth_${courseType}', 'verified');
+                    if (data.expire) localStorage.setItem('course_expire_${courseType}', data.expire);
+                    localStorage.setItem('course_ping_${courseType}', String(now));
+                    if (!isVerified) {
+                        // Quyền vừa được khôi phục → reload để áp dụng
+                        location.reload();
+                    }
+                } else {
+                    // Hết hạn hoặc không còn hợp lệ → xoá auth
+                    localStorage.removeItem('course_auth_${courseType}');
+                    localStorage.removeItem('course_expire_${courseType}');
+                }
+            })
+            .catch(function() { /* im lặng nếu offline */ });
     }
 
     // ===== ANSWER HELPERS =====
@@ -3293,6 +3346,8 @@ async function triggerRemoteVerification(courseName) {
         selectedCategory = null;
         selectedCategoryLabel = '';
         verifyModeMenu();
+        checkExpireBanner();
+        silentRevalidate(); // tự xác thực lại trong nền sau deploy / xoá cache
     });
     </script>
     </body></html>`;
