@@ -8,7 +8,9 @@ export function getProgressUI() {
         </div>
         <div style="display:flex; gap:10px;">
             <select id="progressCourse" onchange="loadProgress()" style="padding:9px 14px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.85rem; cursor:pointer;">
-                <option value="IC3 GS6">IC3 GS6</option>
+                <option value="IC3 GS6 LEVEL 1">IC3 GS6 — Level 1</option>
+                <option value="IC3 GS6 LEVEL 2">IC3 GS6 — Level 2</option>
+                <option value="IC3 GS6 LEVEL 3">IC3 GS6 — Level 3</option>
                 <option value="GENERATIVE AI">GENERATIVE AI</option>
             </select>
             <button onclick="clearProgress()" style="padding:9px 14px; background:#1e2235; border:1px solid rgba(239,68,68,0.3); color:#ef4444; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🗑️ Xóa lịch sử</button>
@@ -65,6 +67,7 @@ var CATEGORY_LABELS = {
     'FILE_FORMAT':         '📁 Định dạng tệp tin',
     'TROUBLESHOOTING':     '🔧 Xử lý sự cố',
     'BROWSER':             '🌐 Trình duyệt Web',
+    'COLLABORATION':       '🤝 Cộng tác trực tuyến',
     // --- IC3 Level 2 ---
     'ACCESSIBILITY':              '♿ Khả năng truy cập (Accessibility)',
     'CLOUD_DIGITAL_SERVICES':     '☁️ Dịch vụ số & Điện toán đám mây',

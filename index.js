@@ -328,10 +328,20 @@ export default {
                 const kvKey = phone + "_" + course.replace(/\s+/g, "_");
                 const stored = await env.MOS360_USERS_KV.get(kvKey);
                 let devices = stored ? JSON.parse(stored) : [];
+                const isSilent = url.searchParams.get("silent") === "1";
 
                 if (!devices.includes(deviceId)) {
-                    // ── FIX 3+4: Nếu đã đủ slot thì xoay vòng (bỏ thiết bị cũ nhất) thay vì chặn.
-                    // → học viên bị xoá localStorage / đổi trình duyệt / đổi máy vẫn đăng nhập lại được.
+                    if (isSilent) {
+                        // ── FIX BẢO MẬT: đây là lượt tự kiểm tra ngầm (không phải học viên chủ động
+                        // nhập SĐT để đăng nhập). Nếu thiết bị này không còn trong danh sách — do admin
+                        // đã bấm "Reset thiết bị" hoặc thiết bị chưa từng đăng ký — KHÔNG tự thêm lại.
+                        // Trả về false để client thu hồi quyền ngay, đúng tác dụng của nút Reset.
+                        return new Response(JSON.stringify({ success: false, msg: "Thiết bị đã bị gỡ hoặc chưa đăng ký. Vui lòng đăng nhập lại." }), {
+                            headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
+                        });
+                    }
+                    // ── Đăng nhập thủ công (học viên tự nhập SĐT): nếu đã đủ slot thì xoay vòng
+                    // (bỏ thiết bị cũ nhất) thay vì chặn — học viên đổi máy/xoá localStorage vẫn vào được.
                     if (devices.length >= DEVICE_CONFIG.MAX_DEVICES) {
                         devices.shift(); // bỏ thiết bị cũ nhất
                     }
@@ -339,7 +349,7 @@ export default {
                     await env.MOS360_USERS_KV.put(kvKey, JSON.stringify(devices));
                 }
 
-                // ── FIX 4: luôn trả về expire để client refresh được sau khi localStorage bị xoá
+                // ── luôn trả về expire để client refresh được sau khi localStorage bị xoá
                 return new Response(JSON.stringify({ success: true, msg: "Kích hoạt thành công!", expire: expireStr }), {
                     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }
                 });
@@ -2700,6 +2710,23 @@ async function triggerRemoteVerification(courseName) {
         return new Date(Date.UTC(yyyy, mm - 1, dd, 16, 59, 59));
     }
 
+    // Thu hồi quyền NGAY trong phiên hiện tại (không chỉ xoá localStorage cho lần tải sau) —
+    // dùng chung cho cả trường hợp hết hạn và trường hợp admin Reset thiết bị.
+    function revokeAccessNow(reasonMsg) {
+        isVerified = false;
+        localStorage.removeItem('course_auth_${courseType}');
+        localStorage.removeItem('course_expire_${courseType}');
+        localStorage.removeItem('course_ping_${courseType}');
+        var banner = document.getElementById('expireBanner');
+        var msg = document.getElementById('expireMsg');
+        if (banner && msg && reasonMsg) {
+            msg.textContent = reasonMsg;
+            banner.classList.add('visible');
+        }
+        // Cập nhật lại badge/khoá thời gian ngay lập tức cho phiên đang mở, không cần tải lại trang
+        if (typeof verifyModeMenu === 'function') verifyModeMenu();
+    }
+
     function checkExpireBanner() {
         var expireRaw = localStorage.getItem('course_expire_${courseType}');
         if (!expireRaw || !isVerified) return;
@@ -2711,10 +2738,8 @@ async function triggerRemoteVerification(courseName) {
             var banner = document.getElementById('expireBanner');
             var msg = document.getElementById('expireMsg');
             if (diffDays <= 0) {
-                msg.textContent = "Tài khoản của bạn đã hết hạn! Liên hệ MOS360 để gia hạn.";
-                banner.classList.add('visible');
-                // Xoá auth cục bộ để học viên biết cần gia hạn
-                localStorage.removeItem('course_auth_${courseType}');
+                // FIX: thu hồi quyền NGAY trong phiên này, không để học viên dùng tiếp tới khi tải lại trang
+                revokeAccessNow("Tài khoản của bạn đã hết hạn! Liên hệ MOS360 để gia hạn.");
             } else if (diffDays <= 7) {
                 msg.textContent = "Tài khoản sắp hết hạn trong " + diffDays + " ngày. Gia hạn ngay để không gián đoạn!";
                 banner.classList.add('visible');
@@ -2723,19 +2748,21 @@ async function triggerRemoteVerification(courseName) {
     }
 
     // ===== TỰ ĐỘNG XÁC THỰC LẠI (SILENT RE-VERIFY) =====
-    // Mỗi lần deploy, nếu localStorage vẫn còn phone + deviceId thì tự ping lại server
-    // trong nền → học viên không cần đăng nhập lại thủ công.
+    // Ping ngầm để: (1) khôi phục quyền sau khi deploy/xoá cache nếu vẫn còn hợp lệ,
+    // (2) phát hiện NHANH khi admin Reset thiết bị hoặc tài khoản vừa hết hạn và thu hồi quyền ngay.
     function silentRevalidate() {
         var phone = localStorage.getItem('course_phone_${courseType}');
         var deviceId = localStorage.getItem('mos360_device_id');
         if (!phone || !deviceId) return;
-        // Chỉ ping lại nếu chưa xác thực hoặc đã > 12 giờ kể từ lần cuối ping
+        // Giảm xuống 5 phút (từ 12 giờ) để việc Reset thiết bị / hết hạn có hiệu lực gần như ngay lập tức
+        // ở lần tải trang tiếp theo, thay vì học viên có thể dùng "chùa" cả nửa ngày.
         var lastPing = parseInt(localStorage.getItem('course_ping_${courseType}') || '0');
         var now = Date.now();
-        if (isVerified && now - lastPing < 12 * 60 * 60 * 1000) return;
+        if (isVerified && now - lastPing < 5 * 60 * 1000) return;
         fetch('/api/verify-code?phone=' + encodeURIComponent(phone) +
               '&course=' + encodeURIComponent('${courseType}') +
-              '&deviceId=' + encodeURIComponent(deviceId))
+              '&deviceId=' + encodeURIComponent(deviceId) +
+              '&silent=1')
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) {
@@ -2747,9 +2774,8 @@ async function triggerRemoteVerification(courseName) {
                         location.reload();
                     }
                 } else {
-                    // Hết hạn hoặc không còn hợp lệ → xoá auth
-                    localStorage.removeItem('course_auth_${courseType}');
-                    localStorage.removeItem('course_expire_${courseType}');
+                    // FIX: Hết hạn HOẶC bị admin Reset thiết bị → thu hồi quyền NGAY, không chờ tải lại trang
+                    revokeAccessNow(data.msg || "Phiên đăng nhập không còn hợp lệ. Vui lòng đăng nhập lại.");
                 }
             })
             .catch(function() { /* im lặng nếu offline */ });
