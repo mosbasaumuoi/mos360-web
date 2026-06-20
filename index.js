@@ -2120,7 +2120,12 @@ async function triggerRemoteVerification(courseName) {
         .btn-ctrl { padding: 12px 18px; background: #E2ECFA; color: var(--text); border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
         .btn-submit { background: #16a34a; font-weight: 800; }
 
-        .result-overlay { position: absolute; inset: 0; background: #F0F4FA; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; z-index: 1000; display: none; border-radius: 12px; }
+        .result-overlay { position: absolute; inset: 0; background: #F0F4FA; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; padding: 28px 20px; z-index: 1000; display: none; border-radius: 12px; overflow-y: auto; }
+        .breakdown-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+        .breakdown-label { flex: 0 0 150px; font-size: 0.78rem; font-weight: 700; color: var(--text); text-align: left; line-height: 1.25; }
+        .breakdown-bar-wrap { flex: 1; height: 18px; background: #E2ECFA; border-radius: 9px; overflow: hidden; position: relative; }
+        .breakdown-bar-fill { height: 100%; border-radius: 9px; transition: width 0.4s ease; }
+        .breakdown-pct { flex: 0 0 42px; font-size: 0.8rem; font-weight: 800; text-align: right; }
 
         /* ===== NÚT XÁC NHẬN ĐÁP ÁN - Thiết kế lại ===== */
         .btn-confirm-wrap { display:none; margin-top:14px; }
@@ -2321,7 +2326,11 @@ async function triggerRemoteVerification(courseName) {
                 <div class="result-overlay" id="resBox">
                     <h2 style="color:var(--cyan); font-weight:800;">KẾT QUẢ SÁT HẠCH</h2>
                     <div style="font-size:42px; font-weight:800; margin:15px 0;" id="resScore">0 / 1000</div>
-                    <p style="margin-bottom:25px; color:#334155; font-size:0.95rem; max-width:420px; line-height:1.5;" id="resText"></p>
+                    <p style="margin-bottom:18px; color:#334155; font-size:0.95rem; max-width:420px; line-height:1.5;" id="resText"></p>
+                    <div id="resBreakdownWrap" style="width:100%; max-width:460px; text-align:left; margin-bottom:22px; display:none;">
+                        <h3 style="font-size:0.78rem; color:var(--muted); font-weight:800; letter-spacing:0.5px; margin-bottom:12px; text-transform:uppercase;">📊 Phân tích từng phần (như đề thi thật)</h3>
+                        <div id="resBreakdownTable"></div>
+                    </div>
                     <button onclick="location.href=&apos;/courses&apos;" style="padding:12px 35px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:var(--text); font-weight:800; border-radius:25px; cursor:pointer; margin-bottom:12px;">QUAY LẠI TRANG KHÓA HỌC</button>
                     <button onclick="retryWrongAnswers()" id="btnRetryWrong" style="padding:10px 25px; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; font-weight:700; border-radius:20px; cursor:pointer; margin-bottom:8px;">🔁 ÔN LẠI CÁC CÂU SAI</button>
                     <button onclick="restartQuiz()" style="padding:10px 25px; background:#F0F4FA; border:1px solid #CFD8EA; color:var(--muted); font-weight:700; border-radius:20px; cursor:pointer;">LÀM LẠI BÀI THI</button>
@@ -2512,7 +2521,7 @@ async function triggerRemoteVerification(courseName) {
         list = [];
         for (var i = 0; i < selected.length; i++) {
             var b = selected[i];
-            list.push({ q: "[Câu " + (i+1) + "] " + b.q, options: b.o ? b.o.slice() : [], o_left: b.o_left || [], o_right: b.o_right || [], c: b.c, e: b.e, t: b.t, img: b.img || "" });            
+            list.push({ q: "[Câu " + (i+1) + "] " + b.q, options: b.o ? b.o.slice() : [], o_left: b.o_left || [], o_right: b.o_right || [], c: b.c, e: b.e, t: b.t, img: b.img || "", cat: b.cat || "" });            
         }
         qCount = list.length;
         userAns = list.map(function(q) { return Array.isArray(q.c) ? [] : null; });
@@ -3236,6 +3245,35 @@ async function triggerRemoteVerification(courseName) {
         window.location.href = url;
     }
 
+    // ===== PHÂN TÍCH TỪNG PHẦN (như báo cáo điểm thi thật) =====
+    function renderResultBreakdown(categoryResults) {
+        var wrap = document.getElementById('resBreakdownWrap');
+        var tableEl = document.getElementById('resBreakdownTable');
+        if (!topicDomains || !topicDomains.length) { wrap.style.display = 'none'; return; }
+
+        // Gộp kết quả theo category kỹ thuật → 7 chuyên đề IC3 / 4 module GenAI
+        var rows = [];
+        topicDomains.forEach(function(domain) {
+            var correct = 0, total = 0;
+            domain.cats.forEach(function(c) {
+                if (categoryResults[c]) { correct += categoryResults[c].correct; total += categoryResults[c].total; }
+            });
+            if (total > 0) rows.push({ title: domain.title, correct: correct, total: total, pct: Math.round((correct/total)*100) });
+        });
+
+        if (!rows.length) { wrap.style.display = 'none'; return; }
+
+        tableEl.innerHTML = rows.map(function(r) {
+            var color = r.pct >= 80 ? '#22c55e' : (r.pct >= 60 ? '#f59e0b' : '#ef4444');
+            return '<div class="breakdown-row">' +
+                '<div class="breakdown-label">' + r.title + '</div>' +
+                '<div class="breakdown-bar-wrap"><div class="breakdown-bar-fill" style="width:' + r.pct + '%; background:' + color + ';"></div></div>' +
+                '<div class="breakdown-pct" style="color:' + color + ';">' + r.pct + '%</div>' +
+                '</div>';
+        }).join('');
+        wrap.style.display = 'block';
+    }
+
     // ===== SUBMIT =====
     function submitExamNow() {
         if (isDone) return;
@@ -3285,6 +3323,8 @@ async function triggerRemoteVerification(courseName) {
         document.getElementById('resScore').textContent = score + "/${EXAM_CONFIG.MAX_SCORE} điểm";
         var btnRetry = document.getElementById('btnRetryWrong');
         if (btnRetry) btnRetry.style.display = (mode !== 'exam' && rights < qCount) ? 'inline-block' : 'none';
+
+        renderResultBreakdown(categoryResults);
 
         if (score >= ${EXAM_CONFIG.PASS_SCORE}) {
             document.getElementById('resScore').style.color = "#22c55e";
