@@ -154,9 +154,9 @@ const IC3_TOPIC_DOMAINS = [
 ];
 const GENAI_TOPIC_DOMAINS = [
     { title: "1. Giới thiệu Generative AI & khái niệm nền tảng", cats: ["FOUNDATION"] },
-    { title: "2. Công cụ, kỹ thuật & Prompt Engineering", cats: ["PROMPTING", "TOOLS"] },
-    { title: "3. Ứng dụng thực tiễn & triển khai", cats: [] },
-    { title: "4. Đạo đức, trách nhiệm & rủi ro AI", cats: ["ETHICS"] }
+    { title: "2. Kỹ thuật nhắc lệnh (Prompt Engineering)", cats: ["PROMPTING"] },
+    { title: "3. Ứng dụng thực tiễn & công cụ (Đầu vào - Đầu ra)", cats: ["TOOLS"] },
+    { title: "4. Đạo đức, pháp lý & tác động xã hội", cats: ["ETHICS"] }
 ];
 const TOPIC_DOMAINS_BY_COURSE = {
     "IC3 GS6 LEVEL 1": IC3_TOPIC_DOMAINS,
