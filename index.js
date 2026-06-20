@@ -2508,6 +2508,11 @@ async function triggerRemoteVerification(courseName) {
         var selected;
         if (mode === 'practice') {
             selected = filtered.slice();
+        } else if (mode === 'exam') {
+            // Đảm bảo mỗi chuyên đề/category đều có ít nhất 2 câu trong đề thi,
+            // để bảng "Phân tích từng phần" sau khi nộp bài luôn đủ 7 chuyên đề / 4 module
+            // — không phụ thuộc may rủi của random thuần túy.
+            selected = stratifiedSample(filtered, ${EXAM_CONFIG.QUESTION_COUNT}, 2);
         } else {
             selected = shuffleArray(filtered).slice(0, Math.min(${EXAM_CONFIG.QUESTION_COUNT}, filtered.length));
         }
@@ -3251,19 +3256,25 @@ async function triggerRemoteVerification(courseName) {
         var tableEl = document.getElementById('resBreakdownTable');
         if (!topicDomains || !topicDomains.length) { wrap.style.display = 'none'; return; }
 
-        // Gộp kết quả theo category kỹ thuật → 7 chuyên đề IC3 / 4 module GenAI
-        var rows = [];
-        topicDomains.forEach(function(domain) {
+        // Luôn hiện đủ cấu trúc chuẩn (7 chuyên đề IC3 / 4 module GenAI), giống báo cáo
+        // điểm thi thật — kể cả chuyên đề nào đó không có câu nào trong đề lần này (hiếm
+        // gặp do exam mode đã dùng stratifiedSample, nhưng vẫn xử lý để không vỡ giao diện).
+        var rows = topicDomains.map(function(domain) {
             var correct = 0, total = 0;
             domain.cats.forEach(function(c) {
                 if (categoryResults[c]) { correct += categoryResults[c].correct; total += categoryResults[c].total; }
             });
-            if (total > 0) rows.push({ title: domain.title, correct: correct, total: total, pct: Math.round((correct/total)*100) });
+            return { title: domain.title, correct: correct, total: total, pct: total > 0 ? Math.round((correct/total)*100) : null };
         });
 
-        if (!rows.length) { wrap.style.display = 'none'; return; }
-
         tableEl.innerHTML = rows.map(function(r) {
+            if (r.pct === null) {
+                return '<div class="breakdown-row">' +
+                    '<div class="breakdown-label">' + r.title + '</div>' +
+                    '<div class="breakdown-bar-wrap"></div>' +
+                    '<div class="breakdown-pct" style="color:var(--muted);">—</div>' +
+                    '</div>';
+            }
             var color = r.pct >= 80 ? '#22c55e' : (r.pct >= 60 ? '#f59e0b' : '#ef4444');
             return '<div class="breakdown-row">' +
                 '<div class="breakdown-label">' + r.title + '</div>' +
