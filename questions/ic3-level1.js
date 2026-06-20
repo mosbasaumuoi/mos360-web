@@ -174,7 +174,7 @@ export const IC3_LEVEL1 = [
     id: 9,
     level: "IC3_LEVEL1",
     test: 1,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "multiple",
     question: "Đâu là ba yếu tố phải có trong trích dẫn về một cuốn sách đã xuất bản? (Chọn 3)",
@@ -1005,7 +1005,7 @@ export const IC3_LEVEL1 = [
     id: 44,
     level: "IC3_LEVEL1",
     test: 1,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "matching",
     question: "Với mỗi câu phát biểu về phương pháp trích dẫn nguồn hợp lệ, hãy chọn Đúng hoặc Sai:",
@@ -1057,7 +1057,7 @@ export const IC3_LEVEL1 = [
     id: 46, // Chạy liên tục từ câu 46 (tương ứng Câu 1 - Test 2)
     level: "IC3_LEVEL1",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "multiple",
     question: "Bạn đang biên soạn một nghiên cứu và thu thập dữ liệu từ nhiều nguồn khác nhau. Đâu là hai lý do quan trọng nhất bạn nên đưa tài liệu gốc vào mục tài liệu tham khảo cuối bài? (Chọn 2)",
@@ -1091,26 +1091,6 @@ export const IC3_LEVEL1 = [
     explanation: "Tính năng Find (Ctrl+F) của trình duyệt web giúp quét và định vị các ký tự, từ hoặc cụm từ khóa xuất hiện cụ thể ngay bên trong trang web hiện tại."
   },
   {
-    id: 48, // Tương ứng Câu 3 - Test 2
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "medium",
-    type: "multiple",
-    question: "Giáo viên hướng dẫn bạn tham gia chỉnh sửa và góp ý bài viết nghiên cứu của một người bạn cùng lớp. Đâu là hai công cụ trên phần mềm xử lý văn bản bạn nên sử dụng? (Chọn 2)",
-    options: [
-      "Ghi chú nối kết (Linked Notes)",
-      "Chế độ thiết kế cấu trúc (Design View)",
-      "Nhận xét/Bình luận (Comments)",
-      "Trình soát chính tả và ngữ pháp (Spelling & Grammar)"
-    ],
-    answer: [
-      "Nhận xét/Bình luận (Comments)",
-      "Trình soát chính tả và ngữ pháp (Spelling & Grammar)"
-    ],
-    explanation: "Khi bình duyệt và sửa đổi bài giúp bạn, công cụ Comment (để lại góp ý) và Kiểm tra chính tả là hai công cụ thiết thực, phù hợp nhất."
-  },
-  {
     id: 49, // Tương ứng Câu 4 - Test 2
     level: "IC3_LEVEL1",
     test: 2,
@@ -1127,29 +1107,12 @@ export const IC3_LEVEL1 = [
     answer: "Luôn luôn tuân thủ nghiêm túc các điều khoản trong chính sách sử dụng được chấp nhận (AUP) khi sử dụng wi-fi công cộng của nhà trường",
     explanation: "Tuân thủ Chính sách sử dụng được chấp nhận (Acceptable Use Policy - AUP) của các tổ chức là hành vi mẫu mực của một công dân số có trách nhiệm."
   },
-  {
-    id: 50, // Tương ứng Câu 5 - Test 2
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "hard",
-    type: "single",
-    question: "Trong các công cụ tìm kiếm dữ liệu nâng cao, người ta có thể sử dụng toán tử tìm kiếm nào sau đây để tìm kiếm các từ đồng nghĩa của một từ khóa?",
-    options: [
-      "Dấu sao (*)",
-      "Dấu ngã (~)",
-      "Toán tử logic AND",
-      "Dấu chấm hỏi (?)"
-    ],
-    answer: "Dấu ngã (~)",
-    explanation: "Theo quy chuẩn tìm kiếm nâng cao (như của Google trước đây), dấu ngã (~) đặt trước từ khóa dùng để yêu cầu hệ thống tìm kiếm cả từ khóa đó và các từ đồng nghĩa (synonyms) của nó."
-  },
 
   {
     id: 51, // Tương ứng Câu 6 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "matching",
     question: "Bạn đang biên soạn một nghiên cứu và cần thêm tài liệu tham khảo cho bài viết của mình. Với mỗi trường hợp dưới đây, hãy chọn Có nếu bạn phải thêm nguồn trích dẫn tham khảo hoặc Không nếu không cần thiết:",
@@ -1222,23 +1185,6 @@ export const IC3_LEVEL1 = [
     ],
     answer: "Vĩnh viễn, ngay cả sau khi bạn đã thực hiện thao tác gỡ/xóa bài đăng gốc",
     explanation: "Một khi thông tin, hình ảnh đã được đưa lên không gian Internet công cộng, người khác có thể đã tải về, chụp màn hình hoặc lưu trữ lại. Do đó nó có khả năng tồn tại vĩnh viễn dù bài đăng gốc bị xóa."
-  },
-  {
-    id: 55, // Tương ứng Câu 10 - Test 2
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "medium",
-    type: "single",
-    question: "Trong phần mềm xử lý văn bản Microsoft Word, người dùng có thể tìm thấy các tùy chọn để kết hợp, so sánh nhiều tài liệu (Combine/Compare) nằm trong nhóm lệnh nào dưới thẻ Review?",
-    options: [
-      "Proofing",
-      "Changes",
-      "Tracking",
-      "Compare"
-    ],
-    answer: "Compare",
-    explanation: "Tính năng Compare nằm trong thẻ Review, chứa các công cụ điều hướng để so sánh hai phiên bản tài liệu (Compare) hoặc kết hợp các sửa đổi từ nhiều tác giả vào một tài liệu duy nhất (Combine)."
   },
   {
     id: 56, // Tương ứng Câu 11 - Test 2
@@ -1319,7 +1265,7 @@ export const IC3_LEVEL1 = [
     id: 60, // Tương ứng Câu 15 - Test 2
     level: "IC3_LEVEL1",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "multiple",
     question: "Khi tiếp cận các tài liệu trực tuyến, người dùng có thể thực hiện những hành động nào dưới đây để xác định và đánh giá tính hợp lệ, độ tin cậy của thông tin? (Chọn 3)",
@@ -1342,7 +1288,7 @@ export const IC3_LEVEL1 = [
     id: 61, // Tương ứng Câu 16 - Test 2 trong tài liệu
     level: "IC3_LEVEL1",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "matching",
     question: "Bạn đang tìm kiếm thông tin trên web để tổng hợp dữ liệu cho bài nghiên cứu. Bạn cần xác định các trang web có khả năng chứa thông tin chính xác và trung lập. Với mỗi câu phát biểu, hãy chọn Có nếu trang web đáp ứng được yêu cầu hoặc Không nếu không thể đáp ứng:",
@@ -1361,26 +1307,6 @@ export const IC3_LEVEL1 = [
       "Trang web xuất hiện nhiều lỗi sai chính tả, lỗi dịch thuật và diễn đạt lủng củng": "Không"
     },
     explanation: "Một trang web đáng tin cậy cho nghiên cứu khoa học cần đảm bảo tính khách quan (Objective) và có danh mục trích dẫn nguồn đối chứng rõ ràng. Các trang có nhiều lỗi chính tả thường thiếu kiểm duyệt và không đáng tin cậy."
-  },
-  {
-    id: 62, // Tương ứng Câu 17 - Test 2
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "medium",
-    type: "multiple",
-    question: "Bạn đang thực hiện một nghiên cứu trực tuyến và cần điều chỉnh cài đặt tìm kiếm nâng cao để nhận được kết quả cô đọng, phù hợp hơn với đối tượng nghiên cứu của mình. Đâu là hai kỹ thuật bạn nên sử dụng? (Chọn 2)",
-    options: [
-      "Tìm kiếm các từ gốc và loại trừ toàn bộ phần hậu tố của từ khóa",
-      "Đặt các cụm từ tìm kiếm dài hoặc chính xác trong dấu ngoặc kép (\"\")",
-      "Đặt các cụm từ tìm kiếm quan trọng nhất trong dấu ngoặc vuông ([])",
-      "Sử dụng toán tử loại trừ (ví dụ dấu trừ -) để loại bỏ các thuật ngữ chung chung hoặc kết quả không liên quan khỏi trang tìm kiếm"
-    ],
-    answer: [
-      "Đặt các cụm từ tìm kiếm dài hoặc chính xác trong dấu ngoặc kép (\"\")",
-      "Sử dụng toán tử loại trừ (ví dụ dấu trừ -) để loại bỏ các thuật ngữ chung chung hoặc kết quả không liên quan khỏi trang tìm kiếm"
-    ],
-    explanation: "Đặt cụm từ trong dấu ngoặc kép giúp tìm kiếm chính xác cụm từ đó theo đúng thứ tự. Sử dụng dấu trừ (-) đặt sát trước một từ giúp loại trừ các trang web chứa từ đó, giúp thu hẹp kết quả tìm kiếm hiệu quả."
   },
   {
     id: 63, // Tương ứng Câu 18 - Test 2
@@ -1481,32 +1407,6 @@ export const IC3_LEVEL1 = [
     explanation: "Giấy phép Creative Commons cho phép sử dụng miễn phí nhưng có điều kiện kèm theo (bắt buộc trích dẫn nguồn - thuộc tính BY, tuân thủ điều kiện phi thương mại - NC, hoặc không phái sinh - ND chứ không phải là sử dụng vô điều kiện)."
   },
   {
-    id: 67, // Tương ứng Câu 22 - Test 2
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "hard",
-    type: "matching",
-    question: "Ghép nối các hành động cộng tác trên tài liệu trực tuyến với thuật ngữ mô tả tương ứng (Chỉnh sửa - Editing VS Đồng tác giả - Co-authoring):",
-    left: [
-      "Sử dụng công cụ kiểm tra và sửa lỗi chính tả trực tiếp trên tài liệu Word Online của một người bạn cùng lớp",
-      "Đọc, kiểm tra và để lại các nhận xét góp ý (Comment) trên tài liệu Google Docs cho một người bạn",
-      "Chụp một bức ảnh mới và chèn trực tiếp bức ảnh đó vào bài trình chiếu Google Slides do bạn cùng lớp khởi tạo",
-      "Chủ động xây dựng, soạn thảo mới 5 trang slide cho bài trình chiếu PowerPoint nhóm đang được lưu trữ trên OneDrive"
-    ],
-    right: [
-      "Chỉnh sửa (Editing)",
-      "Đồng tác giả (Co-authoring)"
-    ],
-    answer: {
-      "Sử dụng công cụ kiểm tra và sửa lỗi chính tả trực tiếp trên tài liệu Word Online của một người bạn cùng lớp": "Chỉnh sửa (Editing)",
-      "Đọc, kiểm tra và để lại các nhận xét góp ý (Comment) trên tài liệu Google Docs cho một người bạn": "Chỉnh sửa (Editing)",
-      "Chụp một bức ảnh mới và chèn trực tiếp bức ảnh đó vào bài trình chiếu Google Slides do bạn cùng lớp khởi tạo": "Đồng tác giả (Co-authoring)",
-      "Chủ động xây dựng, soạn thảo mới 5 trang slide cho bài trình chiếu PowerPoint nhóm đang được lưu trữ trên OneDrive": "Đồng tác giả (Co-authoring)"
-    },
-    explanation: "Hành động sửa lỗi, định dạng hay nhận xét trên nội dung có sẵn gọi là Chỉnh sửa (Editing). Hành động trực tiếp đóng góp, tạo mới nội dung, hình ảnh hoặc các trang slide vào dự án chung gọi là Đồng tác giả (Co-authoring)."
-  },
-  {
     id: 68, // Tương ứng Câu 23 - Test 2
     level: "IC3_LEVEL1",
     test: 2,
@@ -1522,23 +1422,6 @@ export const IC3_LEVEL1 = [
     ],
     answer: "Sam_Grey_Project1_version3.docx",
     explanation: "Tên file `Sam_Grey_Project1_version3.docx` rất rõ ràng, dùng dấu gạch dưới `_` thay cho khoảng trắng, tránh được các lỗi xử lý đường dẫn (URL) trên môi trường web và đảm bảo không chứa các ký tự cấm (như dấu gạch chéo `/` trong tùy chọn ngày tháng vốn gây lỗi hệ thống)."
-  },
-  {
-    id: 69, // Tương ứng Câu 24 - Test 2
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "easy",
-    type: "single",
-    question: "Bạn nhập một công thức nấu ăn vào tài liệu Microsoft Word dưới dạng một đoạn văn liền mạch và bật tính năng tạo danh sách đánh số tự động (Numbering). Để tách đoạn văn dài đó thành từng mục nhỏ, xuống dòng và tự động nhảy sang số thứ tự tiếp theo, bạn cần đặt con trỏ ở cuối mỗi câu và nhấn phím nào?",
-    options: [
-      "Enter",
-      "Shift + Enter",
-      "Tab",
-      "Shift + Tab"
-    ],
-    answer: "Enter",
-    explanation: "Trong danh sách tự động (Numbered List), nhấn phím Enter sẽ kết thúc đoạn văn hiện tại, tạo một mục mới và tự động đánh số thứ tự tiếp theo. (Trong khi `Shift + Enter` chỉ xuống dòng cùng một mục chứ không tạo số mới)."
   },
   {
     id: 70, // Tương ứng Câu 25 - Test 2
@@ -1566,36 +1449,10 @@ export const IC3_LEVEL1 = [
   },
 
   {
-    id: 71, // Tương ứng Câu 26 - Test 2 trong tài liệu
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "medium",
-    type: "matching",
-    question: "Bạn chuẩn bị xuất bản và phân phối tài liệu báo cáo của nhóm. Với mỗi câu phát biểu về cách thức cấu hình in tài liệu dưới đây, hãy chọn Đúng hoặc Sai:",
-    left: [
-      "Tính năng in hai mặt (Duplex) cho phép hệ thống tự động in nội dung tập tin trên cả hai mặt giấy",
-      "Bạn chỉ có thể thay đổi kích thước/khổ giấy từ thanh công cụ tùy chọn thiết lập trang (Page Setup)",
-      "Bạn có thể thay đổi căn lề (Margins) của tài liệu trực tiếp ngay trong phần cài đặt in (Print Settings)",
-      "Để duy trì nguyên vẹn định dạng hiển thị của tập tin khi phân phối tài liệu theo hình thức điện tử, hãy thực hiện in tài liệu thành định dạng tập tin PDF"
-    ],
-    right: [
-      "Đúng",
-      "Sai"
-    ],
-    answer: {
-      "Tính năng in hai mặt (Duplex) cho phép hệ thống tự động in nội dung tập tin trên cả hai mặt giấy": "Đúng",
-      "Bạn chỉ có thể thay đổi kích thước/khổ giấy từ thanh công cụ tùy chọn thiết lập trang (Page Setup)": "Đúng",
-      "Bạn có thể thay đổi căn lề (Margins) của tài liệu trực tiếp ngay trong phần cài đặt in (Print Settings)": "Sai", // Logic thực tế: Đổi lề phải chỉnh ở Page Setup/Layout, phần cài đặt in chỉ chọn preset có sẵn
-      "Để duy trì nguyên vẹn định dạng hiển thị của tập tin khi phân phối tài liệu theo hình thức điện tử, hãy thực hiện in tài liệu thành định dạng tập tin PDF": "Đúng"
-    },
-    explanation: "In hai mặt gọi là Duplex. Định dạng PDF giúp khóa bố cục, font chữ giúp giữ nguyên định dạng bất kể thiết bị mở. Việc cấu hình lề chuyên sâu phải được thực hiện từ thẻ Layout/Page Setup trước khi gọi lệnh in."
-  },
-  {
     id: 72, // Tương ứng Câu 27 - Test 2
     level: "IC3_LEVEL1",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "COLLABORATION",
     difficulty: "medium",
     type: "single",
     question: "Trong lớp học, bạn đang đọc bài nghiên cứu của một người bạn để đưa ra các đề xuất cải tiến, sửa chữa lỗi chính tả và để lại các nhận xét, đánh giá khách quan. Bạn đang thực hiện quy trình nào dưới đây?",
@@ -1634,7 +1491,7 @@ export const IC3_LEVEL1 = [
     id: 74, // Tương ứng Câu 29 - Test 2
     level: "IC3_LEVEL1",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "matching",
     question: "Bạn đang tìm kiếm thông tin trực tuyến về chủ đề 'Cách tự trồng và chăm sóc rau sạch tại nhà'. Hệ thống trả về nhiều kết quả, bạn cần đánh giá mức độ liên quan và đáng tin cậy của chúng. Với mỗi nguồn, hãy chọn Có nếu có liên quan trực tiếp hoặc Không nếu không phù hợp:",
@@ -1658,7 +1515,7 @@ export const IC3_LEVEL1 = [
     id: 75, // Tương ứng Câu 30 - Test 2
     level: "IC3_LEVEL1",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "multiple",
     question: "Khi thực hiện viết một bài tiểu luận nghiên cứu và cần tham khảo một cuốn sách, những yếu tố cốt lõi nào dưới đây bắt buộc phải xuất hiện trong phần trích dẫn nguồn (Citation)? (Chọn 3)",
@@ -1767,23 +1624,6 @@ export const IC3_LEVEL1 = [
       "Cấu hình xóa lịch sử duyệt web và Cookie tự động sau khi đóng cửa sổ trình duyệt": "Có"
     },
     explanation: "VPN giúp mã hóa đường truyền, Pop-up blocker chặn mã độc thu thập dữ liệu, tự động xóa Cookie giúp tránh bị theo dõi dấu chân số. Trong khi đó, tính năng Auto-fill lưu sẵn mật khẩu/thẻ tín dụng trên máy sẽ làm tăng rủi ro lộ thông tin nếu thiết bị rơi vào tay người khác."
-  },
-  {
-    id: 80, // Tương ứng Câu 35 - Test 2 (Tổng hợp mở rộng dựa trên mạch kiến thức Test 2)
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "easy",
-    type: "single",
-    question: "Khi nhiều người cùng làm việc chung trên một tệp văn bản được lưu trữ trực tuyến (Cloud document) và xảy ra tình trạng hai người cùng sửa đổi một câu tại cùng một thời điểm, hệ thống xử lý tệp tin sẽ giải quyết xung đột bằng cách nào?",
-    options: [
-      "Hệ thống lập tức treo máy và tự động xóa toàn bộ tệp văn bản đó để tránh lỗi dữ liệu",
-      "Hiển thị thông báo xung đột, đánh dấu các phiên bản thay đổi và cho phép người sở hữu (Owner) lựa chọn giữ lại phiên bản phù hợp",
-      "Chỉ chấp nhận dữ liệu của người có tài khoản đăng nhập máy tính có giá trị cao hơn",
-      "Hệ thống tự động khóa vĩnh viễn quyền chỉnh sửa của cả hai người dùng"
-    ],
-    answer: "Hiển thị thông báo xung đột, đánh dấu các phiên bản thay đổi và cho phép người sở hữu (Owner) lựa chọn giữ lại phiên bản phù hợp",
-    explanation: "Các ứng dụng đám mây hiện đại khi gặp xung đột chỉnh sửa đồng thời (Edit conflict) sẽ đánh dấu ghi vết phiên bản và cung cấp giao diện trực quan để người dùng kiểm duyệt, so sánh, đưa ra quyết định giữ lại nội dung chính xác nhất."
   },
 
   {
@@ -2242,7 +2082,7 @@ export const IC3_LEVEL1 = [
     id: 101, // Tương ứng Test 1 - Câu 43
     level: "IC3_LEVEL1",
     test: 1,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "hard",
     type: "matching",
     question: "Quy kết nguồn và chống đạo văn là kỹ năng bắt buộc của công dân số. Với mỗi phát biểu về việc trích dẫn nguồn học thuật dưới đây, hãy chọn Đúng hoặc Sai:",
@@ -2268,7 +2108,7 @@ export const IC3_LEVEL1 = [
     id: 102, // Tương ứng Test 1 - Câu 44
     level: "IC3_LEVEL1",
     test: 1,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "medium",
     type: "matching",
     question: "Học sinh cần nắm vững các quy định trích dẫn nguồn tài liệu tham khảo khi làm tiểu luận. Với mỗi phát biểu về phương pháp trích dẫn sau đây, hãy chọn Đúng hoặc Sai:",
@@ -2347,38 +2187,6 @@ export const IC3_LEVEL1 = [
     ],
     answer: "Tương đương với hành vi la hét, quát tháo vào mặt người nhận và bị coi là rất bất lịch sự",
     explanation: "Trong quy tắc ứng xử mạng (Netiquette), việc viết hoa TOÀN BỘ câu chữ tạo cảm giác nặng nề, giống như bạn đang quát tháo thô bạo vào mặt người nghe, cần tuyệt đối tránh trong giao tiếp văn minh."
-  },
-  {
-    id: 106,
-    level: "IC3_LEVEL1",
-    test: 2,
-    category: "SOFTWARE",
-    difficulty: "easy",
-    type: "matching",
-
-    question:
-      "Quan sát hình ảnh mô phỏng định dạng trang giấy và thực hiện kéo thả vào đúng hướng trang tương ứng.",
-
-    left: [
-      "ic3_lv1_q106_opt_a",
-      "ic3_lv1_q106_opt_b",
-      "ic3_lv1_q106_opt_c"
-    ],
-
-    right: [
-      "Khổ dọc (Portrait)",
-      "Khổ ngang (Landscape)",
-      "Khổ dọc (Portrait)"
-    ],
-
-    answer: {
-      "ic3_lv1_q106_opt_a": "Khổ dọc (Portrait)",
-      "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)",
-      "ic3_lv1_q106_opt_c": "Khổ dọc (Portrait)"
-    },
-
-    explanation:
-      "Trong soạn thảo văn bản và in ấn, hướng trang giấy gồm hai loại cơ bản: Khổ dọc (Portrait) có chiều cao lớn hơn chiều rộng, còn Khổ ngang (Landscape) có chiều rộng lớn hơn chiều cao."
   },
 
   // ── BỔ SUNG THÊM (56 câu) ─────────────────────────────
@@ -2574,20 +2382,6 @@ export const IC3_LEVEL1 = [
     options: ["Model", "OS", "Software", "Hardware"],
     answer: "Hardware",
     explanation: "Model Number được nhà sản xuất phần cứng (Hardware manufacturer) ấn định cho từng dòng máy cụ thể, không phải do phần mềm hay hệ điều hành tạo ra."
-  },
-  {
-    id: 125, level: "IC3_LEVEL1", test: 1,
-    category: "OPERATING_SYSTEM", difficulty: "medium",
-    type: "single",
-    question: "Bạn đang sử dụng Microsoft Word trên Windows 10 để viết bài về công ty 'ABusiness' (bắt đầu bằng 2 chữ hoa). Mỗi khi gõ tên công ty, phần mềm tự sửa chữ in hoa. Bạn thay đổi tùy chọn này ở đâu?",
-    options: [
-      "Trong Language Preference của Office",
-      "Trong cài đặt Grammar & Refinements",
-      "Trong các tùy chọn hệ điều hành của máy tính",
-      "Trong AutoCorrect Options"
-    ],
-    answer: "Trong AutoCorrect Options",
-    explanation: "AutoCorrect Options trong Word cho phép tùy chỉnh hoặc tắt tính năng tự động sửa chữ viết hoa, bao gồm cả việc bỏ qua các từ viết hoa đặc biệt."
   },
   {
     id: 126, level: "IC3_LEVEL1", test: 1,
@@ -2799,35 +2593,6 @@ export const IC3_LEVEL1 = [
 
   // ── PHẦN 5: ĐỊNH DẠNG TẬP TIN ───────────────────────────
   {
-    id: 142, level: "IC3_LEVEL1", test: 1,
-    category: "FILE_FORMAT", difficulty: "easy",
-    type: "single",
-    question: "Định dạng tập tin Video phổ biến nhất được dùng để đăng lên mạng xã hội là gì?",
-    options: ["MP4", "PRO", "SAV", "JPEG"],
-    answer: "MP4",
-    explanation: "MP4 là định dạng video phổ biến nhất trên mạng xã hội vì nén tốt (file nhỏ), chất lượng cao và được hỗ trợ bởi hầu hết mọi nền tảng và thiết bị."
-  },
-  {
-    id: 143, level: "IC3_LEVEL1", test: 1,
-    category: "FILE_FORMAT", difficulty: "medium",
-    type: "matching",
-    question: "Trước khi phân phối bản ghi âm của bạn, bạn muốn xác định định dạng âm thanh mang lại chất lượng tốt nhất cho kích thước tập tin nhỏ nhất. Ghép từng định dạng với mô tả của nó.",
-    left: [
-      "Có khả năng lưu giữ âm thanh, Video và các phương tiện khác bằng cách chứa dữ liệu chữ không phải mã.",
-      "Là một giải pháp thay thế dựa trên Windows cho loại tệp MP3 phổ biến và thông dụng hơn.",
-      "Thường được sử dụng trên hệ thống Windows.",
-      "Sử dụng tính năng nén giúp tiết kiệm không gian trong khi vẫn duy trì chất lượng gần như hoàn hảo của nguồn âm thanh gốc."
-    ],
-    right: ["MP4", "WMA", "WAV", "MP3"],
-    answer: {
-      "Có khả năng lưu giữ âm thanh, Video và các phương tiện khác bằng cách chứa dữ liệu chữ không phải mã.": "MP4",
-      "Là một giải pháp thay thế dựa trên Windows cho loại tệp MP3 phổ biến và thông dụng hơn.": "WMA",
-      "Thường được sử dụng trên hệ thống Windows.": "WAV",
-      "Sử dụng tính năng nén giúp tiết kiệm không gian trong khi vẫn duy trì chất lượng gần như hoàn hảo của nguồn âm thanh gốc.": "MP3"
-    },
-    explanation: "MP4 là container multimedia, WMA là định dạng Windows thay thế MP3, WAV là định dạng audio chuẩn Windows không nén, MP3 là định dạng nén audio phổ biến nhất toàn cầu."
-  },
-  {
     id: 144, level: "IC3_LEVEL1", test: 1,
     category: "FILE_FORMAT", difficulty: "medium",
     type: "multiple",
@@ -2852,20 +2617,6 @@ export const IC3_LEVEL1 = [
     explanation: "Độ phân giải cao = nhiều pixel hơn = file lớn hơn = tải xuống lâu hơn, nhưng hình ảnh rõ nét, chi tiết hơn."
   },
   {
-    id: 146, level: "IC3_LEVEL1", test: 1,
-    category: "FILE_FORMAT", difficulty: "easy",
-    type: "single",
-    question: "Tác dụng của việc tăng độ phân giải hình ảnh trước khi chụp ảnh là gì?",
-    options: [
-      "Kích thước tập tin giảm xuống.",
-      "Hình ảnh bị vỡ nét.",
-      "Kích thước hình ảnh nhỏ hơn.",
-      "Chất lượng hình ảnh được cải thiện."
-    ],
-    answer: "Chất lượng hình ảnh được cải thiện.",
-    explanation: "Tăng độ phân giải (resolution) trước khi chụp ảnh giúp ghi lại nhiều chi tiết hơn, tạo ra ảnh sắc nét và chất lượng cao hơn, mặc dù kích thước file cũng lớn hơn."
-  },
-  {
     id: 147, level: "IC3_LEVEL1", test: 1,
     category: "FILE_FORMAT", difficulty: "easy",
     type: "single",
@@ -2878,26 +2629,6 @@ export const IC3_LEVEL1 = [
     ],
     answer: "Hình ảnh bị vỡ nét.",
     explanation: "Bitmap (ảnh raster) được tạo từ số pixel cố định. Khi phóng to vượt quá kích thước gốc, các pixel bị kéo giãn khiến ảnh trở nên vỡ, mờ nhòe (pixel hóa)."
-  },
-  {
-    id: 148, level: "IC3_LEVEL1", test: 1,
-    category: "FILE_FORMAT", difficulty: "medium",
-    type: "matching",
-    question: "Bạn đang post Video lên trang Web công ty. Người dùng than phiền Video tải quá lâu. Với mỗi hành động, chọn Có nếu hành động giúp tải Video nhanh hơn, ngược lại chọn Không.",
-    left: [
-      "Tăng tốc độ bit (bitrate) của Video.",
-      "Chuyển đổi Video thành HTML5.",
-      "Giảm độ phân giải của Video.",
-      "Thay thế Video bằng phiên bản chưa nén."
-    ],
-    right: ["Có", "Không"],
-    answer: {
-      "Tăng tốc độ bit (bitrate) của Video.": "Không",
-      "Chuyển đổi Video thành HTML5.": "Có",
-      "Giảm độ phân giải của Video.": "Có",
-      "Thay thế Video bằng phiên bản chưa nén.": "Không"
-    },
-    explanation: "Tăng bitrate và dùng phiên bản chưa nén làm file nặng hơn → tải chậm hơn. Chuyển sang HTML5 tối ưu hóa phát video trên web. Giảm độ phân giải giảm kích thước file."
   },
   {
     id: 149, level: "IC3_LEVEL1", test: 1,
@@ -3080,6 +2811,318 @@ export const IC3_LEVEL1 = [
       "Được xây dựng ở vùng khí hậu lạnh, gây tổn hại đến môi trường sống của gấu Bắc Cực và động vật hoang dã."
     ],
     explanation: "Hai tác động môi trường chính của data center: (1) dùng chất làm mát độc hại và (2) đặt ở vùng lạnh để tận dụng nhiệt độ tự nhiên, ảnh hưởng đến hệ sinh thái địa phương."
+  }
+  ,
+  {
+    id: 163,
+    level: "IC3_LEVEL1",
+    category: "FILE_FORMAT",
+    difficulty: "medium",
+    type: "single",
+    question: "Định dạng tập tin Video nào dưới đây là chuẩn phổ biến nhất cho việc phát trực tuyến (streaming) chất lượng cao?",
+    options: ["MP4", "TXT", "BMP", "EXE"],
+    answer: 0,
+    explanation: "MP4 là định dạng chuẩn công nghiệp nhờ khả năng nén tốt mà vẫn duy trì chất lượng hình ảnh/âm thanh cao."
+  }
+  ,
+  {
+    id: 164, // Tương ứng Câu 24 - Test 2
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "easy",
+    type: "single",
+    question: "Bạn nhập một công thức nấu ăn vào tài liệu Microsoft Word dưới dạng một đoạn văn liền mạch và bật tính năng tạo danh sách đánh số tự động (Numbering). Để tách đoạn văn dài đó thành từng mục nhỏ, xuống dòng và tự động nhảy sang số thứ tự tiếp theo, bạn cần đặt con trỏ ở cuối mỗi câu và nhấn phím nào?",
+    options: [
+      "Enter",
+      "Shift + Enter",
+      "Tab",
+      "Shift + Tab"
+    ],
+    answer: "Enter",
+    explanation: "Trong danh sách tự động (Numbered List), nhấn phím Enter sẽ kết thúc đoạn văn hiện tại, tạo một mục mới và tự động đánh số thứ tự tiếp theo. (Trong khi `Shift + Enter` chỉ xuống dòng cùng một mục chứ không tạo số mới)."
+  }
+  ,
+  {
+    id: 165, // Tương ứng Câu 26 - Test 2 trong tài liệu
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "medium",
+    type: "matching",
+    question: "Bạn chuẩn bị xuất bản và phân phối tài liệu báo cáo của nhóm. Với mỗi câu phát biểu về cách thức cấu hình in tài liệu dưới đây, hãy chọn Đúng hoặc Sai:",
+    left: [
+      "Tính năng in hai mặt (Duplex) cho phép hệ thống tự động in nội dung tập tin trên cả hai mặt giấy",
+      "Bạn chỉ có thể thay đổi kích thước/khổ giấy từ thanh công cụ tùy chọn thiết lập trang (Page Setup)",
+      "Bạn có thể thay đổi căn lề (Margins) của tài liệu trực tiếp ngay trong phần cài đặt in (Print Settings)",
+      "Để duy trì nguyên vẹn định dạng hiển thị của tập tin khi phân phối tài liệu theo hình thức điện tử, hãy thực hiện in tài liệu thành định dạng tập tin PDF"
+    ],
+    right: [
+      "Đúng",
+      "Sai"
+    ],
+    answer: {
+      "Tính năng in hai mặt (Duplex) cho phép hệ thống tự động in nội dung tập tin trên cả hai mặt giấy": "Đúng",
+      "Bạn chỉ có thể thay đổi kích thước/khổ giấy từ thanh công cụ tùy chọn thiết lập trang (Page Setup)": "Đúng",
+      "Bạn có thể thay đổi căn lề (Margins) của tài liệu trực tiếp ngay trong phần cài đặt in (Print Settings)": "Sai", // Logic thực tế: Đổi lề phải chỉnh ở Page Setup/Layout, phần cài đặt in chỉ chọn preset có sẵn
+      "Để duy trì nguyên vẹn định dạng hiển thị của tập tin khi phân phối tài liệu theo hình thức điện tử, hãy thực hiện in tài liệu thành định dạng tập tin PDF": "Đúng"
+    },
+    explanation: "In hai mặt gọi là Duplex. Định dạng PDF giúp khóa bố cục, font chữ giúp giữ nguyên định dạng bất kể thiết bị mở. Việc cấu hình lề chuyên sâu phải được thực hiện từ thẻ Layout/Page Setup trước khi gọi lệnh in."
+  }
+  ,
+  {
+    id: 166,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "easy",
+    type: "matching",
+
+    question:
+      "Quan sát hình ảnh mô phỏng định dạng trang giấy và thực hiện kéo thả vào đúng hướng trang tương ứng.",
+
+    left: [
+      "ic3_lv1_q106_opt_a",
+      "ic3_lv1_q106_opt_b",
+      "ic3_lv1_q106_opt_c"
+    ],
+
+    right: [
+      "Khổ dọc (Portrait)",
+      "Khổ ngang (Landscape)",
+      "Khổ dọc (Portrait)"
+    ],
+
+    answer: {
+      "ic3_lv1_q106_opt_a": "Khổ dọc (Portrait)",
+      "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)",
+      "ic3_lv1_q106_opt_c": "Khổ dọc (Portrait)"
+    },
+
+    explanation:
+      "Trong soạn thảo văn bản và in ấn, hướng trang giấy gồm hai loại cơ bản: Khổ dọc (Portrait) có chiều cao lớn hơn chiều rộng, còn Khổ ngang (Landscape) có chiều rộng lớn hơn chiều cao."
+  }
+  ,
+  {
+    id: 167,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Bạn hãy cho biết khi sử dụng tất cả chữ in hoa trong một thư điện tử (Email) sẽ truyền đạt điều gì?",
+    options: [
+      "Khẩn cấp",
+      "La hét",
+      "Nhấn mạnh",
+      "Tầm quan trọng"
+    ],
+    answer: "La hét",
+    explanation: "Theo quy tắc ứng xử trên Internet (Netiquette), việc viết hoa toàn bộ các ký tự trong email hoặc tin nhắn được hiểu tương đương với hành vi 'la hét' (shouting) vào mặt người đọc, thể hiện sự thô lỗ hoặc giận dữ."
+  }
+  ,
+  {
+    id: 168,
+    level: "IC3_LEVEL1",
+    image_key: "ic3_lv2_q31",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Bạn hãy cho biết, bạn nên làm gì trước khi bắt đầu một cuộc hội thoại bằng loa ngoài?",
+    options: [
+      "Kiểm tra âm lượng trên thiết bị liên lạc đầu ra",
+      "Xin phép để tiếp tục cuộc trò chuyện trên loa ngoài",
+      "Bật loa điện thoại và bắt đầu nói chuyện",
+      "Yêu cầu đầu dây bên kia nói để kiểm tra âm lượng"
+    ],
+    answer: "Xin phép để tiếp tục cuộc trò chuyện trên loa ngoài",
+    explanation: "Khi sử dụng loa ngoài (Speakerphone), âm thanh cuộc thoại sẽ bị phát ra không gian xung quanh và người khác có thể nghe thấy. Để tôn trọng quyền riêng tư cá nhân và bảo mật thông tin của người ở đầu dây bên kia, bạn luôn cần phải xin phép họ trước[cite: 399]."
+  }
+  ,
+  {
+    id: 169,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Bạn hãy cho biết cách sử dụng tính năng trò chuyện (Chat) trong tình huống nào sau đây là phù hợp nhất trong hội thảo trên web (Webinar)?",
+    options: [
+      "Bắt chuyện với đồng nghiệp",
+      "Đặt câu hỏi khi có thời gian thích hợp",
+      "Chèn kiến thức để thêm vào bài thuyết trình",
+      "Nhận xét về bài thuyết trình"
+    ],
+    answer: "Đặt câu hỏi khi có thời gian thích hợp",
+    explanation: "Trong một buổi thảo luận/hội thảo trực tuyến (Webinar), cửa sổ Chat được thiết kế để người tham gia tương tác, gửi câu hỏi (Q&A) đến diễn giả hoặc ban tổ chức khi có thời điểm thích hợp[cite: 415], tránh làm gián đoạn hay loãng nội dung buổi học bằng các câu chuyện phiếm cá nhân."
+  }
+  ,
+  {
+    id: 170,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Hiệu trưởng của một trường đang soạn email gửi tới toàn thể phụ huynh học sinh, có nội dung về tầm quan trọng của việc tất cả học sinh đi học đúng giờ. Thầy hiệu trưởng cần sử dụng phương pháp bảo mật danh tính và gửi hiệu quả nhất. Thầy hiệu trưởng phải làm gì?",
+    options: [
+      "Gửi thư tới tất cả phụ huynh bằng cách sử dụng trường Cc",
+      "Gửi thư tới phụ huynh của từng học sinh đi muộn",
+      "Gửi thư tới một nhóm liên hệ chỉ bao gồm địa chỉ email của học sinh",
+      "Gửi thư tới tất cả phụ huynh bằng cách sử dụng trường Bcc"
+    ],
+    answer: "Gửi thư tới tất cả phụ huynh bằng cách sử dụng trường Bcc",
+    explanation: "Khi gửi email hàng loạt cho một danh sách số lượng lớn người nhận không có mối quan hệ cá nhân với nhau (như toàn thể phụ huynh), việc sử dụng trường Bcc (Blind Carbon Copy) giúp ẩn danh sách địa chỉ email của mọi người, bảo vệ quyền riêng tư và tránh lộ thông tin cá nhân."
+  }
+  ,
+  {
+    id: 171,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Phát biểu sau đây Đúng hay Sai: 'Khi phản hồi mang tính không đồng ý hoặc tranh luận với một bài đăng trực tuyến của người khác, bạn nên sử dụng giọng điệu gay gắt giống hệt như người đăng ban đầu để tăng tính thuyết phục.'",
+    options: [
+      "Đúng",
+      "Sai"
+    ],
+    answer: "Sai",
+    explanation: "Trong văn hóa ứng xử số (Netiquette), khi không đồng tình với một ý kiến, bạn luôn cần giữ thái độ lịch sự, khách quan và tôn trọng, tránh bị cuốn vào việc dùng giọng điệu công kích, nóng nảy hay tiêu cực của đối phương."
+  }
+  ,
+  {
+    id: 172,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Bạn muốn soạn và gửi email cho một đối tác, nhưng cần bảo mật danh tính tuyệt đối của họ sao cho tất cả những người nhận khác trong luồng thư đều hoàn toàn không nhìn thấy địa chỉ email của người này. Bạn phải điền địa chỉ email của họ vào trường nào?",
+    options: [
+      "To",
+      "Bcc",
+      "Bc",
+      "Cc"
+    ],
+    answer: "Bcc",
+    explanation: "Trường Bcc (Blind Carbon Copy) có tính năng ẩn toàn bộ danh sách địa chỉ email của những người được điền trong trường này, giúp bảo vệ quyền riêng tư cá nhân và ngăn không cho những người nhận khác nhìn thấy."
+  }
+  ,
+  {
+    id: 173,
+    level: "IC3_LEVEL1",
+    image_key: "ic3_lv2_q08",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Bạn hãy chọn hai phát biểu đúng khi lựa chọn địa điểm tổ chức một buổi hội nghị truyền hình (Video Conferencing)? (Chọn 2)",
+    options: [
+      "Địa điểm luôn phải ở trong một tòa nhà chuyên nghiệp",
+      "Địa điểm nên tránh xa các thiết bị di động",
+      "Địa điểm nên có chỗ ngồi nơi có ánh sáng tốt để người tham gia nhìn rõ nhau",
+      "Địa điểm nên cố gắng tìm một khu vực có ít hoặc không có tiếng ồn xung quanh"
+    ],
+    answer: [
+      "Địa điểm nên có chỗ ngồi nơi có ánh sáng tốt để người tham gia nhìn rõ nhau",
+      "Địa điểm nên cố gắng tìm một khu vực có ít hoặc không có tiếng ồn xung quanh"
+    ],
+    explanation: "Khi tham gia họp trực tuyến, hai yếu tố môi trường vật lý quan trọng nhất là: Ánh sáng đầy đủ (để đảm bảo chất lượng webcam) và Sự yên tĩnh (tránh tiếng ồn tạp âm gây nhiễu micro). Buổi họp hoàn toàn có thể diễn ra tại nhà riêng chứ không bắt buộc phải ở tòa nhà chuyên nghiệp."
+  }
+  ,
+  {
+    id: 174,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "matching",
+    question: "Khi làm việc trực tuyến, việc bảo vệ quyền riêng tư cá nhân và tổ chức là rất quan trọng. Với mỗi hành động dưới đây, hãy chọn Có nếu hành động đó giúp bảo vệ quyền riêng tư hoặc Không nếu hành động đó làm lộ lọt thông tin:",
+    left: [
+      "Sử dụng tính năng Sao chép ẩn danh (BCC) khi gửi thư điện tử cho một nhóm lớn những người không quen biết nhau",
+      "Đăng ảnh thẻ căn cước công dân hoặc hộ chiếu của bạn lên mạng xã hội để ăn mừng việc vừa đỗ thị thực (visa)",
+      "Chấp nhận tất cả các điều khoản và quyền truy cập vị trí, danh bạ của một ứng dụng trò chơi miễn phí vừa tải về",
+      "Kích hoạt tính năng xác thực hai yếu tố (2FA) cho toàn bộ các tài khoản mạng xã hội và thư điện tử cá nhân"
+    ],
+    right: [
+      "Có",
+      "Không"
+    ],
+    answer: {
+      "Sử dụng tính năng Sao chép ẩn danh (BCC) khi gửi thư điện tử cho một nhóm lớn những người không quen biết nhau": "Có",
+      "Đăng ảnh thẻ căn cước công dân hoặc hộ chiếu của bạn lên mạng xã hội để ăn mừng việc vừa đỗ thị thực (visa)": "Không",
+      "Chấp nhận tất cả các điều khoản và quyền truy cập vị trí, danh bạ của một ứng dụng trò chơi miễn phí vừa tải về": "Không",
+      "Kích hoạt tính năng xác thực hai yếu tố (2FA) cho toàn bộ các tài khoản mạng xã hội và thư điện tử cá nhân": "Có"
+    },
+    explanation: "Sử dụng BCC giúp ẩn danh sách email người nhận, bảo vệ sự riêng tư. Xác thực 2FA tạo thêm lớp khóa bảo mật. Ngược lại, đăng giấy tờ định danh (CCCD/Hộ chiếu) hoặc cấp quyền danh bạ vô tội vạ cho app lạ sẽ gây rủi ro bảo mật nghiêm trọng."
+  }
+  ,
+  {
+    id: 175,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    image_key: "ic3_lv1_q32_digital_citizenship",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn hãy cho biết, nếu một người dùng muốn gửi tin nhắn tức thời cho đồng nghiệp, nhưng trạng thái tài khoản của đồng nghiệp đang không khả dụng (Unavailable) thì cách nào sau đây là tốt nhất để người dùng có thể sử dụng?",
+    options: [
+      "Chờ cho đến khi tài khoản của đồng nghiệp khả dụng",
+      "Cứ gửi tin nhắn",
+      "Email cho đồng nghiệp",
+      "Gọi điện cho đồng nghiệp"
+    ],
+    answer: "Email cho đồng nghiệp",
+    explanation: "Tin nhắn tức thời (Instant Messaging) là phương thức giao tiếp thời gian thực, đòi hỏi sự có mặt trực tuyến. Khi trạng thái đối phương là Không khả dụng (Unavailable) [cite: 401], việc gửi Email [cite: 404] là giải pháp tối ưu vì đây là hình thức giao tiếp không đồng bộ, giúp họ có thể đọc và trả lời bất cứ khi nào quay lại làm việc."
+  }
+  ,
+  {
+    id: 176,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "matching",
+    question: "Nối từng hình thức giao tiếp trực tuyến với tình huống sử dụng thực tế tương ứng:",
+    left: [
+      "Bạn thêm một đoạn dài trình bày quan điểm cá nhân của mình về sự đa dạng văn hóa vào nhật ký trực tuyến cá nhân của mình",
+      "Bạn thêm câu hỏi đóng góp vào một nhóm chủ đề thảo luận về trò chơi điện tử đang diễn ra",
+      "Bạn liên hệ với huấn luyện viên của mình sau giờ học để báo ngắn gọn rằng bạn sẽ bỏ lỡ buổi tập hôm nay",
+      "Bạn liên lạc chính thức với một công ty để yêu cầu giải quyết việc nhận lại tiền hoàn trả"
+    ],
+    right: [
+      "Bài đăng trên Blog",
+      "Bài đăng trên diễn đàn",
+      "Tin nhắn văn bản",
+      "Email"
+    ],
+    answer: {
+      "Bạn thêm một đoạn dài trình bày quan điểm cá nhân của mình về sự đa dạng văn hóa vào nhật ký trực tuyến cá nhân của mình": "Bài đăng trên Blog",
+      "Bạn thêm câu hỏi đóng góp vào một nhóm chủ đề thảo luận về trò chơi điện tử đang diễn ra": "Bài đăng trên diễn đàn",
+      "Bạn liên hệ với huấn luyện viên của mình sau giờ học để báo ngắn gọn rằng bạn sẽ bỏ lỡ buổi tập hôm nay": "Tin nhắn văn bản",
+      "Bạn liên lạc chính thức với một công ty để yêu cầu giải quyết việc nhận lại tiền hoàn trả": "Email"
+    },
+    explanation: "Nhật ký trực tuyến dài là Blog; Nhóm thảo luận chung là Diễn đàn (Forum); Thông báo khẩn ngắn gọn cho cá nhân là Tin nhắn; Trao đổi thủ tục hành chính, thương mại chính thức là Email."
+  }
+  ,
+  {
+    id: 177,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi cần gửi một thư điện tử (Email) đến một hoặc nhiều người nhận phụ (không phải đối tượng xử lý chính), đồng thời bạn muốn công khai toàn bộ danh sách những người nhận phụ này để tất cả những người nhận khác đều nhìn thấy. Bạn nên thêm họ vào trường nào?",
+    options: [
+      "To",
+      "Cc",
+      "Bc",
+      "Bcc"
+    ],
+    answer: "Cc",
+    explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này."
   }
 
 ];

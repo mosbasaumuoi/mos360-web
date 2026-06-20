@@ -104,6 +104,7 @@ const CATEGORY_TRANSLATIONS = {
     FILE_FORMAT: "📁 Định dạng tệp tin",
     TROUBLESHOOTING: "🔧 Xử lý sự cố",
     BROWSER: "🌐 Trình duyệt Web",
+    COLLABORATION: "🤝 Cộng tác trực tuyến",
     // --- IC3 Level 2 ---
     ACCESSIBILITY: "♿ Khả năng truy cập (Accessibility)",
     CLOUD_DIGITAL_SERVICES: "☁️ Dịch vụ số & Điện toán đám mây",
@@ -148,7 +149,7 @@ const IC3_TOPIC_DOMAINS = [
     { title: "3. Quản lý thông tin", cats: ["CRITICAL_THINKING", "INFORMATION_SEARCH", "INFORMATION_LITERACY", "INFORMATION_USE"] },
     { title: "4. Sáng tạo nội dung", cats: ["DATA_VISUALIZATION", "WEB_DESIGN", "DIAGRAMS", "MEDIA_EDITING", "PRESENTATION", "PRODUCTIVITY_SOFTWARE"] },
     { title: "5. Giao tiếp", cats: ["COMMUNICATION_COLLABORATION"] },
-    { title: "6. Cộng tác", cats: [] },
+    { title: "6. Cộng tác", cats: ["COLLABORATION"] },
     { title: "7. An toàn và an ninh", cats: ["SECURITY", "CYBERSECURITY", "PRIVACY", "DATA_PRIVACY", "ONLINE_SAFETY"] }
 ];
 const GENAI_TOPIC_DOMAINS = [
@@ -3256,9 +3257,12 @@ async function triggerRemoteVerification(courseName) {
         var tableEl = document.getElementById('resBreakdownTable');
         if (!topicDomains || !topicDomains.length) { wrap.style.display = 'none'; return; }
 
-        // Luôn hiện đủ cấu trúc chuẩn (7 chuyên đề IC3 / 4 module GenAI), giống báo cáo
-        // điểm thi thật — kể cả chuyên đề nào đó không có câu nào trong đề lần này (hiếm
-        // gặp do exam mode đã dùng stratifiedSample, nhưng vẫn xử lý để không vỡ giao diện).
+        // Đề thi IC3 thật luôn hiện đủ 7 chuyên đề ở mọi Level. Ngân hàng câu hỏi hiện tại
+        // của hệ thống chưa phủ đều cả 7 domain ở từng Level (vd Level 1 mới chỉ có câu hỏi
+        // cho domain 1, 2, 7) — đây là khoảng trống NỘI DUNG cần bổ sung câu hỏi, không phải
+        // lỗi hiển thị. Trong lúc chờ bổ sung, domain nào chưa có câu hỏi sẽ hiện rõ "Chưa đủ
+        // dữ liệu đánh giá" (màu trung tính) — KHÔNG hiện 0% (màu đỏ), để tránh đánh lừa học
+        // viên rằng họ làm sai trong khi domain đó chưa từng được hỏi.
         var rows = topicDomains.map(function(domain) {
             var correct = 0, total = 0;
             domain.cats.forEach(function(c) {
@@ -3272,7 +3276,7 @@ async function triggerRemoteVerification(courseName) {
                 return '<div class="breakdown-row">' +
                     '<div class="breakdown-label">' + r.title + '</div>' +
                     '<div class="breakdown-bar-wrap"></div>' +
-                    '<div class="breakdown-pct" style="color:var(--muted);">—</div>' +
+                    '<div class="breakdown-pct" style="color:var(--muted); flex-basis:120px; font-size:0.7rem; font-weight:600;">Chưa đủ dữ liệu</div>' +
                     '</div>';
             }
             var color = r.pct >= 80 ? '#22c55e' : (r.pct >= 60 ? '#f59e0b' : '#ef4444');

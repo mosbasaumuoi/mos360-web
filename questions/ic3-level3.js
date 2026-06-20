@@ -12,17 +12,6 @@ export const IC3_LEVEL3 = [
     explanation: "Khôi phục cài đặt gốc (Factory Reset) sẽ xóa sạch dữ liệu người dùng và đưa thiết bị về trạng thái xuất xưởng."
   },
   {
-    id: 2,
-    level: "IC3_LEVEL3",
-    category: "COPYRIGHT",
-    difficulty: "medium",
-    type: "single",
-    question: "Loại phần mềm nào không cho phép người dùng chia sẻ hoặc sửa đổi mã nguồn?",
-    options: ["Shareware", "Closed Source", "Public Domain", "Freeware"],
-    answer: 1,
-    explanation: "Phần mềm mã nguồn đóng (Closed Source) giữ mã nguồn là tài sản sở hữu trí tuệ, người dùng chỉ được sử dụng dưới dạng đã biên dịch."
-  },
-  {
     id: 3,
     level: "IC3_LEVEL3",
     category: "DIGITAL_CITIZENSHIP",
@@ -43,17 +32,6 @@ export const IC3_LEVEL3 = [
     options: ["Chương trình đặc biệt", "Mã bổ sung", "Ngôn ngữ nhị phân (Binary Language)", "Cùng nhà sản xuất"],
     answer: 2,
     explanation: "Máy tính giao tiếp với phần cứng thông qua mã nhị phân (0 và 1). Đây là ngôn ngữ chung duy nhất mà CPU hiểu được."
-  },
-  {
-    id: 5,
-    level: "IC3_LEVEL3",
-    category: "COPYRIGHT",
-    difficulty: "medium",
-    type: "single",
-    question: "Định dạng tập tin Video nào dưới đây là chuẩn phổ biến nhất cho việc phát trực tuyến (streaming) chất lượng cao?",
-    options: ["MP4", "TXT", "BMP", "EXE"],
-    answer: 0,
-    explanation: "MP4 là định dạng chuẩn công nghiệp nhờ khả năng nén tốt mà vẫn duy trì chất lượng hình ảnh/âm thanh cao."
   },
   {
     id: 6,
@@ -166,18 +144,6 @@ export const IC3_LEVEL3 = [
     options: ["Có khả năng kết nối mạng để thu thập và truyền tải dữ liệu", "Phải là máy tính chạy Windows", "Luôn yêu cầu bàn phím vật lý", "Chỉ dùng để giải trí"],
     answer: 0,
     explanation: "Thiết bị IoT là các thiết bị vật lý được tích hợp cảm biến, phần mềm và khả năng kết nối để trao đổi dữ liệu qua mạng."
-  },
-  {
-    id: 16,
-    level: "IC3_LEVEL3",
-    category: "COPYRIGHT",
-    image_key: "ic3_lv3_q16_software",
-    difficulty: "hard",
-    type: "single",
-    question: "Khi tải một phần mềm nguồn mở, người dùng thường được phép làm gì?",
-    options: ["Chỉ được phép xem, không được cài", "Được quyền sử dụng, sửa đổi và phân phối lại mã nguồn", "Bị cấm hoàn toàn mọi sửa đổi", "Phải trả phí bản quyền hàng tháng"],
-    answer: 1,
-    explanation: "Triết lý của phần mềm nguồn mở là sự tự do, cho phép cộng đồng cùng nhau cải tiến và phát triển phần mềm."
   },
   {
     id: 17,
@@ -307,22 +273,6 @@ export const IC3_LEVEL3 = [
     ],
     answer: 0,
     explanation: "Dữ liệu được lưu trữ phân tán và tại các địa điểm cách biệt, giúp đảm bảo an toàn nếu thiết bị tại chỗ hoặc nơi làm việc gặp sự cố vật lý."
-  },
-  {
-    id: 26,
-    level: "IC3_LEVEL3",
-    category: "COPYRIGHT",
-    difficulty: "medium",
-    type: "single",
-    question: "Phần mềm 'Freeware' khác với 'Open Source' ở điểm nào?",
-    options: [
-      "Freeware luôn cho phép sửa mã nguồn",
-      "Freeware có thể miễn phí nhưng người dùng không được can thiệp vào mã nguồn",
-      "Freeware luôn yêu cầu phí bản quyền cao",
-      "Open Source không được phép sử dụng"
-    ],
-    answer: 1,
-    explanation: "Freeware là miễn phí sử dụng nhưng người dùng không sở hữu quyền xem hoặc chỉnh sửa mã nguồn, ngược lại với Open Source."
   },
   {
     id: 27,
@@ -543,7 +493,7 @@ export const IC3_LEVEL3 = [
   {
     id: 44,
     level: "IC3_LEVEL3",
-    category: "DIGITAL_CITIZENSHIP",
+    category: "DATA_PRIVACY",
     difficulty: "hard",
     type: "multiple",
     question: "Khi một doanh nghiệp thu thập dữ liệu người dùng, quyền nào người dùng thường có theo luật bảo vệ dữ liệu (như GDPR)? (Chọn 2)",
@@ -670,7 +620,7 @@ export const IC3_LEVEL3 = [
   {
     id: 55,
     level: "IC3_LEVEL3",
-    category: "DIGITAL_CITIZENSHIP",
+    category: "INFORMATION_LITERACY",
     difficulty: "hard",
     type: "multiple",
     question: "Đâu là các đặc điểm của tin giả (Fake news)? (Chọn 2)",
@@ -878,7 +828,7 @@ export const IC3_LEVEL3 = [
   {
     id: 70,
     level: "IC3_LEVEL3",
-    category: "DATA_PRIVACY",
+    category: "CLOUD_COMPUTING",
     difficulty: "medium",
     type: "single",
     question: "Sao lưu (Backup) dữ liệu 3-2-1 có nghĩa là gì?",
@@ -1041,7 +991,7 @@ export const IC3_LEVEL3 = [
   {
     id: 83,
     level: "IC3_LEVEL3",
-    category: "DIGITAL_CITIZENSHIP",
+    category: "ONLINE_SAFETY",
     difficulty: "easy",
     type: "single",
     question: "Hành động nào là tốt nhất để đảm bảo an toàn thông tin khi bạn không còn sử dụng một tài khoản dịch vụ mạng xã hội cũ?",
@@ -1309,7 +1259,7 @@ export const IC3_LEVEL3 = [
   },
   {
     id: 99, level: "IC3_LEVEL3", test: 1,
-    category: "DIGITAL_IDENTITY", difficulty: "medium",
+    category: "DATA_PRIVACY", difficulty: "medium",
     type: "single",
     question: "Mục đích của đạo luật HIPAA (Health Insurance Portability and Accountability Act) là gì?",
     options: [
@@ -1959,7 +1909,7 @@ export const IC3_LEVEL3 = [
   },
   {
     id: 138, level: "IC3_LEVEL3", test: 2,
-    category: "COPYRIGHT", difficulty: "medium",
+    category: "INFORMATION_LITERACY", difficulty: "medium",
     type: "multiple",
     question: "Tùy chọn nào là lí do mà một tác giả có thể xuất bản thông tin mang tính thiên vị? (Chọn 2)",
     options: [
@@ -1985,7 +1935,7 @@ export const IC3_LEVEL3 = [
   },
   {
     id: 140, level: "IC3_LEVEL3", test: 2,
-    category: "COPYRIGHT", difficulty: "medium",
+    category: "INFORMATION_LITERACY", difficulty: "medium",
     type: "multiple",
     question: "Trích dẫn (Citation) trang Web thường bao gồm những gì? (Chọn 3)",
     options: ["Book Title", "Publication Date", "URL", "Publisher", "Website Name"],
@@ -2008,7 +1958,7 @@ export const IC3_LEVEL3 = [
   },
   {
     id: 142, level: "IC3_LEVEL3", test: 2,
-    category: "COPYRIGHT", difficulty: "medium",
+    category: "CRITICAL_THINKING", difficulty: "medium",
     type: "matching",
     question: "Bạn đang thực hiện nghiên cứu trực tuyến. Bạn thấy một loạt Video có vẻ hỗ trợ giả thuyết của mình. Hai phương pháp chỉnh sửa âm thanh nào cho biết rằng Video đã bị chỉnh sửa để thay đổi thông điệp gốc? Chọn Đúng nếu phương pháp cho thấy chỉnh sửa có chủ ý, Sai nếu không.",
     left: [
@@ -2062,7 +2012,7 @@ export const IC3_LEVEL3 = [
   },
   {
     id: 145, level: "IC3_LEVEL3", test: 2,
-    category: "INFORMATION_USE", difficulty: "medium",
+    category: "INTELLECTUAL_PROPERTY", difficulty: "medium",
     type: "multiple",
     question: "Các chủ doanh nghiệp nên làm gì để bảo vệ tài sản công ty tốt nhất? (Chọn 2)",
     options: [
@@ -2094,7 +2044,7 @@ export const IC3_LEVEL3 = [
   },
   {
     id: 147, level: "IC3_LEVEL3", test: 2,
-    category: "INFORMATION_USE", difficulty: "medium",
+    category: "COPYRIGHT", difficulty: "medium",
     type: "single",
     question: "Loại bản phát hành nào cho phép người dùng sử dụng hình ảnh của một cá nhân?",
     options: ["Media Release", "Location Release", "Model Release", "Marketing Release"],
@@ -2166,12 +2116,804 @@ export const IC3_LEVEL3 = [
   },
   {
     id: 152, level: "IC3_LEVEL3", test: 2,
-    category: "INFORMATION_USE", difficulty: "medium",
+    category: "ONLINE_SAFETY", difficulty: "medium",
     type: "single",
     question: "Bạn đang đánh giá độ tin cậy của thông tin được tìm thấy trực tuyến. Người dùng có thể tin tưởng vào tiêu đề URL nào khi nhập thông tin thẻ tín dụng?",
     options: [".com", "https://", "www.", "http://"],
     answer: "https://",
     explanation: "HTTPS (HyperText Transfer Protocol Secure) mã hóa dữ liệu truyền tải giữa trình duyệt và máy chủ. Ký tự 's' trong 'https' đảm bảo kết nối được mã hóa SSL/TLS — bắt buộc khi nhập thông tin nhạy cảm như thẻ tín dụng."
+  }
+  ,
+  {
+    id: 153, // Tương ứng Câu 5 - Test 2
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "INFORMATION_SEARCH",
+    difficulty: "hard",
+    type: "single",
+    question: "Trong các công cụ tìm kiếm dữ liệu nâng cao, người ta có thể sử dụng toán tử tìm kiếm nào sau đây để tìm kiếm các từ đồng nghĩa của một từ khóa?",
+    options: [
+      "Dấu sao (*)",
+      "Dấu ngã (~)",
+      "Toán tử logic AND",
+      "Dấu chấm hỏi (?)"
+    ],
+    answer: "Dấu ngã (~)",
+    explanation: "Theo quy chuẩn tìm kiếm nâng cao (như của Google trước đây), dấu ngã (~) đặt trước từ khóa dùng để yêu cầu hệ thống tìm kiếm cả từ khóa đó và các từ đồng nghĩa (synonyms) của nó."
+  }
+  ,
+  {
+    id: 154, // Tương ứng Câu 17 - Test 2
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "INFORMATION_SEARCH",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Bạn đang thực hiện một nghiên cứu trực tuyến và cần điều chỉnh cài đặt tìm kiếm nâng cao để nhận được kết quả cô đọng, phù hợp hơn với đối tượng nghiên cứu của mình. Đâu là hai kỹ thuật bạn nên sử dụng? (Chọn 2)",
+    options: [
+      "Tìm kiếm các từ gốc và loại trừ toàn bộ phần hậu tố của từ khóa",
+      "Đặt các cụm từ tìm kiếm dài hoặc chính xác trong dấu ngoặc kép (\"\")",
+      "Đặt các cụm từ tìm kiếm quan trọng nhất trong dấu ngoặc vuông ([])",
+      "Sử dụng toán tử loại trừ (ví dụ dấu trừ -) để loại bỏ các thuật ngữ chung chung hoặc kết quả không liên quan khỏi trang tìm kiếm"
+    ],
+    answer: [
+      "Đặt các cụm từ tìm kiếm dài hoặc chính xác trong dấu ngoặc kép (\"\")",
+      "Sử dụng toán tử loại trừ (ví dụ dấu trừ -) để loại bỏ các thuật ngữ chung chung hoặc kết quả không liên quan khỏi trang tìm kiếm"
+    ],
+    explanation: "Đặt cụm từ trong dấu ngoặc kép giúp tìm kiếm chính xác cụm từ đó theo đúng thứ tự. Sử dụng dấu trừ (-) đặt sát trước một từ giúp loại trừ các trang web chứa từ đó, giúp thu hẹp kết quả tìm kiếm hiệu quả."
+  }
+  ,
+  {
+    id: 155,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Trong thiết kế đồ họa kỹ thuật số, hai định dạng mở rộng tập tin hình ảnh nào dưới đây thường được ưu tiên lựa chọn sử dụng nhiều nhất cho các tệp thiết kế logo thương hiệu? (Chọn 2)",
+    options: [
+      ".gif",
+      ".pdf",
+      ".png",
+      ".jpeg"
+    ],
+    answer: [
+      ".gif",
+      ".png"
+    ],
+    explanation: "Logo thường yêu cầu độ sắc nét cao và đặc biệt là tính năng hỗ trợ nền trong suốt (transparency) để dễ dàng chèn lên các nền màu khác nhau. Định dạng PNG và GIF đáp ứng hoàn hảo yêu cầu này (trong đó PNG là phổ biến nhất nhờ chất lượng nén không mất dữ liệu), còn JPEG không hỗ trợ nền trong suốt."
+  }
+  ,
+  {
+    id: 156,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "medium",
+    type: "single",
+    question: "Phát biểu nào sau đây là ĐÚNG khi nói về cơ chế hoạt động của tính năng tự động sửa lỗi chính tả (Autocorrect) trong hệ điều hành Windows 10?",
+    options: [
+      "Trong Windows 10, tính năng tự động sửa (Autocorrect) luôn được cấu hình và kiểm soát riêng biệt trên từng ứng dụng cụ thể",
+      "Windows 10 quản lý tính năng tự động sửa (Autocorrect) tập trung tại Settings hệ thống, áp dụng chung cho các ứng dụng hỗ trợ nhập liệu trừ khi ứng dụng đó tự có trình cài đặt riêng",
+      "Tính năng Autocorrect chỉ có hiệu lực duy nhất khi người dùng soạn thảo văn bản trên trình duyệt web Microsoft Edge",
+      "Hệ điều hành Windows 10 hoàn toàn không tích hợp sẵn tính năng tự động sửa lỗi chính tả mà bắt buộc phải cài phần mềm bên thứ ba"
+    ],
+    answer: "Windows 10 quản lý tính năng tự động sửa (Autocorrect) tập trung tại Settings hệ thống, áp dụng chung cho các ứng dụng hỗ trợ nhập liệu trừ khi ứng dụng đó tự có trình cài đặt riêng",
+    explanation: "Windows 10 có một tùy chọn cài đặt hệ thống tập trung (nằm trong Settings > Devices > Typing) mang tên 'Autocorrect misspelled words'. Nó áp dụng đồng bộ cho toàn hệ thống chứ không hoàn toàn bị phân mảnh cô lập riêng lẻ độc lập trên từng ứng dụng mặc định[cite: 345]."
+  }
+  ,
+  {
+    id: 157, level: "IC3_LEVEL3", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang sử dụng Microsoft Word trên Windows 10 để viết bài về công ty 'ABusiness' (bắt đầu bằng 2 chữ hoa). Mỗi khi gõ tên công ty, phần mềm tự sửa chữ in hoa. Bạn thay đổi tùy chọn này ở đâu?",
+    options: [
+      "Trong Language Preference của Office",
+      "Trong cài đặt Grammar & Refinements",
+      "Trong các tùy chọn hệ điều hành của máy tính",
+      "Trong AutoCorrect Options"
+    ],
+    answer: "Trong AutoCorrect Options",
+    explanation: "AutoCorrect Options trong Word cho phép tùy chỉnh hoặc tắt tính năng tự động sửa chữ viết hoa, bao gồm cả việc bỏ qua các từ viết hoa đặc biệt theo ý người dùng."
+  }
+  ,
+  {
+    id: 158, level: "IC3_LEVEL3", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Nếu một người dùng có nhiều dữ liệu để hiển thị, ứng dụng nào phù hợp nhất? (Chọn 2)",
+    options: ["Google Docs", "Teams", "Excel", "Access", "PowerPoint"],
+    answer: ["Excel", "Access"],
+    explanation: "Excel và Access đều được thiết kế để xử lý và hiển thị lượng dữ liệu lớn: Excel dưới dạng bảng tính, Access dưới dạng cơ sở dữ liệu có thể lọc và truy vấn phức tạp."
+  }
+  ,
+  {
+    id: 159, level: "IC3_LEVEL3", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "multiple",
+    question: "Công cụ phần mềm nào sẽ tốt nhất để tạo ra biểu đồ trực quan trong kinh doanh? (Chọn 2)",
+    options: ["Affinity Designer", "Adobe Illustrator", "Google Sheets", "Microsoft Excel", "Intuit QuickBooks"],
+    answer: ["Google Sheets", "Microsoft Excel"],
+    explanation: "Google Sheets và Microsoft Excel đều có công cụ tạo biểu đồ mạnh mẽ tích hợp sẵn, phù hợp để trực quan hóa dữ liệu kinh doanh như doanh thu, xu hướng, so sánh..."
+  }
+  ,
+  {
+    id: 160, level: "IC3_LEVEL3", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "single",
+    question: "Trong tiết khoa học, bạn cần phân tích các bảng số liệu. Bạn nên sử dụng phần mềm nào?",
+    options: ["Google Sheets", "Microsoft PowerPoint", "Adobe InDesign", "Intuit QuickBooks"],
+    answer: "Google Sheets",
+    explanation: "Google Sheets là ứng dụng bảng tính phù hợp nhất để phân tích số liệu: hỗ trợ công thức, hàm thống kê, biểu đồ và dễ chia sẻ cộng tác."
+  }
+  ,
+  {
+    id: 161, level: "IC3_LEVEL3", test: 1,
+    category: "PRODUCTIVITY_SOFTWARE", difficulty: "medium",
+    type: "matching",
+    question: "Nối mỗi ứng dụng với loại nội dung tương ứng phù hợp nhất.",
+    left: [
+      "Bạn thực hiện các thao tác trên một tập hợp dữ liệu bằng bảng tính sử dụng các công thức.",
+      "Bạn xuất dự án bao gồm nhiều trang với mục lục và các chỉ mục được tạo tự động.",
+      "Bản trình chiếu trực quan, sinh động tự động chuyển tiếp từ chủ đề này sang chủ đề khác mà không cần người điều khiển."
+    ],
+    right: ["Microsoft Excel", "Microsoft Word", "Microsoft PowerPoint"],
+    answer: {
+      "Bạn thực hiện các thao tác trên một tập hợp dữ liệu bằng bảng tính sử dụng các công thức.": "Microsoft Excel",
+      "Bạn xuất dự án bao gồm nhiều trang với mục lục và các chỉ mục được tạo tự động.": "Microsoft Word",
+      "Bản trình chiếu trực quan, sinh động tự động chuyển tiếp từ chủ đề này sang chủ đề khác mà không cần người điều khiển.": "Microsoft PowerPoint"
+    },
+    explanation: "Excel → xử lý dữ liệu và công thức. Word → tài liệu dài có cấu trúc (mục lục, chỉ mục). PowerPoint → trình chiếu tự động (kiosk mode)."
+  }
+  ,
+  {
+    id: 162, level: "IC3_LEVEL3", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "single",
+    question: "Loại biểu đồ hoặc đồ thị nào được dùng để quan sát sự tương quan và phân bổ của dữ liệu?",
+    options: ["Table Chart", "Scatter Plot Graph", "Line Graph", "Pie Chart"],
+    answer: "Scatter Plot Graph",
+    explanation: "Scatter Plot (biểu đồ phân tán) hiển thị mối quan hệ giữa hai biến số và phân bổ của một tập dữ liệu lớn, giúp nhận biết xu hướng, cụm dữ liệu và ngoại lệ."
+  }
+  ,
+  {
+    id: 163, level: "IC3_LEVEL3", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn đang chuẩn bị thuyết trình về quá trình tăng dân số ở thành phố qua nhiều năm. Hình thức trực quan nào hiệu quả nhất để thể hiện sự gia tăng theo thời gian? (Chọn 2)",
+    options: [
+      "Biểu đồ tròn (Pie Chart)",
+      "Biểu đồ dạng bản đồ (Map)",
+      "Biểu đồ thanh (Bar Chart)",
+      "Biểu đồ đường (Line Chart)"
+    ],
+    answer: ["Biểu đồ thanh (Bar Chart)", "Biểu đồ đường (Line Chart)"],
+    explanation: "Line Chart (biểu đồ đường) lý tưởng để hiển thị xu hướng theo thời gian. Bar Chart (biểu đồ thanh) phù hợp để so sánh giá trị tại các thời điểm khác nhau. Cả hai đều hiệu quả hơn Pie Chart khi dữ liệu có yếu tố thời gian."
+  }
+  ,
+  {
+    id: 164, level: "IC3_LEVEL3", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Bạn có một lượng lớn dữ liệu thô để chia sẻ với khách hàng và quyết định tạo bản trình chiếu trực quan. Ghép mỗi mục tiêu trình bày với loại biểu đồ phù hợp.",
+    left: [
+      "Để hiển thị các thay đổi hoặc xu hướng trong dữ liệu theo thời gian.",
+      "Để tóm tắt các phép đo chính xác.",
+      "Để hiển thị một số so sánh xếp hạng của dữ liệu.",
+      "Để hiển thị mối quan hệ của các phần dữ liệu với tổng thể."
+    ],
+    right: ["Line Chart", "Table", "Bar Chart", "Pie Chart"],
+    answer: {
+      "Để hiển thị các thay đổi hoặc xu hướng trong dữ liệu theo thời gian.": "Line Chart",
+      "Để tóm tắt các phép đo chính xác.": "Table",
+      "Để hiển thị một số so sánh xếp hạng của dữ liệu.": "Bar Chart",
+      "Để hiển thị mối quan hệ của các phần dữ liệu với tổng thể.": "Pie Chart"
+    },
+    explanation: "Line Chart → xu hướng thời gian. Table → số liệu chính xác. Bar Chart → so sánh/xếp hạng. Pie Chart → tỉ lệ phần/tổng thể."
+  }
+  ,
+  {
+    id: 165, level: "IC3_LEVEL3", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Ghép từng loại biểu đồ với mục tiêu hiển thị trực quan tương ứng.",
+    left: [
+      "Minh họa các mối quan hệ từng phần (Part to whole) đơn giản trong một tập dữ liệu nhỏ.",
+      "Cho thấy mối tương quan và sự phân bổ của một lượng lớn dữ liệu.",
+      "Hiển thị cách một hoặc nhiều chuỗi dữ liệu thay đổi theo thời gian."
+    ],
+    right: ["Biểu đồ tròn (Pie Chart)", "Biểu đồ phân tán (Scatter Plot)", "Biểu đồ đường (Line Graph)"],
+    answer: {
+      "Minh họa các mối quan hệ từng phần (Part to whole) đơn giản trong một tập dữ liệu nhỏ.": "Biểu đồ tròn (Pie Chart)",
+      "Cho thấy mối tương quan và sự phân bổ của một lượng lớn dữ liệu.": "Biểu đồ phân tán (Scatter Plot)",
+      "Hiển thị cách một hoặc nhiều chuỗi dữ liệu thay đổi theo thời gian.": "Biểu đồ đường (Line Graph)"
+    },
+    explanation: "Pie Chart → part-to-whole với ít phần. Scatter Plot → phân bổ và tương quan dữ liệu lớn. Line Graph → thay đổi theo chuỗi thời gian."
+  }
+  ,
+  {
+    id: 166, level: "IC3_LEVEL3", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Để truyền đạt kết quả các tập dữ liệu, chọn Đúng nếu định dạng trực quan phù hợp với mô tả, Sai nếu không.",
+    left: [
+      "Một bảng sẽ là tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.",
+      "Để hiển thị các xu hướng thay đổi theo thời gian, bạn nên sử dụng biểu đồ đường.",
+      "Hiển thị số lượng bán các sản phẩm khác nhau có thể được biểu diễn bằng biểu đồ cột.",
+      "Hiển thị thứ hạng so sánh của dữ liệu, có thể được biểu diễn bằng biểu đồ thanh."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Một bảng sẽ là tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.": "Sai",
+      "Để hiển thị các xu hướng thay đổi theo thời gian, bạn nên sử dụng biểu đồ đường.": "Đúng",
+      "Hiển thị số lượng bán các sản phẩm khác nhau có thể được biểu diễn bằng biểu đồ cột.": "Đúng",
+      "Hiển thị thứ hạng so sánh của dữ liệu, có thể được biểu diễn bằng biểu đồ thanh.": "Đúng"
+    },
+    explanation: "Part-to-whole tốt nhất dùng Pie Chart, không phải bảng. Xu hướng thời gian → Line Chart. So sánh số lượng → Column/Bar Chart đều đúng."
+  }
+  ,
+  {
+    id: 167, level: "IC3_LEVEL3", test: 1,
+    category: "DATA_VISUALIZATION", difficulty: "medium",
+    type: "matching",
+    question: "Xác định loại biểu đồ thích hợp cho từng mô tả dữ liệu.",
+    left: [
+      "___ sẽ là cách tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.",
+      "Cho biết một hoặc nhiều chuỗi dữ liệu thay đổi như thế nào theo thời gian, bạn nên sử dụng ___.",
+      "Hiển thị khối lượng bán hàng của các sản phẩm khác nhau được minh họa tốt nhất bằng ___."
+    ],
+    right: ["Pie Chart", "Line Chart", "Column Chart"],
+    answer: {
+      "___ sẽ là cách tốt nhất để minh họa các mối quan hệ đơn giản từ một phần đến toàn bộ trong một tập dữ liệu nhỏ.": "Pie Chart",
+      "Cho biết một hoặc nhiều chuỗi dữ liệu thay đổi như thế nào theo thời gian, bạn nên sử dụng ___.": "Line Chart",
+      "Hiển thị khối lượng bán hàng của các sản phẩm khác nhau được minh họa tốt nhất bằng ___.": "Column Chart"
+    },
+    explanation: "Pie Chart → tỉ lệ phần/tổng. Line Chart → thay đổi theo thời gian. Column Chart → so sánh khối lượng giữa các danh mục."
+  }
+  ,
+  {
+    id: 168, level: "IC3_LEVEL3", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "single",
+    question: "Kích thước phông chữ nào được sử dụng phổ biến nhất cho các tiêu đề?",
+    options: ["18-28 pts", "10-14 pts", "8-12 pts", "30-50 pts"],
+    answer: "18-28 pts",
+    explanation: "Tiêu đề trang Web thường dùng cỡ 18–28pt để nổi bật so với nội dung (thường 11–16pt), tạo phân cấp thị giác rõ ràng mà không quá to."
+  }
+  ,
+  {
+    id: 169, level: "IC3_LEVEL3", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Cách phổ biến nhất để phân biệt tiêu đề đoạn (Paragraph Headings) và nội dung (Body Text) trên trang Web là gì? (Chọn 2)",
+    options: [
+      "Sử dụng cùng một phông chữ cho cả tiêu đề và nội dung.",
+      "Sử dụng cùng một kích thước phông chữ cho cả tiêu đề và nội dung.",
+      "Chỉ sử dụng phông chữ Serif.",
+      "Sử dụng một phông chữ cho tiêu đề và một phông chữ khác cho văn bản nội dung.",
+      "Sử dụng phông chữ lớn hơn cho tiêu đề so với văn bản nội dung."
+    ],
+    answer: [
+      "Sử dụng một phông chữ cho tiêu đề và một phông chữ khác cho văn bản nội dung.",
+      "Sử dụng phông chữ lớn hơn cho tiêu đề so với văn bản nội dung."
+    ],
+    explanation: "Phân cấp thị giác tốt nhất đạt được bằng cách: (1) dùng font khác nhau cho heading và body, (2) heading lớn hơn body. Hai kỹ thuật này giúp mắt người đọc dễ dàng phân biệt cấu trúc nội dung."
+  }
+  ,
+  {
+    id: 170, level: "IC3_LEVEL3", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào được biết đến với việc sử dụng phông chữ Serif? (Chọn 2)",
+    options: [
+      "Báo (Newspapers)",
+      "Đề mục và tiêu đề (Headings and Titles)",
+      "Phương tiện truyền thông xã hội (Social Media)",
+      "Sách (Books)"
+    ],
+    answer: ["Báo (Newspapers)", "Sách (Books)"],
+    explanation: "Phông Serif (có chân) truyền thống được dùng trong in ấn vật lý như báo và sách vì các 'chân' giúp mắt người đọc theo dõi dòng chữ dễ hơn trên giấy."
+  }
+  ,
+  {
+    id: 171, level: "IC3_LEVEL3", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "multiple",
+    question: "Hành động nào sau đây có thể cải thiện khả năng đọc (Readability)? (Chọn 3)",
+    options: [
+      "Sử dụng kích thước phông chữ từ 15-25px.",
+      "Sử dụng nhiều màu chữ khác nhau.",
+      "Thêm hoặc xóa khoảng cách giữa các dòng.",
+      "Giữ độ dài dòng ngắn, khoảng 66 kí tự.",
+      "Sử dụng các sắc thái nhẹ của văn bản.",
+      "Pha trộn nhiều phông chữ màu đỏ và xanh lá cây."
+    ],
+    answer: [
+      "Sử dụng kích thước phông chữ từ 15-25px.",
+      "Thêm hoặc xóa khoảng cách giữa các dòng.",
+      "Giữ độ dài dòng ngắn, khoảng 66 kí tự."
+    ],
+    explanation: "Ba yếu tố cải thiện readability: (1) cỡ chữ 15–25px đủ lớn trên màn hình, (2) line-height phù hợp giúp mắt không bị nhảy dòng, (3) dòng ngắn ~66 ký tự là độ rộng tối ưu cho mắt người đọc."
+  }
+  ,
+  {
+    id: 172, level: "IC3_LEVEL3", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "matching",
+    question: "Một nhóm sinh viên tạo nội dung cho trang Web và cần tuân theo tiêu chuẩn trợ năng phông chữ. Chọn Đúng nếu hành động tuân theo tiêu chuẩn trợ năng, Sai nếu không.",
+    left: [
+      "Nên sử dụng phông chữ Serif vì chúng dễ đọc nhất trên mạng.",
+      "Kích thước phông chữ nội dung văn bản phải từ 15-25px.",
+      "Độ dài tối ưu của một dòng văn bản là 45-90 kí tự. Chiều rộng lý tưởng là 66 kí tự.",
+      "Khoảng trắng giữa tiêu đề và nội dung văn bản phải nằm trong khoảng 15-30px."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Nên sử dụng phông chữ Serif vì chúng dễ đọc nhất trên mạng.": "Sai",
+      "Kích thước phông chữ nội dung văn bản phải từ 15-25px.": "Đúng",
+      "Độ dài tối ưu của một dòng văn bản là 45-90 kí tự. Chiều rộng lý tưởng là 66 kí tự.": "Đúng",
+      "Khoảng trắng giữa tiêu đề và nội dung văn bản phải nằm trong khoảng 15-30px.": "Đúng"
+    },
+    explanation: "Trên màn hình, Sans-serif (không chân) dễ đọc hơn Serif. Cỡ chữ 15–25px, độ rộng dòng 45–90 ký tự và khoảng cách heading–body 15–30px là các tiêu chuẩn trợ năng web phổ biến."
+  }
+  ,
+  {
+    id: 173, level: "IC3_LEVEL3", test: 1,
+    category: "WEB_DESIGN", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang tạo nội dung cho trang Web và cần tuân thủ các tiêu chuẩn về khả năng tiếp cận. Ghép mỗi ô trống với đáp án đúng.",
+    left: [
+      "Kiểu phông chữ ưa chuộng nhất cho trang Web là ___.",
+      "Bạn cần duy trì ___ giữa màu chữ và màu nền.",
+      "Kích thước phông chữ tối thiểu cho văn bản nội dung trang Web là ___."
+    ],
+    right: ["Sans-serif", "độ tương phản cao", "11 point / 15 pixel"],
+    answer: {
+      "Kiểu phông chữ ưa chuộng nhất cho trang Web là ___.": "Sans-serif",
+      "Bạn cần duy trì ___ giữa màu chữ và màu nền.": "độ tương phản cao",
+      "Kích thước phông chữ tối thiểu cho văn bản nội dung trang Web là ___.": "11 point / 15 pixel"
+    },
+    explanation: "Chuẩn WCAG khuyến nghị: phông Sans-serif cho màn hình, tỉ lệ tương phản tối thiểu 4.5:1 (chữ thường) và cỡ chữ tối thiểu 11pt/15px để đảm bảo khả năng đọc."
+  }
+  ,
+  {
+    id: 174, level: "IC3_LEVEL3", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "single",
+    question: "Phần mềm bổ trợ nào cho phép người dùng thực hiện các chỉnh sửa và thay đổi nâng cao đối với hình ảnh?",
+    options: ["Grammarly", "Text-to-speech", "Photoshop", "Screencast"],
+    answer: "Photoshop",
+    explanation: "Adobe Photoshop là phần mềm chỉnh sửa ảnh chuyên nghiệp hàng đầu, cho phép thực hiện các thao tác nâng cao: xử lý màu sắc, cắt xén, chỉnh sửa tầng (layer), hiệu ứng..."
+  }
+  ,
+  {
+    id: 175, level: "IC3_LEVEL3", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào giúp chỉnh sửa Video trên iPhone? (Chọn 3)",
+    options: [
+      "Cắt (Trimming)",
+      "Điều chỉnh độ sáng (Adjusting Brightness)",
+      "Viền (Edging)",
+      "Điêu khắc (Sculpting)",
+      "Thêm bộ lọc (Adding Filters)"
+    ],
+    answer: ["Cắt (Trimming)", "Điều chỉnh độ sáng (Adjusting Brightness)", "Thêm bộ lọc (Adding Filters)"],
+    explanation: "Ứng dụng Photos trên iPhone tích hợp sẵn các công cụ chỉnh sửa video: Trimming (cắt xén), Brightness (độ sáng) và Filters (bộ lọc màu sắc)."
+  }
+  ,
+  {
+    id: 176, level: "IC3_LEVEL3", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "single",
+    question: "Bạn đã chụp bức ảnh sân trước và có một con sóc đang ngồi trên bãi cỏ mà bạn muốn loại bỏ. Công cụ nào giúp tự động loại bỏ con sóc và thay thế bằng nhiều cỏ hơn?",
+    options: ["Sử dụng Magic Wand", "Sử dụng Spot Healing Brush", "Layer > New Fill Layer"],
+    answer: "Sử dụng Spot Healing Brush",
+    explanation: "Spot Healing Brush trong Photoshop tự động phân tích vùng xung quanh và lấp đầy vùng được chọn bằng texture phù hợp — lý tưởng để xóa đối tượng nhỏ không mong muốn khỏi ảnh."
+  }
+  ,
+  {
+    id: 177, level: "IC3_LEVEL3", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đã được giao nhiệm vụ tạo Video trình chiếu về ý nghĩa lịch sử của các di tích. Với mỗi phát biểu về chỉnh sửa Video và âm thanh, chọn Đúng hoặc Sai.",
+    left: [
+      "Bạn có thể sử dụng hình ảnh tĩnh và một số kĩ thuật chỉnh sửa đơn giản để tạo Video trực quan hấp dẫn.",
+      "Bạn có thể tạo một Video trau chuốt chỉ bằng cách sử dụng các cảnh quay có sẵn.",
+      "Nói chung, việc lồng tiếng một Video cũ hơn dễ sử dụng lại là không khả thi."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Bạn có thể sử dụng hình ảnh tĩnh và một số kĩ thuật chỉnh sửa đơn giản để tạo Video trực quan hấp dẫn.": "Đúng",
+      "Bạn có thể tạo một Video trau chuốt chỉ bằng cách sử dụng các cảnh quay có sẵn.": "Đúng",
+      "Nói chung, việc lồng tiếng một Video cũ hơn dễ sử dụng lại là không khả thi.": "Sai"
+    },
+    explanation: "Ảnh tĩnh kết hợp hiệu ứng hoàn toàn đủ để tạo Video lịch sử hấp dẫn. Footage có sẵn vẫn có thể tạo video chuyên nghiệp. Lồng tiếng video cũ là hoàn toàn khả thi với các công cụ hiện đại."
+  }
+  ,
+  {
+    id: 178, level: "IC3_LEVEL3", test: 1,
+    category: "MEDIA_EDITING", difficulty: "medium",
+    type: "multiple",
+    question: "Tùy chọn nào là cách chỉnh sửa Video được dùng để biến đổi Video với mục đích thay đổi ý nghĩa gốc? (Chọn 2)",
+    options: [
+      "Chỉnh sửa bằng cách ghép nhiều phần nhỏ của các Video khác nhau lại với nhau.",
+      "Hiển thị một đoạn Clip tóm tắt của một đoạn Video dài hơn.",
+      "Ghi công cho những người xuất hiện trong Video và người quay phim ở cuối Video.",
+      "Hiển thị siêu liên kết đến các nguồn đáng tin cậy để tăng độ tin cậy cho Video."
+    ],
+    answer: [
+      "Chỉnh sửa bằng cách ghép nhiều phần nhỏ của các Video khác nhau lại với nhau.",
+      "Hiển thị một đoạn Clip tóm tắt của một đoạn Video dài hơn."
+    ],
+    explanation: "Ghép nhiều clip rời rạc có thể tạo ra ngữ cảnh sai lệch. Clip tóm tắt cắt bỏ phần ngữ cảnh quan trọng, có thể làm thay đổi ý nghĩa. Hai kỹ thuật này thường được dùng để tạo 'deepfake' thông tin."
+  }
+  ,
+  {
+    id: 179,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    image_key: "ic3_lv3_q72_network",
+    difficulty: "hard",
+    type: "matching",
+    question: "Bạn đang tùy chỉnh một sự kiện thêm ngày sinh nhật vào lịch cá nhân của mình. Hãy ghép nối từng yêu cầu thiết lập thực tế với thuộc tính cài đặt sự kiện tương ứng:",
+    left: [
+      "Xoá mốc thời gian bắt đầu và kết thúc cụ thể của sự kiện trong ngày",
+      "Cài đặt nhận thông báo nhắc nhở một tuần trước khi sự kiện diễn ra để kịp chuẩn bị mua quà",
+      "Thêm sự kiện này vào lịch cá nhân cố định lặp lại theo chu kỳ hàng năm",
+      "Thêm tài khoản của thành viên khác (ví dụ: anh trai của bạn) vào sự kiện để họ cùng theo dõi"
+    ],
+    right: [
+      "Cả ngày (All day)",
+      "15 phút trước / Tùy chỉnh thông báo",
+      "Lặp lại hàng năm (Repeat / Annually)",
+      "Mời người tham dự (Invite attendees)"
+    ],
+    answer: {
+      "Xoá mốc thời gian bắt đầu và kết thúc cụ thể của sự kiện trong ngày": "Cả ngày (All day)",
+      "Cài đặt nhận thông báo nhắc nhở một tuần trước khi sự kiện diễn ra để kịp chuẩn bị mua quà": "15 phút trước / Tùy chỉnh thông báo",
+      "Thêm sự kiện này vào lịch cá nhân cố định lặp lại theo chu kỳ hàng năm": "Lặp lại hàng năm (Repeat / Annually)",
+      "Thêm tài khoản của thành viên khác (ví dụ: anh trai của bạn) vào sự kiện để họ cùng theo dõi": "Mời người tham dự (Invite attendees)"
+    },
+    explanation: "Sự kiện diễn ra suốt ngày không bó buộc giờ giấc dùng tùy chọn All day; nhắc trước sự kiện dùng Notification/Reminders; chu kỳ định kỳ dùng cài đặt lặp lại (Repeat); và muốn người khác thấy sự kiện trên lịch của họ thì dùng tính năng Mời người tham dự."
+  }
+  ,
+  {
+    id: 180,
+    level: "IC3_LEVEL3",
+    image_key: "ic3_lv2_q80",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "hard",
+    type: "single",
+    question: "Một sinh viên gửi thư điện tử xin đổi lịch hẹn phỏng vấn thực tập cho nhà tuyển dụng như sau: 'Kính gửi bà Smith, Tôi bị bận vào giờ phỏng vấn rồi, chắc là phải đổi lịch thôi HY VỌNG ĐIỀU NÀY KHÔNG LÀM PHIỀN BẠN!!! Cảm ơn nha!!!'. Xét theo chuẩn mực đạo đức và văn hóa số (Netiquette), thành phần nào trong email trên đã được sử dụng phù hợp và lịch sự nhất?",
+    options: [
+      "Lời chào đầu thư",
+      "Cách sử dụng dấu câu",
+      "Cấu trúc ngữ pháp",
+      "Quy tắc viết hoa"
+    ],
+    answer: "Lời chào đầu thư",
+    explanation: "Trong bức thư trên, phần 'Kính gửi bà Smith' (Dear Ms. Smith) là lời chào trang trọng, đúng mực. Ngược lại, việc viết hoa toàn bộ từ, lạm dụng nhiều dấu chấm than (!!!) và dùng từ ngữ suồng sã ('Cảm ơn nha') là vi phạm các quy tắc lịch sự trong email chuyên nghiệp."
+  }
+  ,
+  {
+    id: 181,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Hai hình thức truyền thông/giao tiếp trực tuyến nào dưới đây được đánh giá là phù hợp và tối ưu nhất để truyền tải những thông điệp, lời nhắn có nội dung ngắn gọn, súc tích? (Chọn 2)",
+    options: [
+      "Thư điện tử (Email)",
+      "Tin nhắn tức thời (IM - Instant Messaging)",
+      "Hội nghị truyền hình (Video Conferencing)",
+      "Tin nhắn văn bản di động (SMS / Text message)"
+    ],
+    answer: [
+      "Tin nhắn tức thời (IM - Instant Messaging)",
+      "Tin nhắn văn bản di động (SMS / Text message)"
+    ],
+    explanation: "Đối với các thông điệp ngắn gọn và cần trao đổi nhanh, Tin nhắn tức thời (IM như Messenger, Zalo, Teams) và Tin nhắn văn bản (SMS) là hai lựa chọn tối ưu nhất[cite: 336]. Ngược lại, Email thường dùng cho thông điệp dài, chính thức[cite: 275]; Hội nghị truyền hình dùng cho thảo luận chuyên sâu trực diện[cite: 281, 282]."
+  }
+  ,
+  {
+    id: 182,
+    level: "IC3_LEVEL3",
+    image_key: "ic3_lv2_q08",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Bạn hãy chọn hai phát biểu đúng khi lựa chọn địa điểm tổ chức một buổi hội nghị truyền hình (Video Conferencing)? (Chọn 2)",
+    options: [
+      "Địa điểm luôn phải ở trong một tòa nhà chuyên nghiệp",
+      "Địa điểm nên tránh xa các thiết bị di động",
+      "Địa điểm nên có chỗ ngồi nơi có ánh sáng tốt để người tham gia nhìn rõ nhau",
+      "Địa điểm nên cố gắng tìm một khu vực có ít hoặc không có tiếng ồn xung quanh"
+    ],
+    answer: [
+      "Địa điểm nên có chỗ ngồi nơi có ánh sáng tốt để người tham gia nhìn rõ nhau",
+      "Địa điểm nên cố gắng tìm một khu vực có ít hoặc không có tiếng ồn xung quanh"
+    ],
+    explanation: "Khi tham gia họp trực tuyến, hai yếu tố môi trường vật lý quan trọng nhất là: Ánh sáng đầy đủ (để đảm bảo chất lượng webcam) và Sự yên tĩnh (tránh tiếng ồn tạp âm gây nhiễu micro). Buổi họp hoàn toàn có thể diễn ra tại nhà riêng chứ không bắt buộc phải ở tòa nhà chuyên nghiệp."
+  }
+  ,
+  {
+    id: 183,
+    level: "IC3_LEVEL3",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "matching",
+    question: "Khi làm việc trực tuyến, việc bảo vệ quyền riêng tư cá nhân và tổ chức là rất quan trọng. Với mỗi hành động dưới đây, hãy chọn Có nếu hành động đó giúp bảo vệ quyền riêng tư hoặc Không nếu hành động đó làm lộ lọt thông tin:",
+    left: [
+      "Sử dụng tính năng Sao chép ẩn danh (BCC) khi gửi thư điện tử cho một nhóm lớn những người không quen biết nhau",
+      "Đăng ảnh thẻ căn cước công dân hoặc hộ chiếu của bạn lên mạng xã hội để ăn mừng việc vừa đỗ thị thực (visa)",
+      "Chấp nhận tất cả các điều khoản và quyền truy cập vị trí, danh bạ của một ứng dụng trò chơi miễn phí vừa tải về",
+      "Kích hoạt tính năng xác thực hai yếu tố (2FA) cho toàn bộ các tài khoản mạng xã hội và thư điện tử cá nhân"
+    ],
+    right: [
+      "Có",
+      "Không"
+    ],
+    answer: {
+      "Sử dụng tính năng Sao chép ẩn danh (BCC) khi gửi thư điện tử cho một nhóm lớn những người không quen biết nhau": "Có",
+      "Đăng ảnh thẻ căn cước công dân hoặc hộ chiếu của bạn lên mạng xã hội để ăn mừng việc vừa đỗ thị thực (visa)": "Không",
+      "Chấp nhận tất cả các điều khoản và quyền truy cập vị trí, danh bạ của một ứng dụng trò chơi miễn phí vừa tải về": "Không",
+      "Kích hoạt tính năng xác thực hai yếu tố (2FA) cho toàn bộ các tài khoản mạng xã hội và thư điện tử cá nhân": "Có"
+    },
+    explanation: "Sử dụng BCC giúp ẩn danh sách email người nhận, bảo vệ sự riêng tư. Xác thực 2FA tạo thêm lớp khóa bảo mật. Ngược lại, đăng giấy tờ định danh (CCCD/Hộ chiếu) hoặc cấp quyền danh bạ vô tội vạ cho app lạ sẽ gây rủi ro bảo mật nghiêm trọng."
+  }
+  ,
+  {
+    id: 184,
+    level: "IC3_LEVEL3",
+    test: 1,
+    category: "COMMUNICATION_COLLABORATION",
+    image_key: "ic3_lv1_q32_digital_citizenship",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn hãy cho biết, nếu một người dùng muốn gửi tin nhắn tức thời cho đồng nghiệp, nhưng trạng thái tài khoản của đồng nghiệp đang không khả dụng (Unavailable) thì cách nào sau đây là tốt nhất để người dùng có thể sử dụng?",
+    options: [
+      "Chờ cho đến khi tài khoản của đồng nghiệp khả dụng",
+      "Cứ gửi tin nhắn",
+      "Email cho đồng nghiệp",
+      "Gọi điện cho đồng nghiệp"
+    ],
+    answer: "Email cho đồng nghiệp",
+    explanation: "Tin nhắn tức thời (Instant Messaging) là phương thức giao tiếp thời gian thực, đòi hỏi sự có mặt trực tuyến. Khi trạng thái đối phương là Không khả dụng (Unavailable) [cite: 401], việc gửi Email [cite: 404] là giải pháp tối ưu vì đây là hình thức giao tiếp không đồng bộ, giúp họ có thể đọc và trả lời bất cứ khi nào quay lại làm việc."
+  }
+  ,
+  {
+    id: 185,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "matching",
+    question: "Nối từng hình thức giao tiếp trực tuyến với tình huống sử dụng thực tế tương ứng:",
+    left: [
+      "Bạn thêm một đoạn dài trình bày quan điểm cá nhân của mình về sự đa dạng văn hóa vào nhật ký trực tuyến cá nhân của mình",
+      "Bạn thêm câu hỏi đóng góp vào một nhóm chủ đề thảo luận về trò chơi điện tử đang diễn ra",
+      "Bạn liên hệ với huấn luyện viên của mình sau giờ học để báo ngắn gọn rằng bạn sẽ bỏ lỡ buổi tập hôm nay",
+      "Bạn liên lạc chính thức với một công ty để yêu cầu giải quyết việc nhận lại tiền hoàn trả"
+    ],
+    right: [
+      "Bài đăng trên Blog",
+      "Bài đăng trên diễn đàn",
+      "Tin nhắn văn bản",
+      "Email"
+    ],
+    answer: {
+      "Bạn thêm một đoạn dài trình bày quan điểm cá nhân của mình về sự đa dạng văn hóa vào nhật ký trực tuyến cá nhân của mình": "Bài đăng trên Blog",
+      "Bạn thêm câu hỏi đóng góp vào một nhóm chủ đề thảo luận về trò chơi điện tử đang diễn ra": "Bài đăng trên diễn đàn",
+      "Bạn liên hệ với huấn luyện viên của mình sau giờ học để báo ngắn gọn rằng bạn sẽ bỏ lỡ buổi tập hôm nay": "Tin nhắn văn bản",
+      "Bạn liên lạc chính thức với một công ty để yêu cầu giải quyết việc nhận lại tiền hoàn trả": "Email"
+    },
+    explanation: "Nhật ký trực tuyến dài là Blog; Nhóm thảo luận chung là Diễn đàn (Forum); Thông báo khẩn ngắn gọn cho cá nhân là Tin nhắn; Trao đổi thủ tục hành chính, thương mại chính thức là Email."
+  }
+  ,
+  {
+    id: 186,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi cần gửi một thư điện tử (Email) đến một hoặc nhiều người nhận phụ (không phải đối tượng xử lý chính), đồng thời bạn muốn công khai toàn bộ danh sách những người nhận phụ này để tất cả những người nhận khác đều nhìn thấy. Bạn nên thêm họ vào trường nào?",
+    options: [
+      "To",
+      "Cc",
+      "Bc",
+      "Bcc"
+    ],
+    answer: "Cc",
+    explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này."
+  }
+  ,
+  {
+    id: 187,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "matching",
+    question: "Với mỗi quy tắc ứng xử Netiquette khi tham gia gửi thư điện tử thương mại, hãy chọn Nên hoặc Không nên cho từng hành vi dưới đây:",
+    left: [
+      "Gửi đính kèm một tệp tin hình ảnh dung lượng lớn hơn 25MB trực tiếp trong email mà không nén hoặc không dùng link lưu trữ",
+      "Sử dụng tính năng 'Trả lời tất cả' (Reply All) để gửi lời cảm ơn ngắn gọn cho người gửi khi email đó được gửi chung tới hàng trăm nhân viên toàn công ty",
+      "Viết tiêu đề (Subject) email rõ ràng, phản ánh đúng và ngắn gọn nội dung cốt lõi của bức thư"
+    ],
+    right: [
+      "Nên",
+      "Không nên"
+    ],
+    answer: {
+      "Gửi đính kèm một tệp tin hình ảnh dung lượng lớn hơn 25MB trực tiếp trong email mà không nén hoặc không dùng link lưu trữ": "Không nên",
+      "Sử dụng tính năng 'Trả lời tất cả' (Reply All) để gửi lời cảm ơn ngắn gọn cho người gửi khi email đó được gửi chung tới hàng trăm nhân viên toàn công ty": "Không nên",
+      "Viết tiêu đề (Subject) email rõ ràng, phản ánh đúng và ngắn gọn nội dung cốt lõi của bức thư": "Nên"
+    },
+    explanation: "Đính kèm file quá nặng gây nghẽn hòm thư, còn lạm dụng 'Reply All' cho những lời nhắn cá nhân sẽ làm phiền người khác. Tiêu đề email ngắn gọn, rõ ràng luôn là yêu cầu bắt buộc trong môi trường chuyên nghiệp."
+  }
+  ,
+  {
+    id: 188,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COMMUNICATION_COLLABORATION",
+    difficulty: "medium",
+    type: "matching",
+    question: "Hãy ghép nối các phương thức giao tiếp trực tuyến với tình huống ứng dụng thực tế phù hợp nhất:",
+    left: [
+      "Chia sẻ những dòng suy nghĩ, quan điểm hoặc trải nghiệm cá nhân hàng ngày lên một cuốn nhật ký trực tuyến mở cho mọi người cùng đọc",
+      "Nhắn nhanh cho người thân để báo địa điểm cụ thể họ sẽ qua đón bạn sau giờ làm",
+      "Đặt một câu hỏi công khai vào nhóm trực tuyến để thảo luận, tiếp nhận ý kiến đóng góp về một trò chơi điện tử",
+      "Gửi một văn bản chính thức yêu cầu bộ phận chăm sóc khách hàng của một công ty thực hiện hoàn trả lại tiền"
+    ],
+    right: [
+      "Bài đăng trên Blog (Blog post)",
+      "Tin nhắn văn bản (Text message)",
+      "Bài đăng trên diễn đàn (Forum post)",
+      "Thư điện tử (Email message)"
+    ],
+    answer: {
+      "Chia sẻ những dòng suy nghĩ, quan điểm hoặc trải nghiệm cá nhân hàng ngày lên một cuốn nhật ký trực tuyến mở cho mọi người cùng đọc": "Bài đăng trên Blog (Blog post)",
+      "Nhắn nhanh cho người thân để báo địa điểm cụ thể họ sẽ qua đón bạn sau giờ làm": "Tin nhắn văn bản (Text message)",
+      "Đặt một câu hỏi công khai vào nhóm trực tuyến để thảo luận, tiếp nhận ý kiến đóng góp về một trò chơi điện tử": "Bài đăng trên diễn đàn (Forum post)",
+      "Gửi một văn bản chính thức yêu cầu bộ phận chăm sóc khách hàng của một công ty thực hiện hoàn trả lại tiền": "Thư điện tử (Email message)"
+    },
+    explanation: "Viết nhật ký cá nhân dài hạn công khai là tính năng của Blog; thông báo khẩn, ngắn gọn là Tin nhắn văn bản (Text/SMS); diễn đàn (Forum) dùng cho việc thảo luận nhóm chung cùng chủ đề; và trao đổi chính thức về mặt thương mại, thủ tục là Email."
+  }
+  ,
+  {
+    id: 189,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Lớp học trực tuyến của bạn đang thực hiện một buổi hội thảo video (Video Conference). Bạn cùng ba học sinh khác sẽ thay phiên nhau bật camera trình bày thông tin và chia sẻ màn hình báo cáo cá nhân. Đâu là 3 hành động bạn nên làm trước khi bắt đầu thuyết trình? (Chọn 3)",
+    options: [
+      "Luyện tập lại bài thuyết trình cá nhân của mình ngay trong lúc những người khác đang tiến hành phát biểu",
+      "Đóng tất cả các chương trình, tài liệu bảo mật và các tab trình duyệt không liên quan",
+      "Kiểm tra hệ thống âm thanh, camera và chạy thử tính năng chia sẻ màn hình (Share screen)",
+      "Cấp quyền điều khiển để các học sinh khác có thể đồng thời chia sẻ đè lên màn hình của bạn",
+      "Rà soát và bảo đảm toàn bộ hình ảnh, nội dung trong slide thuyết trình đều phù hợp với môi trường giáo dục"
+    ],
+    answer: [
+      "Đóng tất cả các chương trình, tài liệu bảo mật và các tab trình duyệt không liên quan",
+      "Kiểm tra hệ thống âm thanh, camera và chạy thử tính năng chia sẻ màn hình (Share screen)",
+      "Rà soát và bảo đảm toàn bộ hình ảnh, nội dung trong slide thuyết trình đều phù hợp với môi trường giáo dục"
+    ],
+    explanation: "Trước khi thuyết trình trực tuyến, bạn cần tắt bớt các tab riêng tư để tránh lộ dữ liệu cá nhân khi share screen [cite: 82, 83], kiểm tra kỹ thuật thiết bị phần cứng để bảo đảm quá trình diễn ra trơn tru [cite: 82, 83] và chuẩn bị nội dung chuẩn mực, lịch sự phù hợp với người nghe[cite: 82, 83]."
+  }
+  ,
+  {
+    id: 190,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Bạn tham gia vào một nhóm gồm 10 sinh viên đang cùng thực hiện một dự án nghiên cứu lớn về sức khỏe và cả nhóm chuẩn bị thảo luận trực tuyến qua phần mềm hội thảo video. Bạn nên thực hiện hai hành động chuẩn bị nào dưới đây trước khi tham gia buổi họp lần đầu tiên? (Chọn 2)",
+    options: [
+      "Kiểm tra trước thiết bị công nghệ, đường truyền mạng và phần mềm hội thảo video để đảm bảo tính ổn định",
+      "Điều chỉnh hướng và vị trí đặt camera sao cho ống kính nằm ngang tầm mắt của bạn",
+      "Chuẩn bị sẵn một lượng lớn đồ ăn nhẹ để có thể thoải mái ăn uống trong suốt thời gian diễn ra cuộc họp",
+      "Bố trí nguồn ánh sáng mạnh ở ngay phía sau lưng để tạo hiệu ứng đổ bóng che khuất khuôn mặt của bạn"
+    ],
+    answer: [
+      "Kiểm tra trước thiết bị công nghệ, đường truyền mạng và phần mềm hội thảo video để đảm bảo tính ổn định",
+      "Điều chỉnh hướng và vị trí đặt camera sao cho ống kính nằm ngang tầm mắt của bạn"
+    ],
+    explanation: "Trước khi họp trực tuyến, việc test trước công nghệ giúp tránh các lỗi kỹ thuật gián đoạn cuộc họp [cite: 350, 351], và đặt camera ngang tầm mắt giúp tạo góc nhìn trực diện chuyên nghiệp[cite: 350, 351]. Đặt đèn sau lưng gây tối mặt (ngược sáng) [cite: 350, 351] hoặc ăn uống liên tục trước camera là hành vi thiếu lịch sự."
+  }
+  ,
+  {
+    id: 191,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Bạn đang lãnh đạo một nhóm dự án gồm nhiều thành viên có sự đa dạng lớn về giới tính, độ tuổi và đến từ các nền văn hóa khác nhau. Để tổ chức một buổi hội thảo video lên ý tưởng từ xa tuân thủ chuẩn mực đạo đức số (Netiquette) và tôn trọng sự đa dạng, hai hành động nào bạn nên thực hiện? (Chọn 2)",
+    options: [
+      "Yêu cầu một thành viên nói giọng địa phương (hoặc ngoại ngữ có âm điệu nặng) chỉ được trả lời qua hộp chat để tránh làm mất thời gian nghe của các thành viên khác",
+      "Chủ động liên hệ và hỗ trợ riêng cho thành viên chưa từng có kinh nghiệm họp trực tuyến để hướng dẫn họ cách sử dụng các nút điều khiển trước khi cuộc họp chính thức bắt đầu",
+      "Để tránh xung đột và giữ tập trung tuyệt đối cho nhóm, người lãnh đạo chỉ cho phép thảo luận dựa trên danh sách ý tưởng cá nhân do chính mình chuẩn bị sẵn",
+      "Khuyến khích mọi người sử dụng các tính năng tương tác như giơ tay (Raise Hand) để tạo cơ hội công bằng cho tất cả các thành viên trong nhóm đều được phát biểu"
+    ],
+    answer: [
+      "Đề nghị hỗ trợ riêng cho một thành viên trong nhóm không có kinh nghiệm tham dự hội thảo video nhằm giúp họ làm quen với chức năng điều khiển trước cuộc họp",
+      "Sử dụng các tính năng như giơ tay (Raise Hand) để tạo cơ hội cho tất cả các thành viên trong nhóm tham gia"
+    ],
+    explanation: "Chuẩn mực đạo đức số và quản trị nhân sự hiện đại yêu cầu tạo ra môi trường bình đẳng, bao dung[cite: 365, 366]. Việc hỗ trợ người yếu thế về công nghệ trước cuộc họp và sử dụng tính năng 'Giơ tay' (Raise Hand) giúp phân phối lượt nói công bằng, văn minh, đảm bảo tiếng nói của mọi nhóm văn hóa/độ tuổi đều được tôn trọng[cite: 364, 368, 369]."
+  }
+  ,
+  {
+    id: 192, // Tương ứng Câu 22 - Test 2
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "hard",
+    type: "matching",
+    question: "Ghép nối các hành động cộng tác trên tài liệu trực tuyến với thuật ngữ mô tả tương ứng (Chỉnh sửa - Editing VS Đồng tác giả - Co-authoring):",
+    left: [
+      "Sử dụng công cụ kiểm tra và sửa lỗi chính tả trực tiếp trên tài liệu Word Online của một người bạn cùng lớp",
+      "Đọc, kiểm tra và để lại các nhận xét góp ý (Comment) trên tài liệu Google Docs cho một người bạn",
+      "Chụp một bức ảnh mới và chèn trực tiếp bức ảnh đó vào bài trình chiếu Google Slides do bạn cùng lớp khởi tạo",
+      "Chủ động xây dựng, soạn thảo mới 5 trang slide cho bài trình chiếu PowerPoint nhóm đang được lưu trữ trên OneDrive"
+    ],
+    right: [
+      "Chỉnh sửa (Editing)",
+      "Đồng tác giả (Co-authoring)"
+    ],
+    answer: {
+      "Sử dụng công cụ kiểm tra và sửa lỗi chính tả trực tiếp trên tài liệu Word Online của một người bạn cùng lớp": "Chỉnh sửa (Editing)",
+      "Đọc, kiểm tra và để lại các nhận xét góp ý (Comment) trên tài liệu Google Docs cho một người bạn": "Chỉnh sửa (Editing)",
+      "Chụp một bức ảnh mới và chèn trực tiếp bức ảnh đó vào bài trình chiếu Google Slides do bạn cùng lớp khởi tạo": "Đồng tác giả (Co-authoring)",
+      "Chủ động xây dựng, soạn thảo mới 5 trang slide cho bài trình chiếu PowerPoint nhóm đang được lưu trữ trên OneDrive": "Đồng tác giả (Co-authoring)"
+    },
+    explanation: "Hành động sửa lỗi, định dạng hay nhận xét trên nội dung có sẵn gọi là Chỉnh sửa (Editing). Hành động trực tiếp đóng góp, tạo mới nội dung, hình ảnh hoặc các trang slide vào dự án chung gọi là Đồng tác giả (Co-authoring)."
+  }
+  ,
+  {
+    id: 193,
+    level: "IC3_LEVEL3",
+    test: 1,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Trong một ứng dụng trò chuyện nhóm (như Slack, Microsoft Teams, hoặc Discord), tính năng nào được sử dụng để phân tách các cuộc thảo luận thành các chủ đề, dự án hoặc phòng ban riêng biệt nhằm tránh làm nhiễu thông tin?",
+    options: [
+      "Kênh / Phòng chat (Channels / Rooms)",
+      "Tin nhắn trực tiếp (Direct Messages)",
+      "Luồng thông báo (Activity Feed)",
+      "Thẻ đánh dấu (Tags)"
+    ],
+    answer: "Kênh / Phòng chat (Channels / Rooms)",
+    explanation: "Các kênh hoặc phòng chat riêng biệt (Channels/Rooms) được thiết lập để quản lý luồng thông tin theo nhóm chuyên biệt, giúp nhân viên bộ phận nào chỉ nhận thông báo và thảo luận đúng chủ đề của bộ phận đó."
+  }
+  ,
+  {
+    id: 194,
+    level: "IC3_LEVEL3",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Tính năng nào của dịch vụ lưu trữ đám mây cho phép nhiều người dùng ở các vị trí địa lý khác nhau có thể cùng chỉnh sửa nội dung trên một tài liệu văn bản tại một thời điểm?",
+    options: [
+      "Đồng bộ hóa nền (Background Sync)",
+      "Cộng tác thời gian thực (Real-time Collaboration)",
+      "Tải lên tệp tự động (Auto Upload)",
+      "Chia sẻ liên kết tĩnh (Static Link Sharing)"
+    ],
+    answer: "Cộng tác thời gian thực (Real-time Collaboration)",
+    explanation: "Cộng tác thời gian thực (như trên Google Docs, Microsoft 365) cho phép mọi thay đổi của từng người dùng hiển thị ngay lập tức lên màn hình của các thành viên khác, giúp làm việc nhóm từ xa hiệu quả."
   }
 
 ];

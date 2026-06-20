@@ -123,7 +123,7 @@ export const IC3_LEVEL2 = [
     id: 7,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     difficulty: "hard",
     type: "matching",
     question: "Với mỗi câu phát biểu về tính bảo mật của thiết bị đa phương tiện di động (như USB, ổ cứng di động), hãy chọn Đúng hoặc Sai:",
@@ -185,7 +185,7 @@ export const IC3_LEVEL2 = [
     id: 10,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     image_key: "ic3_lv2_q10_data",
     difficulty: "medium",
     type: "single",
@@ -346,7 +346,7 @@ export const IC3_LEVEL2 = [
     id: 18,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     difficulty: "medium",
     type: "multiple",
     question: "Bạn vừa đăng ký một tài khoản trên Google. Tài khoản mới của bạn sử dụng đăng nhập một lần (SSO). Bạn hãy cho biết những tùy chọn nào sau đây là lợi ích của đăng nhập một lần (SSO)? (Chọn 3)",
@@ -506,7 +506,7 @@ export const IC3_LEVEL2 = [
     id: 26,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     difficulty: "medium",
     type: "matching",
     question: "Hãy phân biệt giữa phần mềm độc hại Ransomware (Mã độc tống tiền) và Spyware (Phần mềm gián điệp) bằng cách chọn Đúng hoặc Sai cho mỗi phát biểu sau:",
@@ -549,7 +549,7 @@ export const IC3_LEVEL2 = [
     id: 28,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "COMMUNICATION_COLLABORATION",
+    category: "SECURITY",
     image_key: "ic3_lv2_q28_security",
     difficulty: "easy",
     type: "single",
@@ -839,7 +839,7 @@ export const IC3_LEVEL2 = [
     id: 43,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     difficulty: "hard",
     type: "multiple",
     question: "Những yếu tố nào sau đây là thành phần bắt buộc hoặc được khuyến nghị mạnh mẽ khi xây dựng một chính sách mật khẩu mạnh (Strong Password Policy) trong doanh nghiệp để chống lại các cuộc tấn công Brute-force? (Chọn 3)",
@@ -878,7 +878,7 @@ export const IC3_LEVEL2 = [
     id: 45,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "COMMUNICATION_COLLABORATION",
+    category: "COLLABORATION",
     difficulty: "medium",
     type: "single",
     question: "Trong một ứng dụng trò chuyện nhóm (như Slack, Microsoft Teams, hoặc Discord), tính năng nào được sử dụng để phân tách các cuộc thảo luận thành các chủ đề, dự án hoặc phòng ban riêng biệt nhằm tránh làm nhiễu thông tin?",
@@ -955,7 +955,7 @@ export const IC3_LEVEL2 = [
     id: 49,
     level: "IC3_LEVEL2",
     test: 1,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     difficulty: "medium",
     type: "multiple",
     question: "Đâu là hai dấu hiệu phổ biến giúp bạn nhận biết một trang web thương mại điện tử hoặc ngân hàng trực tuyến an toàn, có mã hóa đường truyền dữ liệu? (Chọn 2)",
@@ -1184,7 +1184,7 @@ export const IC3_LEVEL2 = [
     id: 60,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "COMMUNICATION_COLLABORATION",
+    category: "COLLABORATION",
     difficulty: "hard",
     type: "multiple",
     question: "Lớp học trực tuyến của bạn đang thực hiện một buổi hội thảo video (Video Conference). Bạn cùng ba học sinh khác sẽ thay phiên nhau bật camera trình bày thông tin và chia sẻ màn hình báo cáo cá nhân. Đâu là 3 hành động bạn nên làm trước khi bắt đầu thuyết trình? (Chọn 3)",
@@ -1225,7 +1225,7 @@ export const IC3_LEVEL2 = [
     id: 62,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     difficulty: "hard",
     type: "multiple",
     question: "Khi mua sắm trực tuyến, người dùng có thể bảo vệ thông tin tài chính cá nhân bằng hai phương thức nào? (Chọn 2)",
@@ -1245,7 +1245,7 @@ export const IC3_LEVEL2 = [
     id: 63,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "CLOUD_DIGITAL_SERVICES",
+    category: "COLLABORATION",
     difficulty: "medium",
     type: "single",
     question: "Tính năng nào của dịch vụ lưu trữ đám mây cho phép nhiều người dùng ở các vị trí địa lý khác nhau có thể cùng chỉnh sửa nội dung trên một tài liệu văn bản tại một thời điểm?",
@@ -1337,7 +1337,7 @@ export const IC3_LEVEL2 = [
     id: 68,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "SECURITY_BẢO_MẬT",
+    category: "SECURITY",
     difficulty: "medium",
     type: "matching",
     question: "Hãy phân biệt giữa phần mềm chống virus (Antivirus) và tường lửa (Firewall) bằng cách chọn Đúng hoặc Sai cho mỗi phát biểu sau:",
@@ -1379,7 +1379,7 @@ export const IC3_LEVEL2 = [
     id: 70,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "COMMUNICATION_COLLABORATION",
+    category: "COLLABORATION",
     difficulty: "medium",
     type: "single",
     question: "Khi tổ chức một cuộc họp trực tuyến toàn cầu với các thành viên ở nhiều quốc gia khác nhau, yếu tố nào dưới đây là rào cản hậu cần quan trọng nhất cần được tính toán khi lên lịch?",
@@ -1738,7 +1738,7 @@ export const IC3_LEVEL2 = [
     id: 88,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "DATA_MANAGEMENT",
+    category: "PRODUCTIVITY_SOFTWARE",
     difficulty: "medium",
     type: "multiple",
     question: "Trong thiết kế đồ họa kỹ thuật số, hai định dạng mở rộng tập tin hình ảnh nào dưới đây thường được ưu tiên lựa chọn sử dụng nhiều nhất cho các tệp thiết kế logo thương hiệu? (Chọn 2)",
@@ -1833,7 +1833,7 @@ export const IC3_LEVEL2 = [
     id: 93,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "CRITICAL_THINKING",
     difficulty: "hard",
     type: "matching",
     question: "Bạn phát hiện một bài đăng trên mạng xã hội chia sẻ thông tin y tế hoàn toàn sai lệch và gây hiểu lầm cho cộng đồng. Xét theo quy chuẩn đạo đức ứng xử trong môi trường số (Netiquette), hãy xác định hành vi phản hồi dưới đây là Có tuân thủ hay Không tuân thủ chuẩn mực:",
@@ -1885,7 +1885,7 @@ export const IC3_LEVEL2 = [
     id: 95,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "OPERATING_SYSTEM",
+    category: "PRODUCTIVITY_SOFTWARE",
     difficulty: "medium",
     type: "single",
     question: "Phát biểu nào sau đây là ĐÚNG khi nói về cơ chế hoạt động của tính năng tự động sửa lỗi chính tả (Autocorrect) trong hệ điều hành Windows 10?",
@@ -1922,7 +1922,7 @@ export const IC3_LEVEL2 = [
     id: 97,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "COMMUNICATION_COLLABORATION",
+    category: "COLLABORATION",
     difficulty: "hard",
     type: "multiple",
     question: "Bạn tham gia vào một nhóm gồm 10 sinh viên đang cùng thực hiện một dự án nghiên cứu lớn về sức khỏe và cả nhóm chuẩn bị thảo luận trực tuyến qua phần mềm hội thảo video. Bạn nên thực hiện hai hành động chuẩn bị nào dưới đây trước khi tham gia buổi họp lần đầu tiên? (Chọn 2)",
@@ -1940,7 +1940,7 @@ export const IC3_LEVEL2 = [
   },
   {
     id: 98,
-    level: "DIGITAL_CITIZENSHIP",
+    level: "IC3_LEVEL2",
     test: 2,
     category: "COMMUNICATION_COLLABORATION",
     difficulty: "medium",
@@ -2044,7 +2044,7 @@ export const IC3_LEVEL2 = [
     id: 103,
     level: "IC3_LEVEL2",
     test: 2,
-    category: "DIGITAL_CITIZENSHIP",
+    category: "COLLABORATION",
     difficulty: "hard",
     type: "multiple",
     question: "Bạn đang lãnh đạo một nhóm dự án gồm nhiều thành viên có sự đa dạng lớn về giới tính, độ tuổi và đến từ các nền văn hóa khác nhau. Để tổ chức một buổi hội thảo video lên ý tưởng từ xa tuân thủ chuẩn mực đạo đức số (Netiquette) và tôn trọng sự đa dạng, hai hành động nào bạn nên thực hiện? (Chọn 2)",
@@ -2879,7 +2879,7 @@ export const IC3_LEVEL2 = [
   },
   {
     id: 160, level: "IC3_LEVEL2", test: 1,
-    category: "WEB_DESIGN", difficulty: "medium",
+    category: "COLLABORATION", difficulty: "medium",
     type: "multiple",
     question: "Trường bạn yêu cầu thiết kế trang Web theo dõi tham gia câu lạc bộ. Bạn tập hợp nhóm để đưa ra ý tưởng giải quyết vấn đề (brainstorming). Hành động nào có ích cho quá trình này? (Chọn 2)",
     options: [
@@ -2893,7 +2893,7 @@ export const IC3_LEVEL2 = [
   },
   {
     id: 161, level: "IC3_LEVEL2", test: 1,
-    category: "WEB_DESIGN", difficulty: "medium",
+    category: "COLLABORATION", difficulty: "medium",
     type: "multiple",
     question: "Bạn là trưởng nhóm thiết kế. Nhóm đang sáng tác áp phích cho sự kiện gây quỹ. Khách hàng muốn thay đổi mà nhóm cho là sẽ làm áp phích kém hiệu quả hơn. Bạn nên thực hiện ba hành động nào? (Chọn 3)",
     options: [
@@ -2984,6 +2984,1122 @@ export const IC3_LEVEL2 = [
     options: ["Trademark", "Cloud Storage", "Patent", "Copyright"],
     answer: "Patent",
     explanation: "Bằng sáng chế (Patent) là quyền độc quyền pháp lý bảo vệ các phát minh và sáng chế kỹ thuật, ngăn người khác sản xuất, sử dụng hoặc bán phát minh đó mà không có phép."
+  }
+  ,
+  {
+    id: 168, // Tương ứng Câu 3 - Test 2
+    level: "IC3_LEVEL2",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Giáo viên hướng dẫn bạn tham gia chỉnh sửa và góp ý bài viết nghiên cứu của một người bạn cùng lớp. Đâu là hai công cụ trên phần mềm xử lý văn bản bạn nên sử dụng? (Chọn 2)",
+    options: [
+      "Ghi chú nối kết (Linked Notes)",
+      "Chế độ thiết kế cấu trúc (Design View)",
+      "Nhận xét/Bình luận (Comments)",
+      "Trình soát chính tả và ngữ pháp (Spelling & Grammar)"
+    ],
+    answer: [
+      "Nhận xét/Bình luận (Comments)",
+      "Trình soát chính tả và ngữ pháp (Spelling & Grammar)"
+    ],
+    explanation: "Khi bình duyệt và sửa đổi bài giúp bạn, công cụ Comment (để lại góp ý) và Kiểm tra chính tả là hai công cụ thiết thực, phù hợp nhất."
+  }
+  ,
+  {
+    id: 169, // Tương ứng Câu 10 - Test 2
+    level: "IC3_LEVEL2",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Trong phần mềm xử lý văn bản Microsoft Word, người dùng có thể tìm thấy các tùy chọn để kết hợp, so sánh nhiều tài liệu (Combine/Compare) nằm trong nhóm lệnh nào dưới thẻ Review?",
+    options: [
+      "Proofing",
+      "Changes",
+      "Tracking",
+      "Compare"
+    ],
+    answer: "Compare",
+    explanation: "Tính năng Compare nằm trong thẻ Review, chứa các công cụ điều hướng để so sánh hai phiên bản tài liệu (Compare) hoặc kết hợp các sửa đổi từ nhiều tác giả vào một tài liệu duy nhất (Combine)."
+  }
+  ,
+  {
+    id: 170, // Tương ứng Câu 22 - Test 2
+    level: "IC3_LEVEL2",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "hard",
+    type: "matching",
+    question: "Ghép nối các hành động cộng tác trên tài liệu trực tuyến với thuật ngữ mô tả tương ứng (Chỉnh sửa - Editing VS Đồng tác giả - Co-authoring):",
+    left: [
+      "Sử dụng công cụ kiểm tra và sửa lỗi chính tả trực tiếp trên tài liệu Word Online của một người bạn cùng lớp",
+      "Đọc, kiểm tra và để lại các nhận xét góp ý (Comment) trên tài liệu Google Docs cho một người bạn",
+      "Chụp một bức ảnh mới và chèn trực tiếp bức ảnh đó vào bài trình chiếu Google Slides do bạn cùng lớp khởi tạo",
+      "Chủ động xây dựng, soạn thảo mới 5 trang slide cho bài trình chiếu PowerPoint nhóm đang được lưu trữ trên OneDrive"
+    ],
+    right: [
+      "Chỉnh sửa (Editing)",
+      "Đồng tác giả (Co-authoring)"
+    ],
+    answer: {
+      "Sử dụng công cụ kiểm tra và sửa lỗi chính tả trực tiếp trên tài liệu Word Online của một người bạn cùng lớp": "Chỉnh sửa (Editing)",
+      "Đọc, kiểm tra và để lại các nhận xét góp ý (Comment) trên tài liệu Google Docs cho một người bạn": "Chỉnh sửa (Editing)",
+      "Chụp một bức ảnh mới và chèn trực tiếp bức ảnh đó vào bài trình chiếu Google Slides do bạn cùng lớp khởi tạo": "Đồng tác giả (Co-authoring)",
+      "Chủ động xây dựng, soạn thảo mới 5 trang slide cho bài trình chiếu PowerPoint nhóm đang được lưu trữ trên OneDrive": "Đồng tác giả (Co-authoring)"
+    },
+    explanation: "Hành động sửa lỗi, định dạng hay nhận xét trên nội dung có sẵn gọi là Chỉnh sửa (Editing). Hành động trực tiếp đóng góp, tạo mới nội dung, hình ảnh hoặc các trang slide vào dự án chung gọi là Đồng tác giả (Co-authoring)."
+  }
+  ,
+  {
+    id: 171, // Tương ứng Câu 35 - Test 2 (Tổng hợp mở rộng dựa trên mạch kiến thức Test 2)
+    level: "IC3_LEVEL2",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Khi nhiều người cùng làm việc chung trên một tệp văn bản được lưu trữ trực tuyến (Cloud document) và xảy ra tình trạng hai người cùng sửa đổi một câu tại cùng một thời điểm, hệ thống xử lý tệp tin sẽ giải quyết xung đột bằng cách nào?",
+    options: [
+      "Hệ thống lập tức treo máy và tự động xóa toàn bộ tệp văn bản đó để tránh lỗi dữ liệu",
+      "Hiển thị thông báo xung đột, đánh dấu các phiên bản thay đổi và cho phép người sở hữu (Owner) lựa chọn giữ lại phiên bản phù hợp",
+      "Chỉ chấp nhận dữ liệu của người có tài khoản đăng nhập máy tính có giá trị cao hơn",
+      "Hệ thống tự động khóa vĩnh viễn quyền chỉnh sửa của cả hai người dùng"
+    ],
+    answer: "Hiển thị thông báo xung đột, đánh dấu các phiên bản thay đổi và cho phép người sở hữu (Owner) lựa chọn giữ lại phiên bản phù hợp",
+    explanation: "Các ứng dụng đám mây hiện đại khi gặp xung đột chỉnh sửa đồng thời (Edit conflict) sẽ đánh dấu ghi vết phiên bản và cung cấp giao diện trực quan để người dùng kiểm duyệt, so sánh, đưa ra quyết định giữ lại nội dung chính xác nhất."
+  }
+  ,
+  {
+    id: 172, // Tương ứng Câu 24 - Test 2
+    level: "IC3_LEVEL2",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "easy",
+    type: "single",
+    question: "Bạn nhập một công thức nấu ăn vào tài liệu Microsoft Word dưới dạng một đoạn văn liền mạch và bật tính năng tạo danh sách đánh số tự động (Numbering). Để tách đoạn văn dài đó thành từng mục nhỏ, xuống dòng và tự động nhảy sang số thứ tự tiếp theo, bạn cần đặt con trỏ ở cuối mỗi câu và nhấn phím nào?",
+    options: [
+      "Enter",
+      "Shift + Enter",
+      "Tab",
+      "Shift + Tab"
+    ],
+    answer: "Enter",
+    explanation: "Trong danh sách tự động (Numbered List), nhấn phím Enter sẽ kết thúc đoạn văn hiện tại, tạo một mục mới và tự động đánh số thứ tự tiếp theo. (Trong khi `Shift + Enter` chỉ xuống dòng cùng một mục chứ không tạo số mới)."
+  }
+  ,
+  {
+    id: 173, // Tương ứng Câu 26 - Test 2 trong tài liệu
+    level: "IC3_LEVEL2",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "medium",
+    type: "matching",
+    question: "Bạn chuẩn bị xuất bản và phân phối tài liệu báo cáo của nhóm. Với mỗi câu phát biểu về cách thức cấu hình in tài liệu dưới đây, hãy chọn Đúng hoặc Sai:",
+    left: [
+      "Tính năng in hai mặt (Duplex) cho phép hệ thống tự động in nội dung tập tin trên cả hai mặt giấy",
+      "Bạn chỉ có thể thay đổi kích thước/khổ giấy từ thanh công cụ tùy chọn thiết lập trang (Page Setup)",
+      "Bạn có thể thay đổi căn lề (Margins) của tài liệu trực tiếp ngay trong phần cài đặt in (Print Settings)",
+      "Để duy trì nguyên vẹn định dạng hiển thị của tập tin khi phân phối tài liệu theo hình thức điện tử, hãy thực hiện in tài liệu thành định dạng tập tin PDF"
+    ],
+    right: [
+      "Đúng",
+      "Sai"
+    ],
+    answer: {
+      "Tính năng in hai mặt (Duplex) cho phép hệ thống tự động in nội dung tập tin trên cả hai mặt giấy": "Đúng",
+      "Bạn chỉ có thể thay đổi kích thước/khổ giấy từ thanh công cụ tùy chọn thiết lập trang (Page Setup)": "Đúng",
+      "Bạn có thể thay đổi căn lề (Margins) của tài liệu trực tiếp ngay trong phần cài đặt in (Print Settings)": "Sai", // Logic thực tế: Đổi lề phải chỉnh ở Page Setup/Layout, phần cài đặt in chỉ chọn preset có sẵn
+      "Để duy trì nguyên vẹn định dạng hiển thị của tập tin khi phân phối tài liệu theo hình thức điện tử, hãy thực hiện in tài liệu thành định dạng tập tin PDF": "Đúng"
+    },
+    explanation: "In hai mặt gọi là Duplex. Định dạng PDF giúp khóa bố cục, font chữ giúp giữ nguyên định dạng bất kể thiết bị mở. Việc cấu hình lề chuyên sâu phải được thực hiện từ thẻ Layout/Page Setup trước khi gọi lệnh in."
+  }
+  ,
+  {
+    id: 174,
+    level: "IC3_LEVEL2",
+    test: 2,
+    category: "PRODUCTIVITY_SOFTWARE",
+    difficulty: "easy",
+    type: "matching",
+
+    question:
+      "Quan sát hình ảnh mô phỏng định dạng trang giấy và thực hiện kéo thả vào đúng hướng trang tương ứng.",
+
+    left: [
+      "ic3_lv1_q106_opt_a",
+      "ic3_lv1_q106_opt_b",
+      "ic3_lv1_q106_opt_c"
+    ],
+
+    right: [
+      "Khổ dọc (Portrait)",
+      "Khổ ngang (Landscape)",
+      "Khổ dọc (Portrait)"
+    ],
+
+    answer: {
+      "ic3_lv1_q106_opt_a": "Khổ dọc (Portrait)",
+      "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)",
+      "ic3_lv1_q106_opt_c": "Khổ dọc (Portrait)"
+    },
+
+    explanation:
+      "Trong soạn thảo văn bản và in ấn, hướng trang giấy gồm hai loại cơ bản: Khổ dọc (Portrait) có chiều cao lớn hơn chiều rộng, còn Khổ ngang (Landscape) có chiều rộng lớn hơn chiều cao."
+  }
+  ,
+  {
+    id: 175, level: "IC3_LEVEL2", test: 1,
+    category: "FILE_FORMAT", difficulty: "easy",
+    type: "single",
+    question: "Định dạng tập tin Video phổ biến nhất được dùng để đăng lên mạng xã hội là gì?",
+    options: ["MP4", "PRO", "SAV", "JPEG"],
+    answer: "MP4",
+    explanation: "MP4 là định dạng video phổ biến nhất trên mạng xã hội vì nén tốt (file nhỏ), chất lượng cao và được hỗ trợ bởi hầu hết mọi nền tảng và thiết bị."
+  }
+  ,
+  {
+    id: 176, level: "IC3_LEVEL2", test: 1,
+    category: "FILE_FORMAT", difficulty: "medium",
+    type: "matching",
+    question: "Trước khi phân phối bản ghi âm của bạn, bạn muốn xác định định dạng âm thanh mang lại chất lượng tốt nhất cho kích thước tập tin nhỏ nhất. Ghép từng định dạng với mô tả của nó.",
+    left: [
+      "Có khả năng lưu giữ âm thanh, Video và các phương tiện khác bằng cách chứa dữ liệu chữ không phải mã.",
+      "Là một giải pháp thay thế dựa trên Windows cho loại tệp MP3 phổ biến và thông dụng hơn.",
+      "Thường được sử dụng trên hệ thống Windows.",
+      "Sử dụng tính năng nén giúp tiết kiệm không gian trong khi vẫn duy trì chất lượng gần như hoàn hảo của nguồn âm thanh gốc."
+    ],
+    right: ["MP4", "WMA", "WAV", "MP3"],
+    answer: {
+      "Có khả năng lưu giữ âm thanh, Video và các phương tiện khác bằng cách chứa dữ liệu chữ không phải mã.": "MP4",
+      "Là một giải pháp thay thế dựa trên Windows cho loại tệp MP3 phổ biến và thông dụng hơn.": "WMA",
+      "Thường được sử dụng trên hệ thống Windows.": "WAV",
+      "Sử dụng tính năng nén giúp tiết kiệm không gian trong khi vẫn duy trì chất lượng gần như hoàn hảo của nguồn âm thanh gốc.": "MP3"
+    },
+    explanation: "MP4 là container multimedia, WMA là định dạng Windows thay thế MP3, WAV là định dạng audio chuẩn Windows không nén, MP3 là định dạng nén audio phổ biến nhất toàn cầu."
+  }
+  ,
+  {
+    id: 177, level: "IC3_LEVEL2", test: 1,
+    category: "FILE_FORMAT", difficulty: "easy",
+    type: "single",
+    question: "Tác dụng của việc tăng độ phân giải hình ảnh trước khi chụp ảnh là gì?",
+    options: [
+      "Kích thước tập tin giảm xuống.",
+      "Hình ảnh bị vỡ nét.",
+      "Kích thước hình ảnh nhỏ hơn.",
+      "Chất lượng hình ảnh được cải thiện."
+    ],
+    answer: "Chất lượng hình ảnh được cải thiện.",
+    explanation: "Tăng độ phân giải (resolution) trước khi chụp ảnh giúp ghi lại nhiều chi tiết hơn, tạo ra ảnh sắc nét và chất lượng cao hơn, mặc dù kích thước file cũng lớn hơn."
+  }
+  ,
+  {
+    id: 178, level: "IC3_LEVEL2", test: 1,
+    category: "FILE_FORMAT", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang post Video lên trang Web công ty. Người dùng than phiền Video tải quá lâu. Với mỗi hành động, chọn Có nếu hành động giúp tải Video nhanh hơn, ngược lại chọn Không.",
+    left: [
+      "Tăng tốc độ bit (bitrate) của Video.",
+      "Chuyển đổi Video thành HTML5.",
+      "Giảm độ phân giải của Video.",
+      "Thay thế Video bằng phiên bản chưa nén."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Tăng tốc độ bit (bitrate) của Video.": "Không",
+      "Chuyển đổi Video thành HTML5.": "Có",
+      "Giảm độ phân giải của Video.": "Có",
+      "Thay thế Video bằng phiên bản chưa nén.": "Không"
+    },
+    explanation: "Tăng bitrate và dùng phiên bản chưa nén làm file nặng hơn → tải chậm hơn. Chuyển sang HTML5 tối ưu hóa phát video trên web. Giảm độ phân giải giảm kích thước file."
+  }
+  ,
+  {
+    id: 179,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "PRIVACY",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Bốn điều nào được coi là thông tin nhận dạng cá nhân PII - Personally Identifiable Information? (Chọn 4)",
+    options: [
+      "Lịch sử quét sinh trắc học",
+      "Địa chỉ gửi thư",
+      "Địa chỉ IP",
+      "Số an sinh xã hội",
+      "Màu tóc"
+    ],
+    answer: [
+      "Lịch sử quét sinh trắc học",
+      "Địa chỉ gửi thư",
+      "Địa chỉ IP",
+      "Số an sinh xã hội"
+    ],
+    explanation: "Thông tin nhận dạng cá nhân (PII) là bất kỳ dữ liệu nào có thể dùng để định danh một cá nhân cụ thể. Màu tóc không phải là thông tin định danh duy nhất."
+  }
+  ,
+  {
+    id: 180,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "PRIVACY",
+    difficulty: "easy",
+    type: "single",
+    question: "Cách an toàn để gửi thông tin nhận dạng cá nhân (PII - Personally Identifiable Information) qua email là gì?",
+    options: [
+      "Không bao giờ gửi email",
+      "Bằng cách giải mã một email",
+      "Bằng cách chỉ gửi email PII cho người thân",
+      "Bằng cách mã hóa email"
+    ],
+    answer: "Bằng cách mã hóa email",
+    explanation: "Mã hóa email đảm bảo rằng nội dung (bao gồm PII) sẽ được bảo vệ an toàn và chỉ người nhận có khóa giải mã mới có thể đọc được."
+  }
+  ,
+  {
+    id: 181,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "PRIVACY",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Đâu là hai hành động bạn có thể thực hiện để giúp duy trì quyền riêng tư kỹ thuật số của bản thân? (Chọn 2)",
+    options: [
+      "Định cấu hình cài đặt trình duyệt web của bạn để chặn cookie",
+      "Chỉ sử dụng email trường học của bạn để gửi thông tin cá nhân",
+      "Tắt GPS trên thiết bị của bạn khi không sử dụng thường xuyên",
+      "Lưu trữ tài liệu cá nhân của bạn trên vị trí lưu trữ đám mây"
+    ],
+    answer: [
+      "Định cấu hình cài đặt trình duyệt web của bạn để chặn cookie",
+      "Tắt GPS trên thiết bị của bạn khi không sử dụng thường xuyên"
+    ],
+    explanation: "Chặn cookie bên thứ ba giúp hạn chế việc theo dõi hành vi duyệt web và tắt định vị GPS giúp bảo vệ thông tin vị trí thực tế của bạn."
+  }
+  ,
+  {
+    id: 182,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "PRIVACY",
+    difficulty: "medium",
+    type: "single",
+    question: "Một trong những giáo viên của bạn nói rằng bạn nên thay đổi cài đặt trình duyệt của mình để duyệt web ở chế độ riêng tư. Vậy lợi ích của việc duyệt web ở chế độ riêng tư là gì?",
+    options: [
+      "Không có lịch sử, cookie, mật khẩu hoặc tệp tạm thời nào được ghi lại trên máy tính",
+      "Không thể nhìn thấy các gói được gửi/nhận qua mạng trường học của bạn",
+      "Đăng nhập máy tính và mật khẩu của bạn bị vô hiệu hóa",
+      "Tên của bạn được giữ kín"
+    ],
+    answer: "Không có lịch sử, cookie, mật khẩu hoặc tệp tạm thời nào được ghi lại trên máy tính",
+    explanation: "Chế độ riêng tư (Incognito/Private) ngăn trình duyệt lưu lại dữ liệu cục bộ trên máy tính sau khi đóng cửa sổ, nhưng không ẩn danh hoàn toàn đối với quản trị mạng hoặc nhà mạng."
+  }
+  ,
+  {
+    id: 183,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "PRIVACY",
+    image_key: "ic3_lv3_q19_network",
+    difficulty: "medium",
+    type: "single",
+    question: "Đâu là lợi ích của việc duyệt web \"ở chế độ riêng tư\" hoặc \"ẩn danh\"?",
+    options: [
+      "Không thể sử dụng vân tay kỹ thuật số để theo dõi các hoạt động trên trình duyệt của bạn",
+      "Những người khác sẽ không biết được các hoạt động duyệt web của bạn dù sử dụng cùng một thiết bị",
+      "Cookie sẽ không báo cáo thông tin về bạn cho bên thứ ba",
+      "Trình duyệt web của bạn chặn quảng cáo"
+    ],
+    answer: "Những người khác sẽ không biết được các hoạt động duyệt web của bạn dù sử dụng cùng một thiết bị",
+    explanation: "Mục đích cốt lõi của chế độ riêng tư là không để lại dấu vết dữ liệu (lịch sử, cookie) trên chính thiết bị đó, tránh việc người dùng chung thiết bị phát hiện."
+  }
+  ,
+  {
+    id: 184,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "SECURITY",
+    image_key: "ic3_lv1_q21_security",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Khi nào người dùng nên cân nhắc việc thay đổi mật khẩu của họ? (Chọn 3)",
+    options: [
+      "Họ đã được thông báo rằng có quyền truy cập trái phép vào tài khoản của họ",
+      "Khi họ muốn đóng tài khoản của mình",
+      "Phần mềm độc hại đang chạy trên máy tính của họ",
+      "Họ đã cập nhật mật khẩu của họ gần đây",
+      "Họ đã không thay đổi mật khẩu của họ trong một thời gian dài"
+    ],
+    answer: [
+      "Họ đã được thông báo rằng có quyền truy cập trái phép vào tài khoản của họ",
+      "Phần mềm độc hại đang chạy trên máy tính của họ",
+      "Họ đã không thay đổi mật khẩu của họ trong một thời gian dài"
+    ],
+    explanation: "Thay đổi mật khẩu ngay lập tức khi phát hiện rò rỉ, thiết bị nhiễm mã độc, hoặc định kỳ sau một thời gian dài sử dụng để tăng cường bảo mật."
+  }
+  ,
+  {
+    id: 185,
+    level: "IC3_LEVEL2",
+    image_key: "ic3_lv1_q22_security",
+    test: 1,
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Bạn cần tạo một mật khẩu mạnh. Đâu là ba nguyên tắc bạn cần tuân thủ? (Chọn 3)",
+    options: [
+      "Bao gồm các chữ cái, chữ số và ký hiệu",
+      "Bao gồm các số dễ nhớ như ngày sinh và số điện thoại",
+      "Bao gồm chữ viết hoa và chữ viết thường",
+      "Sử dụng tám ký tự trở lên",
+      "Bao gồm họ hoặc tên của bạn"
+    ],
+    answer: [
+      "Bao gồm các chữ cái, chữ số và ký hiệu",
+      "Bao gồm chữ viết hoa và chữ viết thường",
+      "Sử dụng tám ký tự trở lên"
+    ],
+    explanation: "Mật khẩu mạnh cần tối thiểu 8 ký tự, kết hợp chữ hoa, chữ thường, số và các ký hiệu đặc biệt. Không nên chứa các thông tin cá nhân dễ đoán như họ tên, ngày sinh, số điện thoại."
+  }
+  ,
+  {
+    id: 186,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Bạn cần đảm bảo an toàn cho mật khẩu của mình. Đâu là ba nguyên tắc bảo mật bạn cần tuân thủ? (Chọn 3)",
+    options: [
+      "Sử dụng mật khẩu khác nhau cho mỗi tài khoản",
+      "Sử dụng mật khẩu phức tạp và ghi vào một cuốn sổ mà bạn luôn mang theo bên mình",
+      "Sử dụng xác thực đa yếu tố (MFA / 2FA), nếu có",
+      "Sử dụng mật khẩu dài nhất hoặc cụm mật khẩu được hệ thống mật khẩu cho phép",
+      "Sử dụng các từ có thể tìm thấy trong từ điển của một ngôn ngữ khác với ngôn ngữ chính của bạn"
+    ],
+    answer: [
+      "Sử dụng mật khẩu khác nhau cho mỗi tài khoản",
+      "Sử dụng xác thực đa yếu tố (MFA / 2FA), nếu có",
+      "Sử dụng mật khẩu dài nhất hoặc cụm mật khẩu được hệ thống mật khẩu cho phép"
+    ],
+    explanation: "Không nên ghi mật khẩu ra sổ mang theo người vì dễ thất lạc; cũng không nên dùng các từ có trong từ điển vì dễ bị tấn công dạng từ điển (Dictionary attack). Mật khẩu dài và xác thực đa yếu tố là các biện pháp an toàn cốt lõi."
+  }
+  ,
+  {
+    id: 187,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "PRIVACY",
+    image_key: "ic3_lv2_q28_security",
+    difficulty: "medium",
+    type: "matching",
+    question: "Bạn cần xác định thông tin nhận dạng cá nhân (PII - Personally Identifiable Information) mà bạn không nên để lộ công khai trên mạng. Với mỗi thông tin dưới đây, hãy chọn Có nếu đó là thông tin định danh cá nhân quan trọng, hoặc Không nếu không phải.",
+    left: [
+      "Ngày sinh",
+      "Màu mắt",
+      "Nơi sinh"
+    ],
+    right: [
+      "Có",
+      "Không"
+    ],
+    answer: {
+      "Ngày sinh": "Có",
+      "Màu mắt": "Không",
+      "Nơi sinh": "Có"
+    },
+    explanation: "Ngày sinh và Nơi sinh là các thông tin định danh pháp lý rất quan trọng giúp cấu thành PII. Màu mắt là đặc điểm sinh học phổ biến, không dùng để xác minh danh tính cá nhân bảo mật trực tuyến."
+  }
+  ,
+  {
+    id: 188,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "PRIVACY",
+    difficulty: "easy",
+    type: "single",
+    question: "Bạn hãy cho biết, duyệt web ở chế độ riêng tư (ẩn danh) đảm bảo điều gì sau đây?",
+    options: [
+      "Mật khẩu không bao giờ cần phải thay đổi",
+      "Lịch sử duyệt web của người dùng không được lưu trữ lại trên thiết bị",
+      "Thông tin tài khoản và mật khẩu luôn được tự động lưu lại bảo mật",
+      "Giúp tăng thêm dung lượng lưu trữ khả dụng đáng kể trên đĩa cứng máy tính"
+    ],
+    answer: "Lịch sử của người dùng không được lưu trữ",
+    explanation: "Duyệt web riêng tư đảm bảo các thông tin như lịch sử duyệt web, cookie và dữ liệu biểu mẫu không bị ghi lại cục bộ sau khi đóng cửa sổ."
+  }
+  ,
+  {
+    id: 189,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Lịch sử duyệt web và các trang web được đánh dấu trang cung cấp cho hacker một bản đồ của tất cả các trang web mà người dùng truy cập. Cùng với các trang web thường xuyên truy cập, hacker có thể sử dụng gì để truy cập vào tài khoản nếu mật khẩu được lưu vào thiết bị bị tấn công?",
+    options: [
+      "Cookies",
+      "Cutouts",
+      "History",
+      "Settings"
+    ],
+    answer: "Cookies",
+    explanation: "Cookies lưu trữ các phiên đăng nhập (Session) và thông tin xác thực. Nếu lấy được Cookies của trình duyệt, hacker có thể vượt qua bước đăng nhập để vào tài khoản của người dùng."
+  }
+  ,
+  {
+    id: 190,
+    level: "IC3_LEVEL2",
+    test: 1,
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Làm cách nào để người dùng có thể bảo vệ mật khẩu của mình một cách tốt nhất? (Chọn 3)",
+    options: [
+      "Sử dụng số thứ tự trong mật khẩu",
+      "Sử dụng cùng một mật khẩu cho tất cả các tài khoản",
+      "Tạo mật khẩu mới và duy nhất cho mọi tài khoản",
+      "Giữ bí mật tuyệt đối mật khẩu",
+      "Thay đổi mật khẩu thường xuyên"
+    ],
+    answer: [
+      "Tạo mật khẩu mới và duy nhất cho mọi tài khoản",
+      "Giữ bí mật tuyệt đối mật khẩu",
+      "Thay đổi mật khẩu thường xuyên"
+    ],
+    explanation: "Không dùng chung một mật khẩu, không dùng chuỗi số thứ tự dễ đoán. Để bảo mật tốt nhất cần tạo mật khẩu riêng biệt cho từng dịch vụ, đổi định kỳ và bảo mật không chia sẻ."
+  }
+  ,
+  {
+    id: 191,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Tùy chọn nào sau đây là hành động giúp xóa dữ liệu cá nhân khỏi thiết bị một cách triệt để nhất?",
+    options: ["Quét nhanh", "Tắt thiết bị", "Cập nhật phần mềm", "Khôi phục cài đặt gốc"],
+    answer: 3,
+    explanation: "Khôi phục cài đặt gốc (Factory Reset) sẽ xóa sạch dữ liệu người dùng và đưa thiết bị về trạng thái xuất xưởng."
+  }
+  ,
+  {
+    id: 192,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi bạn thấy một trang web yêu cầu cài đặt 'Plugin' để xem video nhưng trình duyệt cảnh báo đó là tệp tin độc hại, bạn nên:",
+    options: ["Bỏ qua cảnh báo", "Cài đặt ngay để xem video", "Đóng trang web và không cài đặt", "Tắt phần mềm diệt virus"],
+    answer: 2,
+    explanation: "Đây là dấu hiệu phổ biến của các cuộc tấn công qua Malware giả dạng trình phát video."
+  }
+  ,
+  {
+    id: 193,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Phương pháp nào là cách hiệu quả nhất để ngăn chặn truy cập trái phép vào dữ liệu ngay cả khi ổ cứng bị đánh cắp?",
+    options: ["Đặt mật khẩu BIOS", "Mã hóa toàn bộ ổ đĩa (Full Disk Encryption)", "Tắt máy tính khi không sử dụng", "Sử dụng màn hình khóa"],
+    answer: 1,
+    explanation: "Mã hóa toàn bộ ổ đĩa đảm bảo rằng nếu ổ cứng bị tháo rời hoặc đánh cắp, dữ liệu bên trong vẫn không thể đọc được nếu không có khóa giải mã."
+  }
+  ,
+  {
+    id: 194,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    image_key: "ic3_lv3_q20_security",
+    difficulty: "medium",
+    type: "single",
+    question: "Tấn công 'Man-in-the-Middle' (Người đứng giữa) hoạt động như thế nào?",
+    options: ["Kẻ tấn công xen vào giữa luồng giao tiếp giữa hai bên để đánh cắp hoặc thay đổi thông tin", "Kẻ tấn công làm sập server", "Kẻ tấn công gửi thư rác", "Kẻ tấn công phá hỏng màn hình"],
+    answer: 0,
+    explanation: "Kẻ tấn công đứng giữa người gửi và người nhận, nghe lén hoặc giả mạo thông tin mà cả hai bên đều không hay biết."
+  }
+  ,
+  {
+    id: 195,
+    level: "IC3_LEVEL2",
+    category: "DATA_PRIVACY",
+    image_key: "ic3_lv1_q21_security",
+    difficulty: "medium",
+    type: "single",
+    question: "Tùy chọn nào sau đây là ví dụ tốt nhất về việc quản lý quyền riêng tư trên thiết bị di động?",
+    options: [
+      "Luôn cho phép mọi ứng dụng truy cập danh bạ và vị trí",
+      "Thường xuyên kiểm tra và chỉ cấp quyền truy cập cần thiết cho từng ứng dụng",
+      "Không bao giờ cập nhật ứng dụng",
+      "Chia sẻ mật khẩu thiết bị cho tất cả bạn bè"
+    ],
+    answer: 1,
+    explanation: "Nguyên tắc quyền truy cập tối thiểu (Least Privilege) là nền tảng của bảo mật, chỉ nên cấp quyền cho ứng dụng khi thực sự cần thiết cho tính năng của chúng."
+  }
+  ,
+  {
+    id: 196,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "hard",
+    type: "single",
+    question: "Điều gì xảy ra khi bạn sử dụng một mật khẩu duy nhất cho tất cả các tài khoản trực tuyến?",
+    options: [
+      "Tăng cường tính bảo mật cho tài khoản",
+      "Tạo ra rủi ro 'Hiệu ứng Domino' (nếu một tài khoản bị hack, tất cả đều bị ảnh hưởng)",
+      "Giúp máy tính chạy nhanh hơn",
+      "Giúp các trang web xác thực nhanh hơn"
+    ],
+    answer: 1,
+    explanation: "Sử dụng mật khẩu trùng lặp là sai lầm nghiêm trọng nhất. Kẻ tấn công chỉ cần lấy được mật khẩu từ một nguồn yếu là có thể chiếm đoạt toàn bộ danh tính số của bạn."
+  }
+  ,
+  {
+    id: 197,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    image_key: "ic3_lv3_q30_software",
+    difficulty: "medium",
+    type: "single",
+    question: "Cookie trong trình duyệt web chủ yếu được dùng để làm gì?",
+    options: [
+      "Lưu trữ thông tin phiên làm việc và tùy chọn của người dùng để cá nhân hóa trải nghiệm",
+      "Làm virus để phá hủy máy tính",
+      "Làm chậm tốc độ internet",
+      "Thay thế cho mật khẩu ngân hàng"
+    ],
+    answer: 0,
+    explanation: "Cookie ghi nhớ trạng thái (như đăng nhập, giỏ hàng) để web biết bạn là ai khi chuyển trang. Tuy nhiên, cần quản lý chúng vì lý do riêng tư."
+  }
+  ,
+  {
+    id: 198,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    image_key: "ic3_lv1_q32_digital_citizenship",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi nhận được email lạ yêu cầu bạn nhấn vào liên kết để 'xác minh tài khoản ngân hàng ngay lập tức', hành động an toàn nhất là gì?",
+    options: ["Nhấn vào liên kết để kiểm tra", "Xóa email và không bao giờ nhấn vào liên kết", "Gửi email cho bạn bè để hỏi", "Trả lời email để hỏi lại người gửi"],
+    answer: 1,
+    explanation: "Đây là chiêu trò Phishing kinh điển. Tuyệt đối không tương tác với các link lạ từ email không xác định."
+  }
+  ,
+  {
+    id: 199,
+    level: "IC3_LEVEL2",
+    category: "DATA_PRIVACY",
+    difficulty: "hard",
+    type: "single",
+    question: "Quyền 'được quên' (Right to be forgotten) cho phép cá nhân làm gì?",
+    options: ["Xóa dữ liệu cá nhân của mình trên Internet khi không còn lý do chính đáng để lưu trữ", "Quên mật khẩu mà vẫn đăng nhập được", "Xóa toàn bộ Internet", "Yêu cầu nhà mạng tặng dữ liệu miễn phí"],
+    answer: 0,
+    explanation: "Đây là một quyền cơ bản trong các luật bảo mật dữ liệu hiện đại (như GDPR), giúp người dùng kiểm soát thông tin cá nhân của mình."
+  }
+  ,
+  {
+    id: 200,
+    level: "IC3_LEVEL2",
+    image_key: "ic3_lv3_q41_network",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Giao thức bảo mật nào hiện nay được khuyến nghị sử dụng để mã hóa các kết nối không dây (Wi-Fi) thay cho WEP đã cũ?",
+    options: ["WPA3", "WEP", "Open", "HTTP"],
+    answer: 0,
+    explanation: "WPA3 là chuẩn bảo mật không dây mới nhất và an toàn nhất hiện nay, thay thế cho WPA2 và WEP (đã bị bẻ khóa dễ dàng)."
+  }
+  ,
+  {
+    id: 201,
+    level: "IC3_LEVEL2",
+    category: "DATA_PRIVACY",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Khi một doanh nghiệp thu thập dữ liệu người dùng, quyền nào người dùng thường có theo luật bảo vệ dữ liệu (như GDPR)? (Chọn 2)",
+    options: ["Quyền được biết dữ liệu của mình được dùng làm gì", "Quyền yêu cầu xóa dữ liệu cá nhân", "Quyền bán dữ liệu của người khác", "Quyền truy cập toàn bộ dữ liệu của doanh nghiệp"],
+    answer: [0, 1],
+    explanation: "Người dùng có quyền minh bạch về mục đích thu thập và quyền kiểm soát (bao gồm quyền xóa) dữ liệu cá nhân của mình."
+  }
+  ,
+  {
+    id: 202,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Phương pháp 'Social Engineering' (Kỹ thuật xã hội) tấn công vào đâu?",
+    options: ["Tấn công vào lỗ hổng phần mềm", "Tấn công vào tâm lý con người để thao túng cung cấp thông tin", "Tấn công vào phần cứng", "Tấn công vào đường dây điện"],
+    answer: 1,
+    explanation: "Kỹ thuật xã hội không cần hacker giỏi kỹ thuật, chúng khai thác lòng tin hoặc sự thiếu hiểu biết của con người để đánh cắp mật khẩu/dữ liệu."
+  }
+  ,
+  {
+    id: 203,
+    level: "IC3_LEVEL2",
+    image_key: "ic3_lv3_q52_security",
+    category: "SECURITY",
+    difficulty: "hard",
+    type: "single",
+    question: "Tấn công 'DDoS' (Distributed Denial of Service) nhắm vào mục tiêu gì?",
+    options: ["Đánh cắp mật khẩu", "Làm quá tải hệ thống khiến dịch vụ ngừng hoạt động", "Chỉnh sửa mã nguồn trang web", "Mã hóa dữ liệu để tống tiền"],
+    answer: 1,
+    explanation: "DDoS sử dụng mạng lưới các máy tính bị nhiễm độc (botnet) để gửi lưu lượng truy cập ồ ạt, khiến máy chủ mục tiêu bị tê liệt."
+  }
+  ,
+  {
+    id: 204,
+    level: "IC3_LEVEL2",
+    category: "DATA_PRIVACY",
+    image_key: "ic3_lv1_q53_data",
+    difficulty: "medium",
+    type: "single",
+    question: "Hành động nào giúp bảo vệ quyền riêng tư tốt nhất khi sử dụng mạng xã hội?",
+    options: ["Công khai toàn bộ bài viết", "Thiết lập quyền riêng tư (Privacy Settings) để chỉ người quen mới xem được", "Đăng mọi vị trí địa lý của bạn", "Chia sẻ mật khẩu với bạn thân"],
+    answer: 1,
+    explanation: "Việc kiểm soát chặt chẽ đối tượng có thể xem thông tin của bạn là bước cơ bản nhất để bảo vệ quyền riêng tư."
+  }
+  ,
+  {
+    id: 205,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Để tăng cường bảo mật tài khoản, bạn nên làm gì? (Chọn 3)",
+    options: ["Sử dụng xác thực hai yếu tố (2FA)", "Đặt mật khẩu dài, phức tạp", "Dùng chung mật khẩu cho nhiều tài khoản", "Thường xuyên cập nhật mật khẩu mới"],
+    answer: [0, 1, 3],
+    explanation: "2FA, mật khẩu mạnh và cập nhật định kỳ là những chiến lược bảo mật tối ưu nhất cho tài khoản cá nhân."
+  }
+  ,
+  {
+    id: 206,
+    level: "IC3_LEVEL2",
+    category: "DATA_PRIVACY",
+    difficulty: "medium",
+    type: "single",
+    question: "Việc sử dụng tệp tin 'Đọc-Ghi' (Read-Write) đối với tệp được chia sẻ trên đám mây có nghĩa là gì?",
+    options: [
+      "Người khác chỉ có thể xem tệp nhưng không thể thay đổi nội dung",
+      "Người khác có thể xem, chỉnh sửa và lưu các thay đổi lên tệp đó",
+      "Tệp tin sẽ tự động bị xóa sau 24 giờ",
+      "Chỉ chủ sở hữu mới có quyền đọc tệp"
+    ],
+    answer: 1,
+    explanation: "Quyền Read-Write cho phép người dùng cộng tác thực sự, bao gồm xem nội dung và sửa đổi dữ liệu trực tiếp trong tệp gốc."
+  }
+  ,
+  {
+    id: 207,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Đâu là nguy cơ lớn nhất khi dùng chung máy tính công cộng để đăng nhập tài khoản cá nhân?",
+    options: [
+      "Máy tính công cộng quá chậm",
+      "Keylogger hoặc phần mềm độc hại có thể ghi lại thông tin đăng nhập của bạn",
+      "Máy tính công cộng không có loa",
+      "Bạn sẽ phải trả phí sử dụng"
+    ],
+    answer: 1,
+    explanation: "Máy tính công cộng không được kiểm soát chặt chẽ, dễ bị cài các phần mềm độc hại ghi lại phím bấm (Keylogger) để lấy cắp mật khẩu."
+  }
+  ,
+  {
+    id: 208,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Mục đích của việc sử dụng 'Phần mềm diệt virus' (Antivirus) là gì?",
+    options: [
+      "Tăng tốc độ bộ xử lý",
+      "Phát hiện, ngăn chặn và loại bỏ phần mềm độc hại",
+      "Thay thế hệ điều hành",
+      "Chỉ dùng để quét ảnh"
+    ],
+    answer: 1,
+    explanation: "Antivirus quét các tệp tin và tiến trình để tìm kiếm các dấu hiệu của phần mềm độc hại, bảo vệ máy tính khỏi các mã độc."
+  }
+  ,
+  {
+    id: 209,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    image_key: "ic3_lv3_q72_network",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Việc sử dụng VPN (Virtual Private Network) mang lại lợi ích gì về bảo mật? (Chọn 2)",
+    options: ["Mã hóa dữ liệu truyền tải giữa thiết bị và internet", "Ẩn địa chỉ IP thực của người dùng", "Tăng dung lượng lưu trữ của máy tính", "Tự động xóa mọi virus trên máy"],
+    answer: [0, 1],
+    explanation: "VPN bảo mật dữ liệu khỏi sự nghe lén (mã hóa) và ẩn danh tính thực (địa chỉ IP) của người dùng trên môi trường mạng."
+  }
+  ,
+  {
+    id: 210,
+    level: "IC3_LEVEL2",
+    category: "DATA_PRIVACY",
+    difficulty: "medium",
+    type: "single",
+    question: "Tại sao việc đọc 'Chính sách bảo mật' (Privacy Policy) trước khi cài đặt ứng dụng lại quan trọng?",
+    options: ["Để biết ứng dụng thu thập những dữ liệu gì và phục vụ mục đích gì", "Để xem ứng dụng có đẹp không", "Vì đó là thủ tục không bắt buộc", "Để tăng dung lượng bộ nhớ"],
+    answer: 0,
+    explanation: "Chính sách bảo mật tiết lộ các loại thông tin cá nhân mà ứng dụng có quyền thu thập, chia sẻ cho bên thứ ba, giúp bạn quyết định có nên tin tưởng ứng dụng hay không."
+  }
+  ,
+  {
+    id: 211,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "medium",
+    type: "single",
+    question: "Mã hóa đầu cuối (End-to-End Encryption) trong các ứng dụng nhắn tin có nghĩa là gì?",
+    options: ["Chỉ người gửi và người nhận mới có thể đọc được tin nhắn", "Tin nhắn được đọc bởi mọi người", "Tin nhắn bị gửi tới máy chủ của chính phủ", "Tin nhắn không cần Internet"],
+    answer: 0,
+    explanation: "Với mã hóa đầu cuối, ngay cả nhà cung cấp dịch vụ nhắn tin cũng không thể giải mã và đọc được nội dung tin nhắn của bạn."
+  }
+  ,
+  {
+    id: 212,
+    level: "IC3_LEVEL2",
+    category: "SECURITY",
+    difficulty: "hard",
+    type: "single",
+    question: "Tại sao việc thực hiện 'Sao lưu dữ liệu' (Backup) định kỳ là lớp phòng thủ cuối cùng trước các cuộc tấn công Ransomware?",
+    options: [
+      "Vì sao lưu giúp bạn khôi phục lại dữ liệu gốc mà không cần phải trả tiền chuộc cho tin tặc",
+      "Vì sao lưu làm cho máy tính chạy nhanh hơn",
+      "Vì sao lưu giúp ngăn chặn virus xâm nhập vào máy tính",
+      "Vì sao lưu giúp ẩn địa chỉ IP của bạn"
+    ],
+    answer: 0,
+    explanation: "Ransomware mã hóa dữ liệu của bạn để tống tiền. Nếu bạn có bản sao lưu dữ liệu sạch và ngoại tuyến, bạn có thể xóa sạch máy tính và khôi phục lại dữ liệu mà không cần phụ thuộc vào tin tặc."
+  }
+  ,
+  {
+    id: 213,
+    level: "IC3_LEVEL2",
+    category: "ONLINE_SAFETY",
+    difficulty: "easy",
+    type: "single",
+    question: "Hành động nào là tốt nhất để đảm bảo an toàn thông tin khi bạn không còn sử dụng một tài khoản dịch vụ mạng xã hội cũ?",
+    options: [
+      "Để đó và quên đi",
+      "Xóa hoàn toàn tài khoản (Account Deletion) thay vì chỉ gỡ ứng dụng",
+      "Chia sẻ mật khẩu tài khoản đó cho người khác",
+      "Thay đổi tên người dùng thành tên giả"
+    ],
+    answer: 1,
+    explanation: "Việc xóa tài khoản (tài khoản không còn tồn tại) giúp ngăn chặn nguy cơ tin tặc chiếm đoạt tài khoản cũ để phát tán tin giả hoặc spam mà bạn không hề hay biết."
+  }
+  ,
+  {
+    id: 214, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "easy",
+    type: "single",
+    question: "Một trong những hành động quan trọng nhất để bảo vệ quyền riêng tư sau khi duyệt Internet là gì?",
+    options: [
+      "Sử dụng cùng một thông tin đăng nhập và mật khẩu cho nhiều trang Web.",
+      "Xóa Cookies trình duyệt của bạn.",
+      "Hãy đăng nhập vào trang Web cuối cùng bạn truy cập.",
+      "Sử dụng các trình duyệt khác nhau."
+    ],
+    answer: "Xóa Cookies trình duyệt của bạn.",
+    explanation: "Cookies lưu lại thông tin duyệt web, tài khoản và hành vi trực tuyến. Xóa Cookies thường xuyên ngăn chặn việc theo dõi và bảo vệ thông tin cá nhân sau mỗi phiên duyệt web."
+  }
+  ,
+  {
+    id: 215, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "multiple",
+    question: "Hành động nào có thể xâm phạm đến quyền riêng tư trực tuyến của bạn? (Chọn 3)",
+    options: [
+      "Đăng bài trong một diễn đàn.",
+      "Sử dụng cùng một thông tin đăng nhập và mật khẩu cho nhiều tài khoản.",
+      "Luôn đăng nhập vào các trang Web mà không đăng xuất.",
+      "Tải tập tin.",
+      "Cho phép và giữ Cookies của trình duyệt.",
+      "Mở tập tin đính kèm Email."
+    ],
+    answer: [
+      "Sử dụng cùng một thông tin đăng nhập và mật khẩu cho nhiều tài khoản.",
+      "Luôn đăng nhập vào các trang Web mà không đăng xuất.",
+      "Cho phép và giữ Cookies của trình duyệt."
+    ],
+    explanation: "Ba hành động này tạo ra lỗ hổng quyền riêng tư: (1) dùng cùng mật khẩu — nếu một tài khoản bị hack, tất cả bị hack; (2) không đăng xuất — người khác có thể truy cập tài khoản; (3) giữ cookies — cho phép theo dõi hành vi trực tuyến."
+  }
+  ,
+  {
+    id: 216, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "single",
+    question: "Cách tốt nhất để bảo vệ quyền riêng tư trực tuyến tại nơi làm việc là gì?",
+    options: [
+      "Không sử dụng thiết bị làm việc để làm bất cứ việc gì cá nhân.",
+      "Gửi Email cá nhân bằng tài khoản công việc của bạn.",
+      "Xóa tất cả Cookies sau khi thực hiện mua sắm cá nhân trên máy tính làm việc.",
+      "Đảm bảo rằng không ai nhìn thấy khi bạn lướt Internet."
+    ],
+    answer: "Không sử dụng thiết bị làm việc để làm bất cứ việc gì cá nhân.",
+    explanation: "Thiết bị công ty có thể bị giám sát bởi IT. Cách bảo vệ tốt nhất là không bao giờ dùng thiết bị hoặc tài khoản công ty cho việc cá nhân — tách biệt hoàn toàn hai môi trường."
+  }
+  ,
+  {
+    id: 217, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Những tình huống nào làm mất tính riêng tư khi cho phép nhà tuyển dụng hoặc quản trị viên trường có thể xem được Email của bạn? Chọn Có hoặc Không cho mỗi tình huống.",
+    left: [
+      "Gửi Email từ máy tính làm việc bằng tài khoản cá nhân.",
+      "Gửi Email từ máy tính làm việc bằng tài khoản làm việc.",
+      "Gửi Email từ máy tính của trường bằng tài khoản cá nhân.",
+      "Gửi Email từ điện thoại thông minh bằng tài khoản làm việc.",
+      "Gửi Email từ máy tính ở cơ quan bằng tài khoản của trường."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Gửi Email từ máy tính làm việc bằng tài khoản cá nhân.": "Không",
+      "Gửi Email từ máy tính làm việc bằng tài khoản làm việc.": "Có",
+      "Gửi Email từ máy tính của trường bằng tài khoản cá nhân.": "Không",
+      "Gửi Email từ điện thoại thông minh bằng tài khoản làm việc.": "Có",
+      "Gửi Email từ máy tính ở cơ quan bằng tài khoản của trường.": "Có"
+    },
+    explanation: "Quyền riêng tư bị xâm phạm khi: dùng tài khoản công ty/trường (dù trên thiết bị cá nhân) hoặc dùng máy tính công ty/trường (dù tài khoản cá nhân bị theo dõi qua mạng). Tài khoản cá nhân trên thiết bị cá nhân qua mạng riêng là an toàn."
+  }
+  ,
+  {
+    id: 218, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Với mỗi phát biểu về bảo vệ thông tin nhận dạng cá nhân (PII), hãy chọn Đúng hoặc Sai.",
+    left: [
+      "Thông tin nhận dạng cá nhân (PII) mà các trang Web thu thập có thể được dùng cho các mục đích đánh cắp danh tính.",
+      "Việc sử dụng xác thực đa yếu tố làm tăng nguy cơ người khác truy cập PII của bạn.",
+      "Việc đăng xuất tài khoản trực tuyến vĩnh viễn sẽ xoá PII của bạn khỏi máy chủ lưu trữ trang Web."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Thông tin nhận dạng cá nhân (PII) mà các trang Web thu thập có thể được dùng cho các mục đích đánh cắp danh tính.": "Đúng",
+      "Việc sử dụng xác thực đa yếu tố làm tăng nguy cơ người khác truy cập PII của bạn.": "Sai",
+      "Việc đăng xuất tài khoản trực tuyến vĩnh viễn sẽ xoá PII của bạn khỏi máy chủ lưu trữ trang Web.": "Sai"
+    },
+    explanation: "PII bị thu thập có thể bị lạm dụng cho đánh cắp danh tính — Đúng. Xác thực đa yếu tố (MFA) làm GIẢM nguy cơ bị hack, không tăng — Sai. Đăng xuất không xóa dữ liệu khỏi server của trang Web — Sai."
+  }
+  ,
+  {
+    id: 219, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Xác định yếu tố xác thực tương ứng với từng ví dụ.",
+    left: [
+      "Dấu vân tay và nhận dạng khuôn mặt là những ví dụ về yếu tố xác thực ___.",
+      "Điện thoại thông minh và thẻ ra vào của nhân viên là những ví dụ về yếu tố xác thực ___.",
+      "Mật khẩu và số nhận dạng cá nhân (PIN) là những ví dụ về yếu tố xác thực ___."
+    ],
+    right: ["Sinh trắc học", "Vật lí", "Logic"],
+    answer: {
+      "Dấu vân tay và nhận dạng khuôn mặt là những ví dụ về yếu tố xác thực ___.": "Sinh trắc học",
+      "Điện thoại thông minh và thẻ ra vào của nhân viên là những ví dụ về yếu tố xác thực ___.": "Vật lí",
+      "Mật khẩu và số nhận dạng cá nhân (PIN) là những ví dụ về yếu tố xác thực ___.": "Logic"
+    },
+    explanation: "Ba loại yếu tố xác thực: Sinh trắc học (biometric) = những gì bạn là, Vật lí (possession) = những gì bạn có, Logic (knowledge) = những gì bạn biết."
+  }
+  ,
+  {
+    id: 220, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "easy",
+    type: "single",
+    question: "Hãy chọn từ thích hợp điền vào chỗ trống: 'Người dùng nên cố gắng giữ bí mật thông tin cá nhân và thông tin của cấp trên của họ, ___ không nên được viết ra và để lại bất cứ nơi nào mà người khác có thể tình cờ nhìn thấy chúng.'",
+    options: ["Phone numbers", "Email addresses", "Passwords", "Work hours"],
+    answer: "Passwords",
+    explanation: "Mật khẩu là thông tin bảo mật tuyệt đối không nên viết ra hoặc để ở nơi dễ nhìn thấy. Một mật khẩu bị lộ có thể dẫn đến xâm phạm toàn bộ tài khoản và dữ liệu liên quan."
+  }
+  ,
+  {
+    id: 221, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "easy",
+    type: "single",
+    question: "Một trong những cách tốt nhất để giữ bí mật thông tin tài khoản và mật khẩu là gì?",
+    options: [
+      "Trả tiền cho một người bạn để giữ thông tin an toàn.",
+      "Chia sẻ thông tin với gia đình và bạn bè.",
+      "Sử dụng miếng dán bảo vệ màn hình.",
+      "Tránh chia sẻ thông tin với người khác."
+    ],
+    answer: "Tránh chia sẻ thông tin với người khác.",
+    explanation: "Mật khẩu và thông tin tài khoản là thông tin cá nhân tuyệt đối — không nên chia sẻ với bất kỳ ai, kể cả người thân. Đây là nguyên tắc bảo mật cơ bản nhất."
+  }
+  ,
+  {
+    id: 222, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn thân của bạn muốn bạn trao đổi tài khoản và mật khẩu trực tuyến. Giáo viên đã hướng dẫn rằng việc cho phép người khác biết mật khẩu sẽ có những rủi ro. Chọn Đúng nếu chia sẻ mật khẩu là rủi ro, Sai nếu không.",
+    left: [
+      "Mẹ của bạn đang ở trong bệnh viện và cần bạn thanh toán hóa đơn điện. Mẹ cung cấp thông tin đăng nhập của mẹ để bạn thanh toán với công ty điện lực.",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản mạng xã hội của bạn.",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản PayPal của bạn."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Mẹ của bạn đang ở trong bệnh viện và cần bạn thanh toán hóa đơn điện. Mẹ cung cấp thông tin đăng nhập của mẹ để bạn thanh toán với công ty điện lực.": "Sai",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản mạng xã hội của bạn.": "Đúng",
+      "Bạn của bạn có thông tin đăng nhập và mật khẩu vào tài khoản PayPal của bạn.": "Đúng"
+    },
+    explanation: "Trường hợp mẹ chia sẻ mật khẩu với con để xử lý tình huống khẩn cấp là chấp nhận được (không phải rủi ro). Tuy nhiên, bạn bè có mật khẩu mạng xã hội và PayPal của bạn là rủi ro rõ ràng — có thể dẫn đến lạm dụng tài khoản hoặc tài chính."
+  }
+  ,
+  {
+    id: 223, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn nên thực hiện thao tác nào trước khi bán máy tính xách tay cho người khác? (Chọn 2)",
+    options: [
+      "Cập nhật BIOS (Flash the BIOS)",
+      "Tháo RAM",
+      "Xóa tất cả các thiết bị lưu trữ",
+      "Định dạng ổ cứng của bạn",
+      "Hủy cấp quyền bất kỳ phần mềm nào"
+    ],
+    answer: ["Định dạng ổ cứng của bạn", "Hủy cấp quyền bất kỳ phần mềm nào"],
+    explanation: "Trước khi bán máy: (1) định dạng ổ cứng để xóa sạch dữ liệu cá nhân (không thể phục hồi), (2) deauthorize phần mềm có giới hạn thiết bị (Adobe, iTunes...) để có thể dùng trên máy mới."
+  }
+  ,
+  {
+    id: 224, level: "IC3_LEVEL2", test: 1,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "single",
+    question: "Nếu ai đó chọn chia sẻ thông tin tài khoản với một người bạn thân, người bạn đó nên làm gì với thông tin đó?",
+    options: [
+      "Sử dụng thông tin để mua hàng.",
+      "Mạo danh bạn bè như một trò đùa.",
+      "Đánh cắp và chia sẻ thông tin nhận dạng cá nhân.",
+      "Giữ thông tin an toàn."
+    ],
+    answer: "Giữ thông tin an toàn.",
+    explanation: "Khi được tin tưởng với thông tin tài khoản của người khác, trách nhiệm là giữ bí mật và bảo vệ thông tin đó — không bao giờ lạm dụng dù chỉ là 'trò đùa'."
+  }
+  ,
+  {
+    id: 225, level: "IC3_LEVEL2", test: 1,
+    category: "DATA_PRIVACY", difficulty: "medium",
+    type: "single",
+    question: "Mục đích của đạo luật HIPAA (Health Insurance Portability and Accountability Act) là gì?",
+    options: [
+      "Để giúp các cá nhân hiểu rõ hơn về thông tin y tế của họ.",
+      "Để ràng buộc các chuyên gia y tế một cách hợp pháp với một cuộc sống bí mật và hoài nghi.",
+      "Để đảm bảo rằng thông tin y tế được chia sẻ với tất cả các thành viên trong gia đình.",
+      "Để bảo vệ hợp pháp thông tin y tế cá nhân bằng cách hạn chế quyền truy cập đến thông tin y tế của cá nhân họ hoặc người giám hộ đáng tin cậy."
+    ],
+    answer: "Để bảo vệ hợp pháp thông tin y tế cá nhân bằng cách hạn chế quyền truy cập đến thông tin y tế của cá nhân họ hoặc người giám hộ đáng tin cậy.",
+    explanation: "HIPAA là luật Mỹ bảo vệ thông tin y tế cá nhân (PHI — Protected Health Information), quy định ai được phép truy cập, sử dụng và chia sẻ dữ liệu y tế của bệnh nhân."
+  }
+  ,
+  {
+    id: 226, level: "IC3_LEVEL2", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "matching",
+    question: "Bạn muốn trở thành công dân kĩ thuật số có trách nhiệm. Ghép nối từng loại hoạt động trực tuyến bất hợp pháp với ví dụ về hành vi của nó.",
+    left: [
+      "Người bán ô tô trực tuyến tuyên bố họ đang trong quân đội, nhưng sẽ giao xe cho bạn sau khi bạn thanh toán.",
+      "Bạn nhận được một yêu cầu kết bạn trùng lặp trên Facebook từ một người đã là bạn của bạn.",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào một liên kết để đăng nhập và chứng minh danh tính."
+    ],
+    right: ["Gian lận trên Internet (Internet Fraud)", "Lừa đảo (Phishing)", "Giả mạo (Spoofing)"],
+    answer: {
+      "Người bán ô tô trực tuyến tuyên bố họ đang trong quân đội, nhưng sẽ giao xe cho bạn sau khi bạn thanh toán.": "Gian lận trên Internet (Internet Fraud)",
+      "Bạn nhận được một yêu cầu kết bạn trùng lặp trên Facebook từ một người đã là bạn của bạn.": "Lừa đảo (Phishing)",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào một liên kết để đăng nhập và chứng minh danh tính.": "Giả mạo (Spoofing)"
+    },
+    explanation: "Internet Fraud = gian lận mua bán trực tuyến. Phishing = đánh lừa qua tài khoản giả mạo để lấy thông tin. Spoofing = giả mạo tổ chức uy tín (ngân hàng, cơ quan...) để đánh cắp thông tin đăng nhập."
+  }
+  ,
+  {
+    id: 227, level: "IC3_LEVEL2", test: 1,
+    category: "CYBERSECURITY", difficulty: "easy",
+    type: "single",
+    question: "___ xảy ra khi ai đó sử dụng các từ hoặc hình ảnh có hại trên mạng để đe doạ, làm tổn thương, xấu hổ hoặc cố tình gây ra ảnh hưởng tiêu cực đến người khác.",
+    options: ["Cyberbullying", "Challenging", "Policing", "Tweeting"],
+    answer: "Cyberbullying",
+    explanation: "Cyberbullying (bắt nạt trực tuyến) là hành vi sử dụng công nghệ số để quấy rối, đe dọa, làm bẽ mặt hay gây tổn hại tâm lý cho người khác — một vấn đề nghiêm trọng đặc biệt với thanh thiếu niên."
+  }
+  ,
+  {
+    id: 228, level: "IC3_LEVEL2", test: 1,
+    category: "CYBERSECURITY", difficulty: "easy",
+    type: "single",
+    question: "Phát biểu sau đây là Đúng hay Sai: 'Nếu một cá nhân tận mắt chứng kiến hành vi nguy hiểm, bất hợp pháp hoặc gây hại, thì hành động thích hợp là báo cho nhà chức trách.'",
+    options: ["Đúng", "Sai"],
+    answer: "Đúng",
+    explanation: "Đúng. Báo cáo hành vi nguy hiểm hoặc bất hợp pháp trực tuyến cho nhà chức trách (cơ quan thực thi pháp luật, nền tảng mạng xã hội...) là trách nhiệm của công dân kỹ thuật số có ý thức."
+  }
+  ,
+  {
+    id: 229, level: "IC3_LEVEL2", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "matching",
+    question: "Một người bạn của bạn bị bắt nạt. Bạn ấy cần báo cáo hành vi bắt nạt với ai? Nối từng hành vi bắt nạt với cơ quan có thẩm quyền phù hợp.",
+    left: [
+      "Kẻ bắt nạt đăng những lời lẽ tấn công bạn trên một tài khoản mạng xã hội bị tấn công.",
+      "Kẻ bắt nạt viết lời lẽ từ bài đăng trên mạng xã hội liên tục khoá trong lớp thể dục của người bạn kia.",
+      "Kẻ bắt nạt đe dọa sẽ gây tổn thương thể chất tới bạn của bạn."
+    ],
+    right: ["Nhà cung cấp mạng xã hội", "Khoa trong trường", "Cơ quan hành pháp"],
+    answer: {
+      "Kẻ bắt nạt đăng những lời lẽ tấn công bạn trên một tài khoản mạng xã hội bị tấn công.": "Nhà cung cấp mạng xã hội",
+      "Kẻ bắt nạt viết lời lẽ từ bài đăng trên mạng xã hội liên tục khoá trong lớp thể dục của người bạn kia.": "Khoa trong trường",
+      "Kẻ bắt nạt đe dọa sẽ gây tổn thương thể chất tới bạn của bạn.": "Cơ quan hành pháp"
+    },
+    explanation: "Báo cáo đúng kênh: tấn công trên mạng xã hội → báo platform. Bắt nạt trong trường học → báo ban quản lý trường. Đe dọa bạo lực thể chất → báo cảnh sát ngay lập tức."
+  }
+  ,
+  {
+    id: 230, level: "IC3_LEVEL2", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "matching",
+    question: "Một trách nhiệm của việc trở thành công dân kĩ thuật số tốt là báo cáo hành vi nguy hiểm. Chọn Đúng nếu hành vi là nguy hiểm/bất hợp pháp/có hại, Sai nếu không.",
+    left: [
+      "Sau khi lướt qua một vài trang Web chơi Game, một trang bật lên (Pop Up) yêu cầu trả tiền để mở khóa máy tính của bạn.",
+      "Yêu cầu bạn phải tạo một tài khoản để truy cập các chương trình giảm giá. Tài khoản muốn tên, địa chỉ, điện thoại và ngày sinh của bạn.",
+      "Tạo nhiều hồ sơ trên một trang mạng xã hội — một hồ sơ cho mục đích cá nhân và một hồ sơ cho mục đích kinh doanh.",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào liên kết để đăng nhập."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Sau khi lướt qua một vài trang Web chơi Game, một trang bật lên (Pop Up) yêu cầu trả tiền để mở khóa máy tính của bạn.": "Đúng",
+      "Yêu cầu bạn phải tạo một tài khoản để truy cập các chương trình giảm giá. Tài khoản muốn tên, địa chỉ, điện thoại và ngày sinh của bạn.": "Sai",
+      "Tạo nhiều hồ sơ trên một trang mạng xã hội — một hồ sơ cho mục đích cá nhân và một hồ sơ cho mục đích kinh doanh.": "Sai",
+      "Bạn nhận được Email thông báo tài khoản ngân hàng bị xâm phạm và hướng dẫn nhấp vào liên kết để đăng nhập.": "Đúng"
+    },
+    explanation: "Pop-up đòi tiền chuộc = Ransomware → nguy hiểm. Email ngân hàng đòi nhấp link = Phishing → nguy hiểm. Thu thập thông tin để đăng ký giảm giá là bình thường. Tạo hai hồ sơ riêng biệt là hợp pháp."
+  }
+  ,
+  {
+    id: 231, level: "IC3_LEVEL2", test: 1,
+    category: "CYBERSECURITY", difficulty: "medium",
+    type: "multiple",
+    question: "Nếu một thách thức Internet gây ra rủi ro về sức khỏe và liên quan đến hoạt động bất hợp pháp, thì điều đó nên được báo cho ai? (Chọn 2)",
+    options: [
+      "Nền tảng truyền thông xã hội của bài viết",
+      "Một người bạn",
+      "Một cuộc trò chuyện nhóm",
+      "Ông bà",
+      "Cảnh sát"
+    ],
+    answer: ["Nền tảng truyền thông xã hội của bài viết", "Cảnh sát"],
+    explanation: "Nội dung gây hại và bất hợp pháp cần được báo cáo cho: (1) nền tảng mạng xã hội (để gỡ xuống nhanh chóng), (2) cảnh sát (vì vi phạm pháp luật cần cơ quan thực thi xử lý)."
+  }
+  ,
+  {
+    id: 232, level: "IC3_LEVEL2", test: 2,
+    category: "ONLINE_SAFETY", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang đánh giá độ tin cậy của thông tin được tìm thấy trực tuyến. Người dùng có thể tin tưởng vào tiêu đề URL nào khi nhập thông tin thẻ tín dụng?",
+    options: [".com", "https://", "www.", "http://"],
+    answer: "https://",
+    explanation: "HTTPS (HyperText Transfer Protocol Secure) mã hóa dữ liệu truyền tải giữa trình duyệt và máy chủ. Ký tự 's' trong 'https' đảm bảo kết nối được mã hóa SSL/TLS — bắt buộc khi nhập thông tin nhạy cảm như thẻ tín dụng."
   }
 
 ];
