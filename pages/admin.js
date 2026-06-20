@@ -1,5 +1,7 @@
 import { CONFIG } from '../config.js';
 
+import { getLicenseTabHTML, getLicenseTabScript } from './license-ui.js';
+
 export function getAdminDashboardUI() {
     return `
 <div style="max-width:1400px; margin:20px auto; padding:0 15px;">
@@ -11,8 +13,9 @@ export function getAdminDashboardUI() {
             <p style="color:#64748b; font-size:0.85rem; margin-top:4px;">Quản lý học viên MOS360</p>
         </div>
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button onclick="document.getElementById('tabStudents').style.display='block';document.getElementById('tabPromo').style.display='none';this.style.background='#1e2235'" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">👥 Học viên</button>
-            <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='block'" style="padding:9px 18px; background:rgba(255,87,34,0.15); border:1px solid rgba(255,87,34,0.4); color:#FF5722; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔥 Khuyến mãi</button>
+            <button onclick="document.getElementById('tabStudents').style.display='block';document.getElementById('tabPromo').style.display='none';document.getElementById('tabLicense').style.display='none';" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">👥 Học viên</button>
+            <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='block';document.getElementById('tabLicense').style.display='none';" style="padding:9px 18px; background:rgba(255,87,34,0.15); border:1px solid rgba(255,87,34,0.4); color:#FF5722; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔥 Khuyến mãi</button>
+            <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='none';document.getElementById('tabLicense').style.display='block';loadLicenseList();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔑 Cấp mật khẩu</button>
             <button onclick="loadDashboard()" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔄 Làm mới</button>
             <button onclick="showAddStudentModal()" style="padding:9px 18px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:#fff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">➕ Thêm học viên</button>
         </div>
@@ -92,6 +95,9 @@ export function getAdminDashboardUI() {
         </div>
       </div>
     </div>
+
+    <!-- TAB CẤP MẬT KHẨU -->
+    ${getLicenseTabHTML()}
 
     <!-- TAB HỌC VIÊN -->
     <div id="tabStudents">
@@ -492,5 +498,7 @@ function updatePromoPreview() {
     + (subtitle ? ' — ' + subtitle : '')
     + countdown + ' <span style="opacity:0.7">← Banner preview</span></div>';
 }
+
+${getLicenseTabScript()}
 </script>`;
 }

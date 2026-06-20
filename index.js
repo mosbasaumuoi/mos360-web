@@ -12,6 +12,7 @@ import { getProgressUI } from "./pages/progress.js";
 import { getFlashcardUI } from "./pages/flashcard.js";
 import { getIC3IntroUI, getGenAIIntroUI } from "./pages/course-intro.js";
 import { handleAdminAPI } from "./api/admin-api.js";
+import { handleLicenseAPI } from "./api/license-api.js";
 
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
@@ -251,6 +252,11 @@ export default {
         // ===== ADMIN API =====
         if (path.startsWith("/api/admin/")) {
             return handleAdminAPI(path, request, env);
+        }
+
+        // ===== LICENSE API (cấp mật khẩu Excel/Word/PPT) =====
+        if (path.startsWith("/api/license/")) {
+            return handleLicenseAPI(path, request, env);
         }
 
         // ===== FIX 3: API xác thực =====
