@@ -519,7 +519,7 @@ export default {
     </head><body>
 
     <header>
-        <a href="/" class="brand"><img src="${CONFIG.LOGO_URL}"> MOS360</a>
+        <a href="/" class="brand"><span style="color:#FF5722">MOS</span><span style="color:#0052CC">360</span></a>
         <nav>
             <a href="/">TRANG CHỦ</a>
             <a href="/courses">KHÓA HỌC</a>
@@ -682,7 +682,6 @@ export default {
       <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FF5722,#ff8a65);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:1rem;flex-shrink:0">${t.name.charAt(0)}</div>
       <div>
         <div style="font-size:0.88rem;font-weight:700;color:var(--text)">${t.name}</div>
-        <div style="font-size:0.75rem;color:#22c55e;font-weight:700">${t.score}</div>
       </div>
     </div>
     <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;font-style:italic">"${t.text}"</p>
@@ -732,7 +731,7 @@ ${bannerHtml}
 .hn-hero { min-height:90vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:80px 24px 60px; position:relative; overflow:hidden; }
 .hn-hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 20%,rgba(255,87,34,0.05),transparent 70%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(0,82,204,0.07),transparent 60%),radial-gradient(ellipse 40% 30% at 20% 60%,rgba(0,82,204,0.04),transparent 60%); }
 .hn-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(0,38,100,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,38,100,0.03) 1px,transparent 1px); background-size:48px 48px; mask-image:radial-gradient(ellipse 80% 80% at 50% 30%,black,transparent 70%); }
-.hn-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,87,34,0.1); border:1px solid rgba(255,87,34,0.3); border-radius:100px; padding:6px 16px; font-size:0.78rem; font-weight:700; color:var(--p); letter-spacing:0.5px; margin-bottom:20px; }
+.hn-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,87,34,0.1); border:1px solid rgba(255,87,34,0.3); border-radius:100px; padding:8px 18px; font-size:0.92rem; font-weight:700; color:var(--p); letter-spacing:0.5px; margin-bottom:20px; }
 .hn-h1 { font-size:clamp(1.9rem,5.5vw,3.6rem); font-weight:900; line-height:1.12; letter-spacing:-1px; margin-bottom:8px; }
 .hn-h1 .g1 { background:linear-gradient(135deg,#FF5722,#ff8a65); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .hn-h1 .g2 { background:linear-gradient(135deg,var(--cyan),#2684FF); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
@@ -743,7 +742,7 @@ ${bannerHtml}
 .hn-btn-s { padding:13px 28px; background:rgba(15,23,42,0.06); color:var(--text); border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; border:1px solid rgba(15,23,42,0.08); transition:all 0.15s; }
 .hn-btn-s:hover { background:rgba(15,23,42,0.06); }
 .hn-stats { display:flex; gap:36px; justify-content:center; margin-top:52px; flex-wrap:wrap; }
-.hn-stat .num { font-size:1.8rem; font-weight:800; color:var(--text); font-family:monospace; }
+.hn-stat .num { font-size:2.6rem; font-weight:800; color:var(--text); font-family:monospace; }
 .hn-stat .num span { color:var(--p); }
 .hn-stat .lbl { font-size:0.73rem; color:var(--muted); font-weight:600; margin-top:2px; }
 
@@ -882,7 +881,7 @@ ${mode === 'register' ? `
   <div class="hn-hero-bg"></div>
   <div class="hn-grid"></div>
   <div style="position:relative;z-index:1">
-    <div class="hn-badge">✦ Trung tâm MOS360 · Hải Phòng</div>
+    <div class="hn-badge">✦ Trung tâm tin học MOS360</div>
     <h1 class="hn-h1" style="font-size:1.9rem">📝 Đăng ký & Tra cứu</h1>
     <p class="hn-sub">Đăng ký học · Đăng ký thi MOS · Đăng ký học Offline · Tra cứu thông tin dự thi — tất cả trong một trang.</p>
     <div class="hn-acts">
@@ -896,7 +895,7 @@ ${mode === 'register' ? `
   <div class="hn-hero-bg"></div>
   <div class="hn-grid"></div>
   <div style="position:relative;z-index:1">
-    <div class="hn-badge">✦ Trung tâm MOS360 · Hải Phòng</div>
+    <div class="hn-badge">✦ Trung tâm tin học MOS360</div>
     <h1 class="hn-h1">Xóa tan nỗi lo<br><span class="g1">chuẩn đầu ra</span> <span class="g2">cho sinh viên</span></h1>
     <p class="hn-sub">Học thật · Tiến bộ thật · Làm được thật.<br>MOS chỉ là chứng nhận — kỹ năng mới là tài sản thật sự.</p>
     <div class="hn-acts">
@@ -904,10 +903,9 @@ ${mode === 'register' ? `
       <a href="/register#hn-register" class="hn-btn-s">Đăng ký ngay</a>
     </div>
     <div class="hn-stats">
-      <div class="hn-stat"><div class="num">700<span>+</span></div><div class="lbl">Bằng văn bản</div></div>
-      <div class="hn-stat"><div class="num">98<span>%</span></div><div class="lbl">Sát đề thi thật</div></div>
-      <div class="hn-stat"><div class="num">1<span>:1</span></div><div class="lbl">Hỗ trợ trực tiếp</div></div>
-      <div class="hn-stat"><div class="num">100<span>%</span></div><div class="lbl">Cam kết đầu ra</div></div>
+      <div class="hn-stat"><div class="num" data-target="2000" data-suffix="+">0</div><div class="lbl">Học viên</div></div>
+      <div class="hn-stat"><div class="num" data-target="100" data-suffix="%">0</div><div class="lbl">Thi đậu lần đầu</div></div>
+      <div class="hn-stat"><div class="num" data-target="700" data-suffix="+">0</div><div class="lbl">Cam kết bằng văn bản</div></div>
     </div>
   </div>
 </div>
@@ -921,7 +919,7 @@ ${mode !== 'register' ? `
   <div class="hn-inner">
     <div class="hn-tag">🏆 Bảng vàng</div>
     <h2 class="hn-h2">Chứng chỉ Quốc tế của học viên MOS360</h2>
-    <p class="hn-desc" style="margin-bottom:20px">Hơn 700 học viên đã nhận chứng chỉ MOS & IC3 từ Certiport. Kết quả thật — không làm đẹp.</p>
+    <p class="hn-desc" style="margin-bottom:20px">Hơn 700 học viên đã nhận chứng chỉ MOS & IC3 từ Certiport.</p>
     <div class="hn-bvang">
       <div class="hn-bvang-hdr">🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</div>
       <div style="height:520px; overflow:hidden; padding:4px;">
@@ -1001,7 +999,7 @@ ${promoSectionHtml}
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi IC3 GS6 — Level 1</div>
           <div class="hn-cdesc">Computing Fundamentals. Kiến thức nền tảng về máy tính, phần cứng, phần mềm, mạng và công dân số.</div>
-          <div class="hn-cprice" style="color:#16a34a;">100.000đ <span class="old">250.000đ</span></div>
+          <div class="hn-cprice" style="color:#16a34a;">100.000đ <span class="old">300.000đ</span></div>
           <div class="hn-cbtns">
             <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <a href="/ic3-lv1" class="hn-cbtn-s">▶ Học thử</a>
@@ -1019,7 +1017,7 @@ ${promoSectionHtml}
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi IC3 GS6 — Level 2</div>
           <div class="hn-cdesc">Key Applications. Kỹ năng sử dụng Word, Excel, PowerPoint và các ứng dụng văn phòng thực tế.</div>
-          <div class="hn-cprice" style="color:#d97706;">100.000đ <span class="old">250.000đ</span></div>
+          <div class="hn-cprice" style="color:#d97706;">100.000đ <span class="old">300.000đ</span></div>
           <div class="hn-cbtns">
             <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <a href="/ic3-lv2" class="hn-cbtn-s">▶ Học thử</a>
@@ -1037,7 +1035,7 @@ ${promoSectionHtml}
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi IC3 GS6 — Level 3</div>
           <div class="hn-cdesc">Living Online. Làm việc và giao tiếp trực tuyến, an toàn mạng, cộng tác số nâng cao.</div>
-          <div class="hn-cprice" style="color:#dc2626;">100.000đ <span class="old">250.000đ</span></div>
+          <div class="hn-cprice" style="color:#dc2626;">100.000đ <span class="old">300.000đ</span></div>
           <div class="hn-cbtns">
             <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <a href="/ic3-lv3" class="hn-cbtn-s">▶ Học thử</a>
@@ -1545,6 +1543,26 @@ function closeVideoModal() {
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeVideoModal(); });
 
+// Hiệu ứng đếm số động cho khu vực thống kê (hero stats)
+function animateStatNum(el) {
+  var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+  var suffix = el.getAttribute('data-suffix') || '';
+  var duration = 1400; // ms
+  var startTime = null;
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    var current = Math.round(target * eased);
+    el.innerHTML = current + '<span>' + suffix + '</span>';
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var nums = document.querySelectorAll('.hn-stat .num[data-target]');
+  nums.forEach(function(el) { animateStatNum(el); });
+});
 </script>
 
 <script>// Accordion register
@@ -1818,7 +1836,7 @@ async function hnDoLookup() {
                     <span style="background:rgba(22,163,74,0.12); color:#16a34a; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">IC3 GS6 · Level 1</span>
                     <h3 style="margin:12px 0 8px 0; font-size:1.1rem; color:#16a34a;">IC3 GS6 — Level 1</h3>
                     <p style="color:var(--muted); font-size:0.82rem; line-height:1.5;">Computing Fundamentals. Luyện tập tự do và thi thử tính giờ.</p>
-                    <div class="price-tag" style="color:#16a34a;">100.000đ <span>250.000đ</span></div>
+                    <div class="price-tag" style="color:#16a34a;">100.000đ <span>300.000đ</span></div>
                     <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#16a34a;background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
@@ -1833,7 +1851,7 @@ async function hnDoLookup() {
                     <span style="background:rgba(217,119,6,0.12); color:#d97706; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">IC3 GS6 · Level 2</span>
                     <h3 style="margin:12px 0 8px 0; font-size:1.1rem; color:#d97706;">IC3 GS6 — Level 2</h3>
                     <p style="color:var(--muted); font-size:0.82rem; line-height:1.5;">Key Applications. Luyện tập tự do và thi thử tính giờ.</p>
-                    <div class="price-tag" style="color:#d97706;">100.000đ <span>250.000đ</span></div>
+                    <div class="price-tag" style="color:#d97706;">100.000đ <span>300.000đ</span></div>
                     <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#d97706;background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
@@ -1848,7 +1866,7 @@ async function hnDoLookup() {
                     <span style="background:rgba(220,38,38,0.12); color:#dc2626; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">IC3 GS6 · Level 3</span>
                     <h3 style="margin:12px 0 8px 0; font-size:1.1rem; color:#dc2626;">IC3 GS6 — Level 3</h3>
                     <p style="color:var(--muted); font-size:0.82rem; line-height:1.5;">Living Online. Luyện tập tự do và thi thử tính giờ.</p>
-                    <div class="price-tag" style="color:#dc2626;">100.000đ <span>250.000đ</span></div>
+                    <div class="price-tag" style="color:#dc2626;">100.000đ <span>300.000đ</span></div>
                     <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#dc2626;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
@@ -2112,8 +2130,21 @@ async function triggerRemoteVerification(courseName) {
         .btn-summary { padding: 10px 16px; background: #EFF6FF; border: 1px solid #BFDBFE; color: #1D4ED8; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.82rem; flex: 1; }
         .summary-overlay { display: none; position: absolute; inset: 0; background: #F0F4FA; z-index: 1000; flex-direction: column; padding: 24px 20px; border-radius: 12px; overflow-y: auto; }
         .summary-overlay.visible { display: flex; }
-        .summary-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin: 16px 0; }
-        @media (max-width: 600px) { .summary-grid { grid-template-columns: repeat(5, 1fr); } }
+        .summary-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem; }
+        .summary-table th { text-align: left; padding: 10px 12px; background: #EEF3FB; color: var(--muted); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; position: sticky; top: 0; }
+        .summary-table th:first-child { border-radius: 8px 0 0 8px; width: 70px; text-align: center; }
+        .summary-table th:last-child { border-radius: 0 8px 8px 0; width: 160px; }
+        .summary-row { cursor: pointer; transition: background 0.15s; }
+        .summary-row:hover { background: rgba(0,82,204,0.05); }
+        .summary-row td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .summary-row td:first-child { text-align: center; font-weight: 800; color: var(--muted); }
+        .summary-row.is-current td:first-child { color: var(--cyan); }
+        .summary-qtext { color: var(--text); line-height: 1.4; }
+        .summary-status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; font-weight: 700; padding: 4px 10px; border-radius: 100px; white-space: nowrap; }
+        .summary-status.st-answered { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .summary-status.st-unanswered { background: rgba(148,163,184,0.15); color: var(--muted); }
+        .summary-status.st-marked { background: rgba(245,158,11,0.14); color: #C2410C; margin-left: 6px; }
+        @media (max-width: 600px) { .summary-table { font-size: 0.78rem; } .summary-table th:nth-child(2), .summary-row td:nth-child(2) { max-width: 140px; } .summary-status { font-size: 0.7rem; padding: 3px 8px; } }
         .summary-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
         .summary-legend span { display: inline-flex; align-items: center; gap: 5px; }
         .summary-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
@@ -2357,13 +2388,13 @@ async function triggerRemoteVerification(courseName) {
                 <div class="summary-overlay" id="summaryOverlay">
                     <h2 style="color:var(--text); margin-bottom:4px; font-size:1.15rem;">📋 TỔNG QUAN BÀI THI</h2>
                     <p style="font-size:0.85rem; color:var(--muted); margin-bottom:4px;" id="summaryStats"></p>
-                    <div class="summary-legend">
-                        <span><i style="background:#CFD8EA;"></i> Đã làm</span>
-                        <span><i style="background:#EEF3FB; box-shadow: inset 0 0 0 2px #f59e0b;"></i> Đã đánh dấu xem lại</span>
-                        <span><i style="background:#EEF3FB;"></i> Chưa làm</span>
+                    <div style="overflow-x:auto; overflow-y:auto; max-height:60vh; border:1px solid var(--border); border-radius:10px;">
+                        <table class="summary-table">
+                            <thead><tr><th>Số câu</th><th>Nội dung câu hỏi</th><th>Tình trạng</th></tr></thead>
+                            <tbody id="summaryGrid"></tbody>
+                        </table>
                     </div>
-                    <div class="summary-grid" id="summaryGrid"></div>
-                    <div style="display:flex; gap:10px; margin-top:10px;">
+                    <div style="display:flex; gap:10px; margin-top:14px;">
                         <button class="btn-ctrl" style="flex:1;" onclick="hideSummaryScreen()">← QUAY LẠI LÀM BÀI</button>
                         <button class="btn-ctrl btn-submit" style="flex:1;" onclick="submitExamNow()">NỘP BÀI CHẤM ĐIỂM</button>
                     </div>
@@ -2876,20 +2907,28 @@ async function triggerRemoteVerification(courseName) {
 
     // ===== TỔNG QUAN BÀI THI (Go to Summary) =====
     function showSummaryScreen() {
-        var grid = document.getElementById('summaryGrid');
-        grid.innerHTML = '';
+        var tbody = document.getElementById('summaryGrid');
+        var rows = '';
         var answeredCount = 0, markedCount = 0;
         for (var i = 0; i < qCount; i++) {
-            var d = document.createElement('div');
-            var cls = 'nav-item';
             var answered = isAnswered(i);
-            if (answered) { cls += ' answered'; answeredCount++; }
-            if (markedForReview[i]) { cls += ' marked'; markedCount++; }
-            d.className = cls;
-            d.textContent = i + 1;
-            (function(idx){ d.onclick = function() { jumpFromSummary(idx); }; })(i);
-            grid.appendChild(d);
+            var marked = !!markedForReview[i];
+            if (answered) answeredCount++;
+            if (marked) markedCount++;
+            var qText = (list[i] && list[i].q) ? list[i].q.replace(/^\[Câu \d+\]\s*/, '') : '';
+            if (qText.length > 90) qText = qText.slice(0, 90) + '…';
+            var statusHtml = answered
+                ? '<span class="summary-status st-answered">✓ Đã làm</span>'
+                : '<span class="summary-status st-unanswered">○ Chưa làm</span>';
+            if (marked) statusHtml += '<span class="summary-status st-marked">🚩 Đánh dấu</span>';
+            var rowCls = 'summary-row' + (i === cur ? ' is-current' : '');
+            rows += '<tr class="' + rowCls + '" onclick="jumpFromSummary(' + i + ')">' +
+                '<td>' + (i + 1) + '</td>' +
+                '<td class="summary-qtext">' + qText.replace(/</g,'&lt;') + '</td>' +
+                '<td>' + statusHtml + '</td>' +
+                '</tr>';
         }
+        tbody.innerHTML = rows;
         document.getElementById('summaryStats').textContent =
             'Đã làm: ' + answeredCount + '/' + qCount + ' câu · Đã đánh dấu xem lại: ' + markedCount + ' câu';
         document.getElementById('summaryOverlay').classList.add('visible');
