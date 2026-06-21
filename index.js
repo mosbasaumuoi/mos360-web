@@ -14,6 +14,7 @@ import { getIC3IntroUI, getGenAIIntroUI } from "./pages/course-intro.js";
 import { getLicenseRequestUI } from "./pages/license-request.js";
 import { handleAdminAPI } from "./api/admin-api.js";
 import { handleLicenseAPI } from "./api/license-api.js";
+import { handleResultAPI } from "./api/result-api.js";
 
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
@@ -258,6 +259,11 @@ export default {
         // ===== LICENSE API (cấp mật khẩu Excel/Word/PPT) =====
         if (path.startsWith("/api/license/")) {
             return handleLicenseAPI(path, request, env);
+        }
+
+        // ===== RESULT API (kết quả Học/Thi từ WinApp) =====
+        if (path === "/api/submit-result" || path === "/api/results") {
+            return handleResultAPI(path, request, env);
         }
 
         // ===== FIX 3: API xác thực =====
