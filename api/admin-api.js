@@ -81,9 +81,7 @@ export async function handleAdminAPI(path, request, env) {
         }
     }
 
-    // GET /api/admin/promo — lấy cấu hình khuyến mãi hiện tại
-    // (dùng cho trang admin dashboard nạp lại form khi mở lại; trang chủ đọc trực tiếp
-    // từ KV trong index.js, không qua route này)
+    // GET /api/admin/promo — lấy cấu hình KM hiện tại
     if (path === '/api/admin/promo' && request.method === 'GET') {
         try {
             const raw = await env.MOS360_USERS_KV.get('promo_config');
@@ -104,7 +102,7 @@ export async function handleAdminAPI(path, request, env) {
         }
     }
 
-    // POST /api/admin/promo — lưu cấu hình khuyến mãi
+    // POST /api/admin/promo — lưu cấu hình KM
     if (path === '/api/admin/promo' && request.method === 'POST') {
         try {
             const body = await request.json();

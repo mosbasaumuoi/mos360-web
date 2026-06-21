@@ -203,6 +203,18 @@ function addDaysUTC(date, days) {
     return d;
 }
 
+// "Hôm nay" theo NGÀY DƯƠNG LỊCH Việt Nam (UTC+7), không phải ngày UTC của máy chủ.
+// Quan trọng: Cloudflare Workers chạy giờ UTC. Nếu lấy thẳng new Date() rồi đọc
+// getUTCFullYear/Month/Date(), trong khung 00:00–06:59 giờ VN (= 17:00–23:59 UTC
+// hôm trước) sẽ tính NHẦM "hôm nay" là ngày hôm trước theo lịch VN — lệch 1 ngày
+// so với app C# gốc chạy theo giờ hệ thống Việt Nam. Cộng 7 giờ trước khi đọc Y/M/D
+// để luôn khớp đúng ngày dương lịch mà admin tại Việt Nam đang thấy trên máy họ.
+function todayVietnam() {
+    const now = new Date();
+    const vnShifted = new Date(now.getTime() + 7 * 60 * 60 * 1000);
+    return new Date(Date.UTC(vnShifted.getUTCFullYear(), vnShifted.getUTCMonth(), vnShifted.getUTCDate()));
+}
+
 // Base64Decode(randomID) → { mac, ngayHocVienGui }
 // randomID = Base64( mac + "yyyyMMdd" )  → 8 ký tự cuối luôn là ngày
 function decodeRandomID(randomID) {
@@ -255,8 +267,7 @@ export async function handleLicenseAPI(path, request, env) {
 
             const { mac } = decodeRandomID(randomID);
 
-            const today = new Date();
-            const todayUTC = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
+            const todayUTC = todayVietnam();
             const expireDate = addDaysUTC(todayUTC, 60);
 
             const results = [];
