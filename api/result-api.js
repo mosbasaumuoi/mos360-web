@@ -194,29 +194,43 @@ async function handleGetResults(request, env) {
 // ───────────────────────── GET /api/results/stats ─────────────────────────
 // Thống kê tổng toàn hệ thống theo khung thời gian — không cần biết
 // trước SĐT nào. Dùng cho khối số liệu tổng quan ở đầu tab Thống kê.
-// Query: ?range=today | 7days | 30days  (mặc định: today)
+// Query: ?range=today | 7days | 30days | 365days | all  (mặc định: today)
+
+const RANGE_DAYS_MAP = { today: 1, "7days": 7, "30days": 30, "365days": 365 };
 
 async function handleGetStats(request, env) {
     const url = new URL(request.url);
     const range = (url.searchParams.get("range") || "today").trim();
 
-    const rangeDaysMap = { today: 1, "7days": 7, "30days": 30 };
-    const numDays = rangeDaysMap[range] || 1;
-
     try {
-        const now = new Date();
-        const allKeys = [];
+        // Liệt kê TẤT CẢ ngày thực sự có dữ liệu qua KV.list (mỗi ngày có nộp bài
+        // chỉ tạo đúng 1 key all_results:yyyy-MM-dd) — tránh đoán trước số ngày
+        // rồi gọi GET lãng phí cho hàng trăm ngày trống. Cách này dùng chung được
+        // cho mọi khung thời gian, kể cả "365 ngày" lẫn "toàn bộ", mà tốc độ chỉ
+        // phụ thuộc số ngày THỰC SỰ có dữ liệu, không phụ thuộc độ dài khung lọc.
+        // Lưu ý: KV.list() trả tối đa 1000 key/lần — đủ dùng cho ~2.7 năm dữ liệu
+        // (mỗi ngày 1 key); nếu vận hành lâu hơn sẽ cần thêm phân trang qua cursor.
+        const listResult = await env.MOS360_USERS_KV.list({ prefix: "all_results:" });
+        let dayKeyNames = listResult.keys.map(k => k.name);
 
-        // Duyệt ngược từ hôm nay về trước numDays ngày, gom hết resultKey
-        for (let i = 0; i < numDays; i++) {
-            const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
-            const dayKey = "all_results:" + formatDateVN(d);
-            const dayRaw = await env.MOS360_USERS_KV.get(dayKey);
-            if (dayRaw) {
-                const dayList = JSON.parse(dayRaw);
-                allKeys.push(...dayList);
-            }
+        if (range !== "all") {
+            const numDays = RANGE_DAYS_MAP[range] || 1;
+            const now = new Date();
+            const cutoffDateStr = formatDateVN(new Date(now.getTime() - (numDays - 1) * 24 * 60 * 60 * 1000));
+            // Key dạng "all_results:yyyy-MM-dd" — so sánh chuỗi trực tiếp an toàn
+            // vì định dạng ngày luôn zero-pad cố định độ dài.
+            dayKeyNames = dayKeyNames.filter(name => name.slice("all_results:".length) >= cutoffDateStr);
         }
+
+        // Lấy song song toàn bộ day-index (nhanh hơn nhiều so với vòng lặp tuần tự
+        // — quan trọng khi range lớn như 365days/all, có thể tới hàng trăm ngày)
+        const dayLists = await Promise.all(
+            dayKeyNames.map(async (dayKey) => {
+                const dayRaw = await env.MOS360_USERS_KV.get(dayKey);
+                return dayRaw ? JSON.parse(dayRaw) : [];
+            })
+        );
+        const allKeys = dayLists.flat();
 
         const records = await Promise.all(
             allKeys.map(async (key) => {

@@ -19,6 +19,8 @@ export function getResultStatsTabHTML() {
             <button class="rs-range-btn" data-range="today" onclick="loadResultStats('today')" style="padding:7px 14px;background:#00f2ff;border:none;color:#04111a;border-radius:7px;font-weight:800;cursor:pointer;font-size:0.78rem;">Hôm nay</button>
             <button class="rs-range-btn" data-range="7days" onclick="loadResultStats('7days')" style="padding:7px 14px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:7px;font-weight:700;cursor:pointer;font-size:0.78rem;">7 ngày</button>
             <button class="rs-range-btn" data-range="30days" onclick="loadResultStats('30days')" style="padding:7px 14px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:7px;font-weight:700;cursor:pointer;font-size:0.78rem;">30 ngày</button>
+            <button class="rs-range-btn" data-range="365days" onclick="loadResultStats('365days')" style="padding:7px 14px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:7px;font-weight:700;cursor:pointer;font-size:0.78rem;">1 năm</button>
+            <button class="rs-range-btn" data-range="all" onclick="loadResultStats('all')" style="padding:7px 14px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:7px;font-weight:700;cursor:pointer;font-size:0.78rem;">Toàn bộ</button>
           </div>
         </div>
 
