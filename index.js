@@ -962,7 +962,7 @@ ${mode !== 'register' ? `
 <div class="hn-section" style="padding:56px 24px">
   <div class="hn-inner">
     <div class="hn-tag">💬 Học viên nói gì</div>
-    <h2 class="hn-h2">Kết quả thật từ học viên MOS360</h2>
+    <h2 class="hn-h2">Đánh giá từ học viên MOS360</h2>
     <p class="hn-desc" style="margin-bottom:24px">100% đề xuất · 68+ lượt đánh giá · Điểm số xác thực từ hệ thống Certiport.</p>
     <div class="hn-tscroll">${testimonialsHtml}</div>
   </div>
