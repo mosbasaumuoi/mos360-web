@@ -20,6 +20,12 @@
 //            totalCount, domains, submittedAt }
 //   Key phụ (danh sách key, để liệt kê nhanh không cần KV.list quét toàn bộ):
 //   results_index:{phone} -> [resultKey, resultKey, ...]  (mới nhất ở đầu, tối đa 200)
+//
+// Index theo NGÀY (giờ Việt Nam, UTC+7) — phục vụ thống kê tổng toàn hệ
+// thống mà không cần biết trước SĐT nào:
+//   Key:   all_results:{yyyy-MM-dd} -> [resultKey, resultKey, ...]
+//   Dùng để gộp lên "hôm nay / 7 ngày / 30 ngày" bằng cách duyệt qua các
+//   ngày liên tiếp, không cần KV.list quét toàn bộ namespace.
 // ============================================================
 
 // Secret riêng cho WinApp — KHÔNG dùng chung với token admin "mos360admin2026".
@@ -41,6 +47,10 @@ export async function handleResultAPI(path, request, env) {
 
     if (path === "/api/results" && request.method === "GET") {
         return handleGetResults(request, env);
+    }
+
+    if (path === "/api/results/stats" && request.method === "GET") {
+        return handleGetStats(request, env);
     }
 
     return json({ success: false, msg: "Result API not found" }, 404);
@@ -114,6 +124,7 @@ async function handleSubmitResult(request, env) {
     };
 
     const resultKey = "results:" + phone + ":" + now.getTime();
+    const dayKey = "all_results:" + formatDateVN(now);
 
     try {
         await env.MOS360_USERS_KV.put(resultKey, JSON.stringify(resultRecord));
@@ -126,6 +137,13 @@ async function handleSubmitResult(request, env) {
         existingList.unshift(resultKey);
         const trimmed = existingList.slice(0, MAX_RESULTS_PER_STUDENT);
         await env.MOS360_USERS_KV.put(listKey, JSON.stringify(trimmed));
+
+        // Cập nhật index theo ngày (giờ VN) — phục vụ thống kê tổng,
+        // không giới hạn số lượng vì 1 ngày khó vượt quá vài trăm lượt nộp.
+        const dayRaw = await env.MOS360_USERS_KV.get(dayKey);
+        const dayList = dayRaw ? JSON.parse(dayRaw) : [];
+        dayList.push(resultKey);
+        await env.MOS360_USERS_KV.put(dayKey, JSON.stringify(dayList));
     } catch (e) {
         return json({ success: false, msg: "Lỗi lưu kết quả: " + e.message }, 500);
     }
@@ -173,6 +191,70 @@ async function handleGetResults(request, env) {
     }
 }
 
+// ───────────────────────── GET /api/results/stats ─────────────────────────
+// Thống kê tổng toàn hệ thống theo khung thời gian — không cần biết
+// trước SĐT nào. Dùng cho khối số liệu tổng quan ở đầu tab Thống kê.
+// Query: ?range=today | 7days | 30days  (mặc định: today)
+
+async function handleGetStats(request, env) {
+    const url = new URL(request.url);
+    const range = (url.searchParams.get("range") || "today").trim();
+
+    const rangeDaysMap = { today: 1, "7days": 7, "30days": 30 };
+    const numDays = rangeDaysMap[range] || 1;
+
+    try {
+        const now = new Date();
+        const allKeys = [];
+
+        // Duyệt ngược từ hôm nay về trước numDays ngày, gom hết resultKey
+        for (let i = 0; i < numDays; i++) {
+            const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+            const dayKey = "all_results:" + formatDateVN(d);
+            const dayRaw = await env.MOS360_USERS_KV.get(dayKey);
+            if (dayRaw) {
+                const dayList = JSON.parse(dayRaw);
+                allKeys.push(...dayList);
+            }
+        }
+
+        const records = await Promise.all(
+            allKeys.map(async (key) => {
+                const raw = await env.MOS360_USERS_KV.get(key);
+                return raw ? JSON.parse(raw) : null;
+            })
+        );
+        const valid = records.filter(Boolean);
+
+        // Tổng hợp số liệu
+        const bySubject = { excel: 0, word: 0, ppt: 0 };
+        const byType = { learn: 0, test: 0 };
+        let totalScore = 0;
+        const uniquePhones = new Set();
+
+        for (const r of valid) {
+            if (bySubject[r.subject] !== undefined) bySubject[r.subject]++;
+            if (byType[r.type] !== undefined) byType[r.type]++;
+            totalScore += r.score || 0;
+            if (r.phone) uniquePhones.add(r.phone);
+        }
+
+        const avgScore = valid.length > 0 ? Math.round(totalScore / valid.length) : 0;
+
+        return json({
+            success: true,
+            range,
+            totalSubmissions: valid.length,
+            uniqueStudents: uniquePhones.size,
+            avgScore,
+            bySubject,
+            byType
+        });
+    } catch (e) {
+        return json({ success: false, msg: e.message }, 500);
+    }
+}
+
 // ───────────────────────── Helpers ─────────────────────────
 
 // "Hôm nay" theo ngày dương lịch Việt Nam (UTC+7), khớp cách tính
@@ -184,6 +266,15 @@ function formatTodayVN() {
     const m = String(vnShifted.getUTCMonth() + 1).padStart(2, "0");
     const d = String(vnShifted.getUTCDate()).padStart(2, "0");
     return `${y}${m}${d}`;
+}
+
+// Định dạng ngày theo giờ Việt Nam, dùng cho key all_results:{yyyy-MM-dd}
+function formatDateVN(date) {
+    const vnShifted = new Date(date.getTime() + 7 * 60 * 60 * 1000);
+    const y = vnShifted.getUTCFullYear();
+    const m = String(vnShifted.getUTCMonth() + 1).padStart(2, "0");
+    const d = String(vnShifted.getUTCDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
 }
 
 function json(data, status = 200) {
