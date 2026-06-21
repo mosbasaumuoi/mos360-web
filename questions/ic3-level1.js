@@ -3124,6 +3124,176 @@ export const IC3_LEVEL1 = [
     answer: "Cc",
     explanation: "Trường Cc (Carbon Copy) được dùng để gửi bản sao email cho những người cần theo dõi thông tin một cách công khai. Mọi người nhận trong luồng thư đều có thể nhìn thấy địa chỉ email của những người nằm trong danh sách Cc này."
   }
+  ,
+  {
+    id: 178, // Tương ứng Câu 35 - Test 2 (Tổng hợp mở rộng dựa trên mạch kiến thức Test 2)
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "easy",
+    type: "single",
+    question: "Khi nhiều người cùng làm việc chung trên một tệp văn bản được lưu trữ trực tuyến (Cloud document) và xảy ra tình trạng hai người cùng sửa đổi một câu tại cùng một thời điểm, hệ thống xử lý tệp tin sẽ giải quyết xung đột bằng cách nào?",
+    options: [
+      "Hệ thống lập tức treo máy và tự động xóa toàn bộ tệp văn bản đó để tránh lỗi dữ liệu",
+      "Hiển thị thông báo xung đột, đánh dấu các phiên bản thay đổi và cho phép người sở hữu (Owner) lựa chọn giữ lại phiên bản phù hợp",
+      "Chỉ chấp nhận dữ liệu của người có tài khoản đăng nhập máy tính có giá trị cao hơn",
+      "Hệ thống tự động khóa vĩnh viễn quyền chỉnh sửa của cả hai người dùng"
+    ],
+    answer: "Hiển thị thông báo xung đột, đánh dấu các phiên bản thay đổi và cho phép người sở hữu (Owner) lựa chọn giữ lại phiên bản phù hợp",
+    explanation: "Các ứng dụng đám mây hiện đại khi gặp xung đột chỉnh sửa đồng thời (Edit conflict) sẽ đánh dấu ghi vết phiên bản và cung cấp giao diện trực quan để người dùng kiểm duyệt, so sánh, đưa ra quyết định giữ lại nội dung chính xác nhất."
+  }
+  ,
+  {
+    id: 179,
+    level: "IC3_LEVEL1",
+    test: 1,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Trong một ứng dụng trò chuyện nhóm (như Slack, Microsoft Teams, hoặc Discord), tính năng nào được sử dụng để phân tách các cuộc thảo luận thành các chủ đề, dự án hoặc phòng ban riêng biệt nhằm tránh làm nhiễu thông tin?",
+    options: [
+      "Kênh / Phòng chat (Channels / Rooms)",
+      "Tin nhắn trực tiếp (Direct Messages)",
+      "Luồng thông báo (Activity Feed)",
+      "Thẻ đánh dấu (Tags)"
+    ],
+    answer: "Kênh / Phòng chat (Channels / Rooms)",
+    explanation: "Các kênh hoặc phòng chat riêng biệt (Channels/Rooms) được thiết lập để quản lý luồng thông tin theo nhóm chuyên biệt, giúp nhân viên bộ phận nào chỉ nhận thông báo và thảo luận đúng chủ đề của bộ phận đó."
+  }
+  ,
+  {
+    id: 180,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Tính năng nào của dịch vụ lưu trữ đám mây cho phép nhiều người dùng ở các vị trí địa lý khác nhau có thể cùng chỉnh sửa nội dung trên một tài liệu văn bản tại một thời điểm?",
+    options: [
+      "Đồng bộ hóa nền (Background Sync)",
+      "Cộng tác thời gian thực (Real-time Collaboration)",
+      "Tải lên tệp tự động (Auto Upload)",
+      "Chia sẻ liên kết tĩnh (Static Link Sharing)"
+    ],
+    answer: "Cộng tác thời gian thực (Real-time Collaboration)",
+    explanation: "Cộng tác thời gian thực (như trên Google Docs, Microsoft 365) cho phép mọi thay đổi của từng người dùng hiển thị ngay lập tức lên màn hình của các thành viên khác, giúp làm việc nhóm từ xa hiệu quả."
+  }
+  ,
+  {
+    id: 181,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi tổ chức một cuộc họp trực tuyến toàn cầu với các thành viên ở nhiều quốc gia khác nhau, yếu tố nào dưới đây là rào cản hậu cần quan trọng nhất cần được tính toán khi lên lịch?",
+    options: [
+      "Màu sắc giao diện phần mềm họp",
+      "Sự khác biệt về múi giờ (Time zones)",
+      "Độ phân giải màn hình máy tính của giáo viên",
+      "Dung lượng bộ nhớ RAM của người chủ trì"
+    ],
+    answer: "Sự khác biệt về múi giờ (Time zones)",
+    explanation: "Sự chênh lệch múi giờ (Time zones) là thách thức hậu cần lớn nhất khi làm việc từ xa quốc tế, đòi hỏi người chủ trì chọn khung giờ phù hợp để không rơi vào ban đêm hoặc giờ nghỉ ngơi của các quốc gia thành viên khác."
+  }
+  ,
+  {
+    id: 182, level: "IC3_LEVEL1", test: 1,
+    category: "COLLABORATION", difficulty: "medium",
+    type: "multiple",
+    question: "Trường bạn yêu cầu thiết kế trang Web theo dõi tham gia câu lạc bộ. Bạn tập hợp nhóm để đưa ra ý tưởng giải quyết vấn đề (brainstorming). Hành động nào có ích cho quá trình này? (Chọn 2)",
+    options: [
+      "Khuyến khích các ý tưởng táo bạo.",
+      "Chỉ chia sẻ những ý tưởng mà bạn cảm thấy rất tự tin.",
+      "Không chỉ trích các ý tưởng của những thành viên khác trong nhóm.",
+      "Đặt giới hạn mỗi thành viên chỉ đưa ra một hoặc hai ý tưởng."
+    ],
+    answer: ["Khuyến khích các ý tưởng táo bạo.", "Không chỉ trích các ý tưởng của những thành viên khác trong nhóm."],
+    explanation: "Nguyên tắc brainstorming hiệu quả: (1) khuyến khích mọi ý tưởng, kể cả táo bạo — để kích thích sáng tạo, (2) không phán xét trong giai đoạn tạo ý tưởng — để mọi người tự do đề xuất."
+  }
+  ,
+  {
+    id: 183, level: "IC3_LEVEL1", test: 1,
+    category: "COLLABORATION", difficulty: "medium",
+    type: "multiple",
+    question: "Bạn là trưởng nhóm thiết kế. Nhóm đang sáng tác áp phích cho sự kiện gây quỹ. Khách hàng muốn thay đổi mà nhóm cho là sẽ làm áp phích kém hiệu quả hơn. Bạn nên thực hiện ba hành động nào? (Chọn 3)",
+    options: [
+      "Yêu cầu khách hàng giải thích lý do thay đổi và tác động của chúng đối với áp phích.",
+      "Hướng cuộc thảo luận tập trung vào các lựa chọn thiết kế, không phản ứng theo cảm xúc.",
+      "Nhắc nhở khách hàng rằng nhóm có kiến thức và kinh nghiệm để thiết kế áp phích tốt.",
+      "Tạo mẫu áp phích theo những thay đổi của khách hàng và gửi cho họ.",
+      "Nói với khách hàng rằng bạn không muốn thực hiện các thay đổi đó.",
+      "Bới với khách hàng rằng ý tưởng của họ không hoàn nghĩnh."
+    ],
+    answer: [
+      "Yêu cầu khách hàng giải thích lý do thay đổi và tác động của chúng đối với áp phích.",
+      "Hướng cuộc thảo luận tập trung vào các lựa chọn thiết kế, không phản ứng theo cảm xúc.",
+      "Tạo mẫu áp phích theo những thay đổi của khách hàng và gửi cho họ."
+    ],
+    explanation: "Giao tiếp chuyên nghiệp với khách hàng: (1) hiểu rõ lý do yêu cầu thay đổi, (2) thảo luận dựa trên dữ liệu thiết kế, (3) tôn trọng quyết định khách hàng bằng cách thực hiện yêu cầu. Phản đối cảm tính hoặc từ chối không phải cách chuyên nghiệp."
+  }
+  ,
+  {
+    id: 184, // Tương ứng Câu 3 - Test 2
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "multiple",
+    question: "Giáo viên hướng dẫn bạn tham gia chỉnh sửa và góp ý bài viết nghiên cứu của một người bạn cùng lớp. Đâu là hai công cụ trên phần mềm xử lý văn bản bạn nên sử dụng? (Chọn 2)",
+    options: [
+      "Ghi chú nối kết (Linked Notes)",
+      "Chế độ thiết kế cấu trúc (Design View)",
+      "Nhận xét/Bình luận (Comments)",
+      "Trình soát chính tả và ngữ pháp (Spelling & Grammar)"
+    ],
+    answer: [
+      "Nhận xét/Bình luận (Comments)",
+      "Trình soát chính tả và ngữ pháp (Spelling & Grammar)"
+    ],
+    explanation: "Khi bình duyệt và sửa đổi bài giúp bạn, công cụ Comment (để lại góp ý) và Kiểm tra chính tả là hai công cụ thiết thực, phù hợp nhất."
+  }
+  ,
+  {
+    id: 185, // Tương ứng Câu 10 - Test 2
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Trong phần mềm xử lý văn bản Microsoft Word, người dùng có thể tìm thấy các tùy chọn để kết hợp, so sánh nhiều tài liệu (Combine/Compare) nằm trong nhóm lệnh nào dưới thẻ Review?",
+    options: [
+      "Proofing",
+      "Changes",
+      "Tracking",
+      "Compare"
+    ],
+    answer: "Compare",
+    explanation: "Tính năng Compare nằm trong thẻ Review, chứa các công cụ điều hướng để so sánh hai phiên bản tài liệu (Compare) hoặc kết hợp các sửa đổi từ nhiều tác giả vào một tài liệu duy nhất (Combine)."
+  }
+  ,
+  {
+    id: 186,
+    level: "IC3_LEVEL1",
+    test: 2,
+    category: "COLLABORATION",
+    difficulty: "hard",
+    type: "multiple",
+    question: "Lớp học trực tuyến của bạn đang thực hiện một buổi hội thảo video (Video Conference). Bạn cùng ba học sinh khác sẽ thay phiên nhau bật camera trình bày thông tin và chia sẻ màn hình báo cáo cá nhân. Đâu là 3 hành động bạn nên làm trước khi bắt đầu thuyết trình? (Chọn 3)",
+    options: [
+      "Luyện tập lại bài thuyết trình cá nhân của mình ngay trong lúc những người khác đang tiến hành phát biểu",
+      "Đóng tất cả các chương trình, tài liệu bảo mật và các tab trình duyệt không liên quan",
+      "Kiểm tra hệ thống âm thanh, camera và chạy thử tính năng chia sẻ màn hình (Share screen)",
+      "Cấp quyền điều khiển để các học sinh khác có thể đồng thời chia sẻ đè lên màn hình của bạn",
+      "Rà soát và bảo đảm toàn bộ hình ảnh, nội dung trong slide thuyết trình đều phù hợp với môi trường giáo dục"
+    ],
+    answer: [
+      "Đóng tất cả các chương trình, tài liệu bảo mật và các tab trình duyệt không liên quan",
+      "Kiểm tra hệ thống âm thanh, camera và chạy thử tính năng chia sẻ màn hình (Share screen)",
+      "Rà soát và bảo đảm toàn bộ hình ảnh, nội dung trong slide thuyết trình đều phù hợp với môi trường giáo dục"
+    ],
+    explanation: "Trước khi thuyết trình trực tuyến, bạn cần tắt bớt các tab riêng tư để tránh lộ dữ liệu cá nhân khi share screen [cite: 82, 83], kiểm tra kỹ thuật thiết bị phần cứng để bảo đảm quá trình diễn ra trơn tru [cite: 82, 83] và chuẩn bị nội dung chuẩn mực, lịch sự phù hợp với người nghe[cite: 82, 83]."
+  }
 
 ];
 export default IC3_LEVEL1;

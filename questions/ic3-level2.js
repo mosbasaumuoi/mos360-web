@@ -4101,6 +4101,207 @@ export const IC3_LEVEL2 = [
     answer: "https://",
     explanation: "HTTPS (HyperText Transfer Protocol Secure) mã hóa dữ liệu truyền tải giữa trình duyệt và máy chủ. Ký tự 's' trong 'https' đảm bảo kết nối được mã hóa SSL/TLS — bắt buộc khi nhập thông tin nhạy cảm như thẻ tín dụng."
   }
+  ,
+  {
+    id: 233, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "easy",
+    type: "single",
+    question: "Bộ lọc tìm kiếm nào sẽ cung cấp cho người dùng kết quả về các mặt hàng họ có thể mua?",
+    options: ["Shopping", "Images", "Maps", "Videos"],
+    answer: "Shopping",
+    explanation: "Bộ lọc 'Shopping' (Mua sắm) trong công cụ tìm kiếm như Google lọc kết quả chỉ hiển thị sản phẩm đang bán, giá cả và thông tin người bán."
+  }
+  ,
+  {
+    id: 234, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "easy",
+    type: "single",
+    question: "Có thể sử dụng toán tử tìm kiếm nào để xem kết quả chứa nhiều từ khóa?",
+    options: ["AND", "EXCEPT", "BUT", "OR"],
+    answer: "AND",
+    explanation: "Toán tử AND trong tìm kiếm Boolean yêu cầu kết quả phải chứa TẤT CẢ các từ khóa được chỉ định, giúp thu hẹp kết quả tìm kiếm và tăng độ chính xác."
+  }
+  ,
+  {
+    id: 235, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "easy",
+    type: "single",
+    question: "Tài nguyên nào tốt nhất để một người sử dụng khi viết báo cáo về các hành tinh?",
+    options: [
+      "Một tiểu thuyết hư cầu",
+      "Một bài đăng trên mạng xã hội",
+      "Một trang Blog",
+      "Một tạp chí khoa học"
+    ],
+    answer: "Một tạp chí khoa học",
+    explanation: "Tạp chí khoa học (scientific journal) có quy trình peer review (bình duyệt đồng nghiệp), đảm bảo độ chính xác và đáng tin cậy cao nhất cho báo cáo học thuật về chủ đề khoa học như hành tinh."
+  }
+  ,
+  {
+    id: 236,
+    level: "IC3_LEVEL2",
+    category: "CRITICAL_THINKING",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi mua hàng trực tuyến, bước nào giúp bạn nhận diện trang web giả mạo tốt nhất?",
+    options: [
+      "Kiểm tra tên miền trong thanh địa chỉ để đảm bảo không bị làm giả (typosquatting)",
+      "Kiểm tra xem trang web có nhiều hình ảnh đẹp hay không",
+      "Kiểm tra xem trang web có nhạc nền hay không",
+      "Kiểm tra xem trang web có cho phép đăng ký nhanh không"
+    ],
+    answer: 0,
+    explanation: "Tên miền (Domain) là địa chỉ định danh. Tin tặc thường tạo các tên miền gần giống hệt địa chỉ thật để đánh lừa người dùng."
+  }
+  ,
+  {
+    id: 237, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Khi nào nên sử dụng toán tử tìm kiếm Boolean? Ghép mỗi mô tả với toán tử tương ứng.",
+    left: [
+      "Để thu hẹp kết quả tìm kiếm, kết hợp các thuật ngữ tìm kiếm bằng cách sử dụng toán tử ___.",
+      "Để mở rộng kết quả tìm kiếm, bao gồm nhiều lựa chọn tìm kiếm bằng cách sử dụng toán tử ___.",
+      "Để thu hẹp kết quả tìm kiếm, không chứa một số từ, bằng cách sử dụng toán tử ___."
+    ],
+    right: ["AND", "OR", "NOT"],
+    answer: {
+      "Để thu hẹp kết quả tìm kiếm, kết hợp các thuật ngữ tìm kiếm bằng cách sử dụng toán tử ___.": "AND",
+      "Để mở rộng kết quả tìm kiếm, bao gồm nhiều lựa chọn tìm kiếm bằng cách sử dụng toán tử ___.": "OR",
+      "Để thu hẹp kết quả tìm kiếm, không chứa một số từ, bằng cách sử dụng toán tử ___.": "NOT"
+    },
+    explanation: "Ba toán tử Boolean cơ bản: AND = tất cả các từ phải có mặt (thu hẹp). OR = ít nhất một từ phải có mặt (mở rộng). NOT = loại trừ từ chỉ định (thu hẹp theo hướng khác)."
+  }
+  ,
+  {
+    id: 238, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang tiến hành nghiên cứu trực tuyến bằng toán tử Boolean. Chọn Đúng nếu tìm kiếm sẽ đạt được kết quả mong muốn, Sai nếu không.",
+    left: [
+      "Để mở rộng kết quả tìm kiếm, hãy loại trừ các từ bằng cách sử dụng toán tử NOT.",
+      "Để mở rộng kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm thay thế bằng toán tử OR.",
+      "Để thu hẹp kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm bằng toán tử AND."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Để mở rộng kết quả tìm kiếm, hãy loại trừ các từ bằng cách sử dụng toán tử NOT.": "Sai",
+      "Để mở rộng kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm thay thế bằng toán tử OR.": "Đúng",
+      "Để thu hẹp kết quả tìm kiếm, hãy kết hợp các cụm từ tìm kiếm bằng toán tử AND.": "Đúng"
+    },
+    explanation: "NOT thu hẹp (loại trừ) chứ không mở rộng kết quả — Sai. OR mở rộng bằng cách bao gồm thêm lựa chọn — Đúng. AND thu hẹp bằng cách yêu cầu cả hai từ cùng xuất hiện — Đúng."
+  }
+  ,
+  {
+    id: 239, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang nghiên cứu trên mạng trong một tiết học. Với mỗi chủ đề tìm kiếm, chọn Có nếu cần dùng toán tử Boolean để tìm nhanh hơn, Không nếu không cần.",
+    left: [
+      "Các sở thú bên ngoài Châu Phi.",
+      "Thông tin chung về ngựa vằn.",
+      "Một câu trích dẫn cụ thể của một tác giả nào đó.",
+      "Voi ở nam bán cầu."
+    ],
+    right: ["Có", "Không"],
+    answer: {
+      "Các sở thú bên ngoài Châu Phi.": "Có",
+      "Thông tin chung về ngựa vằn.": "Không",
+      "Một câu trích dẫn cụ thể của một tác giả nào đó.": "Có",
+      "Voi ở nam bán cầu.": "Có"
+    },
+    explanation: "Boolean cần thiết khi tìm kiếm có nhiều tiêu chí cụ thể: 'sở thú' AND NOT 'Châu Phi', câu trích dẫn của tác giả cụ thể, voi ở một vùng địa lý cụ thể. Tìm kiếm chung về ngựa vằn chỉ cần một từ khóa đơn giản."
+  }
+  ,
+  {
+    id: 240, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "single",
+    question: "Bạn đang tìm kiếm vị trí 'Project Manager' làm việc với SQL trên Internet nhưng không biết tiếng Tây Ban Nha. Tùy chọn tìm kiếm Boolean nào phù hợp nhất để thu hẹp kết quả?",
+    options: [
+      "\"Project Manager\" AND NOT SQL AND Spanish",
+      "\"Project Manager\" AND SQL AND NOT Spanish",
+      "\"Project Manager\" AND NOT (SQL OR Spanish)",
+      "\"Project Manager\" AND NOT SQL AND NOT Spanish"
+    ],
+    answer: "\"Project Manager\" AND SQL AND NOT Spanish",
+    explanation: "Cần tìm: có 'Project Manager' VÀ có 'SQL' VÀ KHÔNG có 'Spanish'. Câu truy vấn \"Project Manager\" AND SQL AND NOT Spanish đáp ứng đúng ba tiêu chí này."
+  }
+  ,
+  {
+    id: 241, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn phải thực hiện tìm kiếm nhiều loại thông tin. Ghép nối từng loại tìm kiếm với công cụ tìm kiếm phù hợp nhất.",
+    left: [
+      "Liệt kê các vị trí trang Web phù hợp với từ khóa.",
+      "Xác định nhạc, phim, quảng cáo và chương trình truyền hình dựa trên một mẫu âm thanh ngắn.",
+      "Báo cáo lần xuất hiện đầu tiên và lần xuất hiện tiếp theo của một hình ảnh trực tuyến."
+    ],
+    right: ["Google", "Shazam", "TinEye"],
+    answer: {
+      "Liệt kê các vị trí trang Web phù hợp với từ khóa.": "Google",
+      "Xác định nhạc, phim, quảng cáo và chương trình truyền hình dựa trên một mẫu âm thanh ngắn.": "Shazam",
+      "Báo cáo lần xuất hiện đầu tiên và lần xuất hiện tiếp theo của một hình ảnh trực tuyến.": "TinEye"
+    },
+    explanation: "Google = công cụ tìm kiếm web đa năng. Shazam = nhận diện bài hát/âm thanh. TinEye = tìm kiếm hình ảnh ngược (reverse image search) và theo dõi lịch sử xuất hiện của ảnh."
+  }
+  ,
+  {
+    id: 242, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn phải thực hiện tìm kiếm nhiều thông tin. Nối từng mục đích tìm kiếm với loại tìm kiếm tương ứng.",
+    left: [
+      "Các tùy chọn bên thứ ba khi mua phần mềm.",
+      "Một trang cụ thể.",
+      "Số liệu thống kê dân số."
+    ],
+    right: ["Giao dịch (Transaction)", "Điều hướng (Navigation)", "Thông tin (Information)"],
+    answer: {
+      "Các tùy chọn bên thứ ba khi mua phần mềm.": "Giao dịch (Transaction)",
+      "Một trang cụ thể.": "Điều hướng (Navigation)",
+      "Số liệu thống kê dân số.": "Thông tin (Information)"
+    },
+    explanation: "Ba loại tìm kiếm: Transaction (giao dịch) = tìm để mua/bán/so sánh sản phẩm. Navigation (điều hướng) = tìm để đến một trang cụ thể. Information (thông tin) = tìm để học hỏi, nghiên cứu."
+  }
+  ,
+  {
+    id: 243, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_SEARCH", difficulty: "medium",
+    type: "matching",
+    question: "Bạn đang cố gắng thiết kế một yêu cầu tìm kiếm hiệu quả và cần chọn đúng công cụ. Chọn Đúng nếu công cụ tìm kiếm sẽ trả về kết quả mong muốn, Sai nếu không.",
+    left: [
+      "Shazam có thể xác định tên của một bài hát.",
+      "TinEye có thể báo cáo lần xuất hiện đầu tiên của một hình ảnh trực tuyến.",
+      "Google xác minh các bài đăng tin tức giả mạo hoặc gây hiểu lầm.",
+      "Shodan cho phép bạn tìm kiếm TV thông minh, nhà máy điện, tủ lạnh hoặc bất kì loại thiết bị IoT nào được kết nối với Internet."
+    ],
+    right: ["Đúng", "Sai"],
+    answer: {
+      "Shazam có thể xác định tên của một bài hát.": "Đúng",
+      "TinEye có thể báo cáo lần xuất hiện đầu tiên của một hình ảnh trực tuyến.": "Đúng",
+      "Google xác minh các bài đăng tin tức giả mạo hoặc gây hiểu lầm.": "Sai",
+      "Shodan cho phép bạn tìm kiếm TV thông minh, nhà máy điện, tủ lạnh hoặc bất kì loại thiết bị IoT nào được kết nối với Internet.": "Đúng"
+    },
+    explanation: "Shazam và TinEye làm đúng chức năng mô tả. Shodan là công cụ tìm kiếm thiết bị IoT kết nối Internet — Đúng. Google là công cụ tìm kiếm thông thường, không có chức năng fact-checking/xác minh tin giả — Sai."
+  }
+  ,
+  {
+    id: 244, level: "IC3_LEVEL2", test: 2,
+    category: "INFORMATION_LITERACY", difficulty: "medium",
+    type: "multiple",
+    question: "Người dùng nên tìm kiếm những phẩm chất nào trong kết quả tìm kiếm trực tuyến? (Chọn 2)",
+    options: [
+      "Không liên quan (Irrelevance)",
+      "Quan trọng (Importance)",
+      "Hiện hành (Currency)",
+      "Thiên kiến (Bias)",
+      "Tính khách quan (Objectivity)"
+    ],
+    answer: ["Hiện hành (Currency)", "Tính khách quan (Objectivity)"],
+    explanation: "Hai phẩm chất quan trọng nhất của nguồn tin đáng tin cậy: Currency (thông tin cập nhật, không lỗi thời) và Objectivity (khách quan, không thiên vị). Đây là một phần của framework CRAAP (Currency, Relevance, Authority, Accuracy, Purpose)."
+  }
 
 ];
 export default IC3_LEVEL2;
