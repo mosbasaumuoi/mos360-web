@@ -245,17 +245,114 @@ async function computePassword(mac, subject, expireDate) {
     return hash.slice(-10);
 }
 
+// Dùng chung cho cả "Cấp thủ công" (/compute) lẫn "Duyệt yêu cầu" (/approve):
+// decode randomID → tính hạn 60 ngày kể từ NGÀY DUYỆT (giờ VN) → tính password
+// từng môn → lưu pwd_index:{password} để tra cứu sau này.
+async function computeAndSaveLicense(randomID, subjects, studentName, phone, env) {
+    const { mac } = decodeRandomID(randomID);
+    const todayUTC = todayVietnam();
+    const expireDate = addDaysUTC(todayUTC, 60);
+
+    const results = [];
+    for (const subj of subjects) {
+        if (!SUBJECT_PREFIX[subj]) continue;
+        const password = await computePassword(mac, subj, expireDate);
+        results.push({
+            subject: subj,
+            label: SUBJECT_LABEL[subj],
+            password,
+            expireDate: formatYYYYMMDD(expireDate),
+            expireDateDisplay: `${String(expireDate.getUTCDate()).padStart(2, "0")}/${String(expireDate.getUTCMonth() + 1).padStart(2, "0")}/${expireDate.getUTCFullYear()}`
+        });
+    }
+
+    // Lưu index theo password — mỗi môn 1 key riêng, key = chính password đó.
+    // Cho phép tra cứu trực tiếp: học viên gửi password → biết ngay
+    // ai, máy nào, môn gì, hạn bao giờ — phục vụ hỗ trợ/gia hạn sau này.
+    //   Key:   pwd_index:{password}
+    //   Value: { studentName, phone, subject, mac, expireDate, issuedAt }
+    try {
+        const now = new Date().toISOString();
+        for (const r of results) {
+            const pwdKey = "pwd_index:" + r.password;
+            const value = {
+                studentName: studentName || "",
+                phone: phone || "",
+                subject: r.subject,
+                mac,
+                expireDate: r.expireDate,
+                issuedAt: now
+            };
+            await env.MOS360_USERS_KV.put(pwdKey, JSON.stringify(value));
+        }
+    } catch (e) {
+        // Không chặn response nếu lưu index lỗi
+    }
+
+    return { mac, results };
+}
+
 // ───────────────────────── API Handler ─────────────────────────
 
+const RECEIVE_CHANNELS = ["email", "zalo", "facebook"];
+
 export async function handleLicenseAPI(path, request, env) {
-    const authHeader = request.headers.get("X-Admin-Token") || "";
     const url = new URL(request.url);
+
+    // ── POST /api/license/request — học viên tự nộp yêu cầu (trang công khai,
+    // KHÔNG cần token admin). Chỉ lưu vào hàng chờ, KHÔNG tính password ở đây —
+    // password chỉ được tính khi admin bấm Duyệt (đối chiếu đã thanh toán chưa).
+    // body: { studentName, phone, randomID, subjects, receiveChannel, receiveContact }
+    if (path === "/api/license/request" && request.method === "POST") {
+        try {
+            const body = await request.json();
+            const studentName = (body.studentName || "").trim();
+            const phone = (body.phone || "").trim();
+            const randomID = (body.randomID || "").trim();
+            const subjects = Array.isArray(body.subjects) ? body.subjects.filter(s => SUBJECT_PREFIX[s]) : [];
+            const receiveChannel = (body.receiveChannel || "").trim();
+            const receiveContact = (body.receiveContact || "").trim();
+
+            if (!studentName) return json({ success: false, msg: "Vui lòng nhập tên" });
+            if (!phone) return json({ success: false, msg: "Vui lòng nhập số điện thoại" });
+            if (!randomID) return json({ success: false, msg: "Vui lòng dán mã ID từ app" });
+            if (subjects.length === 0) return json({ success: false, msg: "Vui lòng chọn ít nhất 1 môn đã đăng ký" });
+            if (!RECEIVE_CHANNELS.includes(receiveChannel)) return json({ success: false, msg: "Vui lòng chọn kênh nhận kết quả" });
+            if (!receiveContact) return json({ success: false, msg: "Vui lòng nhập thông tin liên hệ cho kênh đã chọn" });
+
+            // Validate randomID parse được ngay từ lúc nộp, để học viên biết sửa ngay
+            // nếu copy thiếu/sai, thay vì để admin phát hiện trễ lúc duyệt.
+            try {
+                decodeRandomID(randomID);
+            } catch (e) {
+                return json({ success: false, msg: e.message });
+            }
+
+            const now = new Date();
+            const key = "pending:" + now.getTime() + "_" + Math.random().toString(36).slice(2, 8);
+            const value = {
+                studentName, phone, randomID, subjects,
+                receiveChannel, receiveContact,
+                status: "pending",
+                requestedAt: now.toISOString()
+            };
+            await env.MOS360_USERS_KV.put(key, JSON.stringify(value));
+
+            return json({ success: true, msg: "Đã gửi yêu cầu thành công! MOS360 sẽ xử lý và gửi mật khẩu cho bạn sớm nhất." });
+        } catch (e) {
+            return json({ success: false, msg: e.message || "Có lỗi xảy ra, vui lòng thử lại" });
+        }
+    }
+
+    // ── Từ đây trở xuống là API cho ADMIN — bắt buộc token ──
+    const authHeader = request.headers.get("X-Admin-Token") || "";
     const token = url.searchParams.get("token") || authHeader;
     if (token !== "mos360admin2026") {
         return json({ success: false, msg: "Unauthorized" }, 401);
     }
 
-    // POST /api/license/compute — tính password từ randomID + môn học
+    // POST /api/license/compute — tính password từ randomID + môn học (cấp thủ công,
+    // không qua hàng chờ — dùng khi admin có sẵn mã ID, vd học viên gửi qua kênh khác)
     // body: { randomID, subjects: ["excel","word"], studentName?, phone? }
     if (path === "/api/license/compute" && request.method === "POST") {
         try {
@@ -265,48 +362,67 @@ export async function handleLicenseAPI(path, request, env) {
             if (!randomID) return json({ success: false, msg: "Thiếu mã ID học viên gửi" });
             if (subjects.length === 0) return json({ success: false, msg: "Chưa chọn môn học nào" });
 
-            const { mac } = decodeRandomID(randomID);
-
-            const todayUTC = todayVietnam();
-            const expireDate = addDaysUTC(todayUTC, 60);
-
-            const results = [];
-            for (const subj of subjects) {
-                if (!SUBJECT_PREFIX[subj]) continue;
-                const password = await computePassword(mac, subj, expireDate);
-                results.push({
-                    subject: subj,
-                    label: SUBJECT_LABEL[subj],
-                    password,
-                    expireDate: formatYYYYMMDD(expireDate),
-                    expireDateDisplay: `${String(expireDate.getUTCDate()).padStart(2, "0")}/${String(expireDate.getUTCMonth() + 1).padStart(2, "0")}/${expireDate.getUTCFullYear()}`
-                });
-            }
-
-            // Lưu index theo password — mỗi môn 1 key riêng, key = chính password đó.
-            // Cho phép tra cứu trực tiếp: học viên gửi password → biết ngay
-            // ai, máy nào, môn gì, hạn bao giờ — phục vụ hỗ trợ/gia hạn sau này.
-            //   Key:   pwd_index:{password}
-            //   Value: { studentName, phone, subject, mac, expireDate, issuedAt }
-            try {
-                const now = new Date().toISOString();
-                for (const r of results) {
-                    const pwdKey = "pwd_index:" + r.password;
-                    const value = {
-                        studentName: (body.studentName || "").trim(),
-                        phone: (body.phone || "").trim(),
-                        subject: r.subject,
-                        mac,
-                        expireDate: r.expireDate,
-                        issuedAt: now
-                    };
-                    await env.MOS360_USERS_KV.put(pwdKey, JSON.stringify(value));
-                }
-            } catch (e) {
-                // Không chặn response nếu lưu index lỗi
-            }
+            const { mac, results } = await computeAndSaveLicense(
+                randomID, subjects, (body.studentName || "").trim(), (body.phone || "").trim(), env
+            );
 
             return json({ success: true, mac, results });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // GET /api/license/pending — danh sách yêu cầu đang chờ duyệt (mới nhất lên đầu)
+    if (path === "/api/license/pending" && request.method === "GET") {
+        try {
+            const limit = Math.min(parseInt(url.searchParams.get("limit") || "100", 10), 1000);
+            const listResult = await env.MOS360_USERS_KV.list({ prefix: "pending:", limit });
+            const items = [];
+            for (const k of listResult.keys) {
+                const raw = await env.MOS360_USERS_KV.get(k.name);
+                if (!raw) continue;
+                const info = JSON.parse(raw);
+                if (info.status !== "pending") continue; // đã duyệt rồi thì không hiện ở hàng chờ nữa
+                items.push({ key: k.name, ...info });
+            }
+            items.sort((a, b) => (b.requestedAt || "").localeCompare(a.requestedAt || ""));
+            return json({ success: true, items });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // POST /api/license/approve — duyệt 1 yêu cầu đang chờ: tính password,
+    // lưu pwd_index như bình thường, đổi trạng thái pending -> approved.
+    // body: { key: "pending:169..._ab12cd" }
+    if (path === "/api/license/approve" && request.method === "POST") {
+        try {
+            const body = await request.json();
+            const key = (body.key || "").trim();
+            if (!key || !key.startsWith("pending:")) return json({ success: false, msg: "Thiếu hoặc sai mã yêu cầu" });
+
+            const raw = await env.MOS360_USERS_KV.get(key);
+            if (!raw) return json({ success: false, msg: "Yêu cầu không tồn tại hoặc đã bị xoá" });
+            const reqInfo = JSON.parse(raw);
+            if (reqInfo.status !== "pending") return json({ success: false, msg: "Yêu cầu này đã được duyệt trước đó" });
+
+            const { mac, results } = await computeAndSaveLicense(
+                reqInfo.randomID, reqInfo.subjects, reqInfo.studentName, reqInfo.phone, env
+            );
+
+            reqInfo.status = "approved";
+            reqInfo.approvedAt = new Date().toISOString();
+            await env.MOS360_USERS_KV.put(key, JSON.stringify(reqInfo));
+
+            return json({
+                success: true,
+                mac,
+                results,
+                studentName: reqInfo.studentName,
+                phone: reqInfo.phone,
+                receiveChannel: reqInfo.receiveChannel,
+                receiveContact: reqInfo.receiveContact
+            });
         } catch (e) {
             return json({ success: false, msg: e.message });
         }

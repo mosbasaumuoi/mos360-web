@@ -9,12 +9,23 @@ export function getLicenseTabHTML() {
     return `
     <!-- TAB CẤP MẬT KHẨU -->
     <div id="tabLicense" style="display:none">
+
+      <!-- YÊU CẦU ĐANG CHỜ DUYỆT -->
+      <div style="background:#111422;border:1px solid rgba(245,158,11,0.3);border-radius:16px;padding:24px;margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <h2 style="font-size:1.05rem;font-weight:800;color:#fff;">🕐 Yêu cầu đang chờ duyệt <span id="pendingCount" style="color:#f59e0b;">(0)</span></h2>
+          <button onclick="loadPendingRequests()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
+        </div>
+        <p style="font-size:0.78rem;color:#64748b;margin-bottom:16px;">Học viên tự gửi qua trang <code style="color:#00f2ff">mos360.vn/cap-mat-khau</code>. Đối chiếu đã thanh toán trước khi bấm Duyệt.</p>
+        <div id="pendingList"><div style="color:#64748b;text-align:center;padding:24px;font-size:0.85rem">Đang tải...</div></div>
+      </div>
+
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; align-items:start;">
 
-        <!-- FORM CẤP MẬT KHẨU -->
+        <!-- FORM CẤP MẬT KHẨU THỦ CÔNG -->
         <div style="background:#111422;border:1px solid rgba(0,242,255,0.2);border-radius:16px;padding:28px;">
-          <h2 style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">🔑 Cấp mật khẩu Excel / Word / PPT</h2>
-          <p style="font-size:0.82rem;color:#64748b;margin-bottom:24px">Dán mã ID học viên gửi, chọn môn đã đăng ký, hệ thống tự tính mật khẩu (hạn 60 ngày, khóa theo máy).</p>
+          <h2 style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">🔑 Cấp thủ công (không qua hàng chờ)</h2>
+          <p style="font-size:0.82rem;color:#64748b;margin-bottom:24px">Dùng khi học viên gửi mã ID qua kênh khác (không qua form). Dán mã ID, chọn môn, hệ thống tự tính.</p>
 
           <div style="margin-bottom:16px">
             <label style="display:block;font-size:0.75rem;font-weight:700;color:#64748b;margin-bottom:6px">TÊN HỌC VIÊN</label>
@@ -53,6 +64,7 @@ export function getLicenseTabHTML() {
 
           <div id="licResultBox" style="display:none;margin-top:20px;padding:18px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.25);border-radius:10px">
             <div style="font-size:0.8rem;font-weight:700;color:#22c55e;margin-bottom:12px">✅ Kết quả mật khẩu</div>
+            <div id="licChannelHint" style="display:none;margin-bottom:14px;padding:10px 12px;background:rgba(0,242,255,0.08);border:1px solid rgba(0,242,255,0.25);border-radius:8px;font-size:0.82rem;color:#00f2ff"></div>
             <div id="licResultList"></div>
 
             <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
@@ -116,7 +128,7 @@ async function computeLicense() {
         if (!data.success) { alert('❌ Lỗi: ' + data.msg); return; }
 
         lastLicenseResults = { studentName, phone, mac: data.mac, results: data.results };
-        renderLicenseResult(data.results);
+        renderLicenseResult(data.results, null);
         loadLicenseList();
     } catch (e) {
         alert('❌ Lỗi kết nối: ' + e.message);
@@ -125,10 +137,23 @@ async function computeLicense() {
     }
 }
 
-function renderLicenseResult(results) {
+var CHANNEL_LABEL_VI = { email: '✉️ Email', zalo: '💬 Zalo', facebook: '📘 Facebook' };
+
+function renderLicenseResult(results, channelInfo) {
     var box = document.getElementById('licResultBox');
     var list = document.getElementById('licResultList');
+    var hint = document.getElementById('licChannelHint');
     box.style.display = 'block';
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    if (channelInfo && channelInfo.receiveChannel) {
+        hint.style.display = 'block';
+        hint.innerHTML = '📨 Học viên muốn nhận qua <b>' + (CHANNEL_LABEL_VI[channelInfo.receiveChannel] || channelInfo.receiveChannel) +
+            '</b> — liên hệ: <code style="background:#090b14;padding:2px 8px;border-radius:4px">' + channelInfo.receiveContact + '</code>';
+    } else {
+        hint.style.display = 'none';
+    }
+
     list.innerHTML = results.map(function(r) {
         return '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
             '<div><div style="color:#94a3b8;font-size:0.78rem;font-weight:700">' + r.label + '</div>' +
@@ -138,6 +163,71 @@ function renderLicenseResult(results) {
             '<button onclick="copyText(\\'' + r.password + '\\')" style="padding:6px 10px;background:#1e2235;border:1px solid #384260;color:#fff;border-radius:6px;cursor:pointer;font-size:0.78rem">📋</button>' +
             '</div></div>';
     }).join('');
+}
+
+// ── DUYỆT YÊU CẦU TỪ HÀNG CHỜ ───────────────────────────
+async function loadPendingRequests() {
+    var box = document.getElementById('pendingList');
+    var countEl = document.getElementById('pendingCount');
+    try {
+        var res = await adminFetch('/api/license/pending');
+        var data = await res.json();
+        if (!data.success || !data.items.length) {
+            countEl.textContent = '(0)';
+            box.innerHTML = '<div style="color:#64748b;text-align:center;padding:24px;font-size:0.85rem">Chưa có yêu cầu nào đang chờ 🎉</div>';
+            return;
+        }
+        countEl.textContent = '(' + data.items.length + ')';
+        box.innerHTML = data.items.map(function(it) {
+            var subjTags = it.subjects.map(function(s) { return SUBJECT_LABEL_VI[s]; }).join(', ');
+            var dateStr = new Date(it.requestedAt).toLocaleString('vi-VN');
+            var idShort = it.randomID.length > 28 ? it.randomID.slice(0, 28) + '…' : it.randomID;
+            return '<div style="background:#090b14;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;margin-bottom:10px">' +
+                '<div style="display:flex;justify-content:space-between;align-items:start;gap:10px;flex-wrap:wrap">' +
+                '<div style="flex:1;min-width:200px">' +
+                '<div style="font-weight:800;color:#fff;font-size:0.92rem">' + escapeHtml(it.studentName) + '</div>' +
+                '<div style="color:#64748b;font-size:0.76rem;margin-top:3px">' + escapeHtml(it.phone) + ' · ' + dateStr + '</div>' +
+                '<div style="margin-top:6px"><span style="background:rgba(0,242,255,0.1);color:#00f2ff;padding:2px 8px;border-radius:10px;font-size:0.72rem;font-weight:700">' + subjTags + '</span></div>' +
+                '<div style="color:#475569;font-size:0.7rem;margin-top:6px;font-family:monospace">ID: ' + escapeHtml(idShort) + '</div>' +
+                '<div style="color:#94a3b8;font-size:0.76rem;margin-top:4px">📨 ' + (CHANNEL_LABEL_VI[it.receiveChannel] || it.receiveChannel) + ': ' + escapeHtml(it.receiveContact) + '</div>' +
+                '</div>' +
+                '<button onclick="approveRequest(\\'' + it.key + '\\', this)" style="padding:9px 16px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#04111a;border:none;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.82rem;white-space:nowrap">✅ Duyệt</button>' +
+                '</div></div>';
+        }).join('');
+    } catch (e) {
+        box.innerHTML = '<div style="color:#ef4444;text-align:center;padding:20px;font-size:0.85rem">Lỗi tải danh sách</div>';
+    }
+}
+
+async function approveRequest(key, btnEl) {
+    if (!confirm('Duyệt yêu cầu này và tính mật khẩu ngay?\\n(Chỉ duyệt khi đã xác nhận thanh toán)')) return;
+    if (btnEl) { btnEl.disabled = true; btnEl.textContent = '⏳...'; }
+    try {
+        var res = await adminFetch('/api/license/approve', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ key: key })
+        });
+        var data = await res.json();
+        if (!data.success) { alert('❌ Lỗi: ' + data.msg); if (btnEl) { btnEl.disabled = false; btnEl.textContent = '✅ Duyệt'; } return; }
+
+        lastLicenseResults = {
+            studentName: data.studentName, phone: data.phone, mac: data.mac, results: data.results,
+            receiveChannel: data.receiveChannel, receiveContact: data.receiveContact
+        };
+        renderLicenseResult(data.results, { receiveChannel: data.receiveChannel, receiveContact: data.receiveContact });
+        loadPendingRequests();
+        loadLicenseList();
+    } catch (e) {
+        alert('❌ Lỗi kết nối: ' + e.message);
+        if (btnEl) { btnEl.disabled = false; btnEl.textContent = '✅ Duyệt'; }
+    }
+}
+
+function escapeHtml(s) {
+    return (s || '').replace(/[&<>"']/g, function(c) {
+        return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
 }
 
 function copyText(text) {
@@ -160,22 +250,27 @@ function buildLicenseMessage() {
 
 function sendViaEmail() {
     if (!lastLicenseResults) { alert('Chưa có kết quả mật khẩu!'); return; }
+    var to = (lastLicenseResults.receiveChannel === 'email' && lastLicenseResults.receiveContact) ? lastLicenseResults.receiveContact : '';
     var subject = encodeURIComponent('MOS360 - Mật khẩu kích hoạt phần mềm');
     var body = encodeURIComponent(buildLicenseMessage());
-    window.open('mailto:?subject=' + subject + '&body=' + body, '_blank');
+    window.open('mailto:' + to + '?subject=' + subject + '&body=' + body, '_blank');
 }
 
 function sendViaZalo() {
     if (!lastLicenseResults) { alert('Chưa có kết quả mật khẩu!'); return; }
     navigator.clipboard.writeText(buildLicenseMessage());
-    alert('✅ Đã copy nội dung mật khẩu vào clipboard.\\nZalo Web sẽ mở — bạn chỉ cần dán (Ctrl+V) vào khung chat và gửi.');
+    var contactNote = (lastLicenseResults.receiveChannel === 'zalo' && lastLicenseResults.receiveContact)
+        ? '\\nGửi tới số Zalo: ' + lastLicenseResults.receiveContact : '';
+    alert('✅ Đã copy nội dung mật khẩu vào clipboard.' + contactNote + '\\nZalo Web sẽ mở — bạn chỉ cần dán (Ctrl+V) vào khung chat và gửi.');
     window.open('https://zalo.me', '_blank');
 }
 
 function sendViaMessenger() {
     if (!lastLicenseResults) { alert('Chưa có kết quả mật khẩu!'); return; }
     navigator.clipboard.writeText(buildLicenseMessage());
-    alert('✅ Đã copy nội dung mật khẩu vào clipboard.\\nMessenger sẽ mở — bạn chỉ cần dán (Ctrl+V) vào khung chat và gửi.');
+    var contactNote = (lastLicenseResults.receiveChannel === 'facebook' && lastLicenseResults.receiveContact)
+        ? '\\nGửi tới: ' + lastLicenseResults.receiveContact : '';
+    alert('✅ Đã copy nội dung mật khẩu vào clipboard.' + contactNote + '\\nMessenger sẽ mở — bạn chỉ cần dán (Ctrl+V) vào khung chat và gửi.');
     window.open('https://m.me/mos360.vn', '_blank');
 }
 

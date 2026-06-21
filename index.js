@@ -11,6 +11,7 @@ import { getAdminDashboardUI } from "./pages/admin.js";
 import { getProgressUI } from "./pages/progress.js";
 import { getFlashcardUI } from "./pages/flashcard.js";
 import { getIC3IntroUI, getGenAIIntroUI } from "./pages/course-intro.js";
+import { getLicenseRequestUI } from "./pages/license-request.js";
 import { handleAdminAPI } from "./api/admin-api.js";
 import { handleLicenseAPI } from "./api/license-api.js";
 
@@ -430,6 +431,7 @@ export default {
         else if (path === "/login") content = this.getLoginUI();
         else if (path === "/library") content = this.getLibraryUI();
         else if (path === "/progress") content = getProgressUI();
+        else if (path === "/cap-mat-khau") content = getLicenseRequestUI();
         else if (path === "/admin-dashboard") {
             const isAdmin = request.headers.get('Cookie')?.includes('mos360_admin=true');
             content = getAdminDashboardUI();
