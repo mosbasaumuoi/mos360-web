@@ -29,8 +29,11 @@ export function getLicenseRequestUI() {
             </div>
 
             <div style="margin-bottom:16px;">
-                <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:6px;">MÃ ID TỪ APP <span style="color:#dc2626">*</span></label>
-                <textarea id="reqRandomID" rows="2" placeholder="Mở phần mềm trên máy, copy nguyên mã ID hiện trên màn hình và dán vào đây" style="width:100%; padding:13px; background:#E2ECFA; border:1px solid var(--border); color:var(--text); border-radius:10px; font-size:0.88rem; font-family:monospace; resize:vertical;"></textarea>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <label style="font-size:0.8rem; color:var(--muted); font-weight:bold;">MÃ ID TỪ APP <span style="color:#dc2626">*</span></label>
+                    <button type="button" onclick="pasteRandomID()" style="padding:5px 11px; background:#E2ECFA; border:1px solid var(--border); color:var(--cyan); border-radius:7px; font-size:0.75rem; font-weight:700; cursor:pointer;">📋 Dán từ Clipboard</button>
+                </div>
+                <textarea id="reqRandomID" rows="2" placeholder="Mở phần mềm trên máy, copy nguyên mã ID hiện trên màn hình, rồi bấm 'Dán từ Clipboard' ở trên hoặc Ctrl+V vào đây" style="width:100%; padding:13px; background:#E2ECFA; border:1px solid var(--border); color:var(--text); border-radius:10px; font-size:0.88rem; font-family:monospace; resize:vertical;"></textarea>
                 <div style="font-size:0.74rem; color:var(--muted); margin-top:5px;">⚠️ Mật khẩu được khoá theo đúng máy đã gửi mã — không dùng được trên máy khác.</div>
             </div>
 
@@ -81,6 +84,32 @@ export function getLicenseRequestUI() {
             zalo: 'Nhập số điện thoại Zalo của bạn',
             facebook: 'Dán link trang cá nhân Facebook của bạn'
         };
+
+        // Nếu URL có sẵn ?id=... (vd app C# sau này mở thẳng trình duyệt kèm mã ID),
+        // tự điền luôn vào ô — học viên không cần copy/dán thủ công nữa.
+        (function autoFillFromURL() {
+            var params = new URLSearchParams(window.location.search);
+            var idFromUrl = params.get('id');
+            if (idFromUrl) {
+                document.getElementById('reqRandomID').value = idFromUrl;
+            }
+        })();
+
+        // Dán mã ID từ Clipboard — học viên copy (Ctrl+C) bên app C#, quay sang đây bấm 1 nút.
+        async function pasteRandomID() {
+            try {
+                var text = await navigator.clipboard.readText();
+                if (!text || !text.trim()) {
+                    alert('Clipboard đang trống. Hãy copy (Ctrl+C) mã ID trong app trước, rồi quay lại bấm nút này.');
+                    return;
+                }
+                document.getElementById('reqRandomID').value = text.trim();
+            } catch (e) {
+                // Trình duyệt chặn đọc clipboard (chưa cấp quyền / không hỗ trợ / không phải HTTPS)
+                alert('Không tự dán được (trình duyệt chặn quyền đọc Clipboard). Vui lòng bấm vào ô bên dưới và nhấn Ctrl+V để dán thủ công.');
+                document.getElementById('reqRandomID').focus();
+            }
+        }
 
         function selectChannel(ch) {
             selectedChannel = ch;
