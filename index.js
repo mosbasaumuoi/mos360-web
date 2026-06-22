@@ -466,6 +466,23 @@ export default {
         nav a:hover { color: var(--text); }
         .admin-only-btn { display: none; background: rgba(255,215,0,0.12); color: #B8860B !important; border: 1px solid #DAA520; padding: 6px 12px; border-radius: 6px; font-weight: 800; }
 
+        /* ── DROPDOWN NAV ── */
+        .nav-dropdown { position: relative; margin-left: 20px; }
+        .nav-dropdown > .nav-drop-btn { color: var(--muted); text-decoration: none; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: color 0.2s; background: none; border: none; padding: 0; font-family: inherit; }
+        .nav-dropdown > .nav-drop-btn:hover { color: var(--text); }
+        .nav-dropdown > .nav-drop-btn::after { content: '▾'; font-size: 0.7rem; }
+        .nav-drop-menu { display: none; position: absolute; top: calc(100% + 10px); left: 0; background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(15,23,42,0.10); padding: 8px 0; min-width: 210px; z-index: 2000; }
+        .nav-dropdown:hover .nav-drop-menu,
+        .nav-dropdown:focus-within .nav-drop-menu { display: block; }
+        .nav-drop-menu a { display: flex; align-items: center; gap: 10px; padding: 9px 18px; color: var(--text); text-decoration: none; font-size: 0.83rem; font-weight: 700; transition: background 0.15s; margin: 0; }
+        .nav-drop-menu a:hover { background: #F0F4FA; }
+        .nav-drop-menu .drop-divider { height: 1px; background: var(--border); margin: 4px 0; }
+        .nav-drop-menu .drop-label { padding: 6px 18px 3px; font-size: 0.68rem; font-weight: 800; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; }
+        @media (max-width: 768px) {
+            .nav-dropdown { margin-left: 0; }
+            .nav-drop-menu { position: fixed; left: 50%; transform: translateX(-50%); top: 100px; width: 90vw; }
+        }
+
         .hero-banner { position: relative; width: 100%; min-height: 340px; background: linear-gradient(135deg, #E2ECFA 0%, #D6E4F7 100%); overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; padding: 40px 20px; border-bottom: 1px solid var(--border); }
         .hero-content { position: relative; z-index: 2; max-width: 800px; }
         .hero-content h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 15px; color: var(--text); }
@@ -550,10 +567,35 @@ export default {
             <a href="/">TRANG CHỦ</a>
             <a href="/courses">KHÓA HỌC</a>
             <a href="/register" style="color:#FF5722;">📝 ĐĂNG KÝ</a>
-            <a href="/library">KHO MOS</a>
-            <a href="/cap-mat-khau" style="color:var(--cyan);">🔑 LẤY MẬT KHẨU</a>
-            <a href="/ket-qua" style="color:var(--cyan);">📊 KẾT QUẢ</a>
-            <a href="/progress" style="color:var(--cyan);">📈 TIẾN ĐỘ</a>
+
+            <!-- DROPDOWN: HỌC ONLINE -->
+            <div class="nav-dropdown">
+                <button class="nav-drop-btn" style="color:#16a34a;">🖥️ HỌC ONLINE</button>
+                <div class="nav-drop-menu">
+                    <div class="drop-label">IC3 GS6</div>
+                    <a href="/ic3-lv1">🟢 IC3 GS6 Level 1</a>
+                    <a href="/ic3-lv2">🟡 IC3 GS6 Level 2</a>
+                    <a href="/ic3-lv3">🔴 IC3 GS6 Level 3</a>
+                    <div class="drop-divider"></div>
+                    <div class="drop-label">Generative AI</div>
+                    <a href="/generative-ai">✨ Luyện thi Generative AI</a>
+                    <div class="drop-divider"></div>
+                    <a href="/progress">📈 Tiến độ học của tôi</a>
+                    <a href="/library">📚 Kho MOS</a>
+                </div>
+            </div>
+
+            <!-- DROPDOWN: PHẦN MỀM MOS -->
+            <div class="nav-dropdown">
+                <button class="nav-drop-btn" style="color:var(--cyan);">💻 PHẦN MỀM MOS</button>
+                <div class="nav-drop-menu">
+                    <a href="/#hn-tools">📦 Tải & Cài đặt</a>
+                    <div class="drop-divider"></div>
+                    <a href="/cap-mat-khau">🔑 Lấy mật khẩu phần mềm</a>
+                    <a href="/ket-qua">📊 Kết quả luyện tập của tôi</a>
+                </div>
+            </div>
+
             <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank" class="admin-only-btn" id="adminPanelBtn">[QUẢN LÝ HỌC VIÊN]</a>
             <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank" class="admin-only-btn" id="adminRegSheetBtn">[DỮ LIỆU ĐĂNG KÝ]</a>
             <a href="/admin-dashboard" class="admin-only-btn" id="adminDashBtn" style="margin-left:8px;">📊 DASHBOARD</a>
@@ -561,12 +603,15 @@ export default {
         </nav>
     </header>
 
-    <nav style="background:#E2ECFA; padding:12px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:15px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch;">
-        <span style="color:var(--muted); font-weight:bold;">🎯 Lối tắt phòng thi:</span>
-        <a href="/generative-ai" style="color:#0052CC; text-decoration:none; font-weight:bold;">✨ Luyện thi GENERATIVE AI</a>
-        <a href="/ic3-lv1" style="color:#16a34a; text-decoration:none; font-weight:bold;">🟢 IC3 GS6 Level 1</a>
-        <a href="/ic3-lv2" style="color:#d97706; text-decoration:none; font-weight:bold;">🟡 IC3 GS6 Level 2</a>
-        <a href="/ic3-lv3" style="color:#dc2626; text-decoration:none; font-weight:bold;">🔴 IC3 GS6 Level 3</a>
+    <nav style="background:#E2ECFA; padding:10px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:6px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; align-items:center; flex-wrap:wrap;">
+        <span style="color:var(--muted); font-weight:800; font-size:0.72rem; letter-spacing:0.3px;">⚡ PHÒNG THI NHANH:</span>
+        <a href="/generative-ai" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">✨ Generative AI</a>
+        <a href="/ic3-lv1" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟢 IC3 Level 1</a>
+        <a href="/ic3-lv2" style="color:#d97706; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟡 IC3 Level 2</a>
+        <a href="/ic3-lv3" style="color:#dc2626; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🔴 IC3 Level 3</a>
+        <span style="color:var(--border); margin:0 4px;">|</span>
+        <a href="/cap-mat-khau" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🔑 Lấy mật khẩu MOS</a>
+        <a href="/ket-qua" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">📊 Kết quả MOS</a>
     </nav>
 
     <!-- FIX 2: Icon Zalo SVG logo chuẩn thương hiệu chính thức -->
@@ -1115,26 +1160,49 @@ ${promoSectionHtml}
 
 <hr class="hn-divider">
 
-<!-- TIỆN ÍCH & CÀI ĐẶT -->
+<!-- HỆ THỐNG HỌC TẬP -->
 <div class="hn-section" id="hn-tools">
   <div class="hn-inner">
-    <div class="hn-tag">🧰 Tiện ích</div>
-    <h2 class="hn-h2">Tải & Cài đặt</h2>
-    <p class="hn-desc">Tất cả phần mềm và hướng dẫn cần thiết. Miễn phí — hỗ trợ cài đặt 1:1 qua Zalo.</p>
-    <div class="hn-tools-grid">
-      <a href="/cap-mat-khau" class="hn-tool" style="border:1.5px solid rgba(0,82,204,0.35); background:rgba(0,82,204,0.04);"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.12)">🔑</div><div><div class="hn-tool-name" style="color:var(--cyan)">Lấy mật khẩu phần mềm</div><div class="hn-tool-type">Sau khi cài xong — gửi mã ID nhận mật khẩu</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="/ket-qua" class="hn-tool" style="border:1.5px solid rgba(34,197,94,0.3); background:rgba(34,197,94,0.04);"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📊</div><div><div class="hn-tool-name" style="color:#22c55e">Xem kết quả của tôi</div><div class="hn-tool-type">Lịch sử điểm thi & luyện tập</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">🖥️</div><div><div class="hn-tool-name">Phần mềm MOS360</div><div class="hn-tool-type">Luyện thi & thi thử</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📦</div><div><div class="hn-tool-name">Office 2019 Pro Plus</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.ULTRAVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.08)">📡</div><div><div class="hn-tool-name">UltraViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.HD_MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📖</div><div><div class="hn-tool-name">Cài phần mềm MOS360</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.HD_OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📖</div><div><div class="hn-tool-name">Cài Office 2019</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
-      <a href="${CONFIG.TOOLS.HD_THI}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📋</div><div><div class="hn-tool-name">Hướng dẫn bài thi MOS</div><div class="hn-tool-type">Tài liệu chính thức IIG</div></div><span class="hn-tool-arr">↗</span></a>
+
+    <!-- KHU 1: HỌC ONLINE -->
+    <div style="margin-bottom:32px;">
+      <div class="hn-tag" style="background:rgba(22,163,74,0.1);color:#16a34a;">🖥️ Hệ học Online</div>
+      <h2 class="hn-h2">IC3 GS6 & Generative AI</h2>
+      <p class="hn-desc">Luyện đề trực tiếp trên web — không cần cài đặt. Đăng ký tài khoản để lưu tiến độ học.</p>
+      <div class="hn-tools-grid">
+        <a href="/ic3-lv1" class="hn-tool" style="border:1.5px solid rgba(22,163,74,0.3);background:rgba(22,163,74,0.03);"><div class="hn-tool-ico" style="background:rgba(22,163,74,0.1)">🟢</div><div><div class="hn-tool-name" style="color:#16a34a">IC3 GS6 Level 1</div><div class="hn-tool-type">Kiến thức nền tảng</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/ic3-lv2" class="hn-tool" style="border:1.5px solid rgba(217,119,6,0.3);background:rgba(217,119,6,0.03);"><div class="hn-tool-ico" style="background:rgba(217,119,6,0.1)">🟡</div><div><div class="hn-tool-name" style="color:#d97706">IC3 GS6 Level 2</div><div class="hn-tool-type">Nâng cao kỹ năng</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/ic3-lv3" class="hn-tool" style="border:1.5px solid rgba(220,38,38,0.3);background:rgba(220,38,38,0.03);"><div class="hn-tool-ico" style="background:rgba(220,38,38,0.1)">🔴</div><div><div class="hn-tool-name" style="color:#dc2626">IC3 GS6 Level 3</div><div class="hn-tool-type">Chuyên sâu & thi thật</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/generative-ai" class="hn-tool" style="border:1.5px solid rgba(0,82,204,0.3);background:rgba(0,82,204,0.03);"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.1)">✨</div><div><div class="hn-tool-name" style="color:var(--cyan)">Generative AI</div><div class="hn-tool-type">Chứng chỉ CCS AI Foundations</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/progress" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📈</div><div><div class="hn-tool-name">Tiến độ học của tôi</div><div class="hn-tool-type">Theo dõi kết quả online</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/library" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(100,116,139,0.1)">📚</div><div><div class="hn-tool-name">Kho MOS</div><div class="hn-tool-type">Tài liệu & flashcard</div></div><span class="hn-tool-arr">↗</span></a>
+      </div>
     </div>
+
+    <!-- DIVIDER -->
+    <hr style="border:none;border-top:2px dashed var(--border);margin:0 0 28px;">
+
+    <!-- KHU 2: PHẦN MỀM MOS CÀI TRÊN MÁY -->
+    <div>
+      <div class="hn-tag" style="background:rgba(0,82,204,0.1);color:var(--cyan);">💻 Phần mềm MOS — Cài trên máy</div>
+      <h2 class="hn-h2">MOS Word / Excel / PowerPoint 2019</h2>
+      <p class="hn-desc">Phần mềm luyện thi MOS chạy trực tiếp trên máy tính — thực hành sát đề thi thật nhất. Cần mật khẩu kích hoạt sau khi cài.</p>
+      <div class="hn-tools-grid">
+        <a href="/cap-mat-khau" class="hn-tool" style="border:1.5px solid rgba(0,82,204,0.35);background:rgba(0,82,204,0.04);"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.12)">🔑</div><div><div class="hn-tool-name" style="color:var(--cyan)">Lấy mật khẩu kích hoạt</div><div class="hn-tool-type">Sau khi cài xong — gửi mã ID</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/ket-qua" class="hn-tool" style="border:1.5px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.04);"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📊</div><div><div class="hn-tool-name" style="color:#16a34a">Kết quả luyện tập của tôi</div><div class="hn-tool-type">Lịch sử điểm thi & luyện tập</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">🖥️</div><div><div class="hn-tool-name">Tải phần mềm MOS360</div><div class="hn-tool-type">Luyện thi & thi thử offline</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📦</div><div><div class="hn-tool-name">Office 2019 Pro Plus</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.ULTRAVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.08)">📡</div><div><div class="hn-tool-name">UltraViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.HD_MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📖</div><div><div class="hn-tool-name">Cài phần mềm MOS360</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.HD_OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📖</div><div><div class="hn-tool-name">Cài Office 2019</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.HD_THI}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📋</div><div><div class="hn-tool-name">Hướng dẫn bài thi MOS</div><div class="hn-tool-type">Tài liệu chính thức IIG</div></div><span class="hn-tool-arr">↗</span></a>
+      </div>
+    </div>
+
   </div>
 </div>
 
