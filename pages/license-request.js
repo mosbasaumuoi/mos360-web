@@ -56,13 +56,10 @@ export function getLicenseRequestUI() {
             </div>
 
             <div style="margin-bottom:24px;">
-                <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:8px;">NHẬN KẾT QUẢ QUA <span style="color:#dc2626">*</span></label>
-                <div style="display:flex; gap:8px; margin-bottom:10px;">
-                    <button type="button" id="chEmail" onclick="selectChannel('email')" class="req-channel-btn" style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--border); background:#E2ECFA; color:var(--muted); font-weight:700; font-size:0.82rem; cursor:pointer;">✉️ Email</button>
-                    <button type="button" id="chZalo" onclick="selectChannel('zalo')" class="req-channel-btn" style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--border); background:#E2ECFA; color:var(--muted); font-weight:700; font-size:0.82rem; cursor:pointer;">💬 Zalo</button>
-                    <button type="button" id="chFacebook" onclick="selectChannel('facebook')" class="req-channel-btn" style="flex:1; padding:10px; border-radius:8px; border:1px solid var(--border); background:#E2ECFA; color:var(--muted); font-weight:700; font-size:0.82rem; cursor:pointer;">📘 Facebook</button>
-                </div>
-                <input type="text" id="reqContact" placeholder="Chọn 1 kênh ở trên trước" style="width:100%; padding:13px; background:#E2ECFA; border:1px solid var(--border); color:var(--text); border-radius:10px; font-size:0.9rem;">
+                <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:6px;">ĐỊA CHỈ EMAIL NHẬN MẬT KHẨU <span style="color:#dc2626">*</span></label>
+                <input type="email" id="reqContact" placeholder="VD: nguyenvana@gmail.com"
+                    style="width:100%; padding:13px; background:#E2ECFA; border:1px solid var(--border); color:var(--text); border-radius:10px; font-size:0.95rem;">
+                <div style="font-size:0.74rem; color:var(--muted); margin-top:5px;">📧 Mật khẩu sẽ được gửi tự động đến email này ngay sau khi được duyệt.</div>
             </div>
 
             <button class="btn-action" id="btnSendRequest" onclick="submitLicenseRequest()">📨 GỬI YÊU CẦU</button>
@@ -78,58 +75,21 @@ export function getLicenseRequestUI() {
     </div>
 
     <script>
-        var selectedChannel = '';
-        var channelPlaceholder = {
-            email: 'Nhập địa chỉ email của bạn',
-            zalo: 'Nhập số điện thoại Zalo của bạn',
-            facebook: 'Dán link trang cá nhân Facebook của bạn'
-        };
-
-        // Nếu URL có sẵn ?id=... (vd app C# sau này mở thẳng trình duyệt kèm mã ID),
-        // tự điền luôn vào ô — học viên không cần copy/dán thủ công nữa.
+        // Tự động điền ID nếu URL có ?id=... (từ app C# deep-link)
         (function autoFillFromURL() {
             var params = new URLSearchParams(window.location.search);
             var idFromUrl = params.get('id');
-            if (idFromUrl) {
-                document.getElementById('reqRandomID').value = idFromUrl;
-            }
+            if (idFromUrl) document.getElementById('reqRandomID').value = idFromUrl;
         })();
 
-        // Dán mã ID từ Clipboard — học viên copy (Ctrl+C) bên app C#, quay sang đây bấm 1 nút.
         async function pasteRandomID() {
             try {
                 var text = await navigator.clipboard.readText();
-                if (!text || !text.trim()) {
-                    alert('Clipboard đang trống. Hãy copy (Ctrl+C) mã ID trong app trước, rồi quay lại bấm nút này.');
-                    return;
-                }
+                if (!text || !text.trim()) { alert('Clipboard đang trống. Hãy copy mã ID trong app trước.'); return; }
                 document.getElementById('reqRandomID').value = text.trim();
             } catch (e) {
-                // Trình duyệt chặn đọc clipboard (chưa cấp quyền / không hỗ trợ / không phải HTTPS)
-                alert('Không tự dán được (trình duyệt chặn quyền đọc Clipboard). Vui lòng bấm vào ô bên dưới và nhấn Ctrl+V để dán thủ công.');
+                alert('Không tự dán được. Vui lòng bấm vào ô và nhấn Ctrl+V.');
                 document.getElementById('reqRandomID').focus();
-            }
-        }
-
-        function selectChannel(ch) {
-            selectedChannel = ch;
-            ['email','zalo','facebook'].forEach(function(c) {
-                var btn = document.getElementById('ch' + c.charAt(0).toUpperCase() + c.slice(1));
-                if (c === ch) {
-                    btn.style.background = 'var(--primary)';
-                    btn.style.color = '#fff';
-                    btn.style.borderColor = 'var(--primary)';
-                } else {
-                    btn.style.background = '#E2ECFA';
-                    btn.style.color = 'var(--muted)';
-                    btn.style.borderColor = 'var(--border)';
-                }
-            });
-            var contactInput = document.getElementById('reqContact');
-            contactInput.placeholder = channelPlaceholder[ch];
-            if (ch === 'zalo') {
-                var phone = document.getElementById('reqPhone').value.trim();
-                if (phone && !contactInput.value) contactInput.value = phone;
             }
         }
 
@@ -150,8 +110,8 @@ export function getLicenseRequestUI() {
             if (!phone) return showReqError('Vui lòng nhập số điện thoại.');
             if (!randomID) return showReqError('Vui lòng dán mã ID từ phần mềm trên máy.');
             if (subjects.length === 0) return showReqError('Vui lòng chọn ít nhất 1 môn đã đăng ký.');
-            if (!selectedChannel) return showReqError('Vui lòng chọn kênh nhận kết quả (Email / Zalo / Facebook).');
-            if (!contact) return showReqError('Vui lòng nhập thông tin liên hệ cho kênh đã chọn.');
+            if (!contact) return showReqError('Vui lòng nhập địa chỉ email nhận mật khẩu.');
+            if (!contact.includes('@') || !contact.includes('.')) return showReqError('Địa chỉ email không hợp lệ.');
 
             var btn = document.getElementById('btnSendRequest');
             btn.disabled = true; btn.textContent = '⏳ Đang gửi...';
@@ -161,7 +121,7 @@ export function getLicenseRequestUI() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         studentName: name, phone, randomID, subjects,
-                        receiveChannel: selectedChannel, receiveContact: contact
+                        receiveChannel: 'email', receiveContact: contact
                     })
                 });
                 var data = await res.json();

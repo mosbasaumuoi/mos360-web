@@ -64,6 +64,7 @@ export function getLicenseTabHTML() {
 
           <div id="licResultBox" style="display:none;margin-top:20px;padding:18px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.25);border-radius:10px">
             <div style="font-size:0.8rem;font-weight:700;color:#22c55e;margin-bottom:12px">✅ Kết quả mật khẩu</div>
+            <div id="licEmailBadge" style="display:none;margin-bottom:14px;padding:10px 14px;border:1px solid;border-radius:8px;font-size:0.82rem;font-weight:600;"></div>
             <div id="licChannelHint" style="display:none;margin-bottom:14px;padding:10px 12px;background:rgba(0,242,255,0.08);border:1px solid rgba(0,242,255,0.25);border-radius:8px;font-size:0.82rem;color:#00f2ff"></div>
             <div id="licResultList"></div>
 
@@ -129,6 +130,7 @@ async function computeLicense() {
 
         lastLicenseResults = { studentName, phone, mac: data.mac, results: data.results };
         renderLicenseResult(data.results, null);
+        highlightSendButton(null);  // reset — cấp thủ công không có kênh ưu tiên
         loadLicenseList();
     } catch (e) {
         alert('❌ Lỗi kết nối: ' + e.message);
@@ -216,6 +218,30 @@ async function approveRequest(key, btnEl) {
             receiveChannel: data.receiveChannel, receiveContact: data.receiveContact
         };
         renderLicenseResult(data.results, { receiveChannel: data.receiveChannel, receiveContact: data.receiveContact });
+
+        // Hiện badge trạng thái email
+        var emailBadge = document.getElementById('licEmailBadge');
+        if (emailBadge) {
+            emailBadge.style.display = 'block';
+            if (data.emailSent) {
+                emailBadge.innerHTML = '✅ Đã tự động gửi email tới <strong>' + (data.receiveContact || '') + '</strong>';
+                emailBadge.style.background = 'rgba(34,197,94,0.1)';
+                emailBadge.style.borderColor = 'rgba(34,197,94,0.3)';
+                emailBadge.style.color = '#22c55e';
+            } else {
+                emailBadge.innerHTML = '⚠️ Gửi email thất bại: ' + (data.emailMsg || 'lỗi không xác định') + ' — hãy copy mật khẩu và gửi thủ công.';
+                emailBadge.style.background = 'rgba(245,158,11,0.08)';
+                emailBadge.style.borderColor = 'rgba(245,158,11,0.3)';
+                emailBadge.style.color = '#f59e0b';
+            }
+        }
+
+        // Cuộn xuống khu kết quả
+        setTimeout(function() {
+            var resultBox = document.getElementById('licResultBox');
+            if (resultBox) resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            highlightSendButton(data.emailSent ? null : data.receiveChannel);
+        }, 150);
         loadPendingRequests();
         loadLicenseList();
     } catch (e) {
@@ -246,6 +272,30 @@ function buildLicenseMessage() {
     });
     lines.push('', 'Lưu ý: mật khẩu chỉ dùng được trên máy đã gửi mã. Hỗ trợ: https://mos360.vn');
     return lines.join('\\n');
+}
+
+function highlightSendButton(channel) {
+    // Reset tất cả về mặc định trước
+    var btns = {
+        email:    document.querySelector('button[onclick="sendViaEmail()"]'),
+        zalo:     document.querySelector('button[onclick="sendViaZalo()"]'),
+        facebook: document.querySelector('button[onclick="sendViaMessenger()"]')
+    };
+    Object.values(btns).forEach(function(btn) {
+        if (!btn) return;
+        btn.style.opacity = '0.35';
+        btn.style.border = '1px solid #384260';
+        btn.style.transform = 'scale(1)';
+    });
+    // Làm nổi bật nút đúng kênh
+    var active = btns[channel];
+    if (active) {
+        active.style.opacity = '1';
+        active.style.border = '2px solid #22c55e';
+        active.style.transform = 'scale(1.04)';
+        active.style.boxShadow = '0 0 12px rgba(34,197,94,0.4)';
+        active.focus();
+    }
 }
 
 function sendViaEmail() {

@@ -392,6 +392,103 @@ export async function handleLicenseAPI(path, request, env) {
         }
     }
 
+    // ───────────────────────── Gửi email mật khẩu qua Resend ─────────────────────────
+
+    async function sendPasswordEmail(env, { studentName, email, results }) {
+        const apiKey = env.RESEND_API_KEY;
+        if (!apiKey) return { ok: false, msg: "Chưa cấu hình RESEND_API_KEY" };
+
+        const subjectLabel = { excel: "📊 Excel", word: "📄 Word", ppt: "📽️ PowerPoint" };
+
+        const passwordRows = results.map(r => `
+        <tr>
+            <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;font-weight:700;color:#1e293b">${subjectLabel[r.subject] || r.subject}</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;font-family:monospace;font-size:1.1rem;font-weight:800;color:#0052CC;letter-spacing:1px">${r.password}</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e2e8f0;color:#64748b;font-size:0.9rem">Đến ngày ${r.expireDateDisplay}</td>
+        </tr>`).join("");
+
+        const html = `<!DOCTYPE html>
+<html lang="vi">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f0f4fa;font-family:'Segoe UI',Arial,sans-serif">
+<div style="max-width:560px;margin:32px auto;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(15,23,42,0.08)">
+
+  <!-- HEADER -->
+  <div style="background:linear-gradient(135deg,#0052CC,#003d99);padding:28px 32px;text-align:center">
+    <div style="font-size:2rem;font-weight:900;letter-spacing:-1px">
+      <span style="color:#FF5722">MOS</span><span style="color:#ffffff">360</span>
+    </div>
+    <div style="color:rgba(255,255,255,0.8);font-size:0.85rem;margin-top:4px">Trung tâm luyện thi MOS chứng chỉ quốc tế</div>
+  </div>
+
+  <!-- BODY -->
+  <div style="padding:28px 32px">
+    <p style="font-size:1rem;color:#1e293b;margin-bottom:6px">Xin chào <strong>${studentName || "bạn"}</strong>,</p>
+    <p style="color:#475569;font-size:0.9rem;line-height:1.6;margin-bottom:24px">
+      Yêu cầu cấp mật khẩu phần mềm MOS360 của bạn đã được xử lý.<br>
+      Dưới đây là thông tin mật khẩu kích hoạt:
+    </p>
+
+    <!-- BẢNG MẬT KHẨU -->
+    <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin-bottom:24px">
+      <thead>
+        <tr style="background:#f8fafc">
+          <th style="padding:10px 16px;text-align:left;font-size:0.75rem;color:#64748b;font-weight:700;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0">MÔN HỌC</th>
+          <th style="padding:10px 16px;text-align:left;font-size:0.75rem;color:#64748b;font-weight:700;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0">MẬT KHẨU</th>
+          <th style="padding:10px 16px;text-align:left;font-size:0.75rem;color:#64748b;font-weight:700;letter-spacing:0.5px;border-bottom:1px solid #e2e8f0">HIỆU LỰC</th>
+        </tr>
+      </thead>
+      <tbody>${passwordRows}</tbody>
+    </table>
+
+    <!-- HƯỚNG DẪN -->
+    <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:16px 18px;margin-bottom:24px">
+      <div style="font-weight:700;color:#0369a1;margin-bottom:8px;font-size:0.9rem">📋 Hướng dẫn kích hoạt</div>
+      <ol style="margin:0;padding-left:18px;color:#0c4a6e;font-size:0.85rem;line-height:1.8">
+        <li>Mở phần mềm MOS360 trên máy tính</li>
+        <li>Chọn môn học tương ứng</li>
+        <li>Nhập mật khẩu vào ô kích hoạt → bấm <strong>Xác nhận</strong></li>
+        <li>Mật khẩu được khoá theo máy — không dùng được trên máy khác</li>
+      </ol>
+    </div>
+
+    <p style="color:#64748b;font-size:0.82rem;line-height:1.6">
+      Nếu cần hỗ trợ, vui lòng liên hệ MOS360 qua 
+      <a href="https://zalo.me/0912888360" style="color:#0052CC">Zalo</a> hoặc 
+      <a href="https://mos360.vn" style="color:#0052CC">mos360.vn</a>.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:16px 32px;text-align:center">
+    <p style="color:#94a3b8;font-size:0.75rem;margin:0">© MOS360.VN · Số 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p>
+  </div>
+
+</div>
+</body></html>`;
+
+        try {
+            const res = await fetch("https://api.resend.com/emails", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${apiKey}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    from: "MOS360 <hotro@mos360.vn>",
+                    to: [email],
+                    subject: `🔑 Mật khẩu phần mềm MOS360 — ${studentName || ""}`,
+                    html
+                })
+            });
+            const data = await res.json();
+            if (!res.ok) return { ok: false, msg: data.message || "Resend error" };
+            return { ok: true, emailId: data.id };
+        } catch (e) {
+            return { ok: false, msg: e.message };
+        }
+    }
+
     // POST /api/license/approve — duyệt 1 yêu cầu đang chờ: tính password,
     // lưu pwd_index như bình thường, đổi trạng thái pending -> approved.
     // body: { key: "pending:169..._ab12cd" }
@@ -414,6 +511,17 @@ export async function handleLicenseAPI(path, request, env) {
             reqInfo.approvedAt = new Date().toISOString();
             await env.MOS360_USERS_KV.put(key, JSON.stringify(reqInfo));
 
+            // Gửi email tự động — không chặn response nếu email lỗi
+            let emailResult = { ok: false, msg: "Không có địa chỉ email" };
+            const studentEmail = reqInfo.receiveContact;
+            if (studentEmail && studentEmail.includes("@")) {
+                emailResult = await sendPasswordEmail(env, {
+                    studentName: reqInfo.studentName,
+                    email: studentEmail,
+                    results
+                });
+            }
+
             return json({
                 success: true,
                 mac,
@@ -421,7 +529,9 @@ export async function handleLicenseAPI(path, request, env) {
                 studentName: reqInfo.studentName,
                 phone: reqInfo.phone,
                 receiveChannel: reqInfo.receiveChannel,
-                receiveContact: reqInfo.receiveContact
+                receiveContact: reqInfo.receiveContact,
+                emailSent: emailResult.ok,
+                emailMsg: emailResult.ok ? `Đã gửi tới ${studentEmail}` : emailResult.msg
             });
         } catch (e) {
             return json({ success: false, msg: e.message });
