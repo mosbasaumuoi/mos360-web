@@ -12,6 +12,7 @@ import { getProgressUI } from "./pages/progress.js";
 import { getFlashcardUI } from "./pages/flashcard.js";
 import { getIC3IntroUI, getGenAIIntroUI } from "./pages/course-intro.js";
 import { getLicenseRequestUI } from "./pages/license-request.js";
+import { getResultsLookupUI } from "./pages/results-lookup.js";
 import { handleAdminAPI } from "./api/admin-api.js";
 import { handleLicenseAPI } from "./api/license-api.js";
 import { handleResultAPI } from "./api/result-api.js";
@@ -438,6 +439,7 @@ export default {
         else if (path === "/library") content = this.getLibraryUI();
         else if (path === "/progress") content = getProgressUI();
         else if (path === "/cap-mat-khau") content = getLicenseRequestUI();
+        else if (path === "/ket-qua") content = getResultsLookupUI();
         else if (path === "/admin-dashboard") {
             const isAdmin = request.headers.get('Cookie')?.includes('mos360_admin=true');
             content = getAdminDashboardUI();
@@ -550,6 +552,7 @@ export default {
             <a href="/register" style="color:#FF5722;">📝 ĐĂNG KÝ</a>
             <a href="/library">KHO MOS</a>
             <a href="/cap-mat-khau" style="color:var(--cyan);">🔑 LẤY MẬT KHẨU</a>
+            <a href="/ket-qua" style="color:var(--cyan);">📊 KẾT QUẢ</a>
             <a href="/progress" style="color:var(--cyan);">📈 TIẾN ĐỘ</a>
             <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank" class="admin-only-btn" id="adminPanelBtn">[QUẢN LÝ HỌC VIÊN]</a>
             <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank" class="admin-only-btn" id="adminRegSheetBtn">[DỮ LIỆU ĐĂNG KÝ]</a>
@@ -1120,6 +1123,7 @@ ${promoSectionHtml}
     <p class="hn-desc">Tất cả phần mềm và hướng dẫn cần thiết. Miễn phí — hỗ trợ cài đặt 1:1 qua Zalo.</p>
     <div class="hn-tools-grid">
       <a href="/cap-mat-khau" class="hn-tool" style="border:1.5px solid rgba(0,82,204,0.35); background:rgba(0,82,204,0.04);"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.12)">🔑</div><div><div class="hn-tool-name" style="color:var(--cyan)">Lấy mật khẩu phần mềm</div><div class="hn-tool-type">Sau khi cài xong — gửi mã ID nhận mật khẩu</div></div><span class="hn-tool-arr">↗</span></a>
+      <a href="/ket-qua" class="hn-tool" style="border:1.5px solid rgba(34,197,94,0.3); background:rgba(34,197,94,0.04);"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📊</div><div><div class="hn-tool-name" style="color:#22c55e">Xem kết quả của tôi</div><div class="hn-tool-type">Lịch sử điểm thi & luyện tập</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">🖥️</div><div><div class="hn-tool-name">Phần mềm MOS360</div><div class="hn-tool-type">Luyện thi & thi thử</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📦</div><div><div class="hn-tool-name">Office 2019 Pro Plus</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
       <a href="${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>

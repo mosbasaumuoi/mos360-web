@@ -317,16 +317,68 @@ async function loadLicenseList() {
         }
         box.innerHTML = data.items.map(function(h) {
             var dateStr = new Date(h.issuedAt).toLocaleString('vi-VN');
+            var expireStr = h.expireDate ? h.expireDate.slice(0,4) + '-' + h.expireDate.slice(4,6) + '-' + h.expireDate.slice(6) : '';
+            var isExpired = expireStr && expireStr < new Date().toISOString().slice(0,10);
             return '<div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
-                '<div style="display:flex;justify-content:space-between;align-items:start">' +
+                '<div style="display:flex;justify-content:space-between;align-items:start;gap:8px">' +
+                '<div style="flex:1;min-width:0">' +
                 '<div style="font-weight:700;color:#fff;font-size:0.85rem">' + (h.studentName || 'Không tên') + '</div>' +
-                '<div style="color:#475569;font-size:0.7rem">' + dateStr + '</div></div>' +
                 '<div style="color:#64748b;font-size:0.75rem;margin:4px 0">' + (h.phone || '') + ' · ' +
                 '<span style="background:rgba(0,242,255,0.1);color:#00f2ff;padding:2px 8px;border-radius:10px;font-size:0.7rem;font-weight:700">' + SUBJECT_LABEL_VI[h.subject] + '</span> · ' +
-                '<code style="color:#22c55e">' + h.password + '</code></div></div>';
+                '<code style="color:#22c55e">' + h.password + '</code></div>' +
+                '<div style="font-size:0.7rem;color:' + (isExpired ? '#ef4444' : '#475569') + '">' +
+                (isExpired ? '⚠️ Đã hết hạn' : '⏱ Hạn') + ': ' + (expireStr || '—') + ' · Cấp: ' + dateStr + '</div>' +
+                '</div>' +
+                '<div style="display:flex;gap:6px;flex-shrink:0">' +
+                '<button onclick="renewLicense(\\'' + h.password + '\\', \\'' + (h.studentName||'').replace(/'/g,'') + '\\')" ' +
+                'style="padding:5px 10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🔄 Gia hạn</button>' +
+                '<button onclick="revokeLicense(\\'' + h.password + '\\', \\'' + (h.studentName||'').replace(/'/g,'') + '\\')" ' +
+                'style="padding:5px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🗑 Xoá</button>' +
+                '</div></div></div>';
         }).join('');
     } catch (e) {
         box.innerHTML = '<div style="color:#ef4444;text-align:center;padding:20px;font-size:0.85rem">Lỗi tải danh sách</div>';
+    }
+}
+
+async function renewLicense(oldPassword, studentName) {
+    if (!confirm('Gia hạn thêm 60 ngày kể từ HÔM NAY cho ' + (studentName || 'học viên này') + '?\n\nLưu ý: mật khẩu CŨ sẽ bị vô hiệu — nhớ gửi mật khẩu MỚI cho học viên sau khi gia hạn.')) return;
+    try {
+        var res = await adminFetch('/api/license/renew', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: oldPassword })
+        });
+        var data = await res.json();
+        if (!data.success) { alert('❌ Lỗi: ' + data.msg); return; }
+
+        // Hiển thị kết quả gia hạn đúng format như kết quả cấp mới
+        renderLicenseResult([{
+            subject: data.subject,
+            label: SUBJECT_LABEL_VI[data.subject] || data.subject,
+            password: data.newPassword,
+            expireDateDisplay: data.expireDateDisplay
+        }], null);
+        alert('✅ Gia hạn thành công!\nMật khẩu mới: ' + data.newPassword + '\nHạn đến: ' + data.expireDateDisplay + '\n\nHãy gửi mật khẩu mới này cho học viên.');
+        loadLicenseList();
+    } catch (e) {
+        alert('❌ Lỗi kết nối: ' + e.message);
+    }
+}
+
+async function revokeLicense(password, studentName) {
+    if (!confirm('Xoá mật khẩu ' + password + ' của ' + (studentName || 'học viên này') + '?\n\nHành động này không thể hoàn tác — học viên sẽ mất quyền truy cập ngay lập tức.')) return;
+    try {
+        var res = await adminFetch('/api/license/revoke', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+        var data = await res.json();
+        if (!data.success) { alert('❌ Lỗi: ' + data.msg); return; }
+        loadLicenseList();
+    } catch (e) {
+        alert('❌ Lỗi kết nối: ' + e.message);
     }
 }
 `;

@@ -471,6 +471,86 @@ export async function handleLicenseAPI(path, request, env) {
         }
     }
 
+    // POST /api/license/renew — gia hạn 60 ngày kể từ HÔM NAY (không cần học viên gửi mã ID lại).
+    // body: { password: "abc1234567" }
+    //
+    // Vì password = MD5(salt + mac + ngày_hết_hạn + SALT), khi ngày thay đổi thì
+    // password buộc phải đổi. Flow:
+    //   1. Tra pwd_index:{oldPwd} → lấy mac, subject, studentName, phone
+    //   2. Tính newExpireDate = hôm nay (giờ VN) + 60 ngày
+    //   3. Tính newPassword theo đúng thuật toán C# (dùng computePassword)
+    //   4. Lưu pwd_index:{newPassword} với expireDate mới
+    //   5. Xoá pwd_index:{oldPassword} (password cũ không còn hiệu lực)
+    //   6. Trả newPassword + expireDateDisplay để admin gửi cho học viên
+    if (path === "/api/license/renew" && request.method === "POST") {
+        try {
+            const body = await request.json();
+            const oldPassword = (body.password || "").trim().toLowerCase();
+            if (!oldPassword) return json({ success: false, msg: "Thiếu password cần gia hạn" });
+
+            const oldRaw = await env.MOS360_USERS_KV.get("pwd_index:" + oldPassword);
+            if (!oldRaw) return json({ success: false, msg: "Không tìm thấy password này trong hệ thống" });
+
+            const info = JSON.parse(oldRaw);
+            const { mac, subject, studentName, phone } = info;
+
+            const todayUTC = todayVietnam();
+            const newExpireDate = addDaysUTC(todayUTC, 60);
+            const newPassword = await computePassword(mac, subject, newExpireDate);
+            const newExpireDateStr = formatYYYYMMDD(newExpireDate);
+            const newExpireDateDisplay =
+                `${String(newExpireDate.getUTCDate()).padStart(2, "0")}/${String(newExpireDate.getUTCMonth() + 1).padStart(2, "0")}/${newExpireDate.getUTCFullYear()}`;
+
+            const newRecord = {
+                studentName: studentName || "",
+                phone: phone || "",
+                subject,
+                mac,
+                expireDate: newExpireDateStr,
+                issuedAt: new Date().toISOString(),
+                renewedFrom: oldPassword   // audit trail — biết đây là gia hạn từ password nào
+            };
+
+            await env.MOS360_USERS_KV.put("pwd_index:" + newPassword, JSON.stringify(newRecord));
+            await env.MOS360_USERS_KV.delete("pwd_index:" + oldPassword);
+
+            return json({
+                success: true,
+                oldPassword,
+                newPassword,
+                expireDateDisplay: newExpireDateDisplay,
+                studentName: studentName || "",
+                subject
+            });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // POST /api/license/revoke — xoá 1 mật khẩu (vô hiệu hoá tức thì).
+    // Dùng khi học viên vi phạm, hoàn tiền, hoặc cần cấp lại từ đầu.
+    // body: { password: "abc1234567" }
+    if (path === "/api/license/revoke" && request.method === "POST") {
+        try {
+            const body = await request.json();
+            const password = (body.password || "").trim().toLowerCase();
+            if (!password) return json({ success: false, msg: "Thiếu password cần xoá" });
+
+            const raw = await env.MOS360_USERS_KV.get("pwd_index:" + password);
+            if (!raw) return json({ success: false, msg: "Không tìm thấy password này" });
+
+            const info = JSON.parse(raw);
+            await env.MOS360_USERS_KV.delete("pwd_index:" + password);
+
+            return json({
+                success: true,
+                msg: `Đã xoá mật khẩu của ${info.studentName || info.phone || "học viên"}`
+            });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
     return json({ success: false, msg: "License API not found" }, 404);
 }
 
