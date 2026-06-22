@@ -160,7 +160,7 @@ function renderLicenseResult(results, channelInfo) {
             '<div style="color:#64748b;font-size:0.72rem">Hạn: ' + r.expireDateDisplay + '</div></div>' +
             '<div style="display:flex;align-items:center;gap:8px">' +
             '<code style="background:#090b14;color:#22c55e;padding:6px 12px;border-radius:6px;font-size:0.95rem;font-weight:800;letter-spacing:0.5px">' + r.password + '</code>' +
-            '<button onclick="copyText(\\'' + r.password + '\\')" style="padding:6px 10px;background:#1e2235;border:1px solid #384260;color:#fff;border-radius:6px;cursor:pointer;font-size:0.78rem">📋</button>' +
+            '<button data-copy="' + r.password + '" onclick="copyText(this.dataset.copy)" style="padding:6px 10px;background:#1e2235;border:1px solid #384260;color:#fff;border-radius:6px;cursor:pointer;font-size:0.78rem">📋</button>' +
             '</div></div>';
     }).join('');
 }
@@ -191,7 +191,7 @@ async function loadPendingRequests() {
                 '<div style="color:#475569;font-size:0.7rem;margin-top:6px;font-family:monospace">ID: ' + escapeHtml(idShort) + '</div>' +
                 '<div style="color:#94a3b8;font-size:0.76rem;margin-top:4px">📨 ' + (CHANNEL_LABEL_VI[it.receiveChannel] || it.receiveChannel) + ': ' + escapeHtml(it.receiveContact) + '</div>' +
                 '</div>' +
-                '<button onclick="approveRequest(\\'' + it.key + '\\', this)" style="padding:9px 16px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#04111a;border:none;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.82rem;white-space:nowrap">✅ Duyệt</button>' +
+                '<button data-key="' + it.key + '" onclick="approveRequest(this.dataset.key, this)" style="padding:9px 16px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#04111a;border:none;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.82rem;white-space:nowrap">✅ Duyệt</button>' +
                 '</div></div>';
         }).join('');
     } catch (e) {
@@ -315,11 +315,12 @@ async function loadLicenseList() {
             box.innerHTML = '<div style="color:#64748b;text-align:center;padding:30px;font-size:0.85rem">Chưa có mật khẩu nào được cấp</div>';
             return;
         }
-        box.innerHTML = data.items.map(function(h) {
+        box.innerHTML = data.items.map(function(h, i) {
             var dateStr = new Date(h.issuedAt).toLocaleString('vi-VN');
             var expireStr = h.expireDate ? h.expireDate.slice(0,4) + '-' + h.expireDate.slice(4,6) + '-' + h.expireDate.slice(6) : '';
             var isExpired = expireStr && expireStr < new Date().toISOString().slice(0,10);
-            return '<div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
+            var itemId = 'lic-item-' + i;
+            return '<div id="' + itemId + '" style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
                 '<div style="display:flex;justify-content:space-between;align-items:start;gap:8px">' +
                 '<div style="flex:1;min-width:0">' +
                 '<div style="font-weight:700;color:#fff;font-size:0.85rem">' + (h.studentName || 'Không tên') + '</div>' +
@@ -330,9 +331,11 @@ async function loadLicenseList() {
                 (isExpired ? '⚠️ Đã hết hạn' : '⏱ Hạn') + ': ' + (expireStr || '—') + ' · Cấp: ' + dateStr + '</div>' +
                 '</div>' +
                 '<div style="display:flex;gap:6px;flex-shrink:0">' +
-                '<button onclick="renewLicense(\\'' + h.password + '\\', \\'' + (h.studentName||'').replace(/'/g,'') + '\\')" ' +
+                '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
+                'onclick="renewLicense(this.dataset.pwd,this.dataset.name)" ' +
                 'style="padding:5px 10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🔄 Gia hạn</button>' +
-                '<button onclick="revokeLicense(\\'' + h.password + '\\', \\'' + (h.studentName||'').replace(/'/g,'') + '\\')" ' +
+                '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
+                'onclick="revokeLicense(this.dataset.pwd,this.dataset.name)" ' +
                 'style="padding:5px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🗑 Xoá</button>' +
                 '</div></div></div>';
         }).join('');
