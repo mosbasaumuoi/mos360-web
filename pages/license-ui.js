@@ -345,7 +345,7 @@ async function loadLicenseList() {
 }
 
 async function renewLicense(oldPassword, studentName) {
-    if (!confirm('Gia hạn thêm 60 ngày kể từ HÔM NAY cho ' + (studentName || 'học viên này') + '?\n\nLưu ý: mật khẩu CŨ sẽ bị vô hiệu — nhớ gửi mật khẩu MỚI cho học viên sau khi gia hạn.')) return;
+    if (!confirm('Gia hạn thêm 60 ngày kể từ HÔM NAY cho ' + (studentName || 'học viên này') + '?\\n\\nLưu ý: mật khẩu CŨ sẽ bị vô hiệu — nhớ gửi mật khẩu MỚI cho học viên sau khi gia hạn.')) return;
     try {
         var res = await adminFetch('/api/license/renew', {
             method: 'POST',
@@ -362,7 +362,7 @@ async function renewLicense(oldPassword, studentName) {
             password: data.newPassword,
             expireDateDisplay: data.expireDateDisplay
         }], null);
-        alert('✅ Gia hạn thành công!\nMật khẩu mới: ' + data.newPassword + '\nHạn đến: ' + data.expireDateDisplay + '\n\nHãy gửi mật khẩu mới này cho học viên.');
+        alert('✅ Gia hạn thành công!\\nMật khẩu mới: ' + data.newPassword + '\\nHạn đến: ' + data.expireDateDisplay + '\\n\\nHãy gửi mật khẩu mới này cho học viên.');
         loadLicenseList();
     } catch (e) {
         alert('❌ Lỗi kết nối: ' + e.message);
@@ -370,7 +370,7 @@ async function renewLicense(oldPassword, studentName) {
 }
 
 async function revokeLicense(password, studentName) {
-    if (!confirm('Xoá mật khẩu ' + password + ' của ' + (studentName || 'học viên này') + '?\n\nHành động này không thể hoàn tác — học viên sẽ mất quyền truy cập ngay lập tức.')) return;
+    if (!confirm('Xoá mật khẩu ' + password + ' của ' + (studentName || 'học viên này') + '?\\n\\nHành động này không thể hoàn tác — học viên sẽ mất quyền truy cập ngay lập tức.')) return;
     try {
         var res = await adminFetch('/api/license/revoke', {
             method: 'POST',
