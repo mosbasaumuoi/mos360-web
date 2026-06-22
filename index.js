@@ -992,7 +992,7 @@ ${mode !== 'register' ? `
   <div class="hn-inner">
     <div class="hn-tag">🏆 Bảng vàng</div>
     <h2 class="hn-h2">Chứng chỉ Quốc tế của học viên MOS360</h2>
-    <p class="hn-desc" style="margin-bottom:20px">Hơn 700 học viên đã nhận chứng chỉ MOS & IC3 từ Certiport.</p>
+    <p class="hn-desc" style="margin-bottom:20px">Hơn 2000 học viên đã nhận chứng chỉ MOS & IC3 từ Certiport.</p>
     <div class="hn-bvang">
       <div class="hn-bvang-hdr">🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</div>
       <div style="height:520px; overflow:hidden; padding:4px;">
@@ -1010,8 +1010,8 @@ ${mode !== 'register' ? `
 <div class="hn-section" style="padding:56px 24px">
   <div class="hn-inner">
     <div class="hn-tag">💬 Học viên nói gì</div>
-    <h2 class="hn-h2">Kết quả thật từ học viên MOS360</h2>
-    <p class="hn-desc" style="margin-bottom:24px">100% đề xuất · 68+ lượt đánh giá · Điểm số xác thực từ hệ thống Certiport.</p>
+    <h2 class="hn-h2">Kết quả từ học viên MOS360</h2>
+    <p class="hn-desc" style="margin-bottom:24px">100% đề xuất · 668+ lượt đánh giá · Điểm số xác thực từ hệ thống Certiport.</p>
     <div class="hn-tscroll">${testimonialsHtml}</div>
   </div>
 </div>
@@ -1168,7 +1168,7 @@ ${promoSectionHtml}
     <div style="margin-bottom:32px;">
       <div class="hn-tag" style="background:rgba(22,163,74,0.1);color:#16a34a;">🖥️ Hệ học Online</div>
       <h2 class="hn-h2">IC3 GS6 & Generative AI</h2>
-      <p class="hn-desc">Luyện đề trực tiếp trên web — không cần cài đặt. Đăng ký tài khoản để lưu tiến độ học.</p>
+      <p class="hn-desc">Luyện đề trực tiếp trên web — không cần cài đặt. Đăng nhập học viên để lưu tiến độ học.</p>
       <div class="hn-tools-grid">
         <a href="/ic3-lv1" class="hn-tool" style="border:1.5px solid rgba(22,163,74,0.3);background:rgba(22,163,74,0.03);"><div class="hn-tool-ico" style="background:rgba(22,163,74,0.1)">🟢</div><div><div class="hn-tool-name" style="color:#16a34a">IC3 GS6 Level 1</div><div class="hn-tool-type">Kiến thức nền tảng</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/ic3-lv2" class="hn-tool" style="border:1.5px solid rgba(217,119,6,0.3);background:rgba(217,119,6,0.03);"><div class="hn-tool-ico" style="background:rgba(217,119,6,0.1)">🟡</div><div><div class="hn-tool-name" style="color:#d97706">IC3 GS6 Level 2</div><div class="hn-tool-type">Nâng cao kỹ năng</div></div><span class="hn-tool-arr">↗</span></a>
