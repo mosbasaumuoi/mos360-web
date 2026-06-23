@@ -481,8 +481,16 @@ export async function handleLicenseAPI(path, request, env) {
                     html
                 })
             });
-            const data = await res.json();
-            if (!res.ok) return { ok: false, msg: data.message || "Resend error" };
+
+            // Đọc raw text trước — tránh crash nếu Resend trả về HTML hoặc response rỗng
+            const rawText = await res.text();
+            let data = {};
+            try { data = JSON.parse(rawText); } catch (_) { /* không phải JSON */ }
+
+            if (!res.ok) {
+                const errMsg = data.message || data.error || rawText.slice(0, 120) || `HTTP ${res.status}`;
+                return { ok: false, msg: errMsg };
+            }
             return { ok: true, emailId: data.id };
         } catch (e) {
             return { ok: false, msg: e.message };
