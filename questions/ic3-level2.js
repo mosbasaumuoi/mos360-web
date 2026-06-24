@@ -2091,7 +2091,7 @@ export const IC3_LEVEL2 = [
       "Di chuyển ngay lập tức ra xa khỏi vị trí ngồi của những người khác trong phòng từ 100 đến 200 feet để nói chuyện",
       "Đi nhanh ra một góc khuất hoặc đứng sát vách của ngay chính căn phòng họp đó để nghe điện thoại"
     ],
-    answer: "Rời khỏi phòng họp",
+    answer: "Chủ động xin phép rời khỏi phòng họp, di chuyển đến khu vực riêng tư thích hợp để thực hiện cuộc gọi nhằm tránh làm phiền người khác",
     explanation: "Khi có cuộc gọi bắt buộc phải nghe lúc đang họp, hành vi lịch sự và đúng chuẩn mực nhất là giữ lặng lẽ, xin phép rời khỏi phòng họp sang một không gian riêng tư (hành lang, phòng trống) để đàm thoại, không gây tiếng ồn ảnh hưởng tới sự tập trung của toàn bộ cuộc họp[cite: 375, 376]."
   },
 
