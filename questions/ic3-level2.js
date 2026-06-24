@@ -1826,7 +1826,7 @@ export const IC3_LEVEL2 = [
       "Để biểu thị rằng đây là một tin nhắn mang tính chất riêng tư, không liên quan đến công việc",
       "Để giữ bí mật danh tính và địa chỉ email của nhiều người nhận khác nhau trong cùng luồng thư"
     ],
-    answer: "Để giữ bí mật địa chỉ email của nhiều người nhận với nhau",
+    answer: "Để giữ bí mật danh tính và địa chỉ email của nhiều người nhận khác nhau trong cùng luồng thư",
     explanation: "Trường Bcc (Blind Carbon Copy) được thiết kế với mục đích bảo mật quyền riêng tư, giúp ẩn danh sách địa chỉ email của những người nhận được điền trong trường này, khiến họ không thể nhìn thấy email của nhau[cite: 338]."
   },
   {
