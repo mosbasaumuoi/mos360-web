@@ -1425,10 +1425,10 @@ export const IC3_LEVEL2 = [
       "Thêm sự kiện này vào lịch cá nhân cố định lặp lại theo chu kỳ hàng năm",
       "Thêm tài khoản của thành viên khác (ví dụ: anh trai của bạn) vào sự kiện để họ cùng theo dõi"
     ],
-    right: [
-      "Cả ngày (All day)",
-      "15 phút trước / Tùy chỉnh thông báo",
+    right: [      
       "Lặp lại hàng năm (Repeat / Annually)",
+      "15 phút trước / Tùy chỉnh thông báo",
+      "Cả ngày (All day)",
       "Mời người tham dự (Invite attendees)"
     ],
     answer: {
@@ -2035,8 +2035,8 @@ export const IC3_LEVEL2 = [
       "Tất cả các chi phí của mọi ứng dụng trên chợ ứng dụng di động đều bắt buộc phải được người dùng thanh toán trước khi tiến hành tải xuống"
     ],
     answer: [
-      "Dịch vụ thanh toán điện tử Google Pay có thể được sử dụng tại các cửa hàng tạp hóa",
-      "Ứng dụng trên hệ điều hành iOS được cài đặt thông qua App Store"
+      "Dịch vụ thanh toán điện tử Google Pay có thể được sử dụng để thanh toán trực tiếp tại các cửa hàng tạp hóa ngoại tuyến (có hỗ trợ giao tiếp NFC)",
+      "Trên các thiết bị di động sử dụng hệ điều hành iOS (như iPhone, iPad), các ứng dụng bắt buộc phải được cài đặt chính thức thông qua nền tảng App Store",
     ],
     explanation: "Hệ điều hành iOS của Apple quy định cài đặt ứng dụng chính thức qua App Store[cite: 363, 364]. Google Pay hỗ trợ thanh toán không tiếp xúc qua NFC tại các cửa hàng vật lý như siêu thị, tạp hóa[cite: 363, 364]. Các ứng dụng miễn phí vẫn có thể có quảng cáo hoặc tính năng mua thêm trong ứng dụng (In-app purchases)[cite: 363, 364]."
   },
@@ -2055,8 +2055,8 @@ export const IC3_LEVEL2 = [
       "Khuyến khích mọi người sử dụng các tính năng tương tác như giơ tay (Raise Hand) để tạo cơ hội công bằng cho tất cả các thành viên trong nhóm đều được phát biểu"
     ],
     answer: [
-      "Đề nghị hỗ trợ riêng cho một thành viên trong nhóm không có kinh nghiệm tham dự hội thảo video nhằm giúp họ làm quen với chức năng điều khiển trước cuộc họp",
-      "Sử dụng các tính năng như giơ tay (Raise Hand) để tạo cơ hội cho tất cả các thành viên trong nhóm tham gia"
+      "Chủ động liên hệ và hỗ trợ riêng cho thành viên chưa từng có kinh nghiệm họp trực tuyến để hướng dẫn họ cách sử dụng các nút điều khiển trước khi cuộc họp chính thức bắt đầu",
+      "Khuyến khích mọi người sử dụng các tính năng tương tác như giơ tay (Raise Hand) để tạo cơ hội công bằng cho tất cả các thành viên trong nhóm đều được phát biểu"
     ],
     explanation: "Chuẩn mực đạo đức số và quản trị nhân sự hiện đại yêu cầu tạo ra môi trường bình đẳng, bao dung[cite: 365, 366]. Việc hỗ trợ người yếu thế về công nghệ trước cuộc họp và sử dụng tính năng 'Giơ tay' (Raise Hand) giúp phân phối lượt nói công bằng, văn minh, đảm bảo tiếng nói của mọi nhóm văn hóa/độ tuổi đều được tôn trọng[cite: 364, 368, 369]."
   },
@@ -2074,7 +2074,7 @@ export const IC3_LEVEL2 = [
       "Tự động hoàn tất dựa trên dữ liệu có sẵn (AutoComplete)",
       "Tự động điền dữ liệu theo chuỗi (AutoFill)"
     ],
-    answer: "Tự động hoàn tất (AutoComplete)",
+    answer: "Tự động hoàn tất dựa trên dữ liệu có sẵn (AutoComplete)",
     explanation: "Tính năng AutoComplete (Tự động hoàn tất) trong các phần mềm bảng tính (như Excel/Google Sheets) sẽ tự động nhận diện các chuỗi ký tự đã được nhập ở các ô phía trên trong cùng một cột[cite: 369, 370, 371]. Khi người dùng gõ ký tự đầu tiên trùng lặp ('Y'), nó sẽ gợi ý hoàn thiện toàn bộ từ đó ('Yes') nhằm tăng tốc độ nhập liệu[cite: 371, 372, 373]."
   },
   {
@@ -3426,7 +3426,7 @@ export const IC3_LEVEL2 = [
       "Thông tin tài khoản và mật khẩu luôn được tự động lưu lại bảo mật",
       "Giúp tăng thêm dung lượng lưu trữ khả dụng đáng kể trên đĩa cứng máy tính"
     ],
-    answer: "Lịch sử của người dùng không được lưu trữ",
+    answer: "Lịch sử duyệt web của người dùng không được lưu trữ lại trên thiết bị",
     explanation: "Duyệt web riêng tư đảm bảo các thông tin như lịch sử duyệt web, cookie và dữ liệu biểu mẫu không bị ghi lại cục bộ sau khi đóng cửa sổ."
   }
   ,

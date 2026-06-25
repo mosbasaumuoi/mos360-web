@@ -942,10 +942,10 @@ export const IC3_LEVEL1 = [
     ],
 
     answer: {
-      "ic3_lv1_q41_opt_a": "Bo mạch chủ (Motherboard)",
+      "ic3_lv1_q41_opt_a": "Bộ xử lý trung tâm (CPU)",
       "ic3_lv1_q41_opt_b": "Ổ đĩa cứng (HDD)",
       "ic3_lv1_q41_opt_c": "Ổ cứng thể rắn (SSD)",
-      "ic3_lv1_q41_opt_d": "Bộ xử lý trung tâm (CPU)"
+      "ic3_lv1_q41_opt_d": "Bo mạch chủ (Motherboard)"
     },
 
     explanation:
