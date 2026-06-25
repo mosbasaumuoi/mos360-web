@@ -1,16 +1,22 @@
-//GENERATIVE_AI
-//=====================
-//ID 1 → 20 FOUNDATION
-//21 → 40  PROMPTING
-//41 → 80  ETHICS / RESPONSIBLE AI
-//81 → 90  FOUNDATION 2
-//91 → 100 TOOLS
-//101 → 110 PROMPTING ADVANCED
-//111 → 130 ETHICS 2
-//=====================
-
+// ============================================================
+// GENERATIVE_AI — NGÂN HÀNG CÂU HỎI
+// ============================================================
+//
+// ID RANGE:
+// 1  → 19  : FOUNDATION
+// 20 → 38  : PROMPTING
+// 39 → 64  : ETHICS / RESPONSIBLE AI
+// 65 → 73  : FOUNDATION 2
+// 74 → 82  : TOOLS
+// 83 → 91  : PROMPTING ADVANCED
+// 92 → 109 : ETHICS 2
+// ============================================================
 
 export const GENERATIVE_AI = [
+
+  // ============================================================
+  // FOUNDATION (ID 1 → 19)
+  // ============================================================
 
   {
     id: 1,
@@ -26,8 +32,7 @@ export const GENERATIVE_AI = [
       "AI mô phỏng hành vi người dùng"
     ],
     answer: 1,
-    explanation:
-      "Generative AI là AI tạo ra nội dung mới dựa trên dữ liệu đã học."
+    explanation: "Generative AI là loại trí tuệ nhân tạo có khả năng tạo ra nội dung mới như văn bản, hình ảnh, âm thanh hoặc mã nguồn dựa trên dữ liệu đã được huấn luyện."
   },
 
   {
@@ -36,16 +41,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Khác biệt chính giữa Generative AI và AI dự đoán là gì?",
+    question: "Điểm khác biệt chính giữa Generative AI và AI dự đoán (Predictive AI) là gì?",
     options: [
       "AI dự đoán tạo ra nội dung mới",
       "AI dự đoán chỉ được dùng cho hình ảnh",
-      "Generative AI tạo nội dung mới, AI dự đoán giá trị",
-      "Generative AI chậm hơn"
+      "Generative AI tạo nội dung mới, còn Predictive AI dự đoán kết quả hoặc xu hướng",
+      "Generative AI luôn hoạt động nhanh hơn"
     ],
     answer: 2,
-    explanation:
-      "Generative AI tạo nội dung mới, trong khi Predictive AI chủ yếu dự đoán."
+    explanation: "Generative AI tạo ra nội dung mới, trong khi Predictive AI chủ yếu dùng để dự đoán hoặc phân loại dựa trên dữ liệu."
   },
 
   {
@@ -54,7 +58,7 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Công cụ nào sau đây KHÔNG phải là mô hình văn bản?",
+    question: "Công cụ AI nào dưới đây chủ yếu được thiết kế để tạo hình ảnh thay vì hỗ trợ hội thoại bằng văn bản?",
     options: [
       "ChatGPT",
       "Claude",
@@ -62,8 +66,7 @@ export const GENERATIVE_AI = [
       "Midjourney"
     ],
     answer: 3,
-    explanation:
-      "Midjourney chủ yếu là mô hình tạo hình ảnh."
+    explanation: "Midjourney chuyên tạo hình ảnh từ mô tả văn bản, trong khi ChatGPT, Claude và Gemini chủ yếu hỗ trợ hội thoại và tạo nội dung."
   },
 
   {
@@ -80,8 +83,7 @@ export const GENERATIVE_AI = [
       "Large Logic Memory"
     ],
     answer: 0,
-    explanation:
-      "LLM là Large Language Model."
+    explanation: "LLM (Large Language Model) là mô hình ngôn ngữ lớn có khả năng hiểu và tạo nội dung bằng ngôn ngữ tự nhiên."
   },
 
   {
@@ -90,7 +92,7 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Đầu vào phổ biến nhất của LLM là gì?",
+    question: "Đầu vào (input) phổ biến nhất của các mô hình ngôn ngữ lớn (LLM) là gì?",
     options: [
       "Prompt văn bản",
       "RAM",
@@ -98,8 +100,7 @@ export const GENERATIVE_AI = [
       "BIOS"
     ],
     answer: 0,
-    explanation:
-      "LLM thường nhận đầu vào dưới dạng prompt văn bản."
+    explanation: "Người dùng thường tương tác với LLM thông qua Prompt bằng văn bản để yêu cầu AI thực hiện một nhiệm vụ."
   },
 
   {
@@ -108,16 +109,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Ví dụ nào là đầu ra của Generative AI?",
+    question: "Bạn yêu cầu AI viết một email xin nghỉ phép. Kết quả nào dưới đây là đầu ra của Generative AI?",
     options: [
-      "Bài viết mới",
+      "Một email hoàn chỉnh",
       "Mainboard",
       "Ổ SSD",
       "CPU"
     ],
     answer: 0,
-    explanation:
-      "AI có thể tạo văn bản, hình ảnh, âm thanh hoặc video mới."
+    explanation: "Generative AI có thể tạo ra nội dung mới như email, bài viết, báo cáo, hình ảnh hoặc mã nguồn theo yêu cầu của người dùng."
   },
 
   {
@@ -126,7 +126,7 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Mô hình nào nổi tiếng với khả năng tạo hình ảnh?",
+    question: "Mô hình AI nào nổi tiếng với khả năng tạo hình ảnh từ mô tả văn bản?",
     options: [
       "Stable Diffusion",
       "Excel",
@@ -134,8 +134,7 @@ export const GENERATIVE_AI = [
       "Access"
     ],
     answer: 0,
-    explanation:
-      "Stable Diffusion là mô hình tạo ảnh phổ biến."
+    explanation: "Stable Diffusion là một mô hình Generative AI phổ biến dùng để tạo hình ảnh từ mô tả bằng văn bản."
   },
 
   {
@@ -144,16 +143,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "GAN là viết tắt của cụm từ nào?",
+    question: "Generative AI hiện nay có thể tạo ra những loại nội dung nào?",
     options: [
-      "Generative Adversarial Network",
-      "General AI Network",
-      "Graphic AI Node",
-      "Generated Application Network"
+      "Chỉ văn bản",
+      "Chỉ hình ảnh",
+      "Chỉ âm thanh",
+      "Văn bản, hình ảnh, âm thanh và nhiều loại nội dung khác"
     ],
-    answer: 0,
-    explanation:
-      "GAN là kiến trúc Generative Adversarial Network."
+    answer: 3,
+    explanation: "Các mô hình Generative AI hiện đại có thể tạo nhiều loại nội dung như văn bản, hình ảnh, âm thanh, video và mã nguồn."
   },
 
   {
@@ -162,7 +160,7 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Transformer nổi tiếng nhờ khả năng gì?",
+    question: "Kiến trúc Transformer nổi tiếng nhờ khả năng gì?",
     options: [
       "Xử lý ngôn ngữ tự nhiên",
       "Tăng tốc ổ cứng",
@@ -170,8 +168,7 @@ export const GENERATIVE_AI = [
       "Nâng cấp RAM"
     ],
     answer: 0,
-    explanation:
-      "Transformer là nền tảng của hầu hết các LLM hiện đại."
+    explanation: "Transformer là nền tảng của hầu hết các mô hình ngôn ngữ lớn (LLM) hiện đại nhờ khả năng xử lý và tạo ngôn ngữ tự nhiên hiệu quả."
   },
 
   {
@@ -180,16 +177,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Mô hình đa phương thức (Multimodal) có thể làm gì?",
+    question: "Mô hình đa phương thức (Multimodal) có khả năng gì?",
     options: [
-      "Xử lý nhiều loại dữ liệu",
+      "Xử lý nhiều loại dữ liệu như văn bản và hình ảnh",
       "Chỉ xử lý văn bản",
       "Chỉ xử lý âm thanh",
-      "Chỉ xử lý ảnh"
+      "Chỉ xử lý hình ảnh"
     ],
     answer: 0,
-    explanation:
-      "Multimodal hỗ trợ văn bản, ảnh, âm thanh và nhiều dạng dữ liệu."
+    explanation: "Multimodal AI có thể tiếp nhận và xử lý nhiều loại dữ liệu khác nhau như văn bản, hình ảnh, âm thanh hoặc video trong cùng một hệ thống."
   },
 
   {
@@ -198,7 +194,7 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Ví dụ về mô hình đa phương thức là gì?",
+    question: "Ví dụ nào dưới đây là một mô hình AI đa phương thức (Multimodal)?",
     options: [
       "Gemini",
       "Notepad",
@@ -206,8 +202,7 @@ export const GENERATIVE_AI = [
       "WordPad"
     ],
     answer: 0,
-    explanation:
-      "Gemini là mô hình multimodal nổi bật."
+    explanation: "Gemini là mô hình AI đa phương thức có thể xử lý đồng thời văn bản, hình ảnh và nhiều loại dữ liệu khác."
   },
 
   {
@@ -216,16 +211,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Token trong AI là gì?",
+    question: "Trong AI, Token được hiểu là gì?",
     options: [
-      "Đơn vị dữ liệu mà mô hình xử lý",
+      "Đơn vị dữ liệu mà mô hình AI xử lý",
       "Loại CPU",
       "Loại GPU",
       "Bộ nhớ RAM"
     ],
     answer: 0,
-    explanation:
-      "Token là đơn vị cơ bản trong xử lý ngôn ngữ của AI."
+    explanation: "Token là đơn vị nhỏ mà AI sử dụng để đọc và tạo văn bản. Số lượng Token ảnh hưởng đến độ dài nội dung AI có thể xử lý hoặc tạo ra trong một lần."
   },
 
   {
@@ -234,7 +228,7 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "LLMs được huấn luyện trên điều gì?",
+    question: "Các mô hình ngôn ngữ lớn (LLM) được huấn luyện trên nguồn dữ liệu nào?",
     options: [
       "Khối lượng dữ liệu rất lớn",
       "Một file Word",
@@ -242,8 +236,7 @@ export const GENERATIVE_AI = [
       "Một bảng Excel"
     ],
     answer: 0,
-    explanation:
-      "LLMs học từ lượng dữ liệu khổng lồ."
+    explanation: "LLM được huấn luyện trên lượng dữ liệu rất lớn để học cách hiểu và tạo ngôn ngữ tự nhiên."
   },
 
   {
@@ -252,16 +245,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Huấn luyện mô hình AI lớn tốn kém vì sao?",
+    question: "Vì sao việc huấn luyện các mô hình AI lớn thường tốn nhiều chi phí?",
     options: [
-      "Cần GPU mạnh và nhiều năng lượng",
-      "Cần giấy in",
+      "Cần tài nguyên tính toán mạnh như GPU và lượng dữ liệu lớn",
+      "Cần nhiều giấy in",
       "Cần máy fax",
       "Cần ổ đĩa mềm"
     ],
     answer: 0,
-    explanation:
-      "Huấn luyện AI hiện đại đòi hỏi tài nguyên tính toán rất lớn."
+    explanation: "Việc huấn luyện AI hiện đại cần lượng dữ liệu rất lớn cùng hệ thống GPU mạnh để thực hiện hàng tỷ phép tính."
   },
 
   {
@@ -270,16 +262,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Diffusion, GANs, VAEs và Transformer là gì?",
+    question: "Khi sử dụng AI, thuật ngữ 'Token' thường dùng để chỉ điều gì?",
     options: [
-      "Các mô hình Generative AI",
-      "Các hệ điều hành",
-      "Các loại dữ liệu",
-      "Các chuẩn mạng"
+      "Đơn vị dữ liệu mà AI xử lý",
+      "Loại GPU",
+      "Loại RAM",
+      "Loại CPU"
     ],
     answer: 0,
-    explanation:
-      "Đây là các kiến trúc Generative AI phổ biến."
+    explanation: "Token là đơn vị dữ liệu mà AI sử dụng để đọc và tạo văn bản. Hiểu về Token giúp người dùng biết vì sao AI có giới hạn về độ dài câu trả lời."
   },
 
   {
@@ -288,16 +279,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "CNN thường được sử dụng cho lĩnh vực nào?",
+    question: "Đâu KHÔNG phải là đầu ra của Generative AI?",
     options: [
-      "Xử lý hình ảnh",
-      "In tài liệu",
-      "Quản lý cơ sở dữ liệu",
-      "Lập lịch họp"
+      "Văn bản",
+      "Hình ảnh",
+      "Âm thanh",
+      "Nguồn điện"
     ],
-    answer: 0,
-    explanation:
-      "CNN đặc biệt hiệu quả trong Computer Vision."
+    answer: 3,
+    explanation: "Generative AI tạo ra nội dung số như văn bản, hình ảnh, âm thanh hoặc video, chứ không tạo ra các đối tượng vật lý như nguồn điện."
   },
 
   {
@@ -306,16 +296,15 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Thuật ngữ quan trọng trong Generative AI là gì?",
+    question: "Mục tiêu chính của Generative AI là gì?",
     options: [
-      "Pixel Count",
-      "Token",
-      "Voltage",
-      "BIOS"
+      "Tạo ra nội dung mới có ý nghĩa",
+      "Tăng tốc Internet",
+      "Nâng cấp phần cứng",
+      "Tăng dung lượng RAM"
     ],
-    answer: 1,
-    explanation:
-      "Token là đơn vị cơ bản của LLM."
+    answer: 0,
+    explanation: "Generative AI được thiết kế để tạo ra nội dung mới dựa trên dữ liệu đã học nhằm hỗ trợ học tập, làm việc và sáng tạo."
   },
 
   {
@@ -324,61 +313,46 @@ export const GENERATIVE_AI = [
     category: "FOUNDATION",
     difficulty: "easy",
     type: "single",
-    question: "Đâu KHÔNG phải đầu ra của Generative AI?",
+    question: "Generative AI hiện nay được ứng dụng phổ biến nhất trong lĩnh vực nào?",
     options: [
-      "Văn bản",
-      "Hình ảnh",
-      "Âm thanh",
-      "Nguồn điện"
+      "Học tập, sáng tạo nội dung và hỗ trợ công việc",
+      "Sửa chữa bo mạch điện tử",
+      "Sản xuất CPU",
+      "Lắp ráp ổ cứng"
     ],
-    answer: 3,
-    explanation:
-      "AI tạo nội dung số, không tạo nguồn điện vật lý."
+    answer: 0,
+    explanation: "Generative AI đang được ứng dụng rộng rãi để viết nội dung, hỗ trợ học tập, phân tích thông tin, lập kế hoạch và nâng cao năng suất làm việc."
   },
 
   {
     id: 19,
     level: "GENERATIVE_AI",
     category: "FOUNDATION",
-    difficulty: "easy",
+    difficulty: "medium",
     type: "single",
-    question: "Mục tiêu chính của Generative AI là gì?",
+    question: "Dữ liệu huấn luyện (Training Data) có vai trò gì trong AI?",
     options: [
-      "Tạo nội dung mới có ý nghĩa",
-      "Tăng tốc Internet",
-      "Nâng cấp phần cứng",
-      "Tăng dung lượng RAM"
+      "Giúp mô hình học các quy luật từ dữ liệu",
+      "Tăng tốc độ Internet",
+      "Tăng dung lượng RAM",
+      "Thay đổi hệ điều hành"
     ],
     answer: 0,
-    explanation:
-      "Generative AI được thiết kế để tạo nội dung mới từ dữ liệu đã học."
+    explanation: "AI học từ dữ liệu huấn luyện để nhận biết quy luật và tạo ra dự đoán hoặc nội dung mới."
   },
+
+
+  // ============================================================
+  // PROMPTING (ID 20 → 38)
+  // ============================================================
 
   {
     id: 20,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "easy",
-    type: "single",
-    question: "Generative AI hiện nay được ứng dụng rộng rãi trong lĩnh vực nào?",
-    options: [
-      "Nội dung số và hỗ trợ công việc",
-      "Sửa mainboard",
-      "Sản xuất CPU",
-      "Lắp ráp ổ cứng"
-    ],
-    answer: 0,
-    explanation:
-      "AI đang được ứng dụng mạnh trong học tập, sáng tạo nội dung và năng suất làm việc."
-  },
-
-    {
-    id: 21,
-    level: "GENERATIVE_AI",
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Prompt là gì?",
+    question: "Prompt trong Generative AI là gì?",
     options: [
       "Yêu cầu hoặc hướng dẫn gửi cho AI",
       "Kết quả do AI tạo ra",
@@ -386,8 +360,24 @@ export const GENERATIVE_AI = [
       "Máy chủ AI"
     ],
     answer: 0,
-    explanation:
-      "Prompt là đầu vào dùng để hướng dẫn AI thực hiện nhiệm vụ."
+    explanation: "Prompt là yêu cầu hoặc hướng dẫn mà người dùng gửi cho AI để AI thực hiện một nhiệm vụ hoặc tạo nội dung theo mong muốn."
+  },
+
+  {
+    id: 21,
+    level: "GENERATIVE_AI",
+    category: "PROMPTING",
+    difficulty: "easy",
+    type: "single",
+    question: "Một Prompt hiệu quả thường có đặc điểm nào?",
+    options: [
+      "Rõ ràng, cụ thể và có mục tiêu",
+      "Mơ hồ để AI tự suy luận",
+      "Ngắn nhất có thể",
+      "Không cần nêu yêu cầu"
+    ],
+    answer: 0,
+    explanation: "Prompt càng rõ ràng và cụ thể thì AI càng dễ hiểu đúng yêu cầu và tạo ra kết quả phù hợp."
   },
 
   {
@@ -396,16 +386,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Một prompt tốt nên có đặc điểm nào?",
+    question: "Prompt càng chi tiết thì thường mang lại lợi ích gì?",
     options: [
-      "Rõ ràng và cụ thể",
-      "Mơ hồ",
-      "Ngắn nhất có thể",
-      "Không có mục tiêu"
+      "Kết quả sát với yêu cầu hơn",
+      "AI sẽ ngừng hoạt động",
+      "Làm mất dữ liệu",
+      "Giảm tốc độ Internet"
     ],
     answer: 0,
-    explanation:
-      "Prompt rõ ràng giúp AI hiểu chính xác yêu cầu."
+    explanation: "Việc bổ sung đầy đủ mục tiêu, ngữ cảnh và yêu cầu giúp AI tạo ra kết quả chính xác và hữu ích hơn."
   },
 
   {
@@ -414,16 +403,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Prompt càng chi tiết thì thường dẫn đến điều gì?",
+    question: "Vai trò của ngữ cảnh (Context) trong Prompt là gì?",
     options: [
-      "Kết quả phù hợp hơn",
-      "AI ngừng hoạt động",
-      "Mất dữ liệu",
-      "Giảm tốc độ Internet"
+      "Giúp AI hiểu rõ tình huống để trả lời phù hợp",
+      "Tăng dung lượng RAM",
+      "Giảm kích thước dữ liệu",
+      "Tăng tốc CPU"
     ],
     answer: 0,
-    explanation:
-      "Chi tiết và ngữ cảnh giúp AI tạo kết quả sát yêu cầu."
+    explanation: "Context giúp AI hiểu bối cảnh của yêu cầu, từ đó đưa ra câu trả lời phù hợp và chính xác hơn."
   },
 
   {
@@ -432,16 +420,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Vai trò của ngữ cảnh (context) trong prompt là gì?",
+    question: "Prompt nào dưới đây sẽ cho kết quả tốt hơn?",
     options: [
-      "Giúp AI hiểu tình huống",
-      "Tăng RAM",
-      "Giảm dung lượng dữ liệu",
-      "Tăng tốc CPU"
+      "Viết email xin nghỉ phép lịch sự, khoảng 150 từ.",
+      "Viết gì đó đi.",
+      "Email.",
+      "Nghỉ phép."
     ],
     answer: 0,
-    explanation:
-      "Context giúp AI đưa ra câu trả lời phù hợp hơn."
+    explanation: "Prompt nêu rõ mục tiêu, nội dung và yêu cầu cụ thể sẽ giúp AI tạo ra kết quả chất lượng hơn."
   },
 
   {
@@ -450,16 +437,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Prompt nào hiệu quả hơn?",
+    question: "Role Prompting là kỹ thuật gì?",
     options: [
-      "Viết email xin nghỉ phép lịch sự 150 từ",
-      "Viết gì đó đi",
-      "Email",
-      "Nghỉ phép"
+      "Yêu cầu AI trả lời theo một vai trò cụ thể",
+      "Huấn luyện lại mô hình AI",
+      "Giảm số lượng Token",
+      "Nén dữ liệu trước khi gửi"
     ],
     answer: 0,
-    explanation:
-      "Prompt cụ thể về mục tiêu, độ dài và phong cách thường hiệu quả hơn."
+    explanation: "Role Prompting là kỹ thuật yêu cầu AI đóng vai một nhân vật hoặc chuyên gia để tạo ra câu trả lời phù hợp với vai trò đó."
   },
 
   {
@@ -468,16 +454,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Kỹ thuật yêu cầu AI đóng vai được gọi là gì?",
+    question: "Vì sao nên xác định rõ đối tượng người đọc trong Prompt?",
     options: [
-      "Role Prompting",
-      "Tokenization",
-      "Fine-tuning",
-      "Compression"
+      "Để AI điều chỉnh cách diễn đạt phù hợp",
+      "Để tăng tốc Internet",
+      "Để giảm số lượng Token",
+      "Để thay đổi giao diện AI"
     ],
     answer: 0,
-    explanation:
-      "Role Prompting giúp AI phản hồi theo vai trò mong muốn."
+    explanation: "Khi biết đối tượng người đọc, AI có thể lựa chọn ngôn ngữ, mức độ chi tiết và cách trình bày phù hợp."
   },
 
   {
@@ -486,16 +471,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Ví dụ nào là Role Prompting?",
+    question: "Việc yêu cầu AI trả lời theo một định dạng cụ thể mang lại lợi ích gì?",
     options: [
-      "Hãy đóng vai giáo viên Excel",
-      "Xin chào",
-      "Mở trình duyệt",
-      "Lưu tập tin"
+      "Kết quả có cấu trúc rõ ràng và dễ sử dụng hơn",
+      "Tăng dung lượng RAM",
+      "Tăng hiệu năng GPU",
+      "Tăng tốc độ mạng"
     ],
     answer: 0,
-    explanation:
-      "Prompt yêu cầu AI nhập vai là Role Prompting."
+    explanation: "Bạn có thể yêu cầu AI trình bày kết quả dưới dạng bảng, danh sách, JSON hoặc các định dạng khác để dễ đọc và dễ sử dụng."
   },
 
   {
@@ -504,16 +488,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Tại sao nên chỉ định đối tượng người đọc trong prompt?",
+    question: "Đâu là ví dụ về yêu cầu định dạng đầu ra trong Prompt?",
     options: [
-      "Để AI điều chỉnh cách diễn đạt phù hợp",
-      "Để tăng tốc mạng",
-      "Để giảm token",
-      "Để đổi giao diện"
+      "Trả lời dưới dạng bảng gồm 3 cột.",
+      "Trả lời nhanh.",
+      "Làm đi.",
+      "Viết giúp."
     ],
     answer: 0,
-    explanation:
-      "AI có thể thay đổi mức độ chuyên sâu theo đối tượng."
+    explanation: "Chỉ định rõ định dạng đầu ra giúp AI tạo kết quả đúng cấu trúc mong muốn và tiết kiệm thời gian chỉnh sửa."
   },
 
   {
@@ -522,16 +505,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Prompt yêu cầu định dạng đầu ra giúp gì?",
+    question: "Zero-shot Prompting là gì?",
     options: [
-      "Kết quả có cấu trúc mong muốn",
-      "Tăng RAM",
-      "Tăng GPU",
-      "Tăng băng thông"
+      "Yêu cầu AI thực hiện nhiệm vụ mà không cung cấp ví dụ mẫu",
+      "Cung cấp nhiều ví dụ trước khi yêu cầu AI",
+      "Huấn luyện lại mô hình AI",
+      "Xóa dữ liệu huấn luyện"
     ],
     answer: 0,
-    explanation:
-      "Ví dụ yêu cầu AI trả lời dưới dạng bảng hoặc danh sách."
+    explanation: "Zero-shot Prompting là cách yêu cầu AI thực hiện một nhiệm vụ mới mà không cần cung cấp ví dụ minh họa."
   },
 
   {
@@ -540,16 +522,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Ví dụ về yêu cầu định dạng đầu ra là gì?",
+    question: "Few-shot Prompting là gì?",
     options: [
-      "Trả lời dưới dạng bảng 3 cột",
-      "Trả lời nhanh",
-      "Làm đi",
-      "Viết giúp"
+      "Cung cấp một vài ví dụ mẫu trước khi AI thực hiện nhiệm vụ",
+      "Không sử dụng ví dụ",
+      "Huấn luyện lại AI",
+      "Tạo dữ liệu mới"
     ],
     answer: 0,
-    explanation:
-      "Yêu cầu rõ định dạng giúp kết quả dễ sử dụng hơn."
+    explanation: "Few-shot Prompting giúp AI hiểu rõ định dạng hoặc cách trả lời mong muốn thông qua một số ví dụ."
   },
 
   {
@@ -558,16 +539,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Zero-shot Prompting là gì?",
+    question: "Lợi ích lớn nhất của Few-shot Prompting là gì?",
     options: [
-      "Yêu cầu AI mà không đưa ví dụ",
-      "Đưa 10 ví dụ",
-      "Huấn luyện lại mô hình",
-      "Xóa dữ liệu"
+      "Giúp AI hiểu yêu cầu tốt hơn và tạo kết quả chính xác hơn",
+      "Tăng tốc CPU",
+      "Giảm dung lượng RAM",
+      "Giảm chất lượng câu trả lời"
     ],
     answer: 0,
-    explanation:
-      "Zero-shot là yêu cầu AI thực hiện nhiệm vụ mà không có ví dụ mẫu."
+    explanation: "Các ví dụ mẫu giúp AI hiểu đúng định dạng và mong muốn của người dùng."
   },
 
   {
@@ -576,16 +556,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Few-shot Prompting là gì?",
+    question: "Prompt Engineering được hiểu là gì?",
     options: [
-      "Cung cấp một vài ví dụ mẫu",
-      "Không dùng ví dụ",
-      "Huấn luyện AI",
-      "Tạo dữ liệu mới"
+      "Thiết kế và cải thiện Prompt để AI tạo kết quả tốt hơn",
+      "Lập trình hệ điều hành",
+      "Thiết kế phần cứng",
+      "Xây dựng mạng máy tính"
     ],
     answer: 0,
-    explanation:
-      "Few-shot giúp AI hiểu định dạng hoặc cách trả lời mong muốn."
+    explanation: "Prompt Engineering là kỹ năng xây dựng và tối ưu Prompt để khai thác hiệu quả khả năng của AI."
   },
 
   {
@@ -594,16 +573,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Lợi ích của Few-shot Prompting là gì?",
+    question: "Một Prompt hiệu quả thường bao gồm những thành phần nào?",
     options: [
-      "Tăng độ chính xác của đầu ra",
-      "Tăng tốc CPU",
-      "Giảm dung lượng RAM",
-      "Giảm chất lượng câu trả lời"
+      "Mục tiêu, ngữ cảnh và định dạng đầu ra",
+      "Tên CPU",
+      "Tên GPU",
+      "Dung lượng ổ cứng"
     ],
     answer: 0,
-    explanation:
-      "Ví dụ mẫu giúp AI hiểu yêu cầu rõ hơn."
+    explanation: "Ba thành phần quan trọng giúp AI hiểu đúng yêu cầu là mục tiêu, ngữ cảnh và định dạng mong muốn."
   },
 
   {
@@ -612,16 +590,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Chain-of-Thought Prompting khuyến khích AI làm gì?",
+    question: "Điều gì thường xảy ra nếu Prompt quá mơ hồ?",
     options: [
-      "Giải thích từng bước suy luận",
-      "Trả lời ngắn nhất",
-      "Bỏ qua lập luận",
-      "Tắt giải thích"
+      "Kết quả dễ không đúng mong muốn",
+      "AI hoạt động nhanh hơn",
+      "RAM tăng lên",
+      "GPU mạnh hơn"
     ],
     answer: 0,
-    explanation:
-      "CoT giúp AI xử lý các bài toán nhiều bước."
+    explanation: "Prompt thiếu rõ ràng khiến AI phải suy đoán nhiều hơn và dễ tạo ra kết quả không phù hợp."
   },
 
   {
@@ -630,16 +607,15 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Prompt nào phù hợp với Chain-of-Thought?",
+    question: "Vì sao nên thử nhiều cách viết Prompt khác nhau?",
     options: [
-      "Hãy giải thích từng bước",
-      "Chỉ trả lời đáp án",
-      "Có hoặc không",
-      "Bỏ qua lý do"
+      "Để tìm ra cách diễn đạt mang lại kết quả tốt nhất",
+      "Để tăng điện năng tiêu thụ",
+      "Để giảm tốc độ xử lý",
+      "Để xóa lịch sử trò chuyện"
     ],
     answer: 0,
-    explanation:
-      "Chain-of-Thought yêu cầu mô tả quá trình suy luận."
+    explanation: "Việc liên tục điều chỉnh Prompt (Prompt Iteration) là cách hiệu quả để cải thiện chất lượng câu trả lời của AI."
   },
 
   {
@@ -648,106 +624,105 @@ export const GENERATIVE_AI = [
     category: "PROMPTING",
     difficulty: "easy",
     type: "single",
-    question: "Prompt Engineering là gì?",
+    question: "Mục tiêu cuối cùng của Prompt Engineering là gì?",
     options: [
-      "Thiết kế prompt để tối ưu kết quả AI",
-      "Lập trình hệ điều hành",
-      "Thiết kế phần cứng",
-      "Xây dựng mạng LAN"
+      "Nhận được kết quả chính xác, hữu ích và phù hợp với mục tiêu",
+      "Tăng dung lượng ổ cứng",
+      "Tăng số lượng Token",
+      "Giảm hiệu suất AI"
     ],
     answer: 0,
-    explanation:
-      "Prompt Engineering là kỹ năng quan trọng khi làm việc với AI."
+    explanation: "Một Prompt tốt giúp khai thác tối đa khả năng của AI và giảm thời gian chỉnh sửa kết quả."
   },
 
   {
     id: 37,
     level: "GENERATIVE_AI",
     category: "PROMPTING",
-    difficulty: "easy",
+    difficulty: "hard",
     type: "single",
-    question: "Một prompt tốt thường bao gồm gì?",
+    question: "Bạn muốn AI trả lời dưới dạng bảng gồm 3 cột. Bạn nên bổ sung điều gì vào Prompt?",
     options: [
-      "Mục tiêu, ngữ cảnh và định dạng đầu ra",
-      "Tên CPU",
-      "Tên GPU",
-      "Dung lượng ổ cứng"
+      "Yêu cầu rõ định dạng đầu ra",
+      "Chỉ viết câu hỏi",
+      "Viết Prompt ngắn hơn",
+      "Không cần bổ sung gì"
     ],
     answer: 0,
-    explanation:
-      "Đây là ba thành phần quan trọng của prompt hiệu quả."
+    explanation: "Việc chỉ định định dạng đầu ra (bảng, JSON, danh sách...) giúp AI tạo kết quả đúng nhu cầu và dễ sử dụng."
   },
 
   {
     id: 38,
     level: "GENERATIVE_AI",
     category: "PROMPTING",
-    difficulty: "easy",
+    difficulty: "hard",
     type: "single",
-    question: "Điều gì xảy ra nếu prompt quá mơ hồ?",
+    question: "Sau khi AI trả lời chưa đúng ý, cách làm nào hiệu quả nhất?",
     options: [
-      "Kết quả dễ không đúng mong muốn",
-      "AI nhanh hơn",
-      "RAM tăng",
-      "GPU mạnh hơn"
+      "Chỉnh sửa Prompt và yêu cầu AI thực hiện lại",
+      "Đổi máy tính",
+      "Khởi động lại trình duyệt",
+      "Xóa toàn bộ cuộc trò chuyện"
     ],
     answer: 0,
-    explanation:
-      "Prompt mơ hồ thường dẫn tới đầu ra thiếu chính xác."
+    explanation: "Prompt tốt thường được cải thiện qua nhiều lần thử. Điều chỉnh Prompt giúp AI hiểu rõ yêu cầu hơn."
   },
+
+
+  // ============================================================
+  // ETHICS / RESPONSIBLE AI (ID 39 → 64)
+  // ============================================================
 
   {
     id: 39,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "easy",
-    type: "single",
-    question: "Tại sao nên thử nhiều prompt khác nhau?",
-    options: [
-      "Để tìm ra cách diễn đạt hiệu quả nhất",
-      "Để tăng điện năng tiêu thụ",
-      "Để giảm tốc độ xử lý",
-      "Để xóa lịch sử"
-    ],
-    answer: 0,
-    explanation:
-      "Prompt Iteration là kỹ thuật cải thiện kết quả AI."
-  },
-
-  {
-    id: 40,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "easy",
-    type: "single",
-    question: "Mục tiêu cuối cùng của Prompt Engineering là gì?",
-    options: [
-      "Nhận được kết quả chính xác và hữu ích hơn",
-      "Tăng dung lượng ổ cứng",
-      "Tăng số lượng token",
-      "Giảm hiệu suất AI"
-    ],
-    answer: 0,
-    explanation:
-      "Prompt tốt giúp tận dụng tối đa năng lực của mô hình AI."
-  },
-
-    {
-    id: 41,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
     question: "Hallucination trong AI là gì?",
     options: [
-      "AI tạo thông tin không chính xác nhưng trình bày như đúng",
+      "AI tạo ra thông tin không chính xác nhưng trình bày như đúng",
       "AI bị tắt đột ngột",
       "AI không có Internet",
       "AI xử lý quá nhanh"
     ],
     answer: 0,
-    explanation:
-      "Hallucination là hiện tượng AI tạo ra thông tin sai hoặc không có thật."
+    explanation: "Hallucination là hiện tượng AI tạo ra thông tin sai hoặc không có thật nhưng vẫn trả lời rất tự tin. Vì vậy người dùng cần kiểm chứng trước khi sử dụng."
+  },
+
+  {
+    id: 40,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi AI trả lời một thông tin quan trọng, bạn nên làm gì?",
+    options: [
+      "Kiểm chứng bằng nguồn đáng tin cậy trước khi sử dụng",
+      "Tin tưởng hoàn toàn",
+      "Sao chép nguyên văn",
+      "Không cần đọc lại"
+    ],
+    answer: 0,
+    explanation: "AI có thể tạo ra thông tin chưa chính xác. Với các nội dung quan trọng, luôn cần kiểm chứng từ nguồn đáng tin cậy."
+  },
+
+  {
+    id: 41,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "medium",
+    type: "single",
+    question: "Bias trong AI có thể gây ra hậu quả gì?",
+    options: [
+      "Đưa ra kết quả thiếu công bằng hoặc thiên lệch",
+      "Tăng tốc độ xử lý",
+      "Giảm dung lượng dữ liệu",
+      "Tăng độ chính xác tuyệt đối"
+    ],
+    answer: 0,
+    explanation: "Bias khiến AI có thể ưu tiên hoặc bất lợi cho một nhóm đối tượng, dẫn đến kết quả thiếu khách quan."
   },
 
   {
@@ -756,56 +731,19 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Cách tốt nhất để xử lý kết quả AI là gì?",
+    question: "Nguyên nhân phổ biến nhất dẫn đến AI Bias là gì?",
     options: [
-      "Kiểm chứng trước khi sử dụng",
-      "Tin tưởng tuyệt đối",
-      "Sao chép nguyên văn",
-      "Không cần đọc lại"
+      "Dữ liệu huấn luyện bị thiên lệch",
+      "Tốc độ Internet",
+      "Dung lượng RAM",
+      "Loại CPU"
     ],
     answer: 0,
-    explanation:
-      "Kết quả AI luôn cần được xác minh bằng nguồn đáng tin cậy."
+    explanation: "AI học từ dữ liệu. Nếu dữ liệu thiên lệch thì kết quả AI cũng có thể bị thiên lệch."
   },
 
   {
     id: 43,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Bias trong AI có thể dẫn đến điều gì?",
-    options: [
-      "Kết quả thiếu công bằng",
-      "Tăng tốc độ xử lý",
-      "Giảm dung lượng dữ liệu",
-      "Tăng độ chính xác tuyệt đối"
-    ],
-    answer: 0,
-    explanation:
-      "Bias có thể khiến AI ưu tiên hoặc bất lợi cho một nhóm đối tượng."
-  },
-
-  {
-    id: 44,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Nguồn gốc phổ biến nhất của AI Bias là gì?",
-    options: [
-      "Dữ liệu huấn luyện thiên lệch",
-      "Tốc độ Internet",
-      "Loại CPU",
-      "Dung lượng RAM"
-    ],
-    answer: 0,
-    explanation:
-      "Mô hình thường phản ánh đặc điểm của dữ liệu được dùng để huấn luyện."
-  },
-
-  {
-    id: 45,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "medium",
@@ -818,48 +756,45 @@ export const GENERATIVE_AI = [
       "Hệ điều hành AI"
     ],
     answer: 0,
-    explanation:
-      "Deepfake có thể tạo video, ảnh hoặc giọng nói giả rất giống thật."
+    explanation: "Deepfake là hình ảnh, video hoặc giọng nói được AI tạo ra với mục đích mô phỏng rất giống thật."
   },
 
   {
-    id: 46,
+    id: 44,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
     question: "Rủi ro lớn nhất của Deepfake là gì?",
     options: [
-      "Lan truyền thông tin sai lệch",
+      "Lan truyền thông tin sai lệch hoặc phục vụ lừa đảo",
       "Tăng tốc GPU",
       "Giảm dung lượng ổ cứng",
       "Tăng tuổi thọ thiết bị"
     ],
     answer: 0,
-    explanation:
-      "Deepfake có thể được sử dụng để lừa đảo hoặc thao túng thông tin."
+    explanation: "Deepfake có thể bị lợi dụng để giả mạo người khác, phát tán thông tin sai sự thật hoặc thực hiện các hành vi lừa đảo."
   },
 
   {
-    id: 47,
+    id: 45,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Điều nào nên tránh khi sử dụng AI công cộng?",
+    question: "Điều nào KHÔNG nên làm khi sử dụng các công cụ AI công cộng?",
     options: [
-      "Nhập dữ liệu bí mật của tổ chức",
-      "Hỏi kiến thức học tập",
-      "Yêu cầu tóm tắt văn bản",
-      "Tạo dàn ý bài viết"
+      "Nhập dữ liệu bí mật của cá nhân hoặc tổ chức",
+      "Yêu cầu AI giải thích kiến thức",
+      "Nhờ AI tóm tắt tài liệu",
+      "Lập dàn ý cho bài viết"
     ],
     answer: 0,
-    explanation:
-      "Thông tin nhạy cảm không nên đưa lên các hệ thống AI công cộng."
+    explanation: "Không nên nhập thông tin bí mật, dữ liệu khách hàng hoặc tài liệu nội bộ lên các hệ thống AI công cộng."
   },
 
   {
-    id: 48,
+    id: 46,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "medium",
@@ -872,8 +807,41 @@ export const GENERATIVE_AI = [
       "Public Information Index"
     ],
     answer: 0,
-    explanation:
-      "PII là thông tin có thể dùng để nhận diện một cá nhân."
+    explanation: "PII (Personally Identifiable Information) là thông tin có thể dùng để xác định danh tính của một cá nhân."
+  },
+
+  {
+    id: 47,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "medium",
+    type: "single",
+    question: "Thông tin nào dưới đây được xem là PII?",
+    options: [
+      "Số CCCD hoặc số hộ chiếu",
+      "Tên môn học",
+      "Tên phần mềm",
+      "Tên trình duyệt"
+    ],
+    answer: 0,
+    explanation: "Các thông tin như CCCD, hộ chiếu, số điện thoại hoặc địa chỉ email cá nhân đều thuộc nhóm PII và cần được bảo vệ."
+  },
+
+  {
+    id: 48,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi sử dụng AI để tạo nội dung, vì sao cần quan tâm đến bản quyền (Copyright)?",
+    options: [
+      "Để tránh sử dụng hoặc sao chép tác phẩm của người khác trái phép",
+      "Để AI trả lời nhanh hơn",
+      "Để tăng dung lượng lưu trữ",
+      "Để tăng tốc Internet"
+    ],
+    answer: 0,
+    explanation: "Khi sử dụng AI, người dùng vẫn cần tôn trọng quyền sở hữu trí tuệ và kiểm tra nguồn gốc nội dung trước khi công bố hoặc sử dụng."
   },
 
   {
@@ -882,16 +850,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Ví dụ nào là PII?",
+    question: "Khi sử dụng AI để tạo nội dung, người dùng cần đặc biệt lưu ý điều gì?",
     options: [
-      "Số CCCD hoặc hộ chiếu",
-      "Tên môn học",
-      "Tên phần mềm",
-      "Tên trình duyệt"
+      "Khả năng vi phạm bản quyền",
+      "Màu nền màn hình",
+      "Loại chuột đang sử dụng",
+      "Dung lượng RAM"
     ],
     answer: 0,
-    explanation:
-      "Thông tin định danh cá nhân cần được bảo vệ cẩn thận."
+    explanation: "AI có thể tạo ra nội dung tương tự các tác phẩm đã có. Người dùng cần kiểm tra bản quyền và nguồn gốc trước khi công bố hoặc sử dụng."
   },
 
   {
@@ -900,16 +867,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Copyright liên quan đến điều gì?",
+    question: "Responsible AI được hiểu là gì?",
     options: [
-      "Quyền sở hữu trí tuệ",
-      "Tốc độ xử lý",
-      "Dung lượng lưu trữ",
-      "Mạng Internet"
+      "Sử dụng AI một cách có trách nhiệm",
+      "Chỉ sử dụng AI miễn phí",
+      "Chỉ sử dụng AI ngoại tuyến",
+      "Sử dụng AI mà không cần kiểm soát"
     ],
     answer: 0,
-    explanation:
-      "Copyright bảo vệ tác phẩm sáng tạo của tác giả."
+    explanation: "Responsible AI hướng tới việc sử dụng AI an toàn, công bằng, minh bạch và mang lại lợi ích cho con người."
   },
 
   {
@@ -918,16 +884,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Khi AI tạo nội dung, người dùng nên chú ý điều gì?",
+    question: "Human Oversight trong AI có nghĩa là gì?",
     options: [
-      "Khả năng vi phạm bản quyền",
-      "Màu nền màn hình",
-      "Loại chuột",
-      "Loại RAM"
+      "Con người giám sát và chịu trách nhiệm đối với kết quả AI",
+      "AI giám sát con người",
+      "Máy chủ AI",
+      "Hệ thống mạng AI"
     ],
     answer: 0,
-    explanation:
-      "Một số nội dung AI tạo ra có thể liên quan tới vấn đề bản quyền."
+    explanation: "AI chỉ là công cụ hỗ trợ. Với những quyết định quan trọng, con người vẫn là người chịu trách nhiệm cuối cùng."
   },
 
   {
@@ -936,16 +901,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Responsible AI nghĩa là gì?",
+    question: "Tính minh bạch (Transparency) trong AI mang lại lợi ích gì?",
     options: [
-      "Sử dụng AI có trách nhiệm",
-      "Sử dụng AI miễn phí",
-      "Sử dụng AI ngoại tuyến",
-      "Sử dụng AI không kiểm soát"
+      "Giúp người dùng hiểu và đánh giá kết quả AI tốt hơn",
+      "Tăng dung lượng dữ liệu",
+      "Tăng tốc CPU",
+      "Giảm số lượng Token"
     ],
     answer: 0,
-    explanation:
-      "Responsible AI tập trung vào công bằng, minh bạch và an toàn."
+    explanation: "Minh bạch giúp người dùng hiểu cách AI đưa ra kết quả và tăng khả năng kiểm chứng."
   },
 
   {
@@ -954,16 +918,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Human Oversight là gì?",
+    question: "Đâu là ví dụ về việc sử dụng AI có trách nhiệm?",
     options: [
-      "Con người giám sát kết quả AI",
-      "AI giám sát con người",
-      "Máy chủ AI",
-      "Mạng AI"
+      "Kiểm tra thông tin trước khi công bố",
+      "Đăng ngay mọi nội dung AI tạo",
+      "Không đọc lại kết quả",
+      "Tin tuyệt đối vào AI"
     ],
     answer: 0,
-    explanation:
-      "Con người vẫn cần chịu trách nhiệm cuối cùng với quyết định quan trọng."
+    explanation: "Người dùng cần kiểm tra và chịu trách nhiệm đối với nội dung trước khi chia sẻ hoặc sử dụng."
   },
 
   {
@@ -972,16 +935,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Tại sao Human Oversight quan trọng?",
+    question: "Rủi ro lớn nhất khi đưa dữ liệu nhạy cảm vào AI công cộng là gì?",
     options: [
-      "Giảm rủi ro từ sai sót của AI",
-      "Tăng tốc độ mạng",
-      "Tăng dung lượng ổ cứng",
-      "Giảm điện năng"
+      "Rò rỉ thông tin",
+      "AI chạy nhanh hơn",
+      "Giảm dung lượng lưu trữ",
+      "Tăng tuổi thọ thiết bị"
     ],
     answer: 0,
-    explanation:
-      "Con người có thể phát hiện các lỗi hoặc thiên lệch mà AI bỏ sót."
+    explanation: "Không nên nhập thông tin khách hàng, tài liệu nội bộ hoặc dữ liệu bí mật lên các dịch vụ AI công cộng."
   },
 
   {
@@ -990,16 +952,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Tính minh bạch trong AI giúp gì?",
+    question: "Điều nào KHÔNG phải là nguyên tắc của Responsible AI?",
     options: [
-      "Người dùng hiểu cách AI tạo kết quả",
-      "Tăng dung lượng dữ liệu",
-      "Tăng tốc CPU",
-      "Giảm số lượng token"
+      "Che giấu hoàn toàn cách AI hoạt động",
+      "Công bằng",
+      "Minh bạch",
+      "An toàn"
     ],
     answer: 0,
-    explanation:
-      "Minh bạch giúp tăng niềm tin và khả năng kiểm soát."
+    explanation: "Responsible AI khuyến khích tính minh bạch, không phải che giấu cách AI hoạt động."
   },
 
   {
@@ -1008,16 +969,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Điều nào là ví dụ về sử dụng AI có trách nhiệm?",
+    question: "Nếu AI không chắc chắn hoặc không cung cấp nguồn đáng tin cậy, bạn nên làm gì?",
     options: [
-      "Kiểm tra thông tin trước khi công bố",
-      "Đăng ngay mọi nội dung AI tạo",
-      "Không đọc lại kết quả",
-      "Tin tuyệt đối vào AI"
+      "Kiểm chứng bằng nguồn khác trước khi sử dụng",
+      "Tin ngay kết quả",
+      "Bỏ qua mọi nguồn khác",
+      "Dừng việc học"
     ],
     answer: 0,
-    explanation:
-      "AI là công cụ hỗ trợ, không thay thế hoàn toàn trách nhiệm của con người."
+    explanation: "Tư duy phản biện và kiểm chứng thông tin luôn cần thiết khi làm việc với AI."
   },
 
   {
@@ -1026,16 +986,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Mối nguy của việc chia sẻ prompt chứa dữ liệu nhạy cảm là gì?",
+    question: "Mục tiêu cuối cùng của Responsible AI là gì?",
     options: [
-      "Rò rỉ thông tin",
-      "Tăng tốc AI",
-      "Giảm dung lượng lưu trữ",
-      "Tăng tuổi thọ thiết bị"
+      "Mang lại lợi ích cho con người và xã hội một cách an toàn",
+      "Tăng số lượng GPU",
+      "Tăng số Token",
+      "Giảm kích thước mô hình"
     ],
     answer: 0,
-    explanation:
-      "Dữ liệu nhạy cảm cần được kiểm soát chặt chẽ."
+    explanation: "Responsible AI hướng tới việc phát triển và sử dụng AI một cách an toàn, công bằng, minh bạch và có trách nhiệm."
   },
 
   {
@@ -1044,16 +1003,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Điều nào KHÔNG phải nguyên tắc Responsible AI?",
+    question: "Mục tiêu chính của AI Fairness (tính công bằng) là gì?",
     options: [
-      "Che giấu hoàn toàn cách AI hoạt động",
-      "Công bằng",
-      "Minh bạch",
-      "An toàn"
+      "Giảm thiên lệch và đối xử công bằng với các nhóm người dùng",
+      "Tăng tốc độ xử lý",
+      "Giảm số lượng Token",
+      "Tăng dung lượng dữ liệu"
     ],
     answer: 0,
-    explanation:
-      "Responsible AI khuyến khích minh bạch thay vì che giấu."
+    explanation: "AI Fairness hướng tới việc giảm thiên lệch trong dữ liệu và kết quả để mọi nhóm người dùng được đối xử công bằng."
   },
 
   {
@@ -1062,16 +1020,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Khi AI không chắc chắn về câu trả lời, điều gì nên xảy ra?",
+    question: "Biện pháp nào giúp giảm AI Bias hiệu quả nhất?",
     options: [
-      "Người dùng kiểm chứng thêm",
-      "Tin ngay kết quả",
-      "Bỏ qua mọi nguồn khác",
-      "Dừng học tập"
+      "Sử dụng dữ liệu đa dạng và cân bằng",
+      "Chỉ sử dụng một nguồn dữ liệu",
+      "Giảm số lượng dữ liệu huấn luyện",
+      "Bỏ qua quá trình kiểm thử"
     ],
     answer: 0,
-    explanation:
-      "Tư duy phản biện vẫn rất quan trọng trong thời đại AI."
+    explanation: "Dữ liệu đa dạng và cân bằng giúp mô hình học đầy đủ hơn, từ đó giảm nguy cơ tạo ra kết quả thiên lệch."
   },
 
   {
@@ -1080,34 +1037,32 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Mục tiêu cuối cùng của Responsible AI là gì?",
+    question: "Vì sao cần đánh giá mô hình AI định kỳ?",
     options: [
-      "Tạo lợi ích cho con người và xã hội",
-      "Tăng số lượng GPU",
-      "Tăng số token",
-      "Giảm kích thước mô hình"
+      "Để phát hiện sai lệch hoặc rủi ro mới",
+      "Để tăng RAM",
+      "Để giảm số lượng người dùng",
+      "Để thay đổi giao diện"
     ],
     answer: 0,
-    explanation:
-      "AI cần phục vụ con người một cách an toàn, công bằng và bền vững."
+    explanation: "Dữ liệu và môi trường sử dụng luôn thay đổi, vì vậy mô hình AI cần được đánh giá định kỳ để đảm bảo chất lượng và an toàn."
   },
 
-    {
+  {
     id: 61,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "AI Fairness (tính công bằng) nhằm mục tiêu gì?",
+    question: "Điều gì có thể xảy ra nếu AI được sử dụng mà không có sự giám sát?",
     options: [
-      "Giảm thiên lệch trong kết quả AI",
-      "Tăng tốc độ xử lý",
-      "Giảm số lượng token",
-      "Tăng dung lượng dữ liệu"
+      "Gia tăng rủi ro sai lệch hoặc bị lạm dụng",
+      "Độ chính xác luôn đạt 100%",
+      "Loại bỏ hoàn toàn rủi ro",
+      "Không cần kiểm tra kết quả"
     ],
     answer: 0,
-    explanation:
-      "AI Fairness hướng tới việc giảm thiên lệch và đối xử công bằng với các nhóm người dùng."
+    explanation: "AI cần được con người giám sát để giảm rủi ro, phát hiện sai sót và hạn chế việc sử dụng sai mục đích."
   },
 
   {
@@ -1116,16 +1071,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Điều nào có thể giúp giảm AI Bias?",
+    question: "Accountability trong AI đề cập đến điều gì?",
     options: [
-      "Sử dụng dữ liệu đa dạng và cân bằng",
-      "Chỉ dùng một nguồn dữ liệu",
-      "Giảm số lượng dữ liệu",
-      "Tắt kiểm thử mô hình"
+      "Con người hoặc tổ chức chịu trách nhiệm về việc sử dụng AI",
+      "Tốc độ xử lý của AI",
+      "Kích thước mô hình",
+      "Số lượng Token"
     ],
     answer: 0,
-    explanation:
-      "Dữ liệu đa dạng giúp mô hình học đầy đủ hơn và giảm thiên lệch."
+    explanation: "AI không chịu trách nhiệm pháp lý. Trách nhiệm cuối cùng vẫn thuộc về cá nhân hoặc tổ chức sử dụng AI."
   },
 
   {
@@ -1134,16 +1088,15 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Tại sao cần đánh giá mô hình AI định kỳ?",
+    question: "Khi sử dụng AI để hỗ trợ tuyển dụng, rủi ro nào cần đặc biệt lưu ý?",
     options: [
-      "Để phát hiện sai lệch hoặc rủi ro mới",
-      "Để tăng RAM",
-      "Để giảm số lượng người dùng",
-      "Để thay đổi giao diện"
+      "Thiên lệch trong đánh giá ứng viên",
+      "Tăng dung lượng ổ cứng",
+      "Giảm tốc độ mạng",
+      "Tăng độ sáng màn hình"
     ],
     answer: 0,
-    explanation:
-      "Môi trường và dữ liệu thay đổi có thể ảnh hưởng đến chất lượng mô hình."
+    explanation: "Nếu dữ liệu hoặc mô hình thiên lệch, AI có thể đưa ra các đánh giá không công bằng đối với ứng viên."
   },
 
   {
@@ -1152,848 +1105,498 @@ export const GENERATIVE_AI = [
     category: "ETHICS",
     difficulty: "medium",
     type: "single",
-    question: "Điều gì có thể xảy ra nếu AI được sử dụng mà không có kiểm soát?",
+    question: "Trong môi trường làm việc, AI nên được xem là gì?",
     options: [
-      "Gia tăng rủi ro sai lệch hoặc lạm dụng",
-      "Tăng độ chính xác tuyệt đối",
-      "Loại bỏ mọi rủi ro",
-      "Giảm nhu cầu kiểm tra"
-    ],
-    answer: 0,
-    explanation:
-      "AI cần được giám sát và quản trị phù hợp."
-  },
-
-  {
-    id: 65,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Transparency trong AI nghĩa là gì?",
-    options: [
-      "Minh bạch về cách hệ thống hoạt động",
-      "Tăng dung lượng ổ cứng",
-      "Ẩn thuật toán",
-      "Giảm số lượng dữ liệu"
-    ],
-    answer: 0,
-    explanation:
-      "Minh bạch giúp người dùng hiểu và tin tưởng hệ thống hơn."
-  },
-
-  {
-    id: 66,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Accountability trong AI đề cập đến điều gì?",
-    options: [
-      "Trách nhiệm đối với kết quả AI tạo ra",
-      "Tốc độ xử lý của AI",
-      "Kích thước mô hình",
-      "Số lượng token"
-    ],
-    answer: 0,
-    explanation:
-      "Con người và tổ chức cần chịu trách nhiệm về việc sử dụng AI."
-  },
-
-  {
-    id: 67,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Khi sử dụng AI trong tuyển dụng, rủi ro nào cần chú ý?",
-    options: [
-      "Thiên lệch trong đánh giá ứng viên",
-      "Tăng dung lượng ổ cứng",
-      "Giảm băng thông mạng",
-      "Tăng độ sáng màn hình"
-    ],
-    answer: 0,
-    explanation:
-      "AI tuyển dụng cần được đánh giá để tránh phân biệt đối xử."
-  },
-
-  {
-    id: 68,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "AI nên được xem là gì trong môi trường làm việc?",
-    options: [
-      "Công cụ hỗ trợ ra quyết định",
+      "Công cụ hỗ trợ con người ra quyết định",
       "Người chịu trách nhiệm pháp lý",
       "Nhà quản lý chính thức",
       "Nguồn thông tin luôn chính xác"
     ],
     answer: 0,
-    explanation:
-      "AI hỗ trợ con người, không thay thế hoàn toàn trách nhiệm của con người."
+    explanation: "AI hỗ trợ phân tích và đề xuất, nhưng con người vẫn là người đưa ra quyết định cuối cùng."
   },
+
+
+  // ============================================================
+  // FOUNDATION 2 (ID 65 → 73)
+  // ============================================================
 
   {
-    id: 69,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Nguyên tắc nào quan trọng khi sử dụng nội dung AI tạo ra?",
-    options: [
-      "Xác minh độ chính xác",
-      "Sử dụng ngay không kiểm tra",
-      "Bỏ qua nguồn tham khảo",
-      "Không cần đọc lại"
-    ],
-    answer: 0,
-    explanation:
-      "Nội dung AI có thể chứa sai sót hoặc thiếu ngữ cảnh."
-  },
-
-  {
-    id: 70,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Điều gì giúp giảm nguy cơ phát tán thông tin sai lệch từ AI?",
-    options: [
-      "Fact-check trước khi chia sẻ",
-      "Đăng ngay lên mạng xã hội",
-      "Tin tưởng hoàn toàn AI",
-      "Bỏ qua kiểm chứng"
-    ],
-    answer: 0,
-    explanation:
-      "Kiểm chứng là bước quan trọng trước khi sử dụng hoặc chia sẻ."
-  },
-
-  {
-    id: 71,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "AI Governance là gì?",
-    options: [
-      "Khung quản trị và kiểm soát việc sử dụng AI",
-      "Một mô hình AI mới",
-      "Một loại cơ sở dữ liệu",
-      "Một ngôn ngữ lập trình"
-    ],
-    answer: 0,
-    explanation:
-      "AI Governance giúp tổ chức sử dụng AI một cách an toàn và có trách nhiệm."
-  },
-
-  {
-    id: 72,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Điều nào là ví dụ của AI Governance?",
-    options: [
-      "Ban hành quy trình sử dụng AI nội bộ",
-      "Mua thêm RAM",
-      "Tăng tốc độ Internet",
-      "Nâng cấp chuột"
-    ],
-    answer: 0,
-    explanation:
-      "Governance bao gồm chính sách, quy trình và giám sát."
-  },
-
-  {
-    id: 73,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Tại sao cần lưu ý nguồn dữ liệu huấn luyện AI?",
-    options: [
-      "Vì nguồn dữ liệu ảnh hưởng trực tiếp đến kết quả mô hình",
-      "Vì dữ liệu làm tăng RAM",
-      "Vì dữ liệu thay đổi CPU",
-      "Vì dữ liệu quyết định tốc độ Internet"
-    ],
-    answer: 0,
-    explanation:
-      "Chất lượng dữ liệu quyết định phần lớn chất lượng mô hình."
-  },
-
-  {
-    id: 74,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Điều nào là hành vi sử dụng AI thiếu trách nhiệm?",
-    options: [
-      "Tạo nội dung giả mạo để lừa đảo",
-      "Kiểm chứng thông tin",
-      "Bảo vệ dữ liệu cá nhân",
-      "Trích dẫn nguồn phù hợp"
-    ],
-    answer: 0,
-    explanation:
-      "Lừa đảo bằng AI là hành vi không đạo đức và có thể vi phạm pháp luật."
-  },
-
-  {
-    id: 75,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Tác động tích cực lớn nhất của Responsible AI là gì?",
-    options: [
-      "Tăng niềm tin và giá trị xã hội",
-      "Tăng số lượng token",
-      "Giảm dung lượng dữ liệu",
-      "Tăng tốc CPU"
-    ],
-    answer: 0,
-    explanation:
-      "AI có trách nhiệm giúp công nghệ phục vụ con người tốt hơn."
-  },
-
-  {
-    id: 76,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Khi AI được dùng trong giáo dục, điều gì quan trọng nhất?",
-    options: [
-      "Đảm bảo tính chính xác và hỗ trợ học tập",
-      "Thay thế hoàn toàn giáo viên",
-      "Loại bỏ tư duy phản biện",
-      "Không cần kiểm tra nội dung"
-    ],
-    answer: 0,
-    explanation:
-      "AI nên đóng vai trò hỗ trợ việc học."
-  },
-
-  {
-    id: 77,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Điều nào là ví dụ về quyền riêng tư dữ liệu?",
-    options: [
-      "Kiểm soát ai được truy cập thông tin cá nhân",
-      "Tăng số lượng người xem dữ liệu",
-      "Công khai toàn bộ hồ sơ",
-      "Chia sẻ mật khẩu"
-    ],
-    answer: 0,
-    explanation:
-      "Quyền riêng tư giúp người dùng kiểm soát dữ liệu của mình."
-  },
-
-  {
-    id: 78,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Điều gì là cần thiết khi triển khai AI trong doanh nghiệp?",
-    options: [
-      "Chính sách sử dụng và quản trị rõ ràng",
-      "Tin tưởng AI tuyệt đối",
-      "Không cần đào tạo nhân viên",
-      "Không cần kiểm tra kết quả"
-    ],
-    answer: 0,
-    explanation:
-      "Doanh nghiệp cần xây dựng quy trình và chính sách phù hợp."
-  },
-
-  {
-    id: 79,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Tại sao AI cần được phát triển theo hướng lấy con người làm trung tâm?",
-    options: [
-      "Để phục vụ lợi ích của con người",
-      "Để giảm số lượng người dùng",
-      "Để tăng chi phí vận hành",
-      "Để thay thế mọi công việc"
-    ],
-    answer: 0,
-    explanation:
-      "Human-Centered AI là nguyên tắc quan trọng trong phát triển AI hiện đại."
-  },
-
-  {
-    id: 80,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "medium",
-    type: "single",
-    question: "Mục tiêu của AI Ethics là gì?",
-    options: [
-      "Đảm bảo AI được sử dụng an toàn, công bằng và có trách nhiệm",
-      "Tăng kích thước mô hình",
-      "Tăng số lượng dữ liệu",
-      "Giảm chi phí phần cứng"
-    ],
-    answer: 0,
-    explanation:
-      "AI Ethics là nền tảng để AI phát triển bền vững và đáng tin cậy."
-  },
-
-    {
-    id: 81,
-    level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
-    type: "single",
-    question: "Dữ liệu huấn luyện (Training Data) có vai trò gì trong AI?",
-    options: [
-      "Giúp mô hình học các mẫu và quy luật",
-      "Tăng tốc độ Internet",
-      "Tăng dung lượng RAM",
-      "Thay đổi hệ điều hành"
-    ],
-    answer: 0,
-    explanation:
-      "AI học từ dữ liệu huấn luyện để xây dựng khả năng dự đoán hoặc tạo nội dung."
-  },
-
-  {
-    id: 82,
+    id: 65,
     level: "GENERATIVE_AI",
     category: "FOUNDATION",
     difficulty: "medium",
     type: "single",
     question: "Mục tiêu của quá trình huấn luyện mô hình AI là gì?",
     options: [
-      "Giúp mô hình nhận biết và xử lý các mẫu dữ liệu",
+      "Giúp mô hình học cách xử lý các mẫu dữ liệu",
       "Tăng kích thước màn hình",
       "Giảm số lượng tập tin",
       "Tăng tốc mạng LAN"
     ],
     answer: 0,
-    explanation:
-      "Huấn luyện giúp mô hình học từ dữ liệu để thực hiện nhiệm vụ mong muốn."
+    explanation: "Quá trình huấn luyện giúp AI học từ dữ liệu để thực hiện tốt các nhiệm vụ được giao."
   },
 
   {
-    id: 83,
+    id: 66,
     level: "GENERATIVE_AI",
     category: "FOUNDATION",
     difficulty: "medium",
     type: "single",
     question: "Inference trong AI là gì?",
     options: [
-      "Quá trình mô hình tạo kết quả từ dữ liệu đầu vào",
-      "Quá trình cài đặt hệ điều hành",
-      "Quá trình sao lưu dữ liệu",
-      "Quá trình mã hóa ổ cứng"
+      "Quá trình AI sử dụng mô hình đã học để tạo ra kết quả",
+      "Cài đặt hệ điều hành",
+      "Sao lưu dữ liệu",
+      "Mã hóa ổ cứng"
     ],
     answer: 0,
-    explanation:
-      "Inference là giai đoạn mô hình sử dụng kiến thức đã học để trả lời hoặc tạo nội dung."
+    explanation: "Inference là giai đoạn AI sử dụng kiến thức đã học để trả lời câu hỏi hoặc tạo nội dung mới."
+  },
+
+  {
+    id: 67,
+    level: "GENERATIVE_AI",
+    category: "FOUNDATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Yếu tố nào ảnh hưởng lớn nhất đến chất lượng câu trả lời của AI?",
+    options: [
+      "Prompt và chất lượng dữ liệu",
+      "Màu nền giao diện",
+      "Loại chuột",
+      "Tên máy tính"
+    ],
+    answer: 0,
+    explanation: "Một Prompt tốt kết hợp với mô hình được huấn luyện bằng dữ liệu chất lượng sẽ tạo ra kết quả tốt hơn."
+  },
+
+  {
+    id: 68,
+    level: "GENERATIVE_AI",
+    category: "FOUNDATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Đặc điểm nổi bật của mô hình AI mã nguồn mở (Open Source AI Model) là gì?",
+    options: [
+      "Cho phép cộng đồng nghiên cứu, sử dụng và phát triển",
+      "Chỉ sử dụng nội bộ",
+      "Không thể chỉnh sửa",
+      "Không thể tải xuống"
+    ],
+    answer: 0,
+    explanation: "Các mô hình mã nguồn mở giúp cộng đồng dễ dàng nghiên cứu, tùy chỉnh và phát triển thêm."
+  },
+
+  {
+    id: 69,
+    level: "GENERATIVE_AI",
+    category: "FOUNDATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Điểm mạnh lớn nhất của Generative AI hiện nay là gì?",
+    options: [
+      "Hỗ trợ con người tạo và xử lý nội dung với năng suất cao",
+      "Thay thế hoàn toàn chuyên gia",
+      "Không bao giờ mắc lỗi",
+      "Không cần dữ liệu đầu vào"
+    ],
+    answer: 0,
+    explanation: "Generative AI giúp tăng năng suất học tập và làm việc nhưng vẫn cần con người kiểm tra và đưa ra quyết định cuối cùng."
+  },
+
+  {
+    id: 70,
+    level: "GENERATIVE_AI",
+    category: "FOUNDATION",
+    difficulty: "medium",
+    type: "single",
+    question: "AI Governance được hiểu là gì?",
+    options: [
+      "Khung quản trị và kiểm soát việc sử dụng AI",
+      "Một mô hình AI mới",
+      "Một hệ quản trị cơ sở dữ liệu",
+      "Một ngôn ngữ lập trình"
+    ],
+    answer: 0,
+    explanation: "AI Governance là tập hợp các chính sách, quy trình và cơ chế giúp tổ chức triển khai AI một cách an toàn, minh bạch và có trách nhiệm."
+  },
+
+  {
+    id: 71,
+    level: "GENERATIVE_AI",
+    category: "FOUNDATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Đâu là ví dụ về AI Governance trong doanh nghiệp?",
+    options: [
+      "Ban hành quy trình sử dụng AI nội bộ",
+      "Mua thêm RAM",
+      "Tăng tốc Internet",
+      "Nâng cấp chuột"
+    ],
+    answer: 0,
+    explanation: "AI Governance không chỉ là công nghệ mà còn bao gồm chính sách, quy trình và cơ chế giám sát việc sử dụng AI."
+  },
+
+  {
+    id: 72,
+    level: "GENERATIVE_AI",
+    category: "FOUNDATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Vì sao cần quan tâm đến nguồn dữ liệu dùng để huấn luyện AI?",
+    options: [
+      "Vì chất lượng dữ liệu ảnh hưởng trực tiếp đến chất lượng kết quả AI",
+      "Vì dữ liệu giúp tăng RAM",
+      "Vì dữ liệu quyết định loại CPU",
+      "Vì dữ liệu làm tăng tốc Internet"
+    ],
+    answer: 0,
+    explanation: "Nếu dữ liệu huấn luyện không đầy đủ hoặc bị thiên lệch thì AI cũng có thể tạo ra kết quả thiếu chính xác hoặc thiếu công bằng."
+  },
+
+  {
+    id: 73,
+    level: "GENERATIVE_AI",
+    category: "FOUNDATION",
+    difficulty: "medium",
+    type: "single",
+    question: "Đâu là ví dụ về việc sử dụng AI thiếu trách nhiệm?",
+    options: [
+      "Tạo nội dung giả mạo để lừa đảo",
+      "Kiểm chứng thông tin trước khi chia sẻ",
+      "Bảo vệ dữ liệu cá nhân",
+      "Trích dẫn nguồn khi cần thiết"
+    ],
+    answer: 0,
+    explanation: "Việc sử dụng AI để tạo nội dung giả mạo hoặc lừa đảo là hành vi thiếu trách nhiệm và có thể vi phạm pháp luật."
+  },
+
+
+  // ============================================================
+  // TOOLS (ID 74 → 82)
+  // ============================================================
+
+  {
+    id: 74,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn cần viết một email chuyên nghiệp gửi khách hàng. Công cụ AI nào phù hợp nhất?",
+    options: [
+      "ChatGPT hoặc Claude",
+      "Midjourney",
+      "DALL·E",
+      "Stable Diffusion"
+    ],
+    answer: 0,
+    explanation: "ChatGPT và Claude đều mạnh về xử lý ngôn ngữ, phù hợp để soạn email, báo cáo và nội dung chuyên nghiệp."
+  },
+
+  {
+    id: 75,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn muốn tạo một hình minh họa cho bài thuyết trình. Công cụ AI nào phù hợp nhất?",
+    options: [
+      "Midjourney hoặc DALL·E",
+      "Excel",
+      "Notepad",
+      "Outlook"
+    ],
+    answer: 0,
+    explanation: "Midjourney và DALL·E được thiết kế để tạo hình ảnh từ mô tả bằng văn bản."
+  },
+
+  {
+    id: 76,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn có một tài liệu PDF dài 200 trang và muốn AI trả lời dựa trên chính tài liệu đó. Công cụ nào phù hợp nhất?",
+    options: [
+      "NotebookLM",
+      "Paint",
+      "Calculator",
+      "Notepad"
+    ],
+    answer: 0,
+    explanation: "NotebookLM được thiết kế để phân tích và trả lời dựa trên tài liệu do người dùng cung cấp."
+  },
+
+  {
+    id: 77,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Nếu bạn thường xuyên làm việc với Word, Excel và PowerPoint, công cụ AI nào sẽ mang lại nhiều lợi ích nhất?",
+    options: [
+      "Microsoft Copilot",
+      "Midjourney",
+      "Stable Diffusion",
+      "OBS Studio"
+    ],
+    answer: 0,
+    explanation: "Microsoft Copilot được tích hợp sâu vào Microsoft 365, giúp tăng năng suất khi làm việc với tài liệu văn phòng."
+  },
+
+  {
+    id: 78,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn muốn tạo logo hoặc poster từ mô tả bằng văn bản. Công cụ nào phù hợp nhất?",
+    options: [
+      "Midjourney",
+      "Word",
+      "Excel",
+      "PowerPoint"
+    ],
+    answer: 0,
+    explanation: "Midjourney nổi bật trong việc tạo hình ảnh sáng tạo từ Prompt."
+  },
+
+  {
+    id: 79,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn cần AI hỗ trợ viết báo cáo, tóm tắt tài liệu và giải thích kiến thức. Công cụ nào phù hợp nhất?",
+    options: [
+      "ChatGPT hoặc Claude",
+      "Adobe Illustrator",
+      "Photoshop",
+      "Paint"
+    ],
+    answer: 0,
+    explanation: "Các mô hình ngôn ngữ lớn như ChatGPT và Claude rất phù hợp với các công việc xử lý văn bản."
+  },
+
+  {
+    id: 80,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Khi lựa chọn công cụ AI, yếu tố nào quan trọng nhất?",
+    options: [
+      "Công cụ phù hợp với mục tiêu công việc",
+      "Công cụ mới nhất",
+      "Công cụ có nhiều quảng cáo",
+      "Công cụ có giao diện đẹp"
+    ],
+    answer: 0,
+    explanation: "Không có công cụ AI tốt nhất cho mọi việc. Điều quan trọng là chọn đúng công cụ cho đúng nhu cầu."
+  },
+
+  {
+    id: 81,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Bạn muốn AI trả lời dựa trên tài liệu nội bộ thay vì kiến thức chung trên Internet. Bạn nên ưu tiên công cụ nào?",
+    options: [
+      "NotebookLM",
+      "Paint",
+      "Excel",
+      "Calculator"
+    ],
+    answer: 0,
+    explanation: "NotebookLM có khả năng phân tích và trả lời dựa trên tài liệu do người dùng cung cấp."
+  },
+
+  {
+    id: 82,
+    level: "GENERATIVE_AI",
+    category: "TOOLS",
+    difficulty: "medium",
+    type: "single",
+    question: "Lợi ích lớn nhất của việc kết hợp nhiều công cụ AI là gì?",
+    options: [
+      "Tận dụng điểm mạnh của từng công cụ để nâng cao hiệu quả công việc",
+      "Không cần kiểm tra kết quả",
+      "Thay thế hoàn toàn con người",
+      "Không cần kiến thức chuyên môn"
+    ],
+    answer: 0,
+    explanation: "Mỗi công cụ AI có thế mạnh riêng. Biết lựa chọn và kết hợp đúng sẽ giúp tăng năng suất và chất lượng công việc."
+  },
+
+
+  // ============================================================
+  // PROMPTING ADVANCED (ID 83 → 91)
+  // ============================================================
+
+  {
+    id: 83,
+    level: "GENERATIVE_AI",
+    category: "PROMPTING",
+    difficulty: "hard",
+    type: "single",
+    question: "Bạn muốn AI viết nội dung theo phong cách của một chuyên gia Marketing. Nên sử dụng kỹ thuật nào?",
+    options: [
+      "Yêu cầu AI đóng vai chuyên gia Marketing",
+      "Viết Prompt ngắn hơn",
+      "Giảm số lượng Token",
+      "Đổi ngôn ngữ giao diện"
+    ],
+    answer: 0,
+    explanation: "Role/Persona Prompting giúp AI điều chỉnh cách trả lời theo vai trò mong muốn."
   },
 
   {
     id: 84,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
+    category: "PROMPTING",
+    difficulty: "hard",
     type: "single",
-    question: "Fine-tuning là gì?",
+    question: "Khi yêu cầu AI lập kế hoạch học tập, thông tin nào giúp kết quả sát thực tế hơn?",
     options: [
-      "Tinh chỉnh mô hình bằng dữ liệu chuyên biệt",
-      "Nâng cấp phần cứng",
-      "Tăng dung lượng ổ cứng",
-      "Nén dữ liệu"
+      "Mục tiêu, thời gian và trình độ hiện tại",
+      "Tên máy tính",
+      "Dung lượng RAM",
+      "Loại bàn phím"
     ],
     answer: 0,
-    explanation:
-      "Fine-tuning giúp mô hình phù hợp hơn với một lĩnh vực hoặc nhiệm vụ cụ thể."
+    explanation: "Cung cấp đầy đủ ngữ cảnh giúp AI xây dựng kế hoạch phù hợp với nhu cầu thực tế."
   },
 
   {
     id: 85,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
+    category: "PROMPTING",
+    difficulty: "hard",
     type: "single",
-    question: "Điều gì thường ảnh hưởng lớn nhất đến chất lượng đầu ra của AI?",
+    question: "Bạn muốn AI trả lời dưới dạng JSON hoặc bảng dữ liệu. Điều này giúp ích gì?",
     options: [
-      "Chất lượng dữ liệu và prompt",
-      "Màu nền giao diện",
-      "Loại chuột sử dụng",
-      "Tên máy tính"
+      "Dễ tự động xử lý và tái sử dụng kết quả",
+      "Tăng tốc Internet",
+      "Giảm dung lượng RAM",
+      "Làm AI thông minh hơn"
     ],
     answer: 0,
-    explanation:
-      "Dữ liệu huấn luyện và prompt là hai yếu tố quan trọng nhất."
+    explanation: "Đầu ra có cấu trúc giúp dễ nhập vào Excel, hệ thống quản lý hoặc các ứng dụng khác."
   },
 
   {
     id: 86,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
+    category: "PROMPTING",
+    difficulty: "hard",
     type: "single",
-    question: "Context Window của LLM dùng để chỉ điều gì?",
+    question: "Nếu AI tạo kết quả chưa đầy đủ, bạn nên làm gì?",
     options: [
-      "Lượng thông tin mô hình có thể xử lý trong một lần",
-      "Kích thước màn hình",
-      "Dung lượng RAM",
-      "Tốc độ Internet"
+      "Yêu cầu AI bổ sung hoặc làm rõ từng phần",
+      "Kết thúc cuộc trò chuyện",
+      "Tin ngay kết quả",
+      "Đổi công cụ AI khác ngay lập tức"
     ],
     answer: 0,
-    explanation:
-      "Context Window quyết định lượng văn bản mà mô hình có thể xem xét cùng lúc."
+    explanation: "Đối thoại nhiều lượt là cách làm việc hiệu quả với AI, giúp cải thiện dần chất lượng câu trả lời."
   },
 
   {
     id: 87,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
+    category: "PROMPTING",
+    difficulty: "hard",
     type: "single",
-    question: "Nhiệt độ (Temperature) trong nhiều mô hình AI ảnh hưởng đến điều gì?",
+    question: "Khi một Prompt quá dài và chứa nhiều yêu cầu khác nhau, cách xử lý nào thường hiệu quả hơn?",
     options: [
-      "Mức độ sáng tạo hoặc ngẫu nhiên của câu trả lời",
-      "Nhiệt độ CPU",
-      "Tốc độ mạng",
-      "Dung lượng lưu trữ"
+      "Chia thành nhiều yêu cầu nhỏ theo từng bước",
+      "Viết dài hơn nữa",
+      "Xóa toàn bộ ngữ cảnh",
+      "Chỉ giữ lại câu cuối"
     ],
     answer: 0,
-    explanation:
-      "Temperature cao thường tạo ra kết quả đa dạng hơn."
+    explanation: "Chia bài toán thành nhiều bước giúp AI xử lý chính xác hơn và người dùng dễ kiểm soát kết quả."
   },
 
   {
     id: 88,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
+    category: "PROMPTING",
+    difficulty: "hard",
     type: "single",
-    question: "Mô hình mã nguồn mở (Open Source AI Model) có đặc điểm gì?",
+    question: "Sau nhiều lần chỉnh Prompt, kết quả AI ngày càng sát yêu cầu. Đây là kỹ năng nào?",
     options: [
-      "Mã nguồn hoặc trọng số được công bố để cộng đồng sử dụng",
-      "Chỉ dùng nội bộ",
-      "Không thể chỉnh sửa",
-      "Không thể tải xuống"
+      "Cải tiến Prompt theo từng vòng (Iterative Prompting)",
+      "Huấn luyện AI",
+      "Nâng cấp phần cứng",
+      "Tăng tốc GPU"
     ],
     answer: 0,
-    explanation:
-      "Open Source AI giúp cộng đồng nghiên cứu và phát triển dễ dàng hơn."
+    explanation: "Iterative Prompting là quá trình liên tục cải thiện Prompt dựa trên kết quả nhận được."
   },
 
   {
     id: 89,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
+    category: "PROMPTING",
+    difficulty: "hard",
     type: "single",
-    question: "RAG (Retrieval-Augmented Generation) giúp AI làm gì?",
+    question: "Khi một Prompt yêu cầu AI đưa ra một quyết định hoặc dự đoán với nhiều yếu tố phức tạp, điều gì thường giúp kết quả tốt hơn?",
     options: [
-      "Kết hợp tìm kiếm thông tin với tạo nội dung",
-      "Tăng tốc phần cứng",
-      "Nén dữ liệu",
-      "Mã hóa ổ cứng"
+      "Yêu cầu AI phân tích từng yếu tố trước khi đưa ra kết luận",
+      "Yêu cầu AI trả lời ngay mà không cần phân tích",
+      "Giảm số lượng yếu tố đầu vào",
+      "Không cần thêm hướng dẫn"
     ],
     answer: 0,
-    explanation:
-      "RAG giúp AI tham chiếu nguồn dữ liệu bên ngoài để trả lời chính xác hơn."
+    explanation: "Yêu cầu AI phân tích từng yếu tố giúp kết quả có cơ sở hơn, đặc biệt với các bài toán phức tạp."
   },
 
   {
     id: 90,
     level: "GENERATIVE_AI",
-    category: "FOUNDATION",
-    difficulty: "medium",
-    type: "single",
-    question: "Điểm mạnh lớn nhất của Generative AI hiện đại là gì?",
-    options: [
-      "Hỗ trợ con người xử lý và tạo nội dung ở quy mô lớn",
-      "Thay thế hoàn toàn chuyên gia",
-      "Loại bỏ mọi sai sót",
-      "Không cần dữ liệu đầu vào"
-    ],
-    answer: 0,
-    explanation:
-      "Generative AI là công cụ mạnh để tăng năng suất và sáng tạo, nhưng vẫn cần con người kiểm soát."
-  },
-
-    {
-    id: 91,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
+    category: "PROMPTING",
     difficulty: "hard",
     type: "single",
-    question: "ChatGPT được phát triển bởi tổ chức nào?",
+    question: "Khi yêu cầu AI tạo nội dung cho một đối tượng chuyên môn cao, yếu tố nào cần được ưu tiên trong Prompt?",
     options: [
-      "OpenAI",
-      "Microsoft",
-      "Google",
-      "Anthropic"
+      "Cung cấp đủ ngữ cảnh chuyên ngành để AI trả lời chính xác và sâu sắc",
+      "Dùng Prompt ngắn nhất có thể",
+      "Chỉ yêu cầu câu trả lời ngắn gọn",
+      "Không cần giải thích thuật ngữ"
     ],
     answer: 0,
-    explanation:
-      "ChatGPT là sản phẩm AI hội thoại do OpenAI phát triển."
+    explanation: "Ngữ cảnh chuyên ngành giúp AI hiểu đúng yêu cầu và sử dụng thuật ngữ phù hợp."
   },
+
+  {
+    id: 91,
+    level: "GENERATIVE_AI",
+    category: "PROMPTING",
+    difficulty: "hard",
+    type: "single",
+    question: "Khi AI liên tục trả lời một kiểu thông tin không mong muốn, cách xử lý tốt nhất là gì?",
+    options: [
+      "Điều chỉnh Prompt bằng cách chỉ rõ điều không muốn",
+      "Tiếp tục gửi cùng Prompt nhưng nhiều lần",
+      "Khởi động lại thiết bị",
+      "Cài lại trình duyệt"
+    ],
+    answer: 0,
+    explanation: "Bạn có thể hướng dẫn AI bằng cách nêu rõ những gì bạn không muốn trong Prompt (ví dụ: 'Không sử dụng thuật ngữ phức tạp')."
+  },
+
+
+  // ============================================================
+  // ETHICS 2 (ID 92 → 109)
+  // ============================================================
 
   {
     id: 92,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "Gemini là nền tảng AI do công ty nào phát triển?",
-    options: [
-      "Google",
-      "Meta",
-      "OpenAI",
-      "IBM"
-    ],
-    answer: 0,
-    explanation:
-      "Gemini là hệ sinh thái AI của Google."
-  },
-
-  {
-    id: 93,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "Claude là sản phẩm AI của tổ chức nào?",
-    options: [
-      "Anthropic",
-      "Google",
-      "OpenAI",
-      "Adobe"
-    ],
-    answer: 0,
-    explanation:
-      "Claude là mô hình AI do Anthropic phát triển."
-  },
-
-  {
-    id: 94,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "Microsoft Copilot được tích hợp mạnh vào hệ sinh thái nào?",
-    options: [
-      "Microsoft 365",
-      "Linux Kernel",
-      "WordPress",
-      "Oracle Database"
-    ],
-    answer: 0,
-    explanation:
-      "Copilot được tích hợp vào Word, Excel, PowerPoint, Outlook và nhiều sản phẩm Microsoft khác."
-  },
-
-  {
-    id: 95,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "Midjourney nổi tiếng nhất trong lĩnh vực nào?",
-    options: [
-      "Tạo hình ảnh bằng AI",
-      "Tạo cơ sở dữ liệu",
-      "Quản trị mạng",
-      "Lập trình hệ điều hành"
-    ],
-    answer: 0,
-    explanation:
-      "Midjourney là một trong những công cụ AI tạo ảnh phổ biến nhất."
-  },
-
-  {
-    id: 96,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "DALL·E được thiết kế chủ yếu để làm gì?",
-    options: [
-      "Tạo hình ảnh từ mô tả văn bản",
-      "Tạo bảng tính Excel",
-      "Quản lý cơ sở dữ liệu",
-      "Tăng tốc GPU"
-    ],
-    answer: 0,
-    explanation:
-      "DALL·E là mô hình tạo ảnh từ prompt văn bản."
-  },
-
-  {
-    id: 97,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "Adobe Firefly tập trung mạnh vào lĩnh vực nào?",
-    options: [
-      "Thiết kế đồ họa và sáng tạo nội dung",
-      "Quản trị hệ điều hành",
-      "An ninh mạng",
-      "Lập trình vi điều khiển"
-    ],
-    answer: 0,
-    explanation:
-      "Firefly được Adobe phát triển để hỗ trợ sáng tạo hình ảnh và nội dung."
-  },
-
-  {
-    id: 98,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "NotebookLM có điểm mạnh nổi bật nào?",
-    options: [
-      "Trả lời dựa trên tài liệu người dùng cung cấp",
-      "Thiết kế game 3D",
-      "Quản lý BIOS",
-      "Tăng tốc phần cứng"
-    ],
-    answer: 0,
-    explanation:
-      "NotebookLM có thể phân tích và trả lời dựa trên nguồn tài liệu riêng của người dùng."
-  },
-
-  {
-    id: 99,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "Custom GPT được sử dụng để làm gì?",
-    options: [
-      "Tạo AI chuyên biệt cho một mục đích cụ thể",
-      "Tăng dung lượng RAM",
-      "Tạo ổ cứng ảo",
-      "Quản lý mạng LAN"
-    ],
-    answer: 0,
-    explanation:
-      "Custom GPT cho phép tùy biến hành vi, kiến thức và mục tiêu của AI."
-  },
-
-  {
-    id: 100,
-    level: "GENERATIVE_AI",
-    category: "TOOLS",
-    difficulty: "hard",
-    type: "single",
-    question: "Lợi ích lớn nhất của việc kết hợp nhiều công cụ AI trong công việc là gì?",
-    options: [
-      "Tăng năng suất và tận dụng thế mạnh của từng công cụ",
-      "Loại bỏ hoàn toàn nhu cầu kiểm tra kết quả",
-      "Thay thế mọi phần mềm khác",
-      "Không cần kiến thức chuyên môn"
-    ],
-    answer: 0,
-    explanation:
-      "Mỗi công cụ AI có điểm mạnh riêng, việc kết hợp giúp tối ưu hiệu quả công việc."
-  },
-
-    {
-    id: 101,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Chain-of-Thought Prompting có mục đích chính là gì?",
-    options: [
-      "Khuyến khích AI trình bày từng bước suy luận",
-      "Giảm kích thước mô hình",
-      "Tăng tốc độ Internet",
-      "Nén dữ liệu đầu vào"
-    ],
-    answer: 0,
-    explanation:
-      "Chain-of-Thought giúp AI xử lý tốt hơn các nhiệm vụ cần nhiều bước suy luận."
-  },
-
-  {
-    id: 102,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Self-Consistency thường được sử dụng cùng kỹ thuật nào?",
-    options: [
-      "Chain-of-Thought",
-      "Image Compression",
-      "Database Replication",
-      "File Encryption"
-    ],
-    answer: 0,
-    explanation:
-      "Self-Consistency tạo nhiều hướng suy luận và chọn kết quả nhất quán nhất."
-  },
-
-  {
-    id: 103,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Prompt Chaining là gì?",
-    options: [
-      "Chia nhiệm vụ thành nhiều prompt liên tiếp",
-      "Ghép nhiều file ZIP",
-      "Nén dữ liệu đầu vào",
-      "Tăng dung lượng token"
-    ],
-    answer: 0,
-    explanation:
-      "Prompt Chaining giúp giải quyết bài toán phức tạp theo từng bước."
-  },
-
-  {
-    id: 104,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Lợi ích lớn nhất của Prompt Chaining là gì?",
-    options: [
-      "Kiểm soát quy trình và nâng cao chất lượng đầu ra",
-      "Tăng tốc CPU",
-      "Giảm RAM",
-      "Loại bỏ hoàn toàn lỗi AI"
-    ],
-    answer: 0,
-    explanation:
-      "Chia nhỏ bài toán thường cho kết quả ổn định hơn."
-  },
-
-  {
-    id: 105,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Structured Output Prompting nhằm mục đích gì?",
-    options: [
-      "Yêu cầu AI trả về dữ liệu theo cấu trúc xác định",
-      "Tăng tốc độ mạng",
-      "Tạo ảnh chất lượng cao",
-      "Giảm số lượng token"
-    ],
-    answer: 0,
-    explanation:
-      "Ví dụ: JSON, bảng, CSV hoặc danh sách có định dạng cố định."
-  },
-
-  {
-    id: 106,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Ví dụ nào là Structured Output Prompting?",
-    options: [
-      "Trả lời dưới dạng JSON gồm title, summary và tags",
-      "Viết gì cũng được",
-      "Tóm tắt ngắn gọn",
-      "Tự chọn định dạng"
-    ],
-    answer: 0,
-    explanation:
-      "Prompt quy định rõ cấu trúc đầu ra sẽ giúp tự động hóa tốt hơn."
-  },
-
-  {
-    id: 107,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Persona Prompting là gì?",
-    options: [
-      "Yêu cầu AI đóng vai một chuyên gia hoặc nhân vật cụ thể",
-      "Tăng bộ nhớ AI",
-      "Huấn luyện lại mô hình",
-      "Tạo dữ liệu ngẫu nhiên"
-    ],
-    answer: 0,
-    explanation:
-      "Persona giúp AI điều chỉnh giọng điệu và góc nhìn phù hợp."
-  },
-
-  {
-    id: 108,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Iterative Prompting là gì?",
-    options: [
-      "Liên tục cải tiến prompt dựa trên kết quả trước",
-      "Xóa lịch sử hội thoại",
-      "Nén dữ liệu nhiều lần",
-      "Khởi động lại mô hình"
-    ],
-    answer: 0,
-    explanation:
-      "Đây là kỹ thuật phổ biến để tối ưu chất lượng đầu ra."
-  },
-
-  {
-    id: 109,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "Context Engineering tập trung vào điều gì?",
-    options: [
-      "Cung cấp đúng ngữ cảnh cần thiết cho mô hình",
-      "Tăng tốc phần cứng",
-      "Giảm dung lượng ổ cứng",
-      "Mã hóa dữ liệu"
-    ],
-    answer: 0,
-    explanation:
-      "Ngữ cảnh phù hợp giúp mô hình đưa ra kết quả chính xác hơn."
-  },
-
-  {
-    id: 110,
-    level: "GENERATIVE_AI",
-    category: "PROMPTING",
-    difficulty: "hard",
-    type: "single",
-    question: "RAG Prompting (Retrieval-Augmented Generation) giúp cải thiện điều gì?",
-    options: [
-      "Khả năng trả lời dựa trên nguồn dữ liệu được truy xuất",
-      "Tăng tốc độ GPU",
-      "Giảm số lượng dữ liệu",
-      "Loại bỏ hoàn toàn hallucination"
-    ],
-    answer: 0,
-    explanation:
-      "RAG giúp AI kết hợp kiến thức mô hình với dữ liệu thực tế từ nguồn bên ngoài."
-  },
-
-    {
-    id: 111,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
@@ -2006,350 +1609,297 @@ export const GENERATIVE_AI = [
       "Tăng tốc độ mạng"
     ],
     answer: 0,
-    explanation:
-      "AI Safety nhằm giảm thiểu tác động tiêu cực và rủi ro từ hệ thống AI."
+    explanation: "AI Safety hướng tới việc giảm thiểu rủi ro và giúp hệ thống AI hoạt động an toàn, đáng tin cậy."
   },
 
   {
-    id: 112,
+    id: 93,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Điều nào là một ví dụ về AI Safety?",
+    question: "Khi một doanh nghiệp triển khai AI, việc nào dưới đây giúp giảm rủi ro nhất?",
     options: [
-      "Kiểm thử mô hình trước khi triển khai",
-      "Tăng số lượng token",
+      "Kiểm thử mô hình trước khi đưa vào sử dụng",
+      "Tăng số lượng Token",
       "Nâng cấp màn hình",
       "Giảm kích thước bàn phím"
     ],
     answer: 0,
-    explanation:
-      "Kiểm thử giúp phát hiện lỗi và giảm rủi ro trước khi sử dụng thực tế."
+    explanation: "Kiểm thử trước khi triển khai giúp phát hiện lỗi, giảm rủi ro và nâng cao độ tin cậy của hệ thống AI."
   },
 
   {
-    id: 113,
+    id: 94,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Adversarial Prompt là gì?",
+    question: "Bạn sử dụng AI công cộng để xử lý một tệp chứa thông tin khách hàng. Rủi ro lớn nhất là gì?",
     options: [
-      "Prompt được thiết kế để khai thác hoặc vượt qua giới hạn của AI",
-      "Prompt tăng tốc xử lý",
-      "Prompt dùng để nén dữ liệu",
-      "Prompt dùng để tạo hình ảnh"
+      "Thông tin nhạy cảm có thể bị rò rỉ nếu không tuân thủ chính sách bảo mật",
+      "Máy tính hoạt động chậm hơn",
+      "Dung lượng RAM giảm",
+      "AI trả lời nhanh hơn"
     ],
     answer: 0,
-    explanation:
-      "Adversarial Prompt có thể được sử dụng để kiểm thử hoặc khai thác mô hình."
+    explanation: "Không nên đưa dữ liệu nhạy cảm lên các dịch vụ AI công cộng nếu chưa được phép hoặc chưa có biện pháp bảo vệ phù hợp."
   },
 
   {
-    id: 114,
+    id: 95,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Prompt Injection là gì?",
+    question: "Khi doanh nghiệp bắt đầu sử dụng AI, ưu tiên nào quan trọng nhất?",
     options: [
-      "Kỹ thuật chèn hướng dẫn nhằm thay đổi hành vi dự kiến của AI",
-      "Cách tăng RAM cho mô hình",
-      "Kỹ thuật nén prompt",
-      "Quá trình huấn luyện dữ liệu"
-    ],
-    answer: 0,
-    explanation:
-      "Prompt Injection là một rủi ro bảo mật quan trọng trong các hệ thống AI."
-  },
-
-  {
-    id: 115,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "Tại sao Prompt Injection là mối lo ngại bảo mật?",
-    options: [
-      "Có thể khiến AI bỏ qua hướng dẫn ban đầu",
-      "Làm tăng tốc độ xử lý",
-      "Tăng độ chính xác tuyệt đối",
-      "Giảm kích thước mô hình"
-    ],
-    answer: 0,
-    explanation:
-      "Prompt Injection có thể khiến AI thực hiện hành vi ngoài mong muốn."
-  },
-
-  {
-    id: 116,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "Data Leakage trong AI đề cập đến điều gì?",
-    options: [
-      "Rò rỉ dữ liệu nhạy cảm hoặc dữ liệu không nên được tiết lộ",
-      "Tăng tốc độ mạng",
-      "Mất điện hệ thống",
-      "Giảm bộ nhớ mô hình"
-    ],
-    answer: 0,
-    explanation:
-      "Data Leakage là rủi ro nghiêm trọng đối với quyền riêng tư và bảo mật."
-  },
-
-  {
-    id: 117,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "Khi triển khai AI doanh nghiệp, điều gì cần được ưu tiên?",
-    options: [
-      "Bảo mật dữ liệu và quản trị rủi ro",
+      "Thiết lập quy định sử dụng AI và bảo vệ dữ liệu",
       "Tăng số lượng giao diện",
       "Giảm đào tạo người dùng",
-      "Loại bỏ quy trình kiểm tra"
+      "Bỏ qua quy trình kiểm tra"
     ],
     answer: 0,
-    explanation:
-      "Bảo mật và quản trị là nền tảng cho việc triển khai AI bền vững."
+    explanation: "Việc xây dựng chính sách sử dụng AI và bảo vệ dữ liệu là nền tảng để triển khai AI an toàn và bền vững."
   },
 
   {
-    id: 118,
+    id: 96,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Mô hình AI đáng tin cậy (Trustworthy AI) cần có đặc điểm nào?",
+    question: "Trong các quyết định quan trọng như tuyển dụng hoặc đánh giá học viên, ai nên là người đưa ra quyết định cuối cùng?",
     options: [
-      "An toàn, minh bạch và có trách nhiệm",
-      "Nhanh nhất thị trường",
-      "Lớn nhất thị trường",
-      "Tốn ít dữ liệu nhất"
+      "Con người",
+      "AI",
+      "Hệ thống tự động",
+      "Không cần người kiểm tra"
     ],
     answer: 0,
-    explanation:
-      "Trustworthy AI là mục tiêu của nhiều tổ chức và cơ quan quản lý."
+    explanation: "AI chỉ đóng vai trò hỗ trợ. Với các quyết định có ảnh hưởng lớn đến con người, quyền quyết định cuối cùng phải thuộc về con người."
   },
 
   {
-    id: 119,
+    id: 97,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Vai trò của kiểm toán AI (AI Audit) là gì?",
-    options: [
-      "Đánh giá rủi ro, chất lượng và tính tuân thủ của hệ thống AI",
-      "Tăng tốc độ Internet",
-      "Nâng cấp phần cứng",
-      "Giảm kích thước dữ liệu"
-    ],
-    answer: 0,
-    explanation:
-      "AI Audit giúp tổ chức kiểm soát và cải thiện hệ thống AI."
-  },
-
-  {
-    id: 120,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "Nguyên tắc quan trọng nhất khi sử dụng AI trong các quyết định có ảnh hưởng lớn đến con người là gì?",
-    options: [
-      "Con người phải có quyền giám sát và can thiệp",
-      "AI quyết định hoàn toàn",
-      "Bỏ qua kiểm tra kết quả",
-      "Không cần minh bạch"
-    ],
-    answer: 0,
-    explanation:
-      "Human-in-the-Loop là nguyên tắc cốt lõi trong các ứng dụng AI có tác động cao."
-  },
-
-    {
-    id: 121,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "AI Compliance đề cập đến điều gì?",
-    options: [
-      "Tuân thủ các quy định, chính sách và luật pháp liên quan đến AI",
-      "Tăng tốc độ xử lý mô hình",
-      "Nâng cấp phần cứng AI",
-      "Giảm số lượng dữ liệu"
-    ],
-    answer: 0,
-    explanation:
-      "AI Compliance giúp đảm bảo việc sử dụng AI phù hợp với quy định hiện hành."
-  },
-
-  {
-    id: 122,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "Điều nào là lợi ích của việc minh bạch nguồn dữ liệu AI?",
-    options: [
-      "Tăng khả năng đánh giá chất lượng và độ tin cậy",
-      "Tăng tốc Internet",
-      "Giảm số lượng token",
-      "Tăng dung lượng RAM"
-    ],
-    answer: 0,
-    explanation:
-      "Minh bạch dữ liệu giúp đánh giá rủi ro và độ tin cậy của mô hình."
-  },
-
-  {
-    id: 123,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "Một hệ thống AI có trách nhiệm cần ưu tiên điều gì khi xử lý dữ liệu cá nhân?",
+    question: "Bạn sử dụng AI để xử lý dữ liệu cá nhân của khách hàng. Điều gì cần được ưu tiên nhất?",
     options: [
       "Bảo vệ quyền riêng tư và bảo mật dữ liệu",
-      "Thu thập tối đa dữ liệu có thể",
+      "Thu thập càng nhiều dữ liệu càng tốt",
       "Chia sẻ dữ liệu cho mọi bên",
       "Bỏ qua sự đồng ý của người dùng"
     ],
     answer: 0,
-    explanation:
-      "Bảo vệ dữ liệu cá nhân là nguyên tắc quan trọng trong Responsible AI."
+    explanation: "Khi làm việc với dữ liệu cá nhân, người sử dụng AI cần ưu tiên bảo vệ quyền riêng tư và tuân thủ các quy định về bảo mật."
   },
 
   {
-    id: 124,
+    id: 98,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Điều nào là ví dụ về sử dụng AI minh bạch?",
+    question: "Khi sử dụng nội dung do AI tạo ra, cách làm nào thể hiện tính minh bạch?",
     options: [
-      "Thông báo rõ khi nội dung được tạo bởi AI",
+      "Thông báo rõ nội dung có sự hỗ trợ của AI khi cần thiết",
       "Che giấu việc sử dụng AI",
       "Ẩn nguồn dữ liệu",
-      "Không công bố hạn chế của mô hình"
+      "Không công bố hạn chế của AI"
     ],
     answer: 0,
-    explanation:
-      "Người dùng nên biết khi nào họ đang tương tác với hoặc sử dụng nội dung từ AI."
+    explanation: "Minh bạch giúp tăng sự tin cậy và giúp người đọc hiểu rõ nguồn gốc của nội dung."
   },
 
   {
-    id: 125,
+    id: 99,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Điều gì giúp giảm nguy cơ lạm dụng Generative AI?",
+    question: "Điều nào giúp giảm nguy cơ lạm dụng AI trong doanh nghiệp?",
     options: [
-      "Chính sách sử dụng rõ ràng và giám sát phù hợp",
-      "Cho phép mọi hành vi không kiểm soát",
-      "Loại bỏ kiểm tra nội dung",
-      "Bỏ qua đào tạo người dùng"
+      "Có quy định sử dụng AI rõ ràng và cơ chế giám sát phù hợp",
+      "Cho phép sử dụng AI không kiểm soát",
+      "Bỏ qua việc đào tạo nhân viên",
+      "Không cần kiểm tra kết quả AI"
     ],
     answer: 0,
-    explanation:
-      "Chính sách và giám sát giúp giảm rủi ro sử dụng sai mục đích."
+    explanation: "Chính sách rõ ràng cùng với giám sát phù hợp giúp doanh nghiệp sử dụng AI an toàn và hiệu quả."
   },
 
   {
-    id: 126,
+    id: 100,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Khi AI được sử dụng để hỗ trợ quyết định, điều gì là quan trọng nhất?",
+    question: "Vì sao doanh nghiệp nên đào tạo nhân viên về AI Ethics?",
     options: [
-      "Con người chịu trách nhiệm cuối cùng",
-      "AI chịu trách nhiệm pháp lý",
-      "Không cần kiểm tra kết quả",
-      "Luôn ưu tiên AI hơn chuyên gia"
-    ],
-    answer: 0,
-    explanation:
-      "AI hỗ trợ quyết định, nhưng trách nhiệm cuối cùng vẫn thuộc về con người."
-  },
-
-  {
-    id: 127,
-    level: "GENERATIVE_AI",
-    category: "ETHICS",
-    difficulty: "hard",
-    type: "single",
-    question: "Tại sao doanh nghiệp cần đào tạo nhân viên về AI Ethics?",
-    options: [
-      "Để sử dụng AI an toàn và có trách nhiệm",
+      "Để sử dụng AI an toàn, đúng quy định và có trách nhiệm",
       "Để giảm số lượng người dùng",
       "Để tăng tốc độ mạng",
-      "Để thay thế toàn bộ quy trình"
+      "Để thay thế toàn bộ quy trình làm việc"
     ],
     answer: 0,
-    explanation:
-      "Đào tạo giúp giảm rủi ro và nâng cao nhận thức về AI."
+    explanation: "Đào tạo giúp nhân viên hiểu các rủi ro, sử dụng AI đúng cách và giảm thiểu các sự cố liên quan đến bảo mật hoặc đạo đức."
   },
 
   {
-    id: 128,
+    id: 101,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Điều nào là dấu hiệu của một hệ thống AI đáng tin cậy?",
+    question: "Khi sử dụng AI trong giáo dục, điều gì quan trọng nhất?",
     options: [
-      "Có thể giải thích được, an toàn và được kiểm soát",
-      "Luôn bí mật hoàn toàn",
-      "Không cho phép kiểm tra",
-      "Không công bố hạn chế"
+      "AI hỗ trợ học tập nhưng không thay thế tư duy và vai trò của giáo viên",
+      "AI thay thế hoàn toàn giáo viên",
+      "Không cần kiểm tra nội dung AI tạo ra",
+      "Không cần tư duy phản biện"
     ],
     answer: 0,
-    explanation:
-      "Khả năng giải thích và kiểm soát là yếu tố quan trọng của Trustworthy AI."
+    explanation: "AI nên đóng vai trò là công cụ hỗ trợ học tập. Người học và giáo viên vẫn cần kiểm chứng thông tin và duy trì tư duy phản biện."
   },
 
   {
-    id: 129,
+    id: 102,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Mục tiêu của Human-Centered AI là gì?",
+    question: "Ví dụ nào thể hiện việc bảo vệ quyền riêng tư dữ liệu?",
     options: [
-      "Đặt nhu cầu và lợi ích của con người làm trung tâm",
-      "Tối đa hóa kích thước mô hình",
-      "Giảm tương tác của con người",
-      "Thay thế hoàn toàn con người"
+      "Chỉ cho phép người được ủy quyền truy cập thông tin cá nhân",
+      "Công khai toàn bộ hồ sơ khách hàng",
+      "Chia sẻ mật khẩu cho đồng nghiệp",
+      "Đăng thông tin cá nhân lên Internet"
     ],
     answer: 0,
-    explanation:
-      "Human-Centered AI đảm bảo công nghệ phục vụ con người một cách có ý nghĩa."
+    explanation: "Quyền riêng tư dữ liệu yêu cầu kiểm soát việc thu thập, lưu trữ và chia sẻ thông tin cá nhân."
   },
 
   {
-    id: 130,
+    id: 103,
     level: "GENERATIVE_AI",
     category: "ETHICS",
     difficulty: "hard",
     type: "single",
-    question: "Nguyên tắc cốt lõi nhất của Responsible AI là gì?",
+    question: "Vì sao AI nên được phát triển theo hướng lấy con người làm trung tâm (Human-Centered AI)?",
     options: [
-      "AI phải mang lại lợi ích, công bằng, minh bạch và an toàn cho con người",
-      "AI phải lớn nhất thị trường",
-      "AI phải tạo nhiều nội dung nhất",
-      "AI phải hoạt động không cần giám sát"
+      "Để AI phục vụ lợi ích của con người và xã hội",
+      "Để thay thế hoàn toàn mọi công việc",
+      "Để tăng chi phí vận hành",
+      "Để giảm số lượng người dùng"
     ],
     answer: 0,
-    explanation:
-      "Responsible AI kết hợp các nguyên tắc công bằng, minh bạch, an toàn và trách nhiệm."
+    explanation: "Mục tiêu của Human-Centered AI là sử dụng AI để hỗ trợ con người, tôn trọng quyền lợi của người dùng và tạo ra giá trị tích cực cho xã hội."
+  },
+
+  {
+    id: 104,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Một hậu quả tiềm ẩn của AI Bias trong tuyển dụng có thể là gì?",
+    options: [
+      "Đánh giá ứng viên thiếu công bằng",
+      "Tăng tốc độ phỏng vấn",
+      "Giảm chi phí đào tạo",
+      "Giảm số lượng ứng viên"
+    ],
+    answer: 0,
+    explanation: "Nếu AI được huấn luyện trên dữ liệu thiên vị, nó có thể đánh giá ứng viên dựa trên các tiêu chí không công bằng."
+  },
+
+  {
+    id: 105,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Khi một mô hình AI đưa ra quyết định quan trọng, điều gì cần được đảm bảo?",
+    options: [
+      "Kết quả có thể giải thích được và có thể kiểm chứng",
+      "Không cần giải thích vì AI luôn đúng",
+      "Kết quả được giữ bí mật tuyệt đối",
+      "Không cần lưu lại lịch sử"
+    ],
+    answer: 0,
+    explanation: "Khi AI ảnh hưởng đến con người, cần đảm bảo kết quả có thể giải thích và kiểm chứng để đảm bảo tính minh bạch và công bằng."
+  },
+
+  {
+    id: 106,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Vì sao việc sử dụng AI để tạo nội dung cần được ghi nhận nguồn?",
+    options: [
+      "Để tránh vi phạm bản quyền và đảm bảo tính minh bạch",
+      "Để tăng tốc độ tạo nội dung",
+      "Để AI thông minh hơn",
+      "Để giảm dung lượng lưu trữ"
+    ],
+    answer: 0,
+    explanation: "Ghi nhận nguồn giúp tôn trọng quyền sở hữu trí tuệ và đảm bảo tính minh bạch khi sử dụng nội dung AI tạo ra."
+  },
+
+  {
+    id: 107,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Khi xây dựng một sản phẩm AI, đội ngũ phát triển cần ưu tiên điều gì để giảm thiểu rủi ro?",
+    options: [
+      "Đánh giá tác động và rủi ro từ sớm",
+      "Chỉ tập trung vào tốc độ phát triển",
+      "Không cần kiểm thử",
+      "Chỉ sử dụng một nguồn dữ liệu"
+    ],
+    answer: 0,
+    explanation: "Đánh giá tác động và rủi ro từ sớm giúp phát hiện và giảm thiểu các vấn đề tiềm ẩn ngay từ giai đoạn thiết kế."
+  },
+
+  {
+    id: 108,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Khi sử dụng AI, người dùng cần duy trì thái độ nào?",
+    options: [
+      "Tư duy phản biện và không tin tuyệt đối vào AI",
+      "Tin tưởng hoàn toàn",
+      "Không cần kiểm tra kết quả",
+      "Chấp nhận mọi kết quả"
+    ],
+    answer: 0,
+    explanation: "AI có thể mắc lỗi hoặc tạo ra thông tin sai lệch. Người dùng cần có tư duy phản biện và kiểm chứng thông tin."
+  },
+
+  {
+    id: 109,
+    level: "GENERATIVE_AI",
+    category: "ETHICS",
+    difficulty: "hard",
+    type: "single",
+    question: "Trách nhiệm cuối cùng đối với kết quả của AI thuộc về ai?",
+    options: [
+      "Con người sử dụng AI",
+      "AI",
+      "Nhà cung cấp Internet",
+      "Nhà sản xuất phần cứng"
+    ],
+    answer: 0,
+    explanation: "AI là công cụ hỗ trợ. Con người vẫn phải chịu trách nhiệm đối với các quyết định và nội dung được tạo ra từ AI."
   }
 ];
+
 export default GENERATIVE_AI;
