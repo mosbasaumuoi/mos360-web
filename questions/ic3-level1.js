@@ -2069,16 +2069,16 @@ export const IC3_LEVEL1 = [
     test: 3,
     category: "OPERATING_SYSTEM",
     difficulty: "medium",
-    type: "image-select",
-    question: "Bạn cần tìm phiên bản Windows máy tính đang chạy. Bạn nên thực hiện hành động này ở khu vực nào của cửa sổ Cài đặt (Settings)?",
+    type: "single",
+    question: "Bạn cần tìm phiên bản Windows máy tính đang chạy. Bạn nên thực hiện thao tác nào trong Cài đặt (Settings)?",
     options: [
-      { label: "Hệ thống (System)", img: "ic3_lv1_q113_opt_a" },
-      { label: "Thiết bị (Devices)", img: "ic3_lv1_q113_opt_b" },
-      { label: "Điện thoại (Phone)", img: "ic3_lv1_q113_opt_c" },
-      { label: "Ứng dụng (Apps)", img: "ic3_lv1_q113_opt_d" }
+      "Chọn System → About",
+      "Chọn Bluetooth & devices → Devices",
+      "Chọn Personalization → Background",
+      "Chọn Accounts → Your info"
     ],
-    answer: 0,
-    explanation: "Biểu tượng 'Hệ thống (System)' trong Settings chứa mục 'About' hiển thị phiên bản Windows, tên thiết bị và thông số phần cứng cơ bản."
+    answer: "Chọn System → About",
+    explanation: "Trong Windows, để xem phiên bản hệ điều hành, bạn vào Settings → System → About. Tại đây hiển thị thông tin về phiên bản Windows, tên thiết bị và thông số phần cứng cơ bản."
   },
   {
     id: 114,
@@ -2086,17 +2086,26 @@ export const IC3_LEVEL1 = [
     test: 3,
     category: "OPERATING_SYSTEM",
     difficulty: "medium",
-    type: "image-select",
-    question: "Trong hình ảnh System Information sau đây, thông tin nào dùng để xác định số kiểu máy (Model Number) của PC?",
+
+    type: "single",
+
+    image_key: "ic3_lv1_q114_sysinfo",
+
+    question:
+      "Trong hình ảnh sau đây, thông tin nào là thông tin hệ thống (System Information) dùng để xác định số kiểu máy (Model Number) của PC?",
+
     options: [
-      { label: "10.0.18363 Build 18363", img: "ic3_lv1_q114_opt_a" },
-      { label: "x64-based PC", img: "ic3_lv1_q114_opt_b" },
-      { label: "81Y6", img: "ic3_lv1_q114_opt_c" },
-      { label: "UEFI", img: "ic3_lv1_q114_opt_d" }
+      "10.0.18363 Build 18363",
+      "UEFI",
+      "81Y6",
+      "x64-based PC"
     ],
+
     answer: 2,
-    explanation: "Trong cửa sổ System Information, mục 'System Model' hiển thị Model Number do nhà sản xuất quy định. Trong hình, giá trị đó là '81Y6'."
-  },
+
+    explanation:
+      "Trong cửa sổ System Information của Windows, mục 'System Model' hiển thị mã kiểu máy do nhà sản xuất quy định. Trong hình, giá trị của System Model là '81Y6', đây chính là Model Number của máy tính."
+  },  
   {
     id: 115,
     level: "IC3_LEVEL1",
