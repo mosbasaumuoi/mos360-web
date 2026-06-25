@@ -203,69 +203,118 @@ export function getIC3IntroUI() {
 }
 
 // ============================================================
-// GENERATIVE AI FOUNDATIONS — 4 Module
+// GENERATIVE AI FOUNDATIONS — GIÁO TRÌNH (4 MODULE)
 // ============================================================
+
 const GENAI_MODULES = [
   {
+    id: 1,
     title: "GIỚI THIỆU GENERATIVE AI & CÁC KHÁI NIỆM NỀN TẢNG",
+    icon: "🧠",
     goals: [
       "Làm rõ khái niệm Generative AI và sự khác biệt với AI truyền thống",
       "Khám phá các mô hình chủ đạo như LLMs (Large Language Models), GANs và Autoencoders",
       "Tìm hiểu quy trình hoạt động của AI tạo sinh — từ đầu vào (input), prompt đến kết quả đầu ra (output)",
       "Phân tích tác động xã hội, xu hướng tương lai và tiềm năng nghề nghiệp trong kỷ nguyên AI"
     ],
-    topics: "Khái niệm Generative AI (AI tạo sinh) và phân biệt với AI truyền thống (AI phân loại/dự đoán); tổng quan các kiến trúc mô hình nền tảng: LLM (Large Language Models), GAN (Generative Adversarial Networks), Autoencoder; quy trình hoạt động input → prompt → output của một hệ thống AI tạo sinh; các xu hướng phát triển AI hiện nay và cơ hội nghề nghiệp liên quan đến AI."
+    topics: [
+      "Khái niệm Generative AI (AI tạo sinh) và phân biệt với AI truyền thống (AI phân loại/dự đoán)",
+      "Tổng quan các kiến trúc mô hình nền tảng: LLM (Large Language Models), GAN (Generative Adversarial Networks), Autoencoder",
+      "Quy trình hoạt động input → prompt → output của một hệ thống AI tạo sinh",
+      "Các xu hướng phát triển AI hiện nay và cơ hội nghề nghiệp liên quan đến AI"
+    ]
   },
   {
+    id: 2,
     title: "CÔNG CỤ, KỸ THUẬT & PROMPT ENGINEERING",
+    icon: "🛠️",
     goals: [
       "Làm quen với các nền tảng và công cụ Generative AI hàng đầu như ChatGPT, DALL·E, Copilot, Midjourney…",
       "Học Prompt Engineering — nghệ thuật và khoa học thiết kế câu lệnh hiệu quả",
       "Thực hành với các kỹ thuật few-shot, zero-shot, chaining prompt và cách tối ưu đầu ra",
       "Trực tiếp tạo văn bản, hình ảnh, âm thanh, video hoặc nội dung số sáng tạo bằng công cụ AI"
     ],
-    topics: "Tổng quan các công cụ Generative AI phổ biến (ChatGPT, DALL·E, Microsoft Copilot, Midjourney...) và ứng dụng đặc trưng của từng công cụ; nguyên tắc và kỹ thuật Prompt Engineering — cách thiết kế câu lệnh (prompt) rõ ràng, hiệu quả; các kỹ thuật nâng cao: zero-shot, few-shot, chain-of-thought/chaining prompt; thực hành tạo nội dung đa phương tiện (văn bản, hình ảnh, âm thanh, video) bằng công cụ AI."
+    topics: [
+      "Tổng quan các công cụ Generative AI phổ biến (ChatGPT, DALL·E, Microsoft Copilot, Midjourney...) và ứng dụng đặc trưng của từng công cụ",
+      "Nguyên tắc và kỹ thuật Prompt Engineering — cách thiết kế câu lệnh (prompt) rõ ràng, hiệu quả",
+      "Các kỹ thuật nâng cao: zero-shot, few-shot, chain-of-thought/chaining prompt",
+      "Thực hành tạo nội dung đa phương tiện (văn bản, hình ảnh, âm thanh, video) bằng công cụ AI"
+    ]
   },
   {
+    id: 3,
     title: "ỨNG DỤNG THỰC TIỄN & TRIỂN KHAI TRONG CÔNG VIỆC",
+    icon: "💼",
     goals: [
       "Khám phá cách Generative AI hỗ trợ công việc và sáng tạo trong giáo dục, marketing, thiết kế, truyền thông, lập trình...",
       "Thực hành xây dựng dự án thực tế — từ ý tưởng, yêu cầu đến sản phẩm hoặc dịch vụ ứng dụng AI",
       "Biết cách đánh giá chất lượng đầu ra, quản lý rủi ro và hiểu rõ giới hạn của mô hình AI"
     ],
-    topics: "Ứng dụng Generative AI trong các lĩnh vực: giáo dục (soạn bài giảng, tài liệu học tập), marketing (nội dung quảng cáo, ý tưởng chiến dịch), thiết kế (hình ảnh, layout), truyền thông (bài viết, kịch bản), lập trình (sinh và tối ưu code); quy trình xây dựng một dự án ứng dụng AI từ ý tưởng → yêu cầu → sản phẩm/dịch vụ; tiêu chí đánh giá chất lượng đầu ra của AI, nhận diện rủi ro (thông tin sai lệch, ảo giác — hallucination) và giới hạn của mô hình."
+    topics: [
+      "Ứng dụng Generative AI trong các lĩnh vực: giáo dục (soạn bài giảng, tài liệu học tập), marketing (nội dung quảng cáo, ý tưởng chiến dịch), thiết kế (hình ảnh, layout), truyền thông (bài viết, kịch bản), lập trình (sinh và tối ưu code)",
+      "Quy trình xây dựng một dự án ứng dụng AI từ ý tưởng → yêu cầu → sản phẩm/dịch vụ",
+      "Tiêu chí đánh giá chất lượng đầu ra của AI, nhận diện rủi ro (thông tin sai lệch, ảo giác — hallucination) và giới hạn của mô hình"
+    ]
   },
   {
+    id: 4,
     title: "ĐẠO ĐỨC, TRÁCH NHIỆM & LỘ TRÌNH CHINH PHỤC CHỨNG CHỈ",
+    icon: "🛡️",
     goals: [
       "Tìm hiểu các nguyên tắc đạo đức, bảo mật dữ liệu, quyền riêng tư và bản quyền nội dung trong kỷ nguyên AI",
       "Phân tích khung pháp lý, quy định và tiêu chuẩn quốc tế liên quan đến việc ứng dụng AI tạo sinh",
       "Nắm vững cấu trúc bài thi chứng chỉ Generative AI Foundations, chiến lược ôn luyện và bí quyết đạt điểm cao"
     ],
-    topics: "Các nguyên tắc đạo đức khi sử dụng AI: minh bạch, công bằng, tránh thiên lệch (bias); bảo mật dữ liệu, quyền riêng tư và bản quyền nội dung do AI tạo ra; tổng quan khung pháp lý và tiêu chuẩn quốc tế liên quan đến AI tạo sinh; cấu trúc bài thi chứng chỉ Generative AI Foundations, các dạng câu hỏi và chiến lược ôn luyện hiệu quả."
+    topics: [
+      "Các nguyên tắc đạo đức khi sử dụng AI: minh bạch, công bằng, tránh thiên lệch (bias)",
+      "Bảo mật dữ liệu, quyền riêng tư và bản quyền nội dung do AI tạo ra",
+      "Tổng quan khung pháp lý và tiêu chuẩn quốc tế liên quan đến AI tạo sinh",
+      "Cấu trúc bài thi chứng chỉ Generative AI Foundations, các dạng câu hỏi và chiến lược ôn luyện hiệu quả"
+    ]
   }
 ];
 
+// ============================================================
+// DRIVE LINK
+// ============================================================
+
 const DRIVE_LINK_GENAI = "https://drive.google.com/PLACEHOLDER_GENAI";
 
-export function getGenAIIntroUI() {
-  const accordions = GENAI_MODULES.map((m, i) => `
-    <div class="gt-acc" id="genai-acc-${i+1}">
-      <div class="gt-acc-hdr" onclick="gtToggle('genai-acc-${i+1}')">
+// ============================================================
+// HÀM RENDER GIAO DIỆN
+// ============================================================
+
+function renderModuleAccordion(module) {
+  const goalsHtml = module.goals.map(g => `<li>${g}</li>`).join('');
+  const topicsHtml = module.topics.map(t => `<li>${t}</li>`).join('');
+
+  return `
+    <div class="gt-acc" id="genai-acc-${module.id}">
+      <div class="gt-acc-hdr" onclick="gtToggle('genai-acc-${module.id}')">
         <div class="gt-acc-hdr-left">
-          <div class="gt-acc-num" style="background:rgba(0,104,255,0.12); color:var(--cyan);">${i+1}</div>
-          <div class="gt-acc-title">Module ${i+1}: ${m.title}</div>
+          <div class="gt-acc-num" style="background:rgba(0,104,255,0.12); color:var(--cyan);">
+            ${module.icon}
+          </div>
+          <div class="gt-acc-title">Module ${module.id}: ${module.title}</div>
         </div>
         <span class="gt-acc-chevron">▼</span>
       </div>
       <div class="gt-acc-body">
-        <p style="font-weight:700; margin-bottom:4px;">Mục tiêu:</p>
-        ${ic3GoalsHtml(m.goals)}
-        <p style="font-weight:700; margin-bottom:4px;">Nội dung chính:</p>
-        <p>${m.topics}</p>
+        <div class="gt-acc-section">
+          <p class="gt-acc-label">🎯 Mục tiêu:</p>
+          <ul class="gt-acc-list">${goalsHtml}</ul>
+        </div>
+        <div class="gt-acc-section">
+          <p class="gt-acc-label">📚 Nội dung chính:</p>
+          <ul class="gt-acc-list">${topicsHtml}</ul>
+        </div>
       </div>
     </div>
-  `).join('');
+  `;
+}
+
+export function getGenAIIntroUI() {
+  const accordions = GENAI_MODULES.map(renderModuleAccordion).join('');
 
   return `${SHARED_STYLE}
 <div class="gt-wrap">
@@ -280,13 +329,13 @@ export function getGenAIIntroUI() {
   </div>
 
   <div class="gt-section">
-    <h2>Giới thiệu chung</h2>
-    <p>Generative AI Foundations là chứng chỉ quốc tế cung cấp nền tảng kiến thức về Trí tuệ nhân tạo tạo sinh (Generative AI) — lĩnh vực công nghệ đang phát triển mạnh mẽ và có ảnh hưởng sâu rộng đến học tập, công việc và đời sống hiện đại.</p>
-    <p>Khóa học giúp học viên nhận diện vai trò và ứng dụng thực tiễn của Generative AI, từ đó xây dựng lộ trình học tập và phương pháp chuẩn bị phù hợp để chinh phục chứng chỉ quốc tế Generative AI Foundations. Khóa học gồm 4 mô-đun chính, đi từ kiến thức nền tảng → công cụ và kỹ thuật thực hành → ứng dụng thực tế → đạo đức và chuẩn bị thi chứng chỉ.</p>
+    <h2>📖 Giới thiệu chung</h2>
+    <p><strong>Generative AI Foundations</strong> là chứng chỉ quốc tế cung cấp nền tảng kiến thức về Trí tuệ nhân tạo tạo sinh (Generative AI) — lĩnh vực công nghệ đang phát triển mạnh mẽ và có ảnh hưởng sâu rộng đến học tập, công việc và đời sống hiện đại.</p>
+    <p>Khóa học giúp học viên nhận diện vai trò và ứng dụng thực tiễn của Generative AI, từ đó xây dựng lộ trình học tập và phương pháp chuẩn bị phù hợp để chinh phục chứng chỉ quốc tế Generative AI Foundations. Khóa học gồm <strong>4 mô-đun</strong> chính, đi từ kiến thức nền tảng → công cụ và kỹ thuật thực hành → ứng dụng thực tế → đạo đức và chuẩn bị thi chứng chỉ.</p>
   </div>
 
   <div class="gt-section">
-    <h2>Mục tiêu khóa học</h2>
+    <h2>🎯 Mục tiêu khóa học</h2>
     <ul>
       <li>Nắm vững kiến thức nền tảng về Generative AI và các công cụ tạo sinh nội dung.</li>
       <li>Biết cách ứng dụng Generative AI vào học tập, công việc và sáng tạo nội dung số.</li>
@@ -297,13 +346,13 @@ export function getGenAIIntroUI() {
   </div>
 
   <div class="gt-section">
-    <h2>Nội dung chi tiết 4 Module</h2>
-    <p>Nhấn vào từng module để xem mục tiêu và nội dung chính.</p>
+    <h2>📚 Nội dung chi tiết 4 Module</h2>
+    <p style="margin-bottom:16px;">Nhấn vào từng module để xem mục tiêu và nội dung chính.</p>
     ${accordions}
   </div>
 
   <div class="gt-footer-cta">
-    <p>Sau khi đọc tài liệu lý thuyết, hãy vào phòng ôn luyện để làm bài trắc nghiệm theo từng module.</p>
+    <p style="font-weight:600;">Sau khi đọc tài liệu lý thuyết, hãy vào phòng ôn luyện để làm bài trắc nghiệm theo từng module.</p>
     <a href="/generative-ai" class="gt-drive" style="background:var(--cyan); color:#fff;">🎯 Vào phòng ôn luyện thi thử Generative AI →</a>
   </div>
 </div>`;
