@@ -188,62 +188,48 @@ const DEVICE_CONFIG = {
 
 const IMAGE_BASE_URL = "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/refs/heads/main/main/images/";
 const IMAGE_MAP = {
-    // IC3 LEVEL 1 — ảnh minh họa
-    "ic3_lv1_q08_hardware": "ic3-level1/ic3_lv1_q08_hardware.svg",
-    "ic3_lv1_q10_operating_system": "ic3-level1/ic3_lv1_q10_operating_system.svg",
-    "ic3_lv1_q17_software": "ic3-level1/ic3_lv1_q17_software.svg",
-    "ic3_lv1_q21_security": "ic3-level1/ic3_lv1_q21_security.svg",
-    "ic3_lv1_q22_security": "ic3-level1/ic3_lv1_q22_security.svg",
-    "ic3_lv1_q25_network": "ic3-level1/ic3_lv1_q25_network.svg",
-    "ic3_lv1_q32_digital_citizenship": "ic3-level1/ic3_lv1_q32_digital_citizenship.svg",
-    "ic3_lv1_q38_hardware": "ic3-level1/ic3_lv1_q38_hardware.svg",
-    "ic3_lv1_q41_software": "ic3-level1/ic3_lv1_q41_software.svg",
-    "ic3_lv1_q52_software": "ic3-level1/ic3_lv1_q52_software.svg",
-    "ic3_lv1_q53_data": "ic3-level1/ic3_lv1_q53_data.svg",
+
     // IC3 LEVEL 1 — ảnh options image-select
-    "ic3_lv1_q07_opt_a": "ic3-level1/ic3_lv1_q07_opt_a.svg",
-    "ic3_lv1_q07_opt_b": "ic3-level1/ic3_lv1_q07_opt_b.svg",
-    "ic3_lv1_q07_opt_c": "ic3-level1/ic3_lv1_q07_opt_c.svg",
-    "ic3_lv1_q07_opt_d": "ic3-level1/ic3_lv1_q07_opt_d.svg",
-    "ic3_lv1_q07_opt_e": "ic3-level1/ic3_lv1_q07_opt_e.svg",
-    "ic3_lv1_q14_opt_a": "ic3-level1/ic3_lv1_q14_opt_a.svg",
-    "ic3_lv1_q14_opt_b": "ic3-level1/ic3_lv1_q14_opt_b.svg",
-    "ic3_lv1_q14_opt_c": "ic3-level1/ic3_lv1_q14_opt_c.svg",
-    "ic3_lv1_q14_opt_d": "ic3-level1/ic3_lv1_q14_opt_d.svg",
-    "ic3_lv1_q29_opt_a": "ic3-level1/ic3_lv1_q29_opt_a.svg",
-    "ic3_lv1_q29_opt_b": "ic3-level1/ic3_lv1_q29_opt_b.svg",
-    "ic3_lv1_q29_opt_c": "ic3-level1/ic3_lv1_q29_opt_c.svg",
-    "ic3_lv1_q29_opt_d": "ic3-level1/ic3_lv1_q29_opt_d.svg",
-    "ic3_lv1_q29_opt_e": "ic3-level1/ic3_lv1_q29_opt_e.svg",
-    "ic3_lv1_q41_opt_a": "ic3-level1/ic3_lv1_q41_opt_a.svg",
-    "ic3_lv1_q41_opt_b": "ic3-level1/ic3_lv1_q41_opt_b.svg",
-    "ic3_lv1_q41_opt_c": "ic3-level1/ic3_lv1_q41_opt_c.svg",
-    "ic3_lv1_q41_opt_d": "ic3-level1/ic3_lv1_q41_opt_d.svg",
-    "ic3_lv1_q106_opt_a": "ic3-level1/ic3_lv1_q106_opt_a.svg",
-    "ic3_lv1_q106_opt_b": "ic3-level1/ic3_lv1_q106_opt_b.svg",
-    "ic3_lv1_q106_opt_c": "ic3-level1/ic3_lv1_q106_opt_c.svg",
-    // IC3 LEVEL 2 — ảnh minh họa
-    "ic3_lv2_q10_data": "ic3-level2/ic3_lv2_q10_data.svg",
-    "ic3_lv2_q21_data": "ic3-level2/ic3_lv2_q21_data.svg",
-    "ic3_lv2_q28_security": "ic3-level2/ic3_lv2_q28_security.svg",
-    "ic3_lv2_q30_hardware": "ic3-level2/ic3_lv2_q30_hardware.svg",
-    "ic3_lv2_q47_hardware": "ic3-level2/ic3_lv2_q47_hardware.svg",
-    // IC3 LEVEL 3 — ảnh minh họa
-    "ic3_lv3_q16_software": "ic3-level3/ic3_lv3_q16_software.svg",
-    "ic3_lv3_q19_network": "ic3-level3/ic3_lv3_q19_network.svg",
-    "ic3_lv3_q20_security": "ic3-level3/ic3_lv3_q20_security.svg",
-    "ic3_lv3_q30_software": "ic3-level3/ic3_lv3_q30_software.svg",
-    "ic3_lv3_q35_iot": "ic3-level3/ic3_lv3_q35_iot.svg",
-    "ic3_lv3_q41_network": "ic3-level3/ic3_lv3_q41_network.svg",
-    "ic3_lv3_q43_network": "ic3-level3/ic3_lv3_q43_network.svg",
-    "ic3_lv3_q46_cloud": "ic3-level3/ic3_lv3_q46_cloud.svg",
-    "ic3_lv3_q48_cloud": "ic3-level3/ic3_lv3_q48_cloud.svg",
-    "ic3_lv3_q52_security": "ic3-level3/ic3_lv3_q52_security.svg",
-    "ic3_lv3_q59_network": "ic3-level3/ic3_lv3_q59_network.svg",
-    "ic3_lv3_q66_security": "ic3-level3/ic3_lv3_q66_security.svg",
-    "ic3_lv3_q72_network": "ic3-level3/ic3_lv3_q72_network.svg",
-    "ic3_lv3_q75_tech": "ic3-level3/ic3_lv3_q75_tech.svg",
-    "ic3_lv3_q82_ai": "ic3-level3/ic3_lv3_q82_ai.svg",
+
+    // Câu 2: Thiết bị nhập (image-select)
+    "ic3_lv1_q02_opt_a": "ic3-level1/ic3_lv1_q02_opt_a.svg",
+    "ic3_lv1_q02_opt_b": "ic3-level1/ic3_lv1_q02_opt_b.svg",
+    "ic3_lv1_q02_opt_c": "ic3-level1/ic3_lv1_q02_opt_c.svg",
+    "ic3_lv1_q02_opt_d": "ic3-level1/ic3_lv1_q02_opt_d.svg",
+    "ic3_lv1_q02_opt_e": "ic3-level1/ic3_lv1_q02_opt_e.svg",
+
+    // Câu 4: Các loại cáp (matching)
+    "ic3_lv1_q04_opt_a": "ic3-level1/ic3_lv1_q04_opt_a.svg",
+    "ic3_lv1_q04_opt_b": "ic3-level1/ic3_lv1_q04_opt_b.svg",
+    "ic3_lv1_q04_opt_c": "ic3-level1/ic3_lv1_q04_opt_c.svg",
+    "ic3_lv1_q04_opt_d": "ic3-level1/ic3_lv1_q04_opt_d.svg",
+
+    // Câu 8: Các loại cổng kết nối (matching)
+    "ic3_lv1_q08_opt_a": "ic3-level1/ic3_lv1_q08_opt_a.svg",
+    "ic3_lv1_q08_opt_b": "ic3-level1/ic3_lv1_q08_opt_b.svg",
+    "ic3_lv1_q08_opt_c": "ic3-level1/ic3_lv1_q08_opt_c.svg",
+    "ic3_lv1_q08_opt_d": "ic3-level1/ic3_lv1_q08_opt_d.svg",
+    "ic3_lv1_q08_opt_e": "ic3-level1/ic3_lv1_q08_opt_e.svg",
+
+    // Câu 46: Linh kiện máy tính (matching - Test 2)
+    "ic3_lv1_q46_opt_a": "ic3-level1/ic3_lv1_q46_opt_a.svg",
+    "ic3_lv1_q46_opt_b": "ic3-level1/ic3_lv1_q46_opt_b.svg",
+    "ic3_lv1_q46_opt_c": "ic3-level1/ic3_lv1_q46_opt_c.svg",
+    "ic3_lv1_q46_opt_d": "ic3-level1/ic3_lv1_q46_opt_d.svg",
+
+    // Câu 113: System Information - Settings (image-select)
+    "ic3_lv1_q113_opt_a": "ic3-level1/ic3_lv1_q113_opt_a.svg",
+    "ic3_lv1_q113_opt_b": "ic3-level1/ic3_lv1_q113_opt_b.svg",
+    "ic3_lv1_q113_opt_c": "ic3-level1/ic3_lv1_q113_opt_c.svg",
+    "ic3_lv1_q113_opt_d": "ic3-level1/ic3_lv1_q113_opt_d.svg",
+
+    // Câu 114: System Model (image-select)
+    "ic3_lv1_q114_opt_a": "ic3-level1/ic3_lv1_q114_opt_a.svg",
+    "ic3_lv1_q114_opt_b": "ic3-level1/ic3_lv1_q114_opt_b.svg",
+    "ic3_lv1_q114_opt_c": "ic3-level1/ic3_lv1_q114_opt_c.svg",
+    "ic3_lv1_q114_opt_d": "ic3-level1/ic3_lv1_q114_opt_d.svg",     
+        
+    // IC3 LEVEL 3 — ảnh minh họa   
     "ic3_lv3_q86_sysinfo": "ic3-level3/ic3_lv3_q86_sysinfo.svg",
 };
 
