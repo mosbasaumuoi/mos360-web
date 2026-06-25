@@ -7,10 +7,11 @@ import IC3_LEVEL1 from "./questions/ic3-level1.js";
 import IC3_LEVEL2 from "./questions/ic3-level2.js";
 import IC3_LEVEL3 from "./questions/ic3-level3.js";
 import GENERATIVE_AI from "./questions/generative-ai.js";
+import AI_PRODUCTIVITY from "./questions/ai_productivity.js";
 import { getAdminDashboardUI } from "./pages/admin.js";
 import { getProgressUI } from "./pages/progress.js";
 import { getFlashcardUI } from "./pages/flashcard.js";
-import { getIC3IntroUI, getGenAIIntroUI } from "./pages/course-intro.js";
+import { getIC3IntroUI, getGenAIIntroUI, getAIPIntroUI } from "./pages/course-intro.js";
 import { getLicenseRequestUI } from "./pages/license-request.js";
 import { getResultsLookupUI } from "./pages/results-lookup.js";
 import { handleAdminAPI } from "./api/admin-api.js";
@@ -89,7 +90,8 @@ const COURSE_MAP = {
     "IC3 GS6 LEVEL 1": [...IC3_LEVEL1],
     "IC3 GS6 LEVEL 2": [...IC3_LEVEL2],
     "IC3 GS6 LEVEL 3": [...IC3_LEVEL3],
-    "GENERATIVE AI": [...GENERATIVE_AI]
+    "GENERATIVE AI": [...GENERATIVE_AI],
+    "AI PRODUCTIVITY": [...AI_PRODUCTIVITY]
 };
 
 // ===== CATEGORY TRANSLATIONS — hiển thị tên tiếng Việt chuẩn =====
@@ -140,7 +142,16 @@ const CATEGORY_TRANSLATIONS = {
     FOUNDATION: "🌱 Khái niệm nền tảng AI",
     PROMPTING: "✍️ Prompt Engineering",
     ETHICS: "⚖️ Đạo đức & rủi ro AI",
-    TOOLS: "🛠️ Công cụ AI"
+    TOOLS: "🛠️ Công cụ AI",
+    // --- AI Productivity ---
+    MINDSET: "🧠 Think with AI — Tư duy AI",
+    COMMUNICATION: "💬 Communicate with AI — Giao tiếp",
+    RESEARCH: "🔍 Research with AI — Nghiên cứu",
+    OFFICE: "📊 Office with AI — Văn phòng số",
+    PLANNING: "📅 Plan with AI — Lập kế hoạch",
+    DECISION: "⚖️ Decide with AI — Ra quyết định",
+    WORKFLOW: "⚙️ Workflow with AI — Quy trình",
+    CHALLENGE: "🚀 Grow with AI — Thực chiến"
 };
 
 // ===== TOPIC DOMAINS — gom các category kỹ thuật theo đúng 7 chuyên đề IC3 GS6 /
@@ -162,11 +173,22 @@ const GENAI_TOPIC_DOMAINS = [
     { title: "3. Ứng dụng thực tiễn & công cụ (Đầu vào - Đầu ra)", cats: ["TOOLS"] },
     { title: "4. Đạo đức, pháp lý & tác động xã hội", cats: ["ETHICS"] }
 ];
+const AIP_TOPIC_DOMAINS = [
+    { title: "1. Think with AI — Tư duy & Mindset", cats: ["MINDSET"] },
+    { title: "2. Communicate with AI — Giao tiếp & Soạn thảo", cats: ["COMMUNICATION"] },
+    { title: "3. Research with AI — Nghiên cứu & Khai thác thông tin", cats: ["RESEARCH"] },
+    { title: "4. Office with AI — Làm việc với Microsoft Office", cats: ["OFFICE"] },
+    { title: "5. Plan with AI — Quản lý cuộc họp & Kế hoạch", cats: ["PLANNING"] },
+    { title: "6. Decide with AI — Ra quyết định với AI", cats: ["DECISION"] },
+    { title: "7. Workflow with AI — Thiết kế quy trình làm việc", cats: ["WORKFLOW"] },
+    { title: "8. Grow with AI — Thực chiến AI Productivity", cats: ["CHALLENGE"] }
+];
 const TOPIC_DOMAINS_BY_COURSE = {
     "IC3 GS6 LEVEL 1": IC3_TOPIC_DOMAINS,
     "IC3 GS6 LEVEL 2": IC3_TOPIC_DOMAINS,
     "IC3 GS6 LEVEL 3": IC3_TOPIC_DOMAINS,
-    "GENERATIVE AI": GENAI_TOPIC_DOMAINS
+    "GENERATIVE AI": GENAI_TOPIC_DOMAINS,
+    "AI PRODUCTIVITY": AIP_TOPIC_DOMAINS
 };
 
 /* =========================
@@ -364,6 +386,9 @@ export default {
         if (path === "/generative-ai") {
             return new Response(this.getQuizEnginePage("GENERATIVE AI"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
         }
+        if (path === "/ai-productivity") {
+            return new Response(this.getQuizEnginePage("AI PRODUCTIVITY"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        }
         if (path === "/ic3-lv1") {
             return new Response(this.getQuizEnginePage("IC3 GS6 LEVEL 1"), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
         }
@@ -378,6 +403,9 @@ export default {
         }
         if (path === "/flashcard-ai") {
             return new Response(getFlashcardUI("GENERATIVE AI", [...GENERATIVE_AI], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        }
+        if (path === "/flashcard-aip") {
+            return new Response(getFlashcardUI("AI PRODUCTIVITY", [...AI_PRODUCTIVITY], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
         }
 
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
@@ -420,6 +448,7 @@ export default {
         if (path === "/courses") content = this.getCoursesUI();
         else if (path === "/course-intro/ic3") content = getIC3IntroUI();
         else if (path === "/course-intro/genai") content = getGenAIIntroUI();
+        else if (path === "/course-intro/aip") content = getAIPIntroUI();
         else if (path === "/register") content = this.getHomeUI(studentData, promoConfig, 'register');
         else if (path === "/login") content = this.getLoginUI();
         else if (path === "/library") content = this.getLibraryUI();
@@ -1102,7 +1131,7 @@ ${promoSectionHtml}
           </div>
         </div>
       </div>
-      <!-- AI -->
+      <!-- AI Generative -->
       <div class="hn-course">
         <div class="hn-course-thumb" style="background:linear-gradient(135deg,#FFF8E6,#FFEFCC)">
           <span class="hn-ico">🤖</span>
@@ -1117,6 +1146,24 @@ ${promoSectionHtml}
             <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <a href="/generative-ai" class="hn-cbtn-s">▶ Học thử</a>
             <a href="/generative-ai" class="hn-cbtn-s">🎯 Thi thử</a>
+          </div>
+        </div>
+      </div>
+      <!-- AI Productivity -->
+      <div class="hn-course">
+        <div class="hn-course-thumb" style="background:linear-gradient(135deg,#E8F0FF,#C7D9FF)">
+          <span class="hn-ico">⚡</span>
+          <span class="hn-cbadge" style="background:linear-gradient(135deg,#0068FF,#00D4FF);color:#fff;">🚀 AI PRO</span>
+          <a href="/course-intro/aip" class="hn-syl-btn" onclick="event.stopPropagation()">📘 Giáo trình học</a>
+        </div>
+        <div class="hn-cbody">
+          <div class="hn-ctitle">Làm việc hiệu quả với AI</div>
+          <div class="hn-cdesc">8 năng lực AI Productivity: Tư duy, Giao tiếp, Nghiên cứu, Office, Kế hoạch, Quyết định, Workflow, Thực chiến.</div>
+          <div class="hn-cprice" style="color:#0068FF">100.000đ <span class="old">400.000đ</span></div>
+          <div class="hn-cbtns">
+            <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
+            <a href="/ai-productivity" class="hn-cbtn-s">▶ Học thử</a>
+            <a href="/ai-productivity" class="hn-cbtn-s">🎯 Thi thử</a>
           </div>
         </div>
       </div>
@@ -1973,15 +2020,30 @@ async function hnDoLookup() {
                     <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/generative-ai&apos;,&apos;GENERATIVE AI&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
             </div>
+            <div class="section-card" style="border-color:#0068FF; display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                    <span style="background:rgba(0,104,255,0.1); color:#0068FF; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">🚀 AI PRODUCTIVITY</span>
+                    <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:#0068FF;">Làm việc hiệu quả với AI</h3>
+                    <p style="color:var(--muted); font-size:0.85rem; line-height:1.5;">300 câu hỏi · 8 Competencies · Từ Tư duy đến Thực chiến AI trong công việc thực tế.</p>
+                    <div class="price-tag">100.000đ <span>400.000đ</span></div>
+                    <a href="/course-intro/aip" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:#0068FF;background:rgba(0,104,255,0.06);border:1px solid rgba(0,104,255,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;text-decoration:none;">📘 Giáo trình học</a>
+                </div>
+                <div class="course-btn-group">
+                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#0068FF,#00D4FF); color:#fff;">ĐĂNG KÝ NGAY</a>
+                    <button class="btn-sub" id="btn-auth-AIP" onclick="triggerRemoteVerification(&apos;AI PRODUCTIVITY&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
+                    <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/ai-productivity&apos;,&apos;AI PRODUCTIVITY&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
+                </div>
+            </div>
         </div>
     </div>
     <script>
-        const cList = ["MOS WORD 2019","MOS EXCEL 2019","MOS PPT 2019","MOS WORD 365","MOS EXCEL 365","MOS PPT 365","IC3 GS6 LEVEL 1","IC3 GS6 LEVEL 2","IC3 GS6 LEVEL 3","GENERATIVE AI"];
+        const cList = ["MOS WORD 2019","MOS EXCEL 2019","MOS PPT 2019","MOS WORD 365","MOS EXCEL 365","MOS PPT 365","IC3 GS6 LEVEL 1","IC3 GS6 LEVEL 2","IC3 GS6 LEVEL 3","GENERATIVE AI","AI PRODUCTIVITY"];
         const idMap = {
             "MOS WORD 2019":"btn-auth-W19","MOS EXCEL 2019":"btn-auth-E19","MOS PPT 2019":"btn-auth-P19",
             "MOS WORD 365":"btn-auth-W365","MOS EXCEL 365":"btn-auth-E365","MOS PPT 365":"btn-auth-P365",
             "IC3 GS6 LEVEL 1":"btn-auth-IC3-LV1","IC3 GS6 LEVEL 2":"btn-auth-IC3-LV2","IC3 GS6 LEVEL 3":"btn-auth-IC3-LV3",
-            "GENERATIVE AI":"btn-auth-AI"
+            "GENERATIVE AI":"btn-auth-AI",
+            "AI PRODUCTIVITY":"btn-auth-AIP"
         };
         function checkState() {
             cList.forEach(c => {
@@ -3386,6 +3448,7 @@ async function triggerRemoteVerification(courseName) {
         var url = ct === 'IC3 GS6 LEVEL 1' ? '/flashcard-ic3'
                 : ct === 'IC3 GS6 LEVEL 2' ? '/flashcard-ic3'
                 : ct === 'IC3 GS6 LEVEL 3' ? '/flashcard-ic3'
+                : ct === 'AI PRODUCTIVITY' ? '/flashcard-aip'
                 : '/flashcard-ai';
         window.location.href = url;
     }
@@ -3575,7 +3638,8 @@ async function triggerRemoteVerification(courseName) {
             btn.onclick = function() {
                 if (forFlashcard) {
                     var ct = '${courseType}';
-                    var base = ct.indexOf('GENERATIVE AI') >= 0 ? '/flashcard-ai' : '/flashcard-ic3';
+                    var base = ct.indexOf('AI PRODUCTIVITY') >= 0 ? '/flashcard-aip'
+                             : ct.indexOf('GENERATIVE AI') >= 0 ? '/flashcard-ai' : '/flashcard-ic3';
                     window.location.href = base + '?cats=' + encodeURIComponent(domain.cats.join(',')) + '&label=' + encodeURIComponent(domain.title);
                 } else {
                     launchTopicMode(dIdx);
@@ -3590,7 +3654,8 @@ async function triggerRemoteVerification(courseName) {
             showTopicSelect(true);
         } else {
             var ct = '${courseType}';
-            var url = ct.indexOf('GENERATIVE AI') >= 0 ? '/flashcard-ai' : '/flashcard-ic3';
+            var url = ct.indexOf('AI PRODUCTIVITY') >= 0 ? '/flashcard-aip'
+                    : ct.indexOf('GENERATIVE AI') >= 0 ? '/flashcard-ai' : '/flashcard-ic3';
             window.location.href = url;
         }
     }

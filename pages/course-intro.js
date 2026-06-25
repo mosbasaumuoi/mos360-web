@@ -357,3 +357,11 @@ export function getGenAIIntroUI() {
   </div>
 </div>`;
 }
+// ============================================================
+// AI PRODUCTIVITY INTRO — wrapper cho ai_productivity_intro.js
+// ============================================================
+import { renderAIPIntro } from "./ai_productivity_intro.js";
+
+export function getAIPIntroUI() {
+  return renderAIPIntro();
+}
