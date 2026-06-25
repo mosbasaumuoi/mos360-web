@@ -2883,20 +2883,17 @@ export const IC3_LEVEL1 = [
 
     left: [
       "ic3_lv1_q106_opt_a",
-      "ic3_lv1_q106_opt_b",
-      "ic3_lv1_q106_opt_c"
+      "ic3_lv1_q106_opt_b"  
     ],
 
-    right: [
-      "Khổ dọc (Portrait)",
+    right: [      
       "Khổ ngang (Landscape)",
       "Khổ dọc (Portrait)"
     ],
 
     answer: {
       "ic3_lv1_q106_opt_a": "Khổ dọc (Portrait)",
-      "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)",
-      "ic3_lv1_q106_opt_c": "Khổ dọc (Portrait)"
+      "ic3_lv1_q106_opt_b": "Khổ ngang (Landscape)"
     },
 
     explanation:
