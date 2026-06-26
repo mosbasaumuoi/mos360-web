@@ -1014,7 +1014,7 @@ ${mode === 'register' ? `
       <a href="/register#hn-register" class="hn-btn-s">Đăng ký ngay</a>
     </div>
     <div class="hn-stats">
-      <div class="hn-stat"><div class="num" data-target="2000" data-suffix="+">0</div><div class="lbl">Học viên</div></div>
+      <div class="hn-stat"><div class="num" data-target="1000" data-suffix="+">0</div><div class="lbl">Học viên</div></div>
       <div class="hn-stat"><div class="num" data-target="100" data-suffix="%">0</div><div class="lbl">Thi đậu lần đầu</div></div>
       <div class="hn-stat"><div class="num" data-target="700" data-suffix="+">0</div><div class="lbl">Cam kết bằng văn bản</div></div>
     </div>
@@ -1030,7 +1030,7 @@ ${mode !== 'register' ? `
   <div class="hn-inner">
     <div class="hn-tag">🏆 Bảng vàng</div>
     <h2 class="hn-h2">Chứng chỉ Quốc tế của học viên MOS360</h2>
-    <p class="hn-desc" style="margin-bottom:20px">Hơn 2000 học viên đã nhận chứng chỉ MOS & IC3 từ Certiport.</p>
+    <p class="hn-desc" style="margin-bottom:20px">Hơn 1000 học viên đã nhận chứng chỉ MOS & IC3 từ Certiport.</p>
     <div class="hn-bvang">
       <div class="hn-bvang-hdr">🏆 BẢNG VÀNG CHỨNG CHỈ QUỐC TẾ</div>
       <div style="height:520px; overflow:hidden; padding:4px;">

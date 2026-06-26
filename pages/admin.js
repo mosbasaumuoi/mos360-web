@@ -145,6 +145,7 @@ export function getAdminDashboardUI() {
             <option value="MOS PPT 365">MOS PPT 365</option>
             <option value="IC3 GS6">IC3 GS6</option>
             <option value="GENERATIVE AI">GENERATIVE AI</option>
+            <option value="AI PRODUCTIVITY">AI PRODUCTIVITY</option>
         </select>
     </div>
 
@@ -187,6 +188,7 @@ export function getAdminDashboardUI() {
                         <option value="MOS PPT 365">MOS PPT 365</option>
                         <option value="IC3 GS6">IC3 GS6</option>
                         <option value="GENERATIVE AI">GENERATIVE AI</option>
+                        <option value="AI PRODUCTIVITY">AI PRODUCTIVITY</option>
                     </select>
                 </div>
                 <div>
