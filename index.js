@@ -249,8 +249,8 @@ const IMAGE_MAP = {
     "ic3_lv1_q114_opt_a": "ic3-level1/ic3_lv1_q114_opt_a.svg",
     "ic3_lv1_q114_opt_b": "ic3-level1/ic3_lv1_q114_opt_b.svg",
     "ic3_lv1_q114_opt_c": "ic3-level1/ic3_lv1_q114_opt_c.svg",
-    "ic3_lv1_q114_opt_d": "ic3-level1/ic3_lv1_q114_opt_d.svg",     
-        
+    "ic3_lv1_q114_opt_d": "ic3-level1/ic3_lv1_q114_opt_d.svg",
+
     // IC3 LEVEL 3 — ảnh minh họa   
     "ic3_lv3_q86_sysinfo": "ic3-level3/ic3_lv3_q86_sysinfo.svg",
 };
@@ -595,6 +595,9 @@ export default {
                     <div class="drop-label">Generative AI</div>
                     <a href="/generative-ai">✨ Luyện thi Generative AI</a>
                     <div class="drop-divider"></div>
+                    <div class="drop-label">AI Productivity</div>
+                    <a href="/ai-productivity">⚡ Làm việc hiệu quả với AI</a>
+                    <div class="drop-divider"></div>
                     <a href="/progress">📈 Tiến độ học của tôi</a>
                     <a href="/library">📚 Kho MOS</a>
                 </div>
@@ -621,6 +624,7 @@ export default {
     <nav style="background:#E2ECFA; padding:10px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:6px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; align-items:center; flex-wrap:wrap;">
         <span style="color:var(--muted); font-weight:800; font-size:0.72rem; letter-spacing:0.3px;">⚡ PHÒNG THI NHANH:</span>
         <a href="/generative-ai" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">✨ Generative AI</a>
+        <a href="/ai-productivity" style="color:#0068FF; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">⚡ AI Productivity</a>
         <a href="/ic3-lv1" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟢 IC3 Level 1</a>
         <a href="/ic3-lv2" style="color:#d97706; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟡 IC3 Level 2</a>
         <a href="/ic3-lv3" style="color:#dc2626; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🔴 IC3 Level 3</a>
@@ -706,10 +710,29 @@ export default {
         const promo = promoConfig || {};
         const isPromoActive = promo.active && promo.title;
 
-        // Tính countdown deadline
+        // Tính countdown deadline — normalize date string cho V8/CF Workers
         let countdownHtml = '';
         if (isPromoActive && promo.deadline) {
-            const dl = new Date(promo.deadline);
+            // Normalize "06/30/2026 11:59 PM" → "2026-06-30T23:59:00" (ISO safe)
+            let dlRaw = promo.deadline.trim();
+            let dlMs = NaN;
+            try {
+                // Try ISO first
+                dlMs = Date.parse(dlRaw);
+                if (isNaN(dlMs)) {
+                    // Parse "MM/DD/YYYY HH:MM AM/PM"
+                    const m = dlRaw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+                    if (m) {
+                        let hh = parseInt(m[4]);
+                        const mm = parseInt(m[5]);
+                        const ampm = (m[6] || '').toUpperCase();
+                        if (ampm === 'PM' && hh < 12) hh += 12;
+                        if (ampm === 'AM' && hh === 12) hh = 0;
+                        dlMs = new Date(parseInt(m[3]), parseInt(m[1]) - 1, parseInt(m[2]), hh, mm, 59).getTime();
+                    }
+                }
+            } catch (e) { dlMs = NaN; }
+            const dl = new Date(dlMs);
             const now = new Date();
             const diff = dl - now;
             if (diff > 0) {
@@ -1200,13 +1223,14 @@ ${promoSectionHtml}
     <!-- KHU 1: HỌC ONLINE -->
     <div style="margin-bottom:32px;">
       <div class="hn-tag" style="background:rgba(22,163,74,0.1);color:#16a34a;">🖥️ Hệ học Online</div>
-      <h2 class="hn-h2">IC3 GS6 & Generative AI</h2>
+      <h2 class="hn-h2">IC3 GS6 · Generative AI · AI Productivity</h2>
       <p class="hn-desc">Luyện đề trực tiếp trên web — không cần cài đặt. Đăng nhập học viên để lưu tiến độ học.</p>
       <div class="hn-tools-grid">
         <a href="/ic3-lv1" class="hn-tool" style="border:1.5px solid rgba(22,163,74,0.3);background:rgba(22,163,74,0.03);"><div class="hn-tool-ico" style="background:rgba(22,163,74,0.1)">🟢</div><div><div class="hn-tool-name" style="color:#16a34a">IC3 GS6 Level 1</div><div class="hn-tool-type">Kiến thức nền tảng</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/ic3-lv2" class="hn-tool" style="border:1.5px solid rgba(217,119,6,0.3);background:rgba(217,119,6,0.03);"><div class="hn-tool-ico" style="background:rgba(217,119,6,0.1)">🟡</div><div><div class="hn-tool-name" style="color:#d97706">IC3 GS6 Level 2</div><div class="hn-tool-type">Nâng cao kỹ năng</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/ic3-lv3" class="hn-tool" style="border:1.5px solid rgba(220,38,38,0.3);background:rgba(220,38,38,0.03);"><div class="hn-tool-ico" style="background:rgba(220,38,38,0.1)">🔴</div><div><div class="hn-tool-name" style="color:#dc2626">IC3 GS6 Level 3</div><div class="hn-tool-type">Chuyên sâu & thi thật</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/generative-ai" class="hn-tool" style="border:1.5px solid rgba(0,82,204,0.3);background:rgba(0,82,204,0.03);"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.1)">✨</div><div><div class="hn-tool-name" style="color:var(--cyan)">Generative AI</div><div class="hn-tool-type">Chứng chỉ CCS AI Foundations</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/ai-productivity" class="hn-tool" style="border:1.5px solid rgba(0,104,255,0.3);background:rgba(0,104,255,0.03);"><div class="hn-tool-ico" style="background:rgba(0,104,255,0.1)">⚡</div><div><div class="hn-tool-name" style="color:#0068FF">AI Productivity</div><div class="hn-tool-type">Làm việc hiệu quả với AI</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/progress" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📈</div><div><div class="hn-tool-name">Tiến độ học của tôi</div><div class="hn-tool-type">Theo dõi kết quả online</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/library" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(100,116,139,0.1)">📚</div><div><div class="hn-tool-name">Kho MOS</div><div class="hn-tool-type">Tài liệu & flashcard</div></div><span class="hn-tool-arr">↗</span></a>
       </div>
