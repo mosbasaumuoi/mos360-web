@@ -17,6 +17,7 @@ import { getResultsLookupUI } from "./pages/results-lookup.js";
 import { handleAdminAPI } from "./api/admin-api.js";
 import { handleLicenseAPI } from "./api/license-api.js";
 import { handleResultAPI } from "./api/result-api.js";
+import { getCosUI } from "./pages/cos.js";
 
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
@@ -406,7 +407,10 @@ export default {
         }
         if (path === "/flashcard-aip") {
             return new Response(getFlashcardUI("AI PRODUCTIVITY", [...AI_PRODUCTIVITY], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
-        }        
+        }    
+        if (path === "/cos") {
+            return new Response(getCosUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        }    
 
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
         let studentData = "";
