@@ -33,12 +33,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI là viết tắt của cụm từ nào?",
     options: [
-      "Artificial Intelligence",
       "Automated Interface",
+      "Artificial Intelligence",
       "Advanced Integration",
       "Applied Internet"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI là viết tắt của Artificial Intelligence (Trí tuệ nhân tạo)."
   },
   {
@@ -49,12 +49,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Vai trò chính của AI trong công việc hiện đại là gì?",
     options: [
-      "Hỗ trợ và tăng cường năng lực con người",
       "Thay thế hoàn toàn con người",
       "Loại bỏ nhu cầu làm việc",
+      "Hỗ trợ và tăng cường năng lực con người",
       "Tự động hóa mọi quyết định"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI là công cụ hỗ trợ, không phải thay thế con người."
   },
   {
@@ -65,12 +65,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI Copilot có nghĩa là gì?",
     options: [
-      "AI đóng vai trò trợ lý đồng hành cùng con người",
       "AI tự lái máy bay",
       "AI thay thế phi công",
-      "AI điều khiển phương tiện"
+      "AI điều khiển phương tiện",
+      "AI đóng vai trò trợ lý đồng hành cùng con người"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Copilot nghĩa là đồng lái — AI hỗ trợ con người trong công việc."
   },
   {
@@ -97,12 +97,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Điều nào KHÔNG phải là đặc điểm của AI?",
     options: [
-      "Có cảm xúc và suy nghĩ như con người",
       "Học từ dữ liệu",
       "Nhận diện mẫu",
+      "Có cảm xúc và suy nghĩ như con người",
       "Xử lý ngôn ngữ tự nhiên"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI không có cảm xúc hay ý thức như con người."
   },
   {
@@ -113,12 +113,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Tư duy AI-First là gì?",
     options: [
-      "Xem AI là công cụ mặc định để giải quyết vấn đề",
       "Chỉ sử dụng AI cho mọi việc",
       "Tin hoàn toàn vào AI",
-      "Không bao giờ sử dụng AI"
+      "Không bao giờ sử dụng AI",
+      "Xem AI là công cụ mặc định để giải quyết vấn đề"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI-First là tư duy ưu tiên sử dụng AI như công cụ hỗ trợ."
   },
   {
@@ -129,12 +129,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Khi sử dụng AI, trách nhiệm cuối cùng thuộc về ai?",
     options: [
-      "Người sử dụng AI",
       "Nhà phát triển AI",
+      "Người sử dụng AI",
       "Chính AI",
       "Không ai chịu trách nhiệm"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Con người luôn chịu trách nhiệm về quyết định sử dụng AI."
   },
   {
@@ -161,12 +161,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Điều gì giúp con người và AI cộng tác hiệu quả?",
     options: [
-      "Hiểu rõ điểm mạnh và giới hạn của nhau",
       "Để AI làm mọi việc",
       "Không tương tác với AI",
-      "Chỉ sử dụng AI một lần"
+      "Chỉ sử dụng AI một lần",
+      "Hiểu rõ điểm mạnh và giới hạn của nhau"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cộng tác hiệu quả đòi hỏi hiểu rõ năng lực của cả hai bên."
   },
   {
@@ -177,12 +177,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI có thể thay thế hoàn toàn kỹ năng của con người không?",
     options: [
-      "Không, AI bổ sung chứ không thay thế",
       "Có, AI có thể làm mọi thứ",
+      "Không, AI bổ sung chứ không thay thế",
       "Có, trong tương lai gần",
       "Không ai biết được"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI là công cụ bổ sung, không thay thế kỹ năng con người."
   },
   {
@@ -193,12 +193,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Yếu tố quan trọng nhất khi sử dụng AI là gì?",
     options: [
-      "Tư duy phản biện và kiểm chứng",
       "Tin tưởng tuyệt đối",
       "Sử dụng càng nhiều càng tốt",
+      "Tư duy phản biện và kiểm chứng",
       "Không cần kiểm tra kết quả"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Luôn cần tư duy phản biện và kiểm chứng kết quả từ AI."
   },
   {
@@ -227,12 +227,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Khi AI đưa ra kết quả không chính xác, bạn nên làm gì?",
     options: [
-      "Kiểm tra dữ liệu và yêu cầu AI phân tích lại",
       "Chấp nhận kết quả",
+      "Kiểm tra dữ liệu và yêu cầu AI phân tích lại",
       "Ngừng sử dụng AI",
       "Đổ lỗi cho AI"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần kiểm tra dữ liệu và cải thiện prompt để có kết quả tốt hơn."
   },
   {
@@ -243,12 +243,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI Hallucination (ảo giác) là gì?",
     options: [
-      "AI tạo ra thông tin không có thực",
       "AI không hoạt động",
       "AI bị lỗi phần cứng",
+      "AI tạo ra thông tin không có thực",
       "AI mơ mộng"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Hallucination là hiện tượng AI tạo ra thông tin sai lệch nhưng có vẻ hợp lý."
   },
   {
@@ -259,12 +259,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Lợi ích của việc kết hợp AI với kinh nghiệm con người là gì?",
     options: [
-      "Tạo ra quyết định tốt hơn",
       "Loại bỏ cần kinh nghiệm",
       "AI làm mọi việc",
-      "Giảm trách nhiệm"
+      "Giảm trách nhiệm",
+      "Tạo ra quyết định tốt hơn"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Kết hợp AI với kinh nghiệm con người tạo ra quyết định sáng suốt hơn."
   },
   {
@@ -291,12 +291,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Tại sao cần hiểu giới hạn của AI?",
     options: [
-      "Để sử dụng AI đúng cách và an toàn",
       "Không cần hiểu, chỉ cần dùng",
       "AI không có giới hạn",
+      "Để sử dụng AI đúng cách và an toàn",
       "Để chê bai AI"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Hiểu giới hạn giúp sử dụng AI hiệu quả và tránh rủi ro."
   },
   {
@@ -307,12 +307,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Kỹ năng nào quan trọng nhất khi làm việc với AI?",
     options: [
-      "Tư duy phản biện",
       "Tin tưởng tuyệt đối",
       "Phụ thuộc hoàn toàn",
-      "Không cần kỹ năng"
+      "Không cần kỹ năng",
+      "Tư duy phản biện"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Tư duy phản biện là kỹ năng cốt lõi khi làm việc với AI."
   },
   {
@@ -323,12 +323,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI Bias là gì?",
     options: [
-      "Thiên lệch trong dữ liệu dẫn đến kết quả sai lệch",
       "AI bị lỗi",
+      "Thiên lệch trong dữ liệu dẫn đến kết quả sai lệch",
       "AI có quan điểm riêng",
       "AI có cảm xúc"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Bias là sự thiên lệch từ dữ liệu huấn luyện, gây ra kết quả không công bằng."
   },
   {
@@ -355,12 +355,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Vai trò của con người trong vòng đời của AI là gì?",
     options: [
-      "Giám sát, đánh giá và cải thiện",
       "Chỉ sử dụng kết quả",
       "Không tham gia",
-      "Tin tưởng tuyệt đối"
+      "Tin tưởng tuyệt đối",
+      "Giám sát, đánh giá và cải thiện"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Con người đóng vai trò giám sát và cải thiện trong vòng đời AI."
   },
   {
@@ -371,12 +371,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI có thể hiểu được ngữ cảnh văn hóa và xã hội như con người không?",
     options: [
-      "Không, AI còn hạn chế trong việc hiểu ngữ cảnh phức tạp",
       "Có, AI hiểu mọi thứ",
+      "Không, AI còn hạn chế trong việc hiểu ngữ cảnh phức tạp",
       "Có thể một phần",
       "Tùy vào loại AI"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hiểu ngữ cảnh có giới hạn và cần con người kiểm chứng."
   },
   {
@@ -387,12 +387,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Tại sao các doanh nghiệp cần đào tạo AI Literacy cho nhân viên?",
     options: [
-      "Để sử dụng AI hiệu quả và an toàn",
       "Để thay thế nhân viên",
       "Để tốn thời gian",
+      "Để sử dụng AI hiệu quả và an toàn",
       "Không cần thiết"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI Literacy giúp nhân viên sử dụng AI đúng cách và an toàn."
   },
   {
@@ -421,12 +421,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Trong bối cảnh AI, 'Explainability' (khả năng giải thích) có nghĩa là gì?",
     options: [
-      "Khả năng hiểu và giải thích cách AI đưa ra quyết định",
       "AI có thể nói chuyện",
+      "Khả năng hiểu và giải thích cách AI đưa ra quyết định",
       "AI giải thích mọi thứ",
       "AI làm việc minh bạch"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Explainability là khả năng hiểu và giải thích quá trình ra quyết định của AI."
   },
   {
@@ -437,12 +437,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Khi nào con người nên can thiệp vào quá trình AI?",
     options: [
-      "Khi có dấu hiệu bất thường hoặc rủi ro cao",
       "Không bao giờ",
       "Luôn luôn",
+      "Khi có dấu hiệu bất thường hoặc rủi ro cao",
       "Chỉ khi AI yêu cầu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Can thiệp khi phát hiện bất thường hoặc tình huống rủi ro cao."
   },
   {
@@ -453,12 +453,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI Alignment là gì?",
     options: [
-      "Đảm bảo AI hoạt động phù hợp với giá trị và mục tiêu con người",
       "AI tự điều chỉnh",
       "AI đồng bộ hóa",
-      "AI kết nối với nhau"
+      "AI kết nối với nhau",
+      "Đảm bảo AI hoạt động phù hợp với giá trị và mục tiêu con người"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI Alignment đảm bảo AI hoạt động vì lợi ích và giá trị của con người."
   },
   {
@@ -485,12 +485,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Làm thế nào để xây dựng văn hóa AI trong doanh nghiệp?",
     options: [
-      "Đào tạo, thử nghiệm và khuyến khích sử dụng AI đúng cách",
       "Bắt buộc sử dụng AI",
       "Không cần đào tạo",
+      "Đào tạo, thử nghiệm và khuyến khích sử dụng AI đúng cách",
       "Chỉ người có chuyên môn mới dùng AI"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Văn hóa AI được xây dựng qua đào tạo, thử nghiệm và khuyến khích."
   },
   {
@@ -501,12 +501,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI Trust (niềm tin vào AI) cần dựa trên điều gì?",
     options: [
-      "Minh bạch, độ tin cậy và hiệu quả thực tế",
       "Lòng tin mù quáng",
       "Sự phổ biến",
-      "Lời quảng cáo"
+      "Lời quảng cáo",
+      "Minh bạch, độ tin cậy và hiệu quả thực tế"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Niềm tin vào AI cần dựa trên minh bạch, độ tin cậy và hiệu quả thực tế."
   },
   {
@@ -517,12 +517,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Khi AI đưa ra kết luận trái ngược với kinh nghiệm của bạn, bạn nên làm gì?",
     options: [
-      "Phân tích nguyên nhân và đánh giá lại dữ liệu",
       "Tin vào AI",
+      "Phân tích nguyên nhân và đánh giá lại dữ liệu",
       "Bỏ qua AI",
       "Chấp nhận kết luận của AI"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Khi có mâu thuẫn, cần phân tích nguyên nhân và đánh giá lại dữ liệu."
   },
   {
@@ -549,12 +549,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Đâu là thách thức lớn nhất khi tích hợp AI vào doanh nghiệp?",
     options: [
-      "Sự thay đổi văn hóa và quy trình làm việc",
       "Chi phí phần cứng",
       "Thiếu công cụ",
-      "Vấn đề bảo mật"
+      "Vấn đề bảo mật",
+      "Sự thay đổi văn hóa và quy trình làm việc"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Thách thức lớn nhất thường là sự thay đổi văn hóa và quy trình, không phải kỹ thuật."
   },
   {
@@ -565,12 +565,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "AI Augmentation khác với AI Automation như thế nào?",
     options: [
-      "Augmentation hỗ trợ con người, Automation thay thế tác vụ lặp lại",
       "Giống nhau",
+      "Augmentation hỗ trợ con người, Automation thay thế tác vụ lặp lại",
       "Automation hỗ trợ, Augmentation thay thế",
       "Không liên quan"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Augmentation tăng cường năng lực con người, Automation tự động hóa tác vụ."
   },
   {
@@ -581,12 +581,12 @@ const COMPETENCY_1 = [
     type: "single",
     question: "Nguyên tắc nào giúp đảm bảo sử dụng AI có trách nhiệm?",
     options: [
-      "Minh bạch, công bằng, an toàn và trách nhiệm giải trình",
       "Hiệu quả cao nhất",
       "Chi phí thấp nhất",
+      "Minh bạch, công bằng, an toàn và trách nhiệm giải trình",
       "Tốc độ nhanh nhất"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Sử dụng AI có trách nhiệm cần dựa trên minh bạch, công bằng, an toàn và trách nhiệm."
   }
 ];
@@ -620,12 +620,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể điều chỉnh giọng văn (Tone of Voice) như thế nào?",
     options: [
-      "Thay đổi cách diễn đạt phù hợp với đối tượng và mục đích",
       "Chỉ viết một giọng duy nhất",
+      "Thay đổi cách diễn đạt phù hợp với đối tượng và mục đích",
       "Không thể điều chỉnh",
       "Tự động thay đổi màu sắc"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể điều chỉnh giọng văn để phù hợp với đối tượng và mục đích."
   },
   {
@@ -636,12 +636,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Khi viết email chuyên nghiệp, AI có thể giúp gì?",
     options: [
-      "Tạo bản nháp, đề xuất tiêu đề và chỉnh sửa ngữ pháp",
       "Tự động gửi email",
       "Thay thế người viết",
+      "Tạo bản nháp, đề xuất tiêu đề và chỉnh sửa ngữ pháp",
       "Không hỗ trợ được gì"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI giúp tạo và cải thiện chất lượng email chuyên nghiệp."
   },
   {
@@ -652,12 +652,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể hỗ trợ dịch thuật như thế nào?",
     options: [
-      "Dịch văn bản giữa nhiều ngôn ngữ",
       "Dịch thay con người",
       "Không hỗ trợ dịch",
-      "Chỉ dịch tiếng Anh"
+      "Chỉ dịch tiếng Anh",
+      "Dịch văn bản giữa nhiều ngôn ngữ"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ dịch thuật đa ngôn ngữ nhanh chóng."
   },
   {
@@ -684,12 +684,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể viết báo cáo không?",
     options: [
-      "Có, AI có thể tạo báo cáo từ dữ liệu đầu vào",
       "Không, báo cáo cần con người",
       "Chỉ viết được một phần",
+      "Có, AI có thể tạo báo cáo từ dữ liệu đầu vào",
       "Tùy thuộc vào báo cáo"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể tạo báo cáo từ dữ liệu đầu vào và hướng dẫn của con người."
   },
   {
@@ -700,12 +700,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Khi AI hỗ trợ viết, vai trò của con người là gì?",
     options: [
-      "Kiểm tra, chỉnh sửa và phê duyệt nội dung",
       "Để AI làm mọi việc",
       "Không cần tham gia",
-      "Chỉ đọc kết quả"
+      "Chỉ đọc kết quả",
+      "Kiểm tra, chỉnh sửa và phê duyệt nội dung"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Con người giữ vai trò kiểm tra và phê duyệt nội dung cuối cùng."
   },
   {
@@ -716,12 +716,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể hỗ trợ ghi chú cuộc họp không?",
     options: [
-      "Có, ghi chép và tóm tắt nội dung cuộc họp",
       "Không, chỉ con người mới ghi chép được",
+      "Có, ghi chép và tóm tắt nội dung cuộc họp",
       "Chỉ ghi âm được",
       "Không hỗ trợ"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể ghi chép và tóm tắt nội dung cuộc họp hiệu quả."
   },
   {
@@ -748,12 +748,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể giúp cải thiện kỹ năng viết của bạn không?",
     options: [
-      "Có, bằng cách gợi ý và sửa lỗi",
       "Không, viết là kỹ năng cá nhân",
       "Chỉ sửa lỗi chính tả",
-      "Tùy thuộc vào AI"
+      "Tùy thuộc vào AI",
+      "Có, bằng cách gợi ý và sửa lỗi"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI giúp cải thiện kỹ năng viết qua gợi ý và sửa lỗi."
   },
   {
@@ -764,12 +764,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể hỗ trợ viết blog không?",
     options: [
-      "Có, đề xuất ý tưởng và viết bản nháp",
       "Không, blog cần sáng tạo",
+      "Có, đề xuất ý tưởng và viết bản nháp",
       "Chỉ viết được một phần",
       "Tùy vào chủ đề"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ đề xuất ý tưởng và viết bản nháp cho blog."
   },
   {
@@ -780,12 +780,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Khi AI sửa lỗi ngữ pháp, bạn nên làm gì?",
     options: [
-      "Xem xét và quyết định có chấp nhận hay không",
       "Luôn chấp nhận",
       "Luôn từ chối",
+      "Xem xét và quyết định có chấp nhận hay không",
       "Không kiểm tra"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần xem xét quyết định chấp nhận hay từ chối đề xuất của AI."
   },
   {
@@ -814,12 +814,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Làm thế nào để AI viết email có giọng văn phù hợp với văn hóa doanh nghiệp?",
     options: [
-      "Cung cấp mẫu email và hướng dẫn cụ thể",
       "Để AI tự học",
+      "Cung cấp mẫu email và hướng dẫn cụ thể",
       "Không cần điều chỉnh",
       "Chỉ viết một phong cách"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần cung cấp mẫu và hướng dẫn để AI tạo nội dung phù hợp."
   },
   {
@@ -830,12 +830,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể giúp viết báo cáo tài chính không?",
     options: [
-      "Có, tổng hợp dữ liệu và tạo báo cáo sơ bộ",
       "Không, tài chính cần chuyên gia",
       "Chỉ cho số liệu",
+      "Có, tổng hợp dữ liệu và tạo báo cáo sơ bộ",
       "Tùy thuộc vào AI"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ tổng hợp dữ liệu, nhưng cần chuyên gia kiểm tra."
   },
   {
@@ -846,12 +846,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Khi AI gợi ý nội dung không phù hợp, bạn nên làm gì?",
     options: [
-      "Điều chỉnh prompt và cung cấp thêm bối cảnh",
       "Chấp nhận gợi ý",
       "Bỏ qua AI",
-      "Đổ lỗi cho AI"
+      "Đổ lỗi cho AI",
+      "Điều chỉnh prompt và cung cấp thêm bối cảnh"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Điều chỉnh prompt và cung cấp thêm thông tin để có kết quả tốt hơn."
   },
   {
@@ -878,12 +878,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Tại sao cần cá nhân hóa nội dung do AI tạo ra?",
     options: [
-      "Để phù hợp với đối tượng và bối cảnh cụ thể",
       "Không cần, AI đã làm tốt",
       "Chỉ cần thay tên",
+      "Để phù hợp với đối tượng và bối cảnh cụ thể",
       "Không cần thiết"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cá nhân hóa giúp nội dung phù hợp hơn với đối tượng mục tiêu."
   },
   {
@@ -894,12 +894,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể giúp viết kịch bản thuyết trình không?",
     options: [
-      "Có, tạo dàn ý và nội dung chính",
       "Không, thuyết trình cần kỹ năng",
       "Chỉ viết được một phần",
-      "Tùy vào chủ đề"
+      "Tùy vào chủ đề",
+      "Có, tạo dàn ý và nội dung chính"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tạo dàn ý và nội dung cơ bản cho thuyết trình."
   },
   {
@@ -910,12 +910,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Điều gì ảnh hưởng đến chất lượng nội dung do AI tạo ra?",
     options: [
-      "Chất lượng prompt và dữ liệu đầu vào",
       "Ngày trong tuần",
+      "Chất lượng prompt và dữ liệu đầu vào",
       "Màu sắc giao diện",
       "Thời tiết"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Chất lượng đầu vào quyết định chất lượng đầu ra của AI."
   },
   {
@@ -942,12 +942,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Lợi ích của việc dùng AI để viết nội dung đa ngôn ngữ là gì?",
     options: [
-      "Tiếp cận nhiều đối tượng hơn với chi phí thấp",
       "Thay thế phiên dịch viên",
       "Không cần kiểm tra",
-      "Nhanh và rẻ"
+      "Nhanh và rẻ",
+      "Tiếp cận nhiều đối tượng hơn với chi phí thấp"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI giúp tạo nội dung đa ngôn ngữ để tiếp cận nhiều đối tượng hơn."
   },
   {
@@ -958,12 +958,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Khi AI tạo ra nội dung dài, bạn nên làm gì?",
     options: [
-      "Kiểm tra tính logic và chỉnh sửa cho mạch lạc",
       "Đăng ngay",
+      "Kiểm tra tính logic và chỉnh sửa cho mạch lạc",
       "Không cần chỉnh sửa",
       "Tin vào AI"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần kiểm tra và chỉnh sửa để đảm bảo tính mạch lạc."
   },
   {
@@ -974,12 +974,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể hỗ trợ viết mô tả sản phẩm không?",
     options: [
-      "Có, tạo mô tả từ thông tin sản phẩm",
       "Không, cần trải nghiệm thực tế",
       "Chỉ cho sản phẩm số",
+      "Có, tạo mô tả từ thông tin sản phẩm",
       "Tùy vào sản phẩm"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể tạo mô tả sản phẩm từ thông tin và đặc điểm sản phẩm."
   },
   {
@@ -1006,12 +1006,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể hỗ trợ viết nội dung cho mạng xã hội không?",
     options: [
-      "Có, tạo bài đăng theo nhiều định dạng và giọng văn",
       "Không, mạng xã hội cần con người",
+      "Có, tạo bài đăng theo nhiều định dạng và giọng văn",
       "Chỉ cho Facebook",
       "Tùy vào nền tảng"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ tạo nội dung cho các nền tảng mạng xã hội khác nhau."
   },
 
@@ -1024,12 +1024,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Chiến lược nào giúp AI viết nội dung có tính thuyết phục cao?",
     options: [
-      "Kết hợp dữ liệu, câu chuyện và cấu trúc logic",
       "Chỉ dùng số liệu",
       "Chỉ dùng cảm xúc",
+      "Kết hợp dữ liệu, câu chuyện và cấu trúc logic",
       "Viết thật dài"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Nội dung thuyết phục cần kết hợp dữ liệu, câu chuyện và logic."
   },
   {
@@ -1040,12 +1040,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Làm thế nào để AI viết được nội dung mang đậm bản sắc thương hiệu?",
     options: [
-      "Xây dựng style guide và cung cấp mẫu nội dung",
       "Để AI tự học",
       "Chỉ cần logo",
-      "Không cần hướng dẫn"
+      "Không cần hướng dẫn",
+      "Xây dựng style guide và cung cấp mẫu nội dung"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cần cung cấp style guide và mẫu nội dung để AI học bản sắc thương hiệu."
   },
   {
@@ -1072,12 +1072,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể tạo ra nội dung sáng tạo vượt ngoài khuôn mẫu không?",
     options: [
-      "Có, nhưng cần hướng dẫn và phản hồi từ con người",
       "Không, chỉ lặp lại",
       "Tùy thuộc vào AI",
+      "Có, nhưng cần hướng dẫn và phản hồi từ con người",
       "Không cần con người"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể sáng tạo nhưng cần hướng dẫn và phản hồi từ con người."
   },
   {
@@ -1088,12 +1088,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Nguyên tắc nào quan trọng khi AI hỗ trợ viết nội dung quảng cáo?",
     options: [
-      "Trung thực và tuân thủ quy định quảng cáo",
       "Chỉ cần hấp dẫn",
       "Không cần kiểm tra",
-      "Tự do sáng tạo"
+      "Tự do sáng tạo",
+      "Trung thực và tuân thủ quy định quảng cáo"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Nội dung quảng cáo cần trung thực và tuân thủ quy định."
   },
   {
@@ -1104,12 +1104,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Làm thế nào để tối ưu nội dung AI cho SEO?",
     options: [
-      "Kết hợp từ khóa, cấu trúc và giá trị nội dung",
       "Chỉ cần nhiều từ khóa",
+      "Kết hợp từ khóa, cấu trúc và giá trị nội dung",
       "Viết dài",
       "Không cần tối ưu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "SEO hiệu quả cần kết hợp từ khóa, cấu trúc và giá trị nội dung."
   },
   {
@@ -1136,12 +1136,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Khi AI viết nội dung có lỗi thực tế, cách xử lý nào tốt nhất?",
     options: [
-      "Kiểm tra nguồn và sửa chữa thông tin",
       "Giữ nguyên",
       "Tin vào AI",
-      "Xóa bỏ nội dung"
+      "Xóa bỏ nội dung",
+      "Kiểm tra nguồn và sửa chữa thông tin"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cần kiểm tra nguồn và sửa chữa thông tin sai lệch."
   },
   {
@@ -1152,12 +1152,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Làm thế nào để duy trì tính nhất quán khi dùng AI viết loạt bài?",
     options: [
-      "Xây dựng hệ thống guideline và template",
       "Viết mỗi bài khác nhau",
+      "Xây dựng hệ thống guideline và template",
       "Không cần nhất quán",
       "Chỉ dùng một AI"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần guideline và template để duy trì tính nhất quán."
   },
   {
@@ -1168,12 +1168,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể thay thế hoàn toàn người viết nội dung không?",
     options: [
-      "Không, AI cần con người kiểm soát và sáng tạo",
       "Có, AI làm được mọi việc",
       "Có thể một phần",
+      "Không, AI cần con người kiểm soát và sáng tạo",
       "Đang phát triển"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI là công cụ hỗ trợ, không thay thế hoàn toàn người viết."
   },
   {
@@ -1200,12 +1200,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "AI có thể hỗ trợ viết nội dung đa kênh như thế nào?",
     options: [
-      "Tối ưu hóa nội dung cho từng kênh riêng biệt",
       "Viết một nội dung cho tất cả",
+      "Tối ưu hóa nội dung cho từng kênh riêng biệt",
       "Không hỗ trợ",
       "Chỉ viết cho web"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể tối ưu nội dung cho từng kênh truyền thông khác nhau."
   },
   {
@@ -1216,12 +1216,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Khi AI đề xuất thay đổi phong cách viết, bạn nên làm gì?",
     options: [
-      "Đánh giá phù hợp với đối tượng và mục đích",
       "Luôn chấp nhận",
       "Luôn từ chối",
+      "Đánh giá phù hợp với đối tượng và mục đích",
       "Không cần đánh giá"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần đánh giá xem thay đổi có phù hợp với đối tượng không."
   },
   {
@@ -1232,12 +1232,12 @@ const COMPETENCY_2 = [
     type: "single",
     question: "Lợi ích của việc tích hợp AI vào quy trình sản xuất nội dung là gì?",
     options: [
-      "Tăng tốc độ và khả năng mở rộng sản xuất nội dung",
       "Giảm chất lượng",
       "Thay thế đội ngũ",
-      "Không có lợi ích"
+      "Không có lợi ích",
+      "Tăng tốc độ và khả năng mở rộng sản xuất nội dung"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI giúp tăng tốc và mở rộng quy mô sản xuất nội dung."
   }
 ];
@@ -1271,12 +1271,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể tổng hợp nhiều tài liệu thành báo cáo không?",
     options: [
-      "Có, tổng hợp và trích xuất ý chính",
       "Không, cần con người",
       "Chỉ tổng hợp được một phần",
+      "Có, tổng hợp và trích xuất ý chính",
       "Tùy thuộc vào tài liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể tổng hợp và trích xuất ý chính từ nhiều tài liệu."
   },
   {
@@ -1287,12 +1287,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Khi sử dụng AI để nghiên cứu, điều quan trọng nhất là gì?",
     options: [
-      "Kiểm tra độ tin cậy của thông tin",
       "Tin vào mọi thông tin",
       "Không cần kiểm tra nguồn",
-      "Chấp nhận mọi kết quả"
+      "Chấp nhận mọi kết quả",
+      "Kiểm tra độ tin cậy của thông tin"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Luôn cần kiểm tra độ tin cậy của thông tin từ AI."
   },
   {
@@ -1303,12 +1303,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ kiểm chứng thông tin như thế nào?",
     options: [
-      "So sánh và đối chiếu với nhiều nguồn khác nhau",
       "Tự xác nhận mọi thông tin",
+      "So sánh và đối chiếu với nhiều nguồn khác nhau",
       "Không thể kiểm chứng",
       "Chỉ kiểm tra chính tả"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI giúp so sánh và đối chiếu thông tin từ nhiều nguồn."
   },
   {
@@ -1335,12 +1335,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ học tập như thế nào?",
     options: [
-      "Giải thích khái niệm, tạo câu hỏi và tóm tắt",
       "Học thay con người",
       "Chỉ tìm tài liệu",
-      "Không hỗ trợ học tập"
+      "Không hỗ trợ học tập",
+      "Giải thích khái niệm, tạo câu hỏi và tóm tắt"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ học tập qua giải thích, tạo câu hỏi và tóm tắt."
   },
   {
@@ -1351,12 +1351,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Lợi ích của việc dùng AI trong nghiên cứu là gì?",
     options: [
-      "Tiết kiệm thời gian và tăng hiệu quả",
       "Thay thế hoàn toàn nghiên cứu",
+      "Tiết kiệm thời gian và tăng hiệu quả",
       "Không có lợi ích",
       "Làm chậm quá trình"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI giúp tiết kiệm thời gian và tăng hiệu quả nghiên cứu."
   },
   {
@@ -1367,12 +1367,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể tạo câu hỏi ôn tập từ tài liệu không?",
     options: [
-      "Có, tạo câu hỏi từ nội dung tài liệu",
       "Không, cần giáo viên",
       "Chỉ tạo được một ít",
+      "Có, tạo câu hỏi từ nội dung tài liệu",
       "Tùy vào tài liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể tạo câu hỏi ôn tập từ nội dung tài liệu."
   },
   {
@@ -1399,12 +1399,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Khi AI cung cấp thông tin không rõ nguồn, bạn nên làm gì?",
     options: [
-      "Tìm kiếm nguồn gốc hoặc kiểm tra với nguồn khác",
       "Chấp nhận ngay",
+      "Tìm kiếm nguồn gốc hoặc kiểm tra với nguồn khác",
       "Bỏ qua thông tin",
       "Tin vào AI"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần tìm nguồn gốc hoặc kiểm tra với nguồn khác khi thông tin không rõ."
   },
   {
@@ -1415,12 +1415,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể giúp tổ chức tài liệu tham khảo không?",
     options: [
-      "Có, tạo danh sách và trích dẫn tự động",
       "Không, cần quản lý thủ công",
       "Chỉ tạo danh sách",
+      "Có, tạo danh sách và trích dẫn tự động",
       "Tùy thuộc vào tài liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể tạo danh sách và trích dẫn tự động cho tài liệu tham khảo."
   },
   {
@@ -1431,12 +1431,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ đọc hiểu văn bản học thuật không?",
     options: [
-      "Có, tóm tắt và giải thích thuật ngữ",
       "Không, văn bản học thuật quá phức tạp",
       "Chỉ tóm tắt được",
-      "Tùy vào văn bản"
+      "Tùy vào văn bản",
+      "Có, tóm tắt và giải thích thuật ngữ"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ đọc hiểu qua tóm tắt và giải thích thuật ngữ."
   },
 
@@ -1465,12 +1465,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể phát hiện thông tin sai lệch như thế nào?",
     options: [
-      "So sánh với nhiều nguồn và phát hiện mâu thuẫn",
       "Tự phát hiện mọi sai lệch",
       "Không thể phát hiện",
+      "So sánh với nhiều nguồn và phát hiện mâu thuẫn",
       "Chỉ kiểm tra ngữ pháp"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI phát hiện sai lệch qua so sánh và tìm mâu thuẫn giữa các nguồn."
   },
   {
@@ -1481,12 +1481,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Khi AI tóm tắt tài liệu bỏ qua thông tin quan trọng, bạn nên làm gì?",
     options: [
-      "Đọc kỹ lại và yêu cầu tóm tắt bổ sung",
       "Chấp nhận tóm tắt",
       "Không cần kiểm tra",
-      "Tự tóm tắt lại"
+      "Tự tóm tắt lại",
+      "Đọc kỹ lại và yêu cầu tóm tắt bổ sung"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cần kiểm tra và yêu cầu tóm tắt bổ sung nếu thiếu thông tin."
   },
   {
@@ -1497,12 +1497,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ nghiên cứu khoa học như thế nào?",
     options: [
-      "Tìm kiếm tài liệu, tổng hợp và phân tích dữ liệu",
       "Thực hiện thí nghiệm thay người",
+      "Tìm kiếm tài liệu, tổng hợp và phân tích dữ liệu",
       "Chỉ tìm tài liệu",
       "Viết báo cáo thay người"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ nghiên cứu qua tìm kiếm, tổng hợp và phân tích dữ liệu."
   },
   {
@@ -1529,12 +1529,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể giúp phân tích dữ liệu trong nghiên cứu không?",
     options: [
-      "Có, xử lý và phân tích dữ liệu lớn",
       "Không, cần phần mềm chuyên dụng",
       "Chỉ xử lý số liệu",
-      "Tùy vào dữ liệu"
+      "Tùy vào dữ liệu",
+      "Có, xử lý và phân tích dữ liệu lớn"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể xử lý và phân tích dữ liệu lớn trong nghiên cứu."
   },
   {
@@ -1545,12 +1545,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Điều gì cần lưu ý khi AI tổng hợp kiến thức từ internet?",
     options: [
-      "Kiểm tra độ tin cậy và cập nhật của nguồn",
       "Tin vào mọi thông tin",
+      "Kiểm tra độ tin cậy và cập nhật của nguồn",
       "Không cần kiểm tra",
       "Chỉ tin nguồn tiếng Anh"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần kiểm tra độ tin cậy và cập nhật của nguồn thông tin."
   },
   {
@@ -1561,12 +1561,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ viết luận văn không?",
     options: [
-      "Hỗ trợ tìm tài liệu và cấu trúc, nhưng cần viết thực tế",
       "Viết thay hoàn toàn",
       "Không được phép",
+      "Hỗ trợ tìm tài liệu và cấu trúc, nhưng cần viết thực tế",
       "Chỉ tìm tài liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ tìm tài liệu và cấu trúc, nhưng người học vẫn cần viết."
   },
   {
@@ -1593,12 +1593,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ đánh giá chất lượng tài liệu không?",
     options: [
-      "Có, đánh giá dựa trên tiêu chí uy tín",
       "Không, cần chuyên gia",
+      "Có, đánh giá dựa trên tiêu chí uy tín",
       "Chỉ đánh giá số lượng",
       "Tùy vào tài liệu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể đánh giá chất lượng tài liệu dựa trên các tiêu chí uy tín."
   },
   {
@@ -1609,12 +1609,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Khi nghiên cứu, AI có thể giúp đặt câu hỏi như thế nào?",
     options: [
-      "Tạo câu hỏi dựa trên nội dung đã đọc",
       "Hỏi thay con người",
       "Không cần đặt câu hỏi",
+      "Tạo câu hỏi dựa trên nội dung đã đọc",
       "Chỉ đặt câu hỏi chung chung"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể tạo câu hỏi dựa trên nội dung để hỗ trợ nghiên cứu."
   },
   {
@@ -1625,12 +1625,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ phát hiện xu hướng nghiên cứu mới không?",
     options: [
-      "Có, phân tích dữ liệu và nhận diện mẫu",
       "Không, xu hướng cần con người",
       "Chỉ phân tích dữ liệu",
-      "Tùy vào lĩnh vực"
+      "Tùy vào lĩnh vực",
+      "Có, phân tích dữ liệu và nhận diện mẫu"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể phân tích dữ liệu để nhận diện xu hướng nghiên cứu mới."
   },
 
@@ -1659,12 +1659,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Làm thế nào để AI tránh thiên vị khi tổng hợp thông tin?",
     options: [
-      "Sử dụng đa dạng nguồn và kiểm tra chéo",
       "Chỉ dùng một nguồn",
       "Tin vào nguồn phổ biến",
+      "Sử dụng đa dạng nguồn và kiểm tra chéo",
       "Không cần kiểm tra"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần đa dạng hóa nguồn và kiểm tra chéo để tránh thiên vị."
   },
   {
@@ -1675,12 +1675,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ viết đề cương nghiên cứu như thế nào?",
     options: [
-      "Tạo cấu trúc và đề xuất nội dung dựa trên mục tiêu",
       "Viết thay hoàn toàn",
       "Không hỗ trợ",
-      "Chỉ tạo cấu trúc"
+      "Chỉ tạo cấu trúc",
+      "Tạo cấu trúc và đề xuất nội dung dựa trên mục tiêu"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tạo cấu trúc và đề xuất nội dung cho đề cương."
   },
   {
@@ -1691,12 +1691,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Khi AI phát hiện mâu thuẫn giữa các nguồn, bạn nên làm gì?",
     options: [
-      "Phân tích sâu hơn và tìm nguyên nhân",
       "Chọn nguồn mình thích",
+      "Phân tích sâu hơn và tìm nguyên nhân",
       "Bỏ qua mâu thuẫn",
       "Tin vào nguồn mới nhất"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần phân tích sâu để hiểu nguyên nhân của mâu thuẫn."
   },
   {
@@ -1723,12 +1723,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Làm thế nào để đảm bảo AI tổng hợp được kiến thức chuyên sâu?",
     options: [
-      "Cung cấp tài liệu chuyên ngành và hướng dẫn cụ thể",
       "Để AI tự học",
       "Chỉ dùng wikipedia",
-      "Không cần hướng dẫn"
+      "Không cần hướng dẫn",
+      "Cung cấp tài liệu chuyên ngành và hướng dẫn cụ thể"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cần cung cấp tài liệu chuyên ngành và hướng dẫn cụ thể."
   },
   {
@@ -1739,12 +1739,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "AI có thể hỗ trợ phân tích sentiment (cảm xúc) trong nghiên cứu?",
     options: [
-      "Có, phân tích cảm xúc từ văn bản",
       "Không, cảm xúc khó đo lường",
+      "Có, phân tích cảm xúc từ văn bản",
       "Chỉ phân tích từ ngữ",
       "Tùy thuộc vào dữ liệu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể phân tích cảm xúc từ văn bản trong nghiên cứu."
   },
   {
@@ -1755,12 +1755,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Khi AI đề xuất kết luận không phù hợp với dữ liệu, bạn nên làm gì?",
     options: [
-      "Phân tích lại dữ liệu và điều chỉnh phương pháp",
       "Chấp nhận kết luận",
       "Bỏ qua kết luận",
+      "Phân tích lại dữ liệu và điều chỉnh phương pháp",
       "Sửa dữ liệu cho phù hợp"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần phân tích lại dữ liệu và điều chỉnh phương pháp nếu cần."
   },
   {
@@ -1787,12 +1787,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Lợi ích của việc sử dụng AI trong nghiên cứu đa ngành là gì?",
     options: [
-      "Kết nối thông tin giữa các ngành khác nhau",
       "Không có lợi ích",
+      "Kết nối thông tin giữa các ngành khác nhau",
       "Chỉ tổng hợp được một ngành",
       "Gây khó khăn"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI giúp kết nối thông tin và tri thức giữa các ngành khác nhau."
   },
   {
@@ -1803,12 +1803,12 @@ const COMPETENCY_3 = [
     type: "single",
     question: "Nguyên tắc nào quan trọng khi sử dụng AI trong nghiên cứu học thuật?",
     options: [
-      "Minh bạch, trung thực và trích dẫn đầy đủ",
       "Sử dụng AI bí mật",
       "Không cần trích dẫn",
+      "Minh bạch, trung thực và trích dẫn đầy đủ",
       "Chỉ trích dẫn khi cần"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần minh bạch, trung thực và trích dẫn đầy đủ khi sử dụng AI trong học thuật."
   }
 ];
@@ -1826,12 +1826,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ trong Word như thế nào?",
     options: [
-      "Gợi ý nội dung, sửa lỗi và định dạng văn bản",
       "Tạo file Word tự động",
       "Thay thế người dùng",
-      "Không hỗ trợ Word"
+      "Không hỗ trợ Word",
+      "Gợi ý nội dung, sửa lỗi và định dạng văn bản"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ soạn thảo và định dạng văn bản trong Word."
   },
   {
@@ -1858,12 +1858,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ tạo PowerPoint như thế nào?",
     options: [
-      "Tạo slide và đề xuất bố cục",
       "Tự động tạo bài thuyết trình",
       "Thay thế người dùng",
+      "Tạo slide và đề xuất bố cục",
       "Không hỗ trợ PowerPoint"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ tạo slide và đề xuất bố cục trong PowerPoint."
   },
   {
@@ -1874,12 +1874,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ trong Outlook như thế nào?",
     options: [
-      "Tóm tắt email và đề xuất phản hồi",
       "Tự động gửi email",
       "Thay thế người dùng",
-      "Không hỗ trợ Outlook"
+      "Không hỗ trợ Outlook",
+      "Tóm tắt email và đề xuất phản hồi"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tóm tắt và đề xuất phản hồi trong Outlook."
   },
   {
@@ -1890,12 +1890,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "Microsoft Copilot là gì?",
     options: [
-      "Trợ lý AI tích hợp trong Microsoft 365",
       "Một ngôn ngữ lập trình",
+      "Trợ lý AI tích hợp trong Microsoft 365",
       "Phần mềm diệt virus",
       "Công cụ thiết kế"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Copilot là trợ lý AI tích hợp trong Microsoft 365."
   },
   {
@@ -1922,12 +1922,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ dịch tài liệu Word không?",
     options: [
-      "Có, dịch văn bản sang nhiều ngôn ngữ",
       "Không, chỉ dịch được tin nhắn",
       "Chỉ dịch được tiếng Anh",
-      "Tùy vào tài liệu"
+      "Tùy vào tài liệu",
+      "Có, dịch văn bản sang nhiều ngôn ngữ"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ dịch văn bản trong Word sang nhiều ngôn ngữ."
   },
   {
@@ -1938,12 +1938,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp phân tích dữ liệu trong Excel không?",
     options: [
-      "Có, phát hiện xu hướng và đưa ra gợi ý",
       "Không, chỉ nhập dữ liệu được",
+      "Có, phát hiện xu hướng và đưa ra gợi ý",
       "Chỉ phân tích số đơn giản",
       "Tùy vào dữ liệu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích xu hướng và đưa ra gợi ý trong Excel."
   },
   {
@@ -1954,12 +1954,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp thiết kế slide đẹp không?",
     options: [
-      "Có, đề xuất bố cục và màu sắc",
       "Không, cần người thiết kế",
       "Chỉ tạo nội dung",
+      "Có, đề xuất bố cục và màu sắc",
       "Tùy vào chủ đề"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ đề xuất bố cục và màu sắc cho slide."
   },
   {
@@ -1986,12 +1986,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ viết công thức Excel không?",
     options: [
-      "Có, đề xuất và giải thích công thức",
       "Không, cần tự viết",
+      "Có, đề xuất và giải thích công thức",
       "Chỉ sửa lỗi công thức",
       "Tùy vào công thức"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ đề xuất và giải thích công thức Excel."
   },
   {
@@ -2002,12 +2002,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể tạo bảng biểu từ văn bản không?",
     options: [
-      "Có, chuyển đổi văn bản thành bảng",
       "Không, cần tạo thủ công",
       "Chỉ tạo được bảng đơn giản",
+      "Có, chuyển đổi văn bản thành bảng",
       "Tùy vào văn bản"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể chuyển đổi văn bản thành bảng trong Word/Excel."
   },
   {
@@ -2018,12 +2018,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ tóm tắt tài liệu dài không?",
     options: [
-      "Có, tóm tắt nội dung chính",
       "Không, chỉ đọc được",
       "Chỉ tóm tắt được một phần",
-      "Tùy vào tài liệu"
+      "Tùy vào tài liệu",
+      "Có, tóm tắt nội dung chính"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tóm tắt nội dung chính của tài liệu dài."
   },
 
@@ -2052,12 +2052,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp tự động hóa quy trình trong Office không?",
     options: [
-      "Có, kết hợp AI với các công cụ tự động hóa",
       "Không, Office không hỗ trợ",
       "Chỉ tự động hóa được một phần",
+      "Có, kết hợp AI với các công cụ tự động hóa",
       "Tùy vào công cụ"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể kết hợp với tự động hóa để tối ưu quy trình Office."
   },
   {
@@ -2068,12 +2068,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ làm báo cáo tài chính trong Excel không?",
     options: [
-      "Có, tính toán và trực quan hóa dữ liệu",
       "Không, tài chính cần chuyên gia",
       "Chỉ tính toán đơn giản",
-      "Tùy vào báo cáo"
+      "Tùy vào báo cáo",
+      "Có, tính toán và trực quan hóa dữ liệu"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tính toán và trực quan hóa dữ liệu tài chính."
   },
   {
@@ -2084,12 +2084,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp viết đề cương tài liệu dài không?",
     options: [
-      "Có, tạo dàn ý và cấu trúc",
       "Không, cần tự viết",
+      "Có, tạo dàn ý và cấu trúc",
       "Chỉ tạo tiêu đề",
       "Tùy vào tài liệu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ tạo dàn ý và cấu trúc cho tài liệu dài."
   },
   {
@@ -2116,12 +2116,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ quản lý email thông minh không?",
     options: [
-      "Có, phân loại và ưu tiên email",
       "Không, chỉ đọc được",
       "Chỉ phân loại thư rác",
-      "Tùy vào email"
+      "Tùy vào email",
+      "Có, phân loại và ưu tiên email"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể phân loại và ưu tiên email để quản lý thông minh."
   },
   {
@@ -2132,12 +2132,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp trích xuất dữ liệu từ PDF vào Excel không?",
     options: [
-      "Có, trích xuất và chuyển đổi dữ liệu",
       "Không, PDF không đọc được",
+      "Có, trích xuất và chuyển đổi dữ liệu",
       "Chỉ trích xuất được văn bản",
       "Tùy vào PDF"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể trích xuất dữ liệu từ PDF sang Excel."
   },
   {
@@ -2148,12 +2148,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "Lợi ích của việc tích hợp AI vào Microsoft Office là gì?",
     options: [
-      "Tiết kiệm thời gian và tăng chất lượng công việc",
       "Không có lợi ích",
       "Làm chậm công việc",
+      "Tiết kiệm thời gian và tăng chất lượng công việc",
       "Chỉ đẹp hơn"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI giúp tiết kiệm thời gian và tăng chất lượng công việc trong Office."
   },
   {
@@ -2180,12 +2180,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ viết email bằng nhiều ngôn ngữ không?",
     options: [
-      "Có, dịch và viết đa ngôn ngữ",
       "Không, chỉ viết tiếng Anh",
+      "Có, dịch và viết đa ngôn ngữ",
       "Chỉ dịch được",
       "Tùy vào ngôn ngữ"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ viết và dịch email đa ngôn ngữ."
   },
   {
@@ -2196,12 +2196,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp quản lý dự án trong Excel không?",
     options: [
-      "Có, tạo Gantt chart và theo dõi tiến độ",
       "Không, cần phần mềm chuyên dụng",
       "Chỉ tạo lịch",
+      "Có, tạo Gantt chart và theo dõi tiến độ",
       "Tùy vào dự án"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ tạo biểu đồ Gantt và theo dõi tiến độ trong Excel."
   },
   {
@@ -2212,12 +2212,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "Khi AI tự động định dạng tài liệu, cần kiểm tra điều gì?",
     options: [
-      "Tính nhất quán và đúng quy chuẩn",
       "Không cần kiểm tra",
       "Chỉ kiểm tra lỗi chính tả",
-      "Kiểm tra số trang"
+      "Kiểm tra số trang",
+      "Tính nhất quán và đúng quy chuẩn"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cần kiểm tra tính nhất quán và đúng quy chuẩn định dạng."
   },
   {
@@ -2244,12 +2244,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp phân tích dữ liệu đa chiều không?",
     options: [
-      "Có, với dữ liệu phù hợp và yêu cầu rõ ràng",
       "Không, chỉ phân tích đơn giản",
       "Chỉ phân tích một chiều",
+      "Có, với dữ liệu phù hợp và yêu cầu rõ ràng",
       "Tùy vào dữ liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể phân tích đa chiều với dữ liệu và yêu cầu rõ ràng."
   },
 
@@ -2262,12 +2262,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "Chiến lược nào giúp tối ưu AI trong Excel cho dữ liệu lớn?",
     options: [
-      "Kết hợp Power Query và AI để xử lý dữ liệu",
       "Chỉ dùng công thức",
       "Xử lý thủ công",
-      "Không cần tối ưu"
+      "Không cần tối ưu",
+      "Kết hợp Power Query và AI để xử lý dữ liệu"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Kết hợp Power Query và AI tối ưu xử lý dữ liệu lớn trong Excel."
   },
   {
@@ -2278,12 +2278,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể tự động tạo báo cáo từ nhiều nguồn dữ liệu không?",
     options: [
-      "Có, tổng hợp từ các nguồn khác nhau",
       "Không, cần nhập thủ công",
+      "Có, tổng hợp từ các nguồn khác nhau",
       "Chỉ lấy từ một nguồn",
       "Tùy vào nguồn"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể tổng hợp dữ liệu từ nhiều nguồn để tạo báo cáo."
   },
   {
@@ -2310,12 +2310,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ tạo dashboard tự động không?",
     options: [
-      "Có, từ dữ liệu và yêu cầu",
       "Không, cần công cụ chuyên dụng",
       "Chỉ tạo được bảng",
-      "Tùy vào dữ liệu"
+      "Tùy vào dữ liệu",
+      "Có, từ dữ liệu và yêu cầu"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tạo dashboard tự động từ dữ liệu và yêu cầu."
   },
   {
@@ -2326,12 +2326,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "Khi AI đề xuất công thức Excel phức tạp, bạn nên làm gì?",
     options: [
-      "Hiểu và kiểm tra công thức trước khi áp dụng",
       "Áp dụng ngay",
+      "Hiểu và kiểm tra công thức trước khi áp dụng",
       "Bỏ qua",
       "Chỉ dùng công thức đơn giản"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần hiểu và kiểm tra công thức trước khi áp dụng vào dữ liệu thực."
   },
   {
@@ -2342,12 +2342,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ phân tích dữ liệu dự báo trong Excel không?",
     options: [
-      "Có, sử dụng các mô hình dự báo",
       "Không, cần phần mềm chuyên dụng",
       "Chỉ dự báo đơn giản",
+      "Có, sử dụng các mô hình dự báo",
       "Tùy vào dữ liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể sử dụng mô hình để dự báo dữ liệu trong Excel."
   },
   {
@@ -2374,12 +2374,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ tạo slide tự động từ tài liệu Word không?",
     options: [
-      "Có, trích xuất nội dung và tạo slide",
       "Không, cần làm thủ công",
+      "Có, trích xuất nội dung và tạo slide",
       "Chỉ trích xuất được tiêu đề",
       "Tùy vào tài liệu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể trích xuất nội dung từ Word để tạo slide PowerPoint."
   },
   {
@@ -2390,12 +2390,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "Khi AI tạo báo cáo từ nhiều dữ liệu, cần lưu ý gì?",
     options: [
-      "Kiểm tra tính chính xác và nhất quán của dữ liệu",
       "Chấp nhận báo cáo",
       "Không cần kiểm tra",
+      "Kiểm tra tính chính xác và nhất quán của dữ liệu",
       "Chỉ kiểm tra số liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần kiểm tra tính chính xác và nhất quán của dữ liệu trong báo cáo."
   },
   {
@@ -2406,12 +2406,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể giúp tự động hóa workflow trong Office không?",
     options: [
-      "Có, kết hợp AI với Power Automate",
       "Không, Office không hỗ trợ",
       "Chỉ tự động hóa được một phần",
-      "Tùy vào workflow"
+      "Tùy vào workflow",
+      "Có, kết hợp AI với Power Automate"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI kết hợp với Power Automate giúp tự động hóa workflow trong Office."
   },
   {
@@ -2438,12 +2438,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "AI có thể hỗ trợ tạo báo cáo theo yêu cầu tùy chỉnh không?",
     options: [
-      "Có, nếu được cung cấp yêu cầu chi tiết",
       "Không, chỉ tạo báo cáo mẫu",
       "Chỉ tạo báo cáo cố định",
+      "Có, nếu được cung cấp yêu cầu chi tiết",
       "Tùy vào yêu cầu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể tạo báo cáo tùy chỉnh với yêu cầu chi tiết từ người dùng."
   },
   {
@@ -2454,12 +2454,12 @@ const COMPETENCY_4 = [
     type: "single",
     question: "Nguyên tắc nào quan trọng khi sử dụng AI trong Office?",
     options: [
-      "Luôn kiểm tra và xác thực kết quả",
       "Tin tưởng tuyệt đối",
       "Không cần kiểm tra",
-      "Sử dụng mặc định"
+      "Sử dụng mặc định",
+      "Luôn kiểm tra và xác thực kết quả"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Luôn kiểm tra và xác thực kết quả khi sử dụng AI trong Office."
   }
 ];
@@ -2477,12 +2477,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ chuẩn bị cuộc họp như thế nào?",
     options: [
-      "Tạo agenda và tài liệu chuẩn bị",
       "Thay thế người họp",
+      "Tạo agenda và tài liệu chuẩn bị",
       "Tự động tổ chức cuộc họp",
       "Không hỗ trợ"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ tạo agenda và tài liệu chuẩn bị cho cuộc họp."
   },
   {
@@ -2509,12 +2509,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp theo dõi Action Items không?",
     options: [
-      "Có, trích xuất và phân công nhiệm vụ",
       "Không, cần làm thủ công",
       "Chỉ ghi nhận có",
-      "Tùy vào cuộc họp"
+      "Tùy vào cuộc họp",
+      "Có, trích xuất và phân công nhiệm vụ"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ trích xuất và phân công Action Items từ cuộc họp."
   },
   {
@@ -2525,12 +2525,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ lập kế hoạch tuần không?",
     options: [
-      "Có, sắp xếp ưu tiên và phân bổ thời gian",
       "Không, cần tự lập",
+      "Có, sắp xếp ưu tiên và phân bổ thời gian",
       "Chỉ tạo danh sách",
       "Tùy vào công việc"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ sắp xếp ưu tiên và phân bổ thời gian cho kế hoạch tuần."
   },
   {
@@ -2541,12 +2541,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp ưu tiên công việc như thế nào?",
     options: [
-      "Đánh giá mức độ quan trọng và khẩn cấp",
       "Chọn công việc ngẫu nhiên",
       "Ưu tiên công việc dễ nhất",
+      "Đánh giá mức độ quan trọng và khẩn cấp",
       "Không hỗ trợ"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI đánh giá mức độ quan trọng và khẩn cấp để ưu tiên công việc."
   },
   {
@@ -2573,12 +2573,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp phân tích khối lượng công việc không?",
     options: [
-      "Có, đánh giá và đề xuất phân bổ",
       "Không, cần tự đánh giá",
+      "Có, đánh giá và đề xuất phân bổ",
       "Chỉ đếm số lượng",
       "Tùy vào công việc"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể đánh giá khối lượng công việc và đề xuất phân bổ."
   },
   {
@@ -2589,12 +2589,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ đặt mục tiêu công việc không?",
     options: [
-      "Có, gợi ý mục tiêu SMART",
       "Không, mục tiêu cần con người",
       "Chỉ ghi nhận mục tiêu",
+      "Có, gợi ý mục tiêu SMART",
       "Tùy vào công việc"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ gợi ý mục tiêu SMART (Specific, Measurable, Achievable, Relevant, Time-bound)."
   },
   {
@@ -2605,12 +2605,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp tổng hợp biên bản cuộc họp không?",
     options: [
-      "Có, tóm tắt và làm rõ các quyết định",
       "Không, biên bản cần chi tiết",
       "Chỉ tóm tắt",
-      "Tùy vào cuộc họp"
+      "Tùy vào cuộc họp",
+      "Có, tóm tắt và làm rõ các quyết định"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tóm tắt và làm rõ các quyết định trong biên bản cuộc họp."
   },
   {
@@ -2637,12 +2637,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ lập danh sách việc cần làm không?",
     options: [
-      "Có, tạo và sắp xếp danh sách",
       "Không, cần tự tạo",
       "Chỉ gợi ý công việc",
+      "Có, tạo và sắp xếp danh sách",
       "Tùy vào công việc"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ tạo và sắp xếp danh sách việc cần làm."
   },
   {
@@ -2653,12 +2653,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp nhắc nhở công việc quan trọng không?",
     options: [
-      "Có, gửi thông báo và nhắc nhở",
       "Không, cần tự nhớ",
       "Chỉ nhắc một lần",
-      "Tùy vào công việc"
+      "Tùy vào công việc",
+      "Có, gửi thông báo và nhắc nhở"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ gửi thông báo và nhắc nhở công việc quan trọng."
   },
 
@@ -2671,12 +2671,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "Làm thế nào để AI tạo agenda cuộc họp hiệu quả?",
     options: [
-      "Cung cấp mục tiêu và các chủ đề thảo luận",
       "Để AI tự tạo",
+      "Cung cấp mục tiêu và các chủ đề thảo luận",
       "Không cần hướng dẫn",
       "Chỉ cần thời gian"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần cung cấp mục tiêu và chủ đề thảo luận để AI tạo agenda hiệu quả."
   },
   {
@@ -2703,12 +2703,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "Khi AI tóm tắt cuộc họp, cần lưu ý điều gì?",
     options: [
-      "Kiểm tra độ chính xác của các quyết định",
       "Tin vào AI",
       "Không cần kiểm tra",
-      "Chỉ kiểm tra ngày giờ"
+      "Chỉ kiểm tra ngày giờ",
+      "Kiểm tra độ chính xác của các quyết định"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cần kiểm tra độ chính xác của các quyết định trong tóm tắt."
   },
   {
@@ -2719,12 +2719,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ lập kế hoạch nhân sự không?",
     options: [
-      "Có, phân bổ nguồn lực dựa trên năng lực",
       "Không, cần chuyên gia",
+      "Có, phân bổ nguồn lực dựa trên năng lực",
       "Chỉ đếm số lượng",
       "Tùy vào nhân sự"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể phân bổ nguồn lực dựa trên năng lực và nhu cầu công việc."
   },
   {
@@ -2735,12 +2735,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp xác định rủi ro trong kế hoạch không?",
     options: [
-      "Có, phân tích và cảnh báo rủi ro tiềm ẩn",
       "Không, rủi ro khó dự đoán",
       "Chỉ cảnh báo rủi ro rõ ràng",
+      "Có, phân tích và cảnh báo rủi ro tiềm ẩn",
       "Tùy vào kế hoạch"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể phân tích và cảnh báo các rủi ro tiềm ẩn trong kế hoạch."
   },
   {
@@ -2767,12 +2767,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ chuẩn bị tài liệu cho cuộc họp không?",
     options: [
-      "Có, tổng hợp và chuẩn bị tài liệu liên quan",
       "Không, cần tự chuẩn bị",
+      "Có, tổng hợp và chuẩn bị tài liệu liên quan",
       "Chỉ tổng hợp tài liệu",
       "Tùy vào cuộc họp"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ tổng hợp và chuẩn bị tài liệu cho cuộc họp."
   },
   {
@@ -2783,12 +2783,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp tối ưu lịch làm việc không?",
     options: [
-      "Có, sắp xếp lịch hợp lý và hiệu quả",
       "Không, cần tự sắp xếp",
       "Chỉ sắp xếp thời gian",
+      "Có, sắp xếp lịch hợp lý và hiệu quả",
       "Tùy vào lịch"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ sắp xếp lịch làm việc hợp lý và hiệu quả."
   },
   {
@@ -2799,12 +2799,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ phân bổ ngân sách cho dự án không?",
     options: [
-      "Có, đề xuất phân bổ dựa trên dữ liệu",
       "Không, cần chuyên gia tài chính",
       "Chỉ ước tính chi phí",
-      "Tùy vào dự án"
+      "Tùy vào dự án",
+      "Có, đề xuất phân bổ dựa trên dữ liệu"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể đề xuất phân bổ ngân sách dựa trên dữ liệu và yêu cầu."
   },
   {
@@ -2831,12 +2831,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ lập kế hoạch dài hạn không?",
     options: [
-      "Có, xây dựng lộ trình và các mốc quan trọng",
       "Không, kế hoạch dài hạn cần con người",
       "Chỉ lập kế hoạch ngắn hạn",
+      "Có, xây dựng lộ trình và các mốc quan trọng",
       "Tùy vào kế hoạch"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ xây dựng lộ trình và các mốc quan trọng cho kế hoạch dài hạn."
   },
   {
@@ -2847,12 +2847,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp đo lường hiệu quả công việc không?",
     options: [
-      "Có, phân tích KPI và báo cáo kết quả",
       "Không, cần tự đo lường",
       "Chỉ thu thập dữ liệu",
-      "Tùy vào công việc"
+      "Tùy vào công việc",
+      "Có, phân tích KPI và báo cáo kết quả"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI phân tích KPI và báo cáo kết quả để đo lường hiệu quả công việc."
   },
 
@@ -2865,12 +2865,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "Chiến lược nào giúp AI tối ưu lịch họp cho nhiều người?",
     options: [
-      "Phân tích lịch trống và đề xuất thời gian tối ưu",
       "Chọn thời gian cố định",
+      "Phân tích lịch trống và đề xuất thời gian tối ưu",
       "Không cần tối ưu",
       "Hỏi từng người"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể phân tích lịch trống và đề xuất thời gian phù hợp cho nhiều người."
   },
   {
@@ -2897,12 +2897,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể giúp dự báo nguồn lực cần thiết cho dự án không?",
     options: [
-      "Có, dựa trên dữ liệu dự án tương tự",
       "Không, khó dự báo",
       "Chỉ dự báo gần đúng",
-      "Tùy vào dự án"
+      "Tùy vào dự án",
+      "Có, dựa trên dữ liệu dự án tương tự"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI dự báo nguồn lực dựa trên dữ liệu từ các dự án tương tự."
   },
   {
@@ -2913,12 +2913,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "Làm thế nào để AI hỗ trợ ra quyết định trong lập kế hoạch?",
     options: [
-      "Phân tích dữ liệu và các kịch bản khác nhau",
       "Để AI quyết định thay",
+      "Phân tích dữ liệu và các kịch bản khác nhau",
       "Không cần phân tích",
       "Chọn phương án đơn giản"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI phân tích dữ liệu và các kịch bản để hỗ trợ ra quyết định."
   },
   {
@@ -2929,12 +2929,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ tối ưu quy trình làm việc nhóm không?",
     options: [
-      "Có, phân tích và đề xuất cải thiện quy trình",
       "Không, quy trình cần con người",
       "Chỉ đánh giá quy trình",
+      "Có, phân tích và đề xuất cải thiện quy trình",
       "Tùy vào nhóm"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI phân tích và đề xuất cải thiện quy trình làm việc nhóm."
   },
   {
@@ -2961,12 +2961,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ phân tích hiệu quả cuộc họp không?",
     options: [
-      "Có, đánh giá mức độ đạt được mục tiêu",
       "Không, cuộc họp khó đánh giá",
+      "Có, đánh giá mức độ đạt được mục tiêu",
       "Chỉ đếm số lượng",
       "Tùy vào cuộc họp"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI đánh giá mức độ đạt được mục tiêu của cuộc họp."
   },
   {
@@ -2977,12 +2977,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "AI có thể hỗ trợ quản lý thay đổi trong dự án không?",
     options: [
-      "Có, đánh giá tác động và đề xuất điều chỉnh",
       "Không, quản lý thay đổi cần kinh nghiệm",
       "Chỉ ghi nhận thay đổi",
+      "Có, đánh giá tác động và đề xuất điều chỉnh",
       "Tùy vào thay đổi"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI đánh giá tác động và đề xuất điều chỉnh khi có thay đổi."
   },
   {
@@ -2993,12 +2993,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "Lợi ích của việc tích hợp AI vào quản lý dự án là gì?",
     options: [
-      "Tăng độ chính xác và giảm rủi ro dự án",
       "Không có lợi ích",
       "Chỉ tiết kiệm thời gian",
-      "Làm phức tạp quản lý"
+      "Làm phức tạp quản lý",
+      "Tăng độ chính xác và giảm rủi ro dự án"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI giúp tăng độ chính xác và giảm rủi ro trong quản lý dự án."
   },
   {
@@ -3025,12 +3025,12 @@ const COMPETENCY_5 = [
     type: "single",
     question: "Nguyên tắc nào quan trọng khi sử dụng AI trong lập kế hoạch?",
     options: [
-      "Kết hợp AI với kinh nghiệm thực tế",
       "Để AI làm thay",
       "Tin vào mọi gợi ý",
+      "Kết hợp AI với kinh nghiệm thực tế",
       "Không cần kiểm tra"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần kết hợp AI với kinh nghiệm thực tế trong lập kế hoạch."
   }
 ];
@@ -3048,12 +3048,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ ra quyết định như thế nào?",
     options: [
-      "Phân tích dữ liệu và đề xuất phương án",
       "Thay thế hoàn toàn người ra quyết định",
       "Loại bỏ nhu cầu quyết định",
-      "Không hỗ trợ"
+      "Không hỗ trợ",
+      "Phân tích dữ liệu và đề xuất phương án"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích dữ liệu và đề xuất phương án để ra quyết định."
   },
   {
@@ -3064,12 +3064,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể phân tích rủi ro trong quyết định không?",
     options: [
-      "Có, đánh giá và cảnh báo rủi ro",
       "Không, rủi ro khó dự đoán",
+      "Có, đánh giá và cảnh báo rủi ro",
       "Chỉ đánh giá rủi ro tài chính",
       "Tùy vào quyết định"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể đánh giá và cảnh báo các rủi ro trong quyết định."
   },
   {
@@ -3096,12 +3096,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ đánh giá nhiều kịch bản không?",
     options: [
-      "Có, phân tích nhiều tình huống khác nhau",
       "Không, chỉ phân tích một kịch bản",
       "Chỉ đánh giá kịch bản tốt nhất",
-      "Tùy vào dữ liệu"
+      "Tùy vào dữ liệu",
+      "Có, phân tích nhiều tình huống khác nhau"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể phân tích và so sánh nhiều kịch bản khác nhau."
   },
   {
@@ -3112,12 +3112,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Quyết định cuối cùng khi sử dụng AI nên thuộc về ai?",
     options: [
-      "Con người — người sử dụng AI",
       "AI",
+      "Con người — người sử dụng AI",
       "Nhà phát triển",
       "Không ai"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Con người luôn là người ra quyết định cuối cùng."
   },
   {
@@ -3128,12 +3128,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Bạn cần lựa chọn giữa hai nhà cung cấp. AI có thể hỗ trợ hiệu quả nhất bằng cách nào?",
     options: [
-      "So sánh các tiêu chí như giá, chất lượng, thời gian giao hàng và rủi ro",
       "Tự quyết định chọn nhà cung cấp",
       "Ký hợp đồng thay doanh nghiệp",
+      "So sánh các tiêu chí như giá, chất lượng, thời gian giao hàng và rủi ro",
       "Loại bỏ nhà cung cấp có giá cao hơn"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI giúp phân tích nhiều tiêu chí để hỗ trợ người dùng đưa ra quyết định phù hợp."
   },
   {
@@ -3160,12 +3160,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Nếu AI đề xuất một phương án không phù hợp với tình hình thực tế, bạn nên làm gì?",
     options: [
-      "Điều chỉnh dữ liệu hoặc bổ sung bối cảnh rồi yêu cầu AI phân tích lại",
       "Làm theo ngay",
+      "Điều chỉnh dữ liệu hoặc bổ sung bối cảnh rồi yêu cầu AI phân tích lại",
       "Ngừng sử dụng AI",
       "Xóa toàn bộ dữ liệu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Việc bổ sung bối cảnh giúp AI đưa ra các gợi ý sát với thực tế hơn."
   },
   {
@@ -3176,12 +3176,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ người quản lý đánh giá nhiều phương án bằng cách nào?",
     options: [
-      "Liệt kê ưu điểm, hạn chế và rủi ro của từng phương án",
       "Chọn sẵn phương án cuối cùng",
       "Thay đổi dữ liệu đầu vào",
+      "Liệt kê ưu điểm, hạn chế và rủi ro của từng phương án",
       "Phê duyệt quyết định"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI giúp người dùng nhìn thấy nhiều góc độ trước khi đưa ra quyết định."
   },
   {
@@ -3192,12 +3192,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Khi AI phân tích dữ liệu kinh doanh, điều gì vẫn cần con người thực hiện?",
     options: [
-      "Đánh giá tính khả thi của phương án trong bối cảnh thực tế",
       "Tin hoàn toàn vào kết quả AI",
       "Không cần xem dữ liệu gốc",
-      "Chỉ kiểm tra lỗi chính tả"
+      "Chỉ kiểm tra lỗi chính tả",
+      "Đánh giá tính khả thi của phương án trong bối cảnh thực tế"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI không thể thay thế kinh nghiệm và hiểu biết thực tế của người ra quyết định."
   },
   {
@@ -3224,12 +3224,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Lợi ích của việc yêu cầu AI phân tích nhiều kịch bản khác nhau là gì?",
     options: [
-      "Có thêm góc nhìn trước khi đưa ra quyết định",
       "Không cần phân tích thêm",
       "AI sẽ luôn chọn đúng phương án",
+      "Có thêm góc nhìn trước khi đưa ra quyết định",
       "Giảm trách nhiệm của người quản lý"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Phân tích nhiều kịch bản giúp người dùng đánh giá rủi ro và cơ hội toàn diện hơn."
   },
   {
@@ -3240,12 +3240,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Nếu AI đưa ra hai kết luận trái ngược nhau, cách xử lý phù hợp nhất là gì?",
     options: [
-      "Đối chiếu với dữ liệu và tiêu chí ra quyết định trước khi lựa chọn",
       "Luôn chọn kết luận đầu tiên",
       "Ghép hai kết luận lại",
-      "Bỏ qua toàn bộ kết quả"
+      "Bỏ qua toàn bộ kết quả",
+      "Đối chiếu với dữ liệu và tiêu chí ra quyết định trước khi lựa chọn"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Người dùng cần đánh giá kết quả dựa trên dữ liệu và mục tiêu thực tế."
   },
 
@@ -3258,12 +3258,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Điều nào phản ánh việc sử dụng AI hiệu quả trong quá trình ra quyết định?",
     options: [
-      "Tiết kiệm thời gian phân tích nhưng vẫn giữ quyền quyết định cuối cùng",
       "Để AI quyết định mọi vấn đề",
+      "Tiết kiệm thời gian phân tích nhưng vẫn giữ quyền quyết định cuối cùng",
       "Không cần kiểm tra dữ liệu",
       "Chỉ sử dụng một phương án AI đề xuất"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI giúp tăng tốc quá trình phân tích, nhưng quyết định cuối cùng vẫn thuộc về con người."
   },
   {
@@ -3290,12 +3290,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ phân tích SWOT không?",
     options: [
-      "Có, tổng hợp điểm mạnh, điểm yếu, cơ hội và thách thức",
       "Không, SWOT cần con người",
       "Chỉ phân tích cơ hội",
-      "Tùy vào doanh nghiệp"
+      "Tùy vào doanh nghiệp",
+      "Có, tổng hợp điểm mạnh, điểm yếu, cơ hội và thách thức"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể tổng hợp và phân tích SWOT từ dữ liệu đầu vào."
   },
   {
@@ -3306,12 +3306,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ đánh giá KPI không?",
     options: [
-      "Có, theo dõi và báo cáo KPI tự động",
       "Không, KPI cần con người đánh giá",
+      "Có, theo dõi và báo cáo KPI tự động",
       "Chỉ thu thập dữ liệu KPI",
       "Tùy vào KPI"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể theo dõi và báo cáo KPI tự động."
   },
   {
@@ -3322,12 +3322,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể giúp dự đoán kết quả của quyết định không?",
     options: [
-      "Có, dựa trên dữ liệu lịch sử và mô hình",
       "Không, kết quả khó dự đoán",
       "Chỉ dự đoán gần đúng",
+      "Có, dựa trên dữ liệu lịch sử và mô hình",
       "Tùy vào quyết định"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể dự đoán kết quả dựa trên dữ liệu và mô hình phân tích."
   },
   {
@@ -3354,12 +3354,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ ra quyết định trong marketing không?",
     options: [
-      "Có, phân tích hành vi khách hàng và đề xuất",
       "Không, marketing cần sáng tạo",
+      "Có, phân tích hành vi khách hàng và đề xuất",
       "Chỉ phân tích dữ liệu",
       "Tùy vào chiến dịch"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích hành vi khách hàng và đề xuất chiến lược marketing."
   },
   {
@@ -3370,12 +3370,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Khi AI đề xuất phương án có rủi ro cao, bạn nên làm gì?",
     options: [
-      "Phân tích kỹ hơn và yêu cầu AI giải thích",
       "Chấp nhận rủi ro",
       "Bỏ qua ngay",
+      "Phân tích kỹ hơn và yêu cầu AI giải thích",
       "Chọn phương án an toàn hơn"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần phân tích kỹ hơn và yêu cầu AI giải thích trước khi ra quyết định."
   },
   {
@@ -3386,12 +3386,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ ra quyết định nhóm không?",
     options: [
-      "Có, tổng hợp ý kiến và phân tích",
       "Không, quyết định nhóm cần con người",
       "Chỉ thu thập ý kiến",
-      "Tùy vào nhóm"
+      "Tùy vào nhóm",
+      "Có, tổng hợp ý kiến và phân tích"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể tổng hợp ý kiến và phân tích để hỗ trợ quyết định nhóm."
   },
   {
@@ -3418,12 +3418,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ đánh giá tác động môi trường của quyết định không?",
     options: [
-      "Có, phân tích dữ liệu môi trường",
       "Không, cần chuyên gia",
       "Chỉ phân tích tác động cơ bản",
+      "Có, phân tích dữ liệu môi trường",
       "Tùy vào dữ liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân tích dữ liệu môi trường để đánh giá tác động."
   },
   {
@@ -3434,12 +3434,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ ra quyết định trong nhân sự không?",
     options: [
-      "Có, phân tích dữ liệu nhân sự và đề xuất",
       "Không, nhân sự cần con người",
       "Chỉ phân tích dữ liệu",
-      "Tùy vào dữ liệu"
+      "Tùy vào dữ liệu",
+      "Có, phân tích dữ liệu nhân sự và đề xuất"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích dữ liệu nhân sự và đề xuất quyết định."
   },
   {
@@ -3450,12 +3450,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể giúp đánh giá hiệu quả của quyết định không?",
     options: [
-      "Có, đo lường và báo cáo kết quả",
       "Không, cần tự đánh giá",
+      "Có, đo lường và báo cáo kết quả",
       "Chỉ thu thập dữ liệu",
       "Tùy vào quyết định"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể đo lường và báo cáo kết quả để đánh giá hiệu quả quyết định."
   },
   {
@@ -3484,12 +3484,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Chiến lược nào giúp AI hỗ trợ ra quyết định chiến lược?",
     options: [
-      "Phân tích dữ liệu lớn và dự báo xu hướng dài hạn",
       "Chỉ phân tích ngắn hạn",
       "Không cần chiến lược",
-      "Chọn phương án an toàn"
+      "Chọn phương án an toàn",
+      "Phân tích dữ liệu lớn và dự báo xu hướng dài hạn"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ chiến lược qua phân tích dữ liệu lớn và dự báo xu hướng."
   },
   {
@@ -3500,12 +3500,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ ra quyết định trong điều kiện không chắc chắn không?",
     options: [
-      "Có, sử dụng mô hình xác suất và kịch bản",
       "Không, cần dữ liệu chính xác",
+      "Có, sử dụng mô hình xác suất và kịch bản",
       "Chỉ phân tích khi đủ dữ liệu",
       "Tùy vào tình huống"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể sử dụng mô hình xác suất và kịch bản trong điều kiện không chắc chắn."
   },
   {
@@ -3516,12 +3516,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể giúp phát hiện bias (thiên vị) trong quyết định không?",
     options: [
-      "Có, phân tích và cảnh báo bias tiềm ẩn",
       "Không, bias khó phát hiện",
       "Chỉ phát hiện bias dữ liệu",
+      "Có, phân tích và cảnh báo bias tiềm ẩn",
       "Tùy vào quyết định"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể phân tích và cảnh báo các bias tiềm ẩn trong quyết định."
   },
   {
@@ -3548,12 +3548,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Khi AI đưa ra dự đoán khác với trực giác, bạn nên làm gì?",
     options: [
-      "Phân tích dữ liệu và kiểm tra giả định",
       "Tin vào trực giác",
+      "Phân tích dữ liệu và kiểm tra giả định",
       "Tin vào AI",
       "Bỏ qua cả hai"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần phân tích dữ liệu và kiểm tra giả định khi có sự khác biệt."
   },
   {
@@ -3564,12 +3564,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ tối ưu đa mục tiêu trong quyết định không?",
     options: [
-      "Có, cân bằng giữa các mục tiêu khác nhau",
       "Không, chỉ tối ưu một mục tiêu",
       "Chỉ ưu tiên mục tiêu chính",
+      "Có, cân bằng giữa các mục tiêu khác nhau",
       "Tùy vào mục tiêu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể cân bằng và tối ưu nhiều mục tiêu trong quyết định."
   },
   {
@@ -3580,12 +3580,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ ra quyết định trong dài hạn không?",
     options: [
-      "Có, mô phỏng và dự báo dài hạn",
       "Không, dài hạn khó dự đoán",
       "Chỉ phân tích ngắn hạn",
-      "Tùy vào dữ liệu"
+      "Tùy vào dữ liệu",
+      "Có, mô phỏng và dự báo dài hạn"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể mô phỏng và dự báo để hỗ trợ quyết định dài hạn."
   },
   {
@@ -3612,12 +3612,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể hỗ trợ ra quyết định trong thời gian thực không?",
     options: [
-      "Có, với dữ liệu thời gian thực và phân tích nhanh",
       "Không, cần xử lý chậm",
       "Chỉ phân tích khi có đủ dữ liệu",
+      "Có, với dữ liệu thời gian thực và phân tích nhanh",
       "Tùy vào hệ thống"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI có thể hỗ trợ quyết định thời gian thực với dữ liệu và phân tích nhanh."
   },
   {
@@ -3628,12 +3628,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "AI có thể giúp đánh giá đạo đức của quyết định không?",
     options: [
-      "Hỗ trợ phân tích, nhưng đánh giá đạo đức cần con người",
       "Có, AI đánh giá đạo đức",
       "Không, đạo đức chỉ của con người",
-      "Tùy vào quyết định"
+      "Tùy vào quyết định",
+      "Hỗ trợ phân tích, nhưng đánh giá đạo đức cần con người"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích, nhưng đánh giá đạo đức vẫn cần con người."
   },
   {
@@ -3644,12 +3644,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Nguyên tắc nào quan trọng khi sử dụng AI trong ra quyết định?",
     options: [
-      "Minh bạch, trách nhiệm và đánh giá kỹ lưỡng",
       "Tin tưởng tuyệt đối",
+      "Minh bạch, trách nhiệm và đánh giá kỹ lưỡng",
       "Không cần kiểm tra",
       "Quyết định nhanh"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần minh bạch, trách nhiệm và đánh giá kỹ lưỡng khi sử dụng AI trong ra quyết định."
   },
   {
@@ -3676,12 +3676,12 @@ const COMPETENCY_6 = [
     type: "single",
     question: "Khi AI đề xuất phương án mới, cách đánh giá nào tốt nhất?",
     options: [
-      "Phân tích lợi ích, rủi ro và khả năng thực hiện",
       "Chấp nhận ngay",
       "Bỏ qua",
-      "Chỉ phân tích lợi ích"
+      "Chỉ phân tích lợi ích",
+      "Phân tích lợi ích, rủi ro và khả năng thực hiện"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Cần phân tích toàn diện lợi ích, rủi ro và khả năng thực hiện."
   }
 ];
@@ -3699,12 +3699,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI Workflow là gì?",
     options: [
-      "Quy trình làm việc có sự hỗ trợ của AI",
       "Một phần mềm mới",
+      "Quy trình làm việc có sự hỗ trợ của AI",
       "Công cụ lập trình",
       "Phương pháp học tập"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI Workflow là quy trình làm việc được tích hợp sự hỗ trợ của AI."
   },
   {
@@ -3715,12 +3715,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "Lợi ích chính của AI Workflow là gì?",
     options: [
-      "Tự động hóa các công việc lặp lại và tăng năng suất",
       "Thay thế hoàn toàn con người",
       "Giảm chất lượng công việc",
+      "Tự động hóa các công việc lặp lại và tăng năng suất",
       "Không có lợi ích"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI Workflow giúp tự động hóa và tăng năng suất làm việc."
   },
   {
@@ -3747,12 +3747,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "Bước đầu tiên khi thiết kế AI Workflow là gì?",
     options: [
-      "Xác định quy trình hiện tại và các điểm có thể cải thiện",
       "Mua phần mềm AI",
+      "Xác định quy trình hiện tại và các điểm có thể cải thiện",
       "Bắt đầu tự động hóa ngay",
       "Không cần phân tích"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần xác định quy trình hiện tại và điểm cần cải thiện trước."
   },
   {
@@ -3763,12 +3763,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ trong xử lý email hàng ngày như thế nào?",
     options: [
-      "Phân loại, ưu tiên và đề xuất phản hồi",
       "Tự động trả lời tất cả",
       "Xóa email cũ",
+      "Phân loại, ưu tiên và đề xuất phản hồi",
       "Không hỗ trợ"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân loại, ưu tiên và đề xuất phản hồi cho email."
   },
   {
@@ -3779,12 +3779,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể tự động hóa báo cáo hàng tuần không?",
     options: [
-      "Có, tổng hợp dữ liệu và tạo báo cáo tự động",
       "Không, cần làm thủ công",
       "Chỉ tạo được báo cáo đơn giản",
-      "Tùy vào dữ liệu"
+      "Tùy vào dữ liệu",
+      "Có, tổng hợp dữ liệu và tạo báo cáo tự động"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể tự động tổng hợp dữ liệu và tạo báo cáo hàng tuần."
   },
   {
@@ -3811,12 +3811,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình chăm sóc khách hàng không?",
     options: [
-      "Có, chatbot và phân tích phản hồi",
       "Không, cần con người",
       "Chỉ trả lời câu hỏi đơn giản",
+      "Có, chatbot và phân tích phản hồi",
       "Tùy vào khách hàng"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ chăm sóc khách hàng qua chatbot và phân tích phản hồi."
   },
   {
@@ -3827,12 +3827,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình quản lý dự án không?",
     options: [
-      "Có, theo dõi tiến độ và nhắc nhở",
       "Không, cần phần mềm chuyên dụng",
       "Chỉ theo dõi thời gian",
-      "Tùy vào dự án"
+      "Tùy vào dự án",
+      "Có, theo dõi tiến độ và nhắc nhở"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ theo dõi tiến độ và nhắc nhở trong quản lý dự án."
   },
   {
@@ -3843,12 +3843,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể tự động tạo lịch họp không?",
     options: [
-      "Có, đề xuất thời gian và gửi lời mời",
       "Không, cần tự sắp xếp",
+      "Có, đề xuất thời gian và gửi lời mời",
       "Chỉ đề xuất thời gian",
       "Tùy vào lịch"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể đề xuất thời gian và gửi lời mời họp tự động."
   },
   {
@@ -3875,12 +3875,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình marketing không?",
     options: [
-      "Có, tự động hóa chiến dịch và phân tích",
       "Không, marketing cần sáng tạo",
       "Chỉ gửi email",
-      "Tùy vào chiến dịch"
+      "Tùy vào chiến dịch",
+      "Có, tự động hóa chiến dịch và phân tích"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tự động hóa chiến dịch và phân tích trong marketing."
   },
   {
@@ -3891,12 +3891,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình bán hàng không?",
     options: [
-      "Có, phân tích khách hàng và đề xuất",
       "Không, bán hàng cần kỹ năng",
+      "Có, phân tích khách hàng và đề xuất",
       "Chỉ quản lý lead",
       "Tùy vào sản phẩm"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích khách hàng và đề xuất trong bán hàng."
   },
 
@@ -3909,12 +3909,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "Làm thế nào để thiết kế AI Workflow hiệu quả?",
     options: [
-      "Xác định mục tiêu, lập bản đồ quy trình và chọn công cụ phù hợp",
       "Mua nhiều công cụ AI",
       "Tự động hóa mọi thứ",
+      "Xác định mục tiêu, lập bản đồ quy trình và chọn công cụ phù hợp",
       "Không cần kế hoạch"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần xác định mục tiêu, lập bản đồ quy trình và chọn công cụ phù hợp."
   },
   {
@@ -3941,12 +3941,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình quản lý nhân sự không?",
     options: [
-      "Có, từ tuyển dụng đến đánh giá hiệu suất",
       "Không, nhân sự cần con người",
+      "Có, từ tuyển dụng đến đánh giá hiệu suất",
       "Chỉ quản lý hồ sơ",
       "Tùy vào quy mô"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ quy trình nhân sự từ tuyển dụng đến đánh giá hiệu suất."
   },
   {
@@ -3957,12 +3957,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình phân tích dữ liệu không?",
     options: [
-      "Có, thu thập, xử lý và trực quan hóa",
       "Không, cần chuyên gia",
       "Chỉ xử lý số liệu",
+      "Có, thu thập, xử lý và trực quan hóa",
       "Tùy vào dữ liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ toàn bộ quy trình phân tích dữ liệu từ thu thập đến trực quan hóa."
   },
   {
@@ -3973,12 +3973,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình đào tạo nhân viên không?",
     options: [
-      "Có, cá nhân hóa nội dung và theo dõi tiến độ",
       "Không, đào tạo cần con người",
       "Chỉ cung cấp tài liệu",
-      "Tùy vào chương trình"
+      "Tùy vào chương trình",
+      "Có, cá nhân hóa nội dung và theo dõi tiến độ"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ cá nhân hóa nội dung và theo dõi tiến độ đào tạo."
   },
   {
@@ -4005,12 +4005,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình hậu cần (logistics) không?",
     options: [
-      "Có, tối ưu hóa vận chuyển và kho bãi",
       "Không, logistics phức tạp",
       "Chỉ theo dõi đơn hàng",
+      "Có, tối ưu hóa vận chuyển và kho bãi",
       "Tùy vào quy mô"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ tối ưu hóa vận chuyển và quản lý kho bãi trong logistics."
   },
   {
@@ -4021,12 +4021,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình quản lý rủi ro không?",
     options: [
-      "Có, phát hiện và đánh giá rủi ro tự động",
       "Không, rủi ro cần con người",
       "Chỉ cảnh báo rủi ro",
-      "Tùy vào lĩnh vực"
+      "Tùy vào lĩnh vực",
+      "Có, phát hiện và đánh giá rủi ro tự động"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phát hiện và đánh giá rủi ro tự động trong quy trình."
   },
   {
@@ -4037,12 +4037,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình bảo trì thiết bị không?",
     options: [
-      "Có, dự đoán và lên lịch bảo trì",
       "Không, bảo trì cần kỹ thuật",
+      "Có, dự đoán và lên lịch bảo trì",
       "Chỉ nhắc lịch bảo trì",
       "Tùy vào thiết bị"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ dự đoán và lên lịch bảo trì thiết bị tự động."
   },
   {
@@ -4069,12 +4069,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình ra quyết định nhóm không?",
     options: [
-      "Có, tổng hợp và phân tích ý kiến",
       "Không, quyết định nhóm cần con người",
       "Chỉ thu thập ý kiến",
-      "Tùy vào nhóm"
+      "Tùy vào nhóm",
+      "Có, tổng hợp và phân tích ý kiến"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tổng hợp và phân tích ý kiến trong quyết định nhóm."
   },
   {
@@ -4085,12 +4085,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình sáng tạo không?",
     options: [
-      "Có, đề xuất ý tưởng và tạo nguyên mẫu",
       "Không, sáng tạo là của con người",
+      "Có, đề xuất ý tưởng và tạo nguyên mẫu",
       "Chỉ đề xuất ý tưởng",
       "Tùy vào lĩnh vực"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ đề xuất ý tưởng và tạo nguyên mẫu trong quy trình sáng tạo."
   },
   {
@@ -4101,12 +4101,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình đổi mới sáng tạo không?",
     options: [
-      "Có, phân tích xu hướng và đề xuất cải tiến",
       "Không, đổi mới cần con người",
       "Chỉ phân tích dữ liệu",
+      "Có, phân tích xu hướng và đề xuất cải tiến",
       "Tùy vào lĩnh vực"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân tích xu hướng và đề xuất cải tiến trong đổi mới."
   },
 
@@ -4135,12 +4135,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình quản lý thay đổi không?",
     options: [
-      "Có, phân tích tác động và đề xuất điều chỉnh",
       "Không, quản lý thay đổi cần con người",
+      "Có, phân tích tác động và đề xuất điều chỉnh",
       "Chỉ ghi nhận thay đổi",
       "Tùy vào thay đổi"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích tác động và đề xuất điều chỉnh trong quản lý thay đổi."
   },
   {
@@ -4151,12 +4151,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình phân tích nguyên nhân gốc rễ không?",
     options: [
-      "Có, phân tích dữ liệu và xác định nguyên nhân",
       "Không, cần chuyên gia",
       "Chỉ phân tích bề mặt",
+      "Có, phân tích dữ liệu và xác định nguyên nhân",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân tích dữ liệu để xác định nguyên nhân gốc rễ của vấn đề."
   },
   {
@@ -4167,12 +4167,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình lập kế hoạch chiến lược không?",
     options: [
-      "Có, phân tích môi trường và đề xuất chiến lược",
       "Không, chiến lược cần tầm nhìn",
       "Chỉ phân tích thị trường",
-      "Tùy vào doanh nghiệp"
+      "Tùy vào doanh nghiệp",
+      "Có, phân tích môi trường và đề xuất chiến lược"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích môi trường và đề xuất chiến lược."
   },
   {
@@ -4199,12 +4199,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "Làm thế nào để đo lường hiệu quả của AI Workflow?",
     options: [
-      "So sánh thời gian, chất lượng và chi phí trước và sau khi áp dụng",
       "Chỉ đo thời gian",
       "Không cần đo lường",
+      "So sánh thời gian, chất lượng và chi phí trước và sau khi áp dụng",
       "Đo lường bằng cảm nhận"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Cần so sánh thời gian, chất lượng và chi phí trước và sau khi áp dụng AI."
   },
   {
@@ -4215,12 +4215,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình tối ưu hóa chuỗi cung ứng không?",
     options: [
-      "Có, dự báo và tối ưu hóa toàn bộ chuỗi",
       "Không, chuỗi cung ứng phức tạp",
       "Chỉ dự báo nhu cầu",
-      "Tùy vào ngành"
+      "Tùy vào ngành",
+      "Có, dự báo và tối ưu hóa toàn bộ chuỗi"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ dự báo và tối ưu hóa toàn bộ chuỗi cung ứng."
   },
   {
@@ -4231,12 +4231,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình quản lý tri thức không?",
     options: [
-      "Có, thu thập, tổ chức và chia sẻ tri thức",
       "Không, tri thức cần con người",
+      "Có, thu thập, tổ chức và chia sẻ tri thức",
       "Chỉ lưu trữ tài liệu",
       "Tùy vào tổ chức"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ thu thập, tổ chức và chia sẻ tri thức trong tổ chức."
   },
   {
@@ -4263,12 +4263,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình báo cáo tuân thủ không?",
     options: [
-      "Có, tự động thu thập và tạo báo cáo",
       "Không, tuân thủ cần con người",
       "Chỉ thu thập dữ liệu",
-      "Tùy vào quy định"
+      "Tùy vào quy định",
+      "Có, tự động thu thập và tạo báo cáo"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tự động thu thập và tạo báo cáo tuân thủ."
   },
   {
@@ -4279,12 +4279,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "Khi AI Workflow gặp lỗi, cách xử lý nào tốt nhất?",
     options: [
-      "Xác định nguyên nhân, sửa lỗi và cải thiện quy trình",
       "Dừng toàn bộ workflow",
+      "Xác định nguyên nhân, sửa lỗi và cải thiện quy trình",
       "Bỏ qua lỗi",
       "Sử dụng workflow khác"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần xác định nguyên nhân, sửa lỗi và cải thiện quy trình."
   },
   {
@@ -4295,12 +4295,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "AI có thể hỗ trợ quy trình quản lý chất lượng tổng thể không?",
     options: [
-      "Có, từ giám sát đến cải tiến liên tục",
       "Không, chất lượng cần con người",
       "Chỉ giám sát chất lượng",
+      "Có, từ giám sát đến cải tiến liên tục",
       "Tùy vào tiêu chuẩn"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ toàn bộ quy trình quản lý chất lượng từ giám sát đến cải tiến."
   },
   {
@@ -4327,12 +4327,12 @@ const COMPETENCY_7 = [
     type: "single",
     question: "Nguyên tắc nào quan trọng khi thiết kế AI Workflow?",
     options: [
-      "Lấy con người làm trung tâm, AI là công cụ hỗ trợ",
       "Lấy AI làm trung tâm",
+      "Lấy con người làm trung tâm, AI là công cụ hỗ trợ",
       "Tự động hóa mọi thứ",
       "Không cần con người"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần lấy con người làm trung tâm và AI là công cụ hỗ trợ."
   }
 ];
@@ -4350,12 +4350,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI Productivity Challenge là gì?",
     options: [
-      "Bài kiểm tra tổng hợp năng lực làm việc với AI",
       "Một cuộc thi lập trình",
       "Khóa học nâng cao",
+      "Bài kiểm tra tổng hợp năng lực làm việc với AI",
       "Chứng chỉ AI"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI Productivity Challenge là bài kiểm tra tổng hợp năng lực làm việc với AI."
   },
   {
@@ -4366,12 +4366,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "Mục tiêu của AI Productivity Challenge là gì?",
     options: [
-      "Đánh giá khả năng ứng dụng AI vào công việc thực tế",
       "Kiểm tra lý thuyết AI",
       "Đo lường tốc độ đánh máy",
-      "Kiểm tra khả năng lập trình"
+      "Kiểm tra khả năng lập trình",
+      "Đánh giá khả năng ứng dụng AI vào công việc thực tế"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "Challenge đánh giá khả năng ứng dụng AI vào công việc thực tế."
   },
   {
@@ -4398,12 +4398,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề trong văn phòng không?",
     options: [
-      "Có, phân tích và đề xuất cải tiến",
       "Không, cần con người",
       "Chỉ báo cáo vấn đề",
+      "Có, phân tích và đề xuất cải tiến",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân tích và đề xuất cải tiến cho vấn đề văn phòng."
   },
   {
@@ -4414,12 +4414,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề marketing không?",
     options: [
-      "Có, phân tích dữ liệu và đề xuất chiến lược",
       "Không, marketing cần sáng tạo",
       "Chỉ phân tích dữ liệu",
-      "Tùy vào vấn đề"
+      "Tùy vào vấn đề",
+      "Có, phân tích dữ liệu và đề xuất chiến lược"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích dữ liệu và đề xuất chiến lược marketing."
   },
   {
@@ -4430,12 +4430,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề nhân sự không?",
     options: [
-      "Có, phân tích và đề xuất giải pháp nhân sự",
       "Không, nhân sự cần con người",
+      "Có, phân tích và đề xuất giải pháp nhân sự",
       "Chỉ phân tích dữ liệu",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích và đề xuất giải pháp cho vấn đề nhân sự."
   },
   {
@@ -4462,12 +4462,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề vận hành không?",
     options: [
-      "Có, tối ưu hóa quy trình và đề xuất cải tiến",
       "Không, vận hành cần con người",
       "Chỉ phân tích quy trình",
-      "Tùy vào vấn đề"
+      "Tùy vào vấn đề",
+      "Có, tối ưu hóa quy trình và đề xuất cải tiến"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ tối ưu hóa quy trình và đề xuất cải tiến vận hành."
   },
   {
@@ -4478,12 +4478,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề khách hàng không?",
     options: [
-      "Có, phân tích và đề xuất giải pháp",
       "Không, khách hàng cần con người",
+      "Có, phân tích và đề xuất giải pháp",
       "Chỉ trả lời câu hỏi",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích và đề xuất giải pháp cho vấn đề khách hàng."
   },
   {
@@ -4494,12 +4494,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề công nghệ không?",
     options: [
-      "Có, phân tích và đề xuất giải pháp kỹ thuật",
       "Không, công nghệ cần chuyên gia",
       "Chỉ phân tích vấn đề",
+      "Có, phân tích và đề xuất giải pháp kỹ thuật",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân tích và đề xuất giải pháp cho vấn đề công nghệ."
   },
   {
@@ -4526,12 +4526,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề đổi mới không?",
     options: [
-      "Có, đề xuất ý tưởng và giải pháp mới",
       "Không, đổi mới cần con người",
+      "Có, đề xuất ý tưởng và giải pháp mới",
       "Chỉ phân tích xu hướng",
       "Tùy vào lĩnh vực"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ đề xuất ý tưởng và giải pháp mới cho đổi mới."
   },
 
@@ -4544,12 +4544,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "Trong Business Case, AI có thể giúp phân tích như thế nào?",
     options: [
-      "Phân tích dữ liệu và đề xuất giải pháp cụ thể",
       "Tự quyết định thay người",
       "Bỏ qua phân tích",
+      "Phân tích dữ liệu và đề xuất giải pháp cụ thể",
       "Chỉ báo cáo dữ liệu"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân tích dữ liệu và đề xuất giải pháp cụ thể."
   },
   {
@@ -4560,12 +4560,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề phức tạp không?",
     options: [
-      "Có, phân tích đa chiều và đề xuất giải pháp",
       "Không, vấn đề phức tạp cần con người",
       "Chỉ phân tích một chiều",
-      "Tùy vào vấn đề"
+      "Tùy vào vấn đề",
+      "Có, phân tích đa chiều và đề xuất giải pháp"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích đa chiều và đề xuất giải pháp cho vấn đề phức tạp."
   },
   {
@@ -4592,12 +4592,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề khủng hoảng không?",
     options: [
-      "Có, phân tích nhanh và đề xuất giải pháp",
       "Không, khủng hoảng cần con người",
       "Chỉ phân tích tình huống",
+      "Có, phân tích nhanh và đề xuất giải pháp",
       "Tùy vào khủng hoảng"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ phân tích nhanh và đề xuất giải pháp trong khủng hoảng."
   },
   {
@@ -4608,12 +4608,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề có tính thời gian cao không?",
     options: [
-      "Có, xử lý nhanh và chính xác",
       "Không, cần thời gian suy nghĩ",
       "Chỉ xử lý khi có đủ thời gian",
-      "Tùy vào vấn đề"
+      "Tùy vào vấn đề",
+      "Có, xử lý nhanh và chính xác"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI có thể xử lý nhanh và chính xác các vấn đề có tính thời gian cao."
   },
   {
@@ -4624,12 +4624,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề liên quan đến dữ liệu lớn không?",
     options: [
-      "Có, xử lý và phân tích dữ liệu lớn",
       "Không, dữ liệu lớn cần công cụ khác",
+      "Có, xử lý và phân tích dữ liệu lớn",
       "Chỉ xử lý được một phần",
       "Tùy vào dữ liệu"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI có thể xử lý và phân tích dữ liệu lớn hiệu quả."
   },
   {
@@ -4656,12 +4656,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề xã hội không?",
     options: [
-      "Có, phân tích dữ liệu và đề xuất giải pháp",
       "Không, vấn đề xã hội cần con người",
       "Chỉ phân tích dữ liệu",
-      "Tùy vào vấn đề"
+      "Tùy vào vấn đề",
+      "Có, phân tích dữ liệu và đề xuất giải pháp"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích dữ liệu và đề xuất giải pháp cho vấn đề xã hội."
   },
   {
@@ -4672,12 +4672,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề môi trường không?",
     options: [
-      "Có, phân tích dữ liệu môi trường",
       "Không, môi trường cần chuyên gia",
+      "Có, phân tích dữ liệu môi trường",
       "Chỉ phân tích dữ liệu",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích dữ liệu môi trường để đề xuất giải pháp."
   },
   {
@@ -4688,12 +4688,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề y tế không?",
     options: [
-      "Có, hỗ trợ chẩn đoán và đề xuất điều trị",
       "Không, y tế cần bác sĩ",
       "Chỉ phân tích dữ liệu",
+      "Có, hỗ trợ chẩn đoán và đề xuất điều trị",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ chẩn đoán và đề xuất điều trị trong y tế."
   },
   {
@@ -4720,12 +4720,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề nông nghiệp không?",
     options: [
-      "Có, phân tích dữ liệu và đề xuất giải pháp",
       "Không, nông nghiệp cần chuyên gia",
+      "Có, phân tích dữ liệu và đề xuất giải pháp",
       "Chỉ phân tích dữ liệu",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích dữ liệu và đề xuất giải pháp cho nông nghiệp."
   },
 
@@ -4738,12 +4738,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "Trong AI Productivity Challenge, yếu tố nào được đánh giá quan trọng nhất?",
     options: [
-      "Khả năng ứng dụng tổng hợp các năng lực AI",
       "Tốc độ trả lời câu hỏi",
       "Số lượng công cụ AI biết sử dụng",
+      "Khả năng ứng dụng tổng hợp các năng lực AI",
       "Kiến thức lý thuyết AI"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "Challenge đánh giá khả năng ứng dụng tổng hợp các năng lực AI."
   },
   {
@@ -4754,12 +4754,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề có nhiều bên liên quan không?",
     options: [
-      "Có, phân tích và đề xuất giải pháp cân bằng",
       "Không, vấn đề đa bên phức tạp",
       "Chỉ phân tích lợi ích",
-      "Tùy vào vấn đề"
+      "Tùy vào vấn đề",
+      "Có, phân tích và đề xuất giải pháp cân bằng"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích và đề xuất giải pháp cân bằng cho đa bên liên quan."
   },
   {
@@ -4786,12 +4786,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề có tác động dài hạn không?",
     options: [
-      "Có, mô phỏng và dự báo tác động",
       "Không, tác động dài hạn khó dự đoán",
       "Chỉ phân tích ngắn hạn",
+      "Có, mô phỏng và dự báo tác động",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI hỗ trợ mô phỏng và dự báo tác động dài hạn."
   },
   {
@@ -4802,12 +4802,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề về đạo đức không?",
     options: [
-      "Hỗ trợ phân tích, nhưng con người quyết định đạo đức",
       "Có, AI quyết định đạo đức",
       "Không, đạo đức chỉ của con người",
-      "Tùy vào tình huống"
+      "Tùy vào tình huống",
+      "Hỗ trợ phân tích, nhưng con người quyết định đạo đức"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích, nhưng quyết định đạo đức cần con người."
   },
   {
@@ -4818,12 +4818,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề về pháp lý không?",
     options: [
-      "Hỗ trợ phân tích, nhưng cần chuyên gia pháp lý",
       "Có, AI thay thế luật sư",
+      "Hỗ trợ phân tích, nhưng cần chuyên gia pháp lý",
       "Không, pháp lý chỉ của con người",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "AI hỗ trợ phân tích nhưng cần chuyên gia pháp lý kiểm tra."
   },
   {
@@ -4850,12 +4850,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề về quyền riêng tư không?",
     options: [
-      "Hỗ trợ phân tích và đề xuất giải pháp",
       "Có, AI bảo vệ quyền riêng tư",
       "Không, quyền riêng tư chỉ của con người",
-      "Tùy vào vấn đề"
+      "Tùy vào vấn đề",
+      "Hỗ trợ phân tích và đề xuất giải pháp"
     ],
-    answer: 0,
+    answer: 3,
     explanation: "AI hỗ trợ phân tích và đề xuất giải pháp cho quyền riêng tư."
   },
   {
@@ -4866,12 +4866,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "Khi giải quyết Business Case, cách sử dụng AI hiệu quả nhất là gì?",
     options: [
-      "Kết hợp AI với kinh nghiệm và đánh giá thực tế",
       "Để AI làm thay",
+      "Kết hợp AI với kinh nghiệm và đánh giá thực tế",
       "Không sử dụng AI",
       "Chỉ sử dụng AI một phần"
     ],
-    answer: 0,
+    answer: 1,
     explanation: "Cần kết hợp AI với kinh nghiệm và đánh giá thực tế."
   },
   {
@@ -4882,12 +4882,12 @@ const COMPETENCY_8 = [
     type: "single",
     question: "AI có thể hỗ trợ giải quyết vấn đề không có dữ liệu không?",
     options: [
-      "Hạn chế, cần ít nhất một số dữ liệu để phân tích",
       "Có, AI tự tạo dữ liệu",
       "Không, không thể",
+      "Hạn chế, cần ít nhất một số dữ liệu để phân tích",
       "Tùy vào vấn đề"
     ],
-    answer: 0,
+    answer: 2,
     explanation: "AI cần dữ liệu để phân tích, nhưng có thể làm việc với ít dữ liệu."
   },
   {
