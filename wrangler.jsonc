@@ -6,11 +6,14 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-
   "kv_namespaces": [
     {
       "binding": "MOS360_USERS_KV",
       "id": "dc0ad0df05914e888863c95abe080a3f"
+    },
+    {
+      "binding": "MOS360_COURSES_KV",
+      "id": "31110d6e2db34425accab5d6ae92ca46"
     }
   ]
 }

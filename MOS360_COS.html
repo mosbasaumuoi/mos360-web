@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOS360 COS — Competency Operating System</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js">
+    </script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js">
+    </script>
+    <script src="https://unpkg.com/zustand@4.4.7/umd/zustand.production.min.js">
+    </script>
+    <style>
+        /* ===== MOS360 DESIGN SYSTEM ===== */
+        :root {
+            --primary: #0068FF;
+            --primary-dark: #0052cc;
+            --accent: #00D4FF;
+            --radius: 16px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 12px 48px rgba(0, 104, 255, 0.12);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f8fafc;
+            color: #1a1a2e;
+            min-height: 100vh;
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        @keyframes glow {
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 104, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 104, 255, 0.2);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        .animate-slideIn {
+            animation: slideIn 0.4s ease forwards;
+        }
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* ===== MOS360 COMPONENTS ===== */
+        .cos-card {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px;
+            transition: all var(--transition);
+            border: 1px solid #f1f5f9;
+        }
+        .cos-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .cos-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all var(--transition);
+            background: #fff;
+            color: #1a1a2e;
+            font-family: inherit;
+            resize: vertical;
+        }
+        .cos-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 104, 255, 0.08);
+        }
+        .cos-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .cos-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 100px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .cos-btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            box-shadow: 0 4px 24px rgba(0, 104, 255, 0.2);
+        }
+        .cos-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 104, 255, 0.3);
+        }
+        .cos-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .cos-btn-outline {
+            background: transparent;
+            color: var(--gray-700);
+            border: 2px solid #e2e8f0;
+        }
+        .cos-btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 104, 255, 0.04);
+        }
+
+        .cos-btn-ghost {
+            background: transparent;
+            color: var(--gray-500);
+            padding: 8px 16px;
+        }
+        .cos-btn-ghost:hover {
+            background: #f1f5f9;
+            color: var(--gray-700);
+        }
+
+        .cos-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .cos-badge-primary {
+            background: rgba(0, 104, 255, 0.1);
+            color: var(--primary);
+        }
+        .cos-badge-success {
+            background: rgba(0, 184, 148, 0.1);
+            color: #00b894;
+        }
+        .cos-badge-warning {
+            background: rgba(253, 203, 110, 0.2);
+            color: #d4a02e;
+        }
+
+        /* ===== MESSAGE BUBBLES ===== */
+        .message-user {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border-radius: 18px 18px 4px 18px;
+            padding: 14px 20px;
+            max-width: 80%;
+            align-self: flex-end;
+            animation: slideIn 0.3s ease;
+        }
+        .message-assistant {
+            background: #f1f5f9;
+            color: #1a1a2e;
+            border-radius: 18px 18px 18px 4px;
+            padding: 14px 20px;
+            max-width: 80%;
+            align-self: flex-start;
+            animation: slideIn 0.3s ease;
+        }
+        .message-system {
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 12px;
+            padding: 12px 18px;
+            max-width: 90%;
+            align-self: center;
+            font-size: 14px;
+            text-align: center;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .cos-progress {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .cos-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .cos-card {
+                padding: 20px;
+            }
+            .message-user,
+            .message-assistant {
+                max-width: 90%;
+            }
+        }
+
+        /* ===== GLASS EFFECT ===== */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        .cos-title {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        .cos-subtitle {
+            font-size: 18px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 640px) {
+            .cos-title {
+                font-size: 24px;
+            }
+            .cos-subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        // ============================================================
+        // 1. RUNTIME SCHEMA & TYPES
+        // ============================================================
+        const COS = {
+            version: '0.1.0',
+            name: 'MOS360 COS',
+            layers: ['Goal', 'Context', 'Conversation', 'Evidence', 'Reflection', 'Portfolio']
+        };
+
+        // ============================================================
+        // 2. ZUSTAND STORE
+        // ============================================================
+        const { create } = window.zustand;
+
+        const useStore = create((set, get) => ({
+            // State
+            goal: '',
+            context: '',
+            competencyId: '',
+            conversations: [],
+            evidence: [],
+            reflections: [],
+            portfolio: [],
+            currentStep: 'goal', // goal | context | conversation | evidence | reflection | portfolio
+            isProcessing: false,
+            sessionId: null,
+
+            // Actions
+            setGoal: (goal) => set({ goal }),
+            setContext: (context) => set({ context }),
+            setCompetencyId: (competencyId) => set({ competencyId }),
+            setCurrentStep: (step) => set({ currentStep: step }),
+
+            addConversation: (msg) =>
+                set((state) => ({
+                    conversations: [...state.conversations, { ...msg, id: Date.now() + Math.random() }]
+                })),
+
+            addEvidence: (evidence) =>
+                set((state) => ({
+                    evidence: [...state.evidence, { ...evidence, id: Date.now() + Math.random(), validated: false }]
+                })),
+
+            addReflection: (reflection) =>
+                set((state) => ({
+                    reflections: [...state.reflections, { ...reflection, id: Date.now() + Math.random() }]
+                })),
+
+            addToPortfolio: (item) =>
+                set((state) => ({
+                    portfolio: [...state.portfolio, { ...item, id: Date.now() + Math.random(), createdAt: new Date()
+                            .toISOString() }]
+                })),
+
+            setProcessing: (status) => set({ isProcessing: status }),
+            setSessionId: (id) => set({ sessionId: id }),
+
+            reset: () =>
+                set({
+                    goal: '',
+                    context: '',
+                    competencyId: '',
+                    conversations: [],
+                    evidence: [],
+                    reflections: [],
+                    portfolio: [],
+                    currentStep: 'goal',
+                    isProcessing: false,
+                    sessionId: null
+                }),
+
+            // Getter
+            getProgress: () => {
+                const steps = ['goal', 'context', 'conversation', 'evidence', 'reflection', 'portfolio'];
+                const current = get().currentStep;
+                const index = steps.indexOf(current);
+                return Math.round((index / (steps.length - 1)) * 100);
+            }
+        }));
+
+        // ============================================================
+        // 3. CONVERSATION ENGINE
+        // ============================================================
+        class ConversationEngine {
+            constructor() {
+                this.store = useStore;
+            }
+
+            async startSession(goal, context, competencyId) {
+                const store = this.store.getState();
+                store.setGoal(goal);
+                store.setContext(context || '');
+                store.setCompetencyId(competencyId || '');
+                store.setSessionId('session_' + Date.now());
+                store.setCurrentStep('conversation');
+
+                // Add welcome message
+                const welcome = this.generateWelcome(goal, context);
+                store.addConversation({ role: 'assistant', content: welcome });
+
+                return true;
+            }
+
+            async processUserInput(content) {
+                const store = this.store.getState();
+                store.setProcessing(true);
+
+                // Add user message
+                store.addConversation({ role: 'user', content });
+
+                // Generate AI response
+                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 500));
+
+                const response = this.generateResponse(content, store);
+                store.addConversation({ role: 'assistant', content: response });
+
+                store.setProcessing(false);
+                return response;
+            }
+
+            generateWelcome(goal, context) {
+                let msg =
+                    `👋 Chào bạn! Mình sẽ đồng hành cùng bạn để đạt được mục tiêu: **"${goal}"**\n\n`;
+
+                if (context) {
+                    msg += `📌 Mình đã ghi nhận bối cảnh: "${context}"\n\n`;
+                }
+
+                msg += `🤔 Hãy bắt đầu bằng cách cho mình biết:\n`;
+                msg += `1️⃣ Bạn đã có những thông tin hoặc tài liệu gì liên quan đến mục tiêu này?\n`;
+                msg += `2️⃣ Bạn đang gặp thách thức gì cụ thể?\n`;
+                msg += `3️⃣ Bạn kỳ vọng kết quả sẽ như thế nào?\n\n`;
+                msg += `💡 **Gợi ý:** Hãy bắt đầu bằng câu hỏi hoặc chia sẻ suy nghĩ của bạn. Mình sẽ hỗ trợ bạn từng bước nhé! 🚀`;
+
+                return msg;
+            }
+
+            generateResponse(userInput, store) {
+                const input = userInput.toLowerCase();
+
+                // Detect if user is asking for summary
+                if (input.includes('tóm tắt') || input.includes('summary') || input.includes('tổng kết')) {
+                    const convCount = store.conversations.filter(c => c.role === 'user').length;
+                    if (convCount < 2) {
+                        return `📝 **Tóm tắt hiện tại:**\n\nChúng ta mới bắt đầu cuộc hội thoại. Bạn đã chia sẻ được một số thông tin ban đầu. Hãy tiếp tục trao đổi để mình có thể giúp bạn tốt hơn! 💪`;
+                    }
+                    return `📝 **Tóm tắt những gì đã thảo luận:**\n\n1. 🎯 Mục tiêu của bạn: **${store.goal}**\n2. 📌 Bối cảnh: ${store.context || 'Chưa có thông tin'}\n3. 💬 Số lượt trao đổi: ${store.conversations.filter(c => c.role === 'user').length}\n\n💡 **Gợi ý tiếp theo:** Bạn có muốn đi sâu vào một khía cạnh cụ thể không?`;
+                }
+
+                // Detect if user is asking for help
+                if (input.includes('giúp') || input.includes('help') || input.includes('hướng dẫn')) {
+                    return `🤝 **Mình sẵn sàng giúp bạn!**\n\nĐể mình hỗ trợ tốt nhất, bạn có thể:\n\n1️⃣ **Làm rõ mục tiêu:** Bạn muốn đạt được điều gì cụ thể?\n2️⃣ **Cung cấp thêm context:** Thông tin nào có thể hữu ích?\n3️⃣ **Đặt câu hỏi cụ thể:** Bạn đang gặp khó ở điểm nào?\n\nHãy cho mình biết nhé! 🚀`;
+                }
+
+                // Detect if user wants to generate evidence
+                if (input.includes('evidence') || input.includes('bằng chứng') || input.includes('lưu lại')) {
+                    return `📌 **Tạo Evidence — Bằng chứng năng lực**\n\nDựa trên những gì chúng ta đã thảo luận, mình thấy bạn đã:\n\n✅ Xác định rõ mục tiêu: ${store.goal}\n✅ Chia sẻ được bối cảnh và thông tin\n✅ Đặt những câu hỏi sâu sắc\n\n💡 **Mình đề xuất:** Hãy click vào nút "📌 Tạo Evidence" để lưu lại những gì bạn đã đạt được. Điều này sẽ giúp bạn:\n- Củng cố kiến thức\n- Có bằng chứng cho Portfolio\n- Theo dõi sự tiến bộ của mình\n\nBạn có muốn mình giúp bạn tóm tắt những điểm chính không?`;
+                }
+
+                // Detect if user wants to reflect
+                if (input.includes('suy ngẫm') || input.includes('reflection') || input.includes('học được')) {
+                    return `🪞 **Reflection — Suy ngẫm về quá trình**\n\nĐây là thời điểm tuyệt vời để nhìn lại những gì bạn đã học được:\n\n❓ **Hãy tự hỏi mình:**\n1. Điều gì đã hiệu quả trong quá trình này?\n2. Điều gì có thể làm tốt hơn?\n3. Bạn đã học được bài học gì mới?\n4. Bạn sẽ áp dụng kiến thức này như thế nào?\n\n📝 **Gợi ý:** Hãy viết ra câu trả lời của bạn — đây sẽ là một phần quan trọng trong Portfolio của bạn!`;
+                }
+
+                // Default response — AI Coach style
+                const responses = [
+                    `🤔 **Điều đó rất thú vị!** Hãy cùng phân tích sâu hơn:\n\n❓ Bạn có thể cho mình biết thêm về **lý do** đằng sau suy nghĩ này không?\n❓ Có **bằng chứng** hoặc **ví dụ** nào hỗ trợ cho quan điểm của bạn không?\n\n💡 Mình nghĩ việc đi sâu vào khía cạnh này sẽ giúp chúng ta hiểu rõ hơn về vấn đề.`,
+                    `🧠 **Một góc nhìn khác:**\n\nĐiều bạn vừa chia sẻ khiến mình nghĩ đến...\n\n❓ Nếu thay đổi một yếu tố, kết quả có thể thay đổi như thế nào?\n❓ Có cách tiếp cận nào khác không?\n\n🌈 Đây là cơ hội tốt để khám phá thêm nhiều hướng giải quyết!`,
+                    `💡 **Mình có một gợi ý:**\n\nHãy thử áp dụng **khung tư duy sau**:\n1. Vấn đề thực sự là gì?\n2. Có những lựa chọn nào?\n3. Lựa chọn nào phù hợp nhất với mục tiêu của bạn?\n\nBạn nghĩ sao về cách tiếp cận này?`,
+                    `🌟 **Bạn đang tiến bộ tốt đấy!**\n\nMình thấy bạn đang suy nghĩ rất có hệ thống.\n\n❓ Nếu bạn phải giải thích điều này cho người khác, bạn sẽ nói như thế nào?\n❓ Điều gì là quan trọng nhất cần truyền đạt?\n\n📚 Việc giải thích cho người khác là cách tuyệt vời để củng cố hiểu biết của chính mình.`
+                ];
+
+                // Try to provide more contextual response based on conversation length
+                const convCount = store.conversations.filter(c => c.role === 'user').length;
+
+                if (convCount < 3) {
+                    return `📌 **Mình muốn hiểu rõ hơn:**\n\nBạn vừa chia sẻ: "${userInput}"\n\n❓ Điều này liên quan thế nào đến mục tiêu **"${store.goal}"** của bạn?\n❓ Bạn có thể cụ thể hóa thêm một chút không?\n\n🔍 Việc làm rõ sẽ giúp chúng ta tiến xa hơn!`;
+                }
+
+                if (convCount > 8) {
+                    return `🎯 **Chúng ta đã đi được khá xa!**\n\nMình thấy bạn đã có nhiều suy nghĩ sâu sắc.\n\n📌 **Mời bạn điểm lại:**\n1. Điều gì là insight lớn nhất bạn có được?\n2. Bạn đã thay đổi quan điểm nào?\n3. Bước tiếp theo bạn sẽ làm gì?\n\n🪞 Hãy dành một chút thời gian để tổng kết trước khi chúng ta tiếp tục!`;
+                }
+
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            async generateEvidence() {
+                const store = this.store.getState();
+                const convCount = store.conversations.length;
+
+                if (convCount < 3) {
+                    return {
+                        success: false,
+                        message: '⚠️ Hãy trao đổi thêm một chút nữa để mình có thể tạo Evidence tốt nhất cho bạn!'
+                    };
+                }
+
+                const evidenceContent = `📋 **Tóm tắt cuộc hội thoại**
+
+🎯 **Mục tiêu:** ${store.goal}
+📌 **Bối cảnh:** ${store.context || 'Không có thông tin thêm'}
+
+💬 **Những điểm chính đã thảo luận:**
+${store.conversations.filter(c => c.role === 'user').map((c, i) => `${i+1}. ${c.content.slice(0, 100)}${c.content.length > 100 ? '...' : ''}`).join('\n')}
+
+📌 **Evidence được tạo vào:** ${new Date().toLocaleString('vi-VN')}
+
+🪞 **Gợi ý Reflection:**
+- Bạn đã học được gì từ cuộc hội thoại này?
+- Điều gì sẽ áp dụng vào thực tế?
+- Bạn cần tìm hiểu thêm gì không?`;
+
+                store.addEvidence({
+                    type: 'summary',
+                    content: evidenceContent,
+                    sessionId: store.sessionId
+                });
+
+                store.addToPortfolio({
+                    type: 'evidence',
+                    title: `Evidence ${new Date().toLocaleDateString('vi-VN')}`,
+                    content: evidenceContent
+                });
+
+                return {
+                    success: true,
+                    evidence: evidenceContent
+                };
+            }
+
+            async processReflection(answers) {
+                const store = this.store.getState();
+
+                const reflectionContent =
+                    `🪞 **Reflection Journal**
+
+📅 ${new Date().toLocaleString('vi-VN')}
+🎯 Mục tiêu: ${store.goal}
+
+✅ **Điều đã hiệu quả:**
+${answers.whatWorked || 'Chưa có thông tin'}
+
+🔧 **Điều cần cải thiện:**
+${answers.whatFailed || 'Chưa có thông tin'}
+
+📚 **Bài học đã học:**
+${answers.whatLearned || 'Chưa có thông tin'}
+
+🚀 **Hành động tiếp theo:**
+${answers.nextAction || 'Chưa có thông tin'}`;
+
+                store.addReflection({
+                    whatWorked: answers.whatWorked,
+                    whatFailed: answers.whatFailed,
+                    whatLearned: answers.whatLearned,
+                    nextAction: answers.nextAction,
+                    sessionId: store.sessionId
+                });
+
+                store.addToPortfolio({
+                    type: 'reflection',
+                    title: `Reflection ${new Date().toLocaleDateString('vi-VN')}`,
+                    content: reflectionContent
+                });
+
+                store.setCurrentStep('portfolio');
+
+                return {
+                    success: true,
+                    reflection: reflectionContent
+                };
+            }
+        }
+
+        // ============================================================
+        // 4. REACT COMPONENTS
+        // ============================================================
+        const { useState, useEffect, useRef, useMemo } = React;
+
+        // ===== Progress Bar =====
+        const ProgressBar = () => {
+            const progress = useStore(state => state.getProgress());
+            const currentStep = useStore(state => state.currentStep);
+            const steps = ['goal', 'context', 'conversation', 'evidence', 'reflection', 'portfolio'];
+            const labels = ['🎯 Goal', '🧩 Context', '💬 Conversation', '📌 Evidence', '🪞 Reflection', '🌱 Portfolio'];
+
+            return ( <
+                    div className = "space-y-2" >
+                    <
+                    div className = "flex justify-between text-xs text-gray-500" >
+                    <
+                    span > Tiến độ < /span> <
+                    span > { progress }% < /span> <
+                    /div> <
+                    div className = "cos-progress" >
+                    <
+                    div className = "cos-progress-bar"
+                    style = { { width: `${progress}%` } } > < /div> <
+                    /div> <
+                    div className = "flex justify-between text-xs text-gray-400 mt-1" > {
+                        steps.map((step, i) => ( <
+                            span key = { step }
+                            className = { currentStep === step ? 'text-primary font-semibold' : '' } >
+                            { labels[i] } <
+                            /span>
+                        ))
+                    } <
+                    /div> <
+                    /div>
+                );
+            };
+
+            // ===== Goal Step =====
+            const GoalStep = () => {
+                const { goal, context, competencyId, setGoal, setContext, setCompetencyId, setCurrentStep, setProcessing,
+                    isProcessing } = useStore();
+                const engine = useMemo(() => new ConversationEngine(), []);
+
+                const handleSubmit = async (e) => {
+                    e.preventDefault();
+                    if (!goal.trim()) return;
+
+                    setProcessing(true);
+                    await engine.startSession(goal, context, competencyId);
+                    setProcessing(false);
+                };
+
+                return ( <
+                        div className = "max-w-2xl mx-auto animate-fadeInUp" >
+                        <
+                        div className = "cos-card" >
+                        <
+                        div className = "text-center mb-6" >
+                        <
+                        span className = "text-5xl block mb-3" > 🎯 < /span> <
+                        h1 className = "cos-title" > Mục tiêu của bạn hôm nay là gì? < /h1> <
+                        p className = "cos-subtitle mt-2" >
+                        Hãy cho mình biết bạn muốn đạt được điều gì. <
+                        br / >
+                        Mình sẽ đồng hành và hỗ trợ bạn từng bước. <
+                        /p> <
+                        /div>
+
+                        <
+                        form onSubmit = { handleSubmit }
+                        className = "space-y-4" >
+                        <
+                        div >
+                        <
+                        label className = "text-sm font-medium block mb-1.5" >
+                        Mục tiêu < span className = "text-red-500" > * < /span> <
+                        /label> <
+                        textarea
+                        value = { goal }
+                        onChange = { (e) => setGoal(e.target.value) }
+                        placeholder = "Ví dụ: Tôi muốn học cách viết email chuyên nghiệp với AI..."
+                        className = "cos-input min-h-[100px]"
+                        required /
+                        >
+                        <
+                        /div>
+
+                        <
+                        div >
+                        <
+                        label className = "text-sm font-medium block mb-1.5" >
+                        Bối cảnh < span className = "text-gray-400 text-xs" > (không bắt buộc) < /span> <
+                        /label> <
+                        textarea
+                        value = { context }
+                        onChange = { (e) => setContext(e.target.value) }
+                        placeholder = "Thông tin thêm về tình huống của bạn..."
+                        className = "cos-input min-h-[80px]"
+                        /
+                        >
+                        <
+                        /div>
+
+                        <
+                        div >
+                        <
+                        label className = "text-sm font-medium block mb-1.5" >
+                        Competency < span className = "text-gray-400 text-xs" > (không bắt buộc) < /span> <
+                        /label> <
+                        select
+                        value = { competencyId }
+                        onChange = { (e) => setCompetencyId(e.target.value) }
+                        className = "cos-input" >
+                        <
+                        option value = "" > Chọn Competency... < /option> <
+                        option value = "AI-MND-001" > AI - MND - 001—AI Mindset < /option> <
+                        option value = "AI-THK-001" > AI - THK - 001—AI Thinking < /option> <
+                        option value = "AI-COM-001" > AI - COM - 001—AI Communication < /option> <
+                        /select> <
+                        /div>
+
+                        <
+                        button
+                        type = "submit"
+                        className = "cos-btn cos-btn-primary w-full"
+                        disabled = { isProcessing || !goal.trim() } >
+                        {
+                            isProcessing ? '⏳ Đang xử lý...' : '🚀 Bắt đầu hành trình' } <
+                            /button> <
+                            /form> <
+                            /div> <
+                            /div>
+                        );
+                    };
+
+                    // ===== Conversation Step =====
+                    const ConversationStep = () => {
+                        const { conversations, isProcessing, currentStep, setCurrentStep, addEvidence, addToPortfolio,
+                            sessionId, goal } = useStore();
+                        const [input, setInput] = useState('');
+                        const [isGeneratingEvidence, setIsGeneratingEvidence] = useState(false);
+                        const engine = useMemo(() => new ConversationEngine(), []);
+                        const messagesEndRef = useRef(null);
+
+                        useEffect(() => {
+                            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+                        }, [conversations]);
+
+                        const handleSend = async () => {
+                            if (!input.trim() || isProcessing) return;
+
+                            const message = input;
+                            setInput('');
+                            await engine.processUserInput(message);
+                        };
+
+                        const handleKeyDown = (e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault();
+                                handleSend();
+                            }
+                        };
+
+                        const handleGenerateEvidence = async () => {
+                            setIsGeneratingEvidence(true);
+                            const result = await engine.generateEvidence();
+                            if (result.success) {
+                                // Auto move to evidence step after generating
+                                setTimeout(() => {
+                                    setCurrentStep('evidence');
+                                }, 1000);
+                            }
+                            setIsGeneratingEvidence(false);
+                        };
+
+                        const hasConversations = conversations.length > 0;
+                        const userMessages = conversations.filter(c => c.role === 'user').length;
+
+                        return ( <
+                                div className = "max-w-3xl mx-auto animate-fadeInUp" >
+                                <
+                                div className = "cos-card" >
+                                <
+                                div className = "flex items-center justify-between mb-4" >
+                                <
+                                div >
+                                <
+                                span className = "text-2xl mr-2" > 💬 < /span> <
+                                span className = "font-semibold" > Cuộc hội thoại < /span> <
+                                span className = "text-xs text-gray-400 ml-2" > ({userMessages} lượt trao đổi) < /span> <
+                                /div> <
+                                button
+                                onClick = {
+                                    () => setCurrentStep('evidence') }
+                                className = "cos-btn cos-btn-ghost text-sm" >
+                                📌 Xem Evidence <
+                                /button> <
+                                /div>
+
+                                <
+                                div className = "h-[400px] overflow-y-auto space-y-3 p-4 bg-gray-50 rounded-xl mb-4" > {
+                                    conversations.length === 0 ? ( <
+                                        div className = "flex flex-col items-center justify-center h-full text-gray-400" >
+                                        <
+                                        span className = "text-4xl mb-3" > 💭 < /span> <
+                                        p > Hãy bắt đầu cuộc hội thoại... < /p> <
+                                        p className = "text-sm" > Mình đang lắng nghe bạn! < /p> <
+                                        /div>
+                                    ) :
+                                    conversations.map((msg, idx) => ( <
+                                        div key = { idx }
+                                        className = { `flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}` } >
+                                        <
+                                        div className = { msg.role === 'user' ? 'message-user' : 'message-assistant' } >
+                                        <
+                                        div className = "whitespace-pre-wrap text-sm" > { msg.content } < /div> <
+                                        /div> <
+                                        /div>
+                                    ))
+                                } <
+                                div ref = { messagesEndRef }
+                                /> <
+                                /div>
+
+                                <
+                                div className = "flex gap-2" >
+                                <
+                                textarea
+                                value = { input }
+                                onChange = { (e) => setInput(e.target.value) }
+                                onKeyDown = { handleKeyDown }
+                                placeholder = "Nhập câu hỏi hoặc chia sẻ suy nghĩ của bạn..."
+                                className = "cos-input min-h-[60px] flex-1"
+                                disabled = { isProcessing }
+                                /
+                                >
+                                <
+                                button
+                                onClick = { handleSend }
+                                className = "cos-btn cos-btn-primary px-6 h-[60px]"
+                                disabled = { isProcessing || !input.trim() } >
+                                {
+                                    isProcessing ? '⏳' : '📤' } <
+                                    /button> <
+                                    /div>
+
+                                    <
+                                    div className = "flex gap-2 mt-3 flex-wrap" >
+                                    <
+                                    button
+                                    onClick = { handleGenerateEvidence }
+                                    className = "cos-btn cos-btn-outline text-sm"
+                                    disabled = { isGeneratingEvidence || conversations.length < 2 } >
+                                    {
+                                        isGeneratingEvidence ? '⏳ Đang tạo...' : '📌 Tạo Evidence' } <
+                                        /button> <
+                                        button
+                                        onClick = {
+                                            () => setCurrentStep('reflection') }
+                                    className = "cos-btn cos-btn-ghost text-sm" >
+                                    🪞 Suy ngẫm <
+                                    /button> <
+                                    button
+                                    onClick = {
+                                        () => setCurrentStep('portfolio') }
+                                    className = "cos-btn cos-btn-ghost text-sm" >
+                                    🌱 Portfolio <
+                                    /button> <
+                                    /div> <
+                                    /div> <
+                                    /div>
+                                );
+                            };
+
+                            // ===== Evidence Step =====
+                            const EvidenceStep = () => {
+                                const { evidence, setCurrentStep, addToPortfolio } = useStore();
+
+                                const handleAddToPortfolio = (ev) => {
+                                    addToPortfolio({
+                                        type: 'evidence',
+                                        title: `Evidence ${new Date().toLocaleDateString('vi-VN')}`,
+                                        content: ev.content,
+                                        source: 'conversation'
+                                    });
+                                };
+
+                                return ( <
+                                        div className = "max-w-2xl mx-auto animate-fadeInUp" >
+                                        <
+                                        div className = "cos-card" >
+                                        <
+                                        div className = "flex items-center justify-between mb-4" >
+                                        <
+                                        div >
+                                        <
+                                        span className = "text-2xl mr-2" > 📌 < /span> <
+                                        span className = "font-semibold" > Evidence—Bằng chứng năng lực < /span> <
+                                        /div> <
+                                        button
+                                        onClick = {
+                                            () => setCurrentStep('conversation') }
+                                        className = "cos-btn cos-btn-ghost text-sm" >
+                                        💬 Quay lại hội thoại <
+                                        /button> <
+                                        /div>
+
+                                        {
+                                            evidence.length === 0 ? ( <
+                                                div className = "text-center py-12 text-gray-400" >
+                                                <
+                                                span className = "text-4xl block mb-3" > 📭 < /span> <
+                                                p > Chưa có Evidence nào < /p> <
+                                                p className = "text-sm" >
+                                                Hãy quay lại cuộc hội thoại và tạo Evidence <
+                                                br / >
+                                                hoặc tiếp tục trao đổi để có thêm thông tin. <
+                                                /p> <
+                                                button
+                                                onClick = {
+                                                    () => setCurrentStep('conversation') }
+                                                className = "cos-btn cos-btn-primary mt-4" >
+                                                💬 Tiếp tục hội thoại <
+                                                /button> <
+                                                /div>
+                                            ) :
+                                            evidence.map((ev, idx) => ( <
+                                                div key = { idx }
+                                                className = "border rounded-xl p-4 mb-3 hover:border-primary transition-colors" >
+                                                <
+                                                div className = "flex items-center justify-between mb-2" >
+                                                <
+                                                span className = "text-xs text-gray-400" >
+                                                { new Date(ev.id).toLocaleString('vi-VN') } <
+                                                /span> <
+                                                span className = "cos-badge cos-badge-primary" >
+                                                { ev.type === 'summary' ? '📝 Tóm tắt' : '📎 Sản phẩm' } <
+                                                /span> <
+                                                /div> <
+                                                div className = "whitespace-pre-wrap text-sm" > { ev.content } < /div> <
+                                                button
+                                                onClick = {
+                                                    () => handleAddToPortfolio(ev) }
+                                                className = "cos-btn cos-btn-ghost text-sm mt-3" >
+                                                📂 Lưu vào Portfolio <
+                                                /button> <
+                                                /div>
+                                            ))
+                                        }
+
+                                        <
+                                        div className = "flex gap-2 mt-4" >
+                                        <
+                                        button
+                                        onClick = {
+                                            () => setCurrentStep('reflection') }
+                                        className = "cos-btn cos-btn-primary flex-1" >
+                                        🪞 Reflection — Học được gì? <
+                                        /button> <
+                                        /div> <
+                                        /div> <
+                                        /div>
+                                    );
+                                };
+
+                                // ===== Reflection Step =====
+                                const ReflectionStep = () => {
+                                    const { setCurrentStep, addReflection, addToPortfolio, sessionId } = useStore();
+                                    const [whatWorked, setWhatWorked] = useState('');
+                                    const [whatFailed, setWhatFailed] = useState('');
+                                    const [whatLearned, setWhatLearned] = useState('');
+                                    const [nextAction, setNextAction] = useState('');
+                                    const [isSubmitting, setIsSubmitting] = useState(false);
+                                    const engine = useMemo(() => new ConversationEngine(), []);
+
+                                    const handleSubmit = async () => {
+                                        setIsSubmitting(true);
+                                        await engine.processReflection({
+                                            whatWorked,
+                                            whatFailed,
+                                            whatLearned,
+                                            nextAction
+                                        });
+                                        setIsSubmitting(false);
+                                    };
+
+                                    return ( <
+                                            div className = "max-w-2xl mx-auto animate-fadeInUp" >
+                                            <
+                                            div className = "cos-card" >
+                                            <
+                                            div className = "text-center mb-6" >
+                                            <
+                                            span className = "text-5xl block mb-3" > 🪞 < /span> <
+                                            h1 className = "cos-title" > Reflection—Bạn học được gì? < /h1> <
+                                            p className = "cos-subtitle mt-2" >
+                                            Hãy dành vài phút để suy ngẫm về những gì đã học được. <
+                                            /p> <
+                                            /div>
+
+                                            <
+                                            div className = "space-y-4" >
+                                            <
+                                            div >
+                                            <
+                                            label className = "text-sm font-medium block mb-1.5" >
+                                            ✅ Điều gì đã hiệu quả? <
+                                            /label> <
+                                            textarea
+                                            value = { whatWorked }
+                                            onChange = { (e) => setWhatWorked(e.target.value) }
+                                            placeholder = "Những gì bạn đã làm tốt trong quá trình này..."
+                                            className = "cos-input min-h-[80px]"
+                                            /
+                                            >
+                                            <
+                                            /div>
+
+                                            <
+                                            div >
+                                            <
+                                            label className = "text-sm font-medium block mb-1.5" >
+                                            🔧 Điều gì chưa hiệu quả? <
+                                            /label> <
+                                            textarea
+                                            value = { whatFailed }
+                                            onChange = { (e) => setWhatFailed(e.target.value) }
+                                            placeholder = "Những gì có thể cải thiện..."
+                                            className = "cos-input min-h-[80px]"
+                                            /
+                                            >
+                                            <
+                                            /div>
+
+                                            <
+                                            div >
+                                            <
+                                            label className = "text-sm font-medium block mb-1.5" >
+                                            📚 Bạn đã học được gì? <
+                                            /label> <
+                                            textarea
+                                            value = { whatLearned }
+                                            onChange = { (e) => setWhatLearned(e.target.value) }
+                                            placeholder = "Những bài học quan trọng bạn rút ra được..."
+                                            className = "cos-input min-h-[80px]"
+                                            /
+                                            >
+                                            <
+                                            /div>
+
+                                            <
+                                            div >
+                                            <
+                                            label className = "text-sm font-medium block mb-1.5" >
+                                            🚀 Hành động tiếp theo? <
+                                            /label> <
+                                            textarea
+                                            value = { nextAction }
+                                            onChange = { (e) => setNextAction(e.target.value) }
+                                            placeholder = "Bạn sẽ làm gì tiếp theo với những gì đã học?"
+                                            className = "cos-input min-h-[80px]"
+                                            /
+                                            >
+                                            <
+                                            /div>
+
+                                            <
+                                            button
+                                            onClick = { handleSubmit }
+                                            className = "cos-btn cos-btn-primary w-full"
+                                            disabled = { isSubmitting } >
+                                            {
+                                                isSubmitting ? '⏳ Đang xử lý...' : '✅ Hoàn thành Reflection' } <
+                                                /button> <
+                                                button
+                                                onClick = {
+                                                    () => setCurrentStep('portfolio') }
+                                                className = "cos-btn cos-btn-ghost w-full mt-2" >
+                                                🌱 Xem Portfolio <
+                                                /button> <
+                                                /div> <
+                                                /div> <
+                                                /div>
+                                            );
+                                        };
+
+                                        // ===== Portfolio Step =====
+                                        const PortfolioStep = () => {
+                                            const { portfolio, setCurrentStep, reset } = useStore();
+
+                                            return ( <
+                                                    div className = "max-w-2xl mx-auto animate-fadeInUp" >
+                                                    <
+                                                    div className = "cos-card" >
+                                                    <
+                                                    div className = "flex items-center justify-between mb-4" >
+                                                    <
+                                                    div >
+                                                    <
+                                                    span className = "text-2xl mr-2" > 🌱 < /span> <
+                                                    span className = "font-semibold" > Portfolio—Hành trình phát triển < /span> <
+                                                    /div> <
+                                                    button
+                                                    onClick = {
+                                                        () => reset() }
+                                                    className = "cos-btn cos-btn-ghost text-sm text-red-500 hover:text-red-600" >
+                                                    🔄 Bắt đầu lại <
+                                                    /button> <
+                                                    /div>
+
+                                                    {
+                                                        portfolio.length === 0 ? ( <
+                                                            div className = "text-center py-12 text-gray-400" >
+                                                            <
+                                                            span className = "text-4xl block mb-3" > 🌱 < /span> <
+                                                            p > Portfolio của bạn đang trống < /p> <
+                                                            p className = "text-sm" >
+                                                            Hãy tạo Evidence và Reflection để bắt đầu xây dựng Portfolio
+                                                            của bạn. <
+                                                            /p> <
+                                                            button
+                                                            onClick = {
+                                                                () => setCurrentStep('conversation') }
+                                                            className = "cos-btn cos-btn-primary mt-4" >
+                                                            💬 Bắt đầu hội thoại <
+                                                            /button> <
+                                                            /div>
+                                                        ) :
+                                                        <
+                                                        div className = "space-y-3" > {
+                                                            portfolio.map((item, idx) => ( <
+                                                                div key = { idx }
+                                                                className = "border rounded-xl p-4 hover:shadow-md transition-shadow" >
+                                                                <
+                                                                div className = "flex items-center justify-between mb-2" >
+                                                                <
+                                                                span className = "text-sm font-medium" >
+                                                                { item.type === 'evidence' ? '📌 Evidence' : '🪞 Reflection' } <
+                                                                /span> <
+                                                                span className = "text-xs text-gray-400" >
+                                                                { new Date(item.createdAt).toLocaleString('vi-VN') } <
+                                                                /span> <
+                                                                /div> <
+                                                                div className = "whitespace-pre-wrap text-sm max-h-[100px] overflow-y-auto text-gray-600" >
+                                                                { item.content.slice(0, 300) } {
+                                                                item.content.length > 300 ? '...' : '' } <
+                                                                /div> <
+                                                                /div>
+                                                            ))
+                                                        } <
+                                                        /div>
+                                                    }
+
+                                                    <
+                                                    div className = "mt-4 p-4 bg-primary/5 rounded-xl border border-primary/10" >
+                                                    <
+                                                    p className = "text-sm text-gray-600" >
+                                                    🧬 < span className = "font-semibold" > { portfolio.length } < /span> mục đã lưu trong Portfolio. <
+                                                    br / >
+                                                    Tiếp tục học tập để xây dựng năng lực của bạn! <
+                                                    /p> <
+                                                    /div> <
+                                                    /div> <
+                                                    /div>
+                                                );
+                                            };
+
+                                            // ============================================================
+                                            // 5. MAIN APP
+                                            // ============================================================
+                                            const App = () => {
+                                                const currentStep = useStore(state => state.currentStep);
+                                                const progress = useStore(state => state.getProgress());
+
+                                                return ( <
+                                                    div className = "min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" >
+                                                    <
+                                                    header className = "sticky top-0 z-50 glass border-b border-gray-200/50" >
+                                                    <
+                                                    div className = "max-w-5xl mx-auto px-4 py-3 flex items-center justify-between" >
+                                                    <
+                                                    div className = "flex items-center gap-2" >
+                                                    <
+                                                    span className = "text-2xl" > 🧬 < /span> <
+                                                    span className = "font-bold text-gray-800" > MOS360 < span
+                                                    className = "text-primary" > COS < /span < /span> <
+                                                    span className = "text-xs text-gray-400 ml-1" > v0.1 < /span> <
+                                                    /div> <
+                                                    div className = "flex items-center gap-3" >
+                                                    <
+                                                    span className = "text-xs text-gray-400" > { progress } % < /span> <
+                                                    /div> <
+                                                    /div> <
+                                                    /header>
+
+                                                    <
+                                                    div className = "max-w-5xl mx-auto px-4 py-6" >
+                                                    <
+                                                    ProgressBar / >
+
+                                                    <
+                                                    div className = "mt-6" > {
+                                                        currentStep === 'goal' && < GoalStep / >
+                                                    } {
+                                                        currentStep === 'conversation' && < ConversationStep / >
+                                                    } {
+                                                        currentStep === 'evidence' && < EvidenceStep / >
+                                                    } {
+                                                        currentStep === 'reflection' && < ReflectionStep / >
+                                                    } {
+                                                        currentStep === 'portfolio' && < PortfolioStep / >
+                                                    } <
+                                                    /div> <
+                                                    /div> <
+                                                    /div>
+                                                );
+                                            };
+
+                                            // ============================================================
+                                            // 6. RENDER
+                                            // ============================================================
+                                            const root = ReactDOM.createRoot(document.getElementById('root'));
+                                            root.render( < App / > );
+    </script>
+</body>
+</html>

@@ -408,6 +408,17 @@ export default {
             return new Response(getFlashcardUI("AI PRODUCTIVITY", [...AI_PRODUCTIVITY], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
         }
 
+        if (path === "/cos") {
+            const cosHtml = await env.MOS360_COURSES_KV.get('cos_page_html');
+            if (cosHtml) {
+                return new Response(cosHtml, { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+            }
+            // Fallback nếu chưa có trong KV
+            return new Response(`<!DOCTYPE html><html><body>Trang COS đang cập nhật...</body></html>`, {
+                headers: { "Content-Type": "text/html;charset=UTF-8" }
+            });
+        }
+
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
         let studentData = "";
         try {
