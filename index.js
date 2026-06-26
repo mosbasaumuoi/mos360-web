@@ -1008,7 +1008,7 @@ ${mode === 'register' ? `
   <div style="position:relative;z-index:1">
     <div class="hn-badge">✦ Trung tâm tin học MOS360</div>
     <h1 class="hn-h1">Xóa tan nỗi lo<br><span class="g1">chuẩn đầu ra</span> <span class="g2">cho sinh viên</span></h1>
-    <p class="hn-sub">Học thật · Tiến bộ thật · Làm được thật.<br>MOS chỉ là chứng nhận — kỹ năng mới là tài sản thật sự.</p>
+    <p class="hn-sub">Học thật · Tiến bộ thật · Làm được thật.<br>MOS/IC3/AI chỉ là chứng nhận — kỹ năng mới là tài sản thật sự.</p>
     <div class="hn-acts">
       <a href="/courses" class="hn-btn-p">Xem khóa học →</a>
       <a href="/register#hn-register" class="hn-btn-s">Đăng ký ngay</a>
@@ -1389,6 +1389,7 @@ ${mode !== 'home' ? `
             <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ppt" value="PowerPoint 2019"><span>📑 Luyện thi PowerPoint</span></label>
             <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ic3" value="IC3 GS6"><span>🌐 Luyện thi IC3 GS6</span></label>
             <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ai" value="Generative AI"><span>🤖 Generative AI</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_aip" value="AI Productivity"><span>⚡ Làm việc hiệu quả với AI</span></label>
           </div>
         </div>
         <div class="hn-row">
@@ -1752,7 +1753,7 @@ async function submitForm(type) {
     var sdt = document.getElementById('hoc_sdt').value.trim();
     if (!ten || !sdt) { showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ Họ tên và SĐT'); return; }
     var khoahoc = [];
-    ['we','ppt','ic3','ai'].forEach(function(k) {
+    ['we','ppt','ic3','ai','aip'].forEach(function(k) {
       var el = document.getElementById('hoc_kh_' + k);
       if (el && el.checked) khoahoc.push(el.value);
     });
