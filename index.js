@@ -1182,7 +1182,7 @@ ${promoSectionHtml}
         <div class="hn-cbody">
           <div class="hn-ctitle">Làm việc hiệu quả với AI</div>
           <div class="hn-cdesc">8 năng lực AI Productivity: Tư duy, Giao tiếp, Nghiên cứu, Office, Kế hoạch, Quyết định, Workflow, Thực chiến.</div>
-          <div class="hn-cprice" style="color:#0068FF">100.000đ <span class="old">400.000đ</span></div>
+          <div class="hn-cprice" style="color:#0068FF">300.000đ <span class="old">600.000đ</span></div>
           <div class="hn-cbtns">
             <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
             <a href="/ai-productivity" class="hn-cbtn-s">▶ Học thử</a>
@@ -2050,7 +2050,7 @@ async function hnDoLookup() {
                     <span style="background:rgba(0,104,255,0.1); color:#0068FF; padding:4px 12px; border-radius:15px; font-size:0.75rem; font-weight:bold;">🚀 AI PRODUCTIVITY</span>
                     <h3 style="margin:12px 0 8px 0; font-size:1.2rem; color:#0068FF;">Làm việc hiệu quả với AI</h3>
                     <p style="color:var(--muted); font-size:0.85rem; line-height:1.5;">300 câu hỏi · 8 Competencies · Từ Tư duy đến Thực chiến AI trong công việc thực tế.</p>
-                    <div class="price-tag">100.000đ <span>400.000đ</span></div>
+                    <div class="price-tag">300.000đ <span>600.000đ</span></div>
                     <a href="/course-intro/aip" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:#0068FF;background:rgba(0,104,255,0.06);border:1px solid rgba(0,104,255,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
