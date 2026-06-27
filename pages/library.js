@@ -20,6 +20,7 @@ export function getLibraryUI() {
             <button onclick="exportJSON()" style="padding:9px 18px;background:#F0F4FA;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">📤 Export JSON</button>
             <button onclick="loadLinks()" style="padding:9px 18px;background:#F0F4FA;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">🔄 Làm mới</button>
             <button onclick="clearAllLinks()" style="padding:9px 18px;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">🗑️ Xóa tất cả</button>
+            <button id="btnDeleteSelected" onclick="deleteSelected()" style="display:none;padding:9px 18px;background:#7f1d1d;border:1px solid #ef4444;color:#fff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">🗑️ Xóa đã chọn (<span id="selectedCount">0</span>)</button>
         </div>
     </div>
 
@@ -58,6 +59,7 @@ export function getLibraryUI() {
         <table id="libTable" style="display:none;width:100%;border-collapse:collapse;">
             <thead>
                 <tr style="background:#F8FAFD;border-bottom:1px solid var(--border);">
+                    <th id="libCheckCol" style="display:none;padding:11px 12px;width:36px;"><input type="checkbox" id="checkAll" onchange="toggleCheckAll(this)" style="cursor:pointer;width:15px;height:15px;"></th>
                     <th style="padding:11px 16px;text-align:left;font-size:0.75rem;font-weight:800;color:var(--muted);letter-spacing:.4px;white-space:nowrap;">SHORT KEY</th>
                     <th style="padding:11px 16px;text-align:left;font-size:0.75rem;font-weight:800;color:var(--muted);letter-spacing:.4px;">TÊN / URL ĐẦY ĐỦ</th>
                     <th style="padding:11px 16px;text-align:left;font-size:0.75rem;font-weight:800;color:var(--muted);letter-spacing:.4px;white-space:nowrap;">DANH MỤC</th>
@@ -186,9 +188,62 @@ export function getLibraryUI() {
     if (IS_ADMIN) {
         document.getElementById('libAdminBar').style.display = 'flex';
         document.getElementById('libAdminCol').style.display = 'table-cell';
+        document.getElementById('libCheckCol').style.display = 'table-cell';
     }
 
     loadLinks();
+
+    // ── CHECKBOX & DELETE SELECTED ──────────────────────────────
+    window.toggleCheckAll = function(cb) {
+        var checks = document.querySelectorAll('.lib-check');
+        checks.forEach(function(c) { c.checked = cb.checked; });
+        updateSelectedCount();
+    };
+
+    window.updateSelectedCount = function() {
+        var checked = document.querySelectorAll('.lib-check:checked');
+        var btn = document.getElementById('btnDeleteSelected');
+        var countEl = document.getElementById('selectedCount');
+        if (countEl) countEl.textContent = checked.length;
+        if (btn) btn.style.display = checked.length > 0 ? 'block' : 'none';
+        // Sync check-all state
+        var all = document.querySelectorAll('.lib-check');
+        var checkAll = document.getElementById('checkAll');
+        if (checkAll) checkAll.checked = all.length > 0 && checked.length === all.length;
+        // Hiện cột checkbox cells
+        document.querySelectorAll('.lib-check-cell').forEach(function(td) {
+            td.style.display = 'table-cell';
+        });
+    };
+
+    window.deleteSelected = async function() {
+        var checked = document.querySelectorAll('.lib-check:checked');
+        if (!checked.length) return;
+        var keys = Array.from(checked).map(function(c) { return c.getAttribute('data-key'); });
+        if (!confirm('X\u00F3a ' + keys.length + ' links đã chọn?')) return;
+
+        var btn = document.getElementById('btnDeleteSelected');
+        btn.textContent = '\u23F3 Đang xóa...'; btn.disabled = true;
+
+        var ok = 0, fail = 0;
+        for (var i = 0; i < keys.length; i++) {
+            try {
+                var res = await fetch('/api/links/delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Admin-Auth': 'mos360_admin' },
+                    body: JSON.stringify({ key: keys[i] })
+                });
+                var data = await res.json();
+                if (data.ok) ok++; else fail++;
+            } catch(e) { fail++; }
+        }
+
+        toast('\u2705 Đã xóa ' + ok + ' links' + (fail ? ', ' + fail + ' lỗi' : ''));
+        btn.style.display = 'none';
+        btn.textContent = '\uD83D\uDDD1\uFE0F Xóa đã chọn (<span id="selectedCount">0</span>)';
+        btn.disabled = false;
+        await loadLinks();
+    };
 
     // ── EVENT DELEGATION cho admin buttons ──────────────────────
     document.addEventListener('click', function(e) {
@@ -298,6 +353,7 @@ export function getLibraryUI() {
                 : '';
 
             return '<tr class="lib-row" style="border-bottom:1px solid #f1f5f9;"> '
+                + (IS_ADMIN ? '<td class="lib-check-cell" style="display:none;padding:12px 12px;"><input type="checkbox" class="lib-check" data-key="' + esc(l.key) + '" onchange="updateSelectedCount()" style="cursor:pointer;width:15px;height:15px;"></td>' : '')
                 + '<td style="padding:12px 16px;font-family:monospace;font-size:0.82rem;white-space:nowrap;">'
                 +   '<a href="' + short + '" target="_blank" style="color:#FF5722;font-weight:800;text-decoration:none;">' + l.key + '</a>'
                 +   '<button data-action="copy" data-url="' + esc(short) + '" title="Copy link" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:0.75rem;margin-left:4px;padding:2px;">\u2398</button>'
