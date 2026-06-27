@@ -60,66 +60,108 @@ function gtToggle(id) {
 const IC3_DOMAINS = [
   {
     title: "CÔNG NGHỆ THÔNG TIN CƠ BẢN",
-    l1: { goals: ["Truy cập và điều hướng giữa các môi trường kỹ thuật số", "Xác định các thiết bị kỹ thuật số và kết nối", "Giải thích các khái niệm phần mềm cơ bản", "Giải thích các khái niệm phần cứng cơ bản", "Giải thích các khái niệm Hệ điều hành cơ bản", "Giải thích các khái niệm mạng cơ bản"],
-      topics: "Hệ điều hành (HĐH), phần mềm vs phần cứng, các loại thiết bị số (máy tính, di động, IoT), cổng kết nối và phụ kiện, khái niệm mạng (LAN, Wi-Fi, Internet), điện toán đám mây." },
-    l2: { goals: ["Tùy chỉnh môi trường kỹ thuật số"],
-      topics: "Tùy chỉnh hệ điều hành và môi trường làm việc số: thiết lập cài đặt hệ thống, quản lý ứng dụng và cửa sổ làm việc, tổ chức và quản lý tệp/thư mục, cá nhân hóa giao diện thiết bị để làm việc hiệu quả hơn." },
-    l3: { goals: ["Xác định, khắc phục sự cố và giải quyết các vấn đề kỹ thuật"],
-      topics: "Nhận diện các sự cố kỹ thuật thường gặp với thiết bị, phần mềm, kết nối mạng; quy trình xác định nguyên nhân (troubleshooting) và các bước khắc phục cơ bản; khi nào cần liên hệ bộ phận hỗ trợ kỹ thuật (IT support)." }
+    l1: {
+      goals: ["Truy cập và điều hướng giữa các môi trường kỹ thuật số", "Xác định các thiết bị kỹ thuật số và kết nối", "Giải thích các khái niệm phần mềm cơ bản", "Giải thích các khái niệm phần cứng cơ bản", "Giải thích các khái niệm Hệ điều hành cơ bản", "Giải thích các khái niệm mạng cơ bản"],
+      topics: "Hệ điều hành (HĐH), phần mềm vs phần cứng, các loại thiết bị số (máy tính, di động, IoT), cổng kết nối và phụ kiện, khái niệm mạng (LAN, Wi-Fi, Internet), điện toán đám mây."
+    },
+    l2: {
+      goals: ["Tùy chỉnh môi trường kỹ thuật số"],
+      topics: "Tùy chỉnh hệ điều hành và môi trường làm việc số: thiết lập cài đặt hệ thống, quản lý ứng dụng và cửa sổ làm việc, tổ chức và quản lý tệp/thư mục, cá nhân hóa giao diện thiết bị để làm việc hiệu quả hơn."
+    },
+    l3: {
+      goals: ["Xác định, khắc phục sự cố và giải quyết các vấn đề kỹ thuật"],
+      topics: "Nhận diện các sự cố kỹ thuật thường gặp với thiết bị, phần mềm, kết nối mạng; quy trình xác định nguyên nhân (troubleshooting) và các bước khắc phục cơ bản; khi nào cần liên hệ bộ phận hỗ trợ kỹ thuật (IT support)."
+    }
   },
   {
     title: "CÔNG DÂN KỶ NGUYÊN SỐ",
-    l1: { goals: ["Tạo và quản lý danh tính kỹ thuật số", "Biết, quản lý và bảo vệ danh tiếng kỹ thuật số", "Biết được những hành vi và nội dung kỹ thuật số không phù hợp"],
-      topics: "Danh tính số (hồ sơ, bài đăng, dấu chân kỹ thuật số), bảo vệ danh tiếng trực tuyến, hành vi và nội dung số không phù hợp, quyền riêng tư cá nhân." },
-    l2: { goals: ["Áp dụng các tiêu chuẩn về nghi thức kỹ thuật số"],
-      topics: "Áp dụng các quy tắc ứng xử (etiquette) phù hợp trong môi trường học tập, công việc và mạng xã hội; nhận biết và xử lý các tình huống giao tiếp số không phù hợp; thực hành các tiêu chuẩn nghi thức số khi tương tác với đồng nghiệp, bạn học, khách hàng." },
-    l3: { goals: ["Trình bày các phương pháp tốt nhất cho công dân kỹ thuật số"],
-      topics: "Các phương pháp thực hành tốt nhất (best practices) để trở thành công dân số có trách nhiệm: bảo vệ danh tiếng trực tuyến trong dài hạn, tôn trọng bản quyền và quyền riêng tư của người khác, hành xử có đạo đức trong môi trường học tập và làm việc số." }
+    l1: {
+      goals: ["Tạo và quản lý danh tính kỹ thuật số", "Biết, quản lý và bảo vệ danh tiếng kỹ thuật số", "Biết được những hành vi và nội dung kỹ thuật số không phù hợp"],
+      topics: "Danh tính số (hồ sơ, bài đăng, dấu chân kỹ thuật số), bảo vệ danh tiếng trực tuyến, hành vi và nội dung số không phù hợp, quyền riêng tư cá nhân."
+    },
+    l2: {
+      goals: ["Áp dụng các tiêu chuẩn về nghi thức kỹ thuật số"],
+      topics: "Áp dụng các quy tắc ứng xử (etiquette) phù hợp trong môi trường học tập, công việc và mạng xã hội; nhận biết và xử lý các tình huống giao tiếp số không phù hợp; thực hành các tiêu chuẩn nghi thức số khi tương tác với đồng nghiệp, bạn học, khách hàng."
+    },
+    l3: {
+      goals: ["Trình bày các phương pháp tốt nhất cho công dân kỹ thuật số"],
+      topics: "Các phương pháp thực hành tốt nhất (best practices) để trở thành công dân số có trách nhiệm: bảo vệ danh tiếng trực tuyến trong dài hạn, tôn trọng bản quyền và quyền riêng tư của người khác, hành xử có đạo đức trong môi trường học tập và làm việc số."
+    }
   },
   {
     title: "QUẢN LÝ THÔNG TIN",
-    l1: { goals: ["Tìm kiếm các mục trên một trang web cụ thể", "Tìm kiếm thông tin bằng cách sử dụng công cụ tìm kiếm", "Sử dụng các công cụ để thu hẹp tiêu chí tìm kiếm", "Đánh giá tính hợp lý của thông tin"],
-      topics: "Công cụ tìm kiếm (search engine), kỹ thuật tìm kiếm nâng cao, phân loại các loại website (chính phủ, giáo dục, thương mại...), đánh giá độ tin cậy của nguồn thông tin." },
-    l2: { goals: ["Quản lý thu thập, lưu trữ và truy xuất dữ liệu trực tuyến"],
-      topics: "Thu thập và tổ chức thông tin từ nhiều nguồn trực tuyến; lưu trữ dữ liệu trên máy tính cá nhân và trên đám mây (cloud storage); đặt tên, phân loại, sắp xếp tệp/thư mục theo hệ thống hợp lý để dễ truy xuất sau này." },
-    l3: { goals: ["Đánh giá nguồn thông tin kỹ thuật số từ các kết quả tìm kiếm"],
-      topics: "Kỹ năng đánh giá độ tin cậy, tính chính xác và tính thời sự của thông tin tìm được trên Internet; phân biệt nguồn chính thống, nguồn tham khảo và quảng cáo; nhận diện thông tin sai lệch (misinformation) và tin giả (fake news)." }
+    l1: {
+      goals: ["Tìm kiếm các mục trên một trang web cụ thể", "Tìm kiếm thông tin bằng cách sử dụng công cụ tìm kiếm", "Sử dụng các công cụ để thu hẹp tiêu chí tìm kiếm", "Đánh giá tính hợp lý của thông tin"],
+      topics: "Công cụ tìm kiếm (search engine), kỹ thuật tìm kiếm nâng cao, phân loại các loại website (chính phủ, giáo dục, thương mại...), đánh giá độ tin cậy của nguồn thông tin."
+    },
+    l2: {
+      goals: ["Quản lý thu thập, lưu trữ và truy xuất dữ liệu trực tuyến"],
+      topics: "Thu thập và tổ chức thông tin từ nhiều nguồn trực tuyến; lưu trữ dữ liệu trên máy tính cá nhân và trên đám mây (cloud storage); đặt tên, phân loại, sắp xếp tệp/thư mục theo hệ thống hợp lý để dễ truy xuất sau này."
+    },
+    l3: {
+      goals: ["Đánh giá nguồn thông tin kỹ thuật số từ các kết quả tìm kiếm"],
+      topics: "Kỹ năng đánh giá độ tin cậy, tính chính xác và tính thời sự của thông tin tìm được trên Internet; phân biệt nguồn chính thống, nguồn tham khảo và quảng cáo; nhận diện thông tin sai lệch (misinformation) và tin giả (fake news)."
+    }
   },
   {
     title: "SÁNG TẠO NỘI DUNG",
-    l1: { goals: ["Tạo tài liệu và bản trình chiếu cơ bản", "Hiểu về các tham chiếu trong tài liệu", "Biết lưu và sao lưu công việc", "Hiểu khái niệm cơ bản về in ấn"],
-      topics: "Sử dụng Microsoft Word (Backstage View, tạo/lưu/in tài liệu), Microsoft PowerPoint (tạo bản trình chiếu cơ bản), tham chiếu trong tài liệu, sao lưu (backup) dữ liệu." },
-    l2: { goals: ["Sử dụng lại tài nguyên kỹ thuật số một cách có trách nhiệm"],
-      topics: "Thực hành thao tác trên Microsoft Word, Excel, PowerPoint ở mức trung bình: định dạng văn bản, sử dụng công thức/hàm cơ bản trong Excel, chèn biểu đồ và bảng, thiết kế slide trình chiếu; sử dụng lại hình ảnh, video, văn bản từ nguồn khác đúng quy định bản quyền (Creative Commons, trích dẫn nguồn)." },
-    l3: { goals: ["Tạo, chỉnh sửa và xuất bản hoặc trình bày nội dung phương tiện kỹ thuật số cho một đối tượng cụ thể"],
-      topics: "Thực hành nâng cao trên Word/Excel/PowerPoint: tạo tài liệu, bảng tính, bài trình chiếu hoàn chỉnh phục vụ một mục đích và đối tượng cụ thể (báo cáo, thuyết trình, ấn phẩm); xuất bản và chia sẻ nội dung dưới nhiều định dạng (PDF, liên kết chia sẻ, xuất bản trực tuyến)." }
+    l1: {
+      goals: ["Tạo tài liệu và bản trình chiếu cơ bản", "Hiểu về các tham chiếu trong tài liệu", "Biết lưu và sao lưu công việc", "Hiểu khái niệm cơ bản về in ấn"],
+      topics: "Sử dụng Microsoft Word (Backstage View, tạo/lưu/in tài liệu), Microsoft PowerPoint (tạo bản trình chiếu cơ bản), tham chiếu trong tài liệu, sao lưu (backup) dữ liệu."
+    },
+    l2: {
+      goals: ["Sử dụng lại tài nguyên kỹ thuật số một cách có trách nhiệm"],
+      topics: "Thực hành thao tác trên Microsoft Word, Excel, PowerPoint ở mức trung bình: định dạng văn bản, sử dụng công thức/hàm cơ bản trong Excel, chèn biểu đồ và bảng, thiết kế slide trình chiếu; sử dụng lại hình ảnh, video, văn bản từ nguồn khác đúng quy định bản quyền (Creative Commons, trích dẫn nguồn)."
+    },
+    l3: {
+      goals: ["Tạo, chỉnh sửa và xuất bản hoặc trình bày nội dung phương tiện kỹ thuật số cho một đối tượng cụ thể"],
+      topics: "Thực hành nâng cao trên Word/Excel/PowerPoint: tạo tài liệu, bảng tính, bài trình chiếu hoàn chỉnh phục vụ một mục đích và đối tượng cụ thể (báo cáo, thuyết trình, ấn phẩm); xuất bản và chia sẻ nội dung dưới nhiều định dạng (PDF, liên kết chia sẻ, xuất bản trực tuyến)."
+    }
   },
   {
     title: "GIAO TIẾP / TRUYỀN THÔNG",
-    l1: { goals: ["Thể hiện bản thân thông qua các phương tiện kỹ thuật số", "Tương tác với mọi người trong môi trường kỹ thuật số"],
-      topics: "Mạng xã hội và blog, các hình thức truyền thông số (email, nhắn tin, video call), nghi thức giao tiếp trực tuyến (netiquette), chia sẻ nội dung có trách nhiệm." },
-    l2: { goals: ["Tương tác với những người khác trong môi trường kỹ thuật số"],
-      topics: "Sử dụng email, tin nhắn, video call để trao đổi công việc và học tập; lựa chọn kênh giao tiếp phù hợp với từng tình huống; tham gia thảo luận, phản hồi và tương tác hiệu quả trong nhóm trực tuyến." },
-    l3: { goals: ["Tùy chỉnh tin nhắn và phương tiện cho một đối tượng cụ thể"],
-      topics: "Điều chỉnh nội dung, văn phong và hình thức truyền thông (email, tin nhắn, bài đăng, video) phù hợp với từng đối tượng người nhận (cấp trên, đồng nghiệp, khách hàng, công chúng); lựa chọn định dạng và kênh truyền thông hiệu quả nhất cho từng mục đích." }
+    l1: {
+      goals: ["Thể hiện bản thân thông qua các phương tiện kỹ thuật số", "Tương tác với mọi người trong môi trường kỹ thuật số"],
+      topics: "Mạng xã hội và blog, các hình thức truyền thông số (email, nhắn tin, video call), nghi thức giao tiếp trực tuyến (netiquette), chia sẻ nội dung có trách nhiệm."
+    },
+    l2: {
+      goals: ["Tương tác với những người khác trong môi trường kỹ thuật số"],
+      topics: "Sử dụng email, tin nhắn, video call để trao đổi công việc và học tập; lựa chọn kênh giao tiếp phù hợp với từng tình huống; tham gia thảo luận, phản hồi và tương tác hiệu quả trong nhóm trực tuyến."
+    },
+    l3: {
+      goals: ["Tùy chỉnh tin nhắn và phương tiện cho một đối tượng cụ thể"],
+      topics: "Điều chỉnh nội dung, văn phong và hình thức truyền thông (email, tin nhắn, bài đăng, video) phù hợp với từng đối tượng người nhận (cấp trên, đồng nghiệp, khách hàng, công chúng); lựa chọn định dạng và kênh truyền thông hiệu quả nhất cho từng mục đích."
+    }
   },
   {
     title: "CỘNG TÁC",
-    l1: { goals: ["Xác định các khái niệm cộng tác kỹ thuật số", "Xác định các tiêu chuẩn nghi thức kỹ thuật số cho quá trình cộng tác"],
-      topics: "Cộng tác đồng bộ (real-time) và bất đồng bộ, công cụ làm việc nhóm trực tuyến (chia sẻ tài liệu, lịch, video conference), quy tắc ứng xử khi cộng tác kỹ thuật số." },
-    l2: { goals: ["Sử dụng công cụ và công nghệ kỹ thuật số để cộng tác trên việc tạo nội dung"],
-      topics: "Cộng tác chỉnh sửa tài liệu/bảng tính/bài trình chiếu cùng lúc với nhiều người (Google Docs, Sheets, Slides, Microsoft 365); chia sẻ quyền truy cập tệp; theo dõi lịch sử thay đổi (version history) và bình luận (comment) trong quá trình làm việc nhóm." },
-    l3: { goals: ["Sử dụng công cụ cộng tác để làm việc với người khác để kiểm tra các vấn đề và sự cố"],
-      topics: "Sử dụng các công cụ cộng tác trực tuyến (quản lý công việc, theo dõi lỗi/sự cố, lịch chung, không gian làm việc chia sẻ) để cùng nhóm phát hiện, theo dõi và xử lý vấn đề; phối hợp quy trình làm việc nhóm từ xa hiệu quả." }
+    l1: {
+      goals: ["Xác định các khái niệm cộng tác kỹ thuật số", "Xác định các tiêu chuẩn nghi thức kỹ thuật số cho quá trình cộng tác"],
+      topics: "Cộng tác đồng bộ (real-time) và bất đồng bộ, công cụ làm việc nhóm trực tuyến (chia sẻ tài liệu, lịch, video conference), quy tắc ứng xử khi cộng tác kỹ thuật số."
+    },
+    l2: {
+      goals: ["Sử dụng công cụ và công nghệ kỹ thuật số để cộng tác trên việc tạo nội dung"],
+      topics: "Cộng tác chỉnh sửa tài liệu/bảng tính/bài trình chiếu cùng lúc với nhiều người (Google Docs, Sheets, Slides, Microsoft 365); chia sẻ quyền truy cập tệp; theo dõi lịch sử thay đổi (version history) và bình luận (comment) trong quá trình làm việc nhóm."
+    },
+    l3: {
+      goals: ["Sử dụng công cụ cộng tác để làm việc với người khác để kiểm tra các vấn đề và sự cố"],
+      topics: "Sử dụng các công cụ cộng tác trực tuyến (quản lý công việc, theo dõi lỗi/sự cố, lịch chung, không gian làm việc chia sẻ) để cùng nhóm phát hiện, theo dõi và xử lý vấn đề; phối hợp quy trình làm việc nhóm từ xa hiệu quả."
+    }
   },
   {
     title: "AN TOÀN VÀ AN NINH",
-    l1: { goals: ["Mô tả các mối đe dọa bảo mật kỹ thuật số", "Bảo vệ thiết bị và nội dung kỹ thuật số", "Nhận thức về công nghệ thu thập dữ liệu", "Xác định các rủi ro sức khỏe liên quan đến việc sử dụng công nghệ kỹ thuật số"],
-      topics: "Các mối đe dọa bảo mật (virus, malware, phishing, hacking), biện pháp bảo vệ thiết bị và dữ liệu (mật khẩu, mã hóa, antivirus), thu thập dữ liệu cá nhân (cookies, theo dõi), sức khỏe khi dùng công nghệ (ergonomics, sử dụng hợp lý)." },
-    l2: { goals: ["Tránh các mối đe dọa về sức khỏe tâm lý trong khi sử dụng công nghệ kỹ thuật số (Catfishing, FOMO)"],
-      topics: "Nhận diện các mối đe dọa tâm lý khi sử dụng công nghệ số: Catfishing (giả mạo danh tính), FOMO (sợ bỏ lỡ — Fear Of Missing Out), nghiện mạng xã hội; cách phòng tránh và xử lý khi gặp các tình huống này; xây dựng thói quen sử dụng công nghệ lành mạnh." },
-    l3: { goals: ["Quản lý bảo mật thiết bị (mã hóa, mật khẩu sinh trắc học, virus)"],
-      topics: "Các biện pháp bảo mật thiết bị nâng cao: mã hóa dữ liệu (encryption), xác thực sinh trắc học (vân tay, khuôn mặt), quản lý mật khẩu an toàn, nhận diện và phòng chống virus/malware, cập nhật phần mềm bảo mật định kỳ." }
+    l1: {
+      goals: ["Mô tả các mối đe dọa bảo mật kỹ thuật số", "Bảo vệ thiết bị và nội dung kỹ thuật số", "Nhận thức về công nghệ thu thập dữ liệu", "Xác định các rủi ro sức khỏe liên quan đến việc sử dụng công nghệ kỹ thuật số"],
+      topics: "Các mối đe dọa bảo mật (virus, malware, phishing, hacking), biện pháp bảo vệ thiết bị và dữ liệu (mật khẩu, mã hóa, antivirus), thu thập dữ liệu cá nhân (cookies, theo dõi), sức khỏe khi dùng công nghệ (ergonomics, sử dụng hợp lý)."
+    },
+    l2: {
+      goals: ["Tránh các mối đe dọa về sức khỏe tâm lý trong khi sử dụng công nghệ kỹ thuật số (Catfishing, FOMO)"],
+      topics: "Nhận diện các mối đe dọa tâm lý khi sử dụng công nghệ số: Catfishing (giả mạo danh tính), FOMO (sợ bỏ lỡ — Fear Of Missing Out), nghiện mạng xã hội; cách phòng tránh và xử lý khi gặp các tình huống này; xây dựng thói quen sử dụng công nghệ lành mạnh."
+    },
+    l3: {
+      goals: ["Quản lý bảo mật thiết bị (mã hóa, mật khẩu sinh trắc học, virus)"],
+      topics: "Các biện pháp bảo mật thiết bị nâng cao: mã hóa dữ liệu (encryption), xác thực sinh trắc học (vân tay, khuôn mặt), quản lý mật khẩu an toàn, nhận diện và phòng chống virus/malware, cập nhật phần mềm bảo mật định kỳ."
+    }
   }
 ];
 
@@ -135,10 +177,10 @@ function ic3GoalsHtml(goals) {
 
 export function getIC3IntroUI() {
   const accordions = IC3_DOMAINS.map((d, i) => `
-    <div class="gt-acc" id="ic3-acc-${i+1}">
-      <div class="gt-acc-hdr" onclick="gtToggle('ic3-acc-${i+1}')">
+    <div class="gt-acc" id="ic3-acc-${i + 1}">
+      <div class="gt-acc-hdr" onclick="gtToggle('ic3-acc-${i + 1}')">
         <div class="gt-acc-hdr-left">
-          <div class="gt-acc-num" style="background:rgba(255,215,0,0.15); color:#B8860B;">${i+1}</div>
+          <div class="gt-acc-num" style="background:rgba(255,215,0,0.15); color:#B8860B;">${i + 1}</div>
           <div class="gt-acc-title">${d.title}</div>
         </div>
         <span class="gt-acc-chevron">▼</span>
