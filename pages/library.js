@@ -468,31 +468,30 @@ export function getLibraryUI() {
             var links = Array.isArray(data) ? data : (data.links || []);
             if (!links.length) { toast('\u26a0\ufe0f File kh\u00f4ng c\u00f3 link n\u00e0o', 'error'); return; }
 
-            var ok = 0, fail = 0;
-            for (var i = 0; i < links.length; i++) {
-                var l = links[i];
-                if (!l.key || !l.url || !l.title) { fail++; continue; }
-                try {
-                    var res = await fetch('/api/links/save', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Admin-Auth': 'mos360_admin'
-                        },
-                        body: JSON.stringify({
-                            key: l.key,
-                            title: l.title,
-                            url: l.url,
-                            cat: l.cat || 'other',
-                            note: l.note || ''
-                        })
-                    });
-                    var result = await res.json();
-                    if (result.ok) ok++; else fail++;
-                } catch(e) { fail++; }
+            // Lọc links hợp lệ
+            var valid = links.filter(function(l) { return l.key && l.url && l.title; });
+            var skipped = links.length - valid.length;
+
+            toast('\u23F3 \u0110ang import ' + valid.length + ' links...');
+
+            // Gửi bulk thay vì từng link → nhanh hơn và không bị ngắt
+            var res = await fetch('/api/links/bulk', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Admin-Auth': 'mos360_admin'
+                },
+                body: JSON.stringify({ links: valid })
+            });
+            var result = await res.json();
+            var msg = (result.ok || result.count) + ' th\u00e0nh c\u00f4ng'
+                + (skipped ? ', ' + skipped + ' b\u1ECF qua' : '')
+                + (result.fail ? ', ' + result.fail + ' l\u1ED7i' : '');
+            if (result.ok !== false) {
+                toast('\u2705 Import xong: ' + msg);
+            } else {
+                toast('\u274C ' + (result.msg || 'L\u1ED7i import'), 'error');
             }
-            var msg = ok + ' th\u00e0nh c\u00f4ng' + (fail ? ', ' + fail + ' l\u1ed7i' : '');
-            toast('\u2705 Import xong: ' + msg);
             await loadLinks();
         } catch(e) {
             toast('\u274c File JSON kh\u00f4ng h\u1ee3p l\u1ec7', 'error');

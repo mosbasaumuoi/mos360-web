@@ -121,6 +121,45 @@ export async function handleLinksAPI(path, request, env) {
         return json({ ok: true, clicks: rec.clicks });
     }
 
+    // ── POST /api/links/bulk ─────────────────────────────────────
+    // Import hàng loạt trong 1 request — nhanh, không bị ngắt khi deploy
+    if (path === '/api/links/bulk' && request.method === 'POST') {
+        if (!isAdmin(request)) return json({ ok: false, msg: 'Không có quyền' }, 403);
+
+        const body = await request.json().catch(() => ({}));
+        const links = body.links || [];
+        if (!links.length) return json({ ok: false, msg: 'Không có links nào' });
+
+        const now = Date.now();
+        const slugs = [];
+        let fail = 0;
+
+        for (const l of links) {
+            if (!l.key || !l.url || !l.title) { fail++; continue; }
+            const record = {
+                key: l.key,
+                title: l.title,
+                url: l.url,
+                cat: l.cat || 'other',
+                note: l.note || '',
+                clicks: l.clicks || 0,
+                created: l.created || now,
+                updated: l.updated || now
+            };
+            await kv.put(l.key, JSON.stringify(record));
+            slugs.push(l.key);
+        }
+
+        // Cập nhật index — merge với slugs đã có (nếu có)
+        const idxRaw = await kv.get('idx:all');
+        const existing = idxRaw ? JSON.parse(idxRaw) : [];
+        // Thêm slug mới vào đầu, loại bỏ trùng
+        const merged = [...new Set([...slugs, ...existing])];
+        await kv.put('idx:all', JSON.stringify(merged));
+
+        return json({ ok: true, count: slugs.length, fail, total: merged.length });
+    }
+
     // ── POST /api/links/clear ────────────────────────────────────
     // Xóa toàn bộ links trong KV kể cả data cũ có prefix link:
     if (path === '/api/links/clear' && request.method === 'POST') {
