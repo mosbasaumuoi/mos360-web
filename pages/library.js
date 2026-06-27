@@ -13,6 +13,11 @@ export function getLibraryUI() {
         </div>
         <div id="libAdminBar" style="display:none;gap:8px;flex-wrap:wrap;align-items:center;">
             <button onclick="showAddModal()" style="padding:9px 18px;background:linear-gradient(135deg,#FF5722,#ff784e);border:none;color:#fff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">➕ Thêm link</button>
+            <label style="padding:9px 18px;background:#F0F4FA;border:1px solid var(--border);color:#0052CC;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">
+                📥 Import JSON
+                <input type="file" accept=".json" onchange="importJSON(event)" style="display:none;">
+            </label>
+            <button onclick="exportJSON()" style="padding:9px 18px;background:#F0F4FA;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">📤 Export JSON</button>
             <button onclick="loadLinks()" style="padding:9px 18px;background:#F0F4FA;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">🔄 Làm mới</button>
         </div>
     </div>
@@ -22,6 +27,7 @@ export function getLibraryUI() {
         <input id="libSearch" oninput="filterLinks()" placeholder="🔍 Tìm theo tên, key, URL..." style="flex:1;min-width:200px;padding:9px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.85rem;font-family:inherit;outline:none;">
         <select id="libCatFilter" onchange="filterLinks()" style="padding:9px 12px;border:1.5px solid var(--border);border-radius:10px;font-size:0.85rem;background:#fff;font-family:inherit;cursor:pointer;">
             <option value="">Tất cả danh mục</option>
+            <option value="admin">⚙️ Quản trị</option>
             <option value="video">🎬 Video</option>
             <option value="software">💿 Phần mềm</option>
             <option value="tool">🔧 Tiện ích</option>
@@ -143,8 +149,13 @@ export function getLibraryUI() {
 (function() {
     // ── CONFIG ──────────────────────────────────────────────────
     var IS_ADMIN = localStorage.getItem('mos360_admin_session') === 'active';
-    var CAT_LABELS = { video:'🎬 Video', software:'💿 Phần mềm', tool:'🔧 Tiện ích', form:'📝 Đăng ký', doc:'📄 Tài liệu', other:'📦 Khác' };
-    var CAT_COLORS = { video:'#3b82f6', software:'#8b5cf6', tool:'#f59e0b', form:'#10b981', doc:'#0052CC', other:'#64748b' };
+    // Ẩn danh mục Quản trị với user thường
+    if (!IS_ADMIN) {
+        var adminOpt = document.querySelector('#libCatFilter option[value="admin"]');
+        if (adminOpt) adminOpt.style.display = 'none';
+    }
+    var CAT_LABELS = { video:'🎬 Video', software:'💿 Phần mềm', tool:'🔧 Tiện ích', form:'📝 Đăng ký', doc:'📄 Tài liệu', other:'📦 Khác', admin:'⚙️ Quản trị' };
+    var CAT_COLORS = { video:'#3b82f6', software:'#8b5cf6', tool:'#f59e0b', form:'#10b981', doc:'#0052CC', other:'#64748b', admin:'#B8860B' };
     var allLinks = [];
     var editKey = null;
     var PAGE_SIZE = 20;
@@ -211,9 +222,13 @@ export function getLibraryUI() {
         var sort = document.getElementById('libSort').value;
 
         var filtered = allLinks.filter(function(l) {
-            var matchQ = !q || (l.key||'').toLowerCase().includes(q) || (l.title||'').toLowerCase().includes(q) || (l.url||'').toLowerCase().includes(q);
+            var matchQ = !q || (l.key||'').toLowerCase().includes(q)
+                    || (l.title||'').toLowerCase().includes(q)
+                    || (l.url||'').toLowerCase().includes(q);
             var matchCat = !cat || l.cat === cat;
-            return matchQ && matchCat;
+            // Ẩn danh mục "admin" với user thường
+            var matchAdmin = IS_ADMIN || l.cat !== 'admin';
+            return matchQ && matchCat && matchAdmin;
         });
 
         filtered.sort(function(a,b) {
@@ -416,6 +431,58 @@ export function getLibraryUI() {
         return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     }
 
+    // ── IMPORT JSON ──────────────────────────────────────────────
+    window.importJSON = async function(event) {
+        var file = event.target.files[0];
+        if (!file) return;
+        try {
+            var text = await file.text();
+            var data = JSON.parse(text);
+            // Hỗ trợ cả 2 format: array trực tiếp hoặc { links: [...] }
+            var links = Array.isArray(data) ? data : (data.links || []);
+            if (!links.length) { toast('⚠️ File không có link nào', 'error'); return; }
+
+            var ok = 0, fail = 0;
+            for (var i = 0; i < links.length; i++) {
+                var l = links[i];
+                if (!l.key || !l.url || !l.title) { fail++; continue; }
+                try {
+                    var res = await fetch('/api/links/save', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Admin-Auth': 'mos360_admin'
+                        },
+                        body: JSON.stringify({
+                            key: l.key,
+                            title: l.title,
+                            url: l.url,
+                            cat: l.cat || 'other',
+                            note: l.note || ''
+                        })
+                    });
+                    var result = await res.json();
+                    if (result.ok) ok++; else fail++;
+                } catch(e) { fail++; }
+            }
+            toast('✅ Import xong: ' + ok + ' thành công' + (fail ? ', ' + fail + ' lỗi' : ''));
+            await loadLinks();
+        } catch(e) {
+            toast('❌ File JSON không hợp lệ', 'error');
+        }
+        event.target.value = ''; // reset để có thể import lại cùng file
+    };
+
+    // ── EXPORT JSON ──────────────────────────────────────────────
+    window.exportJSON = function() {
+        if (!allLinks.length) { toast('⚠️ Chưa có link nào để export', 'error'); return; }
+        var blob = new Blob([JSON.stringify({ links: allLinks }, null, 2)], { type: 'application/json' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'mos360-links-' + new Date().toISOString().slice(0,10) + '.json';
+        a.click();
+        toast('📤 Đã export ' + allLinks.length + ' link');
+    };
 })();
 </script>
 `;

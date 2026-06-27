@@ -637,28 +637,6 @@ export default {
                     <a href="/ai-productivity">⚡ Làm việc hiệu quả với AI</a>
                     <div class="drop-divider"></div>
                     <a href="/progress">📈 Tiến độ học của tôi</a>
-                    <!-- DROPDOWN: THƯ VIỆN -->
-                    <div class="nav-dropdown">
-                        <button class="nav-drop-btn" style="color:#16a34a;">📚 THƯ VIỆN</button>
-                        <div class="nav-drop-menu">
-                            <a href="/library">📚 Kho link tài nguyên</a>
-                            <div class="drop-divider"></div>
-                            <a href="/flashcard-ic3">📇 Flashcard IC3</a>
-                            <a href="/flashcard-ai">📇 Flashcard AI</a>
-                            <a href="/flashcard-aip">📇 Flashcard AI Productivity</a>
-                        </div>
-                    </div>
-
-                    <!-- DROPDOWN: QUẢN TRỊ (ẩn mặc định, hiện khi admin) -->
-                    <div class="nav-dropdown admin-only-btn" id="adminMegaMenu" style="display:none;">
-                        <button class="nav-drop-btn" style="color:#B8860B;">⚙️ QUẢN TRỊ</button>
-                        <div class="nav-drop-menu">
-                            <a href="/admin-dashboard">📊 Dashboard</a>
-                            <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank">👥 Quản lý học viên</a>
-                            <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank">📋 Dữ liệu đăng ký</a>
-                            <a href="/library">🔗 Quản lý Short URL</a>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -670,6 +648,24 @@ export default {
                     <div class="drop-divider"></div>
                     <a href="/cap-mat-khau">🔑 Lấy mật khẩu phần mềm</a>
                     <a href="/ket-qua">📊 Kết quả luyện tập của tôi</a>
+                </div>
+            </div>
+
+            <!-- DROPDOWN: THƯ VIỆN (public) -->
+            <div class="nav-dropdown">
+                <button class="nav-drop-btn" style="color:#0052CC;">📚 THƯ VIỆN</button>
+                <div class="nav-drop-menu">
+                    <a href="/library">📚 Kho tài nguyên</a>
+                </div>
+            </div>
+
+            <!-- DROPDOWN: QUẢN TRỊ (chỉ admin, ẩn mặc định) -->
+            <div class="nav-dropdown" id="adminMegaMenu" style="display:none;">
+                <button class="nav-drop-btn" style="color:#B8860B;">⚙️ QUẢN TRỊ</button>
+                <div class="nav-drop-menu">
+                    <a href="/admin-dashboard">📊 Dashboard</a>
+                    <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank">👥 Quản lý học viên</a>
+                    <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank">📋 Dữ liệu đăng ký</a>
                 </div>
             </div>
             
@@ -731,18 +727,17 @@ export default {
         // FIX 4: Admin đa thiết bị – KHÔNG thu hồi session cũ, chỉ thêm session mới
         function applyAdminSession() {
             var isAdmin = localStorage.getItem('mos360_admin_session') === 'active';
-            if (isAdmin) {
-                var menu = document.getElementById('adminMegaMenu');
-                if (menu) menu.style.display = 'block';
-                var logLink = document.getElementById('navLoginLink');
-                if (logLink) {
-                    logLink.textContent = "ĐĂNG XUẤT ADMIN"; logLink.href = "#";
-                    logLink.onclick = function(e) {
-                        e.preventDefault();
-                        localStorage.removeItem('mos360_admin_session');
-                        window.location.href = "/";
-                    };
-                }
+            var menu = document.getElementById('adminMegaMenu');
+            if (menu) menu.style.display = isAdmin ? 'block' : 'none';
+            var logLink = document.getElementById('navLoginLink');
+            if (logLink && isAdmin) {
+                logLink.textContent = "ĐĂNG XUẤT ADMIN";
+                logLink.href = "#";
+                logLink.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('mos360_admin_session');
+                    window.location.href = "/";
+                };
             }
         }
         applyAdminSession();
