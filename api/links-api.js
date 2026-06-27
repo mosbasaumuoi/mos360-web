@@ -165,21 +165,29 @@ export async function handleLinksAPI(path, request, env) {
     if (path === '/api/links/clear' && request.method === 'POST') {
         if (!isAdmin(request)) return json({ ok: false, msg: 'Không có quyền' }, 403);
 
-        // List TẤT CẢ keys trong namespace (kể cả link:xxx cũ và idx:all)
-        let allKeys = [];
-        let cursor = undefined;
+        const toDelete = new Set();
+
+        // 1. Đọc idx:all để lấy slugs hiện tại
+        const idxRaw = await kv.get('idx:all');
+        const slugs = idxRaw ? JSON.parse(idxRaw) : [];
+        slugs.forEach(s => toDelete.add(s));
+        toDelete.add('idx:all');
+
+        // 2. Scan prefix 'link:' để xóa data cũ
+        let cursor;
         do {
-            const listResult = cursor
-                ? await kv.list({ cursor })
-                : await kv.list();
-            allKeys = allKeys.concat(listResult.keys.map(k => k.name));
-            cursor = listResult.list_complete ? undefined : listResult.cursor;
+            const result = cursor
+                ? await kv.list({ prefix: 'link:', cursor, limit: 1000 })
+                : await kv.list({ prefix: 'link:', limit: 1000 });
+            result.keys.forEach(k => toDelete.add(k.name));
+            cursor = result.list_complete ? undefined : result.cursor;
         } while (cursor);
 
-        // Xóa tất cả
-        await Promise.all(allKeys.map(k => kv.delete(k)));
+        // 3. Xóa tất cả
+        const keys = [...toDelete];
+        await Promise.all(keys.map(k => kv.delete(k)));
 
-        return json({ ok: true, deleted: allKeys.length });
+        return json({ ok: true, deleted: keys.length });
     }
 
     return new Response('Not found', { status: 404 });
