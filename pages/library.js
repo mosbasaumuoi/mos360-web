@@ -438,9 +438,8 @@ export function getLibraryUI() {
         try {
             var text = await file.text();
             var data = JSON.parse(text);
-            // Hỗ trợ cả 2 format: array trực tiếp hoặc { links: [...] }
             var links = Array.isArray(data) ? data : (data.links || []);
-            if (!links.length) { toast('⚠️ File không có link nào', 'error'); return; }
+            if (!links.length) { toast('\u26a0\ufe0f File kh\u00f4ng c\u00f3 link n\u00e0o', 'error'); return; }
 
             var ok = 0, fail = 0;
             for (var i = 0; i < links.length; i++) {
@@ -465,25 +464,27 @@ export function getLibraryUI() {
                     if (result.ok) ok++; else fail++;
                 } catch(e) { fail++; }
             }
-            toast('✅ Import xong: ' + ok + ' thành công' + (fail ? ', ' + fail + ' lỗi' : ''));
+            var msg = ok + ' th\u00e0nh c\u00f4ng' + (fail ? ', ' + fail + ' l\u1ed7i' : '');
+            toast('\u2705 Import xong: ' + msg);
             await loadLinks();
         } catch(e) {
-            toast('❌ File JSON không hợp lệ', 'error');
+            toast('\u274c File JSON kh\u00f4ng h\u1ee3p l\u1ec7', 'error');
         }
-        event.target.value = ''; // reset để có thể import lại cùng file
+        event.target.value = '';
     };
 
     // ── EXPORT JSON ──────────────────────────────────────────────
-    window.exportJSON = function() {
-        if (!allLinks.length) { toast('⚠️ Chưa có link nào để export', 'error'); return; }
-        var blob = new Blob([JSON.stringify({ links: allLinks }, null, 2)], { type: 'application/json' });
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'mos360-links-' + new Date().toISOString().slice(0,10) + '.json';
-        a.click();
-        toast('📤 Đã export ' + allLinks.length + ' link');
-    };
-})();
-</script>
+        window.exportJSON = function() {
+            if (!allLinks.length) { toast('\u26a0\ufe0f Ch\u01b0a c\u00f3 link n\u00e0o \u0111\u1ec3 export', 'error'); return; }
+            var blob = new Blob([JSON.stringify({ links: allLinks }, null, 2)], { type: 'application/json' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            var dateStr = new Date().toISOString().slice(0, 10);
+            a.download = 'mos360-links-' + dateStr + '.json';
+            a.click();
+            toast('\ud83d\udce4 \u0110\u00e3 export ' + allLinks.length + ' link');
+        };
+    })();
+    </script>
 `;
 }
