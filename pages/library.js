@@ -154,7 +154,7 @@ export function getLibraryUI() {
         var adminOpt = document.querySelector('#libCatFilter option[value="admin"]');
         if (adminOpt) adminOpt.style.display = 'none';
     }
-    var CAT_LABELS = { video:'🎬 Video', software:'💿 Phần mềm', tool:'🔧 Tiện ích', form:'📝 Đăng ký', doc:'📄 Tài liệu', other:'📦 Khác', admin:'⚙️ Quản trị' };
+    var CAT_LABELS = { video:'\uD83C\uDFAC Video', software:'\uD83D\uDCBF Ph\u1EA7n m\u1EC1m', tool:'\uD83D\uDD27 Ti\u1EC7n \u00EDch', form:'\uD83D\uDCDD \u0110\u0103ng k\u00FD', doc:'\uD83D\uDCC4 T\u00E0i li\u1EC7u', other:'\uD83D\uDCE6 Kh\u00E1c', admin:'\u2699\uFE0F Qu\u1EA3n tr\u1ECB' };
     var CAT_COLORS = { video:'#3b82f6', software:'#8b5cf6', tool:'#f59e0b', form:'#10b981', doc:'#0052CC', other:'#64748b', admin:'#B8860B' };
     var allLinks = [];
     var editKey = null;
@@ -188,7 +188,7 @@ export function getLibraryUI() {
             filterLinks();
         } catch(e) {
             showLoading(false);
-            toast('❌ Không thể tải dữ liệu', 'error');
+            toast('\u274C Kh\u00F4ng th\u1EC3 t\u1EA3i d\u1EEF li\u1EC7u', 'error');
         }
     }
 
@@ -200,10 +200,10 @@ export function getLibraryUI() {
         var topCat = Object.keys(cats).sort(function(a,b){ return cats[b]-cats[a]; })[0] || '-';
 
         document.getElementById('libStats').innerHTML = [
-            stat('📚', 'Tổng link', total),
-            stat('👆', 'Tổng click', totalClicks.toLocaleString('vi-VN')),
-            stat('📂', 'Danh mục', Object.keys(cats).length),
-            stat('🏆', 'Phổ biến nhất', CAT_LABELS[topCat] || topCat)
+            stat('\uD83D\uDCDA', 'T\u1ED5ng link', total),
+            stat('\uD83D\uDC46', 'T\u1ED5ng click', totalClicks.toLocaleString('vi-VN')),
+            stat('\uD83D\uDCC2', 'Danh m\u1EE5c', Object.keys(cats).length),
+            stat('\uD83C\uDFC6', 'Ph\u1ED5 bi\u1EBFn nh\u1EA5t', CAT_LABELS[topCat] || topCat)
         ].join('');
     }
 
@@ -261,24 +261,24 @@ export function getLibraryUI() {
             var short = 'https://go.mos360.vn/' + l.key;
             var catColor = CAT_COLORS[l.cat] || '#64748b';
             var catLabel = CAT_LABELS[l.cat] || l.cat;
-            var updated = l.updated ? new Date(l.updated).toLocaleDateString('vi-VN') : (l.created ? new Date(l.created).toLocaleDateString('vi-VN') : '—');
+            var updated = l.updated ? new Date(l.updated).toLocaleDateString('vi-VN') : (l.created ? new Date(l.created).toLocaleDateString('vi-VN') : '\u2014');
 
             var adminActions = IS_ADMIN
                 ? '<td style="padding:10px 12px;text-align:center;white-space:nowrap;">'
-                  + '<button onclick="editLink(\'' + esc(l.key) + '\')" style="padding:5px 12px;border:1px solid #dbeafe;background:#eff6ff;color:#1d4ed8;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;margin-right:5px;">✏️ Sửa</button>'
-                  + '<button onclick="deleteLink(\'' + esc(l.key) + '\',\'' + esc(l.title||l.key) + '\')" style="padding:5px 12px;border:1px solid #fee2e2;background:#fef2f2;color:#dc2626;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;">🗑️</button>'
+                  + '<button onclick="editLink(\'' + esc(l.key) + '\')" style="padding:5px 12px;border:1px solid #dbeafe;background:#eff6ff;color:#1d4ed8;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;margin-right:5px;">\u270F\uFE0F S\u1EEDa</button>'
+                  + '<button onclick="deleteLink(\'' + esc(l.key) + '\',\'' + esc(l.title||l.key) + '\')" style="padding:5px 12px;border:1px solid #fee2e2;background:#fef2f2;color:#dc2626;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;">\uD83D\uDDD1\uFE0F</button>'
                   + '</td>'
                 : '';
 
             return '<tr style="border-bottom:1px solid #f1f5f9;transition:background .15s;" onmouseover="this.style.background=\'#F8FAFD\'" onmouseout="this.style.background=\'\'"> '
                 + '<td style="padding:12px 16px;font-family:monospace;font-size:0.82rem;white-space:nowrap;">'
                 +   '<a href="' + short + '" target="_blank" style="color:#FF5722;font-weight:800;text-decoration:none;">' + l.key + '</a>'
-                +   '<button onclick="copyText(\'' + short + '\')" title="Copy link" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:0.75rem;margin-left:4px;padding:2px;">⎘</button>'
+                +   '<button onclick="copyText(\'' + short + '\')" title="Copy link" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:0.75rem;margin-left:4px;padding:2px;">\u2398</button>'
                 + '</td>'
                 + '<td style="padding:12px 16px;max-width:380px;">'
-                +   '<div style="font-weight:700;font-size:0.88rem;color:var(--text);margin-bottom:2px;">' + esc(l.title||'(chưa đặt tên)') + '</div>'
+                +   '<div style="font-weight:700;font-size:0.88rem;color:var(--text);margin-bottom:2px;">' + esc(l.title||'(ch\u01B0a \u0111\u1EB7t t\u00EAn)') + '</div>'
                 +   '<div style="font-size:0.75rem;color:#94a3b8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:340px;">' + esc(l.url) + '</div>'
-                +   (l.note ? '<div style="font-size:0.72rem;color:#a78bfa;margin-top:2px;">📝 ' + esc(l.note) + '</div>' : '')
+                +   (l.note ? '<div style="font-size:0.72rem;color:#a78bfa;margin-top:2px;">\uD83D\uDCDD ' + esc(l.note) + '</div>' : '')
                 + '</td>'
                 + '<td style="padding:12px 16px;">'
                 +   '<span style="font-size:0.73rem;font-weight:800;padding:3px 10px;border-radius:20px;background:' + catColor + '20;color:' + catColor + ';">' + catLabel + '</span>'
@@ -314,7 +314,7 @@ export function getLibraryUI() {
     // ── MODAL ADD/EDIT ─────────────────────────────────────────────
     function showAddModal() {
         editKey = null;
-        document.getElementById('modalTitle').textContent = '➕ Thêm link mới';
+        document.getElementById('modalTitle').textContent = '\u2795 Th\u00EAm link m\u1EDBi';
         document.getElementById('mKey').value = '';
         document.getElementById('mKey').readOnly = false;
         document.getElementById('mTitle').value = '';
@@ -322,7 +322,7 @@ export function getLibraryUI() {
         document.getElementById('mCat').value = 'other';
         document.getElementById('mNote').value = '';
         document.getElementById('mError').style.display = 'none';
-        document.getElementById('mKeyHint').textContent = 'Chỉ chữ thường, số, gạch ngang. Để trống sẽ tự tạo.';
+        document.getElementById('mKeyHint').textContent = 'Ch\u1EC9 ch\u1EEF th\u01B0\u1EDDng, s\u1ED1, g\u1EA1ch ngang. \u0110\u1EC3 tr\u1ED1ng s\u1EBD t\u1EF1 t\u1EA1o.';
         document.getElementById('libModal').style.display = 'flex';
     }
 
@@ -330,7 +330,7 @@ export function getLibraryUI() {
         var link = allLinks.find(function(l){ return l.key === key; });
         if (!link) return;
         editKey = key;
-        document.getElementById('modalTitle').textContent = '✏️ Sửa link: ' + key;
+        document.getElementById('modalTitle').textContent = '\u270F\uFE0F S\u1EEDa link: ' + key;
         document.getElementById('mKey').value = key;
         document.getElementById('mKey').readOnly = true;
         document.getElementById('mTitle').value = link.title || '';
@@ -338,7 +338,7 @@ export function getLibraryUI() {
         document.getElementById('mCat').value = link.cat || 'other';
         document.getElementById('mNote').value = link.note || '';
         document.getElementById('mError').style.display = 'none';
-        document.getElementById('mKeyHint').textContent = 'Key không thể đổi sau khi tạo.';
+        document.getElementById('mKeyHint').textContent = 'Key kh\u00F4ng th\u1EC3 \u0111\u1ED5i sau khi t\u1EA1o.';
         document.getElementById('libModal').style.display = 'flex';
     };
 
@@ -354,11 +354,11 @@ export function getLibraryUI() {
         var cat   = document.getElementById('mCat').value;
         var note  = document.getElementById('mNote').value.trim();
 
-        if (!title) return showError('Vui lòng nhập tên link.');
-        if (!url || !url.startsWith('http')) return showError('URL phải bắt đầu bằng http:// hoặc https://');
+        if (!title) return showError('Vui l\u00F2ng nh\u1EADp t\u00EAn link.');
+        if (!url || !url.startsWith('http')) return showError('URL ph\u1EA3i b\u1EAFt \u0111\u1EA7u b\u1EB1ng http:// ho\u1EB7c https://');
 
         var btn = document.getElementById('mSaveBtn');
-        btn.textContent = '⏳ Đang lưu...'; btn.disabled = true;
+        btn.textContent = '\u23F3 \u0110ang l\u01B0u...'; btn.disabled = true;
 
         try {
             var res = await fetch('/api/links/save', {
@@ -367,22 +367,22 @@ export function getLibraryUI() {
                 body: JSON.stringify({ key: key||null, title, url, cat, note, editKey })
             });
             var data = await res.json();
-            if (!data.ok) { showError(data.msg || 'Lỗi không xác định'); }
+            if (!data.ok) { showError(data.msg || 'L\u1ED7i kh\u00F4ng x\u00E1c \u0111\u1ECBnh'); }
             else {
                 closeModal();
-                toast('✅ Đã lưu link: go.mos360.vn/' + data.key);
+                toast('\u2705 \u0110\u00E3 l\u01B0u link: go.mos360.vn/' + data.key);
                 await loadLinks();
             }
         } catch(e) {
-            showError('Lỗi kết nối máy chủ.');
+            showError('L\u1ED7i k\u1EBFt n\u1ED1i m\u00E1y ch\u1EE7.');
         } finally {
-            btn.textContent = '💾 Lưu'; btn.disabled = false;
+            btn.textContent = '\uD83D\uDCBE L\u01B0u'; btn.disabled = false;
         }
     };
 
     // ── DELETE ─────────────────────────────────────────────────────
     window.deleteLink = function(key, title) {
-        document.getElementById('delKeyLabel').textContent = 'Sẽ xoá: go.mos360.vn/' + key + ' — "' + title + '"';
+        document.getElementById('delKeyLabel').textContent = 'S\u1EBD xo\u00E1: go.mos360.vn/' + key + ' \u2014 "' + title + '"';
         document.getElementById('delModal').style.display = 'flex';
         document.getElementById('delConfirmBtn').onclick = async function() {
             document.getElementById('delModal').style.display = 'none';
@@ -393,9 +393,9 @@ export function getLibraryUI() {
                     body: JSON.stringify({ key })
                 });
                 var data = await res.json();
-                if (data.ok) { toast('🗑️ Đã xoá: ' + key); await loadLinks(); }
-                else toast('❌ ' + (data.msg||'Lỗi xoá'), 'error');
-            } catch(e) { toast('❌ Lỗi kết nối', 'error'); }
+                if (data.ok) { toast('\uD83D\uDDD1\uFE0F \u0110\u00E3 xo\u00E1: ' + key); await loadLinks(); }
+                else toast('\u274C ' + (data.msg||'L\u1ED7i xo\u00E1'), 'error');
+            } catch(e) { toast('\u274C L\u1ED7i k\u1EBFt n\u1ED1i', 'error'); }
         };
     };
 
@@ -410,7 +410,7 @@ export function getLibraryUI() {
 
     function showError(msg) {
         var el = document.getElementById('mError');
-        el.textContent = '⚠️ ' + msg;
+        el.textContent = '\u26A0\uFE0F ' + msg;
         el.style.display = 'block';
     }
 
@@ -424,14 +424,14 @@ export function getLibraryUI() {
     }
 
     window.copyText = function(text) {
-        navigator.clipboard.writeText(text).then(function(){ toast('⎘ Đã copy: ' + text); });
+        navigator.clipboard.writeText(text).then(function(){ toast('\u2398 \u0110\u00E3 copy: ' + text); });
     };
 
     function esc(s) {
         return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     }
 
-    // ── IMPORT JSON ──────────────────────────────────────────────
+    // \u2500\u2500 IMPORT JSON \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
     window.importJSON = async function(event) {
         var file = event.target.files[0];
         if (!file) return;
@@ -473,7 +473,7 @@ export function getLibraryUI() {
         event.target.value = '';
     };
 
-    // ── EXPORT JSON ──────────────────────────────────────────────
+    // \u2500\u2500 EXPORT JSON \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
         window.exportJSON = function() {
             if (!allLinks.length) { toast('Chua co link nao de export', 'error'); return; }
             var blob = new Blob([JSON.stringify({ links: allLinks }, null, 2)], { type: 'application/json' });
