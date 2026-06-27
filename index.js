@@ -18,6 +18,9 @@ import { handleAdminAPI } from "./api/admin-api.js";
 import { handleLicenseAPI } from "./api/license-api.js";
 import { handleResultAPI } from "./api/result-api.js";
 import { getCosUI } from "./pages/cos.js";
+// Thêm vào sau các import hiện có
+import { getLibraryUI } from "./pages/library.js";
+import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
 
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
@@ -267,26 +270,34 @@ export default {
         // Ví dụ: go.mos360.vn/hdcaimos360 → tra KV → redirect 302 đến long URL
         if (hostname === 'go.mos360.vn') {
             const slug = path.replace(/^\//, '').split('/')[0];
-            if (!slug) {
-                // Root của go.mos360.vn → về trang chủ mos360.vn
-                return Response.redirect('https://mos360.vn', 302);
-            }
+            if (!slug) return Response.redirect('https://mos360.vn', 302);
+
+            // Thử link: prefix (format mới từ links-api.js)
+            const redirect = await handleLinkRedirect(slug, env);
+            if (redirect) return redirect;
+
+            // Fallback: thử plain text URL (data cũ nhập tay không có prefix)
             const kv = env.MOS360_LINKS_KV;
-            const raw = await kv.get('link:' + slug);
+            const raw = await kv.get(slug);
             if (raw) {
-                const rec = JSON.parse(raw);
-                // Tăng click counter (fire & forget, không block redirect)
-                rec.clicks = (rec.clicks || 0) + 1;
-                kv.put('link:' + slug, JSON.stringify(rec));
-                return Response.redirect(rec.url, 302);
+                let targetUrl;
+                try { targetUrl = JSON.parse(raw).url; } catch (e) { targetUrl = raw; }
+                if (targetUrl && targetUrl.startsWith('http')) {
+                    return Response.redirect(targetUrl, 302);
+                }
             }
-            // Slug không tồn tại → về thư viện mos360.vn/library
+
             return Response.redirect('https://mos360.vn/library', 302);
         }
 
         // ===== ADMIN API =====
         if (path.startsWith("/api/admin/")) {
             return handleAdminAPI(path, request, env);
+        }
+
+        // ===== LINKS API =====
+        if (path.startsWith("/api/links/")) {
+            return handleLinksAPI(path, request, env);
         }
 
         // ===== LICENSE API (cấp mật khẩu Excel/Word/PPT) =====
@@ -478,7 +489,7 @@ export default {
         else if (path === "/course-intro/aip") content = getAIPIntroUI();
         else if (path === "/register") content = this.getHomeUI(studentData, promoConfig, 'register');
         else if (path === "/login") content = this.getLoginUI();
-        else if (path === "/library") content = this.getLibraryUI();
+        else if (path === "/library") content = getLibraryUI();
         else if (path === "/progress") content = getProgressUI();
         else if (path === "/cap-mat-khau") content = getLicenseRequestUI();
         else if (path === "/ket-qua") content = getResultsLookupUI();
@@ -626,7 +637,28 @@ export default {
                     <a href="/ai-productivity">⚡ Làm việc hiệu quả với AI</a>
                     <div class="drop-divider"></div>
                     <a href="/progress">📈 Tiến độ học của tôi</a>
-                    <a href="/library">📚 Kho MOS</a>
+                    <!-- DROPDOWN: THƯ VIỆN -->
+                    <div class="nav-dropdown">
+                        <button class="nav-drop-btn" style="color:#16a34a;">📚 THƯ VIỆN</button>
+                        <div class="nav-drop-menu">
+                            <a href="/library">📚 Kho link tài nguyên</a>
+                            <div class="drop-divider"></div>
+                            <a href="/flashcard-ic3">📇 Flashcard IC3</a>
+                            <a href="/flashcard-ai">📇 Flashcard AI</a>
+                            <a href="/flashcard-aip">📇 Flashcard AI Productivity</a>
+                        </div>
+                    </div>
+
+                    <!-- DROPDOWN: QUẢN TRỊ (ẩn mặc định, hiện khi admin) -->
+                    <div class="nav-dropdown admin-only-btn" id="adminMegaMenu" style="display:none;">
+                        <button class="nav-drop-btn" style="color:#B8860B;">⚙️ QUẢN TRỊ</button>
+                        <div class="nav-drop-menu">
+                            <a href="/admin-dashboard">📊 Dashboard</a>
+                            <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank">👥 Quản lý học viên</a>
+                            <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank">📋 Dữ liệu đăng ký</a>
+                            <a href="/library">🔗 Quản lý Short URL</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -640,10 +672,7 @@ export default {
                     <a href="/ket-qua">📊 Kết quả luyện tập của tôi</a>
                 </div>
             </div>
-
-            <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank" class="admin-only-btn" id="adminPanelBtn">[QUẢN LÝ HỌC VIÊN]</a>
-            <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank" class="admin-only-btn" id="adminRegSheetBtn">[DỮ LIỆU ĐĂNG KÝ]</a>
-            <a href="/admin-dashboard" class="admin-only-btn" id="adminDashBtn" style="margin-left:8px;">📊 DASHBOARD</a>
+            
             <a href="/login" id="navLoginLink" style="color:var(--primary)">ĐĂNG NHẬP</a>
         </nav>
     </header>
@@ -703,9 +732,8 @@ export default {
         function applyAdminSession() {
             var isAdmin = localStorage.getItem('mos360_admin_session') === 'active';
             if (isAdmin) {
-                document.getElementById('adminPanelBtn').style.display = 'inline-block';
-                document.getElementById('adminRegSheetBtn').style.display = 'inline-block';
-                document.getElementById('adminDashBtn').style.display = 'inline-block';
+                var menu = document.getElementById('adminMegaMenu');
+                if (menu) menu.style.display = 'block';
                 var logLink = document.getElementById('navLoginLink');
                 if (logLink) {
                     logLink.textContent = "ĐĂNG XUẤT ADMIN"; logLink.href = "#";
@@ -2182,10 +2210,7 @@ async function triggerRemoteVerification(courseName) {
         }
     </script>`;
     },
-
-    getLibraryUI() {
-        return `<div class="section-card" style="max-width:800px; margin:50px auto; text-align:center;"><h2>📚 Kho Thư Viện Đề Thi MOS & IC3</h2><p style="color:var(--muted); margin-top:15px;">Dữ liệu tài nguyên thư viện đang đồng bộ...</p></div>`;
-    },
+    
 
     // FIX 5: Phòng ôn luyện với phản hồi đúng/sai ngay lập tức + hộp giải thích
     getQuizEnginePage(courseType) {
