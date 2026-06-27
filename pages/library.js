@@ -177,6 +177,19 @@ export function getLibraryUI() {
 
     loadLinks();
 
+    // ── EVENT DELEGATION cho admin buttons ──────────────────────
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        var action = btn.getAttribute('data-action');
+        var key = btn.getAttribute('data-key');
+        var title = btn.getAttribute('data-title');
+        var url = btn.getAttribute('data-url');
+        if (action === 'edit') window.editLink(key);
+        else if (action === 'delete') window.deleteLink(key, title);
+        else if (action === 'copy') window.copyText(url);
+    });
+
     // ── LOAD FROM KV API ─────────────────────────────────────────
     async function loadLinks() {
         showLoading(true);
@@ -237,6 +250,7 @@ export function getLibraryUI() {
             return (b.updated||b.created||0) - (a.updated||a.created||0);
         });
 
+        window._libFiltered = filtered;
         document.getElementById('libCount').textContent = filtered.length + ' link';
         currentPage = 1;
         renderPage(filtered);
@@ -265,15 +279,15 @@ export function getLibraryUI() {
 
             var adminActions = IS_ADMIN
                 ? '<td style="padding:10px 12px;text-align:center;white-space:nowrap;">'
-                  + '<button onclick="editLink(\'' + esc(l.key) + '\')" style="padding:5px 12px;border:1px solid #dbeafe;background:#eff6ff;color:#1d4ed8;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;margin-right:5px;">\u270F\uFE0F S\u1EEDa</button>'
-                  + '<button onclick="deleteLink(\'' + esc(l.key) + '\',\'' + esc(l.title||l.key) + '\')" style="padding:5px 12px;border:1px solid #fee2e2;background:#fef2f2;color:#dc2626;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;">\uD83D\uDDD1\uFE0F</button>'
+                  + '<button data-action="edit" data-key="' + esc(l.key) + '" style="padding:5px 12px;border:1px solid #dbeafe;background:#eff6ff;color:#1d4ed8;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;margin-right:5px;">\u270F\uFE0F S\u1EEDa</button>'
+                  + '<button data-action="delete" data-key="' + esc(l.key) + '" data-title="' + esc(l.title||l.key) + '" style="padding:5px 12px;border:1px solid #fee2e2;background:#fef2f2;color:#dc2626;border-radius:7px;cursor:pointer;font-weight:700;font-size:0.75rem;">\uD83D\uDDD1\uFE0F</button>'
                   + '</td>'
                 : '';
 
             return '<tr style="border-bottom:1px solid #f1f5f9;transition:background .15s;" onmouseover="this.style.background=\'#F8FAFD\'" onmouseout="this.style.background=\'\'"> '
                 + '<td style="padding:12px 16px;font-family:monospace;font-size:0.82rem;white-space:nowrap;">'
                 +   '<a href="' + short + '" target="_blank" style="color:#FF5722;font-weight:800;text-decoration:none;">' + l.key + '</a>'
-                +   '<button onclick="copyText(\'' + short + '\')" title="Copy link" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:0.75rem;margin-left:4px;padding:2px;">\u2398</button>'
+                +   '<button data-action="copy" data-url="' + esc(short) + '" title="Copy link" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:0.75rem;margin-left:4px;padding:2px;">\u2398</button>'
                 + '</td>'
                 + '<td style="padding:12px 16px;max-width:380px;">'
                 +   '<div style="font-weight:700;font-size:0.88rem;color:var(--text);margin-bottom:2px;">' + esc(l.title||'(ch\u01B0a \u0111\u1EB7t t\u00EAn)') + '</div>'
@@ -299,16 +313,16 @@ export function getLibraryUI() {
         var html = '';
         for (var i = 1; i <= pages; i++) {
             var active = i === currentPage;
-            html += '<button onclick="goPage(' + i + ',window._libFiltered)" style="padding:7px 14px;border:1.5px solid ' + (active ? '#FF5722' : 'var(--border)') + ';background:' + (active ? '#FF5722' : '#fff') + ';color:' + (active ? '#fff' : 'var(--muted)') + ';border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem;">' + i + '</button>';
+            html += '<button onclick="goPage(' + i + ')" style="padding:7px 14px;border:1.5px solid ' + (active ? '#FF5722' : 'var(--border)') + ';background:' + (active ? '#FF5722' : '#fff') + ';color:' + (active ? '#fff' : 'var(--muted)') + ';border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem;">' + i + '</button>';
         }
         pager.innerHTML = html;
-        window._libFiltered = filtered;
     }
 
-    window.goPage = function(p, filtered) {
+    window.goPage = function(p) {
         currentPage = p;
-        renderPage(filtered || allLinks);
-        renderPager(filtered || allLinks);
+        var f = window._libFiltered || allLinks;
+        renderPage(f);
+        renderPager(f);
     };
 
     // ── MODAL ADD/EDIT ─────────────────────────────────────────────
