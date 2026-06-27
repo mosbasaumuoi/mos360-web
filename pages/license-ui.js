@@ -81,28 +81,28 @@ export function getLicenseTabHTML() {
           <h2 style="font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:12px">🔍 Tra cứu</h2>
 
           <!-- Tab switcher -->
-          <div style="display:flex;gap:0;margin-bottom:14px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden">
-            <button id="tabPwd" onclick="switchLookupTab('pwd')" style="flex:1;padding:8px;background:#1e2235;border:none;color:#00f2ff;font-weight:700;cursor:pointer;font-size:0.78rem;border-right:1px solid rgba(255,255,255,0.1)">🔑 Mật khẩu</button>
-            <button id="tabName" onclick="switchLookupTab('name')" style="flex:1;padding:8px;background:transparent;border:none;color:#64748b;font-weight:700;cursor:pointer;font-size:0.78rem;border-right:1px solid rgba(255,255,255,0.1)">👤 Họ tên</button>
-            <button id="tabPhone" onclick="switchLookupTab('phone')" style="flex:1;padding:8px;background:transparent;border:none;color:#64748b;font-weight:700;cursor:pointer;font-size:0.78rem">📱 Số ĐT</button>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;margin-bottom:14px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden">
+            <button id="tabPwd" onclick="switchLookupTab('pwd')" style="padding:9px 4px;background:#1e2235;border:none;border-right:1px solid rgba(255,255,255,0.1);color:#00f2ff;font-weight:700;cursor:pointer;font-size:0.75rem;white-space:nowrap">🔑 Mật khẩu</button>
+            <button id="tabName" onclick="switchLookupTab('name')" style="padding:9px 4px;background:transparent;border:none;border-right:1px solid rgba(255,255,255,0.1);color:#64748b;font-weight:700;cursor:pointer;font-size:0.75rem;white-space:nowrap">👤 Họ tên</button>
+            <button id="tabPhone" onclick="switchLookupTab('phone')" style="padding:9px 4px;background:transparent;border:none;color:#64748b;font-weight:700;cursor:pointer;font-size:0.75rem;white-space:nowrap">📱 Số ĐT</button>
           </div>
 
           <!-- Input mật khẩu -->
-          <div id="lookupPwdPanel" style="display:flex;gap:8px;margin-bottom:14px">
-            <input id="licLookupPwd" type="text" placeholder="Dán mật khẩu cần tra..." style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem;font-family:monospace" onkeydown="if(event.key==='Enter')lookupPassword()">
-            <button onclick="lookupPassword()" style="padding:9px 16px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tra</button>
+          <div id="lookupPwdPanel" style="display:flex;gap:8px;margin-bottom:14px;width:100%">
+            <input id="licLookupPwd" type="text" placeholder="Dán mật khẩu cần tra..." style="flex:1;min-width:0;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.82rem;font-family:monospace;box-sizing:border-box" onkeydown="if(event.key==='Enter')lookupPassword()">
+            <button onclick="lookupPassword()" style="flex-shrink:0;padding:9px 14px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tra</button>
           </div>
 
           <!-- Input tên -->
-          <div id="lookupNamePanel" style="display:none;gap:8px;margin-bottom:14px">
-            <input id="licLookupName" type="text" placeholder="Nhập họ tên học viên..." style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem;font-family:inherit" onkeydown="if(event.key==='Enter')lookupByQuery('name')">
-            <button onclick="lookupByQuery('name')" style="padding:9px 16px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tìm</button>
+          <div id="lookupNamePanel" style="display:none;gap:8px;margin-bottom:14px;width:100%">
+            <input id="licLookupName" type="text" placeholder="Nhập họ tên học viên..." style="flex:1;min-width:0;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.82rem;font-family:inherit;box-sizing:border-box" onkeydown="if(event.key==='Enter')lookupByQuery('name')">
+            <button onclick="lookupByQuery('name')" style="flex-shrink:0;padding:9px 14px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tìm</button>
           </div>
 
           <!-- Input SĐT -->
-          <div id="lookupPhonePanel" style="display:none;gap:8px;margin-bottom:14px">
-            <input id="licLookupPhone" type="text" placeholder="Nhập số điện thoại..." style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem;font-family:monospace" onkeydown="if(event.key==='Enter')lookupByQuery('phone')">
-            <button onclick="lookupByQuery('phone')" style="padding:9px 16px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tìm</button>
+          <div id="lookupPhonePanel" style="display:none;gap:8px;margin-bottom:14px;width:100%">
+            <input id="licLookupPhone" type="text" placeholder="Nhập số điện thoại..." style="flex:1;min-width:0;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.82rem;font-family:monospace;box-sizing:border-box" onkeydown="if(event.key==='Enter')lookupByQuery('phone')">
+            <button onclick="lookupByQuery('phone')" style="flex-shrink:0;padding:9px 14px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tìm</button>
           </div>
 
           <div id="licLookupResult" style="margin-bottom:20px;max-height:220px;overflow-y:auto"></div>
@@ -385,7 +385,7 @@ function switchLookupTab(tab) {
     var activeBtn = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
     var activePanel = document.getElementById('lookup' + tab.charAt(0).toUpperCase() + tab.slice(1) + 'Panel');
     if (activeBtn) { activeBtn.style.background = '#1e2235'; activeBtn.style.color = '#00f2ff'; }
-    if (activePanel) { activePanel.style.display = 'flex'; }
+    if (activePanel) { activePanel.style.display = 'flex'; activePanel.style.width = '100%'; }
     document.getElementById('licLookupResult').innerHTML = '';
 }
 
