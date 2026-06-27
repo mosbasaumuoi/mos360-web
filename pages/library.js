@@ -19,6 +19,7 @@ export function getLibraryUI() {
             </label>
             <button onclick="exportJSON()" style="padding:9px 18px;background:#F0F4FA;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">📤 Export JSON</button>
             <button onclick="loadLinks()" style="padding:9px 18px;background:#F0F4FA;border:1px solid var(--border);color:var(--muted);border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">🔄 Làm mới</button>
+            <button onclick="clearAllLinks()" style="padding:9px 18px;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.85rem;">🗑️ Xóa tất cả</button>
         </div>
     </div>
 
@@ -138,6 +139,18 @@ export function getLibraryUI() {
         <div style="display:flex;gap:10px;justify-content:flex-end;">
             <button onclick="document.getElementById('delModal').style.display='none'" style="padding:9px 20px;border:1.5px solid var(--border);background:#fff;border-radius:10px;font-weight:700;cursor:pointer;">Huỷ</button>
             <button id="delConfirmBtn" style="padding:9px 20px;background:#ef4444;border:none;color:#fff;border-radius:10px;font-weight:800;cursor:pointer;">Xoá</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ MODAL XÁC NHẬN XÓA TẤT CẢ ══ -->
+<div id="clearModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);z-index:9200;align-items:center;justify-content:center;padding:16px;">
+    <div style="background:#fff;border-radius:16px;padding:28px;max-width:420px;width:100%;box-shadow:0 16px 48px rgba(15,23,42,0.18);">
+        <h3 style="font-size:1rem;font-weight:800;color:#b91c1c;margin-bottom:12px;">🗑️ Xóa toàn bộ thư viện?</h3>
+        <p style="font-size:0.88rem;color:#64748b;margin-bottom:20px;">Hành động này sẽ <strong>xóa vĩnh viễn tất cả links</strong> trong KV Store. Không thể hoàn tác!</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end;">
+            <button onclick="document.getElementById('clearModal').style.display='none'" style="padding:9px 20px;border:1.5px solid #e2e8f0;background:#fff;border-radius:10px;font-weight:700;cursor:pointer;">Huỷ</button>
+            <button id="clearConfirmBtn" style="padding:9px 20px;background:#ef4444;border:none;color:#fff;border-radius:10px;font-weight:800;cursor:pointer;">Xóa tất cả</button>
         </div>
     </div>
 </div>
@@ -498,6 +511,30 @@ export function getLibraryUI() {
             a.click();
             toast('Da export ' + allLinks.length + ' link');
         };
+    // ── CLEAR ALL ────────────────────────────────────────────────
+    window.clearAllLinks = function() {
+        document.getElementById('clearModal').style.display = 'flex';
+        document.getElementById('clearConfirmBtn').onclick = async function() {
+            document.getElementById('clearModal').style.display = 'none';
+            var btn = document.getElementById('clearConfirmBtn');
+            try {
+                var res = await fetch('/api/links/clear', {
+                    method: 'POST',
+                    headers: { 'X-Admin-Auth': 'mos360_admin' }
+                });
+                var data = await res.json();
+                if (data.ok) {
+                    toast('\u2705 \u0110\u00E3 x\u00F3a ' + data.deleted + ' links');
+                    await loadLinks();
+                } else {
+                    toast('\u274C ' + (data.msg || 'L\u1ED7i x\u00F3a'), 'error');
+                }
+            } catch(e) {
+                toast('\u274C L\u1ED7i k\u1EBFt n\u1ED1i', 'error');
+            }
+        };
+    };
+
     })();
     </script>
 `;
