@@ -260,6 +260,29 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
         const path = url.pathname;
+        const hostname = url.hostname;
+
+        // ===== go.mos360.vn — Short URL redirect domain =====
+        // Mọi request đến go.mos360.vn đều được xử lý như short URL redirect
+        // Ví dụ: go.mos360.vn/hdcaimos360 → tra KV → redirect 302 đến long URL
+        if (hostname === 'go.mos360.vn') {
+            const slug = path.replace(/^\//, '').split('/')[0];
+            if (!slug) {
+                // Root của go.mos360.vn → về trang chủ mos360.vn
+                return Response.redirect('https://mos360.vn', 302);
+            }
+            const kv = env.MOS360_LINKS_KV;
+            const raw = await kv.get('link:' + slug);
+            if (raw) {
+                const rec = JSON.parse(raw);
+                // Tăng click counter (fire & forget, không block redirect)
+                rec.clicks = (rec.clicks || 0) + 1;
+                kv.put('link:' + slug, JSON.stringify(rec));
+                return Response.redirect(rec.url, 302);
+            }
+            // Slug không tồn tại → về thư viện mos360.vn/library
+            return Response.redirect('https://mos360.vn/library', 302);
+        }
 
         // ===== ADMIN API =====
         if (path.startsWith("/api/admin/")) {
@@ -407,10 +430,10 @@ export default {
         }
         if (path === "/flashcard-aip") {
             return new Response(getFlashcardUI("AI PRODUCTIVITY", [...AI_PRODUCTIVITY], IMAGE_BASE_URL, IMAGE_MAP), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
-        }    
+        }
         if (path === "/cos") {
             return new Response(getCosUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
-        }    
+        }
 
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
         let studentData = "";

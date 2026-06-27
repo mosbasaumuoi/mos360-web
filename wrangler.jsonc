@@ -6,6 +6,23 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  // ── Custom domains — cả 2 domain đều vào cùng 1 Worker ──────
+  // mos360.vn    : web chính
+  // go.mos360.vn : short URL redirect (xử lý riêng trong fetch handler)
+  //
+  // Yêu cầu: cả 2 domain phải được proxy qua Cloudflare (cam vàng ☁️ trong DNS)
+  // Sau khi deploy, vào Workers & Pages → mos360-web → Settings → Domains & Routes
+  // → Add Custom Domain → thêm "go.mos360.vn"
+  "routes": [
+    {
+      "pattern": "mos360.vn/*",
+      "zone_name": "mos360.vn"
+    },
+    {
+      "pattern": "go.mos360.vn/*",
+      "zone_name": "mos360.vn"
+    }
+  ],
   "kv_namespaces": [
     {
       "binding": "MOS360_USERS_KV",
@@ -14,6 +31,10 @@
     {
       "binding": "MOS360_COURSES_KV",
       "id": "31110d6e2db34425accab5d6ae92ca46"
+    },
+    {
+      "binding": "MOS360_LINKS_KV",
+      "id": "9f4d266d92784d749ceac0e8831adf70"
     }
   ]
 }
