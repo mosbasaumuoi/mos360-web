@@ -145,6 +145,10 @@ export function getLibraryUI() {
 <!-- ══ TOAST ══ -->
 <div id="libToast" style="display:none;position:fixed;bottom:28px;right:28px;background:#0f172a;color:#fff;padding:13px 20px;border-radius:12px;font-size:0.85rem;font-weight:700;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.25);max-width:320px;"></div>
 
+<style>
+.lib-row { transition: background .15s; }
+.lib-row:hover { background: #F8FAFD; }
+</style>
 <script>
 (function() {
     // ── CONFIG ──────────────────────────────────────────────────
@@ -284,7 +288,7 @@ export function getLibraryUI() {
                   + '</td>'
                 : '';
 
-            return '<tr style="border-bottom:1px solid #f1f5f9;transition:background .15s;" onmouseover="this.style.background=\'#F8FAFD\'" onmouseout="this.style.background=\'\'"> '
+            return '<tr class="lib-row" style="border-bottom:1px solid #f1f5f9;"> '
                 + '<td style="padding:12px 16px;font-family:monospace;font-size:0.82rem;white-space:nowrap;">'
                 +   '<a href="' + short + '" target="_blank" style="color:#FF5722;font-weight:800;text-decoration:none;">' + l.key + '</a>'
                 +   '<button data-action="copy" data-url="' + esc(short) + '" title="Copy link" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:0.75rem;margin-left:4px;padding:2px;">\u2398</button>'
