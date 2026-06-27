@@ -169,10 +169,6 @@ export function getLibraryUI() {
     window.loadLinks = loadLinks;
     window.filterLinks = filterLinks;
     window.showAddModal = showAddModal;
-    window.closeModal = closeModal;
-    window.saveLink = saveLink;
-    window.editLink = editLink;
-    window.deleteLink = deleteLink;
 
     if (IS_ADMIN) {
         document.getElementById('libAdminBar').style.display = 'flex';
