@@ -122,19 +122,25 @@ export async function handleLinksAPI(path, request, env) {
     }
 
     // ── POST /api/links/clear ────────────────────────────────────
-    // Xóa toàn bộ links trong KV (dùng khi cần reset/reimport)
+    // Xóa toàn bộ links trong KV kể cả data cũ có prefix link:
     if (path === '/api/links/clear' && request.method === 'POST') {
         if (!isAdmin(request)) return json({ ok: false, msg: 'Không có quyền' }, 403);
 
-        const idxRaw = await kv.get('idx:all');
-        const slugs = idxRaw ? JSON.parse(idxRaw) : [];
+        // List TẤT CẢ keys trong namespace (kể cả link:xxx cũ và idx:all)
+        let allKeys = [];
+        let cursor = undefined;
+        do {
+            const listResult = cursor
+                ? await kv.list({ cursor })
+                : await kv.list();
+            allKeys = allKeys.concat(listResult.keys.map(k => k.name));
+            cursor = listResult.list_complete ? undefined : listResult.cursor;
+        } while (cursor);
 
-        // Xóa từng link
-        await Promise.all(slugs.map(slug => kv.delete(slug)));
-        // Xóa index
-        await kv.delete('idx:all');
+        // Xóa tất cả
+        await Promise.all(allKeys.map(k => kv.delete(k)));
 
-        return json({ ok: true, deleted: slugs.length });
+        return json({ ok: true, deleted: allKeys.length });
     }
 
     return new Response('Not found', { status: 404 });
