@@ -126,38 +126,39 @@ export async function handleLinksAPI(path, request, env) {
     if (path === '/api/links/bulk' && request.method === 'POST') {
         if (!isAdmin(request)) return json({ ok: false, msg: 'Không có quyền' }, 403);
 
-        const body = await request.json().catch(() => ({}));
-        const links = body.links || [];
-        if (!links.length) return json({ ok: false, msg: 'Không có links nào' });
+        try {
+            const body = await request.json().catch(() => ({}));
+            const links = body.links || [];
+            if (!links.length) return json({ ok: false, msg: 'Không có links nào' });
 
-        const now = Date.now();
-        const slugs = [];
-        let fail = 0;
+            const now = Date.now();
+            const slugs = [];
+            let fail = 0;
 
-        for (const l of links) {
-            if (!l.key || !l.url || !l.title) { fail++; continue; }
-            const record = {
-                key: l.key,
-                title: l.title,
-                url: l.url,
-                cat: l.cat || 'other',
-                note: l.note || '',
-                clicks: l.clicks || 0,
-                created: l.created || now,
-                updated: l.updated || now
-            };
-            await kv.put(l.key, JSON.stringify(record));
-            slugs.push(l.key);
+            // Ghi từng link vào KV
+            for (const l of links) {
+                if (!l.key || !l.url || !l.title) { fail++; continue; }
+                const record = {
+                    key: l.key,
+                    title: l.title,
+                    url: l.url,
+                    cat: l.cat || 'other',
+                    note: l.note || '',
+                    clicks: l.clicks || 0,
+                    created: l.created || now,
+                    updated: l.updated || now
+                };
+                await kv.put(l.key, JSON.stringify(record));
+                slugs.push(l.key);
+            }
+
+            // Ghi đè idx:all hoàn toàn (không merge để đảm bảo sạch)
+            await kv.put('idx:all', JSON.stringify(slugs));
+
+            return json({ ok: true, count: slugs.length, fail, total: slugs.length });
+        } catch (e) {
+            return json({ ok: false, msg: e.message }, 500);
         }
-
-        // Cập nhật index — merge với slugs đã có (nếu có)
-        const idxRaw = await kv.get('idx:all');
-        const existing = idxRaw ? JSON.parse(idxRaw) : [];
-        // Thêm slug mới vào đầu, loại bỏ trùng
-        const merged = [...new Set([...slugs, ...existing])];
-        await kv.put('idx:all', JSON.stringify(merged));
-
-        return json({ ok: true, count: slugs.length, fail, total: merged.length });
     }
 
     // ── POST /api/links/clear ────────────────────────────────────
@@ -166,31 +167,21 @@ export async function handleLinksAPI(path, request, env) {
         if (!isAdmin(request)) return json({ ok: false, msg: 'Không có quyền' }, 403);
 
         try {
-            const toDelete = new Set();
+            // Chiến lược tiết kiệm KV delete quota:
+            // Chỉ xóa idx:all → library hiện trống
+            // Khi import bulk mới → idx:all được ghi đè, data cũ tự bị bỏ qua
+            // (data cũ vẫn tồn tại trong KV nhưng không được index → vô hiệu)
+            await kv.delete('idx:all');
 
-            // 1. Đọc idx:all để lấy slugs hiện tại
-            const idxRaw = await kv.get('idx:all');
-            const slugs = idxRaw ? JSON.parse(idxRaw) : [];
-            slugs.forEach(s => toDelete.add(s));
-            toDelete.add('idx:all');
+            // Cũng xóa các key link: cũ nếu còn (tối đa 100 để không vượt quota)
+            const oldIdx = await kv.list({ prefix: 'link:', limit: 100 });
+            if (oldIdx.keys.length > 0) {
+                await Promise.all(oldIdx.keys.map(k => kv.delete(k.name)));
+            }
 
-            // 2. Scan prefix 'link:' để xóa data cũ
-            let cursor;
-            do {
-                const result = cursor
-                    ? await kv.list({ prefix: 'link:', cursor, limit: 1000 })
-                    : await kv.list({ prefix: 'link:', limit: 1000 });
-                result.keys.forEach(k => toDelete.add(k.name));
-                cursor = result.list_complete ? undefined : result.cursor;
-            } while (cursor);
-
-            // 3. Xóa tất cả
-            const keys = [...toDelete];
-            await Promise.all(keys.map(k => kv.delete(k)));
-
-            return json({ ok: true, deleted: keys.length });
+            return json({ ok: true, deleted: 1 + oldIdx.keys.length, msg: 'Đã xóa index. Import JSON để tạo lại.' });
         } catch (e) {
-            return json({ ok: false, msg: e.message, stack: e.stack }, 500);
+            return json({ ok: false, msg: e.message }, 500);
         }
     }
 
