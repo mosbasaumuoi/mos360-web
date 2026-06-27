@@ -475,14 +475,14 @@ export function getLibraryUI() {
 
     // ── EXPORT JSON ──────────────────────────────────────────────
         window.exportJSON = function() {
-            if (!allLinks.length) { toast('\u26a0\ufe0f Ch\u01b0a c\u00f3 link n\u00e0o \u0111\u1ec3 export', 'error'); return; }
+            if (!allLinks.length) { toast('Chua co link nao de export', 'error'); return; }
             var blob = new Blob([JSON.stringify({ links: allLinks }, null, 2)], { type: 'application/json' });
             var a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             var dateStr = new Date().toISOString().slice(0, 10);
             a.download = 'mos360-links-' + dateStr + '.json';
             a.click();
-            toast('\ud83d\udce4 \u0110\u00e3 export ' + allLinks.length + ' link');
+            toast('Da export ' + allLinks.length + ' link');
         };
     })();
     </script>
