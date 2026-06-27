@@ -78,12 +78,34 @@ export function getLicenseTabHTML() {
 
         <!-- TRA CỨU & DANH SÁCH ĐÃ CẤP -->
         <div style="background:#111422;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;max-height:680px;display:flex;flex-direction:column">
-          <h2 style="font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:14px">🔍 Tra cứu theo mật khẩu</h2>
-          <div style="display:flex;gap:8px;margin-bottom:18px">
-            <input id="licLookupPwd" type="text" placeholder="Dán mật khẩu cần tra..." style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem;font-family:monospace">
+          <h2 style="font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:12px">🔍 Tra cứu</h2>
+
+          <!-- Tab switcher -->
+          <div style="display:flex;gap:0;margin-bottom:14px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden">
+            <button id="tabPwd" onclick="switchLookupTab('pwd')" style="flex:1;padding:8px;background:#1e2235;border:none;color:#00f2ff;font-weight:700;cursor:pointer;font-size:0.78rem;border-right:1px solid rgba(255,255,255,0.1)">🔑 Mật khẩu</button>
+            <button id="tabName" onclick="switchLookupTab('name')" style="flex:1;padding:8px;background:transparent;border:none;color:#64748b;font-weight:700;cursor:pointer;font-size:0.78rem;border-right:1px solid rgba(255,255,255,0.1)">👤 Họ tên</button>
+            <button id="tabPhone" onclick="switchLookupTab('phone')" style="flex:1;padding:8px;background:transparent;border:none;color:#64748b;font-weight:700;cursor:pointer;font-size:0.78rem">📱 Số ĐT</button>
+          </div>
+
+          <!-- Input mật khẩu -->
+          <div id="lookupPwdPanel" style="display:flex;gap:8px;margin-bottom:14px">
+            <input id="licLookupPwd" type="text" placeholder="Dán mật khẩu cần tra..." style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem;font-family:monospace" onkeydown="if(event.key==='Enter')lookupPassword()">
             <button onclick="lookupPassword()" style="padding:9px 16px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tra</button>
           </div>
-          <div id="licLookupResult" style="margin-bottom:20px"></div>
+
+          <!-- Input tên -->
+          <div id="lookupNamePanel" style="display:none;gap:8px;margin-bottom:14px">
+            <input id="licLookupName" type="text" placeholder="Nhập họ tên học viên..." style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem;font-family:inherit" onkeydown="if(event.key==='Enter')lookupByQuery('name')">
+            <button onclick="lookupByQuery('name')" style="padding:9px 16px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tìm</button>
+          </div>
+
+          <!-- Input SĐT -->
+          <div id="lookupPhonePanel" style="display:none;gap:8px;margin-bottom:14px">
+            <input id="licLookupPhone" type="text" placeholder="Nhập số điện thoại..." style="flex:1;padding:9px 12px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:#fff;font-size:0.85rem;font-family:monospace" onkeydown="if(event.key==='Enter')lookupByQuery('phone')">
+            <button onclick="lookupByQuery('phone')" style="padding:9px 16px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem">Tìm</button>
+          </div>
+
+          <div id="licLookupResult" style="margin-bottom:20px;max-height:220px;overflow-y:auto"></div>
 
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
             <h2 style="font-size:0.95rem;font-weight:800;color:#fff">📜 Đã cấp gần đây</h2>
@@ -348,6 +370,61 @@ async function lookupPassword() {
             '</div></div>';
     } catch (e) {
         box.innerHTML = '<div style="color:#ef4444;font-size:0.82rem">Lỗi tra cứu</div>';
+    }
+}
+
+function switchLookupTab(tab) {
+    // Reset tất cả tabs
+    ['pwd','name','phone'].forEach(function(t) {
+        var btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
+        var panel = document.getElementById('lookup' + t.charAt(0).toUpperCase() + t.slice(1) + 'Panel');
+        if (btn) { btn.style.background = 'transparent'; btn.style.color = '#64748b'; }
+        if (panel) panel.style.display = 'none';
+    });
+    // Active tab được chọn
+    var activeBtn = document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1));
+    var activePanel = document.getElementById('lookup' + tab.charAt(0).toUpperCase() + tab.slice(1) + 'Panel');
+    if (activeBtn) { activeBtn.style.background = '#1e2235'; activeBtn.style.color = '#00f2ff'; }
+    if (activePanel) { activePanel.style.display = 'flex'; }
+    document.getElementById('licLookupResult').innerHTML = '';
+}
+
+async function lookupByQuery(type) {
+    var inputId = type === 'name' ? 'licLookupName' : 'licLookupPhone';
+    var q = document.getElementById(inputId).value.trim();
+    var box = document.getElementById('licLookupResult');
+    if (!q || q.length < 2) { box.innerHTML = '<div style="color:#f59e0b;font-size:0.82rem">Nhập ít nhất 2 ký tự</div>'; return; }
+    box.innerHTML = '<div style="color:#64748b;font-size:0.82rem">Đang tìm...</div>';
+    try {
+        var res = await adminFetch('/api/license/search?q=' + encodeURIComponent(q));
+        var data = await res.json();
+        if (!data.success) {
+            box.innerHTML = '<div style="padding:10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;color:#ef4444;font-size:0.82rem">❌ ' + data.msg + '</div>';
+            return;
+        }
+        if (!data.items || !data.items.length) {
+            box.innerHTML = '<div style="padding:10px;background:rgba(255,255,255,0.04);border-radius:8px;color:#64748b;font-size:0.82rem;text-align:center">Không tìm thấy kết quả nào</div>';
+            return;
+        }
+        box.innerHTML = '<div style="font-size:0.72rem;color:#64748b;margin-bottom:8px">Tìm thấy ' + data.total + ' kết quả:</div>' +
+            data.items.map(function(h) {
+                var expireStr = h.expireDate ? h.expireDate.slice(0,4) + '-' + h.expireDate.slice(4,6) + '-' + h.expireDate.slice(6) : '';
+                var isExpired = expireStr && expireStr < new Date().toISOString().slice(0,10);
+                return '<div style="padding:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;margin-bottom:8px">' +
+                    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">' +
+                    '<span style="color:#fff;font-weight:700;font-size:0.85rem">' + (h.studentName || 'Không tên') + '</span>' +
+                    '<span style="background:rgba(0,242,255,0.1);color:#00f2ff;padding:2px 8px;border-radius:10px;font-size:0.7rem;font-weight:700">' + (SUBJECT_LABEL_VI[h.subject] || h.subject) + '</span>' +
+                    '</div>' +
+                    '<div style="color:#64748b;font-size:0.75rem;line-height:1.7">' +
+                    '📱 ' + (h.phone || '-') + ' · ' +
+                    'Mật khẩu: <code style="background:#090b14;padding:1px 6px;border-radius:4px;color:#22c55e">' + h.password + '</code><br>' +
+                    'Hạn: <span style="color:' + (isExpired ? '#ef4444' : '#94a3b8') + '">' + formatExpire(h.expireDate) + '</span>' +
+                    (isExpired ? ' <span style="color:#ef4444;font-size:0.68rem">(HẾT HẠN)</span>' : '') +
+                    ' · Cấp: ' + new Date(h.issuedAt).toLocaleDateString('vi-VN') +
+                    '</div></div>';
+            }).join('');
+    } catch (e) {
+        box.innerHTML = '<div style="color:#ef4444;font-size:0.82rem">Lỗi tìm kiếm</div>';
     }
 }
 
