@@ -22,6 +22,12 @@ export function getLibraryUI() {
         </div>
     </div>
 
+    <!-- ══ BANNER STATIC (chỉ admin thấy khi KV chưa sync) ══ -->
+    <div id="libStaticBanner" style="display:none;align-items:center;gap:12px;background:#fffbeb;border:1.5px solid #fcd34d;border-radius:12px;padding:12px 18px;margin-bottom:16px;flex-wrap:wrap;">
+        <span style="font-size:0.85rem;color:#92400e;flex:1;min-width:200px;">⚠️ <strong>KV Store chưa có dữ liệu.</strong> Thư viện đang hiển thị từ file JSON tĩnh — chưa thể sửa/xoá/click tracking. Nhấn <strong>Sync KV</strong> để import toàn bộ dữ liệu vào KV.</span>
+        <button id="seedKVBtn" onclick="seedKV()" style="padding:9px 20px;background:#d97706;border:none;color:#fff;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.85rem;white-space:nowrap;">⚡ Sync KV</button>
+    </div>
+
     <!-- ══ BỘ LỌC ══ -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
         <input id="libSearch" oninput="filterLinks()" placeholder="🔍 Tìm theo tên, key, URL..." style="flex:1;min-width:200px;padding:9px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.85rem;font-family:inherit;outline:none;">
@@ -177,13 +183,22 @@ export function getLibraryUI() {
 
     loadLinks();
 
-    // ── LOAD FROM KV API ─────────────────────────────────────────
+    // ── LOAD FROM KV API (fallback về JSON tĩnh nếu KV trống) ───
     async function loadLinks() {
         showLoading(true);
         try {
             var res = await fetch('/api/links/list');
             var data = await res.json();
             allLinks = data.links || [];
+
+            // Hiện banner thông báo nếu đang đọc từ file tĩnh
+            var banner = document.getElementById('libStaticBanner');
+            if (data.source === 'static' && IS_ADMIN) {
+                if (banner) banner.style.display = 'flex';
+            } else {
+                if (banner) banner.style.display = 'none';
+            }
+
             renderStats();
             filterLinks();
         } catch(e) {
@@ -191,6 +206,29 @@ export function getLibraryUI() {
             toast('❌ Không thể tải dữ liệu', 'error');
         }
     }
+
+    // ── SEED KV từ file JSON tĩnh ────────────────────────────────
+    window.seedKV = async function() {
+        var btn = document.getElementById('seedKVBtn');
+        if (btn) { btn.textContent = '⏳ Đang seed...'; btn.disabled = true; }
+        try {
+            var res = await fetch('/api/links/seed', {
+                method: 'POST',
+                headers: { 'X-Admin-Auth': 'mos360_admin' }
+            });
+            var data = await res.json();
+            if (data.ok) {
+                toast('✅ Đã seed ' + data.count + ' link vào KV!');
+                await loadLinks();
+            } else {
+                toast('❌ ' + (data.msg || 'Lỗi seed'), 'error');
+            }
+        } catch(e) {
+            toast('❌ Lỗi kết nối', 'error');
+        } finally {
+            if (btn) { btn.textContent = '⚡ Sync KV'; btn.disabled = false; }
+        }
+    };
 
     function renderStats() {
         var total = allLinks.length;

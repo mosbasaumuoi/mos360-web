@@ -4,6 +4,8 @@
 
 // LinkRecord { key, title, url, cat, note, clicks, created, updated }
 
+import MOS360_LINKS from "../mos360_links.json";
+
 export async function handleLinksAPI(path, request, env) {
     const kv = env.MOS360_LINKS_KV;
     const json = (data, status = 200) =>
@@ -16,7 +18,6 @@ export async function handleLinksAPI(path, request, env) {
     function isAdmin(req) {
         const cookie = req.headers.get('Cookie') || '';
         const authH = req.headers.get('X-Admin-Auth') || '';
-        // Client gửi kèm header X-Admin-Auth khi gọi từ fetch() phía JS
         return cookie.includes('mos360_admin=true') || authH === 'mos360_admin';
     }
 
@@ -24,7 +25,24 @@ export async function handleLinksAPI(path, request, env) {
     if (path === '/api/links/list' && request.method === 'GET') {
         const idxRaw = await kv.get('idx:all');
         const slugs = idxRaw ? JSON.parse(idxRaw) : [];
-        if (!slugs.length) return json({ links: [] });
+
+        // Nếu KV trống → fallback về file JSON tĩnh
+        if (!slugs.length) {
+            const staticLinks = (MOS360_LINKS.links || []).map(function (l) {
+                return {
+                    key: l.key,
+                    title: l.title,
+                    url: l.url,
+                    cat: l.cat || 'other',
+                    note: l.note || '',
+                    clicks: 0,
+                    created: 0,
+                    updated: 0,
+                    _static: true   // đánh dấu để client biết là chưa sync KV
+                };
+            });
+            return json({ links: staticLinks, source: 'static' });
+        }
 
         const entries = await Promise.all(
             slugs.map(async (slug) => {
@@ -32,7 +50,37 @@ export async function handleLinksAPI(path, request, env) {
                 return raw ? JSON.parse(raw) : null;
             })
         );
-        return json({ links: entries.filter(Boolean) });
+        return json({ links: entries.filter(Boolean), source: 'kv' });
+    }
+
+    // ── POST /api/links/seed ─────────────────────────────────────
+    // Seed toàn bộ mos360_links.json vào KV (chỉ chạy 1 lần hoặc khi cần reset)
+    if (path === '/api/links/seed' && request.method === 'POST') {
+        if (!isAdmin(request)) return json({ ok: false, msg: 'Không có quyền' }, 403);
+
+        const links = MOS360_LINKS.links || [];
+        if (!links.length) return json({ ok: false, msg: 'File JSON trống' });
+
+        const now = Date.now();
+        const slugs = [];
+        for (const l of links) {
+            if (!l.key || !l.url || !l.title) continue;
+            const record = {
+                key: l.key,
+                title: l.title,
+                url: l.url,
+                cat: l.cat || 'other',
+                note: l.note || '',
+                clicks: l.clicks || 0,
+                created: l.created || now,
+                updated: l.updated || now
+            };
+            await kv.put('link:' + l.key, JSON.stringify(record));
+            slugs.push(l.key);
+        }
+
+        await kv.put('idx:all', JSON.stringify(slugs));
+        return json({ ok: true, count: slugs.length });
     }
 
     // ── POST /api/links/save ─────────────────────────────────────
@@ -48,7 +96,6 @@ export async function handleLinksAPI(path, request, env) {
         const isEdit = !!editKey;
 
         if (isEdit) {
-            // Chỉ cập nhật URL + meta, giữ nguyên key và clicks
             key = editKey;
             const existing = await kv.get('link:' + key);
             const prev = existing ? JSON.parse(existing) : {};
@@ -70,23 +117,20 @@ export async function handleLinksAPI(path, request, env) {
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-+|-+$/g, '')
                 .slice(0, 32);
-            // Đảm bảo unique
             const existing = await kv.get('link:' + key);
             if (existing) key = key + '-' + Date.now().toString(36).slice(-4);
         }
 
-        // Kiểm tra trùng key
         const conflict = await kv.get('link:' + key);
         if (conflict) return json({ ok: false, msg: 'Key "' + key + '" đã tồn tại. Vui lòng chọn key khác.' });
 
         const record = { key, title, url, cat: cat || 'other', note: note || '', clicks: 0, created: Date.now(), updated: Date.now() };
         await kv.put('link:' + key, JSON.stringify(record));
 
-        // Cập nhật index
         const idxRaw = await kv.get('idx:all');
         const slugs = idxRaw ? JSON.parse(idxRaw) : [];
         if (!slugs.includes(key)) {
-            slugs.unshift(key); // thêm đầu danh sách (mới nhất trước)
+            slugs.unshift(key);
             await kv.put('idx:all', JSON.stringify(slugs));
         }
 
@@ -109,7 +153,6 @@ export async function handleLinksAPI(path, request, env) {
     }
 
     // ── POST /api/links/click ─────────────────────────────────────
-    // Gọi từ redirect handler để tăng counter
     if (path.startsWith('/api/links/click/') && request.method === 'POST') {
         const key = path.split('/api/links/click/')[1];
         if (!key) return json({ ok: false });
@@ -117,22 +160,26 @@ export async function handleLinksAPI(path, request, env) {
         if (!raw) return json({ ok: false, msg: 'Not found' });
         const rec = JSON.parse(raw);
         rec.clicks = (rec.clicks || 0) + 1;
-        await kv.put('link:' + key, JSON.stringify(rec));
+        await kv.put('link:' + rec.key, JSON.stringify(rec));
         return json({ ok: true, clicks: rec.clicks });
     }
 
     return new Response('Not found', { status: 404 });
 }
 
-// ── REDIRECT HANDLER (gọi từ index.js khi path không khớp route) ──────────
-// Dùng cho: path = "/" + slug (short URL từ go.mos360.vn hoặc từ mos360.vn/go/*)
+// ── REDIRECT HANDLER ──────────────────────────────────────────
 export async function handleLinkRedirect(slug, env) {
     const kv = env.MOS360_LINKS_KV;
     const raw = await kv.get('link:' + slug);
-    if (!raw) return null; // không tìm thấy → để caller xử lý 404
+
+    // Nếu không có trong KV, thử tìm trong file tĩnh
+    if (!raw) {
+        const staticLink = (MOS360_LINKS.links || []).find(l => l.key === slug);
+        if (!staticLink) return null;
+        return Response.redirect(staticLink.url, 302);
+    }
 
     const rec = JSON.parse(raw);
-    // Tăng click counter bất đồng bộ (không block redirect)
     rec.clicks = (rec.clicks || 0) + 1;
     kv.put('link:' + slug, JSON.stringify(rec)); // fire and forget
 
