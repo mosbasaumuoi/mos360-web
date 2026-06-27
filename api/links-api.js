@@ -165,29 +165,33 @@ export async function handleLinksAPI(path, request, env) {
     if (path === '/api/links/clear' && request.method === 'POST') {
         if (!isAdmin(request)) return json({ ok: false, msg: 'Không có quyền' }, 403);
 
-        const toDelete = new Set();
+        try {
+            const toDelete = new Set();
 
-        // 1. Đọc idx:all để lấy slugs hiện tại
-        const idxRaw = await kv.get('idx:all');
-        const slugs = idxRaw ? JSON.parse(idxRaw) : [];
-        slugs.forEach(s => toDelete.add(s));
-        toDelete.add('idx:all');
+            // 1. Đọc idx:all để lấy slugs hiện tại
+            const idxRaw = await kv.get('idx:all');
+            const slugs = idxRaw ? JSON.parse(idxRaw) : [];
+            slugs.forEach(s => toDelete.add(s));
+            toDelete.add('idx:all');
 
-        // 2. Scan prefix 'link:' để xóa data cũ
-        let cursor;
-        do {
-            const result = cursor
-                ? await kv.list({ prefix: 'link:', cursor, limit: 1000 })
-                : await kv.list({ prefix: 'link:', limit: 1000 });
-            result.keys.forEach(k => toDelete.add(k.name));
-            cursor = result.list_complete ? undefined : result.cursor;
-        } while (cursor);
+            // 2. Scan prefix 'link:' để xóa data cũ
+            let cursor;
+            do {
+                const result = cursor
+                    ? await kv.list({ prefix: 'link:', cursor, limit: 1000 })
+                    : await kv.list({ prefix: 'link:', limit: 1000 });
+                result.keys.forEach(k => toDelete.add(k.name));
+                cursor = result.list_complete ? undefined : result.cursor;
+            } while (cursor);
 
-        // 3. Xóa tất cả
-        const keys = [...toDelete];
-        await Promise.all(keys.map(k => kv.delete(k)));
+            // 3. Xóa tất cả
+            const keys = [...toDelete];
+            await Promise.all(keys.map(k => kv.delete(k)));
 
-        return json({ ok: true, deleted: keys.length });
+            return json({ ok: true, deleted: keys.length });
+        } catch (e) {
+            return json({ ok: false, msg: e.message, stack: e.stack }, 500);
+        }
     }
 
     return new Response('Not found', { status: 404 });
