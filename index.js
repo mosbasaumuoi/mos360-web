@@ -57,7 +57,7 @@ const CONFIG = {
 
     // Links tải tiện ích
     TOOLS: {
-        MOS360: "https://drive.google.com/file/d/1yMepEUJIS8CVUKJauhfxAE84eBXhOXj2/view",
+        MOS360: "https://drive.google.com/file/d/16ZRK0JtioIq1R0grfw88-M5V0fr6tY_A/view",
         OFFICE: "https://drive.google.com/file/d/1nYo6f5VDqgsgbp_-_IA6tO9muyohHOhg/view",
         FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
         WINRAR: "https://drive.google.com/file/d/1NJVEBHJBpPr6R_y7PP_oZM0qn8hFyoG1/view",
@@ -674,15 +674,13 @@ export default {
     </header>
 
     <nav style="background:#E2ECFA; padding:10px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:6px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; align-items:center; flex-wrap:wrap;">
-        <span style="color:var(--muted); font-weight:800; font-size:0.72rem; letter-spacing:0.3px;">⚡ PHÒNG THI NHANH:</span>
+        <span style="color:var(--muted); font-weight:800; font-size:0.72rem; letter-spacing:0.3px;">🎯 HỌC THỬ:</span>
         <a href="/generative-ai" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">✨ Generative AI</a>
         <a href="/ai-productivity" style="color:#0068FF; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">⚡ AI Productivity</a>
         <a href="/ic3-lv1" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟢 IC3 Level 1</a>
         <a href="/ic3-lv2" style="color:#d97706; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟡 IC3 Level 2</a>
         <a href="/ic3-lv3" style="color:#dc2626; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🔴 IC3 Level 3</a>
-        <span style="color:var(--border); margin:0 4px;">|</span>
-        <a href="/cap-mat-khau" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🔑 Lấy mật khẩu MOS</a>
-        <a href="/ket-qua" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">📊 Kết quả MOS</a>
+
     </nav>
 
     <!-- FIX 2: Icon Zalo SVG logo chuẩn thương hiệu chính thức -->
@@ -1028,11 +1026,99 @@ table.hn-table { width:100%; border-collapse:collapse; }
 /* Divider */
 .hn-divider { border:none; border-top:1px solid #CFD8EA; margin:0; }
 
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hn-hero { padding: 48px 16px 40px; min-height: auto; }
+  .hn-h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
+  .hn-sub { font-size: 0.88rem; margin-bottom: 24px; }
+  .hn-acts { gap: 8px; }
+  .hn-btn-p, .hn-btn-s { padding: 11px 18px; font-size: 0.88rem; width: 100%; text-align: center; }
+  .hn-stats { gap: 20px; margin-top: 32px; }
+  .hn-stat .num { font-size: 1.9rem; }
+
+  .hn-section { padding: 40px 16px; }
+  .hn-h2 { font-size: 1.3rem; }
+
+  .hn-video-wrap { grid-template-columns: 1fr; }
+  .hn-video-right { min-height: 160px; }
+
+  .hn-tools-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hn-tool { padding: 10px 12px; gap: 8px; }
+  .hn-tool-name { font-size: 0.78rem; }
+  .hn-tool-type { font-size: 0.65rem; }
+  .hn-tool-ico { width: 32px; height: 32px; font-size: 1rem; }
+
+  .hn-course-grid { grid-template-columns: 1fr; }
+
+  .hn-reg-tabs { width: 100%; }
+  .hn-rtab { flex: 1; text-align: center; font-size: 0.78rem; padding: 8px 10px; }
+  .hn-fi { grid-template-columns: 1fr; }
+  .hn-fcta { flex-direction: column; align-items: flex-start; }
+
+  .hn-sch-top { flex-direction: column; align-items: flex-start; }
+  .hn-table thead th, .hn-table tbody td { padding: 8px 10px; font-size: 0.76rem; }
+
+  .hn-lookup-box { padding: 18px 16px; }
+  .hn-linput-wrap { flex-direction: column; }
+  .hn-lbtn { width: 100%; }
+
+  .hn-tscroll { gap: 10px; }
+  .hn-tcard { width: 260px; }
+
+  #promoBanner { padding: 8px 14px; gap: 6px; }
+  #promoBanner span { font-size: 0.78rem; }
+}
+
+@media (max-width: 480px) {
+  .hn-tools-grid { grid-template-columns: 1fr; }
+  .hn-stats { flex-direction: column; align-items: center; gap: 12px; }
+  .hn-course-grid { grid-template-columns: 1fr; }
+  .hn-tcard { width: 240px; }
+}
+
 @media(max-width:768px) {
   .hn-video-wrap { grid-template-columns:1fr; }
   .hn-video-right { min-height:160px; }
   .hn-reg-tabs { width:100%; }
   .hn-rtab { flex:1; text-align:center; font-size:0.75rem; padding:9px 6px; }
+}
+
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hn-hero { padding: 48px 16px 40px; min-height: auto; }
+  .hn-h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
+  .hn-sub { font-size: 0.88rem; margin-bottom: 24px; }
+  .hn-acts { gap: 8px; }
+  .hn-btn-p, .hn-btn-s { padding: 11px 18px; font-size: 0.88rem; }
+  .hn-stats { gap: 20px; margin-top: 32px; }
+  .hn-stat .num { font-size: 1.9rem; }
+  .hn-section { padding: 40px 16px; }
+  .hn-h2 { font-size: 1.3rem; }
+  .hn-video-wrap { grid-template-columns: 1fr; }
+  .hn-video-right { min-height: 160px; }
+  .hn-tools-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hn-tool { padding: 10px 12px; gap: 8px; }
+  .hn-tool-name { font-size: 0.78rem; }
+  .hn-tool-ico { width: 32px; height: 32px; font-size: 1rem; }
+  .hn-course-grid { grid-template-columns: 1fr; }
+  .hn-reg-tabs { width: 100%; }
+  .hn-rtab { flex: 1; text-align: center; font-size: 0.78rem; padding: 8px 10px; }
+  .hn-fi { grid-template-columns: 1fr; }
+  .hn-fcta { flex-direction: column; align-items: flex-start; }
+  .hn-sch-top { flex-direction: column; align-items: flex-start; }
+  .hn-table thead th, .hn-table tbody td { padding: 8px 10px; font-size: 0.76rem; }
+  .hn-lookup-box { padding: 18px 16px; }
+  .hn-linput-wrap { flex-direction: column; }
+  .hn-lbtn { width: 100%; }
+  .hn-tcard { width: 260px; }
+  #promoBanner { padding: 8px 14px; }
+  #promoBanner span { font-size: 0.78rem; }
+}
+@media (max-width: 480px) {
+  .hn-tools-grid { grid-template-columns: 1fr; }
+  .hn-stats { flex-direction: column; align-items: center; gap: 12px; }
+  .hn-tcard { width: 240px; }
 }
 </style>
 
@@ -3066,7 +3152,7 @@ async function triggerRemoteVerification(courseName) {
         var q = list[cur];
         document.getElementById('lblIdx').textContent = cur + 1;
         if (document.getElementById('lblTotal')) document.getElementById('lblTotal').textContent = qCount;
-        document.getElementById('lblText').textContent = q.q;
+        document.getElementById('lblText').textContent = q.q.replace(/^\[Câu \d+\]\s*/, '');
         var area = document.getElementById('optsArea');
         area.innerHTML = '';
         var expBox = document.getElementById('explanationBox');
