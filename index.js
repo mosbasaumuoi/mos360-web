@@ -2071,16 +2071,50 @@ function renderSchRows(tabKey) {
   var tp = tpMap[tabKey];
   var rows = _lichThi[tp] || [];
   var now = new Date();
+  now.setHours(0, 0, 0, 0); // So sánh theo ngày, bỏ giờ
   var tbody = document.getElementById('schRows_' + tabKey);
   if (!tbody) return;
+
+  // Hàm parse dd/MM/yyyy hoặc dd–dd/MM/yyyy → Date (lấy ngày đầu tiên)
+  function parseVNDate(str) {
+    if (!str) return null;
+    var s = str.replace(/\u2013/g, '-'); // en-dash → hyphen
+    // Lấy ngày cuối nếu là khoảng: "27–28/06/2026" → lấy "28/06/2026"
+    var m = s.match(/(\d{1,2})[\/–-](\d{1,2})\/(\d{4})/);
+    if (m) return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
+    // Ngày đơn: "19/05/2026"
+    m = s.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+    if (m) return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
+    return null;
+  }
+
   tbody.innerHTML = rows.map(function(r) {
-    var st = r.trangThai;
+    var ngayThi = parseVNDate(r.ngayThi);
+    var hanDK   = parseVNDate(r.hanDK);
     var badge = '', rowStyle = '';
-    if (st === 'dang-mo')  { badge = '<span class="htag tag-open">🟢 Đang mở ĐK</span>';   rowStyle = 'background:rgba(34,197,94,0.04)'; }
-    else if (st === 'sap-dong') { badge = '<span class="htag tag-soon">⚠ Sắp đóng</span>';   rowStyle = 'background:rgba(245,158,11,0.04)'; }
-    else if (st === 'sap-mo')  { badge = '<span class="htag tag-future">Sắp mở</span>'; }
-    else if (st === 'da-dong') { badge = '<span class="htag tag-done">Đã đóng</span>'; }
-    else                        { badge = '<span class="htag tag-future">' + st + '</span>'; }
+
+    if (ngayThi && now > ngayThi) {
+      // Đã qua ngày thi → Đã đóng
+      badge = '<span class="htag tag-done">Đã đóng</span>';
+    } else if (hanDK && now > hanDK) {
+      // Qua hạn ĐK nhưng chưa thi → Đã đóng ĐK
+      badge = '<span class="htag tag-done">Đã đóng ĐK</span>';
+    } else if (hanDK) {
+      var diffDays = Math.ceil((hanDK - now) / 86400000);
+      if (diffDays <= 5) {
+        // Còn ≤5 ngày đóng LP → Sắp đóng
+        badge = '<span class="htag tag-soon">⚠ Sắp đóng (' + diffDays + ' ngày)</span>';
+        rowStyle = 'background:rgba(245,158,11,0.04)';
+      } else {
+        // Còn hạn → Đang mở
+        badge = '<span class="htag tag-open">🟢 Đang mở ĐK</span>';
+        rowStyle = 'background:rgba(34,197,94,0.04)';
+      }
+    } else {
+      // Chưa có hạn ĐK → Sắp mở
+      badge = '<span class="htag tag-future">Sắp mở</span>';
+    }
+
     var lp = r.lephi ? r.lephi.toLocaleString('vi-VN') + ' đ' : '—';
     return '<tr style="' + rowStyle + '">'
       + '<td style="font-weight:700">' + r.dot + '</td>'
