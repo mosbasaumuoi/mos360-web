@@ -57,7 +57,7 @@ const CONFIG = {
 
     // Links tải tiện ích
     TOOLS: {
-        MOS360: "https://drive.google.com/file/d/16ZRK0JtioIq1R0grfw88-M5V0fr6tY_A/view",
+        MOS360: "https://drive.google.com/file/d/1yMepEUJIS8CVUKJauhfxAE84eBXhOXj2/view",
         OFFICE: "https://drive.google.com/file/d/1nYo6f5VDqgsgbp_-_IA6tO9muyohHOhg/view",
         FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
         WINRAR: "https://drive.google.com/file/d/1NJVEBHJBpPr6R_y7PP_oZM0qn8hFyoG1/view",
@@ -83,7 +83,53 @@ const CONFIG = {
         { dot: 10, dates: "28–29/11/2026", from: "26/10/2026", to: "19/11/2026", deadline: "16/11/2026" },
         { dot: 11, dates: "26–27/12/2026", from: "30/11/2026", to: "17/12/2026", deadline: "14/12/2026" },
         { dot: 12, dates: "30–31/01/2027", from: "04/12/2026", to: "21/01/2027", deadline: "18/01/2027" }
-    ]
+    ],
+    // Lịch thi IIG theo thành phố (cập nhật từ online.iigvietnam.com)
+    LICH_THI: {
+        "Hải Phòng": [
+            { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
+        ],
+        "Hà Nội": [
+            { dot: "Đợt 4/2026", ngayThi: "19/05/2026", hanDK: "21/04/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "da-dong" },
+            { dot: "Đợt 5/2026", ngayThi: "23/06/2026", hanDK: "26/05/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "da-dong" },
+            { dot: "Đợt 6/2026", ngayThi: "21/07/2026", hanDK: "23/06/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "dang-mo" },
+            { dot: "Đợt 7/2026", ngayThi: "18/08/2026", hanDK: "21/07/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "sap-mo" },
+            { dot: "Đợt 8/2026", ngayThi: "22/09/2026", hanDK: "25/08/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "sap-mo" }
+        ],
+        "Hồ Chí Minh": [
+            { dot: "Đợt 4/2026", ngayThi: "21/05/2026", hanDK: "21/04/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "da-dong" },
+            { dot: "Đợt 5/2026", ngayThi: "25/06/2026", hanDK: "26/05/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "da-dong" },
+            { dot: "Đợt 6/2026", ngayThi: "23/07/2026", hanDK: "23/06/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "dang-mo" },
+            { dot: "Đợt 7/2026", ngayThi: "20/08/2026", hanDK: "21/07/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "sap-mo" },
+            { dot: "Đợt 8/2026", ngayThi: "24/09/2026", hanDK: "25/08/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "sap-mo" }
+        ]
+    },
+    // Lịch thi IIG theo thành phố (cập nhật từ online.iigvietnam.com)
+    LICH_THI: {
+        "Hải Phòng": [
+            { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
+        ],
+        "Hà Nội": [
+            { dot: "Đợt 4/2026", ngayThi: "19/05/2026", hanDK: "21/04/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "da-dong" },
+            { dot: "Đợt 5/2026", ngayThi: "23/06/2026", hanDK: "26/05/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "da-dong" },
+            { dot: "Đợt 6/2026", ngayThi: "21/07/2026", hanDK: "23/06/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "dang-mo" },
+            { dot: "Đợt 7/2026", ngayThi: "18/08/2026", hanDK: "21/07/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "sap-mo" },
+            { dot: "Đợt 8/2026", ngayThi: "22/09/2026", hanDK: "25/08/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)", trangThai: "sap-mo" }
+        ],
+        "Hồ Chí Minh": [
+            { dot: "Đợt 4/2026", ngayThi: "21/05/2026", hanDK: "21/04/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "da-dong" },
+            { dot: "Đợt 5/2026", ngayThi: "25/06/2026", hanDK: "26/05/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "da-dong" },
+            { dot: "Đợt 6/2026", ngayThi: "23/07/2026", hanDK: "23/06/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "dang-mo" },
+            { dot: "Đợt 7/2026", ngayThi: "20/08/2026", hanDK: "21/07/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "sap-mo" },
+            { dot: "Đợt 8/2026", ngayThi: "24/09/2026", hanDK: "25/08/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)", trangThai: "sap-mo" }
+        ]
+    }
 };
 
 /* ========================
@@ -674,13 +720,15 @@ export default {
     </header>
 
     <nav style="background:#E2ECFA; padding:10px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:6px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; align-items:center; flex-wrap:wrap;">
-        <span style="color:var(--muted); font-weight:800; font-size:0.72rem; letter-spacing:0.3px;">🎯 HỌC THỬ:</span>
+        <span style="color:var(--muted); font-weight:800; font-size:0.72rem; letter-spacing:0.3px;">⚡ PHÒNG THI NHANH:</span>
         <a href="/generative-ai" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">✨ Generative AI</a>
         <a href="/ai-productivity" style="color:#0068FF; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">⚡ AI Productivity</a>
         <a href="/ic3-lv1" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟢 IC3 Level 1</a>
         <a href="/ic3-lv2" style="color:#d97706; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟡 IC3 Level 2</a>
         <a href="/ic3-lv3" style="color:#dc2626; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🔴 IC3 Level 3</a>
-
+        <span style="color:var(--border); margin:0 4px;">|</span>
+        <a href="/cap-mat-khau" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🔑 Lấy mật khẩu MOS</a>
+        <a href="/ket-qua" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">📊 Kết quả MOS</a>
     </nav>
 
     <!-- FIX 2: Icon Zalo SVG logo chuẩn thương hiệu chính thức -->
@@ -1026,99 +1074,11 @@ table.hn-table { width:100%; border-collapse:collapse; }
 /* Divider */
 .hn-divider { border:none; border-top:1px solid #CFD8EA; margin:0; }
 
-/* ── MOBILE RESPONSIVE ── */
-@media (max-width: 768px) {
-  .hn-hero { padding: 48px 16px 40px; min-height: auto; }
-  .hn-h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
-  .hn-sub { font-size: 0.88rem; margin-bottom: 24px; }
-  .hn-acts { gap: 8px; }
-  .hn-btn-p, .hn-btn-s { padding: 11px 18px; font-size: 0.88rem; width: 100%; text-align: center; }
-  .hn-stats { gap: 20px; margin-top: 32px; }
-  .hn-stat .num { font-size: 1.9rem; }
-
-  .hn-section { padding: 40px 16px; }
-  .hn-h2 { font-size: 1.3rem; }
-
-  .hn-video-wrap { grid-template-columns: 1fr; }
-  .hn-video-right { min-height: 160px; }
-
-  .hn-tools-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .hn-tool { padding: 10px 12px; gap: 8px; }
-  .hn-tool-name { font-size: 0.78rem; }
-  .hn-tool-type { font-size: 0.65rem; }
-  .hn-tool-ico { width: 32px; height: 32px; font-size: 1rem; }
-
-  .hn-course-grid { grid-template-columns: 1fr; }
-
-  .hn-reg-tabs { width: 100%; }
-  .hn-rtab { flex: 1; text-align: center; font-size: 0.78rem; padding: 8px 10px; }
-  .hn-fi { grid-template-columns: 1fr; }
-  .hn-fcta { flex-direction: column; align-items: flex-start; }
-
-  .hn-sch-top { flex-direction: column; align-items: flex-start; }
-  .hn-table thead th, .hn-table tbody td { padding: 8px 10px; font-size: 0.76rem; }
-
-  .hn-lookup-box { padding: 18px 16px; }
-  .hn-linput-wrap { flex-direction: column; }
-  .hn-lbtn { width: 100%; }
-
-  .hn-tscroll { gap: 10px; }
-  .hn-tcard { width: 260px; }
-
-  #promoBanner { padding: 8px 14px; gap: 6px; }
-  #promoBanner span { font-size: 0.78rem; }
-}
-
-@media (max-width: 480px) {
-  .hn-tools-grid { grid-template-columns: 1fr; }
-  .hn-stats { flex-direction: column; align-items: center; gap: 12px; }
-  .hn-course-grid { grid-template-columns: 1fr; }
-  .hn-tcard { width: 240px; }
-}
-
 @media(max-width:768px) {
   .hn-video-wrap { grid-template-columns:1fr; }
   .hn-video-right { min-height:160px; }
   .hn-reg-tabs { width:100%; }
   .hn-rtab { flex:1; text-align:center; font-size:0.75rem; padding:9px 6px; }
-}
-
-
-/* ── MOBILE RESPONSIVE ── */
-@media (max-width: 768px) {
-  .hn-hero { padding: 48px 16px 40px; min-height: auto; }
-  .hn-h1 { font-size: 1.75rem; letter-spacing: -0.5px; }
-  .hn-sub { font-size: 0.88rem; margin-bottom: 24px; }
-  .hn-acts { gap: 8px; }
-  .hn-btn-p, .hn-btn-s { padding: 11px 18px; font-size: 0.88rem; }
-  .hn-stats { gap: 20px; margin-top: 32px; }
-  .hn-stat .num { font-size: 1.9rem; }
-  .hn-section { padding: 40px 16px; }
-  .hn-h2 { font-size: 1.3rem; }
-  .hn-video-wrap { grid-template-columns: 1fr; }
-  .hn-video-right { min-height: 160px; }
-  .hn-tools-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .hn-tool { padding: 10px 12px; gap: 8px; }
-  .hn-tool-name { font-size: 0.78rem; }
-  .hn-tool-ico { width: 32px; height: 32px; font-size: 1rem; }
-  .hn-course-grid { grid-template-columns: 1fr; }
-  .hn-reg-tabs { width: 100%; }
-  .hn-rtab { flex: 1; text-align: center; font-size: 0.78rem; padding: 8px 10px; }
-  .hn-fi { grid-template-columns: 1fr; }
-  .hn-fcta { flex-direction: column; align-items: flex-start; }
-  .hn-sch-top { flex-direction: column; align-items: flex-start; }
-  .hn-table thead th, .hn-table tbody td { padding: 8px 10px; font-size: 0.76rem; }
-  .hn-lookup-box { padding: 18px 16px; }
-  .hn-linput-wrap { flex-direction: column; }
-  .hn-lbtn { width: 100%; }
-  .hn-tcard { width: 260px; }
-  #promoBanner { padding: 8px 14px; }
-  #promoBanner span { font-size: 0.78rem; }
-}
-@media (max-width: 480px) {
-  .hn-tools-grid { grid-template-columns: 1fr; }
-  .hn-stats { flex-direction: column; align-items: center; gap: 12px; }
-  .hn-tcard { width: 240px; }
 }
 </style>
 
@@ -1576,24 +1536,47 @@ ${mode !== 'home' ? `
       <div class="hn-acc-body">
     <div id="hn-reg-thi">
       <div class="hn-form-wrap" style="padding:24px">
-        <div class="hn-info-box">
-          📅 <strong>Đợt 5 — 27–28/6/2026</strong> tại Trường ĐH Hàng Hải Việt Nam<br>
-          💰 Lệ phí: <strong style="color:var(--cyan)">950.000đ/môn</strong> · Hạn đóng: <strong style="color:#f59e0b">15/6/2026</strong><br>
-          🏦 Chuyển khoản: <strong>Vietcombank 1912888360</strong> — Nguyễn Thị Thảo · Nội dung: Tên + SĐT + Môn thi
+
+        <!-- BƯỚC 1: Chọn thành phố & đợt thi -->
+        <div style="background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2);border-radius:12px;padding:16px;margin-bottom:18px">
+          <div style="font-size:0.8rem;font-weight:800;color:var(--cyan);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">📍 Bước 1 — Chọn địa điểm & đợt thi</div>
+          <div class="hn-row">
+            <div class="hn-field">
+              <label class="hn-label">Thành phố thi <span class="req">*</span></label>
+              <select class="hn-select" id="thi_thanhpho" onchange="onThiThanhPhoChange()">
+                <option value="">-- Chọn thành phố --</option>
+                <option value="Hải Phòng">Hải Phòng</option>
+                <option value="Hà Nội">Hà Nội</option>
+                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+              </select>
+            </div>
+            <div class="hn-field">
+              <label class="hn-label">Đợt thi <span class="req">*</span></label>
+              <select class="hn-select" id="thi_dotthi" onchange="onThiDotChange()">
+                <option value="">-- Chọn thành phố trước --</option>
+              </select>
+            </div>
+          </div>
+          <!-- Thông tin đợt thi tự động hiện -->
+          <div id="thi_info_box" style="display:none;margin-top:12px;padding:12px;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:0.82rem;line-height:1.8">
+          </div>
         </div>
+
+        <!-- BƯỚC 2: Thông tin cá nhân -->
+        <div style="font-size:0.8rem;font-weight:800;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">👤 Bước 2 — Thông tin cá nhân</div>
         <div class="hn-row">
           <div class="hn-field">
             <label class="hn-label">Họ và tên <span class="req">*</span></label>
             <input class="hn-input" id="thi_ten" placeholder="Nguyễn Văn A" required>
           </div>
           <div class="hn-field">
-            <label class="hn-label">SĐT <span class="req">*</span></label>
+            <label class="hn-label">SĐT (Zalo) <span class="req">*</span></label>
             <input class="hn-input" id="thi_sdt" type="tel" placeholder="0912888360" required>
           </div>
         </div>
         <div class="hn-row">
           <div class="hn-field">
-            <label class="hn-label">Mã số sinh viên (HVN nếu ngoài trường)</label>
+            <label class="hn-label">Mã số sinh viên</label>
             <input class="hn-input" id="thi_masv" placeholder="VD: 106001 hoặc HVN">
           </div>
           <div class="hn-field">
@@ -1607,15 +1590,15 @@ ${mode !== 'home' ? `
         <div class="hn-row3">
           <div class="hn-field">
             <label class="hn-label">Ngày sinh <span class="req">*</span></label>
-            <input class="hn-input" id="thi_ngay" placeholder="VD: 15" maxlength="2">
+            <input class="hn-input" id="thi_ngay" placeholder="15" maxlength="2">
           </div>
           <div class="hn-field">
             <label class="hn-label">Tháng sinh <span class="req">*</span></label>
-            <input class="hn-input" id="thi_thang" placeholder="VD: 03" maxlength="2">
+            <input class="hn-input" id="thi_thang" placeholder="03" maxlength="2">
           </div>
           <div class="hn-field">
             <label class="hn-label">Năm sinh <span class="req">*</span></label>
-            <input class="hn-input" id="thi_nam" placeholder="VD: 2005" maxlength="4">
+            <input class="hn-input" id="thi_nam" placeholder="2005" maxlength="4">
           </div>
         </div>
         <div class="hn-row">
@@ -1624,17 +1607,22 @@ ${mode !== 'home' ? `
             <input class="hn-input" id="thi_cccd" placeholder="12 số trên CCCD" maxlength="12">
           </div>
           <div class="hn-field">
-            <label class="hn-label">Địa chỉ trên VNeID (đã sáp nhập) <span class="req">*</span></label>
+            <label class="hn-label">Địa chỉ trên VNeID <span class="req">*</span></label>
             <input class="hn-input" id="thi_diachi" placeholder="VD: Số 14/53 Xóm Trung, P.Gia Viên, TP.HP">
           </div>
         </div>
+
+        <!-- BƯỚC 3: Chọn môn thi -->
+        <div style="font-size:0.8rem;font-weight:800;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">📝 Bước 3 — Môn thi</div>
         <div class="hn-field">
           <label class="hn-label">Đăng ký thi môn <span class="req">*</span> <span style="font-weight:400;color:var(--muted)">(SV VMU bắt buộc Word + Excel)</span></label>
           <div class="hn-checkbox-group">
-            <label class="hn-checkbox-item"><input type="checkbox" id="thi_word" checked><span>📄 Word 2019 (W)</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="thi_excel" checked><span>📊 Excel 2019 (E)</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="thi_ppt"><span>📑 PowerPoint 2019 (P)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_word" checked onchange="calcLePhi()"><span>📄 Word 2019 (W)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_excel" checked onchange="calcLePhi()"><span>📊 Excel 2019 (E)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_ppt" onchange="calcLePhi()"><span>📑 PowerPoint 2019 (P)</span></label>
           </div>
+          <!-- Tổng lệ phí tự tính -->
+          <div id="thi_lephi_sum" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:8px;font-size:0.85rem;font-weight:700;color:#16a34a"></div>
         </div>
         <div class="hn-field">
           <label class="hn-label">Đã từng thi MOS chưa?</label>
@@ -1643,12 +1631,14 @@ ${mode !== 'home' ? `
             <option value="Y">Đã thi rồi</option>
           </select>
         </div>
+
         <button class="hn-submit" style="background:#22c55e" onclick="submitForm('thi')" id="btn_thi">
           <span>📋 Gửi đăng ký thi</span>
         </button>
         <div class="hn-form-msg" id="msg_thi"></div>
-        <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center">
-          Sau khi gửi, vui lòng chuyển khoản lệ phí và chụp màn hình gửi Zalo/FB MOS360 xác nhận
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center;line-height:1.7">
+          Sau khi gửi, vui lòng chuyển khoản lệ phí và chụp màn hình gửi Zalo MOS360 xác nhận.<br>
+          🏦 <strong>Vietcombank 1912888360</strong> — Nguyễn Thị Thảo · Nội dung: <em>Tên + SĐT + Môn thi + Đợt</em>
         </p>
       </div>
     </div>
@@ -1720,29 +1710,84 @@ ${mode !== 'home' ? `
 
 <hr class="hn-divider">
 
-<!-- LỊCH THI -->
+<!-- LỊCH THI 3 THÀNH PHỐ -->
 <div class="hn-section" id="hn-schedule">
   <div class="hn-inner">
     <div class="hn-tag">📅 Lịch thi</div>
-    <h2 class="hn-h2">Lịch thi MOS 2026</h2>
-    <p class="hn-desc">6 tháng tới tại Trường ĐH Hàng Hải Việt Nam. Lệ phí: <strong style="color:var(--cyan)">950.000đ/môn</strong>.</p>
-    <div class="hn-sch-wrap">
-      <div class="hn-sch-top">
-        <h3>📍 VMU — Trường ĐH Hàng Hải Việt Nam · Hải Phòng</h3>
-        <div class="hn-legend">
-          <span><span class="hn-ldot" style="background:#22c55e"></span>Đang mở ĐK</span>
-          <span><span class="hn-ldot" style="background:#f59e0b"></span>Sắp đóng ĐK</span>
-          <span><span class="hn-ldot" style="background:var(--cyan)"></span>Sắp mở</span>
+    <h2 class="hn-h2">Lịch thi MOS / IC3 năm 2026</h2>
+    <p class="hn-desc">Lịch thi tại 3 thành phố. Chọn khu vực để xem chi tiết.</p>
+
+    <!-- Tab thành phố -->
+    <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;width:fit-content;margin-bottom:20px">
+      <button id="schTab_hp"  onclick="switchSchTab('hp')"  style="padding:10px 20px;background:var(--p);border:none;color:#fff;font-weight:700;cursor:pointer;font-size:0.82rem;border-right:1px solid var(--border)">📍 Hải Phòng</button>
+      <button id="schTab_hn"  onclick="switchSchTab('hn')"  style="padding:10px 20px;background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:0.82rem;border-right:1px solid var(--border)">📍 Hà Nội</button>
+      <button id="schTab_hcm" onclick="switchSchTab('hcm')" style="padding:10px 20px;background:transparent;border:none;color:var(--muted);font-weight:700;cursor:pointer;font-size:0.82rem">📍 Hồ Chí Minh</button>
+    </div>
+
+    <!-- Hải Phòng -->
+    <div id="schPanel_hp">
+      <div class="hn-sch-wrap">
+        <div class="hn-sch-top">
+          <h3>📍 CITAD – Trường ĐH Hàng Hải Việt Nam · Hải Phòng</h3>
+          <div class="hn-legend">
+            <span><span class="hn-ldot" style="background:#22c55e"></span>Đang mở</span>
+            <span><span class="hn-ldot" style="background:#f59e0b"></span>Sắp đóng</span>
+            <span><span class="hn-ldot" style="background:var(--cyan)"></span>Sắp mở</span>
+            <span><span class="hn-ldot" style="background:#94a3b8"></span>Đã đóng</span>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="hn-table">
+            <thead><tr><th>Đợt</th><th>Ngày thi</th><th>Hạn đóng LP</th><th>Lệ phí/môn</th><th>Trạng thái</th></tr></thead>
+            <tbody id="schRows_hp"></tbody>
+          </table>
         </div>
       </div>
-      <div style="overflow-x:auto">
-        <table class="hn-table">
-          <thead><tr><th>Đợt</th><th>Ngày thi</th><th>Hạn đóng LP</th><th>Trạng thái</th></tr></thead>
-          <tbody>${scheduleRows || '<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--muted)">Không có đợt thi trong 6 tháng tới</td></tr>'}</tbody>
-        </table>
-      </div>
+      <p style="font-size:0.74rem;color:var(--muted);margin-top:10px;line-height:1.6">* Lịch theo CITAD – ĐH Hàng Hải Việt Nam. Liên hệ Zalo <strong style="color:var(--text)">0912.888.360</strong> để đăng ký.</p>
     </div>
-    <p style="font-size:0.74rem;color:var(--muted);margin-top:10px;line-height:1.6">* Lịch do CITAD – ĐH Hàng Hải công bố. Hạn đóng LP tính trước 3 ngày kết thúc ĐK. Liên hệ Zalo <strong style="color:var(--text)">0912.888.360</strong> xác nhận.</p>
+
+    <!-- Hà Nội -->
+    <div id="schPanel_hn" style="display:none">
+      <div class="hn-sch-wrap">
+        <div class="hn-sch-top">
+          <h3>📍 Văn phòng IIG Việt Nam · Hà Nội</h3>
+          <div class="hn-legend">
+            <span><span class="hn-ldot" style="background:#22c55e"></span>Đang mở</span>
+            <span><span class="hn-ldot" style="background:var(--cyan)"></span>Sắp mở</span>
+            <span><span class="hn-ldot" style="background:#94a3b8"></span>Đã đóng</span>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="hn-table">
+            <thead><tr><th>Đợt</th><th>Ngày thi</th><th>Hạn đóng LP</th><th>Lệ phí/môn</th><th>Trạng thái</th></tr></thead>
+            <tbody id="schRows_hn"></tbody>
+          </table>
+        </div>
+      </div>
+      <p style="font-size:0.74rem;color:var(--muted);margin-top:10px;line-height:1.6">* Địa điểm: 75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa. Nguồn: <a href="https://online.iigvietnam.com/examcalendarit/" target="_blank" style="color:var(--cyan)">online.iigvietnam.com</a></p>
+    </div>
+
+    <!-- Hồ Chí Minh -->
+    <div id="schPanel_hcm" style="display:none">
+      <div class="hn-sch-wrap">
+        <div class="hn-sch-top">
+          <h3>📍 Văn phòng IIG Việt Nam · Hồ Chí Minh</h3>
+          <div class="hn-legend">
+            <span><span class="hn-ldot" style="background:#22c55e"></span>Đang mở</span>
+            <span><span class="hn-ldot" style="background:var(--cyan)"></span>Sắp mở</span>
+            <span><span class="hn-ldot" style="background:#94a3b8"></span>Đã đóng</span>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="hn-table">
+            <thead><tr><th>Đợt</th><th>Ngày thi</th><th>Hạn đóng LP</th><th>Lệ phí/môn</th><th>Trạng thái</th></tr></thead>
+            <tbody id="schRows_hcm"></tbody>
+          </table>
+        </div>
+      </div>
+      <p style="font-size:0.74rem;color:var(--muted);margin-top:10px;line-height:1.6">* Địa điểm: Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ. Nguồn: <a href="https://online.iigvietnam.com/examcalendarit/" target="_blank" style="color:var(--cyan)">online.iigvietnam.com</a></p>
+    </div>
+
   </div>
 </div>
 
@@ -1753,46 +1798,54 @@ ${mode !== 'home' ? `
   <div class="hn-inner">
     <div class="hn-tag">🔍 Tra cứu</div>
     <h2 class="hn-h2">Tra cứu thông tin dự thi</h2>
-    <p class="hn-desc">Chọn đợt thi và nhập số điện thoại để xem thông tin phòng thi, ca thi.</p>
+    <p class="hn-desc">Nhập số điện thoại đã đăng ký để xem thông tin phòng thi, ca thi và xác nhận lịch.</p>
     <div class="hn-lookup-box">
-      <!-- Bước 1: Chọn đợt thi -->
-      <div class="hn-field" style="margin-bottom:14px">
-        <label class="hn-label">Bước 1 — Chọn đợt thi <span class="req">*</span></label>
-        <select class="hn-select" id="hnLookupDot">
-          <option value="">-- Chọn đợt thi --</option>
-          <option value="1">Đợt 1 — 10–11/01/2026</option>
-          <option value="2">Đợt 2 — 14–15/03/2026</option>
-          <option value="3">Đợt 3 — 18–19/04/2026</option>
-          <option value="4">Đợt 4 — 23–24/05/2026</option>
-          <option value="5">Đợt 5 — 27–28/06/2026</option>
-          <option value="6">Đợt 6 — 25–26/07/2026</option>
-          <option value="7">Đợt 7 — 29–30/08/2026</option>
-          <option value="8">Đợt 8 — 26–27/09/2026</option>
-          <option value="9">Đợt 9 — 24–25/10/2026</option>
-          <option value="10">Đợt 10 — 28–29/11/2026</option>
-          <option value="11">Đợt 11 — 26–27/12/2026</option>
-          <option value="12">Đợt 12 — 30–31/01/2027</option>
-        </select>
-      </div>
-      <!-- Bước 2: Nhập SĐT -->
-      <div class="hn-field" style="margin-bottom:14px">
-        <label class="hn-label">Bước 2 — Số điện thoại đã đăng ký <span class="req">*</span></label>
-        <div class="hn-linput-wrap">
+      <div class="hn-row" style="gap:10px;margin-bottom:14px">
+        <div class="hn-field" style="flex:1.2">
+          <label class="hn-label">Số điện thoại đã đăng ký <span class="req">*</span></label>
           <input class="hn-linput" id="hnLookupInput" type="tel" placeholder="0912888360" onkeydown="if(event.key==='Enter')hnDoLookup()">
-          <button class="hn-lbtn" onclick="hnDoLookup()">Tra cứu</button>
+        </div>
+        <div class="hn-field" style="flex:1">
+          <label class="hn-label">Đợt thi (không bắt buộc)</label>
+          <select class="hn-select" id="hnLookupDot">
+            <option value="">-- Tất cả đợt --</option>
+            <option value="Đợt 5/2026">Đợt 5/2026</option>
+            <option value="Đợt 6/2026">Đợt 6/2026</option>
+            <option value="Đợt 7/2026">Đợt 7/2026</option>
+            <option value="Đợt 8/2026">Đợt 8/2026</option>
+          </select>
         </div>
       </div>
+      <button class="hn-lbtn" style="width:100%;margin-bottom:16px" onclick="hnDoLookup()">🔍 Tra cứu</button>
+
       <!-- Kết quả -->
       <div class="hn-lresult" id="hnLookupResult">
-        <h4 id="hnLookupTitle">Thông tin dự thi</h4>
+        <h4 id="hnLookupTitle" style="margin-bottom:14px;font-size:0.85rem;font-weight:800">📋 Thông tin đăng ký dự thi</h4>
         <div id="hnLookupFields"></div>
-        <div class="hn-lnote">Nếu thông tin sai → Zalo <strong style="color:var(--text)">0912.888.360</strong> để chỉnh sửa. Nếu đúng → không cần báo lại. 🎉</div>
+        <!-- Nút xác nhận -->
+        <div id="hnConfirmWrap" style="display:none;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)">
+          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:10px;line-height:1.6">
+            ✅ Thông tin chính xác? Bấm xác nhận để MOS360 biết bạn đã nhận được lịch thi.
+          </p>
+          <button id="hnConfirmBtn" onclick="hnDoConfirm()" style="padding:10px 22px;background:#22c55e;border:none;color:#fff;border-radius:9px;font-weight:800;cursor:pointer;font-size:0.85rem">
+            ✅ Xác nhận đã nhận lịch thi
+          </button>
+          <div id="hnConfirmMsg" style="margin-top:10px;font-size:0.82rem;font-weight:700"></div>
+        </div>
+        <div class="hn-lnote" style="margin-top:14px">
+          ⚠️ Thông tin chưa đúng hoặc chưa thấy tên? → Liên hệ Zalo <strong style="color:var(--text)">0912.888.360</strong> để kiểm tra và chỉnh sửa.
+        </div>
       </div>
+
       <div class="hn-lmsg" id="hnLookupMsg"></div>
-      <p style="font-size:0.75rem;color:var(--muted);margin-top:16px;line-height:1.6">
-        📌 Phòng thi và ca thi sẽ được bổ sung 3–5 ngày trước kỳ thi.<br>
-        📞 Chưa thấy tên → liên hệ Zalo <strong style="color:var(--text)">0912.888.360</strong> kiểm tra lại.
-      </p>
+
+      <!-- Ghi chú chưa thấy tên -->
+      <div style="margin-top:16px;padding:14px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);border-radius:10px;font-size:0.8rem;line-height:1.8;color:var(--muted)">
+        📌 <strong style="color:var(--text)">Lưu ý:</strong><br>
+        • Phòng thi và ca thi sẽ được bổ sung <strong>3–5 ngày trước kỳ thi</strong>.<br>
+        • <strong>Chưa thấy tên</strong> hoặc <strong>sai thông tin</strong> → Liên hệ ngay Zalo <a href="https://zalo.me/0912888360" target="_blank" style="color:var(--cyan);font-weight:700">0912.888.360</a> để được hỗ trợ.<br>
+        • Sau khi xác nhận, MOS360 sẽ gửi nhắc nhở qua Zalo trước ngày thi.
+      </div>
     </div>
   </div>
 </div>
@@ -1923,16 +1976,26 @@ async function submitForm(type) {
     var excel = document.getElementById('thi_excel').checked ? 'E' : '';
     var ppt = document.getElementById('thi_ppt').checked ? 'P' : '';
     if (!word && !excel && !ppt) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 môn thi'); return; }
+    var thanhPho = document.getElementById('thi_thanhpho').value.trim();
+    var dotThi   = document.getElementById('thi_dotthi').value.trim();
+    if (!thanhPho) { showMsg(msgEl, 'err', '\u26a0 Vui l\u00f2ng ch\u1ecdn th\u00e0nh ph\u1ed1 thi'); return; }
+    if (!dotThi)   { showMsg(msgEl, 'err', '\u26a0 Vui l\u00f2ng ch\u1ecdn \u0111\u1ee3t thi'); return; }
+    var lichTP = (_lichThi && _lichThi[thanhPho]) || [];
+    var lichDot = lichTP.find(function(r){ return r.dot === dotThi; }) || {};
     Object.assign(payload, {
       ten: ten, sdt: sdt, cccd: cccd,
       masv: document.getElementById('thi_masv').value,
       gioitinh: document.getElementById('thi_gioitinh').value,
       ngay: ngay, thang: thang, nam: nam,
       diachi: diachi,
+      thanhPho: thanhPho,
+      diaDiem: lichDot.diaDiem || '',
+      dotThi: dotThi,
+      ngayThi: lichDot.ngayThi || '',
+      lePhi: lichDot.lephi || 0,
       word: word, excel: excel, ppt: ppt,
       ngonngu: 'V',
-      datungThi: document.getElementById('thi_datungThi').value,
-      dotthi: 'Đợt 5 - 27/28.06.2026'
+      datungThi: document.getElementById('thi_datungThi').value
     });
   }
 
@@ -1995,51 +2058,205 @@ function showMsg(el, type, text) {
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// Tra cứu — gọi Apps Script Web App
+// ── LỊCH THI: Render bảng theo thành phố ────────────────
+var _schCurrentTab = 'hp';
+var _lichThi = ${JSON.stringify(CONFIG.LICH_THI)};
+
+function renderSchRows(tabKey) {
+  var tpMap = { hp: 'Hải Phòng', hn: 'Hà Nội', hcm: 'Hồ Chí Minh' };
+  var tp = tpMap[tabKey];
+  var rows = _lichThi[tp] || [];
+  var now = new Date();
+  var tbody = document.getElementById('schRows_' + tabKey);
+  if (!tbody) return;
+  tbody.innerHTML = rows.map(function(r) {
+    var st = r.trangThai;
+    var badge = '', rowStyle = '';
+    if (st === 'dang-mo')  { badge = '<span class="htag tag-open">🟢 Đang mở ĐK</span>';   rowStyle = 'background:rgba(34,197,94,0.04)'; }
+    else if (st === 'sap-dong') { badge = '<span class="htag tag-soon">⚠ Sắp đóng</span>';   rowStyle = 'background:rgba(245,158,11,0.04)'; }
+    else if (st === 'sap-mo')  { badge = '<span class="htag tag-future">Sắp mở</span>'; }
+    else if (st === 'da-dong') { badge = '<span class="htag tag-done">Đã đóng</span>'; }
+    else                        { badge = '<span class="htag tag-future">' + st + '</span>'; }
+    var lp = r.lephi ? r.lephi.toLocaleString('vi-VN') + ' đ' : '—';
+    return '<tr style="' + rowStyle + '">'
+      + '<td style="font-weight:700">' + r.dot + '</td>'
+      + '<td>' + r.ngayThi + '</td>'
+      + '<td style="color:#f59e0b;font-weight:700">' + (r.hanDK || '—') + '</td>'
+      + '<td style="color:var(--cyan);font-weight:700">' + lp + '</td>'
+      + '<td>' + badge + '</td>'
+      + '</tr>';
+  }).join('') || '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Chưa có lịch thi</td></tr>';
+}
+
+function switchSchTab(tabKey) {
+  ['hp','hn','hcm'].forEach(function(k) {
+    var btn = document.getElementById('schTab_' + k);
+    var panel = document.getElementById('schPanel_' + k);
+    if (btn)   { btn.style.background = 'transparent'; btn.style.color = 'var(--muted)'; }
+    if (panel) panel.style.display = 'none';
+  });
+  var activeBtn = document.getElementById('schTab_' + tabKey);
+  var activePanel = document.getElementById('schPanel_' + tabKey);
+  if (activeBtn)   { activeBtn.style.background = 'var(--p)'; activeBtn.style.color = '#fff'; }
+  if (activePanel) activePanel.style.display = 'block';
+  renderSchRows(tabKey);
+  _schCurrentTab = tabKey;
+}
+
+// Render tất cả tabs khi load
+(function() {
+  if (document.getElementById('schRows_hp')) {
+    renderSchRows('hp');
+    renderSchRows('hn');
+    renderSchRows('hcm');
+  }
+})();
+
+// ── FORM ĐĂNG KÝ THI: Chọn thành phố → điền đợt + lệ phí ─
+function onThiThanhPhoChange() {
+  var tp = document.getElementById('thi_thanhpho').value;
+  var dotSel = document.getElementById('thi_dotthi');
+  var infoBox = document.getElementById('thi_info_box');
+  dotSel.innerHTML = '<option value="">-- Chọn đợt thi --</option>';
+  infoBox.style.display = 'none';
+  if (!tp || !_lichThi[tp]) return;
+  _lichThi[tp].forEach(function(r) {
+    if (r.trangThai === 'da-dong') return; // Không hiện đợt đã đóng
+    var opt = document.createElement('option');
+    opt.value = r.dot;
+    opt.textContent = r.dot + ' — ' + r.ngayThi;
+    dotSel.appendChild(opt);
+  });
+  calcLePhi();
+}
+
+function onThiDotChange() {
+  var tp = document.getElementById('thi_thanhpho').value;
+  var dot = document.getElementById('thi_dotthi').value;
+  var infoBox = document.getElementById('thi_info_box');
+  if (!tp || !dot || !_lichThi[tp]) { infoBox.style.display = 'none'; return; }
+  var lich = _lichThi[tp].find(function(r){ return r.dot === dot; });
+  if (!lich) { infoBox.style.display = 'none'; return; }
+  var lp = lich.lephi ? lich.lephi.toLocaleString('vi-VN') : '—';
+  infoBox.style.display = 'block';
+  infoBox.innerHTML =
+    '📅 <strong>Ngày thi:</strong> ' + lich.ngayThi + '<br>' +
+    '⏰ <strong>Hạn đóng lệ phí:</strong> <span style="color:#f59e0b;font-weight:700">' + (lich.hanDK || '—') + '</span><br>' +
+    '💰 <strong>Lệ phí:</strong> <span style="color:var(--cyan);font-weight:700">' + lp + ' đ/môn</span><br>' +
+    '📍 <strong>Địa điểm:</strong> ' + lich.diaDiem;
+  calcLePhi();
+}
+
+function calcLePhi() {
+  var tp = document.getElementById('thi_thanhpho') ? document.getElementById('thi_thanhpho').value : '';
+  var dot = document.getElementById('thi_dotthi') ? document.getElementById('thi_dotthi').value : '';
+  var sumEl = document.getElementById('thi_lephi_sum');
+  if (!sumEl) return;
+  if (!tp || !dot || !_lichThi[tp]) { sumEl.style.display = 'none'; return; }
+  var lich = _lichThi[tp].find(function(r){ return r.dot === dot; });
+  if (!lich) { sumEl.style.display = 'none'; return; }
+  var monCount = 0;
+  ['thi_word','thi_excel','thi_ppt'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el && el.checked) monCount++;
+  });
+  if (!monCount) { sumEl.style.display = 'none'; return; }
+  var tong = lich.lephi * monCount;
+  sumEl.style.display = 'block';
+  sumEl.textContent = '💰 Tổng lệ phí: ' + tong.toLocaleString('vi-VN') + ' đ (' + monCount + ' môn × ' + lich.lephi.toLocaleString('vi-VN') + ' đ)';
+}
+
+// ── TRA CỨU DỰ THI ───────────────────────────────────────
+var _lookupResults = [];
+
 async function hnDoLookup() {
-  var dot = document.getElementById('hnLookupDot').value.trim();
   var phone = document.getElementById('hnLookupInput').value.trim();
+  var dot   = document.getElementById('hnLookupDot').value.trim();
   var result = document.getElementById('hnLookupResult');
-  var msg = document.getElementById('hnLookupMsg');
+  var msg    = document.getElementById('hnLookupMsg');
   result.classList.remove('show');
   msg.classList.remove('show');
+  _lookupResults = [];
 
-  if (!dot) { msg.textContent = '⚠ Vui lòng chọn đợt thi.'; msg.classList.add('show'); return; }
   if (!phone) { msg.textContent = '⚠ Vui lòng nhập số điện thoại.'; msg.classList.add('show'); return; }
 
   msg.textContent = 'Đang tra cứu...'; msg.classList.add('show');
   try {
-    var url = '${CONFIG.APPS_SCRIPT_LOOKUP}?action=lookup&phone=' + encodeURIComponent(phone) + '&dot=' + encodeURIComponent(dot);
+    var url = '${CONFIG.APPS_SCRIPT_LOOKUP}?action=lookup&phone=' + encodeURIComponent(phone) + (dot ? '&dot=' + encodeURIComponent(dot) : '');
     var res = await fetch(url);
     var data = await res.json();
     msg.classList.remove('show');
-    var payload = data.data || data; // tương thích cả ok:true lẫn success:true
-    if ((data.ok || data.success) && payload && typeof payload === 'object') {
+
+    if (data.ok && data.data) {
+      var items = Array.isArray(data.data) ? data.data : [data.data];
+      _lookupResults = items;
       var fields = document.getElementById('hnLookupFields');
-      // Hiện tiêu đề đợt thi
-      var dotLabel = document.getElementById('hnLookupDot').options[document.getElementById('hnLookupDot').selectedIndex].text;
-      document.getElementById('hnLookupTitle').textContent = '📋 ' + dotLabel;
+      var highlight = ['Phòng thi','Ca thi','Ngày thi','Đợt','Môn thi','Địa điểm'];
       var html = '';
-      var highlight = ['Phòng thi','Ca thi','Ngày thi','Đợt','Môn thi'];
-      Object.keys(payload).forEach(function(k) {
-        var v = payload[k];
-        if (!v || k === 'Ghi chú admin') return;
-        var isHL = highlight.some(function(h){ return k.includes(h); });
-        var color = isHL ? 'color:var(--cyan);font-size:1rem' : '';
-        html += '<div class="hn-lf" style="margin-bottom:10px">'
-             + '<span class="hn-lf-key">' + k + '</span>'
-             + '<span class="hn-lf-val" style="' + color + '">' + v + '</span>'
-             + '</div>';
+      items.forEach(function(payload, idx) {
+        if (items.length > 1) html += '<div style="font-size:0.75rem;font-weight:800;color:var(--cyan);margin:' + (idx>0?'14px':'0') + ' 0 8px;text-transform:uppercase">Môn ' + (idx+1) + '</div>';
+        Object.keys(payload).forEach(function(k) {
+          var v = payload[k];
+          if (!v || k === 'Ghi chú admin' || k === '_rowIndex') return;
+          var isHL = highlight.some(function(h){ return k.includes(h); });
+          var valStyle = isHL ? 'color:var(--cyan);font-weight:800;font-size:0.95rem' : '';
+          html += '<div class="hn-lf" style="margin-bottom:8px">'
+               + '<span class="hn-lf-key">' + k + '</span>'
+               + '<span class="hn-lf-val" style="' + valStyle + '">' + v + '</span>'
+               + '</div>';
+        });
+        if (idx < items.length - 1) html += '<hr style="border:none;border-top:1px dashed var(--border);margin:10px 0">';
       });
       fields.innerHTML = html || '<div style="color:var(--muted)">Không có dữ liệu chi tiết.</div>';
+      // Hiện nút xác nhận
+      var confirmWrap = document.getElementById('hnConfirmWrap');
+      if (confirmWrap) confirmWrap.style.display = 'block';
+      var confirmBtn = document.getElementById('hnConfirmBtn');
+      if (confirmBtn) { confirmBtn.style.display = 'inline-block'; confirmBtn.disabled = false; confirmBtn.textContent = '\u2705 Xác nhận đã nhận lịch thi'; }
+      var confirmMsg = document.getElementById('hnConfirmMsg');
+      if (confirmMsg) confirmMsg.textContent = '';
       result.classList.add('show');
     } else {
-      msg.textContent = data.msg || 'Không tìm thấy thông tin cho đợt thi này.';
+      msg.textContent = data.msg || 'Không tìm thấy thông tin. Vui lòng kiểm tra lại SĐT.';
       msg.classList.add('show');
     }
   } catch(e) {
     msg.textContent = 'Không kết nối được. Vui lòng thử lại hoặc liên hệ Zalo 0912.888.360.';
     msg.classList.add('show');
+  }
+}
+
+// Xác nhận đã nhận lịch thi
+async function hnDoConfirm() {
+  var phone = document.getElementById('hnLookupInput').value.trim();
+  var dot   = document.getElementById('hnLookupDot').value.trim();
+  var btn   = document.getElementById('hnConfirmBtn');
+  var msgEl = document.getElementById('hnConfirmMsg');
+  if (!phone) return;
+  btn.disabled = true;
+  btn.textContent = '\u23F3 Đang xác nhận...';
+  try {
+    var res = await fetch('${CONFIG.APPS_SCRIPT_LOOKUP}', {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'xacNhan', phone: phone, dot: dot })
+    });
+    var data = await res.json();
+    if (data.ok) {
+      btn.style.display = 'none';
+      msgEl.style.color = '#22c55e';
+      msgEl.textContent = '\u2705 ' + (data.msg || 'Đã xác nhận! Cảm ơn bạn.');
+    } else {
+      btn.disabled = false;
+      btn.textContent = '\u2705 Xác nhận đã nhận lịch thi';
+      msgEl.style.color = '#f59e0b';
+      msgEl.textContent = data.msg || 'Không thể xác nhận lúc này.';
+    }
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = '\u2705 Xác nhận đã nhận lịch thi';
+    msgEl.style.color = '#ef4444';
+    msgEl.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
   }
 }
 </script>`;
@@ -3152,7 +3369,7 @@ async function triggerRemoteVerification(courseName) {
         var q = list[cur];
         document.getElementById('lblIdx').textContent = cur + 1;
         if (document.getElementById('lblTotal')) document.getElementById('lblTotal').textContent = qCount;
-        document.getElementById('lblText').textContent = q.q.replace(/^\[Câu \d+\]\s*/, '');
+        document.getElementById('lblText').textContent = q.q;
         var area = document.getElementById('optsArea');
         area.innerHTML = '';
         var expBox = document.getElementById('explanationBox');
