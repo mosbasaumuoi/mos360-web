@@ -2075,15 +2075,18 @@ function renderSchRows(tabKey) {
   var tbody = document.getElementById('schRows_' + tabKey);
   if (!tbody) return;
 
-  // Hàm parse hanDK "dd/MM/yyyy" → Date
-  // hanDK luôn là ngày đơn nên chỉ cần split('/')
+  // Hàm parse "dd/MM/yyyy" hoặc "dd-dd/MM/yyyy" → Date (không dùng regex)
   function parseVNDate(str) {
-    if (!str || str.indexOf('/') < 0) return null;
-    // Lấy phần cuối nếu có dạng "27–28/06/2026" → "28/06/2026"
-    var clean = str.replace(/.*?(\d{1,2}\/\d{1,2}\/\d{4}).*/, '$1');
-    var parts = clean.split('/');
+    if (!str) return null;
+    var parts = str.split('/');
     if (parts.length !== 3) return null;
-    var d = parseInt(parts[0]), mo = parseInt(parts[1]), y = parseInt(parts[2]);
+    var dayPart = parts[0];
+    // Nếu dạng khoảng "27–28" hoặc "27-28" → lấy số cuối cùng
+    var dashIdx = Math.max(dayPart.lastIndexOf('-'), dayPart.indexOf('\u2013'));
+    if (dashIdx >= 0) dayPart = dayPart.slice(dashIdx + 1);
+    var d = parseInt(dayPart, 10);
+    var mo = parseInt(parts[1], 10);
+    var y = parseInt(parts[2], 10);
     if (isNaN(d) || isNaN(mo) || isNaN(y)) return null;
     return new Date(y, mo - 1, d);
   }
