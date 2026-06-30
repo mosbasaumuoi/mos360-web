@@ -2075,17 +2075,17 @@ function renderSchRows(tabKey) {
   var tbody = document.getElementById('schRows_' + tabKey);
   if (!tbody) return;
 
-  // Hàm parse dd/MM/yyyy hoặc dd–dd/MM/yyyy → Date (lấy ngày đầu tiên)
+  // Hàm parse hanDK "dd/MM/yyyy" → Date
+  // hanDK luôn là ngày đơn nên chỉ cần split('/')
   function parseVNDate(str) {
-    if (!str) return null;
-    var s = str.replace(/\u2013/g, '-'); // en-dash → hyphen
-    // Lấy ngày cuối nếu là khoảng: "27–28/06/2026" → lấy "28/06/2026"
-    var m = s.match(/(\d{1,2})[\/–-](\d{1,2})\/(\d{4})/);
-    if (m) return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
-    // Ngày đơn: "19/05/2026"
-    m = s.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-    if (m) return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
-    return null;
+    if (!str || str.indexOf('/') < 0) return null;
+    // Lấy phần cuối nếu có dạng "27–28/06/2026" → "28/06/2026"
+    var clean = str.replace(/.*?(\d{1,2}\/\d{1,2}\/\d{4}).*/, '$1');
+    var parts = clean.split('/');
+    if (parts.length !== 3) return null;
+    var d = parseInt(parts[0]), mo = parseInt(parts[1]), y = parseInt(parts[2]);
+    if (isNaN(d) || isNaN(mo) || isNaN(y)) return null;
+    return new Date(y, mo - 1, d);
   }
 
   tbody.innerHTML = rows.map(function(r) {
