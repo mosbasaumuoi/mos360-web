@@ -399,7 +399,7 @@ async function lookupByQuery(type) {
     }
 }
 
-function lookupPassword() {
+async function lookupPassword() {
     var pwd = document.getElementById('licLookupPwd').value.trim();
     var box = document.getElementById('licLookupResult');
     if (!pwd) { alert('Nhập mật khẩu cần tra!'); return; }
