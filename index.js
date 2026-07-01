@@ -1532,7 +1532,7 @@ ${mode !== 'home' ? `
           <div class="hn-acc-ico" style="background:rgba(34,197,94,0.12)">📋</div>
           <div>
             <div class="hn-acc-title">Đăng ký thi MOS</div>
-            <div class="hn-acc-sub">Đợt 5 — 27–28/6/2026 · Lệ phí 950.000đ/môn</div>
+            <div class="hn-acc-sub">Tại Hải Phòng / Hà Nội / Hồ Chí Minh</div>
           </div>
         </div>
         <span class="hn-acc-chevron">▼</span>
