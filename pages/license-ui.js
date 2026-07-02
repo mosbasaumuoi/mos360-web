@@ -215,11 +215,40 @@ async function loadPendingRequests() {
                 '<div style="color:#475569;font-size:0.7rem;margin-top:6px;font-family:monospace">ID: ' + escapeHtml(idShort) + '</div>' +
                 '<div style="color:#94a3b8;font-size:0.76rem;margin-top:4px">📨 ' + (CHANNEL_LABEL_VI[it.receiveChannel] || it.receiveChannel) + ': ' + escapeHtml(it.receiveContact) + '</div>' +
                 '</div>' +
+                '<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">' +
                 '<button data-key="' + it.key + '" onclick="approveRequest(this.dataset.key, this)" style="padding:9px 16px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#04111a;border:none;border-radius:8px;font-weight:800;cursor:pointer;font-size:0.82rem;white-space:nowrap">✅ Duyệt</button>' +
+                '<button data-key="' + it.key + '" onclick="deletePending(this.dataset.key, this)" style="padding:7px 16px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#ef4444;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.78rem;white-space:nowrap">🗑️ Xóa</button>' +
+                '</div>' +
                 '</div></div>';
         }).join('');
     } catch (e) {
         box.innerHTML = '<div style="color:#ef4444;text-align:center;padding:20px;font-size:0.85rem">Lỗi tải danh sách</div>';
+    }
+}
+
+async function deletePending(key, btnEl) {
+    if (!confirm('Xóa yêu cầu này khỏi hàng chờ?\n(Dùng khi học viên gửi trùng hoặc sai thông tin)')) return;
+    if (btnEl) { btnEl.disabled = true; btnEl.textContent = '⏳...'; }
+    try {
+        var res = await adminFetch('/api/license/pending', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: key }) });
+        var data = await res.json();
+        if (data.success) {
+            // Xóa dòng khỏi UI luôn
+            var row = btnEl ? btnEl.closest('[style*="border-radius:10px"]') : null;
+            if (row) row.remove();
+            // Cập nhật số đếm
+            var countEl = document.getElementById('pendingCount');
+            if (countEl) {
+                var cur = parseInt(countEl.textContent.replace(/[()]/g,'')) || 0;
+                countEl.textContent = '(' + Math.max(0, cur - 1) + ')';
+            }
+        } else {
+            alert('❌ ' + (data.msg || 'Lỗi xóa'));
+            if (btnEl) { btnEl.disabled = false; btnEl.textContent = '🗑️ Xóa'; }
+        }
+    } catch(e) {
+        alert('❌ Lỗi kết nối');
+        if (btnEl) { btnEl.disabled = false; btnEl.textContent = '🗑️ Xóa'; }
     }
 }
 
