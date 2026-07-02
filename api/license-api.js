@@ -498,6 +498,20 @@ export async function handleLicenseAPI(path, request, env) {
     }
 
     // POST /api/license/approve — duyệt 1 yêu cầu đang chờ: tính password,
+    // DELETE /api/license/pending — xóa yêu cầu khỏi hàng chờ (từ chối / trùng lặp)
+    // body: { key: "pending:169..._ab12cd" }
+    if (path === "/api/license/pending" && request.method === "DELETE") {
+        try {
+            const body = await request.json();
+            const key = (body.key || "").trim();
+            if (!key || !key.startsWith("pending:")) return json({ success: false, msg: "Thiếu hoặc sai mã yêu cầu" });
+            await env.MOS360_USERS_KV.delete(key);
+            return json({ success: true, msg: "Đã xóa yêu cầu" });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
     // lưu pwd_index như bình thường, đổi trạng thái pending -> approved.
     // body: { key: "pending:169..._ab12cd" }
     if (path === "/api/license/approve" && request.method === "POST") {
@@ -554,43 +568,6 @@ export async function handleLicenseAPI(path, request, env) {
             const raw = await env.MOS360_USERS_KV.get("pwd_index:" + password);
             if (!raw) return json({ success: false, msg: "Không tìm thấy password này" });
             return json({ success: true, info: JSON.parse(raw) });
-        } catch (e) {
-            return json({ success: false, msg: e.message });
-        }
-    }
-
-    // GET /api/license/search?q=xxx — tìm theo tên hoặc số điện thoại
-    if (path === "/api/license/search" && request.method === "GET") {
-        try {
-            const q = (url.searchParams.get("q") || "").trim().toLowerCase();
-            if (!q || q.length < 2) return json({ success: false, msg: "Nhập ít nhất 2 ký tự" });
-
-            // Scan toàn bộ pwd_index
-            let allKeys = [];
-            let cursor = undefined;
-            do {
-                const listResult = cursor
-                    ? await env.MOS360_USERS_KV.list({ prefix: "pwd_index:", cursor })
-                    : await env.MOS360_USERS_KV.list({ prefix: "pwd_index:" });
-                allKeys = allKeys.concat(listResult.keys);
-                cursor = listResult.list_complete ? undefined : listResult.cursor;
-            } while (cursor);
-
-            // Lọc theo tên hoặc SĐT
-            const matched = [];
-            for (const k of allKeys) {
-                const raw = await env.MOS360_USERS_KV.get(k.name);
-                if (!raw) continue;
-                const info = JSON.parse(raw);
-                const name = (info.studentName || "").toLowerCase();
-                const phone = (info.phone || "").replace(/\s/g, "");
-                if (name.includes(q) || phone.includes(q)) {
-                    matched.push({ password: k.name.replace("pwd_index:", ""), ...info });
-                }
-            }
-
-            matched.sort((a, b) => (b.issuedAt || "").localeCompare(a.issuedAt || ""));
-            return json({ success: true, items: matched, total: matched.length });
         } catch (e) {
             return json({ success: false, msg: e.message });
         }
