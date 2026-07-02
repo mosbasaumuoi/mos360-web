@@ -227,7 +227,7 @@ async function loadPendingRequests() {
 }
 
 async function deletePending(key, btnEl) {
-    if (!confirm('Xóa yêu cầu này khỏi hàng chờ?\n(Dùng khi học viên gửi trùng hoặc sai thông tin)')) return;
+    if (!confirm('Xóa yêu cầu này khỏi hàng chờ?\\n(Dùng khi học viên gửi trùng hoặc sai thông tin)')) return;
     if (btnEl) { btnEl.disabled = true; btnEl.textContent = '⏳...'; }
     try {
         var res = await adminFetch('/api/license/pending', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: key }) });
