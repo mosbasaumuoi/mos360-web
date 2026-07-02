@@ -14,7 +14,7 @@ export function getAdminDashboardUI() {
             <p style="color:#64748b; font-size:0.85rem; margin-top:4px;">Quản lý học viên MOS360</p>
         </div>
 
-        <!-- WIDGET THỐNG KÊ TRUY CẬP - chỉ admin thấy -->
+        <!-- WIDGET THỐNG KÊ TRUY CẬP -->
         <div id="visitStatsWidget" style="background:linear-gradient(135deg,#0a0f2e,#111422);border:1px solid rgba(0,242,255,0.2);border-radius:12px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
           <div style="text-align:center;min-width:80px">
             <div style="font-size:0.65rem;font-weight:800;color:#64748b;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">THỐNG KÊ TRUY CẬP</div>
@@ -23,22 +23,10 @@ export function getAdminDashboardUI() {
           </div>
           <div style="width:1px;height:40px;background:rgba(255,255,255,0.08)"></div>
           <div style="display:flex;gap:16px;flex-wrap:wrap">
-            <div style="text-align:center">
-              <div id="visitToday" style="font-size:1.1rem;font-weight:800;color:#22c55e;font-family:monospace">—</div>
-              <div style="font-size:0.62rem;color:#64748b">Hôm nay</div>
-            </div>
-            <div style="text-align:center">
-              <div id="visitYest" style="font-size:1.1rem;font-weight:800;color:#94a3b8;font-family:monospace">—</div>
-              <div style="font-size:0.62rem;color:#64748b">Hôm qua</div>
-            </div>
-            <div style="text-align:center">
-              <div id="visitWeek" style="font-size:1.1rem;font-weight:800;color:#f59e0b;font-family:monospace">—</div>
-              <div style="font-size:0.62rem;color:#64748b">Tuần này</div>
-            </div>
-            <div style="text-align:center">
-              <div id="visitMonth" style="font-size:1.1rem;font-weight:800;color:#a78bfa;font-family:monospace">—</div>
-              <div style="font-size:0.62rem;color:#64748b">Tháng này</div>
-            </div>
+            <div style="text-align:center"><div id="visitToday" style="font-size:1.1rem;font-weight:800;color:#22c55e;font-family:monospace">—</div><div style="font-size:0.62rem;color:#64748b">Hôm nay</div></div>
+            <div style="text-align:center"><div id="visitYest" style="font-size:1.1rem;font-weight:800;color:#94a3b8;font-family:monospace">—</div><div style="font-size:0.62rem;color:#64748b">Hôm qua</div></div>
+            <div style="text-align:center"><div id="visitWeek" style="font-size:1.1rem;font-weight:800;color:#f59e0b;font-family:monospace">—</div><div style="font-size:0.62rem;color:#64748b">Tuần này</div></div>
+            <div style="text-align:center"><div id="visitMonth" style="font-size:1.1rem;font-weight:800;color:#a78bfa;font-family:monospace">—</div><div style="font-size:0.62rem;color:#64748b">Tháng này</div></div>
           </div>
           <button onclick="loadVisitStats()" style="margin-left:auto;padding:5px 10px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:#64748b;border-radius:6px;font-size:0.72rem;cursor:pointer">🔄</button>
         </div>
@@ -534,28 +522,20 @@ function updatePromoPreview() {
     + countdown + ' <span style="opacity:0.7">← Banner preview</span></div>';
 }
 
-// ── THỐNG KÊ TRUY CẬP ───────────────────────────────────
+// THONG KE TRUY CAP
 async function loadVisitStats() {
     try {
         var res = await adminFetch('/api/admin/visit-stats');
         var data = await res.json();
         if (!data.ok) return;
-        function fmt(n) { return n.toLocaleString('vi-VN'); }
-        var totalEl = document.getElementById('visitTotal');
-        var todayEl = document.getElementById('visitToday');
-        var yestEl  = document.getElementById('visitYest');
-        var weekEl  = document.getElementById('visitWeek');
-        var monthEl = document.getElementById('visitMonth');
-        if (totalEl) totalEl.textContent = fmt(data.total);
-        if (todayEl) todayEl.textContent = fmt(data.today);
-        if (yestEl)  yestEl.textContent  = fmt(data.yesterday);
-        if (weekEl)  weekEl.textContent  = fmt(data.week);
-        if (monthEl) monthEl.textContent = fmt(data.month);
-    } catch(e) {
-        console.log('Visit stats error:', e);
-    }
+        var fmt = function(n) { return n.toLocaleString('vi-VN'); };
+        var el = document.getElementById('visitTotal');   if(el) el.textContent = fmt(data.total);
+        el = document.getElementById('visitToday');  if(el) el.textContent = fmt(data.today);
+        el = document.getElementById('visitYest');   if(el) el.textContent = fmt(data.yesterday);
+        el = document.getElementById('visitWeek');   if(el) el.textContent = fmt(data.week);
+        el = document.getElementById('visitMonth');  if(el) el.textContent = fmt(data.month);
+    } catch(e) {}
 }
-// Auto load khi trang mở
 loadVisitStats();
 
 ${getLicenseTabScript()}
