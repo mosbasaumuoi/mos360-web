@@ -311,6 +311,49 @@ export default {
         const path = url.pathname;
         const hostname = url.hostname;
 
+        // ── VISIT TRACKING API ────────────────────────────────────
+        if (path === '/api/admin/visit-stats' && request.method === 'GET') {
+            const token = url.searchParams.get('token') || request.headers.get('X-Admin-Token') || '';
+            if (token !== 'mos360admin2026') return new Response(JSON.stringify({ ok: false }), { status: 401, headers: { 'Content-Type': 'application/json' } });
+            try {
+                const kv = env.MOS360_USERS_KV;
+                const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+                const todayKey = 'visit:day:' + today;
+                const totalKey = 'visit:total';
+                // Tính ngày hôm qua và tuần này
+                const d = new Date(); d.setDate(d.getDate() - 1);
+                const yestKey = 'visit:day:' + d.toISOString().slice(0, 10).replace(/-/g, '');
+                // Tuần này: từ đầu tuần (thứ 2)
+                const weekStart = new Date(); weekStart.setDate(weekStart.getDate() - ((weekStart.getDay() + 6) % 7));
+                // Tháng này
+                const monthKey = 'visit:month:' + today.slice(0, 6);
+
+                const [todayVal, yestVal, totalVal, monthVal] = await Promise.all([
+                    kv.get(todayKey), kv.get(yestKey), kv.get(totalKey), kv.get(monthKey)
+                ]);
+
+                // Tính tuần: lấy tổng các ngày trong tuần
+                let weekTotal = 0;
+                for (let i = 0; i < 7; i++) {
+                    const wd = new Date(weekStart); wd.setDate(wd.getDate() + i);
+                    const wKey = 'visit:day:' + wd.toISOString().slice(0, 10).replace(/-/g, '');
+                    const wVal = await kv.get(wKey);
+                    weekTotal += parseInt(wVal || '0');
+                }
+
+                return new Response(JSON.stringify({
+                    ok: true,
+                    today: parseInt(todayVal || '0'),
+                    yesterday: parseInt(yestVal || '0'),
+                    week: weekTotal,
+                    month: parseInt(monthVal || '0'),
+                    total: parseInt(totalVal || '0')
+                }), { headers: { 'Content-Type': 'application/json' } });
+            } catch (e) {
+                return new Response(JSON.stringify({ ok: false, msg: e.message }), { headers: { 'Content-Type': 'application/json' } });
+            }
+        }
+
         // ===== go.mos360.vn — Short URL redirect domain =====
         // Mọi request đến go.mos360.vn đều được xử lý như short URL redirect
         // Ví dụ: go.mos360.vn/hdcaimos360 → tra KV → redirect 302 đến long URL
@@ -490,6 +533,22 @@ export default {
         }
         if (path === "/cos") {
             return new Response(getCosUI(), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        }
+
+        // ── ĐẾM LƯỢT TRUY CẬP (fire and forget) ────────────────
+        // Chỉ đếm page requests, bỏ qua API, static assets, bots
+        const isPageReq = request.headers.get('Accept')?.includes('text/html') &&
+            !path.startsWith('/api/') && path !== '/favicon.ico';
+        if (isPageReq) {
+            const kv = env.MOS360_USERS_KV;
+            const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+            const month = today.slice(0, 6);
+            // Fire and forget - không block response
+            Promise.all([
+                kv.get('visit:day:' + today).then(v => kv.put('visit:day:' + today, String((parseInt(v || '0') + 1)))),
+                kv.get('visit:month:' + month).then(v => kv.put('visit:month:' + month, String((parseInt(v || '0') + 1)))),
+                kv.get('visit:total').then(v => kv.put('visit:total', String((parseInt(v || '0') + 1))))
+            ]).catch(() => { });
         }
 
         // ===== FIX 1: Tải ảnh Bảng Vàng – dùng SHEET_URL pub TSV (v1 logic) =====
