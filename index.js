@@ -539,15 +539,19 @@ export default {
         // Chỉ đếm page requests, bỏ qua API, static assets, bots
         const isPageReq = request.headers.get('Accept')?.includes('text/html') &&
             !path.startsWith('/api/') && path !== '/favicon.ico';
-        if (isPageReq) {
+        // Sampling: chỉ ghi KV cho 1/30 số lượt truy cập, mỗi lần ghi cộng dồn x30
+        // để số liệu hiển thị vẫn xấp xỉ đúng thực tế mà giảm ~97% số put xuống KV.
+        const VISIT_SAMPLE_RATE = 1 / 30;
+        if (isPageReq && Math.random() < VISIT_SAMPLE_RATE) {
             const kv = env.MOS360_USERS_KV;
             const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
             const month = today.slice(0, 6);
+            const step = Math.round(1 / VISIT_SAMPLE_RATE); // = 30
             // Fire and forget - không block response
             Promise.all([
-                kv.get('visit:day:' + today).then(v => kv.put('visit:day:' + today, String((parseInt(v || '0') + 1)))),
-                kv.get('visit:month:' + month).then(v => kv.put('visit:month:' + month, String((parseInt(v || '0') + 1)))),
-                kv.get('visit:total').then(v => kv.put('visit:total', String((parseInt(v || '0') + 1))))
+                kv.get('visit:day:' + today).then(v => kv.put('visit:day:' + today, String((parseInt(v || '0') + step)))),
+                kv.get('visit:month:' + month).then(v => kv.put('visit:month:' + month, String((parseInt(v || '0') + step)))),
+                kv.get('visit:total').then(v => kv.put('visit:total', String((parseInt(v || '0') + step))))
             ]).catch(() => { });
         }
 
