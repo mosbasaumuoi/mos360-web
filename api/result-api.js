@@ -21,11 +21,16 @@
 //   Key phụ (danh sách key, để liệt kê nhanh không cần KV.list quét toàn bộ):
 //   results_index:{phone} -> [resultKey, resultKey, ...]  (mới nhất ở đầu, tối đa 200)
 //
-// Index theo NGÀY (giờ Việt Nam, UTC+7) — phục vụ thống kê tổng toàn hệ
-// thống mà không cần biết trước SĐT nào:
-//   Key:   all_results:{yyyy-MM-dd} -> [resultKey, resultKey, ...]
-//   Dùng để gộp lên "hôm nay / 7 ngày / 30 ngày" bằng cách duyệt qua các
-//   ngày liên tiếp, không cần KV.list quét toàn bộ namespace.
+// ── THAY ĐỔI (giảm quota Workers KV free tier — chỉ 1000 put/ngày) ──
+// Đã BỎ index riêng theo ngày "all_results:{yyyy-MM-dd}" (trước đây tốn
+// thêm 1 get + 1 put MỖI LẦN nộp bài chỉ để phục vụ thống kê admin).
+// Thay vào đó, /api/results/stats dùng trực tiếp KV.list({prefix:"results:"})
+// và đọc timestamp ngay từ TÊN KEY (không cần fetch value) để lọc theo
+// khung thời gian — không tốn thêm put nào, chỉ tốn list + get (quota
+// cao hơn nhiều: 100k read / 1000 list mỗi ngày ở free tier, và list chỉ
+// chạy khi admin xem thống kê chứ không chạy mỗi lần học viên nộp bài).
+// Mỗi lần nộp bài giờ chỉ còn 2 lần put (resultKey + results_index) thay
+// vì 3 như trước.
 // ============================================================
 
 // Secret riêng cho WinApp — KHÔNG dùng chung với token admin "mos360admin2026".
@@ -124,7 +129,6 @@ async function handleSubmitResult(request, env) {
     };
 
     const resultKey = "results:" + phone + ":" + now.getTime();
-    const dayKey = "all_results:" + formatDateVN(now);
 
     try {
         await env.MOS360_USERS_KV.put(resultKey, JSON.stringify(resultRecord));
@@ -138,12 +142,8 @@ async function handleSubmitResult(request, env) {
         const trimmed = existingList.slice(0, MAX_RESULTS_PER_STUDENT);
         await env.MOS360_USERS_KV.put(listKey, JSON.stringify(trimmed));
 
-        // Cập nhật index theo ngày (giờ VN) — phục vụ thống kê tổng,
-        // không giới hạn số lượng vì 1 ngày khó vượt quá vài trăm lượt nộp.
-        const dayRaw = await env.MOS360_USERS_KV.get(dayKey);
-        const dayList = dayRaw ? JSON.parse(dayRaw) : [];
-        dayList.push(resultKey);
-        await env.MOS360_USERS_KV.put(dayKey, JSON.stringify(dayList));
+        // Không còn ghi "all_results:{ngày}" ở đây nữa — xem comment đầu file.
+        // /api/results/stats tự liệt kê qua KV.list({prefix:"results:"}) khi cần.
     } catch (e) {
         return json({ success: false, msg: "Lỗi lưu kết quả: " + e.message }, 500);
     }
@@ -203,37 +203,35 @@ async function handleGetStats(request, env) {
     const range = (url.searchParams.get("range") || "today").trim();
 
     try {
-        // Liệt kê TẤT CẢ ngày thực sự có dữ liệu qua KV.list (mỗi ngày có nộp bài
-        // chỉ tạo đúng 1 key all_results:yyyy-MM-dd) — tránh đoán trước số ngày
-        // rồi gọi GET lãng phí cho hàng trăm ngày trống. Cách này dùng chung được
-        // cho mọi khung thời gian, kể cả "365 ngày" lẫn "toàn bộ", mà tốc độ chỉ
-        // phụ thuộc số ngày THỰC SỰ có dữ liệu, không phụ thuộc độ dài khung lọc.
-        // Lưu ý: KV.list() trả tối đa 1000 key/lần — đủ dùng cho ~2.7 năm dữ liệu
-        // (mỗi ngày 1 key); nếu vận hành lâu hơn sẽ cần thêm phân trang qua cursor.
-        const listResult = await env.MOS360_USERS_KV.list({ prefix: "all_results:" });
-        let dayKeyNames = listResult.keys.map(k => k.name);
+        // Liệt kê toàn bộ key "results:{phone}:{timestamp}" qua KV.list, phân trang
+        // bằng cursor (mỗi lần list tối đa 1000 key). KHÔNG tốn put nào — chỉ tốn
+        // list + get, quota cao hơn nhiều so với put (100k read / 1000 list/ngày ở
+        // free tier), và chỉ chạy khi admin xem tab thống kê chứ không chạy mỗi
+        // lần học viên nộp bài.
+        let allKeyNames = [];
+        let cursor;
+        do {
+            const page = await env.MOS360_USERS_KV.list({ prefix: "results:", cursor, limit: 1000 });
+            allKeyNames.push(...page.keys.map(k => k.name));
+            cursor = page.list_complete ? undefined : page.cursor;
+        } while (cursor);
 
+        // Lọc theo khung thời gian dựa trên timestamp NẰM NGAY TRONG TÊN KEY
+        // (results:{phone}:{timestamp}) — không cần fetch value để biết ngày.
+        let filteredKeyNames = allKeyNames;
         if (range !== "all") {
             const numDays = RANGE_DAYS_MAP[range] || 1;
             const now = new Date();
             const cutoffDateStr = formatDateVN(new Date(now.getTime() - (numDays - 1) * 24 * 60 * 60 * 1000));
-            // Key dạng "all_results:yyyy-MM-dd" — so sánh chuỗi trực tiếp an toàn
-            // vì định dạng ngày luôn zero-pad cố định độ dài.
-            dayKeyNames = dayKeyNames.filter(name => name.slice("all_results:".length) >= cutoffDateStr);
+            filteredKeyNames = allKeyNames.filter(name => {
+                const ts = Number(name.slice(name.lastIndexOf(":") + 1));
+                if (!Number.isFinite(ts)) return false;
+                return formatDateVN(new Date(ts)) >= cutoffDateStr;
+            });
         }
 
-        // Lấy song song toàn bộ day-index (nhanh hơn nhiều so với vòng lặp tuần tự
-        // — quan trọng khi range lớn như 365days/all, có thể tới hàng trăm ngày)
-        const dayLists = await Promise.all(
-            dayKeyNames.map(async (dayKey) => {
-                const dayRaw = await env.MOS360_USERS_KV.get(dayKey);
-                return dayRaw ? JSON.parse(dayRaw) : [];
-            })
-        );
-        const allKeys = dayLists.flat();
-
         const records = await Promise.all(
-            allKeys.map(async (key) => {
+            filteredKeyNames.map(async (key) => {
                 const raw = await env.MOS360_USERS_KV.get(key);
                 return raw ? JSON.parse(raw) : null;
             })

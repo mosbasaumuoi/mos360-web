@@ -4,6 +4,15 @@
 
 // LinkRecord { key, title, url, cat, note, clicks, created, updated }
 
+// ── Sampling cho counter "clicks" ──────────────────────────────────────
+// Số click chỉ mang tính tham khảo (không phải dữ liệu quan trọng), nhưng
+// mỗi click trước đây tốn 1 put KV → link càng phổ biến càng ngốn quota
+// (đúng là nguồn ngốn quota nếu link được nhiều học viên bấm mỗi ngày).
+// Giờ chỉ ghi thật 1/100 lượt click, mỗi lần ghi cộng dồn x100 — số liệu
+// hiển thị vẫn xấp xỉ đúng mà giảm ~99% số put cho phần này.
+const CLICK_SAMPLE_RATE = 1 / 100;
+const CLICK_STEP = Math.round(1 / CLICK_SAMPLE_RATE); // = 100
+
 export async function handleLinksAPI(path, request, env) {
     const kv = env.MOS360_LINKS_KV;
     const json = (data, status = 200) =>
@@ -113,10 +122,12 @@ export async function handleLinksAPI(path, request, env) {
     if (path.startsWith('/api/links/click/') && request.method === 'POST') {
         const key = path.split('/api/links/click/')[1];
         if (!key) return json({ ok: false });
+        // Sampling: chỉ ghi KV cho 1/100 lượt click (xem giải thích đầu file)
+        if (Math.random() >= CLICK_SAMPLE_RATE) return json({ ok: true, sampled: false });
         const raw = await kv.get(key);
         if (!raw) return json({ ok: false, msg: 'Not found' });
         const rec = JSON.parse(raw);
-        rec.clicks = (rec.clicks || 0) + 1;
+        rec.clicks = (rec.clicks || 0) + CLICK_STEP;
         await kv.put(key, JSON.stringify(rec));
         return json({ ok: true, clicks: rec.clicks });
     }
@@ -195,10 +206,15 @@ export async function handleLinkRedirect(slug, env) {
     const raw = await kv.get(slug);
     if (!raw) return null; // không tìm thấy → để caller xử lý 404
 
-    const rec = JSON.parse(raw);
-    // Tăng click counter bất đồng bộ (không block redirect)
-    rec.clicks = (rec.clicks || 0) + 1;
-    kv.put(slug, JSON.stringify(rec)); // fire and forget
+    // Sampling: chỉ ghi KV cho 1/100 lượt click (xem giải thích đầu file).
+    // Đây là nơi tốn quota nhiều nhất trước đây vì MỌI lượt bấm link rút
+    // gọn (short link) đều chạy qua đây.
+    if (Math.random() < CLICK_SAMPLE_RATE) {
+        const rec = JSON.parse(raw);
+        rec.clicks = (rec.clicks || 0) + CLICK_STEP;
+        kv.put(slug, JSON.stringify(rec)); // fire and forget
+    }
 
-    return Response.redirect(rec.url, 302);
+    const { url } = JSON.parse(raw);
+    return Response.redirect(url, 302);
 }
