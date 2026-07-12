@@ -168,10 +168,13 @@ export function getLibraryUI() {
 (function() {
     // ── CONFIG ──────────────────────────────────────────────────
     var IS_ADMIN = localStorage.getItem('mos360_admin_session') === 'active';
-    // Ẩn danh mục Quản trị với user thường
+    // User thường chỉ được xem danh mục "Đăng ký" (server cũng chặn tương tự
+    // ở /api/links/list) — ẩn các option danh mục khác trong bộ lọc để tránh
+    // gây hiểu nhầm khi chọn phải danh mục không có kết quả.
     if (!IS_ADMIN) {
-        var adminOpt = document.querySelector('#libCatFilter option[value="admin"]');
-        if (adminOpt) adminOpt.style.display = 'none';
+        document.querySelectorAll('#libCatFilter option').forEach(function(opt) {
+            if (opt.value !== '' && opt.value !== 'form') opt.style.display = 'none';
+        });
     }
     var CAT_LABELS = { video:'\uD83C\uDFAC Video', software:'\uD83D\uDCBF Ph\u1EA7n m\u1EC1m', tool:'\uD83D\uDD27 Ti\u1EC7n \u00EDch', form:'\uD83D\uDCDD \u0110\u0103ng k\u00FD', doc:'\uD83D\uDCC4 T\u00E0i li\u1EC7u', other:'\uD83D\uDCE6 Kh\u00E1c', admin:'\u2699\uFE0F Qu\u1EA3n tr\u1ECB' };
     var CAT_COLORS = { video:'#3b82f6', software:'#8b5cf6', tool:'#f59e0b', form:'#10b981', doc:'#0052CC', other:'#64748b', admin:'#B8860B' };
@@ -262,7 +265,9 @@ export function getLibraryUI() {
     async function loadLinks() {
         showLoading(true);
         try {
-            var res = await fetch('/api/links/list');
+            var res = await fetch('/api/links/list', {
+                headers: IS_ADMIN ? { 'X-Admin-Auth': 'mos360_admin' } : {}
+            });
             var data = await res.json();
             allLinks = data.links || [];
             renderStats();

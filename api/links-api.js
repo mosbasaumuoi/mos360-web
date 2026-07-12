@@ -30,6 +30,8 @@ export async function handleLinksAPI(path, request, env) {
     }
 
     // ── GET /api/links/list ──────────────────────────────────────
+    // Công khai: chỉ trả về danh mục "form" (📝 Đăng ký).
+    // Admin (có cookie/token hợp lệ): trả về toàn bộ thư viện.
     if (path === '/api/links/list' && request.method === 'GET') {
         const idxRaw = await kv.get('idx:all');
         const slugs = idxRaw ? JSON.parse(idxRaw) : [];
@@ -41,7 +43,11 @@ export async function handleLinksAPI(path, request, env) {
                 return raw ? JSON.parse(raw) : null;
             })
         );
-        return json({ links: entries.filter(Boolean) });
+        let links = entries.filter(Boolean);
+        if (!isAdmin(request)) {
+            links = links.filter((l) => l.cat === 'form');
+        }
+        return json({ links });
     }
 
     // ── POST /api/links/save ─────────────────────────────────────
