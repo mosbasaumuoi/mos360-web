@@ -449,6 +449,7 @@ export async function handleLicenseAPI(path, request, env) {
         <li>Chọn môn học tương ứng</li>
         <li>Nhập mật khẩu vào ô kích hoạt → bấm <strong>Xác nhận</strong></li>
         <li>Mật khẩu được khoá theo máy — không dùng được trên máy khác</li>
+        <li>Mật khẩu chỉ có giá trị kích hoạt trong ngày</li>
       </ol>
     </div>
 
