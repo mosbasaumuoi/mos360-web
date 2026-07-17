@@ -22,8 +22,96 @@ import { getCosUI } from "./pages/cos.js";
 import { getLibraryUI } from "./pages/library.js";
 import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
 
+// ── SEO: title/description riêng cho từng trang, thay vì dùng chung 1
+// CONFIG.TITLE cho mọi trang như trước (nguyên nhân chính khiến Google
+// không phân biệt được nội dung từng trang để xếp hạng đúng từ khóa).
+// noindex: true = trang chức năng/riêng tư, không cần Google index.
+const SEO_PAGES = {
+    "/": {
+        title: "MOS360 - Luyện Thi MOS Word, Excel, PowerPoint Tại Hải Phòng | Cam Kết 700+",
+        description: "Trung tâm luyện thi MOS & IC3 tại Hải Phòng. Học bằng phần mềm mô phỏng giống 100% đề thi thật, kèm 1:1, học phí chỉ 400.000đ/môn. Cam kết đầu ra 700+, hoàn 100% lệ phí nếu chưa đỗ."
+    },
+    "/courses": {
+        title: "Khóa Học MOS, IC3 GS6 & Generative AI | MOS360 Hải Phòng",
+        description: "Danh sách khóa học tại MOS360: MOS Word/Excel/PowerPoint 2019 & 365, IC3 GS6 Level 1-3, Generative AI. Học phí từ 100.000đ/môn, cam kết đầu ra 700+."
+    },
+    "/course-intro/ic3": {
+        title: "Luyện Thi IC3 GS6 Online (Level 1, 2, 3) | MOS360 Hải Phòng",
+        description: "Khóa luyện thi chứng chỉ IC3 GS6 Level 1, 2, 3 tại MOS360. Học phí chỉ 100.000đ/môn, luyện tập không giới hạn số lần, có giáo viên hỗ trợ 1:1."
+    },
+    "/course-intro/genai": {
+        title: "Khóa Học Generative AI Cơ Bản | MOS360 Hải Phòng",
+        description: "Học kỹ năng sử dụng AI tạo sinh (Generative AI) ứng dụng vào công việc, học tập. Học phí 100.000đ, thực hành trực tiếp trên phần mềm mô phỏng."
+    },
+    "/course-intro/aip": {
+        title: "Khóa Học AI Productivity - Nâng Cao Năng Suất Với AI | MOS360",
+        description: "Khóa học AI Productivity tại MOS360 Hải Phòng giúp bạn ứng dụng AI vào công việc hiệu quả hơn. Học phí 100.000đ, thực hành trực tiếp trên phần mềm."
+    },
+    "/register": {
+        title: "Đăng Ký Học MOS, IC3, Generative AI | MOS360 Hải Phòng",
+        description: "Đăng ký khóa luyện thi MOS, IC3 GS6, Generative AI tại MOS360. Học phí ưu đãi, cam kết đầu ra 700+, hoàn 100% lệ phí thi nếu chưa đỗ."
+    },
+    "/cap-mat-khau": {
+        title: "Yêu Cầu Cấp Mật Khẩu Phần Mềm Luyện Thi | MOS360",
+        description: "Học viên MOS360 điền form để nhận mật khẩu phần mềm luyện thi MOS Word, Excel, PowerPoint cài trực tiếp trên máy tính.",
+        noindex: true
+    },
+    "/ket-qua": {
+        title: "Tra Cứu Kết Quả Học Tập & Thi Thử | MOS360",
+        description: "Học viên MOS360 nhập số điện thoại để tra cứu lịch sử kết quả luyện tập và thi thử MOS Word, Excel, PowerPoint.",
+        noindex: true
+    },
+    "/library": { title: "Thư Viện Tài Liệu Học Viên | MOS360", noindex: true },
+    "/login": { title: "Đăng Nhập | MOS360", noindex: true },
+    "/progress": { title: "Tiến Độ Học Tập | MOS360", noindex: true },
+    "/admin-dashboard": { title: "Quản Trị | MOS360", noindex: true }
+};
+
+// JSON-LD (schema.org) — giúp Google hiểu đây là trung tâm đào tạo có địa
+// chỉ vật lý cụ thể, hỗ trợ hiển thị trên Google Maps / kết quả tìm kiếm
+// local. Chỉ chèn ở trang chủ (đủ để Google gắn kết với toàn site).
+const ORG_JSONLD = {
+    "@context": "https://schema.org",
+    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "name": "MOS360 - Trung tâm tin học MOS & IC3 & AI",
+    "url": "https://mos360.vn",
+    "image": "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
+    "telephone": "+84912888360",
+    "priceRange": "100.000₫ - 400.000₫",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 57 Lê Văn Thuyết A",
+        "addressLocality": "Phường Lê Chân",
+        "addressRegion": "Hải Phòng",
+        "addressCountry": "VN"
+    },
+    // Giả định giờ mở cửa Thứ 2 - Thứ 7 (không có Chủ nhật) theo giờ đã
+    // cung cấp (8:00-11:00 / 14:00-17:00) — chỉnh lại nếu khác thực tế.
+    "openingHoursSpecification": [
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "08:00",
+            "closes": "11:00"
+        },
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "14:00",
+            "closes": "17:00"
+        }
+    ],
+    "sameAs": [
+        "https://facebook.com/mos360.vn",
+        "https://youtube.com/@mos360_vn",
+        "https://tiktok.com/@mos360.vn"
+    ]
+};
+
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
+    SITE_URL: "https://mos360.vn",
+    SEO_DEFAULT_DESCRIPTION: "MOS360 - Trung tâm tin học MOS & IC3 & AI tại 57 Lê Văn Thuyết A, Lê Chân, Hải Phòng. Luyện thi MOS Word/Excel/PowerPoint, IC3 GS6, Generative AI bằng phần mềm mô phỏng 100% giống đề thi thật. Cam kết đầu ra 700+, hoàn 100% lệ phí thi nếu chưa đỗ.",
     LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
     SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
@@ -310,6 +398,43 @@ export default {
         const url = new URL(request.url);
         const path = url.pathname;
         const hostname = url.hostname;
+
+        // ── robots.txt ──────────────────────────────────────────
+        if (path === "/robots.txt") {
+            const body = [
+                "User-agent: *",
+                "Allow: /",
+                "Disallow: /admin-dashboard",
+                "Disallow: /login",
+                "Disallow: /progress",
+                "Disallow: /api/",
+                "",
+                `Sitemap: ${CONFIG.SITE_URL}/sitemap.xml`
+            ].join("\n");
+            return new Response(body, { headers: { "Content-Type": "text/plain;charset=UTF-8" } });
+        }
+
+        // ── sitemap.xml ──────────────────────────────────────────
+        // Chỉ liệt kê các trang public (không noindex) trong SEO_PAGES, cộng
+        // thêm vài trang chức năng công khai không có trong map (flashcard,
+        // quiz engine) để Google biết mà crawl.
+        if (path === "/sitemap.xml") {
+            const extraPublicPaths = [
+                "/generative-ai", "/ai-productivity",
+                "/ic3-lv1", "/ic3-lv2", "/ic3-lv3",
+                "/flashcard-ic3", "/flashcard-ai", "/flashcard-aip"
+            ];
+            const publicPaths = [
+                ...Object.keys(SEO_PAGES).filter((p) => !SEO_PAGES[p].noindex),
+                ...extraPublicPaths
+            ];
+            const urls = publicPaths.map((p) => {
+                const loc = CONFIG.SITE_URL + (p === "/" ? "" : p);
+                return `  <url><loc>${loc}</loc><changefreq>weekly</changefreq></url>`;
+            }).join("\n");
+            const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
+            return new Response(xml, { headers: { "Content-Type": "application/xml;charset=UTF-8" } });
+        }
 
         // ── VISIT TRACKING API ────────────────────────────────────
         if (path === '/api/admin/visit-stats' && request.method === 'GET') {
@@ -608,13 +733,46 @@ export default {
         }
         else content = this.getHomeUI(studentData, promoConfig);
 
-        return new Response(this.layout(content), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        const pageSeo = SEO_PAGES[path] || SEO_PAGES["/"];
+        const seo = {
+            path,
+            title: pageSeo.title,
+            description: pageSeo.description || CONFIG.SEO_DEFAULT_DESCRIPTION,
+            noindex: !!pageSeo.noindex,
+            jsonLd: path === "/" ? ORG_JSONLD : null
+        };
+
+        return new Response(this.layout(content, seo), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
     },
 
-    layout(content) {
-        return `<!DOCTYPE html><html><head>
+    layout(content, seo = {}) {
+        const title = seo.title || CONFIG.TITLE;
+        const description = seo.description || CONFIG.SEO_DEFAULT_DESCRIPTION;
+        const canonical = CONFIG.SITE_URL + (!seo.path || seo.path === "/" ? "" : seo.path);
+        const robotsMeta = seo.noindex ? "noindex, nofollow" : "index, follow";
+        // Escape để tránh vỡ HTML nếu title/description chứa dấu ngoặc kép
+        const esc = (s) => String(s).replace(/"/g, "&quot;");
+        const jsonLdBlock = seo.jsonLd
+            ? `<script type="application/ld+json">${JSON.stringify(seo.jsonLd)}</script>`
+            : "";
+        return `<!DOCTYPE html><html lang="vi"><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>${CONFIG.TITLE}</title>
+    <title>${title}</title>
+    <meta name="description" content="${esc(description)}">
+    <meta name="robots" content="${robotsMeta}">
+    <link rel="canonical" href="${canonical}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MOS360">
+    <meta property="og:title" content="${esc(title)}">
+    <meta property="og:description" content="${esc(description)}">
+    <meta property="og:url" content="${canonical}">
+    <meta property="og:image" content="${CONFIG.LOGO_URL}">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${esc(title)}">
+    <meta name="twitter:description" content="${esc(description)}">
+    <meta name="twitter:image" content="${CONFIG.LOGO_URL}">
+    ${jsonLdBlock}
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #FF5722; --bg: #F0F4FA; --card: #FFFFFF; --text: #0F1F40; --border: #CFD8EA; --cyan: #0052CC; --muted: #5A6A85; }
