@@ -14,6 +14,7 @@ import { getFlashcardUI } from "./pages/flashcard.js";
 import { getIC3IntroUI, getGenAIIntroUI, getAIPIntroUI } from "./pages/course-intro.js";
 import { getLicenseRequestUI } from "./pages/license-request.js";
 import { getResultsLookupUI } from "./pages/results-lookup.js";
+import { BLOG_POSTS, getBlogListUI, getBlogPostUI } from "./pages/blog.js";
 import { handleAdminAPI } from "./api/admin-api.js";
 import { handleLicenseAPI } from "./api/license-api.js";
 import { handleResultAPI } from "./api/result-api.js";
@@ -420,9 +421,11 @@ export default {
         // quiz engine) để Google biết mà crawl.
         if (path === "/sitemap.xml") {
             const extraPublicPaths = [
+                "/blog",
                 "/generative-ai", "/ai-productivity",
                 "/ic3-lv1", "/ic3-lv2", "/ic3-lv3",
-                "/flashcard-ic3", "/flashcard-ai", "/flashcard-aip"
+                "/flashcard-ic3", "/flashcard-ai", "/flashcard-aip",
+                ...BLOG_POSTS.map((p) => "/blog/" + p.slug)
             ];
             const publicPaths = [
                 ...Object.keys(SEO_PAGES).filter((p) => !SEO_PAGES[p].noindex),
@@ -717,6 +720,8 @@ export default {
         } catch (e) { }
 
         let content = "";
+        let blogPost = null; // dùng để tính SEO động cho /blog/:slug bên dưới
+        let blogNotFound = false;
         if (path === "/courses") content = this.getCoursesUI();
         else if (path === "/course-intro/ic3") content = getIC3IntroUI();
         else if (path === "/course-intro/genai") content = getGenAIIntroUI();
@@ -727,22 +732,67 @@ export default {
         else if (path === "/progress") content = getProgressUI();
         else if (path === "/cap-mat-khau") content = getLicenseRequestUI();
         else if (path === "/ket-qua") content = getResultsLookupUI();
+        else if (path === "/blog") content = getBlogListUI();
+        else if (path.startsWith("/blog/")) {
+            const slug = path.slice("/blog/".length);
+            blogPost = BLOG_POSTS.find((p) => p.slug === slug) || null;
+            if (blogPost) content = getBlogPostUI(blogPost);
+            else {
+                blogNotFound = true;
+                content = `<div style="max-width:560px;margin:80px auto;text-align:center;padding:0 16px;">
+                    <div style="font-size:2rem;margin-bottom:12px;">🔍</div>
+                    <h1 style="font-size:1.3rem;color:var(--text);margin-bottom:10px;">Không tìm thấy bài viết</h1>
+                    <a href="/blog" style="color:var(--primary);font-weight:700;text-decoration:none;">← Xem tất cả bài viết</a>
+                </div>`;
+            }
+        }
         else if (path === "/admin-dashboard") {
             const isAdmin = request.headers.get('Cookie')?.includes('mos360_admin=true');
             content = getAdminDashboardUI();
         }
         else content = this.getHomeUI(studentData, promoConfig);
 
-        const pageSeo = SEO_PAGES[path] || SEO_PAGES["/"];
+        let pageSeo = SEO_PAGES[path] || SEO_PAGES["/"];
+        let dynamicJsonLd = path === "/" ? ORG_JSONLD : null;
+        if (path === "/blog") {
+            pageSeo = {
+                title: "Blog - Kinh Nghiệm Thi MOS, IC3 & Chuẩn Đầu Ra Tin Học | MOS360",
+                description: "Chia sẻ kinh nghiệm thi MOS, IC3 GS6, thông tin chuẩn đầu ra tin học và các khóa học tại MOS360 Hải Phòng."
+            };
+        } else if (path.startsWith("/blog/")) {
+            if (blogPost) {
+                pageSeo = { title: blogPost.title + " | MOS360", description: blogPost.seoDescription };
+                dynamicJsonLd = {
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "headline": blogPost.title,
+                    "description": blogPost.seoDescription,
+                    "datePublished": blogPost.publishedDate,
+                    "author": { "@type": "Organization", "name": "MOS360" },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "MOS360",
+                        "logo": { "@type": "ImageObject", "url": CONFIG.LOGO_URL }
+                    },
+                    "mainEntityOfPage": CONFIG.SITE_URL + path
+                };
+            } else {
+                pageSeo = { title: "Không tìm thấy bài viết | MOS360", noindex: true };
+            }
+        }
+
         const seo = {
             path,
             title: pageSeo.title,
             description: pageSeo.description || CONFIG.SEO_DEFAULT_DESCRIPTION,
             noindex: !!pageSeo.noindex,
-            jsonLd: path === "/" ? ORG_JSONLD : null
+            jsonLd: dynamicJsonLd
         };
 
-        return new Response(this.layout(content, seo), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        return new Response(this.layout(content, seo), {
+            status: blogNotFound ? 404 : 200,
+            headers: { "Content-Type": "text/html;charset=UTF-8" }
+        });
     },
 
     layout(content, seo = {}) {
@@ -892,6 +942,7 @@ export default {
         <nav>
             <a href="/">TRANG CHỦ</a>
             <a href="/courses">KHÓA HỌC</a>
+            <a href="/blog">BLOG</a>
             <a href="/register" style="color:#FF5722;">📝 ĐĂNG KÝ</a>
 
             <!-- DROPDOWN: HỌC ONLINE -->
