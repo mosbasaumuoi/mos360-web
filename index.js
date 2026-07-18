@@ -194,6 +194,7 @@ const COURSES_ITEMLIST_JSONLD = {
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
     SITE_URL: "https://mos360.vn",
+    GA_MEASUREMENT_ID: "G-RDLSPNT6SV",
     SEO_DEFAULT_DESCRIPTION: "MOS360 - Trung tâm tin học MOS & IC3 & AI tại 57 Lê Văn Thuyết A, Lê Chân, Hải Phòng. Luyện thi MOS Word/Excel/PowerPoint, IC3 GS6, Generative AI bằng phần mềm mô phỏng 100% giống đề thi thật. Cam kết đầu ra 700+, hoàn 100% lệ phí thi nếu chưa đỗ.",
     LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
@@ -907,6 +908,14 @@ export default {
     <meta name="twitter:description" content="${esc(description)}">
     <meta name="twitter:image" content="${CONFIG.LOGO_URL}">
     ${jsonLdBlock}
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${CONFIG.GA_MEASUREMENT_ID}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${CONFIG.GA_MEASUREMENT_ID}');
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #FF5722; --bg: #F0F4FA; --card: #FFFFFF; --text: #0F1F40; --border: #CFD8EA; --cyan: #0052CC; --muted: #5A6A85; }
@@ -2393,6 +2402,11 @@ async function submitForm(type) {
     var isOk = (data.ok === true) || (data.success === true);
     if (isOk) {
       showMsg(msgEl, 'ok', '✅ ' + data.msg);
+      // Ghi nhận chuyển đổi trên Google Analytics — biết chính xác bao nhiêu
+      // người vào web thực sự đăng ký, không chỉ xem lượt truy cập suông.
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', { form_type: type });
+      }
       // Reset form sau khi gửi thành công
       setTimeout(function() {
         document.querySelectorAll('#hn-reg-' + type + ' input, #hn-reg-' + type + ' select, #hn-reg-' + type + ' textarea').forEach(function(el) {
