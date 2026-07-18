@@ -109,6 +109,88 @@ const ORG_JSONLD = {
     ]
 };
 
+// ── Course schema (schema.org/Course) — giúp Google có thể hiện rich
+// result (giá, đơn vị đào tạo) ngay trên kết quả tìm kiếm cho từng
+// trang khóa học. Không bắt buộc để được index, chỉ là tối ưu bổ sung.
+const MOS360_PROVIDER = {
+    "@type": "EducationalOrganization",
+    "name": "MOS360 - Trung tâm tin học MOS & IC3 & AI",
+    "sameAs": "https://mos360.vn"
+};
+
+function courseOffer(price) {
+    return {
+        "@type": "Offer",
+        "category": "Paid",
+        "price": String(price),
+        "priceCurrency": "VND",
+        "availability": "https://schema.org/InStock"
+    };
+}
+
+function courseInstance() {
+    return {
+        "@type": "CourseInstance",
+        "courseMode": "Blended",
+        "location": {
+            "@type": "Place",
+            "name": "MOS360",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Số 57 Lê Văn Thuyết A",
+                "addressLocality": "Phường Lê Chân",
+                "addressRegion": "Hải Phòng",
+                "addressCountry": "VN"
+            }
+        }
+    };
+}
+
+const COURSE_SCHEMAS = {
+    "/course-intro/ic3": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Luyện thi IC3 GS6 (Level 1, 2, 3)",
+        "description": "Khóa luyện thi chứng chỉ IC3 GS6 Level 1, 2, 3 bằng phần mềm mô phỏng 100% giống đề thi thật, học 1:1 cùng giáo viên, học không giới hạn số lần.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(100000),
+        "hasCourseInstance": courseInstance()
+    },
+    "/course-intro/genai": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Generative AI Cơ Bản",
+        "description": "Khóa học kỹ năng sử dụng AI tạo sinh (Generative AI) ứng dụng vào công việc và học tập, thực hành trực tiếp trên phần mềm mô phỏng.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(100000),
+        "hasCourseInstance": courseInstance()
+    },
+    "/course-intro/aip": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "AI Productivity",
+        "description": "Khóa học AI Productivity giúp ứng dụng AI vào công việc hiệu quả hơn, thực hành trực tiếp trên phần mềm mô phỏng.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(100000),
+        "hasCourseInstance": courseInstance()
+    }
+};
+
+// ItemList cho trang /courses — liệt kê toàn bộ khóa học (bao gồm cả MOS,
+// vốn không có trang chi tiết riêng nên không nằm trong COURSE_SCHEMAS ở trên).
+const COURSES_ITEMLIST_JSONLD = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "item": { "@type": "Course", "name": "MOS Word (2019 & 365)", "provider": MOS360_PROVIDER, "offers": courseOffer(400000) } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "Course", "name": "MOS Excel (2019 & 365)", "provider": MOS360_PROVIDER, "offers": courseOffer(400000) } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "Course", "name": "MOS PowerPoint (2019 & 365)", "provider": MOS360_PROVIDER, "offers": courseOffer(400000) } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "Course", "name": "IC3 GS6 (Level 1, 2, 3)", "provider": MOS360_PROVIDER, "offers": courseOffer(100000), "url": "https://mos360.vn" + "/course-intro/ic3" } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "Course", "name": "Generative AI Cơ Bản", "provider": MOS360_PROVIDER, "offers": courseOffer(100000), "url": "https://mos360.vn" + "/course-intro/genai" } },
+        { "@type": "ListItem", "position": 6, "item": { "@type": "Course", "name": "AI Productivity", "provider": MOS360_PROVIDER, "offers": courseOffer(100000), "url": "https://mos360.vn" + "/course-intro/aip" } }
+    ]
+};
+
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
     SITE_URL: "https://mos360.vn",
@@ -753,7 +835,9 @@ export default {
         else content = this.getHomeUI(studentData, promoConfig);
 
         let pageSeo = SEO_PAGES[path] || SEO_PAGES["/"];
-        let dynamicJsonLd = path === "/" ? ORG_JSONLD : null;
+        let dynamicJsonLd = path === "/" ? ORG_JSONLD
+            : path === "/courses" ? COURSES_ITEMLIST_JSONLD
+                : COURSE_SCHEMAS[path] || null;
         if (path === "/blog") {
             pageSeo = {
                 title: "Blog - Kinh Nghiệm Thi MOS, IC3 & Chuẩn Đầu Ra Tin Học | MOS360",
