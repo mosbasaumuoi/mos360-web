@@ -449,7 +449,6 @@ export async function handleLicenseAPI(path, request, env) {
         <li>Chọn môn học tương ứng</li>
         <li>Nhập mật khẩu vào ô kích hoạt → bấm <strong>Xác nhận</strong></li>
         <li>Mật khẩu được khoá theo máy — không dùng được trên máy khác</li>
-        <li>Mật khẩu chỉ có giá trị kích hoạt trong ngày</li>
       </ol>
     </div>
 
@@ -569,6 +568,40 @@ export async function handleLicenseAPI(path, request, env) {
             const raw = await env.MOS360_USERS_KV.get("pwd_index:" + password);
             if (!raw) return json({ success: false, msg: "Không tìm thấy password này" });
             return json({ success: true, info: JSON.parse(raw) });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // GET /api/license/search?q=... — tìm theo SĐT hoặc họ tên (dùng cho tab
+    // "Số ĐT" / "Họ tên" trong Tra cứu Admin Dashboard). Trước đây endpoint
+    // này KHÔNG tồn tại nên tab "Số ĐT"/"Họ tên" luôn báo lỗi 404 "License
+    // API not found" — chỉ tab "Mật khẩu" (dùng /lookup) hoạt động.
+    // Vì dữ liệu chỉ có index theo password (pwd_index:), endpoint này quét
+    // toàn bộ danh sách rồi lọc theo q — giống cách /api/license/list đã
+    // làm, không phát sinh thêm bất kỳ lệnh "put" nào (chỉ get/list, không
+    // tốn quota ghi KV).
+    if (path === "/api/license/search" && request.method === "GET") {
+        try {
+            const q = (url.searchParams.get("q") || "").trim().toLowerCase();
+            if (!q) return json({ success: false, msg: "Thiếu từ khóa tìm kiếm" });
+
+            const listResult = await env.MOS360_USERS_KV.list({ prefix: "pwd_index:", limit: 1000 });
+            const items = [];
+            for (const k of listResult.keys) {
+                const raw = await env.MOS360_USERS_KV.get(k.name);
+                if (!raw) continue;
+                const info = JSON.parse(raw);
+                const phone = (info.phone || "").toLowerCase();
+                const name = (info.studentName || "").toLowerCase();
+                if (phone.includes(q) || name.includes(q)) {
+                    items.push({ password: k.name.replace("pwd_index:", ""), ...info });
+                }
+            }
+            // Mới nhất lên đầu, giống /api/license/list
+            items.sort((a, b) => (b.issuedAt || "").localeCompare(a.issuedAt || ""));
+
+            return json({ success: true, items, total: items.length });
         } catch (e) {
             return json({ success: false, msg: e.message });
         }
