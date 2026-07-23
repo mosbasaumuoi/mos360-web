@@ -426,6 +426,7 @@ export async function handleLicenseAPI(path, request, env) {
     <p style="font-size:1rem;color:#1e293b;margin-bottom:6px">Xin chào <strong>${studentName || "bạn"}</strong>,</p>
     <p style="color:#475569;font-size:0.9rem;line-height:1.6;margin-bottom:24px">
       Yêu cầu cấp mật khẩu phần mềm MOS360 của bạn đã được xử lý.<br>
+      Mật khẩu có hiệu lực kích hoạt trong vòng 7 ngày. 
       Dưới đây là thông tin mật khẩu kích hoạt:
     </p>
 
