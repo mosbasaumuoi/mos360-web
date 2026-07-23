@@ -421,6 +421,14 @@ async function lookupByQuery(type) {
                     '📱 ' + (h.phone||'-') + ' · <code style="background:#090b14;padding:1px 5px;border-radius:4px;color:#22c55e">' + h.password + '</code><br>' +
                     'Hạn: <span style="color:' + (isExpired?'#ef4444':'#94a3b8') + '">' + (expireStr||'—') + '</span>' +
                     (isExpired ? ' <span style="color:#ef4444;font-size:0.66rem">(Hết hạn)</span>' : '') +
+                    '</div>' +
+                    '<div style="display:flex;gap:6px;margin-top:8px">' +
+                    '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
+                    'onclick="renewLicense(this.dataset.pwd,this.dataset.name)" ' +
+                    'style="padding:5px 10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🔄 Gia hạn</button>' +
+                    '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
+                    'onclick="revokeLicense(this.dataset.pwd,this.dataset.name)" ' +
+                    'style="padding:5px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🗑 Xoá</button>' +
                     '</div></div>';
             }).join('');
     } catch(e) {
