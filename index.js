@@ -2581,7 +2581,7 @@ async function triggerRemoteVerification(courseName) {
         <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:25px;">Chức năng bảo mật phân tầng dành riêng cho quản trị viên</p>
         <div style="margin-bottom:15px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">TÀI KHOẢN ADMIN</label>
-            <input type="text" id="admUser" name="mos360-adm-user-field" placeholder="admin@mos360" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-bwignore style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
+            <input type="text" id="admUser" name="mos360-adm-user-field" placeholder="Nhập tài khoản quản trị" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-bwignore style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
         <div style="margin-bottom:25px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">MẬT KHẨU</label>
