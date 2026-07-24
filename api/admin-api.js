@@ -1,7 +1,29 @@
 import { CONFIG, normalizePhone } from '../config.js';
 
 export async function handleAdminAPI(path, request, env) {
-    // Kiểm tra admin auth
+    // POST /api/admin/login — xác thực tài khoản/mật khẩu Admin HOÀN TOÀN
+    // ở server, không còn lộ ra ngoài client JS như trước (trước đây so
+    // sánh trực tiếp trong <script> gửi về trình duyệt — ai bấm "View Page
+    // Source" cũng đọc được mật khẩu). Route này KHÔNG yêu cầu token trước
+    // vì đây chính là bước cấp token, nên đặt trước lớp chặn token bên dưới.
+    // TODO cân nhắc sau: chuyển "Mos360" sang Cloudflare Workers Secret
+    // (env.ADMIN_PASSWORD) thay vì hardcode trong source, để đổi mật khẩu
+    // không cần sửa/deploy lại code.
+    if (path === '/api/admin/login' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const u = (body.user || '').trim();
+            const p = (body.pass || '').trim();
+            if (u === 'admin@mos360' && p === 'Mos360') {
+                return json({ success: true, token: 'mos360admin2026' });
+            }
+            return json({ success: false, msg: 'Tài khoản hoặc mật khẩu quản lý không đúng!' }, 401);
+        } catch (e) {
+            return json({ success: false, msg: 'Yêu cầu không hợp lệ' }, 400);
+        }
+    }
+
+    // Kiểm tra admin auth (áp dụng cho mọi route admin còn lại bên dưới)
     const authHeader = request.headers.get('X-Admin-Token') || '';
     const url = new URL(request.url);
     const token = url.searchParams.get('token') || authHeader;

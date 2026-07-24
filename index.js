@@ -39,11 +39,6 @@ const CONFIG = {
         TIKTOK: "https://tiktok.com/@mos360.vn"
     },
 
-    ADMIN: {
-        USER: "admin@mos360",
-        PASS: "Mos360"
-    },
-
     // URL Apps Script Web App đã deploy — tra cứu dự thi
     // Thay bằng URL thật sau khi deploy Apps Script
     APPS_SCRIPT_LOOKUP: "https://script.google.com/macros/s/AKfycbweC3d-SKm29ltW6Y13hWqYuw8Q-4X23QEbF0AhQL_IfA2YiWYzVkIOyV4n-sxApEpcMA/exec",
@@ -2586,25 +2581,42 @@ async function triggerRemoteVerification(courseName) {
         <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:25px;">Chức năng bảo mật phân tầng dành riêng cho quản trị viên</p>
         <div style="margin-bottom:15px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">TÀI KHOẢN ADMIN</label>
-            <input type="text" id="admUser" placeholder="admin@mos360" style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
+            <input type="text" id="admUser" name="mos360-adm-user-field" placeholder="admin@mos360" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-bwignore style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
         <div style="margin-bottom:25px;">
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">MẬT KHẨU</label>
-            <input type="password" id="admPass" placeholder="••••••••" style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
+            <input type="password" id="admPass" name="mos360-adm-pass-field" placeholder="••••••••" autocomplete="new-password" data-lpignore="true" data-1p-ignore data-bwignore style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
         <!-- FIX 4: Đăng nhập admin chỉ set localStorage, không thu hồi session thiết bị khác -->
         <button class="btn-action" onclick="handleAdminLoginGate()">XÁC THỰC QUYỀN TRUY CẬP</button>
     </div>
     <script>
-        function handleAdminLoginGate() {
+        async function handleAdminLoginGate() {
             var u = document.getElementById('admUser').value.trim();
             var p = document.getElementById('admPass').value.trim();
-            if (u === "admin@mos360" && p === "Mos360") {
-                // FIX 4: localStorage là per-device – mỗi thiết bị lưu riêng, không xung đột
-                localStorage.setItem('mos360_admin_session', 'active');
-                alert("Đăng nhập Admin thành công! Nút [QUẢN LÝ HỌC VIÊN] đã được mở trên thiết bị này.");
-                window.location.href = "/";
-            } else { alert("Tài khoản hoặc mật khẩu quản lý không đúng!"); }
+            var btn = document.querySelector('.btn-action');
+            btn.disabled = true; btn.textContent = 'Đang kiểm tra...';
+            try {
+                var res = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user: u, pass: p })
+                });
+                var data = await res.json();
+                if (data.success) {
+                    // localStorage là per-device – mỗi thiết bị lưu riêng, không xung đột
+                    localStorage.setItem('mos360_admin_session', 'active');
+                    if (data.token) localStorage.setItem('mos360_admin_token', data.token);
+                    alert("Đăng nhập Admin thành công! Nút [QUẢN LÝ HỌC VIÊN] đã được mở trên thiết bị này.");
+                    window.location.href = "/";
+                } else {
+                    alert(data.msg || "Tài khoản hoặc mật khẩu quản lý không đúng!");
+                }
+            } catch (e) {
+                alert("Không kết nối được tới máy chủ. Vui lòng thử lại.");
+            } finally {
+                btn.disabled = false; btn.textContent = 'XÁC THỰC QUYỀN TRUY CẬP';
+            }
         }
     </script>`;
     },
