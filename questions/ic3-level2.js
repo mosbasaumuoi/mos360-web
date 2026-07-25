@@ -1761,7 +1761,7 @@ export const IC3_LEVEL2 = [
     test: 3,
     category: "COMMUNICATION_COLLABORATION",
     difficulty: "hard",
-    type: "matching",
+    type: "single",
     question: "Một sinh viên gửi thư điện tử xin đổi lịch hẹn phỏng vấn thực tập cho nhà tuyển dụng như sau: 'Kính gửi bà Smith, Tôi bị bận vào giờ phỏng vấn rồi, chắc là phải đổi lịch thôi HY VỌNG ĐIỀU NÀY KHÔNG LÀM PHIỀN BẠN!!! Cảm ơn nha!!!'. Xét theo chuẩn mực đạo đức và văn hóa số (Netiquette), thành phần nào trong email trên đã được sử dụng phù hợp và lịch sự nhất?",
     options: [
       "Lời chào đầu thư",
