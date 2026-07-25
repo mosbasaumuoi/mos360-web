@@ -21,9 +21,175 @@ import { getCosUI } from "./pages/cos.js";
 // Thêm vào sau các import hiện có
 import { getLibraryUI } from "./pages/library.js";
 import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
+import { BLOG_POSTS, getBlogListUI, getBlogPostUI } from "./pages/blog.js";
+
+// ── SEO: title/description riêng cho từng trang, thay vì dùng chung 1
+// CONFIG.TITLE cho mọi trang như trước (nguyên nhân chính khiến Google
+// không phân biệt được nội dung từng trang để xếp hạng đúng từ khóa).
+// noindex: true = trang chức năng/riêng tư, không cần Google index.
+const SEO_PAGES = {
+    "/": {
+        title: "MOS360 - Luyện Thi MOS Word, Excel, PowerPoint Tại Hải Phòng | Cam Kết 700+",
+        description: "Trung tâm luyện thi MOS & IC3 tại Hải Phòng. Học bằng phần mềm mô phỏng giống 100% đề thi thật, kèm 1:1, học phí chỉ 400.000đ/môn. Cam kết đầu ra 700+, hoàn 100% lệ phí nếu chưa đỗ."
+    },
+    "/courses": {
+        title: "Khóa Học MOS, IC3 GS6 & Generative AI | MOS360 Hải Phòng",
+        description: "Danh sách khóa học tại MOS360: MOS Word/Excel/PowerPoint 2019 & 365, IC3 GS6 Level 1-3, Generative AI. Học phí từ 100.000đ/môn, cam kết đầu ra 700+."
+    },
+    "/course-intro/ic3": {
+        title: "Luyện Thi IC3 GS6 Online (Level 1, 2, 3) | MOS360 Hải Phòng",
+        description: "Khóa luyện thi chứng chỉ IC3 GS6 Level 1, 2, 3 tại MOS360. Học phí chỉ 100.000đ/môn, luyện tập không giới hạn số lần, có giáo viên hỗ trợ 1:1."
+    },
+    "/course-intro/genai": {
+        title: "Khóa Học Generative AI Cơ Bản | MOS360 Hải Phòng",
+        description: "Học kỹ năng sử dụng AI tạo sinh (Generative AI) ứng dụng vào công việc, học tập. Học phí 100.000đ, thực hành trực tiếp trên phần mềm mô phỏng."
+    },
+    "/course-intro/aip": {
+        title: "Khóa Học AI Productivity - Nâng Cao Năng Suất Với AI | MOS360",
+        description: "Khóa học AI Productivity tại MOS360 Hải Phòng giúp bạn ứng dụng AI vào công việc hiệu quả hơn. Học phí 100.000đ, thực hành trực tiếp trên phần mềm."
+    },
+    "/register": {
+        title: "Đăng Ký Học MOS, IC3, Generative AI | MOS360 Hải Phòng",
+        description: "Đăng ký khóa luyện thi MOS, IC3 GS6, Generative AI tại MOS360. Học phí ưu đãi, cam kết đầu ra 700+, hoàn 100% lệ phí thi nếu chưa đỗ."
+    },
+    "/cap-mat-khau": {
+        title: "Yêu Cầu Cấp Mật Khẩu Phần Mềm Luyện Thi | MOS360",
+        description: "Học viên MOS360 điền form để nhận mật khẩu phần mềm luyện thi MOS Word, Excel, PowerPoint cài trực tiếp trên máy tính.",
+        noindex: true
+    },
+    "/ket-qua": {
+        title: "Tra Cứu Kết Quả Học Tập & Thi Thử | MOS360",
+        description: "Học viên MOS360 nhập số điện thoại để tra cứu lịch sử kết quả luyện tập và thi thử MOS Word, Excel, PowerPoint.",
+        noindex: true
+    },
+    "/library": { title: "Thư Viện Tài Liệu Học Viên | MOS360", noindex: true },
+    "/login": { title: "Đăng Nhập | MOS360", noindex: true },
+    "/progress": { title: "Tiến Độ Học Tập | MOS360", noindex: true },
+    "/admin-dashboard": { title: "Quản Trị | MOS360", noindex: true }
+};
+
+// JSON-LD (schema.org) — giúp Google hiểu đây là trung tâm đào tạo có địa
+// chỉ vật lý cụ thể, hỗ trợ hiển thị trên Google Maps / kết quả tìm kiếm
+// local. Chỉ chèn ở trang chủ (đủ để Google gắn kết với toàn site).
+const ORG_JSONLD = {
+    "@context": "https://schema.org",
+    "@type": ["EducationalOrganization", "LocalBusiness"],
+    "name": "MOS360 - Trung tâm tin học MOS & IC3 & AI",
+    "url": "https://mos360.vn",
+    "image": "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
+    "telephone": "+84912888360",
+    "priceRange": "100.000₫ - 400.000₫",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 57 Lê Văn Thuyết A",
+        "addressLocality": "Phường Lê Chân",
+        "addressRegion": "Hải Phòng",
+        "addressCountry": "VN"
+    },
+    "openingHoursSpecification": [
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "08:00",
+            "closes": "11:00"
+        },
+        {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "14:00",
+            "closes": "17:00"
+        }
+    ],
+    "sameAs": [
+        "https://facebook.com/mos360.vn",
+        "https://youtube.com/@mos360_vn",
+        "https://tiktok.com/@mos360.vn"
+    ]
+};
+
+// ── Course schema (schema.org/Course) ──
+const MOS360_PROVIDER = {
+    "@type": "EducationalOrganization",
+    "name": "MOS360 - Trung tâm tin học MOS & IC3 & AI",
+    "sameAs": "https://mos360.vn"
+};
+
+function courseOffer(price) {
+    return {
+        "@type": "Offer",
+        "category": "Paid",
+        "price": String(price),
+        "priceCurrency": "VND",
+        "availability": "https://schema.org/InStock"
+    };
+}
+
+function courseInstance() {
+    return {
+        "@type": "CourseInstance",
+        "courseMode": "Blended",
+        "location": {
+            "@type": "Place",
+            "name": "MOS360",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Số 57 Lê Văn Thuyết A",
+                "addressLocality": "Phường Lê Chân",
+                "addressRegion": "Hải Phòng",
+                "addressCountry": "VN"
+            }
+        }
+    };
+}
+
+const COURSE_SCHEMAS = {
+    "/course-intro/ic3": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Luyện thi IC3 GS6 (Level 1, 2, 3)",
+        "description": "Khóa luyện thi chứng chỉ IC3 GS6 Level 1, 2, 3 bằng phần mềm mô phỏng 100% giống đề thi thật, học 1:1 cùng giáo viên, học không giới hạn số lần.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(100000),
+        "hasCourseInstance": courseInstance()
+    },
+    "/course-intro/genai": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Generative AI Cơ Bản",
+        "description": "Khóa học kỹ năng sử dụng AI tạo sinh (Generative AI) ứng dụng vào công việc và học tập, thực hành trực tiếp trên phần mềm mô phỏng.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(100000),
+        "hasCourseInstance": courseInstance()
+    },
+    "/course-intro/aip": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "AI Productivity",
+        "description": "Khóa học AI Productivity giúp ứng dụng AI vào công việc hiệu quả hơn, thực hành trực tiếp trên phần mềm mô phỏng.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(100000),
+        "hasCourseInstance": courseInstance()
+    }
+};
+
+const COURSES_ITEMLIST_JSONLD = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "item": { "@type": "Course", "name": "MOS Word (2019 & 365)", "provider": MOS360_PROVIDER, "offers": courseOffer(400000) } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "Course", "name": "MOS Excel (2019 & 365)", "provider": MOS360_PROVIDER, "offers": courseOffer(400000) } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "Course", "name": "MOS PowerPoint (2019 & 365)", "provider": MOS360_PROVIDER, "offers": courseOffer(400000) } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "Course", "name": "IC3 GS6 (Level 1, 2, 3)", "provider": MOS360_PROVIDER, "offers": courseOffer(100000), "url": "https://mos360.vn/course-intro/ic3" } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "Course", "name": "Generative AI Cơ Bản", "provider": MOS360_PROVIDER, "offers": courseOffer(100000), "url": "https://mos360.vn/course-intro/genai" } },
+        { "@type": "ListItem", "position": 6, "item": { "@type": "Course", "name": "AI Productivity", "provider": MOS360_PROVIDER, "offers": courseOffer(100000), "url": "https://mos360.vn/course-intro/aip" } }
+    ]
+};
 
 const CONFIG = {
     TITLE: "MOS360 - Luyện thi MOS & IC3 GS6",
+    SITE_URL: "https://mos360.vn",
+    SEO_DEFAULT_DESCRIPTION: "MOS360 - Trung tâm tin học MOS & IC3 & AI tại 57 Lê Văn Thuyết A, Lê Chân, Hải Phòng. Luyện thi MOS Word/Excel/PowerPoint, IC3 GS6, Generative AI bằng phần mềm mô phỏng 100% giống đề thi thật. Cam kết đầu ra 700+, hoàn 100% lệ phí thi nếu chưa đỗ.",
+    GA_MEASUREMENT_ID: "G-RDLSPNT6SV",
     LOGO_URL: "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png",
     SHEET_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShTOF13wljdvKF0Olw_s3H4yTMZtlm0LE4Ui7CR-G2OoNQmvrMGUk67YZmoET84GcAV7nu_stXw2zV/pub?output=tsv",
     SHEET_EDIT_URL: "https://docs.google.com/spreadsheets/d/17spoqBAGtinFHQSTGbaDMapFH4nWGS0RHGGhCB5WzqI/edit?gid=0#gid=0",
@@ -306,6 +472,42 @@ export default {
         const path = url.pathname;
         const hostname = url.hostname;
 
+        // ── robots.txt ──────────────────────────────────────────
+        if (path === "/robots.txt") {
+            const body = [
+                "User-agent: *",
+                "Allow: /",
+                "Disallow: /admin-dashboard",
+                "Disallow: /login",
+                "Disallow: /progress",
+                "Disallow: /api/",
+                "",
+                `Sitemap: ${CONFIG.SITE_URL}/sitemap.xml`
+            ].join("\n");
+            return new Response(body, { headers: { "Content-Type": "text/plain;charset=UTF-8" } });
+        }
+
+        // ── sitemap.xml ──────────────────────────────────────────
+        if (path === "/sitemap.xml") {
+            const extraPublicPaths = [
+                "/blog",
+                "/generative-ai", "/ai-productivity",
+                "/ic3-lv1", "/ic3-lv2", "/ic3-lv3",
+                "/flashcard-ic3", "/flashcard-ai", "/flashcard-aip",
+                ...BLOG_POSTS.map((p) => "/blog/" + p.slug)
+            ];
+            const publicPaths = [
+                ...Object.keys(SEO_PAGES).filter((p) => !SEO_PAGES[p].noindex),
+                ...extraPublicPaths
+            ];
+            const urls = publicPaths.map((p) => {
+                const loc = CONFIG.SITE_URL + (p === "/" ? "" : p);
+                return `  <url><loc>${loc}</loc><changefreq>weekly</changefreq></url>`;
+            }).join("\n");
+            const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
+            return new Response(xml, { headers: { "Content-Type": "application/xml;charset=UTF-8" } });
+        }
+
         // ── VISIT TRACKING API ────────────────────────────────────
         if (path === '/api/admin/visit-stats' && request.method === 'GET') {
             const token = url.searchParams.get('token') || request.headers.get('X-Admin-Token') || '';
@@ -534,15 +736,19 @@ export default {
         // Chỉ đếm page requests, bỏ qua API, static assets, bots
         const isPageReq = request.headers.get('Accept')?.includes('text/html') &&
             !path.startsWith('/api/') && path !== '/favicon.ico';
-        if (isPageReq) {
+        // Sampling: chỉ ghi KV cho 1/30 số lượt truy cập, mỗi lần ghi cộng dồn x30
+        // để số liệu hiển thị vẫn xấp xỉ đúng thực tế mà giảm ~97% số put xuống KV.
+        const VISIT_SAMPLE_RATE = 1 / 30;
+        if (isPageReq && Math.random() < VISIT_SAMPLE_RATE) {
             const kv = env.MOS360_USERS_KV;
             const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
             const month = today.slice(0, 6);
+            const step = Math.round(1 / VISIT_SAMPLE_RATE); // = 30
             // Fire and forget - không block response
             Promise.all([
-                kv.get('visit:day:' + today).then(v => kv.put('visit:day:' + today, String((parseInt(v || '0') + 1)))),
-                kv.get('visit:month:' + month).then(v => kv.put('visit:month:' + month, String((parseInt(v || '0') + 1)))),
-                kv.get('visit:total').then(v => kv.put('visit:total', String((parseInt(v || '0') + 1))))
+                kv.get('visit:day:' + today).then(v => kv.put('visit:day:' + today, String((parseInt(v || '0') + step)))),
+                kv.get('visit:month:' + month).then(v => kv.put('visit:month:' + month, String((parseInt(v || '0') + step)))),
+                kv.get('visit:total').then(v => kv.put('visit:total', String((parseInt(v || '0') + step))))
             ]).catch(() => { });
         }
 
@@ -583,6 +789,8 @@ export default {
         } catch (e) { }
 
         let content = "";
+        let blogPost = null;
+        let blogNotFound = false;
         if (path === "/courses") content = this.getCoursesUI();
         else if (path === "/course-intro/ic3") content = getIC3IntroUI();
         else if (path === "/course-intro/genai") content = getGenAIIntroUI();
@@ -593,19 +801,106 @@ export default {
         else if (path === "/progress") content = getProgressUI();
         else if (path === "/cap-mat-khau") content = getLicenseRequestUI();
         else if (path === "/ket-qua") content = getResultsLookupUI();
+        else if (path === "/blog") content = getBlogListUI();
+        else if (path.startsWith("/blog/")) {
+            const slug = path.slice("/blog/".length);
+            blogPost = BLOG_POSTS.find((p) => p.slug === slug) || null;
+            if (blogPost) content = getBlogPostUI(blogPost);
+            else {
+                blogNotFound = true;
+                content = `<div style="max-width:560px;margin:80px auto;text-align:center;padding:0 16px;">
+                    <div style="font-size:2rem;margin-bottom:12px;">🔍</div>
+                    <h1 style="font-size:1.3rem;color:var(--text);margin-bottom:10px;">Không tìm thấy bài viết</h1>
+                    <a href="/blog" style="color:var(--primary);font-weight:700;text-decoration:none;">← Xem tất cả bài viết</a>
+                </div>`;
+            }
+        }
         else if (path === "/admin-dashboard") {
             const isAdmin = request.headers.get('Cookie')?.includes('mos360_admin=true');
             content = getAdminDashboardUI();
         }
         else content = this.getHomeUI(studentData, promoConfig);
 
-        return new Response(this.layout(content), { headers: { "Content-Type": "text/html;charset=UTF-8" } });
+        let pageSeo = SEO_PAGES[path] || SEO_PAGES["/"];
+        let dynamicJsonLd = path === "/" ? ORG_JSONLD
+            : path === "/courses" ? COURSES_ITEMLIST_JSONLD
+                : COURSE_SCHEMAS[path] || null;
+        if (path === "/blog") {
+            pageSeo = {
+                title: "Blog - Kinh Nghiệm Thi MOS, IC3 & Chuẩn Đầu Ra Tin Học | MOS360",
+                description: "Chia sẻ kinh nghiệm thi MOS, IC3 GS6, thông tin chuẩn đầu ra tin học và các khóa học tại MOS360 Hải Phòng."
+            };
+        } else if (path.startsWith("/blog/")) {
+            if (blogPost) {
+                pageSeo = { title: blogPost.title + " | MOS360", description: blogPost.seoDescription };
+                dynamicJsonLd = {
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "headline": blogPost.title,
+                    "description": blogPost.seoDescription,
+                    "datePublished": blogPost.publishedDate,
+                    "author": { "@type": "Organization", "name": "MOS360" },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "MOS360",
+                        "logo": { "@type": "ImageObject", "url": CONFIG.LOGO_URL }
+                    },
+                    "mainEntityOfPage": CONFIG.SITE_URL + path
+                };
+            } else {
+                pageSeo = { title: "Không tìm thấy bài viết | MOS360", noindex: true };
+            }
+        }
+
+        const seo = {
+            path,
+            title: pageSeo.title,
+            description: pageSeo.description || CONFIG.SEO_DEFAULT_DESCRIPTION,
+            noindex: !!pageSeo.noindex,
+            jsonLd: dynamicJsonLd
+        };
+
+        return new Response(this.layout(content, seo), {
+            status: blogNotFound ? 404 : 200,
+            headers: { "Content-Type": "text/html;charset=UTF-8" }
+        });
     },
 
-    layout(content) {
-        return `<!DOCTYPE html><html><head>
+    layout(content, seo = {}) {
+        const title = seo.title || CONFIG.TITLE;
+        const description = seo.description || CONFIG.SEO_DEFAULT_DESCRIPTION;
+        const canonical = CONFIG.SITE_URL + (!seo.path || seo.path === "/" ? "" : seo.path);
+        const robotsMeta = seo.noindex ? "noindex, nofollow" : "index, follow";
+        const esc = (s) => String(s).replace(/"/g, "&quot;");
+        const jsonLdBlock = seo.jsonLd
+            ? `<script type="application/ld+json">${JSON.stringify(seo.jsonLd)}</script>`
+            : "";
+        return `<!DOCTYPE html><html lang="vi"><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>${CONFIG.TITLE}</title>
+    <title>${title}</title>
+    <meta name="description" content="${esc(description)}">
+    <meta name="robots" content="${robotsMeta}">
+    <link rel="canonical" href="${canonical}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MOS360">
+    <meta property="og:title" content="${esc(title)}">
+    <meta property="og:description" content="${esc(description)}">
+    <meta property="og:url" content="${canonical}">
+    <meta property="og:image" content="${CONFIG.LOGO_URL}">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${esc(title)}">
+    <meta name="twitter:description" content="${esc(description)}">
+    <meta name="twitter:image" content="${CONFIG.LOGO_URL}">
+    ${jsonLdBlock}
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=${CONFIG.GA_MEASUREMENT_ID}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${CONFIG.GA_MEASUREMENT_ID}');
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #FF5722; --bg: #F0F4FA; --card: #FFFFFF; --text: #0F1F40; --border: #CFD8EA; --cyan: #0052CC; --muted: #5A6A85; }
@@ -725,6 +1020,7 @@ export default {
         <nav>
             <a href="/">TRANG CHỦ</a>
             <a href="/courses">KHÓA HỌC</a>
+            <a href="/blog">BLOG</a>
             <a href="/register" style="color:#FF5722;">📝 ĐĂNG KÝ</a>
 
             <!-- DROPDOWN: HỌC ONLINE -->
@@ -819,7 +1115,7 @@ export default {
 
     <footer>
         <div class="footer-grid">
-            <div><h2 style="color:var(--primary)">MOS360.VN</h2><p>📍 Số 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p><p>📞 Hotline: 0912.888.360</p></div>
+            <div><h2 style="color:var(--primary)">MOS360.VN</h2><p>📍 Số 57 Lê Văn Thuyết A, Lê Chân, Hải Phòng</p><p>📞 Hotline: 0912.888.360</p></div>
             <div><h4>🕒 GIỜ LÀM VIỆC</h4><p>T2 - T7: 08:00 – 17:00<br>Chủ Nhật & Lễ: Nghỉ</p></div>
             <div style="height:160px; border-radius:15px; overflow:hidden;">
                 <iframe src="https://maps.google.com/maps?q=Hai%20Phong&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
@@ -2091,6 +2387,9 @@ async function submitForm(type) {
     var isOk = (data.ok === true) || (data.success === true);
     if (isOk) {
       showMsg(msgEl, 'ok', '✅ ' + data.msg);
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', { form_type: type });
+      }
       // Reset form sau khi gửi thành công
       setTimeout(function() {
         document.querySelectorAll('#hn-reg-' + type + ' input, #hn-reg-' + type + ' select, #hn-reg-' + type + ' textarea').forEach(function(el) {
@@ -2587,7 +2886,6 @@ async function triggerRemoteVerification(courseName) {
             <label style="font-size:0.8rem; color:var(--muted); font-weight:bold; display:block; margin-bottom:5px;">MẬT KHẨU</label>
             <input type="password" id="admPass" name="mos360-adm-pass-field" placeholder="••••••••" autocomplete="new-password" data-lpignore="true" data-1p-ignore data-bwignore style="width:100%; padding:14px; background:#E2ECFA; border:1px solid #CFD8EA; color:var(--text); border-radius:10px; font-weight:bold;">
         </div>
-        <!-- FIX 4: Đăng nhập admin chỉ set localStorage, không thu hồi session thiết bị khác -->
         <button class="btn-action" onclick="handleAdminLoginGate()">XÁC THỰC QUYỀN TRUY CẬP</button>
     </div>
     <script>
@@ -2604,7 +2902,6 @@ async function triggerRemoteVerification(courseName) {
                 });
                 var data = await res.json();
                 if (data.success) {
-                    // localStorage là per-device – mỗi thiết bị lưu riêng, không xung đột
                     localStorage.setItem('mos360_admin_session', 'active');
                     if (data.token) localStorage.setItem('mos360_admin_token', data.token);
                     alert("Đăng nhập Admin thành công! Nút [QUẢN LÝ HỌC VIÊN] đã được mở trên thiết bị này.");
@@ -3215,7 +3512,6 @@ async function triggerRemoteVerification(courseName) {
                 }
             } catch (err) {
                 console.error('Lỗi khi xử lý câu ' + (i + 1) + ' trong ÔN CÂU SAI:', err);
-                // Vẫn đưa câu này vào danh sách ôn thay vì bỏ luôn cả chức năng
                 if (list[i]) wrongItems.push(list[i]);
             }
         }
@@ -3313,9 +3609,6 @@ async function triggerRemoteVerification(courseName) {
         var raw = localStorage.getItem('mos360_exam_wrong_${courseType}');
         if (!raw) return;
         var wrongEntries = JSON.parse(raw);
-        // Tương thích ngược: dữ liệu cũ lưu mảng string (chỉ có text), dữ liệu mới
-        // lưu mảng object { id, q } — khớp theo id trước (đáng tin cậy hơn nhiều
-        // so với so khớp nguyên văn text, vốn dễ gãy nếu ngân hàng câu hỏi thay đổi).
         var wrongItems = wrongEntries.map(function(entry) {
             if (typeof entry === 'string') {
                 return fullBank.find(function(b) { return b.q === entry; });
