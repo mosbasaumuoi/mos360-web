@@ -297,7 +297,7 @@ export const IC3_LEVEL2 = [
     type: "single",
     question: "Người dùng muốn xem các câu hỏi và câu trả lời phổ biến về Microsoft Outlook. Tùy chọn nào sau đây là phù hợp nhất để giúp người dùng có thể xem các câu hỏi và câu trả lời?",
     options: ["Community forum", "Tell me", "What's New?", "Help"],
-    answer: "Help",
+    answer: "Community forum",
     explanation: "Mục Help (Trợ giúp) tích hợp sẵn trong các phần mềm Microsoft (bao gồm cả Outlook) là trung tâm chứa tài liệu hướng dẫn, các câu hỏi thường gặp (FAQs) và câu trả lời xử lý lỗi nhanh chóng cho người dùng."
   },
   {
