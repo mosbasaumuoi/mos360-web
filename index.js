@@ -22,6 +22,7 @@ import { getCosUI } from "./pages/cos.js";
 import { getLibraryUI } from "./pages/library.js";
 import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
 import { BLOG_POSTS, getBlogListUI, getBlogPostUI } from "./pages/blog.js";
+import { handleRegisterAPI } from "./api/register-api.js";
 
 // ── SEO: title/description riêng cho từng trang, thay vì dùng chung 1
 // CONFIG.TITLE cho mọi trang như trước (nguyên nhân chính khiến Google
@@ -506,6 +507,11 @@ export default {
             }).join("\n");
             const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`;
             return new Response(xml, { headers: { "Content-Type": "application/xml;charset=UTF-8" } });
+        }
+
+        // ── ĐĂNG KÝ (proxy sang Google Sheet + thông báo Telegram) ──
+        if (path === "/api/register" && request.method === "POST") {
+            return handleRegisterAPI(request, env);
         }
 
         // ── VISIT TRACKING API ────────────────────────────────────
@@ -1115,7 +1121,7 @@ export default {
 
     <footer>
         <div class="footer-grid">
-            <div><h2 style="color:var(--primary)">MOS360.VN</h2><p>📍 Số 57 Lê Văn Thuyết A, Lê Chân, Hải Phòng</p><p>📞 Hotline: 0912.888.360</p></div>
+            <div><h2 style="color:var(--primary)">MOS360.VN</h2><p>📍 Số 57 Lê Văn Thuyết A, An Biên, Hải Phòng</p><p>📞 Hotline: 0912.888.360</p></div>
             <div><h4>🕒 GIỜ LÀM VIỆC</h4><p>T2 - T7: 08:00 – 17:00<br>Chủ Nhật & Lễ: Nghỉ</p></div>
             <div style="height:160px; border-radius:15px; overflow:hidden;">
                 <iframe src="https://maps.google.com/maps?q=Hai%20Phong&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
@@ -2278,8 +2284,7 @@ function toggleAcc(id) {
   if (!isOpen) acc.classList.add('open');
 }
 
-// Submit form → Apps Script (URL ghi dữ liệu vào Google Sheet)
-var AS_URL = '${CONFIG.APPS_SCRIPT_URL}';
+// Submit form → /api/register (Worker proxy: ghi Google Sheet + báo Telegram)
 
 async function submitForm(type) {
   var btn = document.getElementById('btn_' + type);
@@ -2378,9 +2383,9 @@ async function submitForm(type) {
   btn.disabled = true;
   btn.innerHTML = '<span>⏳ Đang gửi...</span>';
   try {
-    var res = await fetch(AS_URL, {
+    var res = await fetch('/api/register', {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     var data = await res.json();
