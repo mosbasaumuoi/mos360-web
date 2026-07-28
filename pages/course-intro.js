@@ -400,6 +400,417 @@ export function getGenAIIntroUI() {
 </div>`;
 }
 // ============================================================
+// MOS — HÀM DÙNG CHUNG CHO MOS 2019 & MOS 365 (WORD / EXCEL / POWERPOINT)
+// ============================================================
+
+function mosLessonHtml(lesson, idx) {
+  const lvl = ['l1', 'l2', 'l3'][idx % 3];
+  const goalsHtml = lesson.goals.map(g => `<li>${g}</li>`).join('');
+  return `
+    <div class="gt-mos-lesson" style="margin-bottom:16px;">
+      <span class="gt-lvl-label ${lvl}">Bài ${lesson.no}</span>
+      <p style="font-weight:800; margin:6px 0 6px;">${lesson.title}</p>
+      <p style="font-weight:700; margin-bottom:4px;">Mục tiêu:</p>
+      <ul>${goalsHtml}</ul>
+      <p style="font-weight:700; margin-bottom:4px;">Nội dung chính:</p>
+      <p>${lesson.topics}</p>
+    </div>
+  `;
+}
+
+function renderMOSPartAccordion(part, prefix) {
+  const lessonsHtml = part.lessons.map((l, i) => mosLessonHtml(l, i)).join('');
+  return `
+    <div class="gt-acc" id="${prefix}-acc-${part.id}">
+      <div class="gt-acc-hdr" onclick="gtToggle('${prefix}-acc-${part.id}')">
+        <div class="gt-acc-hdr-left">
+          <div class="gt-acc-num" style="background:${part.badgeBg}; color:${part.badgeColor};">${part.icon}</div>
+          <div class="gt-acc-title">${part.title}</div>
+        </div>
+        <span class="gt-acc-chevron">▼</span>
+      </div>
+      <div class="gt-acc-body">
+        <p style="color:var(--muted); margin-bottom:14px;">${part.subtitle}</p>
+        ${lessonsHtml}
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// MOS 2019 — GIÁO TRÌNH CHUNG WORD, EXCEL, POWERPOINT
+// (Theo chuẩn kỹ năng chính thức Microsoft — Exam MO-100 / MO-200 / MO-300)
+// ============================================================
+
+const MOS2019_PARTS = [
+  {
+    id: 1,
+    icon: "📝",
+    title: "PHẦN 1 · MOS WORD 2019",
+    subtitle: "Exam MO-100 (Word Associate) — Tạo và chỉnh sửa tài liệu văn phòng chuyên nghiệp.",
+    badgeBg: "rgba(43,87,154,0.12)",
+    badgeColor: "#2B579A",
+    lessons: [
+      {
+        no: 1,
+        title: "Quản lý các tài liệu",
+        goals: ["Tạo tài liệu mới từ blank hoặc template", "Điều hướng và tìm kiếm nội dung trong tài liệu", "Định dạng tài liệu (page setup, theme, header/footer)", "Lưu, xuất bản và in tài liệu dưới nhiều định dạng", "Kiểm tra tài liệu trước khi hoàn tất (spelling, accessibility, compatibility)"],
+        topics: "Tạo mới/mở/chuyển đổi định dạng .doc, .docx, .pdf; điều hướng bằng Go To, Find & Replace, Bookmark; thiết lập trang (margin, orientation, columns), áp dụng Theme/Style Set, Header/Footer, Watermark; lưu và xuất tài liệu (PDF/XPS), thiết lập tùy chọn in; kiểm tra chính tả - ngữ pháp, Document Inspector, Accessibility Checker, Compatibility Checker."
+      },
+      {
+        no: 2,
+        title: "Chèn và định dạng văn bản, đoạn văn, và phân vùng tài liệu",
+        goals: ["Chèn văn bản và ký hiệu đặc biệt", "Định dạng văn bản và ký tự (font, hiệu ứng)", "Định dạng đoạn văn (căn lề, giãn dòng, tab, sort)", "Tạo và quản lý các section trong tài liệu"],
+        topics: "Chèn văn bản, symbol, AutoCorrect; định dạng font chữ, hiệu ứng chữ, WordArt, Format Painter; căn chỉnh đoạn văn, giãn dòng/giãn đoạn, thụt lề, thiết lập tab, sắp xếp (Sort), Borders & Shading; tạo section break để áp dụng bố cục trang khác nhau trong cùng tài liệu (cột báo, hướng trang riêng)."
+      },
+      {
+        no: 3,
+        title: "Quản lý bảng và danh sách",
+        goals: ["Tạo bảng từ dữ liệu có sẵn hoặc từ đầu", "Định dạng và chỉnh sửa nội dung bảng", "Tạo danh sách một cấp và nhiều cấp"],
+        topics: "Tạo bảng (Insert Table, Convert Text to Table); định dạng Table Style, border, cell margin; thêm/xóa hàng-cột, merge/split cell, lặp lại header row, sắp xếp dữ liệu trong bảng; tạo danh sách có thứ tự/không thứ tự, danh sách nhiều cấp (multilevel list), tùy chỉnh ký hiệu và định dạng số thứ tự."
+      },
+      {
+        no: 4,
+        title: "Tạo mới và quản lý tài liệu tham khảo",
+        goals: ["Tạo và quản lý chú thích cuối trang/cuối tài liệu", "Tạo và cập nhật mục lục (Table of Contents)", "Chèn trích dẫn nguồn và tạo danh mục tài liệu tham khảo"],
+        topics: "Chèn và quản lý Footnote/Endnote; tạo mục lục tự động (Table of Contents) và cập nhật khi tài liệu thay đổi; chèn trích dẫn (Citation) theo các kiểu APA/MLA/Chicago, quản lý nguồn tham khảo (Manage Sources) và tạo danh mục tài liệu tham khảo (Bibliography)."
+      },
+      {
+        no: 5,
+        title: "Chèn và định dạng phần tử đồ họa",
+        goals: ["Chèn hình minh họa (hình ảnh, shape, SmartArt)", "Định dạng và sắp xếp đối tượng đồ họa trên trang", "Thêm văn bản thay thế (Alt Text) cho đối tượng"],
+        topics: "Chèn hình ảnh, Shapes, SmartArt, chụp ảnh màn hình (Screenshot/Screen Clipping); chỉnh sửa đối tượng (resize, rotate, crop, Picture/Shape Style, Wrap Text); chèn và định dạng WordArt, Text Box; căn chỉnh, nhóm (group), sắp lớp (layer) các đối tượng; thêm Alt Text hỗ trợ tiếp cận."
+      },
+      {
+        no: 6,
+        title: "Quản lý sự cộng tác tài liệu",
+        goals: ["Thêm, trả lời và giải quyết bình luận (comments)", "Quản lý theo dõi thay đổi (Track Changes)", "So sánh và kết hợp nhiều phiên bản tài liệu"],
+        topics: "Thêm/xóa/trả lời Comment; bật/tắt Track Changes, chấp nhận hoặc từ chối từng thay đổi; so sánh (Compare) và kết hợp (Combine) nhiều phiên bản tài liệu; hạn chế chỉnh sửa (Restrict Editing), đặt mật khẩu bảo vệ tài liệu."
+      }
+    ]
+  },
+  {
+    id: 2,
+    icon: "📊",
+    title: "PHẦN 2 · MOS EXCEL 2019",
+    subtitle: "Exam MO-200 (Excel Associate) — Xử lý dữ liệu, công thức và biểu đồ trong bảng tính.",
+    badgeBg: "rgba(33,115,70,0.12)",
+    badgeColor: "#217346",
+    lessons: [
+      {
+        no: 1,
+        title: "Quản lý worksheets và workbooks",
+        goals: ["Tạo và quản lý worksheet, workbook", "Điều hướng và tùy chỉnh chế độ xem", "Cấu hình nội dung để in ấn và cộng tác"],
+        topics: "Tạo workbook mới, nhập dữ liệu từ file khác; điều hướng bằng Name Box, Go To, Hyperlink; đổi tên/di chuyển/sao chép/ẩn-hiện worksheet, đổi màu tab; tùy chỉnh view (Freeze Panes, Split, Zoom, Normal/Page Layout View); thiết lập Print Area, Page Setup, Print Titles; chia sẻ và bảo vệ workbook/worksheet."
+      },
+      {
+        no: 2,
+        title: "Quản lý dữ liệu ô và vùng",
+        goals: ["Thao tác và định dạng dữ liệu trong ô, vùng", "Tóm tắt dữ liệu trực quan bằng công cụ có sẵn", "Đặt tên vùng và kiểm tra tính hợp lệ của dữ liệu"],
+        topics: "Chèn/xóa/di chuyển/sao chép dữ liệu, sử dụng Paste Special; định dạng ô và vùng (Format Cells, Cell Styles, Conditional Formatting); tóm tắt dữ liệu bằng Sparklines, Quick Analysis; tạo và sử dụng Named Range; thiết lập Data Validation."
+      },
+      {
+        no: 3,
+        title: "Quản lý bảng và bảng dữ liệu",
+        goals: ["Tạo Excel Table từ vùng dữ liệu", "Định dạng và chỉnh sửa bảng dữ liệu", "Lọc và sắp xếp dữ liệu trong bảng"],
+        topics: "Tạo Excel Table (Insert Table); áp dụng Table Style, bật/tắt Header Row - Total Row - Banded Rows; thêm/xóa hàng-cột, loại bỏ dữ liệu trùng (Remove Duplicates); lọc (Filter), sắp xếp (Sort) theo nhiều tiêu chí, sử dụng Slicer."
+      },
+      {
+        no: 4,
+        title: "Thực hiện các thao tác bằng cách sử dụng công thức và hàm",
+        goals: ["Sử dụng tham chiếu ô đúng cách trong công thức", "Tính toán dữ liệu bằng các hàm cơ bản", "Định dạng, kiểm tra và sửa lỗi công thức"],
+        topics: "Sử dụng tham chiếu tương đối/tuyệt đối/hỗn hợp, tham chiếu tới sheet/workbook khác; áp dụng hàm tính toán (SUM, AVERAGE, COUNT, MAX/MIN), hàm điều kiện (IF, AND, OR), hàm văn bản (LEFT, RIGHT, CONCATENATE), hàm tra cứu (VLOOKUP, HLOOKUP); kiểm tra và sửa lỗi công thức bằng Trace Precedents/Dependents, Error Checking, Show Formulas."
+      },
+      {
+        no: 5,
+        title: "Quản lý và xử lý biểu đồ",
+        goals: ["Tạo biểu đồ (Chart) từ dữ liệu bảng tính", "Định dạng và tùy chỉnh các thành phần biểu đồ", "Chèn và định dạng đối tượng đồ họa trong bảng tính"],
+        topics: "Tạo Chart phù hợp với loại dữ liệu; tùy chỉnh Chart Style, Layout, thêm/sửa Chart Title, Legend, Data Label; di chuyển biểu đồ sang sheet riêng; chèn và định dạng Shapes, SmartArt, hình ảnh trong bảng tính; tạo và tùy chỉnh Sparkline."
+      }
+    ]
+  },
+  {
+    id: 3,
+    icon: "📽️",
+    title: "PHẦN 3 · MOS POWERPOINT 2019",
+    subtitle: "Exam MO-300 (PowerPoint Associate) — Thiết kế và trình bày bài thuyết trình chuyên nghiệp.",
+    badgeBg: "rgba(210,71,38,0.12)",
+    badgeColor: "#D24726",
+    lessons: [
+      {
+        no: 1,
+        title: "Quản lý bài thuyết trình",
+        goals: ["Tạo bài thuyết trình mới từ blank hoặc template", "Định dạng bài thuyết trình bằng Slide Master, Theme", "Lưu, xuất bản và in bài thuyết trình"],
+        topics: "Tạo presentation mới; áp dụng Slide Size, Theme, chỉnh sửa Slide Master và Handout Master; lưu/xuất dưới nhiều định dạng (PDF, video, đóng gói trình chiếu); in Handouts, Notes Pages; thêm comment để cộng tác trên bài thuyết trình."
+      },
+      {
+        no: 2,
+        title: "Quản lý trang trình chiếu",
+        goals: ["Chèn, sắp xếp và tổ chức slide theo section", "Áp dụng và thay đổi Slide Layout", "Định dạng nền (Background) cho từng slide"],
+        topics: "Chèn slide mới và chọn Layout phù hợp; sao chép, nhân bản, sắp xếp lại thứ tự, ẩn/hiện slide; nhóm slide thành Section; thay đổi Slide Layout, định dạng Background riêng cho từng slide."
+      },
+      {
+        no: 3,
+        title: "Chèn và định dạng văn bản, hình khối, và hình ảnh",
+        goals: ["Định dạng văn bản trong placeholder và text box", "Chèn và định dạng hình khối (Shapes)", "Chèn, chỉnh sửa và sắp xếp hình ảnh trên slide"],
+        topics: "Định dạng văn bản (font, căn lề, bullet/numbering, WordArt); chèn và định dạng Shapes, Text Box; chèn hình ảnh, crop/xoay/áp dụng Picture Style; căn chỉnh, nhóm và sắp lớp các đối tượng trên slide."
+      },
+      {
+        no: 4,
+        title: "Chèn bảng, biểu đồ, SmartArt, mô hình 3D, và đoạn phim",
+        goals: ["Chèn và định dạng bảng, biểu đồ trên slide", "Tạo và tùy chỉnh SmartArt", "Chèn mô hình 3D, âm thanh và video"],
+        topics: "Chèn và định dạng Table, Chart; tạo SmartArt (chuyển văn bản thành SmartArt, thêm hình, đổi màu/layout); chèn mô hình 3D (3D Models) và xoay góc nhìn; chèn Audio/Video, thiết lập Playback Options và cắt (Trim) media."
+      },
+      {
+        no: 5,
+        title: "Áp dụng hiệu ứng chuyển tiếp và hoạt cảnh",
+        goals: ["Áp dụng và tùy chỉnh hiệu ứng chuyển slide", "Áp dụng hiệu ứng hoạt cảnh cho đối tượng", "Sắp xếp thứ tự và thời gian hoạt cảnh"],
+        topics: "Áp dụng Transitions giữa các slide, tùy chỉnh thời gian và âm thanh chuyển cảnh; áp dụng Animations cho văn bản/đối tượng; sử dụng Animation Pane để sắp xếp thứ tự, thiết lập Trigger và thời gian hoạt cảnh."
+      }
+    ]
+  }
+];
+
+const DRIVE_LINK_MOS2019 = "https://drive.google.com/PLACEHOLDER_MOS2019";
+
+export function getMOS2019IntroUI() {
+  const accordions = MOS2019_PARTS.map(p => renderMOSPartAccordion(p, 'mos2019')).join('');
+
+  return `${SHARED_STYLE}
+<div class="gt-wrap">
+  <a href="/courses" class="gt-back">← Quay lại danh sách khóa học</a>
+
+  <div class="gt-hero">
+    <span class="gt-badge" style="background:rgba(43,87,154,0.12); color:#2B579A;">💼 MOS 2019 · Microsoft</span>
+    <h1 class="gt-title">Giáo trình MOS 2019 — Word, Excel &amp; PowerPoint</h1>
+    <p class="gt-subtitle">Chứng chỉ Tin học Văn phòng Quốc tế do Microsoft trực tiếp cấp — Exam MO-100 · MO-200 · MO-300.</p>
+    <a href="${DRIVE_LINK_MOS2019}" target="_blank" class="gt-drive" style="background:linear-gradient(135deg,#2B579A,#1a3a6e); color:#fff;">📁 Tải tài liệu lý thuyết (Google Drive)</a>
+    <span class="gt-note">Link tài liệu sẽ được trung tâm cập nhật đầy đủ trong thời gian tới</span>
+  </div>
+
+  <div class="gt-section">
+    <h2>Giới thiệu chung</h2>
+    <p><strong>MOS (Microsoft Office Specialist) 2019</strong> là chứng chỉ Tin học Văn phòng Quốc tế được cấp trực tiếp bởi Tập đoàn Microsoft, xác nhận năng lực sử dụng thành thạo các ứng dụng Word, Excel và PowerPoint phiên bản 2019. Đây là chứng chỉ được nhiều trường đại học công nhận làm chuẩn đầu ra và được doanh nghiệp đánh giá cao khi tuyển dụng.</p>
+    <p>Khóa học gồm <strong>3 phần</strong> tương ứng 3 môn thi độc lập (Word, Excel, PowerPoint). Học viên có thể học và thi từng môn riêng lẻ hoặc trọn bộ để lấy đầy đủ chứng chỉ MOS Specialist.</p>
+    <table class="gt-table">
+      <tr><th>Môn thi</th><th>Mã Exam</th><th>Nội dung chính</th></tr>
+      <tr><td><b>Word</b></td><td>MO-100</td><td>Soạn thảo, định dạng và cộng tác trên tài liệu văn bản</td></tr>
+      <tr><td><b>Excel</b></td><td>MO-200</td><td>Xử lý dữ liệu, công thức, hàm và biểu đồ trong bảng tính</td></tr>
+      <tr><td><b>PowerPoint</b></td><td>MO-300</td><td>Thiết kế và trình bày bài thuyết trình chuyên nghiệp</td></tr>
+    </table>
+  </div>
+
+  <div class="gt-section">
+    <h2>🎯 Mục tiêu khóa học</h2>
+    <ul>
+      <li>Thành thạo các thao tác cốt lõi trên Word, Excel, PowerPoint 2019 theo đúng chuẩn kỹ năng của Microsoft.</li>
+      <li>Áp dụng được kiến thức vào công việc thực tế: soạn thảo văn bản, xử lý số liệu, thuyết trình chuyên nghiệp.</li>
+      <li>Làm quen với định dạng đề thi performance-based (thao tác trực tiếp trên ứng dụng thật).</li>
+      <li>Tự tin đạt điểm 700/1000 trở lên để nhận chứng chỉ MOS do Microsoft cấp.</li>
+    </ul>
+  </div>
+
+  <div class="gt-section">
+    <h2>📚 Nội dung chi tiết 3 phần</h2>
+    <p style="margin-bottom:16px;">Nhấn vào từng phần để xem chi tiết các bài học, mục tiêu và nội dung chính.</p>
+    ${accordions}
+  </div>
+
+  <div class="gt-footer-cta">
+    <p style="font-weight:600;">Sau khi đọc tài liệu lý thuyết, hãy vào phòng ôn luyện để làm bài thi thử theo từng môn.</p>
+    <a href="/mos-test" class="gt-drive" style="background:#2B579A; color:#fff;">🎯 Vào phòng ôn luyện thi thử MOS 2019 →</a>
+  </div>
+</div>`;
+}
+
+// ============================================================
+// MOS 365 — GIÁO TRÌNH CHUNG WORD, EXCEL, POWERPOINT
+// (Cùng chuẩn kỹ năng MO-100/MO-200/MO-300, thực hành trên Microsoft 365
+// với các tính năng đám mây, cộng tác thời gian thực và AI hỗ trợ)
+// ============================================================
+
+const MOS365_PARTS = [
+  {
+    id: 1,
+    icon: "📝",
+    title: "PHẦN 1 · MOS WORD 365",
+    subtitle: "Word Associate (Microsoft 365) — Soạn thảo và cộng tác tài liệu trên nền tảng đám mây.",
+    badgeBg: "rgba(16,124,16,0.12)",
+    badgeColor: "#107C10",
+    lessons: [
+      {
+        no: 1,
+        title: "Quản lý các tài liệu trên Word 365",
+        goals: ["Tạo, mở và lưu tài liệu trực tiếp trên OneDrive/SharePoint", "Điều hướng và định dạng tài liệu", "Sử dụng AutoSave và Version History", "Kiểm tra tài liệu với công cụ hỗ trợ AI"],
+        topics: "Tạo/mở/lưu tài liệu trên OneDrive, SharePoint với AutoSave luôn bật; điều hướng bằng Search, Bookmark, Cross-reference; thiết lập page setup, Theme, Header/Footer, Watermark; xem lại lịch sử phiên bản (Version History); dùng Editor (trợ lý viết AI) thay cho Spelling & Grammar truyền thống, kiểm tra Accessibility."
+      },
+      {
+        no: 2,
+        title: "Chèn và định dạng văn bản, đoạn văn, và phân vùng tài liệu",
+        goals: ["Chèn văn bản bằng gõ phím hoặc Dictate (nhập liệu giọng nói)", "Định dạng văn bản và đoạn văn", "Tạo và quản lý section trong tài liệu"],
+        topics: "Chèn văn bản, symbol, sử dụng Dictate để nhập liệu bằng giọng nói; định dạng font, hiệu ứng chữ, WordArt; căn chỉnh đoạn văn, tab, sort, Borders & Shading; tạo section break để áp dụng bố cục trang khác nhau; dùng Immersive Reader hỗ trợ đọc tài liệu."
+      },
+      {
+        no: 3,
+        title: "Quản lý bảng và danh sách",
+        goals: ["Tạo và định dạng bảng dữ liệu", "Chỉnh sửa nội dung và sắp xếp dữ liệu trong bảng", "Tạo danh sách một cấp và nhiều cấp"],
+        topics: "Tạo bảng, áp dụng Table Style; thêm/xóa hàng-cột, merge/split cell, sắp xếp dữ liệu trong bảng; tạo danh sách có thứ tự/không thứ tự và danh sách nhiều cấp, tùy chỉnh ký hiệu."
+      },
+      {
+        no: 4,
+        title: "Tạo mới và quản lý tài liệu tham khảo",
+        goals: ["Tạo chú thích cuối trang/cuối tài liệu", "Tạo và cập nhật mục lục tự động", "Chèn trích dẫn và tạo danh mục tham khảo với sự hỗ trợ của Researcher"],
+        topics: "Chèn Footnote/Endnote; tạo và cập nhật Table of Contents; chèn Citation theo chuẩn APA/MLA/Chicago, quản lý nguồn và tạo Bibliography; sử dụng công cụ Researcher tích hợp trong Word 365 để tìm và trích dẫn nguồn nhanh hơn."
+      },
+      {
+        no: 5,
+        title: "Chèn và định dạng phần tử đồ họa",
+        goals: ["Chèn hình ảnh, shape, SmartArt và mô hình 3D", "Định dạng và sắp xếp đối tượng đồ họa", "Thêm Alt Text và kiểm tra khả năng tiếp cận"],
+        topics: "Chèn hình ảnh (kể cả từ kho ảnh trực tuyến tích hợp), Shapes, SmartArt, mô hình 3D; chỉnh sửa, căn chỉnh, nhóm và sắp lớp đối tượng; thêm Alt Text tự động gợi ý bởi AI; kiểm tra Accessibility Checker."
+      },
+      {
+        no: 6,
+        title: "Quản lý sự cộng tác tài liệu",
+        goals: ["Cộng tác chỉnh sửa tài liệu theo thời gian thực (co-authoring)", "Thêm bình luận và gắn thẻ (@mention) người cùng làm việc", "Quản lý Track Changes và chia sẻ quyền truy cập"],
+        topics: "Cộng tác nhiều người chỉnh sửa tài liệu cùng lúc (real-time co-authoring) trên OneDrive/SharePoint; thêm Comment kèm @mention để gửi thông báo cho đồng nghiệp; bật/tắt Track Changes, chấp nhận/từ chối thay đổi; chia sẻ tài liệu và phân quyền xem/chỉnh sửa."
+      }
+    ]
+  },
+  {
+    id: 2,
+    icon: "📊",
+    title: "PHẦN 2 · MOS EXCEL 365",
+    subtitle: "Excel Associate (Microsoft 365) — Phân tích dữ liệu với hàm mới và công cụ AI hỗ trợ.",
+    badgeBg: "rgba(16,124,16,0.12)",
+    badgeColor: "#107C10",
+    lessons: [
+      {
+        no: 1,
+        title: "Quản lý worksheets và workbooks",
+        goals: ["Tạo và quản lý workbook lưu trữ trên đám mây", "Tùy chỉnh chế độ xem, kể cả Sheet View riêng cho từng người", "Cấu hình nội dung để in ấn và chia sẻ cộng tác"],
+        topics: "Tạo workbook với AutoSave trên OneDrive/SharePoint; đổi tên/di chuyển/ẩn-hiện worksheet; tùy chỉnh Freeze Panes, Zoom, và Sheet View (mỗi người xem/lọc dữ liệu riêng mà không ảnh hưởng người khác); thiết lập Print Area, Page Setup; chia sẻ workbook để nhiều người cùng truy cập."
+      },
+      {
+        no: 2,
+        title: "Quản lý dữ liệu ô và vùng",
+        goals: ["Thao tác và định dạng dữ liệu trong ô, vùng", "Sử dụng Data Types (Stocks, Geography) để làm giàu dữ liệu", "Phân tích dữ liệu nhanh với Ideas"],
+        topics: "Chèn/xóa/định dạng dữ liệu, Conditional Formatting, Sparklines; áp dụng Data Types liên kết (Stocks, Geography) để tự động lấy thêm thuộc tính dữ liệu; dùng công cụ Ideas để Excel tự đề xuất biểu đồ và xu hướng từ dữ liệu; thiết lập Data Validation."
+      },
+      {
+        no: 3,
+        title: "Quản lý bảng và bảng dữ liệu",
+        goals: ["Tạo và định dạng Excel Table", "Lọc, sắp xếp dữ liệu bằng hàm mảng động (dynamic array)", "Loại bỏ dữ liệu trùng lặp"],
+        topics: "Tạo Excel Table, áp dụng Table Style, Header/Total Row; dùng các hàm mảng động SORT, FILTER, UNIQUE để lọc và sắp xếp dữ liệu tự động 'tràn' (spill) sang các ô lân cận; loại bỏ dữ liệu trùng (Remove Duplicates); sử dụng Slicer."
+      },
+      {
+        no: 4,
+        title: "Thực hiện các thao tác bằng cách sử dụng công thức và hàm",
+        goals: ["Sử dụng tham chiếu ô đúng cách trong công thức", "Áp dụng các hàm tra cứu và điều kiện thế hệ mới", "Kiểm tra và sửa lỗi công thức"],
+        topics: "Tham chiếu tương đối/tuyệt đối/hỗn hợp; hàm tính toán cơ bản (SUM, AVERAGE, COUNT); hàm điều kiện IFS (nhiều điều kiện gọn hơn IF lồng nhau); hàm tra cứu thế hệ mới XLOOKUP (thay thế linh hoạt cho VLOOKUP/HLOOKUP); hàm văn bản TEXTJOIN; kiểm tra công thức bằng Trace Precedents/Dependents, Error Checking."
+      },
+      {
+        no: 5,
+        title: "Quản lý và xử lý biểu đồ",
+        goals: ["Tạo biểu đồ từ dữ liệu, kể cả biểu đồ được AI đề xuất", "Định dạng và tùy chỉnh các thành phần biểu đồ", "Chèn đối tượng đồ họa trong bảng tính"],
+        topics: "Tạo Chart theo cách truyền thống hoặc để Excel tự đề xuất qua Ideas/Recommended Charts; tùy chỉnh Chart Style, Title, Legend, Data Label; chèn Shapes, SmartArt, hình ảnh; tạo và tùy chỉnh Sparkline."
+      }
+    ]
+  },
+  {
+    id: 3,
+    icon: "📽️",
+    title: "PHẦN 3 · MOS POWERPOINT 365",
+    subtitle: "PowerPoint Associate (Microsoft 365) — Thiết kế slide thông minh và trình bày trực tuyến.",
+    badgeBg: "rgba(16,124,16,0.12)",
+    badgeColor: "#107C10",
+    lessons: [
+      {
+        no: 1,
+        title: "Quản lý bài thuyết trình",
+        goals: ["Tạo và lưu bài thuyết trình trên đám mây với AutoSave", "Định dạng bằng Slide Master, Theme", "Xuất bản, ghi hình và chia sẻ trình chiếu trực tuyến"],
+        topics: "Tạo presentation lưu trên OneDrive/SharePoint với AutoSave; áp dụng Slide Size, Theme, chỉnh Slide Master/Handout Master; xuất video, ghi hình bài thuyết trình (Record Slide Show) kèm giọng nói và webcam; chia sẻ liên kết trình chiếu trực tuyến, thêm comment cộng tác."
+      },
+      {
+        no: 2,
+        title: "Quản lý trang trình chiếu",
+        goals: ["Chèn, sắp xếp slide và tổ chức theo section", "Áp dụng Slide Layout và Designer để bố cục nhanh", "Sử dụng Zoom để điều hướng phi tuyến tính"],
+        topics: "Chèn slide, chọn Layout, sắp xếp thứ tự, nhóm Section; dùng Designer để nhận đề xuất bố cục thiết kế slide tự động dựa trên nội dung; sử dụng Summary Zoom/Section Zoom để tạo trình chiếu điều hướng linh hoạt giữa các phần."
+      },
+      {
+        no: 3,
+        title: "Chèn và định dạng văn bản, hình khối, và hình ảnh",
+        goals: ["Định dạng văn bản trong placeholder và text box", "Chèn, chỉnh sửa hình ảnh với công cụ AI (xóa nền, Ideas)", "Sắp xếp đối tượng trên slide"],
+        topics: "Định dạng văn bản (font, căn lề, bullet, WordArt); chèn Shapes, Text Box; chèn hình ảnh và dùng Remove Background để xóa phông nền tự động, Designer Ideas gợi ý bố cục hình ảnh; căn chỉnh, nhóm, sắp lớp đối tượng."
+      },
+      {
+        no: 4,
+        title: "Chèn bảng, biểu đồ, SmartArt, mô hình 3D, và đoạn phim",
+        goals: ["Chèn và định dạng bảng, biểu đồ trên slide", "Tạo SmartArt và chèn mô hình 3D", "Chèn media và bật phụ đề trực tiếp (Live Captions)"],
+        topics: "Chèn Table, Chart; tạo SmartArt; chèn mô hình 3D và xoay góc nhìn; chèn Audio/Video, thiết lập Playback Options; bật Live Captions & Subtitles để tự động hiển thị phụ đề khi thuyết trình trực tiếp."
+      },
+      {
+        no: 5,
+        title: "Áp dụng hiệu ứng chuyển tiếp và hoạt cảnh",
+        goals: ["Áp dụng hiệu ứng chuyển slide, đặc biệt hiệu ứng Morph", "Áp dụng và sắp xếp hoạt cảnh cho đối tượng", "Tùy chỉnh thời gian và trình tự hiệu ứng"],
+        topics: "Áp dụng Transitions, đặc biệt hiệu ứng Morph để tạo chuyển động mượt giữa hai slide có đối tượng tương đồng; áp dụng Animations cho văn bản/đối tượng; dùng Animation Pane để sắp xếp thứ tự, thiết lập Trigger và thời gian."
+      }
+    ]
+  }
+];
+
+const DRIVE_LINK_MOS365 = "https://drive.google.com/PLACEHOLDER_MOS365";
+
+export function getMOS365IntroUI() {
+  const accordions = MOS365_PARTS.map(p => renderMOSPartAccordion(p, 'mos365')).join('');
+
+  return `${SHARED_STYLE}
+<div class="gt-wrap">
+  <a href="/courses" class="gt-back">← Quay lại danh sách khóa học</a>
+
+  <div class="gt-hero">
+    <span class="gt-badge" style="background:rgba(16,124,16,0.12); color:#107C10;">☁️ MOS 365 · Microsoft</span>
+    <h1 class="gt-title">Giáo trình MOS 365 — Word, Excel &amp; PowerPoint</h1>
+    <p class="gt-subtitle">Chứng chỉ Tin học Văn phòng Quốc tế thực hành trên Microsoft 365 — cộng tác đám mây &amp; công cụ AI hỗ trợ.</p>
+    <a href="${DRIVE_LINK_MOS365}" target="_blank" class="gt-drive" style="background:linear-gradient(135deg,#107C10,#0b5c0b); color:#fff;">📁 Tải tài liệu lý thuyết (Google Drive)</a>
+    <span class="gt-note">Link tài liệu sẽ được trung tâm cập nhật đầy đủ trong thời gian tới</span>
+  </div>
+
+  <div class="gt-section">
+    <h2>Giới thiệu chung</h2>
+    <p><strong>MOS 365</strong> dùng chung cấu trúc kỹ năng chuẩn của Microsoft (Exam MO-100 · MO-200 · MO-300 — áp dụng cho cả Office 365 và Office 2019), nhưng học viên thực hành trực tiếp trên phiên bản <strong>Microsoft 365</strong> mới nhất với các tính năng lưu trữ đám mây, cộng tác thời gian thực và công cụ hỗ trợ bởi AI (Editor, Designer, Ideas, Dictate...).</p>
+    <p>Khóa học gồm <strong>3 phần</strong> tương ứng 3 môn thi độc lập (Word, Excel, PowerPoint), giúp học viên vừa đạt chuẩn chứng chỉ quốc tế, vừa làm chủ các công cụ văn phòng hiện đại nhất đang được doanh nghiệp sử dụng.</p>
+    <table class="gt-table">
+      <tr><th>Môn thi</th><th>Trọng tâm khác biệt so với 2019</th></tr>
+      <tr><td><b>Word</b></td><td>Co-authoring thời gian thực, Editor, Dictate, Researcher, Version History</td></tr>
+      <tr><td><b>Excel</b></td><td>Hàm XLOOKUP/IFS/TEXTJOIN, mảng động (SORT/FILTER/UNIQUE), Data Types, Ideas</td></tr>
+      <tr><td><b>PowerPoint</b></td><td>Designer, Morph, Zoom, Record Slide Show, Live Captions</td></tr>
+    </table>
+  </div>
+
+  <div class="gt-section">
+    <h2>🎯 Mục tiêu khóa học</h2>
+    <ul>
+      <li>Thành thạo các kỹ năng cốt lõi trên Word, Excel, PowerPoint theo chuẩn Microsoft Office Specialist.</li>
+      <li>Làm chủ các công cụ AI và cộng tác đám mây mới nhất trên nền tảng Microsoft 365.</li>
+      <li>Áp dụng vào công việc thực tế: làm việc nhóm từ xa, phân tích dữ liệu nhanh, thiết kế slide chuyên nghiệp.</li>
+      <li>Tự tin đạt điểm 700/1000 trở lên để nhận chứng chỉ MOS do Microsoft cấp.</li>
+    </ul>
+  </div>
+
+  <div class="gt-section">
+    <h2>📚 Nội dung chi tiết 3 phần</h2>
+    <p style="margin-bottom:16px;">Nhấn vào từng phần để xem chi tiết các bài học, mục tiêu và nội dung chính.</p>
+    ${accordions}
+  </div>
+
+  <div class="gt-footer-cta">
+    <p style="font-weight:600;">Sau khi đọc tài liệu lý thuyết, hãy vào phòng ôn luyện để làm bài thi thử theo từng môn.</p>
+    <a href="/mos-test" class="gt-drive" style="background:#107C10; color:#fff;">🎯 Vào phòng ôn luyện thi thử MOS 365 →</a>
+  </div>
+</div>`;
+}
+
+// ============================================================
 // AI PRODUCTIVITY INTRO — wrapper cho ai_productivity_intro.js
 // ============================================================
 import { renderAIPIntro } from "./ai_productivity_intro.js";

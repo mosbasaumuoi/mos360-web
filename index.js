@@ -11,7 +11,7 @@ import AI_PRODUCTIVITY from "./questions/ai_productivity.js";
 import { getAdminDashboardUI } from "./pages/admin.js";
 import { getProgressUI } from "./pages/progress.js";
 import { getFlashcardUI } from "./pages/flashcard.js";
-import { getIC3IntroUI, getGenAIIntroUI, getAIPIntroUI } from "./pages/course-intro.js";
+import { getIC3IntroUI, getGenAIIntroUI, getAIPIntroUI, getMOS2019IntroUI, getMOS365IntroUI } from "./pages/course-intro.js";
 import { getLicenseRequestUI } from "./pages/license-request.js";
 import { getResultsLookupUI } from "./pages/results-lookup.js";
 import { handleAdminAPI } from "./api/admin-api.js";
@@ -48,6 +48,14 @@ const SEO_PAGES = {
     "/course-intro/aip": {
         title: "Khóa Học AI Productivity - Nâng Cao Năng Suất Với AI | MOS360",
         description: "Khóa học AI Productivity tại MOS360 Hải Phòng giúp bạn ứng dụng AI vào công việc hiệu quả hơn. Học phí 100.000đ, thực hành trực tiếp trên phần mềm."
+    },
+    "/course-intro/mos2019": {
+        title: "Giáo Trình Luyện Thi MOS Office 2019 (Word, Excel, PowerPoint) | MOS360",
+        description: "Nội dung chi tiết giáo trình luyện thi MOS Office 2019 tại MOS360 Hải Phòng — Word, Excel, PowerPoint. Học phí 400.000đ/môn, luyện tập trên phần mềm mô phỏng 100% giống đề thi thật."
+    },
+    "/course-intro/mos365": {
+        title: "Giáo Trình Luyện Thi MOS Microsoft 365 (Word, Excel, PowerPoint) | MOS360",
+        description: "Nội dung chi tiết giáo trình luyện thi MOS Microsoft 365 tại MOS360 Hải Phòng — Word, Excel, PowerPoint. Học phí 400.000đ/môn, luyện tập trên phần mềm mô phỏng 100% giống đề thi thật."
     },
     "/register": {
         title: "Đăng Ký Học MOS, IC3, Generative AI | MOS360 Hải Phòng",
@@ -169,6 +177,24 @@ const COURSE_SCHEMAS = {
         "description": "Khóa học AI Productivity giúp ứng dụng AI vào công việc hiệu quả hơn, thực hành trực tiếp trên phần mềm mô phỏng.",
         "provider": MOS360_PROVIDER,
         "offers": courseOffer(100000),
+        "hasCourseInstance": courseInstance()
+    },
+    "/course-intro/mos2019": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "MOS Office 2019 (Word, Excel, PowerPoint)",
+        "description": "Giáo trình luyện thi MOS Office 2019 bằng phần mềm mô phỏng 100% giống đề thi thật, học 1:1 cùng giáo viên, học không giới hạn số lần.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(400000),
+        "hasCourseInstance": courseInstance()
+    },
+    "/course-intro/mos365": {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "MOS Microsoft 365 (Word, Excel, PowerPoint)",
+        "description": "Giáo trình luyện thi MOS Microsoft 365 bằng phần mềm mô phỏng 100% giống đề thi thật, học 1:1 cùng giáo viên, học không giới hạn số lần.",
+        "provider": MOS360_PROVIDER,
+        "offers": courseOffer(400000),
         "hasCourseInstance": courseInstance()
     }
 };
@@ -801,6 +827,8 @@ export default {
         else if (path === "/course-intro/ic3") content = getIC3IntroUI();
         else if (path === "/course-intro/genai") content = getGenAIIntroUI();
         else if (path === "/course-intro/aip") content = getAIPIntroUI();
+        else if (path === "/course-intro/mos2019") content = getMOS2019IntroUI();
+        else if (path === "/course-intro/mos365") content = getMOS365IntroUI();
         else if (path === "/register") content = this.getHomeUI(studentData, promoConfig, 'register');
         else if (path === "/login") content = this.getLoginUI();
         else if (path === "/library") content = getLibraryUI();
@@ -1114,7 +1142,7 @@ export default {
         </a>
         <a href="${CONFIG.SOCIALS.TIKTOK}" target="_blank" class="social-sticky-item s-tt" title="Tiktok">
             <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.02a8.16 8.16 0 004.77 1.52V7.09a4.85 4.85 0 01-1-.4z" fill="white"/></svg>
-        </a>    
+        </a>
     </div>
 
     <main id="mainWebBody">${content}</main>
@@ -1539,20 +1567,21 @@ ${promoSectionHtml}
           </div>
         </div>
       </div>
-      <!-- MOS PPT -->
+      <!-- MOS Word + Excel 365 -->
       <div class="hn-course">
-        <div class="hn-course-thumb" style="background:linear-gradient(135deg,#FFF1EC,#FFE3D6)">
-          <span class="hn-ico">📑</span>
-          <span class="hn-cbadge cbadge-new">✨ Mới</span>
+        <div class="hn-course-thumb" style="background:linear-gradient(135deg,#E8F1FF,#D6E7FF)">
+          <span class="hn-ico">📊</span>
+          <span class="hn-cbadge cbadge-hot">🔥 Bán chạy</span>
+          <a href="/course-intro/mos365" class="hn-syl-btn" onclick="event.stopPropagation()">📘 Giáo trình học</a>
         </div>
         <div class="hn-cbody">
-          <div class="hn-ctitle">Luyện thi MOS PowerPoint 2019</div>
-          <div class="hn-cdesc">Thuyết trình chuyên nghiệp chuẩn quốc tế. Thiết yếu cho sinh viên và văn phòng.</div>
-          <div class="hn-cprice">400.000đ <span class="old">600.000đ</span></div>
+          <div class="hn-ctitle">Luyện thi MOS Word + Excel 365</div>
+          <div class="hn-cdesc">Combo 2 môn phổ biến nhất, chuẩn Microsoft 365. Giao diện phần mềm 98% sát đề thi thật.</div>
+          <div class="hn-cprice">800.000đ <span class="old">1.200.000đ</span></div>
           <div class="hn-cbtns">
             <a href="/register#hn-register" class="hn-cbtn-p">Đăng ký học</a>
-            <button class="hn-cbtn-s" onclick="openVideoModal('https://youtu.be/o7mmLCeA1D0')">▶ Học thử</button>
-            <button class="hn-cbtn-s" onclick="openVideoModal('https://youtu.be/jPt1uNLbU5U')">🎯 Thi thử</button>
+            <a href="/course-intro/mos365" class="hn-cbtn-s">▶ Học thử</a>
+            <a href="/course-intro/mos365" class="hn-cbtn-s">🎯 Thi thử</a>
           </div>
         </div>
       </div>
@@ -1785,8 +1814,8 @@ ${mode !== 'home' ? `
         <div class="hn-acc-hdr-left">
           <div class="hn-acc-ico" style="background:rgba(255,87,34,0.12)">📱</div>
           <div>
-            <div class="hn-acc-title">Đăng ký học online</div>
-            <div class="hn-acc-sub">MOS Word · Excel · PowerPoint · IC3 GS6 · Generative AI</div>
+            <div class="hn-acc-title">Đăng ký học MOS</div>
+            <div class="hn-acc-sub">MOS Word · Excel · PowerPoint (2019 & 365)</div>
           </div>
         </div>
         <span class="hn-acc-chevron">▼</span>
@@ -1841,11 +1870,12 @@ ${mode !== 'home' ? `
         <div class="hn-field">
           <label class="hn-label">Khóa học muốn đăng ký <span class="req">*</span></label>
           <div class="hn-checkbox-group">
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_we" value="Word + Excel 2019"><span>📊 Luyện thi Word + Excel</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ppt" value="PowerPoint 2019"><span>📑 Luyện thi PowerPoint</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ic3" value="IC3 GS6"><span>🌐 Luyện thi IC3 GS6</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_ai" value="Generative AI"><span>🤖 Generative AI</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_aip" value="AI Productivity"><span>⚡ Làm việc hiệu quả với AI</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_w19" value="MOS Word 2019"><span>📄 Word 2019</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_e19" value="MOS Excel 2019"><span>📊 Excel 2019</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_p19" value="MOS PowerPoint 2019"><span>📑 PowerPoint 2019</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_w365" value="MOS Word 365"><span>📄 Word 365</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_e365" value="MOS Excel 365"><span>📊 Excel 365</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_p365" value="MOS PowerPoint 365"><span>📑 PowerPoint 365</span></label>
           </div>
         </div>
         <div class="hn-row">
@@ -1867,6 +1897,10 @@ ${mode !== 'home' ? `
           <input class="hn-input" id="hoc_fb" placeholder="https://facebook.com/...">
         </div>
         <div class="hn-field">
+          <label class="hn-label">Thông tin bạn giới thiệu hoặc trưởng nhóm (nếu có)</label>
+          <input class="hn-input" id="hoc_gioithieu" placeholder="VD: Nguyễn Văn A - 0912888360">
+        </div>
+        <div class="hn-field">
           <label class="hn-label">Ghi chú thêm</label>
           <textarea class="hn-textarea" id="hoc_ghichu" placeholder="Câu hỏi hoặc yêu cầu đặc biệt..."></textarea>
         </div>
@@ -1875,11 +1909,113 @@ ${mode !== 'home' ? `
         </button>
         <div class="hn-form-msg" id="msg_hoc"></div>
         <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center">
-          Sau khi gửi, MOS360 liên hệ Zalo trong 24h · Hotline: <strong style="color:var(--text)">0912.888.360</strong>
+          Sau khi gửi, MOS360 sẽ liên hệ Zalo/Face trong vòng 1 giờ · Hotline: <strong style="color:var(--text)">0912.888.360</strong>
         </p>
       </div>
     </div>
     </div></div><!-- end acc-body hoc -->
+
+    <!-- ACCORDION: ĐĂNG KÝ HỌC ONLINE (IC3 & AI) -->
+    <div class="hn-acc" id="hn-acc-online">
+      <div class="hn-acc-hdr" onclick="toggleAcc('online')">
+        <div class="hn-acc-hdr-left">
+          <div class="hn-acc-ico" style="background:rgba(0,82,204,0.12)">🌐</div>
+          <div>
+            <div class="hn-acc-title">Đăng ký học online</div>
+            <div class="hn-acc-sub">IC3 GS6 · Generative AI · AI Productivity</div>
+          </div>
+        </div>
+        <span class="hn-acc-chevron">▼</span>
+      </div>
+      <div class="hn-acc-body">
+    <div id="hn-reg-online">
+      <div class="hn-form-wrap" style="padding:24px">
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Họ và tên <span class="req">*</span></label>
+            <input class="hn-input" id="onl_ten" placeholder="Nguyễn Văn A" required>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">SĐT (Zalo) <span class="req">*</span></label>
+            <input class="hn-input" id="onl_sdt" type="tel" placeholder="0912888360" required>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Ngày, tháng, năm sinh</label>
+            <input class="hn-input" id="onl_ngaysinh" placeholder="01/01/2005">
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Trường đang học</label>
+            <select class="hn-select" id="onl_truong">
+              <option value="">-- Chọn trường --</option>
+              <option>ĐH Hàng Hải Việt Nam</option>
+              <option>ĐH Hải Phòng</option>
+              <option>ĐH Quản lý & Công nghệ HP</option>
+              <option>CĐ Hàng Hải I</option>
+              <option>Khác</option>
+            </select>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Năm học</label>
+            <select class="hn-select" id="onl_namhoc">
+              <option value="">-- Năm học --</option>
+              <option>Năm 1</option><option>Năm 2</option><option>Năm 3</option><option>Năm 4</option><option>Đã tốt nghiệp</option>
+            </select>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Khoa / Lớp</label>
+            <input class="hn-input" id="onl_khoa" placeholder="VD: Khoa Kinh tế - KTB66ĐH">
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Khóa học muốn đăng ký <span class="req">*</span></label>
+          <div class="hn-checkbox-group">
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv1" value="IC3 GS6 Level 1"><span>🌐 IC3 GS6 Level 1</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv2" value="IC3 GS6 Level 2"><span>🌐 IC3 GS6 Level 2</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv3" value="IC3 GS6 Level 3"><span>🌐 IC3 GS6 Level 3</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_genai" value="Generative AI"><span>🤖 Generative AI</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_aiwork" value="AI Productivity"><span>⚡ Làm việc hiệu quả với AI</span></label>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Biết đến MOS360 qua</label>
+            <select class="hn-select" id="onl_kenh">
+              <option value="">-- Chọn kênh --</option>
+              <option>Facebook</option><option>TikTok</option><option>YouTube</option>
+              <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
+            </select>
+          </div>
+          <div class="hn-field">
+            <label class="hn-label">Mã giảm giá (nếu có)</label>
+            <input class="hn-input" id="onl_magg" placeholder="Nhập mã giảm giá">
+          </div>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Link Facebook của em</label>
+          <input class="hn-input" id="onl_fb" placeholder="https://facebook.com/...">
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Thông tin bạn giới thiệu hoặc trưởng nhóm (nếu có)</label>
+          <input class="hn-input" id="onl_gioithieu" placeholder="VD: Nguyễn Văn A - 0912888360">
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Ghi chú thêm</label>
+          <textarea class="hn-textarea" id="onl_ghichu" placeholder="Câu hỏi hoặc yêu cầu đặc biệt..."></textarea>
+        </div>
+        <button class="hn-submit" onclick="submitForm('online')" id="btn_online">
+          <span>📝 Gửi đăng ký học</span>
+        </button>
+        <div class="hn-form-msg" id="msg_online"></div>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center">
+          Sau khi gửi, MOS360 sẽ liên hệ Zalo/Face trong vòng 1 giờ · Hotline: <strong style="color:var(--text)">0912.888.360</strong>
+        </p>
+      </div>
+    </div>
+    </div></div><!-- end acc-body online -->
 
     <!-- ACCORDION: ĐĂNG KÝ THI -->
     <div class="hn-acc" id="hn-acc-thi">
@@ -2276,7 +2412,7 @@ function toggleAcc(id) {
   if (!acc) return;
   var isOpen = acc.classList.contains('open');
   // Close all first
-  ['hoc','thi','off'].forEach(function(k) {
+  ['hoc','online','thi','off'].forEach(function(k) {
     var el = document.getElementById('hn-acc-' + k);
     if (el) el.classList.remove('open');
   });
@@ -2292,7 +2428,7 @@ async function submitForm(type) {
   msgEl.className = 'hn-form-msg';
   msgEl.textContent = '';
 
-  var actionMap = { hoc: 'dkhoc', thi: 'dkthi', off: 'dkoffline' };
+  var actionMap = { hoc: 'dkhoc', online: 'dkhoc', thi: 'dkthi', off: 'dkoffline' };
   var payload = { action: actionMap[type] || ('dk' + type) };
   var ok = true;
 
@@ -2301,7 +2437,7 @@ async function submitForm(type) {
     var sdt = document.getElementById('hoc_sdt').value.trim();
     if (!ten || !sdt) { showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ Họ tên và SĐT'); return; }
     var khoahoc = [];
-    ['we','ppt','ic3','ai','aip'].forEach(function(k) {
+    ['w19','e19','p19','w365','e365','p365'].forEach(function(k) {
       var el = document.getElementById('hoc_kh_' + k);
       if (el && el.checked) khoahoc.push(el.value);
     });
@@ -2316,7 +2452,33 @@ async function submitForm(type) {
       kenh: document.getElementById('hoc_kenh').value,
       magiamgia: document.getElementById('hoc_magg').value,
       facebook: document.getElementById('hoc_fb').value,
+      gioithieu: document.getElementById('hoc_gioithieu').value,
       ghichu: document.getElementById('hoc_ghichu').value
+    });
+  }
+
+  if (type === 'online') {
+    var ten = document.getElementById('onl_ten').value.trim();
+    var sdt = document.getElementById('onl_sdt').value.trim();
+    if (!ten || !sdt) { showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ Họ tên và SĐT'); return; }
+    var khoahoc = [];
+    ['ic3lv1','ic3lv2','ic3lv3','genai','aiwork'].forEach(function(k) {
+      var el = document.getElementById('onl_kh_' + k);
+      if (el && el.checked) khoahoc.push(el.value);
+    });
+    if (!khoahoc.length) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 khóa học'); return; }
+    Object.assign(payload, {
+      ten: ten, sdt: sdt,
+      ngaysinh: document.getElementById('onl_ngaysinh').value,
+      truong: document.getElementById('onl_truong').value,
+      namhoc: document.getElementById('onl_namhoc').value,
+      khoa: document.getElementById('onl_khoa').value,
+      khoahoc: khoahoc.join(', '),
+      kenh: document.getElementById('onl_kenh').value,
+      magiamgia: document.getElementById('onl_magg').value,
+      facebook: document.getElementById('onl_fb').value,
+      gioithieu: document.getElementById('onl_gioithieu').value,
+      ghichu: document.getElementById('onl_ghichu').value
     });
   }
 
@@ -2674,27 +2836,27 @@ async function hnDoConfirm() {
                 <span style="background:rgba(255,87,34,0.1); color:var(--primary); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS WORD 2019</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
+                <a href="/course-intro/mos2019" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--primary);background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-W19" onclick="triggerRemoteVerification(&apos;MOS WORD 2019&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(255,87,34,0.1); color:var(--primary); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS EXCEL 2019</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
+                <a href="/course-intro/mos2019" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--primary);background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-E19" onclick="triggerRemoteVerification(&apos;MOS EXCEL 2019&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(255,87,34,0.1); color:var(--primary); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 2019</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS PPT 2019</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
+                <a href="/course-intro/mos2019" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--primary);background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-P19" onclick="triggerRemoteVerification(&apos;MOS PPT 2019&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
         </div>
@@ -2708,34 +2870,34 @@ async function hnDoConfirm() {
                 <span style="background:rgba(0,82,204,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS WORD 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
+                <a href="/course-intro/mos365" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-W365" onclick="triggerRemoteVerification(&apos;MOS WORD 365&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(0,82,204,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS EXCEL 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
+                <a href="/course-intro/mos365" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-E365" onclick="triggerRemoteVerification(&apos;MOS EXCEL 365&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
             <div class="section-card">
                 <span style="background:rgba(0,82,204,0.1); color:var(--cyan); padding:4px 10px; border-radius:15px; font-size:0.75rem; font-weight:bold;">MOS 365</span>
                 <h3 style="margin:12px 0 8px 0; font-size:1.15rem;">Luyện thi MOS PPT 365</h3>
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
+                <a href="/course-intro/mos365" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
                     <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
-                    <button class="btn-sub" id="btn-auth-P365" onclick="triggerRemoteVerification(&apos;MOS PPT 365&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                 </div>
             </div>
         </div>
 
         <div class="course-block-title">
             <svg viewBox="0 0 24 24"><path d="M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.2 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 2c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>
-            <h2>PHÒNG THI THỬ ĐẶC BIỆT CHUYÊN SÂU</h2>
+            <h2>LỚP KHÓA HỌC ONLINE IC3 & AI</h2>
         </div>
         <div class="course-grid">
             <!-- IC3 LV1 -->
@@ -2814,10 +2976,8 @@ async function hnDoConfirm() {
         </div>
     </div>
     <script>
-        const cList = ["MOS WORD 2019","MOS EXCEL 2019","MOS PPT 2019","MOS WORD 365","MOS EXCEL 365","MOS PPT 365","IC3 GS6 LEVEL 1","IC3 GS6 LEVEL 2","IC3 GS6 LEVEL 3","GENERATIVE AI","AI PRODUCTIVITY"];
+        const cList = ["IC3 GS6 LEVEL 1","IC3 GS6 LEVEL 2","IC3 GS6 LEVEL 3","GENERATIVE AI","AI PRODUCTIVITY"];
         const idMap = {
-            "MOS WORD 2019":"btn-auth-W19","MOS EXCEL 2019":"btn-auth-E19","MOS PPT 2019":"btn-auth-P19",
-            "MOS WORD 365":"btn-auth-W365","MOS EXCEL 365":"btn-auth-E365","MOS PPT 365":"btn-auth-P365",
             "IC3 GS6 LEVEL 1":"btn-auth-IC3-LV1","IC3 GS6 LEVEL 2":"btn-auth-IC3-LV2","IC3 GS6 LEVEL 3":"btn-auth-IC3-LV3",
             "GENERATIVE AI":"btn-auth-AI",
             "AI PRODUCTIVITY":"btn-auth-AIP"
