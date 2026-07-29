@@ -2784,10 +2784,9 @@ async function hnDoLookup() {
             if (!v || k === 'Ghi chú admin' || k === '_rowIndex') return;
             var isHL = highlight.some(function(h){ return k.includes(h); });
             var valStyle = isHL ? 'color:var(--cyan);font-weight:800;font-size:0.95rem' : '';
-            var vHtml = String(v).replace(/\r\n|\r|\n/g, '<br>');   // ← DÒNG MỚI THÊM
             html += '<div class="hn-lf" style="margin-bottom:8px">'
                 + '<span class="hn-lf-key">' + k + '</span>'
-                + '<span class="hn-lf-val" style="' + valStyle + '">' + vHtml + '</span>'   // ← ĐỔI v THÀNH vHtml
+                + '<span class="hn-lf-val" style="' + valStyle + '">' + v + '</span>'
                 + '</div>';
         });
         if (idx < items.length - 1) html += '<hr style="border:none;border-top:1px dashed var(--border);margin:10px 0">';
