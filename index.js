@@ -266,7 +266,7 @@ const CONFIG = {
         { dot: 3, dates: "18–19/04/2026", from: "17/03/2026", to: "09/04/2026", deadline: "06/04/2026" },
         { dot: 4, dates: "23–24/05/2026", from: "20/04/2026", to: "14/05/2026", deadline: "11/05/2026" },
         { dot: 5, dates: "27–28/06/2026", from: "25/05/2026", to: "18/06/2026", deadline: "15/06/2026" },
-        { dot: 6, dates: "25–26/07/2026", from: "29/06/2026", to: "16/07/2026", deadline: "13/07/2026" },
+        { dot: 6, dates: "01–02/08/2026", from: "29/06/2026", to: "16/07/2026", deadline: "13/07/2026" },
         { dot: 7, dates: "29–30/08/2026", from: "27/07/2026", to: "13/08/2026", deadline: "10/08/2026" },
         { dot: 8, dates: "26–27/09/2026", from: "31/08/2026", to: "19/09/2026", deadline: "16/09/2026" },
         { dot: 9, dates: "24–25/10/2026", from: "28/09/2026", to: "15/10/2026", deadline: "12/10/2026" },
@@ -278,7 +278,7 @@ const CONFIG = {
     LICH_THI: {
         "Hải Phòng": [
             { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
-            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "01–02/08/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
         ],
@@ -301,7 +301,7 @@ const CONFIG = {
     LICH_THI: {
         "Hải Phòng": [
             { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
-            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "01–02/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
         ],
