@@ -247,6 +247,131 @@ export const BLOG_POSTS = [
             <p><strong>Trường không ghi rõ phiên bản thì có phải thi cả 2 không?</strong><br>Không nhất thiết. Trong trường hợp này bạn nên hỏi trực tiếp phòng đào tạo để xác nhận, tránh thi cả 2 lần gây tốn kém không cần thiết.</p>
             <p><strong>MOS360 có tư vấn được chính xác phiên bản cần thi cho từng trường không?</strong><br>Có. Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí phiên bản MOS phù hợp với quy định chuẩn đầu ra của trường bạn, tránh thi nhầm phiên bản.</p>
         `
+    },
+    {
+        slug: "quy-trinh-thi-mos-ic3-tu-a-den-z",
+        title: "Thi MOS/IC3 Cần Chuẩn Bị Gì? Quy Trình Thi Từ A Đến Z Cho Người Thi Lần Đầu",
+        seoDescription: "Thi MOS, IC3 lần đầu cần mang giấy tờ gì, đăng ký ở đâu, quy trình trong phòng thi ra sao, khi nào nhận chứng chỉ? Hướng dẫn chi tiết từ MOS360 Hải Phòng.",
+        publishedDate: "2026-07-29",
+        excerpt: "Nhiều bạn ôn tập rất kỹ nhưng đến ngày thi lại bối rối vì không biết cần mang gì, quy trình trong phòng thi ra sao. Đây là hướng dẫn quy trình thi MOS/IC3 từ A đến Z.",
+        contentHtml: `
+            <p>Nhiều bạn ôn tập kiến thức rất kỹ nhưng đến sát ngày thi lại bối rối vì không biết cần chuẩn bị giấy tờ gì, đăng ký ở đâu, và quy trình trong phòng thi diễn ra như thế nào. Bài viết này sẽ hướng dẫn chi tiết toàn bộ quy trình thi chứng chỉ MOS và IC3, từ lúc đăng ký đến lúc nhận chứng chỉ.</p>
+
+            <h2>Bước 1: Đăng ký lịch thi</h2>
+            <p>Chứng chỉ MOS và IC3 đều do <strong>Certiport</strong> (đơn vị khảo thí quốc tế) cấp, và được tổ chức thi thông qua các <strong>trung tâm khảo thí ủy quyền</strong> — không phải cứ muốn thi là tự đăng ký trực tiếp với Certiport được. Bạn cần đăng ký lịch thi thông qua trung tâm ôn luyện hoặc trung tâm khảo thí gần nơi mình sinh sống để được sắp xếp ca thi phù hợp.</p>
+            <p>Tại Hải Phòng, học viên đăng ký lịch thi trực tiếp qua <strong>MOS360</strong>, trung tâm sẽ hỗ trợ chọn ca thi và nhắc lịch trước để tránh quên hoặc trùng lịch học.</p>
+
+            <h2>Bước 2: Chuẩn bị giấy tờ trước ngày thi</h2>
+            <ul>
+                <li><strong>Giấy tờ tùy thân còn hiệu lực</strong>: CCCD/CMND hoặc hộ chiếu — thông tin trên giấy tờ phải khớp với thông tin đã đăng ký thi, nếu không có thể bị từ chối thi</li>
+                <li>Đến đúng giờ hoặc sớm hơn giờ hẹn khoảng <strong>10-15 phút</strong> để làm thủ tục check-in, tránh trường hợp đến trễ bị hủy ca thi</li>
+                <li>Không mang theo tài liệu, điện thoại, thiết bị ghi âm/ghi hình vào phòng thi — những vật dụng này thường phải để ở khu vực quy định bên ngoài</li>
+            </ul>
+
+            <h2>Bước 3: Quy trình trong phòng thi</h2>
+            <ol>
+                <li><strong>Check-in và xác nhận danh tính</strong>: giám thị kiểm tra giấy tờ, chụp ảnh hoặc xác nhận thông tin trước khi vào ca thi</li>
+                <li><strong>Đăng nhập vào phần mềm thi</strong>: mỗi thí sinh được cấp một máy tính riêng, đăng nhập bằng tài khoản thi đã được tạo sẵn</li>
+                <li><strong>Đọc hướng dẫn và bắt đầu làm bài</strong>: bài thi MOS/IC3 kéo dài tối đa 50 phút, hiển thị rõ thời gian còn lại trong suốt quá trình làm bài</li>
+                <li><strong>Hoàn thành các Task/Project theo giao diện phần mềm thi thật</strong>: nên dùng chức năng đánh dấu hoàn thành (Mark Complete/Mark for Review) để kiểm soát tiến độ, tránh bỏ sót</li>
+                <li><strong>Nộp bài</strong>: có thể nộp sớm nếu hoàn thành trước thời gian quy định, hoặc hệ thống tự động nộp khi hết giờ</li>
+            </ol>
+
+            <h2>Bước 4: Nhận kết quả và chứng chỉ</h2>
+            <p>Với hầu hết các bài thi MOS/IC3, <strong>kết quả điểm số (Pass/Fail và số điểm cụ thể) hiển thị ngay sau khi nộp bài</strong>, ngay tại phòng thi. Chứng chỉ điện tử (bản PDF, có thể tra cứu và xác thực online) thường được gửi vào email đăng ký sau đó một khoảng thời gian ngắn để hệ thống xử lý và phát hành chính thức.</p>
+
+            <h2>Một số lưu ý giúp buổi thi diễn ra suôn sẻ</h2>
+            <ul>
+                <li>Ngủ đủ giấc, tránh ôn dồn vào đêm trước ngày thi khiến đầu óc căng thẳng, dễ mắc lỗi sai không đáng có</li>
+                <li>Kiểm tra lại thông tin cá nhân đã đăng ký (họ tên, ngày sinh) khớp chính xác với giấy tờ tùy thân trước ngày thi ít nhất 1-2 ngày</li>
+                <li>Nếu có sự cố bất khả kháng cần đổi lịch thi, nên báo sớm cho trung tâm để được hỗ trợ sắp xếp lại ca thi, tránh mất lệ phí đã đóng</li>
+            </ul>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>Thi trượt có được thi lại ngay không?</strong><br>Có, nhưng thường cần đóng lại lệ phí thi cho lần thi tiếp theo, trừ trường hợp trung tâm có chính sách hỗ trợ riêng. Tại MOS360, học viên ôn tập đầy đủ theo lộ trình mà chưa đạt 700 điểm sẽ được hoàn lại 100% lệ phí thi.</p>
+            <p><strong>Có được mang giấy nháp vào phòng thi không?</strong><br>Tùy quy định của từng điểm thi, một số nơi có phát giấy nháp tại chỗ, không được mang giấy nháp riêng từ ngoài vào. Bạn nên hỏi rõ trung tâm nơi mình đăng ký thi trước ngày thi.</p>
+            <p><strong>MOS360 có hỗ trợ đăng ký lịch thi không?</strong><br>Có. Liên hệ Zalo/Hotline <strong>0912888360</strong> để được hỗ trợ đăng ký lịch thi và tư vấn chuẩn bị đầy đủ trước ngày thi.</p>
+        `
+    },
+    {
+        slug: "hoc-generative-ai-cung-luc-mos-ic3",
+        title: "Nên Học Thêm Generative AI Cùng Lúc Với MOS/IC3 Không?",
+        seoDescription: "Học Generative AI cùng lúc với MOS, IC3 có đáng không? Lợi ích thực tế cho sinh viên và chi phí học thêm tại MOS360 Hải Phòng.",
+        publishedDate: "2026-07-29",
+        excerpt: "Ngoài MOS và IC3, ngày càng nhiều sinh viên tìm hiểu thêm kỹ năng Generative AI. Học cùng lúc có đáng không, và cần bắt đầu từ đâu?",
+        contentHtml: `
+            <p>Bên cạnh việc ôn thi MOS hoặc IC3 để đạt chuẩn đầu ra, ngày càng nhiều sinh viên quan tâm đến việc học thêm kỹ năng <strong>Generative AI (AI tạo sinh)</strong> — nhưng không ít bạn còn phân vân liệu có đáng để học thêm cùng lúc, hay nên tập trung hoàn toàn vào MOS/IC3 trước. Bài viết này sẽ phân tích rõ để bạn dễ quyết định.</p>
+
+            <h2>Generative AI là gì, vì sao ngày càng được quan tâm?</h2>
+            <p>Generative AI là nhóm công nghệ AI có khả năng tạo ra nội dung mới — văn bản, hình ảnh, bảng biểu, đoạn code — dựa trên yêu cầu của người dùng, tiêu biểu như ChatGPT, Microsoft Copilot, Gemini. Các công cụ này đang được tích hợp ngày càng sâu vào chính các phần mềm văn phòng quen thuộc (Word, Excel, PowerPoint), khiến việc biết sử dụng AI hiệu quả trở thành một kỹ năng thực tế cho công việc văn phòng, không còn là điều gì quá xa lạ hay chỉ dành riêng cho dân công nghệ.</p>
+
+            <h2>Học Generative AI có phải chứng chỉ bắt buộc để tốt nghiệp không?</h2>
+            <p>Không. Tính đến hiện tại, phần lớn các trường đại học, cao đẳng tại Việt Nam <strong>chưa đưa Generative AI vào danh mục chứng chỉ chuẩn đầu ra bắt buộc</strong> như MOS hay IC3. Vì vậy, học Generative AI mang tính chất <strong>bổ sung kỹ năng thực tế</strong>, không phải điều kiện xét tốt nghiệp.</p>
+
+            <h2>Vậy vì sao vẫn nên cân nhắc học thêm?</h2>
+            <ul>
+                <li><strong>Xu hướng tuyển dụng đang thay đổi</strong>: ngày càng nhiều tin tuyển dụng, kể cả vị trí không chuyên CNTT, có nhắc đến ưu tiên ứng viên biết sử dụng công cụ AI trong công việc hàng ngày (soạn thảo, tổng hợp dữ liệu, làm slide nhanh hơn)</li>
+                <li><strong>Bổ trợ trực tiếp cho kỹ năng văn phòng đã học</strong>: biết dùng AI đúng cách giúp làm việc trên Word/Excel/PowerPoint nhanh và hiệu quả hơn, thay vì học tách rời hai kỹ năng không liên quan</li>
+                <li><strong>Chi phí học thêm không đáng kể</strong>: vì đã quen với nhịp ôn luyện MOS/IC3 tại trung tâm, học thêm module Generative AI cùng lúc không tốn nhiều thời gian hay chi phí phát sinh</li>
+                <li><strong>Có thêm nội dung nổi bật cho CV</strong>, đặc biệt hữu ích cho sinh viên khối ngành không chuyên CNTT muốn tạo điểm khác biệt so với các ứng viên khác</li>
+            </ul>
+
+            <h2>Nên học Generative AI trước, sau hay cùng lúc với MOS/IC3?</h2>
+            <p>Không có thứ tự bắt buộc, nhưng theo kinh nghiệm thực tế, hầu hết học viên chọn <strong>học Generative AI sau khi đã nắm ổn phần MOS hoặc IC3</strong> — vì lúc này đã quen với nhịp học tại trung tâm, không bị phân tán sự tập trung khi đang ôn để lấy điểm chuẩn đầu ra. Với các bạn không quá gấp về thời hạn chuẩn đầu ra, việc học song song ngay từ đầu cũng hoàn toàn khả thi.</p>
+
+            <h2>Học Generative AI ở đâu tại Hải Phòng?</h2>
+            <p>Tại <strong>MOS360 - Trung tâm tin học MOS &amp; IC3 &amp; AI</strong> (số 57 Lê Văn Thuyết A, phường Lê Chân, Hải Phòng), khóa <strong>Generative AI</strong> được thiết kế để học sau hoặc song song với MOS/IC3, với các điểm khác biệt tương tự các khóa khác của trung tâm:</p>
+            <ul>
+                <li>Giáo viên <strong>hướng dẫn 1:1</strong>, thực hành trực tiếp cách ứng dụng AI vào công việc văn phòng thực tế</li>
+                <li>Học <strong>không giới hạn số lần</strong>, chủ động thời gian học</li>
+                <li>Học phí chỉ <strong>100.000đ/môn</strong>, tương đương mức học phí IC3</li>
+            </ul>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>Học Generative AI có cần biết lập trình không?</strong><br>Không. Khóa học tập trung vào cách sử dụng các công cụ AI có sẵn (như ChatGPT, Copilot) để hỗ trợ công việc văn phòng, không yêu cầu kiến thức lập trình.</p>
+            <p><strong>Có bắt buộc phải học MOS/IC3 trước mới được học Generative AI không?</strong><br>Không bắt buộc. Học viên có thể đăng ký học riêng lẻ hoặc kết hợp tùy nhu cầu.</p>
+            <p><strong>Đăng ký học Generative AI như thế nào?</strong><br>Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí lộ trình học phù hợp, kết hợp cùng MOS hoặc IC3 nếu cần.</p>
+        `
+    },
+    {
+        slug: "sinh-vien-nam-may-nen-thi-chuan-dau-ra-tin-hoc",
+        title: "Sinh Viên Năm Mấy Nên Thi Chuẩn Đầu Ra Tin Học? Lộ Trình Theo Từng Năm Học",
+        seoDescription: "Nên thi chuẩn đầu ra tin học từ năm mấy để tránh dồn việc vào năm cuối? Gợi ý lộ trình thi MOS, IC3 theo từng năm học cho sinh viên.",
+        publishedDate: "2026-07-29",
+        excerpt: "Rất nhiều sinh viên để dồn việc thi chuẩn đầu ra tin học đến sát ngày nộp hồ sơ tốt nghiệp. Đây là gợi ý lộ trình nên thi từ năm mấy để chủ động hơn.",
+        contentHtml: `
+            <p>Một sai lầm phổ biến của rất nhiều sinh viên là để dồn việc thi <strong>chuẩn đầu ra tin học</strong> đến sát thời điểm nộp hồ sơ xét tốt nghiệp, dẫn đến vừa phải ôn thi cấp tốc, vừa lo lắng vì trùng lịch với các môn học và luận văn/khóa luận cuối khóa. Vậy nên thi chuẩn đầu ra tin học từ năm mấy là hợp lý? Bài viết này gợi ý một lộ trình rõ ràng theo từng năm học.</p>
+
+            <h2>Vì sao không nên để đến năm cuối mới thi?</h2>
+            <ul>
+                <li><strong>Năm cuối là giai đoạn bận rộn nhất</strong>: lịch học các môn chuyên ngành nặng, thêm thực tập, làm khóa luận/đồ án tốt nghiệp — rất khó dành thời gian ôn tập tập trung</li>
+                <li><strong>Rủi ro thi trượt không kịp thi lại</strong>: nếu chỉ còn vài tuần trước hạn nộp hồ sơ mà thi không đạt, có thể không kịp sắp xếp thi lại đúng hạn, ảnh hưởng trực tiếp đến tiến độ tốt nghiệp</li>
+                <li><strong>Tâm lý căng thẳng dồn nén</strong>: vừa lo tốt nghiệp, vừa lo chuẩn đầu ra cùng lúc dễ khiến kết quả ôn tập không tốt như khi có đủ thời gian chuẩn bị</li>
+            </ul>
+
+            <h2>Lộ trình gợi ý theo từng năm học</h2>
+            <p><strong>Năm nhất:</strong><br>Đây là thời điểm sinh viên vừa quen với môi trường đại học, nên tập trung ổn định việc học các môn đại cương trước. Chưa cần vội thi chuẩn đầu ra tin học ngay, nhưng có thể tìm hiểu trước quy định chuẩn đầu ra của trường mình (chứng chỉ nào được công nhận, phiên bản nào) để có kế hoạch từ sớm.</p>
+            <p><strong>Năm hai:</strong><br>Thời điểm lý tưởng để <strong>bắt đầu ôn và thi chuẩn đầu ra tin học</strong>. Lịch học lúc này thường chưa quá nặng như năm cuối, đủ thời gian ôn tập bài bản mà không bị áp lực. Nên hoàn thành xong trong năm hai hoặc chậm nhất là đầu năm ba.</p>
+            <p><strong>Năm ba:</strong><br>Nếu chưa hoàn thành ở năm hai, đây vẫn là thời điểm còn tương đối chủ động để hoàn tất chuẩn đầu ra tin học, trước khi bước vào giai đoạn thực tập và khóa luận của năm cuối.</p>
+            <p><strong>Năm cuối:</strong><br>Nên dành toàn bộ thời gian cho việc học chuyên ngành, thực tập và khóa luận/đồ án tốt nghiệp. Nếu đến lúc này vẫn chưa thi chuẩn đầu ra tin học, cần <strong>ưu tiên hoàn thành càng sớm càng tốt trong học kỳ đầu của năm cuối</strong>, tuyệt đối tránh để dồn đến sát ngày nộp hồ sơ xét tốt nghiệp.</p>
+
+            <h2>Nếu đã là sinh viên năm cuối và chưa thi thì sao?</h2>
+            <p>Không cần quá lo lắng — với lộ trình ôn tập rút gọn (khoảng 1-3 tuần cho mỗi môn nếu học đúng phương pháp), vẫn hoàn toàn kịp hoàn thành chuẩn đầu ra tin học ngay cả khi bắt đầu muộn, miễn là bắt tay vào ôn ngay thay vì chần chừ thêm. Ưu tiên chọn nơi ôn luyện có <strong>giáo viên hướng dẫn 1:1</strong> và <strong>phần mềm mô phỏng đề thi thật</strong> để rút ngắn tối đa thời gian ôn tập.</p>
+
+            <h2>Học và thi chuẩn đầu ra tin học ở đâu tại Hải Phòng?</h2>
+            <p><strong>MOS360 - Trung tâm tin học MOS &amp; IC3 &amp; AI</strong> (số 57 Lê Văn Thuyết A, phường Lê Chân, Hải Phòng) nhận sinh viên ở mọi năm học, từ những bạn muốn hoàn thành sớm từ năm hai đến các bạn năm cuối cần ôn cấp tốc, với:</p>
+            <ul>
+                <li>Luyện tập <strong>100% bằng phần mềm mô phỏng</strong> đề thi thật</li>
+                <li>Giáo viên <strong>hướng dẫn 1:1</strong>, phù hợp cả với người mất gốc tin học</li>
+                <li>Học <strong>không giới hạn số lần</strong>, chủ động sắp xếp quanh lịch học chính khóa</li>
+                <li><strong>Cam kết đầu ra 700+ điểm bằng văn bản</strong>, hoàn lại 100% lệ phí thi nếu chưa đạt</li>
+            </ul>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>Thi chuẩn đầu ra tin học từ năm nhất được không?</strong><br>Được, nếu bạn đã sắp xếp ổn thời gian học và muốn hoàn thành sớm. Tuy nhiên năm hai thường là thời điểm hợp lý hơn vì đã quen với môi trường đại học.</p>
+            <p><strong>Chứng chỉ MOS/IC3 thi từ năm hai có còn giá trị đến lúc xét tốt nghiệp không?</strong><br>Có. Chứng chỉ MOS có giá trị 5 năm kể từ ngày cấp, thừa đủ thời gian sử dụng cho đến khi xét tốt nghiệp.</p>
+            <p><strong>Sinh viên năm cuối cần ôn gấp thì nên bắt đầu từ đâu?</strong><br>Liên hệ ngay Zalo/Hotline <strong>0912888360</strong> để được tư vấn lộ trình ôn cấp tốc, ưu tiên đúng phần trọng tâm của đề thi.</p>
+        `
     }
 ];
 
