@@ -166,6 +166,87 @@ export const BLOG_POSTS = [
             <p><strong>Có thể học cả MOS lẫn IC3 cùng lúc không?</strong><br>Hoàn toàn được. Nhiều học viên tại MOS360 học song song cả 2 chứng chỉ để vừa đạt chuẩn đầu ra vừa có thêm chứng chỉ bổ sung cho CV.</p>
             <p><strong>Đăng ký học IC3 GS6 như thế nào?</strong><br>Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí cấp độ IC3 phù hợp với yêu cầu chuẩn đầu ra của trường bạn.</p>
         `
+    },
+    {
+        slug: "nen-hoc-mos-365-hay-mos-2019",
+        title: "Nên Học MOS 365 Hay MOS 2019? Lưu Ý Quan Trọng Trước Khi Đăng Ký Thi",
+        seoDescription: "Nên chọn thi MOS 365 hay MOS 2019? So sánh chi tiết 2 phiên bản và lưu ý một số trường như Đại học Hàng Hải Việt Nam hiện chỉ chấp nhận MOS 2019.",
+        publishedDate: "2026-07-24",
+        excerpt: "MOS 365 và MOS 2019 khác nhau ở đâu, nên chọn phiên bản nào? Đặc biệt lưu ý: một số trường như Đại học Hàng Hải Việt Nam hiện chỉ công nhận MOS 2019.",
+        contentHtml: `
+            <p>Khi đăng ký thi chứng chỉ MOS, rất nhiều bạn phân vân không biết nên chọn <strong>MOS 365</strong> hay <strong>MOS 2019</strong>. Hai phiên bản này giống nhau phần lớn về nội dung, nhưng lại có một khác biệt quan trọng liên quan đến việc xét chuẩn đầu ra mà không phải ai cũng biết trước khi đăng ký thi. Bài viết này sẽ giúp bạn chọn đúng ngay từ đầu, tránh mất thời gian và chi phí thi lại.</p>
+
+            <h2>MOS 365 và MOS 2019 khác nhau ở điểm nào?</h2>
+            <p>Cả hai đều là chứng chỉ <strong>Microsoft Office Specialist</strong>, đánh giá cùng một bộ kỹ năng cốt lõi trên Word, Excel, PowerPoint, chỉ khác nhau ở phiên bản giao diện phần mềm mà đề thi mô phỏng:</p>
+            <ul>
+                <li><strong>MOS 2019</strong>: đề thi bám theo giao diện và tính năng của bộ Office 2019 — phiên bản cài đặt cố định (offline), không tự động cập nhật tính năng mới.</li>
+                <li><strong>MOS 365</strong>: đề thi bám theo giao diện và tính năng của Microsoft 365 Apps — phiên bản dùng theo hình thức thuê bao, thường xuyên được Microsoft cập nhật thêm tính năng mới.</li>
+            </ul>
+            <p>Về độ khó, thang điểm (tối đa 1000, đạt từ 700 trở lên) và cấu trúc bài thi Multi-Project, hai phiên bản gần như tương đương nhau, không phiên bản nào khó hơn hẳn phiên bản còn lại.</p>
+
+            <h2>So sánh chi tiết theo từng môn thi: Word, Excel, PowerPoint</h2>
+            <p>Mỗi môn thi MOS đều có 2 mã bài thi riêng cho 2 phiên bản — đây là căn cứ chính xác nhất để biết mình đang đăng ký đúng phiên bản hay không:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Môn thi</th>
+                        <th>Mã bài thi 2019</th>
+                        <th>Mã bài thi 365</th>
+                        <th>Điểm khác biệt về nội dung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Word</strong></td>
+                        <td>MO-100</td>
+                        <td>MO-110</td>
+                        <td>Cấu trúc domain kỹ năng gần như giống nhau (quản lý tài liệu, định dạng văn bản/đoạn/mục, bảng biểu, tham chiếu, hình ảnh, cộng tác). Bản 365 mô phỏng đúng giao diện Word hiện hành và có thêm thao tác liên quan cộng tác/chia sẻ tài liệu trên nền tảng đám mây.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Excel</strong></td>
+                        <td>MO-200</td>
+                        <td>MO-210</td>
+                        <td>Đây là môn có khác biệt rõ nhất: bản <strong>365 (MO-210) có thêm 2 hàm mảng động (dynamic array)</strong> là <strong>SORT</strong> và <strong>UNIQUE</strong> trong phạm vi đề thi — 2 hàm này <strong>không nằm trong nội dung thi MO-200 (2019)</strong>. Phần còn lại (quản lý workbook, ô/vùng dữ liệu, bảng, công thức cơ bản, biểu đồ) tương đồng giữa 2 phiên bản.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PowerPoint</strong></td>
+                        <td>MO-300</td>
+                        <td>MO-310</td>
+                        <td>Cấu trúc domain kỹ năng tương đồng (quản lý bài trình chiếu, định dạng slide/văn bản/hình ảnh, bảng biểu/biểu đồ/SmartArt, hiệu ứng chuyển slide và hoạt hình). Khác biệt chủ yếu ở giao diện chương trình theo đúng phiên bản đang thi.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Có thể thấy, <strong>Excel là môn có sự khác biệt nội dung rõ ràng nhất</strong> giữa 2 phiên bản (do liên quan trực tiếp đến hàm tính toán), trong khi Word và PowerPoint chủ yếu khác nhau ở giao diện phần mềm và một số thao tác cộng tác trên nền tảng 365. Vì vậy nếu bạn thi Excel, cần đặc biệt lưu ý xác nhận đúng phiên bản trước khi ôn tập, tránh học nhầm hàm không có trong đề.</p>
+
+            <h2>Lưu ý quan trọng: không phải trường nào cũng chấp nhận cả 2 phiên bản</h2>
+            <p>Đây là điểm nhiều bạn dễ bỏ sót nhất. Trên thực tế, <strong>không phải mọi trường đại học đều công nhận cả MOS 2019 lẫn MOS 365</strong> cho chuẩn đầu ra tin học — một số trường chỉ ghi rõ trong quyết định chuẩn đầu ra là chấp nhận <strong>MOS 2019</strong>, và <strong>chưa cập nhật công nhận MOS 365</strong>.</p>
+            <p>Ví dụ cụ thể: hiện tại <strong>Đại học Hàng Hải Việt Nam</strong> là một trong những trường yêu cầu sinh viên nộp chứng chỉ <strong>MOS 2019</strong> để xét chuẩn đầu ra, và <strong>chưa chấp thuận chứng chỉ MOS 365</strong>. Nếu sinh viên trường này thi nhầm sang MOS 365, dù đạt điểm cao vẫn có nguy cơ không được nhà trường công nhận, phải thi lại đúng phiên bản MOS 2019 — vừa mất thêm lệ phí thi, vừa mất thêm thời gian ôn tập.</p>
+
+            <h2>Vậy nên chọn thi MOS 365 hay MOS 2019?</h2>
+            <p>Nguyên tắc quan trọng nhất: <strong>không tự chọn theo cảm tính hay theo phiên bản đang phổ biến</strong>, mà phải đối chiếu chính xác với văn bản quy định chuẩn đầu ra tin học của trường bạn đang theo học, thường được đăng trên website của phòng đào tạo hoặc thông báo chuẩn đầu ra. Cụ thể:</p>
+            <ul>
+                <li>Nếu quyết định của trường ghi rõ <strong>chỉ chấp nhận MOS 2019</strong> (như Đại học Hàng Hải Việt Nam) → bắt buộc phải thi đúng MOS 2019, thi MOS 365 sẽ không được công nhận.</li>
+                <li>Nếu trường chấp nhận <strong>cả hai phiên bản</strong> → có thể chọn phiên bản nào thuận tiện hơn, ví dụ chọn MOS 365 nếu máy tính cá nhân đang cài Microsoft 365 sẵn.</li>
+                <li>Nếu không chắc chắn hoặc quyết định của trường không ghi rõ phiên bản → nên liên hệ trực tiếp phòng đào tạo hoặc trung tâm luyện thi để được tư vấn trước khi đăng ký, tránh thi nhầm phiên bản.</li>
+            </ul>
+
+            <h2>Học ở đâu để chắc chắn thi đúng phiên bản trường yêu cầu?</h2>
+            <p>Tại <strong>MOS360 - Trung tâm tin học MOS &amp; IC3 &amp; AI</strong> (số 57 Lê Văn Thuyết A, phường Lê Chân, Hải Phòng), học viên được tư vấn kỹ ngay từ đầu để xác định đúng phiên bản MOS phù hợp với quy định chuẩn đầu ra của từng trường, tránh tình trạng thi xong không được công nhận.</p>
+            <p>Dù bạn chọn ôn luyện <strong>MOS 2019</strong> hay <strong>MOS 365</strong>, MOS360 đều cam kết:</p>
+            <ul>
+                <li>Luyện tập <strong>100% bằng phần mềm mô phỏng</strong> đúng giao diện phiên bản bạn đăng ký thi</li>
+                <li>Giáo viên <strong>hướng dẫn 1:1</strong>, hỗ trợ sát sao từng học viên thay vì học chung chung theo nhóm đông</li>
+                <li>Học <strong>không giới hạn số lần</strong>, chủ động thời gian ôn luyện</li>
+                <li><strong>Cam kết đầu ra 700+ điểm bằng văn bản</strong>, hoàn lại 100% lệ phí thi nếu chưa đạt</li>
+                <li>Học phí chỉ <strong>400.000đ/môn</strong>, áp dụng như nhau cho cả MOS 2019 và MOS 365</li>
+            </ul>
+            <p>Mục tiêu của MOS360 không chỉ là giúp học viên thi đạt điểm cao, mà là giúp học viên thi <strong>đúng ngay từ đầu</strong> — đúng phiên bản, đúng yêu cầu của trường — để không phải tốn thêm thời gian và chi phí thi lại.</p>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>Làm sao biết trường mình yêu cầu MOS 2019 hay MOS 365?</strong><br>Bạn nên tra cứu quyết định/thông báo chuẩn đầu ra tin học chính thức trên website phòng đào tạo của trường. Nếu không tìm thấy thông tin rõ ràng, nên liên hệ trực tiếp phòng đào tạo hoặc trung tâm luyện thi để được kiểm tra trước khi đăng ký.</p>
+            <p><strong>Trường không ghi rõ phiên bản thì có phải thi cả 2 không?</strong><br>Không nhất thiết. Trong trường hợp này bạn nên hỏi trực tiếp phòng đào tạo để xác nhận, tránh thi cả 2 lần gây tốn kém không cần thiết.</p>
+            <p><strong>MOS360 có tư vấn được chính xác phiên bản cần thi cho từng trường không?</strong><br>Có. Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí phiên bản MOS phù hợp với quy định chuẩn đầu ra của trường bạn, tránh thi nhầm phiên bản.</p>
+        `
     }
 ];
 
@@ -210,6 +291,10 @@ export function getBlogPostUI(post) {
         .blog-article p { margin-bottom:14px; }
         .blog-article ul, .blog-article ol { margin:0 0 14px 22px; }
         .blog-article li { margin-bottom:6px; }
+        .blog-article table { width:100%; border-collapse:collapse; margin:8px 0 18px; font-size:0.85rem; }
+        .blog-article th, .blog-article td { border:1px solid #e2e2e2; padding:8px 10px; text-align:left; vertical-align:top; }
+        .blog-article th { background:rgba(0,0,0,0.035); font-weight:800; }
+        @media (max-width:520px) { .blog-article table, .blog-article thead, .blog-article tbody, .blog-article th, .blog-article td, .blog-article tr { display:block; } .blog-article thead tr { display:none; } .blog-article td { border:none; border-bottom:1px solid #eee; padding:6px 0; } .blog-article td:first-child { font-weight:800; padding-top:12px; } }
     </style>`;
 }
 

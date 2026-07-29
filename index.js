@@ -247,6 +247,7 @@ const CONFIG = {
     TOOLS: {
         MOS360: "https://drive.google.com/file/d/16ZRK0JtioIq1R0grfw88-M5V0fr6tY_A/view",
         OFFICE: "https://drive.google.com/file/d/1nYo6f5VDqgsgbp_-_IA6tO9muyohHOhg/view",
+        OFFICE365: "https://drive.google.com/file/d/1PPnUsYUP_jD_gF5pp7ezoxtyzw8JtVC3/view?usp=sharing",
         FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
         WINRAR: "https://drive.google.com/file/d/1NJVEBHJBpPr6R_y7PP_oZM0qn8hFyoG1/view",
         UNIKEY: "https://drive.google.com/file/d/1niMPJWesSzTmvNRLAvxxNNv4llL0WlcT/view",
@@ -1555,6 +1556,7 @@ ${promoSectionHtml}
         <div class="hn-course-thumb" style="background:linear-gradient(135deg,#E6F7ED,#D4F0DF)">
           <span class="hn-ico">📊</span>
           <span class="hn-cbadge cbadge-hot">🔥 Bán chạy</span>
+          <a href="/course-intro/mos2019" class="hn-syl-btn" onclick="event.stopPropagation()">📘 Giáo trình học</a>
         </div>
         <div class="hn-cbody">
           <div class="hn-ctitle">Luyện thi MOS Word + Excel 2019</div>
@@ -1734,6 +1736,7 @@ ${promoSectionHtml}
         <a href="/ket-qua" class="hn-tool" style="border:1.5px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.04);"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">📊</div><div><div class="hn-tool-name" style="color:#16a34a">Kết quả luyện tập của tôi</div><div class="hn-tool-type">Lịch sử điểm thi & luyện tập</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">🖥️</div><div><div class="hn-tool-name">Tải phần mềm MOS360</div><div class="hn-tool-type">Luyện thi & thi thử offline</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📦</div><div><div class="hn-tool-name">Office 2019 Pro Plus</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="${CONFIG.TOOLS.OFFICE365}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.1)">📦</div><div><div class="hn-tool-name">Office 365 Pro Plus x64</div><div class="hn-tool-type">Bộ cài Microsoft Office</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.FRAMEWORK}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.1)">⚙️</div><div><div class="hn-tool-name">Framework .NET 4.8</div><div class="hn-tool-type">Yêu cầu cho MOS360</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
@@ -2111,11 +2114,18 @@ ${mode !== 'home' ? `
         <!-- BƯỚC 3: Chọn môn thi -->
         <div style="font-size:0.8rem;font-weight:800;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">📝 Bước 3 — Môn thi</div>
         <div class="hn-field">
+          <label class="hn-label">Phiên bản đăng ký thi <span class="req">*</span></label>
+          <select class="hn-select" id="thi_phienban">
+            <option value="MOS 2019">MOS 2019</option>
+            <option value="MOS 365">MOS 365</option>
+          </select>
+        </div>
+        <div class="hn-field">
           <label class="hn-label">Đăng ký thi môn <span class="req">*</span> <span style="font-weight:400;color:var(--muted)">(SV VMU bắt buộc Word + Excel)</span></label>
           <div class="hn-checkbox-group">
-            <label class="hn-checkbox-item"><input type="checkbox" id="thi_word" checked onchange="calcLePhi()"><span>📄 Word 2019 (W)</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="thi_excel" checked onchange="calcLePhi()"><span>📊 Excel 2019 (E)</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="thi_ppt" onchange="calcLePhi()"><span>📑 PowerPoint 2019 (P)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_word" checked onchange="calcLePhi()"><span>📄 Word (W)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_excel" checked onchange="calcLePhi()"><span>📊 Excel (E)</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="thi_ppt" onchange="calcLePhi()"><span>📑 PowerPoint (P)</span></label>
           </div>
           <!-- Tổng lệ phí tự tính -->
           <div id="thi_lephi_sum" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:8px;font-size:0.85rem;font-weight:700;color:#16a34a"></div>
@@ -2515,6 +2525,7 @@ async function submitForm(type) {
       ngayThi: lichDot.ngayThi || '',
       lePhi: lichDot.lephi || 0,
       word: word, excel: excel, ppt: ppt,
+      phienBan: document.getElementById('thi_phienban').value,
       ngonngu: 'V',
       datungThi: document.getElementById('thi_datungThi').value
     });

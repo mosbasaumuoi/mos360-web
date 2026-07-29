@@ -36,5 +36,12 @@
       "binding": "MOS360_LINKS_KV",
       "id": "9f4d266d92784d749ceac0e8831adf70"
     }
+  ],
+  // ── R2 bucket dùng để lưu video ──────────────────────────────
+  "r2_buckets": [
+    {
+      "binding": "MOS360_VIDEOS_R2",
+      "bucket_name": "my-videos"
+    }
   ]
 }
