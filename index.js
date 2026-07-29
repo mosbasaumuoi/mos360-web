@@ -23,6 +23,7 @@ import { getLibraryUI } from "./pages/library.js";
 import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
 import { BLOG_POSTS, getBlogListUI, getBlogPostUI } from "./pages/blog.js";
 import { handleRegisterAPI } from "./api/register-api.js";
+import { handleVideoLibraryAPI, handleVideoStream } from "./api/video-library-api.js";
 
 // ── SEO: title/description riêng cho từng trang, thay vì dùng chung 1
 // CONFIG.TITLE cho mọi trang như trước (nguyên nhân chính khiến Google
@@ -277,7 +278,7 @@ const CONFIG = {
     LICH_THI: {
         "Hải Phòng": [
             { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
-            { dot: "Đợt 6/2026", ngayThi: "01–02/08/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
         ],
@@ -300,7 +301,7 @@ const CONFIG = {
     LICH_THI: {
         "Hải Phòng": [
             { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
-            { dot: "Đợt 6/2026", ngayThi: "01–02/08/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
         ],
@@ -622,6 +623,17 @@ export default {
         // ===== LICENSE API (cấp mật khẩu Excel/Word/PPT) =====
         if (path.startsWith("/api/license/")) {
             return handleLicenseAPI(path, request, env);
+        }
+
+        // ===== VIDEO LIBRARY — proxy HLS (m3u8/ts) có kiểm tra token =====
+        // Đặt TRƯỚC nhóm "/api/video-library/" bên dưới vì đây không phải JSON API
+        if (path.startsWith("/api/video-library/hls/")) {
+            return handleVideoStream(path, request, env);
+        }
+
+        // ===== VIDEO LIBRARY API (login/logout/catalog/stream-token) =====
+        if (path.startsWith("/api/video-library/")) {
+            return handleVideoLibraryAPI(path, request, env);
         }
 
         // ===== RESULT API (kết quả Học/Thi từ WinApp) =====
@@ -2768,14 +2780,15 @@ async function hnDoLookup() {
       items.forEach(function(payload, idx) {
         if (items.length > 1) html += '<div style="font-size:0.75rem;font-weight:800;color:var(--cyan);margin:' + (idx>0?'14px':'0') + ' 0 8px;text-transform:uppercase">Môn ' + (idx+1) + '</div>';
         Object.keys(payload).forEach(function(k) {
-          var v = payload[k];
-          if (!v || k === 'Ghi chú admin' || k === '_rowIndex') return;
-          var isHL = highlight.some(function(h){ return k.includes(h); });
-          var valStyle = isHL ? 'color:var(--cyan);font-weight:800;font-size:0.95rem' : '';
-          html += '<div class="hn-lf" style="margin-bottom:8px">'
-               + '<span class="hn-lf-key">' + k + '</span>'
-               + '<span class="hn-lf-val" style="' + valStyle + '">' + v + '</span>'
-               + '</div>';
+            var v = payload[k];
+            if (!v || k === 'Ghi chú admin' || k === '_rowIndex') return;
+            var isHL = highlight.some(function(h){ return k.includes(h); });
+            var valStyle = isHL ? 'color:var(--cyan);font-weight:800;font-size:0.95rem' : '';
+            var vHtml = String(v).replace(/\r\n|\r|\n/g, '<br>');   // ← DÒNG MỚI THÊM
+            html += '<div class="hn-lf" style="margin-bottom:8px">'
+                + '<span class="hn-lf-key">' + k + '</span>'
+                + '<span class="hn-lf-val" style="' + valStyle + '">' + vHtml + '</span>'   // ← ĐỔI v THÀNH vHtml
+                + '</div>';
         });
         if (idx < items.length - 1) html += '<hr style="border:none;border-top:1px dashed var(--border);margin:10px 0">';
       });

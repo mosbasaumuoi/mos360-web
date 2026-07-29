@@ -24,6 +24,35 @@ export function getLibraryUI() {
         </div>
     </div>
 
+    <!-- ══ VIDEO GIẢI ĐỀ MOS (yêu cầu đăng nhập) ══ -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin-bottom:26px;box-shadow:0 2px 8px rgba(15,23,42,0.05);">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+            <div>
+                <h2 style="font-size:1.15rem;font-weight:800;color:var(--text);margin:0;">🎬 Video Giải Đề Test (MOS 2019 / MOS 365)</h2>
+                <p style="color:var(--muted);font-size:0.8rem;margin-top:3px;">Học viên đã được cấp mật khẩu MOS đăng nhập để xem video giải đề chi tiết.</p>
+            </div>
+            <div id="vlAuthBar" style="font-size:0.82rem;"></div>
+        </div>
+
+        <div id="vlLoginBox" style="display:none;background:#F8FAFD;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
+                <div style="flex:1;min-width:180px;">
+                    <label style="font-size:0.75rem;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;">Họ và tên</label>
+                    <input id="vlName" type="text" autocomplete="username" placeholder="Nguyễn Văn A" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:0.85rem;font-family:inherit;outline:none;box-sizing:border-box;">
+                </div>
+                <div style="flex:1;min-width:180px;">
+                    <label style="font-size:0.75rem;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;">Mật khẩu</label>
+                    <input id="vlPass" type="password" autocomplete="current-password" placeholder="••••••••" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:0.85rem;font-family:inherit;outline:none;box-sizing:border-box;">
+                </div>
+                <button id="vlLoginBtn" style="padding:10px 22px;background:linear-gradient(135deg,#0052CC,#0066ff);border:none;color:#fff;border-radius:9px;font-weight:700;cursor:pointer;font-size:0.85rem;white-space:nowrap;">Đăng nhập</button>
+            </div>
+            <div id="vlLoginErr" style="display:none;margin-top:10px;padding:9px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#b91c1c;font-size:0.8rem;font-weight:600;"></div>
+        </div>
+
+        <div id="vlTabs" style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;"></div>
+        <div id="vlGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;"></div>
+    </div>
+
     <!-- ══ BỘ LỌC ══ -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center;">
         <input id="libSearch" oninput="filterLinks()" placeholder="🔍 Tìm theo tên, key, URL..." style="flex:1;min-width:200px;padding:9px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.85rem;font-family:inherit;outline:none;">
@@ -154,6 +183,18 @@ export function getLibraryUI() {
             <button onclick="document.getElementById('clearModal').style.display='none'" style="padding:9px 20px;border:1.5px solid #e2e8f0;background:#fff;border-radius:10px;font-weight:700;cursor:pointer;">Huỷ</button>
             <button id="clearConfirmBtn" style="padding:9px 20px;background:#ef4444;border:none;color:#fff;border-radius:10px;font-weight:800;cursor:pointer;">Xóa tất cả</button>
         </div>
+    </div>
+</div>
+
+<!-- ══ MODAL XEM VIDEO (HLS player) ══ -->
+<div id="vlPlayerModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.85);z-index:9500;align-items:center;justify-content:center;padding:16px;">
+    <div style="background:#000;border-radius:14px;width:100%;max-width:900px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.45);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#0f172a;">
+            <div id="vlPlayerTitle" style="color:#fff;font-weight:700;font-size:0.9rem;"></div>
+            <button onclick="vlClosePlayer()" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;">×</button>
+        </div>
+        <div id="vlPlayerMsg" style="display:none;padding:14px 16px;color:#fecaca;background:#450a0a;font-size:0.85rem;font-weight:600;"></div>
+        <video id="vlVideo" controls playsinline style="width:100%;max-height:70vh;background:#000;display:block;"></video>
     </div>
 </div>
 
@@ -595,6 +636,288 @@ export function getLibraryUI() {
         };
     };
 
+    })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
+    <script>
+    (function() {
+        // ── HELPERS (bản riêng — script này là closure độc lập với khối
+        // <script> phía trên nên không dùng chung được esc()/toast()) ──
+        function esc(s) {
+            return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        function toast(msg, type) {
+            var el = document.getElementById('libToast');
+            if (!el) return;
+            el.textContent = msg;
+            el.style.background = type === 'error' ? '#b91c1c' : '#0f172a';
+            el.style.display = 'block';
+            clearTimeout(el._t);
+            el._t = setTimeout(function() { el.style.display = 'none'; }, 3000);
+        }
+
+        // ── STATE ──────────────────────────────────────────────────
+        var vlCatalog = [];
+        var vlLoggedIn = false;
+        var vlUserName = null;
+        var vlActiveGroup = null;
+        var vlHls = null;
+        var vlCurrentVideoId = null;
+        var vlHasRetriedOnce = false;
+
+        // ── INIT ───────────────────────────────────────────────────
+        vlRefreshAuthBar();
+        vlLoadCatalog();
+        vlCheckSession();
+
+        // ── AUTH BAR ───────────────────────────────────────────────
+        function vlRefreshAuthBar() {
+            var bar = document.getElementById('vlAuthBar');
+            if (vlLoggedIn) {
+                bar.innerHTML = '<span style="color:var(--muted);font-weight:600;">👋 Xin chào, <strong style="color:var(--text);">'
+                    + esc(vlUserName || '') + '</strong></span> '
+                    + '<button id="vlLogoutBtn" style="margin-left:10px;padding:6px 14px;border:1.5px solid var(--border);background:#fff;color:var(--muted);border-radius:8px;font-weight:700;cursor:pointer;font-size:0.78rem;">Đăng xuất</button>';
+                document.getElementById('vlLoginBox').style.display = 'none';
+                var lb = document.getElementById('vlLogoutBtn');
+                if (lb) lb.onclick = vlDoLogout;
+            } else {
+                bar.innerHTML = '<span style="color:var(--muted);">Chưa đăng nhập</span>';
+            }
+        }
+
+        // ── SESSION CHECK ──────────────────────────────────────────
+        async function vlCheckSession() {
+            try {
+                var res = await fetch('/api/video-library/me');
+                var data = await res.json();
+                vlLoggedIn = !!data.loggedIn;
+                vlUserName = data.name || null;
+                vlRefreshAuthBar();
+            } catch (e) { /* im lặng, coi như chưa đăng nhập */ }
+        }
+
+        // ── LOGIN / LOGOUT ─────────────────────────────────────────
+        var vlLoginBtnEl = document.getElementById('vlLoginBtn');
+        if (vlLoginBtnEl) vlLoginBtnEl.onclick = vlDoLogin;
+        var vlPassEl = document.getElementById('vlPass');
+        if (vlPassEl) vlPassEl.onkeydown = function(e) { if (e.key === 'Enter') vlDoLogin(); };
+
+        async function vlDoLogin() {
+            var nameEl = document.getElementById('vlName');
+            var passEl = document.getElementById('vlPass');
+            var errEl = document.getElementById('vlLoginErr');
+            var btn = document.getElementById('vlLoginBtn');
+            var name = (nameEl.value || '').trim();
+            var pass = (passEl.value || '').trim();
+            errEl.style.display = 'none';
+
+            if (!name || !pass) {
+                errEl.textContent = '⚠️ Vui lòng nhập đầy đủ Họ tên và mật khẩu.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            btn.textContent = '⏳ Đang kiểm tra...'; btn.disabled = true;
+            try {
+                var res = await fetch('/api/video-library/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, password: pass })
+                });
+                var data = await res.json();
+                if (data.success) {
+                    vlLoggedIn = true;
+                    vlUserName = data.name;
+                    passEl.value = '';
+                    vlRefreshAuthBar();
+                    toast('✅ Đăng nhập thành công!');
+                    // Nếu đang chờ xem 1 video cụ thể thì mở luôn sau khi đăng nhập
+                    if (window._vlPendingPlay) {
+                        var pending = window._vlPendingPlay;
+                        window._vlPendingPlay = null;
+                        vlPlay(pending);
+                    }
+                } else {
+                    errEl.textContent = '⚠️ ' + (data.msg || 'Đăng nhập thất bại');
+                    errEl.style.display = 'block';
+                }
+            } catch (e) {
+                errEl.textContent = '⚠️ Lỗi kết nối máy chủ, vui lòng thử lại.';
+                errEl.style.display = 'block';
+            } finally {
+                btn.textContent = 'Đăng nhập'; btn.disabled = false;
+            }
+        }
+
+        async function vlDoLogout() {
+            try { await fetch('/api/video-library/logout', { method: 'POST' }); } catch (e) {}
+            vlLoggedIn = false;
+            vlUserName = null;
+            vlRefreshAuthBar();
+            toast('Đã đăng xuất');
+        }
+
+        // ── CATALOG ────────────────────────────────────────────────
+        async function vlLoadCatalog() {
+            try {
+                var res = await fetch('/api/video-library/catalog');
+                var data = await res.json();
+                vlCatalog = data.catalog || [];
+                var groups = [];
+                vlCatalog.forEach(function(v) { if (groups.indexOf(v.group) < 0) groups.push(v.group); });
+                vlActiveGroup = groups[0] || null;
+                vlRenderTabs(groups);
+                vlRenderGrid();
+            } catch (e) {
+                document.getElementById('vlGrid').innerHTML = '<div style="grid-column:1/-1;color:var(--muted);font-size:0.85rem;">⚠️ Không tải được danh mục video.</div>';
+            }
+        }
+
+        function vlRenderTabs(groups) {
+            var labelOf = {};
+            vlCatalog.forEach(function(v) { labelOf[v.group] = v.groupLabel; });
+            var html = groups.map(function(g) {
+                var active = g === vlActiveGroup;
+                return '<button data-group="' + esc(g) + '" style="padding:8px 18px;border:1.5px solid ' + (active ? '#0052CC' : 'var(--border)') + ';background:' + (active ? '#0052CC' : '#fff') + ';color:' + (active ? '#fff' : 'var(--muted)') + ';border-radius:9px;font-weight:700;cursor:pointer;font-size:0.82rem;">' + esc(labelOf[g] || g) + '</button>';
+            }).join('');
+            var tabsEl = document.getElementById('vlTabs');
+            tabsEl.innerHTML = html;
+            tabsEl.querySelectorAll('button[data-group]').forEach(function(btn) {
+                btn.onclick = function() {
+                    vlActiveGroup = btn.getAttribute('data-group');
+                    vlRenderTabs(groups);
+                    vlRenderGrid();
+                };
+            });
+        }
+
+        var SUBJECT_ICON = { word: '📄', excel: '📊', ppt: '📽️' };
+
+        function vlRenderGrid() {
+            var items = vlCatalog.filter(function(v) { return v.group === vlActiveGroup; });
+            var grid = document.getElementById('vlGrid');
+            if (!items.length) {
+                grid.innerHTML = '<div style="grid-column:1/-1;color:var(--muted);font-size:0.85rem;">Chưa có video nào.</div>';
+                return;
+            }
+            grid.innerHTML = items.map(function(v) {
+                return '<div style="border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;background:#F8FAFD;">'
+                    + '<div style="font-size:0.78rem;font-weight:800;color:#0052CC;">' + (SUBJECT_ICON[v.subject] || '🎬') + ' ' + esc(v.subjectLabel) + '</div>'
+                    + '<div style="font-size:0.86rem;font-weight:700;color:var(--text);line-height:1.35;min-height:38px;">' + esc(v.title) + '</div>'
+                    + '<button data-vid="' + esc(v.id) + '" data-vtitle="' + esc(v.title) + '" class="vl-play-btn" style="padding:9px 14px;background:linear-gradient(135deg,#FF5722,#ff784e);border:none;color:#fff;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.82rem;">▶ Xem video</button>'
+                    + '</div>';
+            }).join('');
+            grid.querySelectorAll('.vl-play-btn').forEach(function(btn) {
+                btn.onclick = function() {
+                    vlPlay({ id: btn.getAttribute('data-vid'), title: btn.getAttribute('data-vtitle') });
+                };
+            });
+        }
+
+        // ── PLAYER ─────────────────────────────────────────────────
+        function vlPlay(video) {
+            if (!vlLoggedIn) {
+                window._vlPendingPlay = video;
+                document.getElementById('vlLoginBox').style.display = 'block';
+                document.getElementById('vlLoginBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                toast('⚠️ Vui lòng đăng nhập để xem video này', 'error');
+                return;
+            }
+            vlCurrentVideoId = video.id;
+            vlHasRetriedOnce = false;
+            document.getElementById('vlPlayerTitle').textContent = video.title;
+            document.getElementById('vlPlayerMsg').style.display = 'none';
+            document.getElementById('vlPlayerModal').style.display = 'flex';
+            vlStartStream(true);
+        }
+
+        window.vlClosePlayer = function() {
+            document.getElementById('vlPlayerModal').style.display = 'none';
+            vlTeardownPlayer();
+            vlCurrentVideoId = null;
+        };
+
+        function vlTeardownPlayer() {
+            if (vlHls) { try { vlHls.destroy(); } catch (e) {} vlHls = null; }
+            var videoEl = document.getElementById('vlVideo');
+            if (videoEl) { videoEl.pause(); videoEl.removeAttribute('src'); videoEl.load(); }
+        }
+
+        // Trình duyệt đã đăng nhập sẽ luôn gửi kèm cookie phiên ở mỗi request
+        // stream (m3u8/ts) — server cho phép truy cập kể cả sau khi token hết
+        // hạn, miễn còn cookie hợp lệ. Nhờ vậy KHÔNG cần làm mới URL định kỳ,
+        // video phát liên tục dù dài bao lâu, không bị giật/gián đoạn.
+        // vlStartStream chỉ gọi lại (retryLoad=true) khi hls.js báo lỗi mạng
+        // thật sự (vd phiên đăng nhập 12h đã hết hạn) — và chỉ thử lại 1 lần,
+        // giữ nguyên vị trí đang xem.
+        async function vlStartStream(isFirstLoad, retryLoad) {
+            if (!vlCurrentVideoId) return;
+            var videoEl = document.getElementById('vlVideo');
+            var msgEl = document.getElementById('vlPlayerMsg');
+            var resumeAt = retryLoad ? videoEl.currentTime : 0;
+            var wasPlaying = retryLoad ? !videoEl.paused : true;
+
+            try {
+                var res = await fetch('/api/video-library/stream-token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: vlCurrentVideoId })
+                });
+                var data = await res.json();
+                if (!data.success) {
+                    if (data.needLogin) {
+                        vlLoggedIn = false;
+                        vlRefreshAuthBar();
+                        window.vlClosePlayer();
+                        document.getElementById('vlLoginBox').style.display = 'block';
+                        toast('⚠️ Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại', 'error');
+                    } else {
+                        msgEl.textContent = '⚠️ ' + (data.msg || 'Không tải được video');
+                        msgEl.style.display = 'block';
+                    }
+                    return;
+                }
+
+                if (vlHls) { try { vlHls.destroy(); } catch (e) {} vlHls = null; }
+
+                if (window.Hls && window.Hls.isSupported()) {
+                    vlHls = new window.Hls();
+                    vlHls.loadSource(data.url);
+                    vlHls.attachMedia(videoEl);
+                    vlHls.on(window.Hls.Events.MANIFEST_PARSED, function() {
+                        if (resumeAt > 0) videoEl.currentTime = resumeAt;
+                        if (wasPlaying) videoEl.play().catch(function(){});
+                    });
+                    vlHls.on(window.Hls.Events.ERROR, function(evt, dataErr) {
+                        if (!dataErr || !dataErr.fatal) return;
+                        // Chỉ thử lại đúng 1 lần cho mỗi lượt xem, tránh vòng lặp lỗi liên tục
+                        if (!vlHasRetriedOnce) {
+                            vlHasRetriedOnce = true;
+                            vlStartStream(false, true);
+                            return;
+                        }
+                        msgEl.textContent = '⚠️ Có lỗi khi phát video. Vui lòng tải lại trang và thử lại.';
+                        msgEl.style.display = 'block';
+                    });
+                } else if (videoEl.canPlayType('application/vnd.apple.mpegurl')) {
+                    // Safari hỗ trợ HLS gốc
+                    videoEl.src = data.url;
+                    videoEl.addEventListener('loadedmetadata', function onLoaded() {
+                        if (resumeAt > 0) videoEl.currentTime = resumeAt;
+                        if (wasPlaying) videoEl.play().catch(function(){});
+                        videoEl.removeEventListener('loadedmetadata', onLoaded);
+                    });
+                } else {
+                    msgEl.textContent = '⚠️ Trình duyệt của bạn không hỗ trợ phát video này.';
+                    msgEl.style.display = 'block';
+                    return;
+                }
+            } catch (e) {
+                msgEl.textContent = '⚠️ Lỗi kết nối máy chủ, vui lòng thử lại.';
+                msgEl.style.display = 'block';
+            }
+        }
     })();
     </script>
 `;
