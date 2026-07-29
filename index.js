@@ -1461,7 +1461,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
 .hn-lresult h4 { font-size:0.7rem; color:var(--muted); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
 .hn-lf { display:flex; gap:12px; align-items:baseline; margin-bottom:7px; }
 .hn-lf-key { font-size:0.78rem; color:var(--muted); min-width:96px; flex-shrink:0; }
-.hn-lf-val { font-size:0.88rem; font-weight:700; color:var(--text); }
+.hn-lf-val { font-size:0.88rem; font-weight:700; color:var(--text); white-space:pre-line; }
 .hn-lf-val.hl { color:var(--cyan); }
 .hn-lf-val.ok { color:#22c55e; }
 .hn-lnote { font-size:0.73rem; color:var(--muted); margin-top:12px; padding-top:11px; border-top:1px solid var(--border); line-height:1.55; }
@@ -1731,7 +1731,6 @@ ${promoSectionHtml}
         <a href="/generative-ai" class="hn-tool" style="border:1.5px solid rgba(0,82,204,0.3);background:rgba(0,82,204,0.03);"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.1)">✨</div><div><div class="hn-tool-name" style="color:var(--cyan)">Generative AI</div><div class="hn-tool-type">Chứng chỉ CCS AI Foundations</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/ai-productivity" class="hn-tool" style="border:1.5px solid rgba(0,104,255,0.3);background:rgba(0,104,255,0.03);"><div class="hn-tool-ico" style="background:rgba(0,104,255,0.1)">⚡</div><div><div class="hn-tool-name" style="color:#0068FF">AI Productivity</div><div class="hn-tool-type">Làm việc hiệu quả với AI</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="/progress" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📈</div><div><div class="hn-tool-name">Tiến độ học của tôi</div><div class="hn-tool-type">Theo dõi kết quả online</div></div><span class="hn-tool-arr">↗</span></a>
-        <a href="/library" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(100,116,139,0.1)">📚</div><div><div class="hn-tool-name">Kho MOS</div><div class="hn-tool-type">Tài liệu & flashcard</div></div><span class="hn-tool-arr">↗</span></a>
       </div>
     </div>
 
@@ -1753,6 +1752,7 @@ ${promoSectionHtml}
         <a href="${CONFIG.TOOLS.WINRAR}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(245,158,11,0.1)">🗜️</div><div><div class="hn-tool-name">WinRAR</div><div class="hn-tool-type">Giải nén file cài đặt</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.UNIKEY}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(34,197,94,0.1)">⌨️</div><div><div class="hn-tool-name">Unikey</div><div class="hn-tool-type">Bộ gõ tiếng Việt</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.TEAMVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(0,82,204,0.07)">🖥️</div><div><div class="hn-tool-name">TeamViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
+        <a href="/library" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(100,116,139,0.1)">📚</div><div><div class="hn-tool-name">Kho MOS</div><div class="hn-tool-type">Tài liệu & flashcard</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.ULTRAVIEWER}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(167,139,250,0.08)">📡</div><div><div class="hn-tool-name">UltraViewer</div><div class="hn-tool-type">Hỗ trợ từ xa</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.HD_MOS360}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(255,87,34,0.1)">📖</div><div><div class="hn-tool-name">Cài phần mềm MOS360</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
         <a href="${CONFIG.TOOLS.HD_OFFICE}" target="_blank" class="hn-tool"><div class="hn-tool-ico" style="background:rgba(249,115,22,0.1)">📖</div><div><div class="hn-tool-name">Cài Office 2019</div><div class="hn-tool-type">Hướng dẫn từng bước</div></div><span class="hn-tool-arr">↗</span></a>
