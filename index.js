@@ -2768,14 +2768,15 @@ async function hnDoLookup() {
       items.forEach(function(payload, idx) {
         if (items.length > 1) html += '<div style="font-size:0.75rem;font-weight:800;color:var(--cyan);margin:' + (idx>0?'14px':'0') + ' 0 8px;text-transform:uppercase">Môn ' + (idx+1) + '</div>';
         Object.keys(payload).forEach(function(k) {
-          var v = payload[k];
-          if (!v || k === 'Ghi chú admin' || k === '_rowIndex') return;
-          var isHL = highlight.some(function(h){ return k.includes(h); });
-          var valStyle = isHL ? 'color:var(--cyan);font-weight:800;font-size:0.95rem' : '';
-          html += '<div class="hn-lf" style="margin-bottom:8px">'
-               + '<span class="hn-lf-key">' + k + '</span>'
-               + '<span class="hn-lf-val" style="' + valStyle + '">' + v + '</span>'
-               + '</div>';
+            var v = payload[k];
+            if (!v || k === 'Ghi chú admin' || k === '_rowIndex') return;
+            var isHL = highlight.some(function(h){ return k.includes(h); });
+            var valStyle = isHL ? 'color:var(--cyan);font-weight:800;font-size:0.95rem' : '';
+            var vHtml = String(v).replace(/\r\n|\r|\n/g, '<br>');   // ← DÒNG MỚI THÊM
+            html += '<div class="hn-lf" style="margin-bottom:8px">'
+                + '<span class="hn-lf-key">' + k + '</span>'
+                + '<span class="hn-lf-val" style="' + valStyle + '">' + vHtml + '</span>'   // ← ĐỔI v THÀNH vHtml
+                + '</div>';
         });
         if (idx < items.length - 1) html += '<hr style="border:none;border-top:1px dashed var(--border);margin:10px 0">';
       });
