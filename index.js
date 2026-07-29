@@ -277,7 +277,7 @@ const CONFIG = {
     LICH_THI: {
         "Hải Phòng": [
             { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
-            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "01–02/08/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
         ],
@@ -300,7 +300,7 @@ const CONFIG = {
     LICH_THI: {
         "Hải Phòng": [
             { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", hanDK: "15/06/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "dang-mo" },
-            { dot: "Đợt 6/2026", ngayThi: "25–26/07/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
+            { dot: "Đợt 6/2026", ngayThi: "01–02/08/2026", hanDK: "13/07/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", hanDK: "10/08/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" },
             { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", hanDK: "16/09/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)", trangThai: "sap-mo" }
         ],
