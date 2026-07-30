@@ -2195,6 +2195,7 @@ ${mode !== 'home' ? `
           <label class="hn-label">Ngày muốn học <span class="req">*</span></label>
           <input class="hn-input" id="off_ngay" type="date">
         </div>
+        <div id="offSlotWarnBox" style="display:none; margin-bottom:16px; padding:12px 14px; background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.25); border-radius:10px; font-size:0.8rem; line-height:1.7;"></div>
         <div class="hn-field">
           <label class="hn-label">Chọn ca học <span class="req">*</span></label>
           <div class="hn-checkbox-group" style="flex-direction:column;gap:8px">
@@ -2439,7 +2440,44 @@ function toggleAcc(id) {
     if (el) el.classList.remove('open');
   });
   // Toggle clicked
-  if (!isOpen) acc.classList.add('open');
+  if (!isOpen) {
+    acc.classList.add('open');
+    if (id === 'off') loadOfflineSlotWarnings();
+  }
+}
+
+var _offSlotWarningsLoaded = false;
+async function loadOfflineSlotWarnings() {
+  if (_offSlotWarningsLoaded) return; // chỉ tải 1 lần/phiên xem trang
+  _offSlotWarningsLoaded = true;
+  var box = document.getElementById('offSlotWarnBox');
+  if (!box) return;
+  try {
+    var res = await fetch('${CONFIG.APPS_SCRIPT_LOOKUP}?action=lophoc');
+    var data = await res.json();
+    if (!data.ok) return;
+
+    var lines = [];
+    var CA_LABEL = {
+      'Ca 8-9h':'08h-09h','Ca 9-10h':'09h-10h','Ca 10-11h':'10h-11h',
+      'Ca 14-15h':'14h-15h','Ca 15-16h':'15h-16h','Ca 16-17h':'16h-17h'
+    };
+    (data.closedDays || []).forEach(function(c) {
+      lines.push('🔒 <strong>' + c.date + '</strong>: Trung tâm nghỉ' + (c.note && c.note.toLowerCase() !== 'trung tâm nghỉ' ? ' (' + c.note + ')' : ''));
+    });
+    (data.warnings || []).forEach(function(w) {
+      var icon = w.level === 'full' ? '⛔' : '🔥';
+      var text = w.level === 'full' ? 'đã đầy, vui lòng chọn ca khác' : 'sắp đầy chỗ';
+      lines.push(icon + ' <strong>' + w.date + '</strong>, ' + (CA_LABEL[w.ca] || w.ca) + ': ' + text);
+    });
+
+    if (lines.length) {
+      box.innerHTML = '<div style="font-weight:800;margin-bottom:6px;color:var(--text)">📌 Lưu ý lịch tuần này</div>' + lines.join('<br>');
+      box.style.display = 'block';
+    }
+  } catch (e) {
+    // Im lặng bỏ qua nếu lỗi mạng — không ảnh hưởng tới việc điền form
+  }
 }
 
 // Submit form → /api/register (Worker proxy: ghi Google Sheet + báo Telegram)
