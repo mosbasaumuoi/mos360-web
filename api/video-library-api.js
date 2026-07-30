@@ -3,9 +3,10 @@
 // ============================================================
 // Yêu cầu bảo mật:
 //   1. Học viên phải đăng nhập (Họ và Tên + SĐT) trước khi xem video.
-//      Tài khoản được đối chiếu với danh mục học viên đã được cấp mật
-//      khẩu MOS (KV: MOS360_USERS_KV, key "pwd_index:*" — đã có sẵn từ
-//      luồng cấp license Excel/Word/PPT).
+//      Tài khoản được đối chiếu với danh sách "DSVIP" trong Google Sheet
+//      đăng ký (qua Apps Script, action "vipCheck") — danh sách học viên
+//      được trung tâm chủ động cấp quyền xem thư viện, KHÔNG liên quan
+//      danh mục cấp mật khẩu phần mềm MOS (pwd_index:* trong KV).
 //   2. Đăng nhập thành công → server set 1 cookie HttpOnly đã ký (HMAC),
 //      hết hạn sau SESSION_TTL_MS. Cookie này KHÔNG chứa mật khẩu, chỉ
 //      chứa họ tên + số điện thoại đã chuẩn hoá + thời hạn.
@@ -27,6 +28,12 @@
 // không public repo công khai). Dùng để ký cookie phiên đăng nhập VÀ
 // token stream video.
 const VIDEO_SECRET = "M0s360V!d30Libr@ry_S3cr3t_2026#HP";
+
+// Apps Script (v9) bind vào file Sheet "MOS360_DANG_KY" — cùng URL đang
+// được api/register-api.js dùng để ghi DKHOC/DKTHI/DKOFFLINE. Endpoint
+// GET ?action=vipCheck đọc tab "DSVIP" và chỉ trả về true/false đã khớp
+// Họ và tên + SĐT hay chưa (không bao giờ trả cả danh sách DSVIP ra ngoài).
+const VIP_CHECK_URL = "https://script.google.com/macros/s/AKfycbweC3d-SKm29ltW6Y13hWqYuw8Q-4X23QEbF0AhQL_IfA2YiWYzVkIOyV4n-sxApEpcMA/exec";
 
 const SESSION_COOKIE_NAME = "mv_sess";
 const SESSION_TTL_MS = 12 * 60 * 60 * 1000;   // 12 giờ — thời gian đăng nhập còn hiệu lực
@@ -133,34 +140,30 @@ function normalizePhone(raw) {
     return p;
 }
 
-// ───────────────────────── Tra cứu học viên trong danh mục đã cấp mật khẩu ─
-// Quét toàn bộ "pwd_index:*" (đã tồn tại sẵn từ api/license-api.js), khớp
-// theo Họ tên + SĐT đã chuẩn hoá — không quan tâm hạn dùng/subject của
-// license, chỉ cần đã từng được cấp mật khẩu MOS là được xem video.
+// ───────────────────────── Tra cứu học viên trong danh sách DSVIP ─────────
+// TRƯỚC: quét toàn bộ "pwd_index:*" trong KV (danh mục học viên ĐÃ ĐƯỢC
+// CẤP MẬT KHẨU PHẦN MỀM MOS) — sai đối tượng, vì có mật khẩu MOS không
+// đồng nghĩa được xem thư viện video.
+// NAY: gọi sang Apps Script (tab "DSVIP" trong Sheet đăng ký), khớp CẢ Họ
+// và tên VÀ SĐT đã chuẩn hoá — đúng danh sách trung tâm chủ động cấp
+// quyền xem thư viện, không liên quan license phần mềm MOS.
 async function findLicensedStudent(env, inputName, inputPhone) {
     const normName = normalizeName(inputName);
     const normPhone = normalizePhone(inputPhone);
     if (!normName || !normPhone) return null;
 
-    let cursor;
-    let scanned = 0;
-    const MAX_SCAN = 20000; // an toàn, tránh quét vô hạn nếu KV quá lớn
-    while (scanned < MAX_SCAN) {
-        const listResult = await env.MOS360_USERS_KV.list({ prefix: "pwd_index:", limit: 1000, cursor });
-        for (const k of listResult.keys) {
-            const raw = await env.MOS360_USERS_KV.get(k.name);
-            if (!raw) continue;
-            let info;
-            try { info = JSON.parse(raw); } catch (e) { continue; }
-            if (normalizeName(info.studentName) === normName && normalizePhone(info.phone) === normPhone) {
-                return info;
-            }
+    try {
+        const url = `${VIP_CHECK_URL}?action=vipCheck&phone=${encodeURIComponent(normPhone)}&name=${encodeURIComponent(inputName.trim())}`;
+        const resp = await fetch(url);
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        if (data && data.ok && data.matched) {
+            return { studentName: data.hoTen || inputName.trim(), phone: normPhone };
         }
-        scanned += listResult.keys.length;
-        if (listResult.list_complete || !listResult.cursor) break;
-        cursor = listResult.cursor;
+        return null;
+    } catch (e) {
+        return null;
     }
-    return null;
 }
 
 // ───────────────────────── Cookie helpers ─────────────────────────
