@@ -3103,8 +3103,9 @@ async function hnDoConfirm() {
         <div style="background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px 24px; max-width:380px; width:100%;">
             <h3 style="margin-bottom:6px; font-size:1.05rem; color:var(--text);">Đăng ký <span id="mcChoiceCourse"></span></h3>
             <p style="color:var(--muted); font-size:0.82rem; margin-bottom:20px;">Chọn cách đăng ký phù hợp với bạn:</p>
-            <a id="mcChoiceLink" href="/register?open=hoc" style="display:block; text-align:center; padding:13px; margin-bottom:10px; border-radius:10px; background:linear-gradient(135deg,#FF5722,#ff784e); color:#fff; font-weight:800; text-decoration:none; font-size:0.9rem;">📝 Đăng ký thông tin qua link</a>
-            <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" style="display:block; text-align:center; padding:13px; border-radius:10px; background:linear-gradient(135deg,#0068FF,#00D4FF); color:#fff; font-weight:800; text-decoration:none; font-size:0.9rem;">💬 Chat Zalo trực tiếp</a>
+            <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" style="display:block; text-align:center; padding:13px; margin-bottom:10px; border-radius:10px; background:linear-gradient(135deg,#0068FF,#00D4FF); color:#fff; font-weight:800; text-decoration:none; font-size:0.9rem;">💬 Liên hệ trực tiếp qua Zalo</a>
+            <a id="mcChoiceLink" href="/register?open=hoc" style="display:block; text-align:center; padding:13px; border-radius:10px; background:linear-gradient(135deg,#FF5722,#ff784e); color:#fff; font-weight:800; text-decoration:none; font-size:0.9rem;">📝 Điền thông tin đăng ký</a>
+            <p style="font-size:0.72rem; color:var(--muted); margin-top:8px; text-align:center;">Trung tâm sẽ liên hệ lại ngay trong vòng 1 giờ</p>
             <button onclick="closeMosRegChoice()" style="width:100%; margin-top:14px; padding:10px; background:transparent; border:1px solid var(--border); border-radius:10px; color:var(--muted); cursor:pointer; font-size:0.85rem;">Đóng</button>
         </div>
     </div>
