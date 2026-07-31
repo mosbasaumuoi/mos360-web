@@ -24,6 +24,18 @@
 
 const SHEET_NAME = 'DSHVMOS360'; // Tên sheet tab
 
+// Google Sheets có thể tự động chuyển ô ngày tháng dạng text (VD "10/7/2026")
+// thành kiểu Date thật khi lưu — khi đó .getValues() trả về object Date,
+// String(dateObj) sẽ ra "Fri Jul 10 2026 00:00:00 GMT+0700 (Indochina Time)"
+// thay vì "10/7/2026". Hàm này LUÔN ép về đúng định dạng dd/MM/yyyy dù ô là
+// Date object hay text thường, để web hiển thị nhất quán.
+function fmtDateCell(val) {
+  if (Object.prototype.toString.call(val) === '[object Date]' && !isNaN(val)) {
+    return Utilities.formatDate(val, Session.getScriptTimeZone() || 'GMT+7', 'dd/MM/yyyy');
+  }
+  return String(val || '').trim();
+}
+
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
@@ -140,8 +152,8 @@ function listStudents() {
     students.push({
       course: course,
       phone: phone,
-      date: String(rows[i][2] || '').trim(),
-      expire: String(rows[i][3] || '').trim(),
+      date: fmtDateCell(rows[i][2]),
+      expire: fmtDateCell(rows[i][3]),
       name: String(rows[i][4] || '').trim(),
       school: String(rows[i][5] || '').trim(),
       classInfo: String(rows[i][6] || '').trim(),

@@ -291,23 +291,10 @@ function parseExpire(str) {
     if (!str) return null;
     str = str.trim();
     var parts = str.includes('/') ? str.split('/') : str.split('-');
-    if (parts.length >= 3) {
-        var y = parseInt(parts[2]); if (y < 100) y += 2000;
-        var d = str.includes('/')
-            ? new Date(y, parseInt(parts[1]) - 1, parseInt(parts[0]), 23, 59, 59)
-            : new Date(y, parseInt(parts[1]) - 1, parseInt(parts[2]), 23, 59, 59);
-        if (!isNaN(d.getTime())) return d;
-    }
-    // Fallback: đôi khi Google Sheets tự động chuyển ô "Hết hạn" thành kiểu Date
-    // thật, khiến Apps Script trả về chuỗi dạng "Wed Sep 30 2026 00:00:00
-    // GMT+0700 (Indochina Time)" thay vì "30/09/2026" — dùng Date() gốc của JS
-    // để vẫn parse được, tránh rơi vào 'unknown' và bị bỏ sót khỏi thống kê.
-    var fallback = new Date(str);
-    if (!isNaN(fallback.getTime())) {
-        fallback.setHours(23, 59, 59, 0);
-        return fallback;
-    }
-    return null;
+    if (parts.length < 3) return null;
+    var y = parseInt(parts[2]); if (y < 100) y += 2000;
+    if (str.includes('/')) return new Date(y, parseInt(parts[1])-1, parseInt(parts[0]), 23,59,59);
+    return new Date(y, parseInt(parts[1])-1, parseInt(parts[2]), 23,59,59);
 }
 
 function getStatus(expireStr) {
