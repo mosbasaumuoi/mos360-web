@@ -2150,6 +2150,13 @@ ${mode !== 'home' ? `
           </select>
         </div>
         <div class="hn-field">
+          <label class="hn-label">Ngôn ngữ đề <span class="req">*</span></label>
+          <select class="hn-select" id="thi_ngonngu">
+            <option value="TV">Tiếng Việt (TV)</option>
+            <option value="TA">Tiếng Anh (TA)</option>
+          </select>
+        </div>
+        <div class="hn-field">
           <label class="hn-label">Đăng ký thi môn <span class="req">*</span> <span style="font-weight:400;color:var(--muted)">(SV VMU bắt buộc Word + Excel)</span></label>
           <div class="hn-checkbox-group">
             <label class="hn-checkbox-item"><input type="checkbox" id="thi_word" checked onchange="calcLePhi()"><span>📄 Word (W)</span></label>
@@ -2644,7 +2651,7 @@ async function submitForm(type) {
       lePhi: lichDot.lephi || 0,
       word: word, excel: excel, ppt: ppt,
       phienBan: document.getElementById('thi_phienban').value,
-      ngonngu: 'V',
+      ngonngu: document.getElementById('thi_ngonngu').value,
       datungThi: document.getElementById('thi_datungThi').value
     });
   }
