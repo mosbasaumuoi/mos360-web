@@ -1913,7 +1913,7 @@ ${mode !== 'home' ? `
             <label class="hn-label">Biết đến MOS360 qua</label>
             <select class="hn-select" id="hoc_kenh">
               <option value="">-- Chọn kênh --</option>
-              <option>Facebook</option><option>TikTok</option><option>YouTube</option>
+              <option>Facebook</option><option>TikTok</option><option>YouTube</option><option>Tìm kiếm Google</option>
               <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
             </select>
           </div>
@@ -2015,7 +2015,7 @@ ${mode !== 'home' ? `
             <label class="hn-label">Biết đến MOS360 qua</label>
             <select class="hn-select" id="onl_kenh">
               <option value="">-- Chọn kênh --</option>
-              <option>Facebook</option><option>TikTok</option><option>YouTube</option>
+              <option>Facebook</option><option>TikTok</option><option>YouTube</option><option>Tìm kiếm Google</option>
               <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
             </select>
           </div>
@@ -2574,13 +2574,20 @@ async function submitForm(type) {
     btn.disabled = true;
     btn.innerHTML = '<span>⏳ Đang gửi...</span>';
     try {
-      var results = await Promise.all(khoahoc.map(function(c) {
-        return fetch('/api/online-register', {
+      // Gửi TUẦN TỰ từng khóa học (không dùng Promise.all bắn đồng thời) để
+      // tránh nhiều request cùng lúc ghi vào chung 1 Google Sheet qua Apps
+      // Script — Apps Script không tự khóa (lock) giữa các lượt gọi đồng
+      // thời, nên request chạy song song dễ đọc trùng "dòng cuối" và ghi
+      // đè lên nhau, khiến một số khóa học không thực sự được lưu vào Sheet.
+      var results = [];
+      for (var ci = 0; ci < khoahoc.length; ci++) {
+        var r = await fetch('/api/online-register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.assign({ course: c }, extra))
-        }).then(function(r) { return r.json(); });
-      }));
+          body: JSON.stringify(Object.assign({ course: khoahoc[ci] }, extra))
+        }).then(function(resp) { return resp.json(); });
+        results.push(r);
+      }
       var allOk = results.every(function(r) { return r.success; });
       if (allOk) {
         showMsg(msgEl, 'ok', '✅ Đã gửi đăng ký! MOS360 sẽ liên hệ lại trong vòng 1 giờ.');
