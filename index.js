@@ -1128,8 +1128,8 @@ export default {
                 <button class="nav-drop-btn" style="color:#B8860B;">⚙️ QUẢN TRỊ</button>
                 <div class="nav-drop-menu">
                     <a href="/admin-dashboard">📊 Dashboard</a>
-                    <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank">👥 Quản lý học viên</a>
-                    <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank">📋 Dữ liệu đăng ký</a>
+                    <a href="${CONFIG.SHEET_EDIT_URL}" target="_blank">👥 Quản lý học viên Online</a>
+                    <a href="${CONFIG.SHEET_TONGHOP_URL}" target="_blank">📚 Quản lý học viên MOS</a>
                 </div>
             </div>
             

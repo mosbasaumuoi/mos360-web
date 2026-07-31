@@ -325,16 +325,50 @@ export async function handleVideoStream(path, request, env) {
     }
 
     const r2Key = `${payload.p}/${filename}`;
-    const object = await env.MOS360_VIDEOS_R2.get(r2Key);
+
+    // Trước đây header quảng cáo "Accept-Ranges: bytes" nhưng luôn trả về
+    // TOÀN BỘ file (status 200), bỏ qua header Range trình duyệt gửi lên.
+    // hls.js (desktop/Android Chrome) thường vẫn "bỏ qua" được, nhưng HLS
+    // gốc trên Safari/iOS rất khắt khe với việc này → gây phát 1 đoạn rồi
+    // dừng, hoặc bị coi là live (không tua được). Nay parse Range thật và
+    // trả 206 Partial Content đúng chuẩn khi có yêu cầu.
+    const rangeHeader = request.headers.get("Range") || request.headers.get("range");
+    let r2Range;
+    let requestedRange = null;
+    if (rangeHeader) {
+        const m = /^bytes=(\d+)-(\d*)$/.exec(rangeHeader.trim());
+        if (m) {
+            const start = parseInt(m[1], 10);
+            const end = m[2] ? parseInt(m[2], 10) : undefined;
+            r2Range = end !== undefined ? { offset: start, length: end - start + 1 } : { offset: start };
+            requestedRange = { start, end };
+        }
+    }
+
+    const object = r2Range
+        ? await env.MOS360_VIDEOS_R2.get(r2Key, { range: r2Range })
+        : await env.MOS360_VIDEOS_R2.get(r2Key);
     if (!object) return new Response("Không tìm thấy file", { status: 404 });
 
     const isPlaylist = filename.endsWith(".m3u8");
     const headers = new Headers();
     headers.set("Content-Type", isPlaylist ? "application/vnd.apple.mpegurl" : "video/mp2t");
     headers.set("Cache-Control", "no-store");
-    // Cho phép trình duyệt seek/tải theo range (đặc biệt hữu ích cho .ts segment)
     headers.set("Accept-Ranges", "bytes");
     if (object.httpEtag) headers.set("ETag", object.httpEtag);
 
+    const totalSize = object.size; // R2Object.size = kích thước TOÀN BỘ file (kể cả khi get theo range)
+
+    if (object.range) {
+        // R2 đã trả đúng đoạn được yêu cầu — object.range = {offset, length}
+        const start = object.range.offset;
+        const length = object.range.length;
+        const end = start + length - 1;
+        headers.set("Content-Range", `bytes ${start}-${end}/${totalSize}`);
+        headers.set("Content-Length", String(length));
+        return new Response(object.body, { status: 206, headers });
+    }
+
+    headers.set("Content-Length", String(totalSize));
     return new Response(object.body, { status: 200, headers });
 }
