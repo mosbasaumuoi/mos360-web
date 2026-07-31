@@ -32,25 +32,16 @@ export async function handleAdminAPI(path, request, env) {
     }
 
     // GET /api/admin/students — lấy danh sách học viên
+    // Đọc TRỰC TIẾP qua Apps Script (action "list") — luôn là dữ liệu mới
+    // nhất trong sheet tại thời điểm gọi. TRƯỚC ĐÂY đọc qua link
+    // "Publish to web" (CONFIG.STUDENT_SHEET_URL) — bị Google cache riêng
+    // và có thể không tự xuất bản lại, khiến sửa trong Sheet không thấy
+    // đồng bộ ngay trên Dashboard.
     if (path === '/api/admin/students') {
         try {
-            const resp = await fetch(CONFIG.STUDENT_SHEET_URL + '&v=' + Date.now());
-            const tsv = await resp.text();
-            const rows = tsv.split('\n').slice(1);
-            const students = [];
-            rows.forEach(row => {
-                const cols = row.split('\t');
-                if (cols.length < 2) return;
-                const course = (cols[0] || '').replace(/\r/g, '').trim();
-                const phone = (cols[1] || '').replace(/\r/g, '').trim();
-                const date = (cols[2] || '').replace(/\r/g, '').trim();
-                const expire = (cols[3] || '').replace(/\r/g, '').trim();
-                // Cột E — Họ tên (thêm khi học viên tự đăng ký học Online qua web;
-                // học viên đã có từ trước do admin nhập tay có thể để trống).
-                const name = (cols[4] || '').replace(/\r/g, '').trim();
-                if (course && phone) students.push({ course, phone, date, expire, name });
-            });
-            return json({ success: true, students });
+            const result = await callAppsScript('list', {}, env);
+            if (!result.success) return json({ success: false, msg: result.msg || 'Lỗi tải dữ liệu học viên' });
+            return json({ success: true, students: result.students || [] });
         } catch (e) {
             return json({ success: false, msg: 'Lỗi tải sheet: ' + e.message });
         }
@@ -89,6 +80,29 @@ export async function handleAdminAPI(path, request, env) {
         try {
             const body = await request.json();
             const result = await callAppsScript('renew', body, env);
+            return json(result);
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // POST /api/admin/update-student — sửa thông tin học viên (Họ tên, SĐT,
+    // Khóa học, Trường, Lớp, Kênh, Ghi chú, Ngày ĐK, Hết hạn)
+    if (path === '/api/admin/update-student' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const result = await callAppsScript('update', body, env);
+            return json(result);
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // POST /api/admin/delete-student — xóa 1 học viên khỏi sheet
+    if (path === '/api/admin/delete-student' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const result = await callAppsScript('delete', body, env);
             return json(result);
         } catch (e) {
             return json({ success: false, msg: e.message });

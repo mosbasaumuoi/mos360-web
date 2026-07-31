@@ -209,6 +209,67 @@ export function getAdminDashboardUI() {
             </div>
         </div>
     </div>
+    <!-- Modal Sửa thông tin -->
+    <div id="editModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:#111422; border:1px solid #384260; border-radius:16px; padding:28px; width:100%; max-width:480px; max-height:90vh; overflow-y:auto;">
+            <h3 style="color:#fff; margin-bottom:6px; font-size:1.2rem;">✏️ Sửa thông tin học viên</h3>
+            <p style="color:#64748b; font-size:0.8rem; margin-bottom:18px;">Sửa xong bấm Lưu — dữ liệu cập nhật thẳng vào Google Sheet.</p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">HỌ TÊN</label>
+                    <input type="text" id="editName" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">SỐ ĐIỆN THOẠI</label>
+                        <input type="text" id="editPhone" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">KHÓA HỌC</label>
+                        <select id="editCourse" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                            <option>MOS WORD 2019</option><option>MOS EXCEL 2019</option><option>MOS PPT 2019</option>
+                            <option>MOS WORD 365</option><option>MOS EXCEL 365</option><option>MOS PPT 365</option>
+                            <option>IC3 GS6</option><option>GENERATIVE AI</option><option>AI PRODUCTIVITY</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">TRƯỜNG</label>
+                        <input type="text" id="editSchool" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">LỚP / KHOA</label>
+                        <input type="text" id="editClassInfo" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">KÊNH BIẾT ĐẾN</label>
+                    <input type="text" id="editChannel" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">GHI CHÚ</label>
+                    <textarea id="editNote" rows="2" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box; resize:vertical;"></textarea>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">NGÀY ĐĂNG KÝ</label>
+                        <input type="text" id="editDate" placeholder="dd/mm/yyyy" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">HẾT HẠN <span style="font-weight:400;">(để trống = Chờ duyệt)</span></label>
+                        <input type="text" id="editExpire" placeholder="dd/mm/yyyy" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="editOldPhone">
+            <input type="hidden" id="editOldCourse">
+            <div style="display:flex; gap:10px; margin-top:22px;">
+                <button onclick="submitEdit()" style="flex:1; padding:12px; background:linear-gradient(135deg,#00b8d4,#00f2ff); border:none; color:#0a0f2e; border-radius:8px; font-weight:800; cursor:pointer;">💾 LƯU THAY ĐỔI</button>
+                <button onclick="document.getElementById('editModal').style.display='none'" style="flex:1; padding:12px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer;">HỦY</button>
+            </div>
+        </div>
+    </div>
     </div><!-- end tabStudents -->
 
 </div>
@@ -313,7 +374,9 @@ function renderTable(students) {
             '<td style="padding:12px 16px;">' +
                 '<div style="display:flex; gap:6px; flex-wrap:wrap;">' +
                 '<button onclick="openRenewModal(' + JSON.stringify(s).replace(/"/g,"&quot;") + ',' + i + ')" style="padding:5px 10px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3); color:#22c55e; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">🔄 Gia hạn</button>' +
+                '<button onclick="openEditModal(' + JSON.stringify(s).replace(/"/g,"&quot;") + ')" style="padding:5px 10px; background:rgba(0,242,255,0.1); border:1px solid rgba(0,242,255,0.3); color:#00f2ff; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">✏️ Sửa</button>' +
                 '<button onclick="resetDevices(&quot;' + s.phone + '&quot;,&quot;' + s.course + '&quot;)" style="padding:5px 10px; background:rgba(255,87,34,0.1); border:1px solid rgba(255,87,34,0.3); color:#FF5722; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">📱 Reset TB</button>' +
+                '<button onclick="confirmDeleteStudent(' + JSON.stringify(s).replace(/"/g,"&quot;") + ')" style="padding:5px 10px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#ef4444; border-radius:6px; font-size:0.75rem; font-weight:700; cursor:pointer;">🗑️ Xóa</button>' +
                 '</div>' +
             '</td>' +
         '</tr>';
@@ -369,6 +432,65 @@ async function submitRenew() {
             document.getElementById('renewModal').style.display = 'none';
             loadDashboard();
         } else { alert('❌ Lỗi: ' + data.msg); }
+    } catch(e) { alert('Lỗi kết nối!'); }
+}
+
+function openEditModal(student) {
+    document.getElementById('editOldPhone').value = student.phone || '';
+    document.getElementById('editOldCourse').value = student.course || '';
+    document.getElementById('editName').value = student.name || '';
+    document.getElementById('editPhone').value = student.phone || '';
+    document.getElementById('editCourse').value = student.course || '';
+    document.getElementById('editSchool').value = student.school || '';
+    document.getElementById('editClassInfo').value = student.classInfo || '';
+    document.getElementById('editChannel').value = student.channel || '';
+    document.getElementById('editNote').value = student.note || '';
+    document.getElementById('editDate').value = student.date || '';
+    document.getElementById('editExpire').value = student.expire || '';
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+async function submitEdit() {
+    var payload = {
+        oldPhone: document.getElementById('editOldPhone').value,
+        oldCourse: document.getElementById('editOldCourse').value,
+        name: document.getElementById('editName').value.trim(),
+        phone: document.getElementById('editPhone').value.trim(),
+        course: document.getElementById('editCourse').value,
+        school: document.getElementById('editSchool').value.trim(),
+        classInfo: document.getElementById('editClassInfo').value.trim(),
+        channel: document.getElementById('editChannel').value.trim(),
+        note: document.getElementById('editNote').value.trim(),
+        date: document.getElementById('editDate').value.trim(),
+        expire: document.getElementById('editExpire').value.trim()
+    };
+    if (!payload.phone || !payload.course) { alert('Vui lòng nhập đủ SĐT và Khóa học!'); return; }
+    try {
+        var res = await adminFetch('/api/admin/update-student', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        var data = await res.json();
+        if (data.success) {
+            alert('✅ Đã lưu thay đổi!');
+            document.getElementById('editModal').style.display = 'none';
+            loadDashboard();
+        } else { alert('❌ Lỗi: ' + data.msg); }
+    } catch(e) { alert('Lỗi kết nối!'); }
+}
+
+async function confirmDeleteStudent(student) {
+    if (!confirm('Xóa học viên "' + (student.name || student.phone) + '" — ' + student.course + '?\nHành động này KHÔNG thể hoàn tác.')) return;
+    try {
+        var res = await adminFetch('/api/admin/delete-student', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone: student.phone, course: student.course })
+        });
+        var data = await res.json();
+        if (data.success) { alert('✅ Đã xóa học viên!'); loadDashboard(); }
+        else { alert('❌ Lỗi: ' + data.msg); }
     } catch(e) { alert('Lỗi kết nối!'); }
 }
 

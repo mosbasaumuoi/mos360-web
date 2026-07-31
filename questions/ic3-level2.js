@@ -90,7 +90,7 @@ export const IC3_LEVEL2 = [
       "Email cho đồng nghiệp",
       "Gọi điện cho đồng nghiệp"
     ],
-    answer: "Email cho đồng nghiệp",
+    answer: "Gọi điện cho đồng nghiệp",
     explanation: "Tin nhắn tức thời (Instant Messaging) là phương thức giao tiếp thời gian thực, đòi hỏi sự có mặt trực tuyến. Khi trạng thái đối phương là Không khả dụng (Unavailable), việc gửi Email là giải pháp tối ưu vì đây là hình thức giao tiếp không đồng bộ, giúp họ có thể đọc và trả lời bất cứ khi nào quay lại làm việc."
   },
   {
