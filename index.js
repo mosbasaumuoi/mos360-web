@@ -1139,6 +1139,8 @@ export default {
 
     <nav style="background:#E2ECFA; padding:10px 5%; font-size:0.8rem; border-bottom:1px solid var(--border); display:flex; gap:6px; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; align-items:center; flex-wrap:wrap;">
         <span style="color:var(--muted); font-weight:800; font-size:0.72rem; letter-spacing:0.3px;">🎯 HỌC THỬ:</span>
+        <button onclick="openVideoModal('https://www.youtube.com/watch?v=rmXrwT0Iu8U')" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem; cursor:pointer; font-family:inherit;">📘 MOS 2019</button>
+        <button onclick="openVideoModal('https://www.youtube.com/watch?v=rmXrwT0Iu8U')" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem; cursor:pointer; font-family:inherit;">📘 MOS 365</button>
         <a href="/generative-ai" style="color:#0052CC; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">✨ Generative AI</a>
         <a href="/ai-productivity" style="color:#0068FF; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">⚡ AI Productivity</a>
         <a href="/ic3-lv1" style="color:#16a34a; text-decoration:none; font-weight:700; background:#fff; padding:4px 12px; border-radius:20px; border:1px solid #CFD8EA; font-size:0.78rem;">🟢 IC3 Level 1</a>
