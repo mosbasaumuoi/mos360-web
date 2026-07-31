@@ -14,7 +14,7 @@ export function getLicenseTabHTML() {
       <div style="background:#111422;border:1px solid rgba(245,158,11,0.3);border-radius:16px;padding:24px;margin-bottom:20px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
           <h2 style="font-size:1.05rem;font-weight:800;color:#fff;">🕐 Yêu cầu đang chờ duyệt <span id="pendingCount" style="color:#f59e0b;">(0)</span></h2>
-          <button onclick="loadPendingRequests()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
+          <button id="btnRefreshPending" onclick="refreshPendingBtn()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
         </div>
         <p style="font-size:0.78rem;color:#64748b;margin-bottom:16px;">Học viên tự gửi qua trang <code style="color:#00f2ff">mos360.vn/cap-mat-khau</code>. Đối chiếu đã thanh toán trước khi bấm Duyệt.</p>
         <div id="pendingList"><div style="color:#64748b;text-align:center;padding:24px;font-size:0.85rem">Đang tải...</div></div>
@@ -109,7 +109,7 @@ export function getLicenseTabHTML() {
 
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
             <h2 style="font-size:0.95rem;font-weight:800;color:#fff">📜 Đã cấp gần đây</h2>
-            <button onclick="loadLicenseList()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
+            <button id="btnRefreshLicenseList" onclick="refreshLicenseListBtn()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
           </div>
           <div id="licHistoryList" style="overflow-y:auto;flex:1">
             <div style="color:#64748b;text-align:center;padding:30px;font-size:0.85rem">Đang tải...</div>
@@ -153,7 +153,9 @@ async function computeLicense() {
         lastLicenseResults = { studentName, phone, mac: data.mac, results: data.results };
         renderLicenseResult(data.results, null);
         highlightSendButton(null);  // reset — cấp thủ công không có kênh ưu tiên
-        loadLicenseList();
+        // Chèn ngay vào danh sách thay vì gọi lại loadLicenseList() — KV có
+        // độ trễ đồng bộ, gọi lại ngay có thể "ghi đè" mất item vừa cấp.
+        prependHistoryItems(studentName, phone, data.results);
     } catch (e) {
         alert('❌ Lỗi kết nối: ' + e.message);
     } finally {
@@ -190,6 +192,24 @@ function renderLicenseResult(results, channelInfo) {
 }
 
 // ── DUYỆT YÊU CẦU TỪ HÀNG CHỜ ───────────────────────────
+async function refreshPendingBtn() {
+    var btn = document.getElementById('btnRefreshPending');
+    if (!btn) return loadPendingRequests();
+    btn.disabled = true; var orig = btn.innerHTML; btn.innerHTML = '⏳';
+    try { await loadPendingRequests(); } finally {
+        btn.innerHTML = '✅'; setTimeout(function() { btn.innerHTML = orig; btn.disabled = false; }, 700);
+    }
+}
+
+async function refreshLicenseListBtn() {
+    var btn = document.getElementById('btnRefreshLicenseList');
+    if (!btn) return loadLicenseList();
+    btn.disabled = true; var orig = btn.innerHTML; btn.innerHTML = '⏳';
+    try { await loadLicenseList(); } finally {
+        btn.innerHTML = '✅'; setTimeout(function() { btn.innerHTML = orig; btn.disabled = false; }, 700);
+    }
+}
+
 async function loadPendingRequests() {
     var box = document.getElementById('pendingList');
     var countEl = document.getElementById('pendingCount');
@@ -294,7 +314,9 @@ async function approveRequest(key, btnEl) {
             highlightSendButton(data.emailSent ? null : data.receiveChannel);
         }, 150);
         loadPendingRequests();
-        loadLicenseList();
+        // Chèn ngay thay vì gọi lại loadLicenseList() — tránh KV list còn
+        // trễ ghi đè mất item vừa duyệt.
+        prependHistoryItems(data.studentName, data.phone, data.results);
     } catch (e) {
         alert('❌ Lỗi kết nối: ' + e.message);
         if (btnEl) { btnEl.disabled = false; btnEl.textContent = '✅ Duyệt'; }
@@ -468,6 +490,50 @@ function formatExpire(yyyymmdd) {
     return yyyymmdd.slice(6,8) + '/' + yyyymmdd.slice(4,6) + '/' + yyyymmdd.slice(0,4);
 }
 
+function renderHistoryItem(h, itemId) {
+    var dateStr = new Date(h.issuedAt).toLocaleString('vi-VN');
+    var expireStr = h.expireDate ? h.expireDate.slice(0,4) + '-' + h.expireDate.slice(4,6) + '-' + h.expireDate.slice(6) : '';
+    var isExpired = expireStr && expireStr < new Date().toISOString().slice(0,10);
+    return '<div id="' + itemId + '" style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
+        '<div style="display:flex;justify-content:space-between;align-items:start;gap:8px">' +
+        '<div style="flex:1;min-width:0">' +
+        '<div style="font-weight:700;color:#fff;font-size:0.85rem">' + (h.studentName || 'Không tên') + '</div>' +
+        '<div style="color:#64748b;font-size:0.75rem;margin:4px 0">' + (h.phone || '') + ' · ' +
+        '<span style="background:rgba(0,242,255,0.1);color:#00f2ff;padding:2px 8px;border-radius:10px;font-size:0.7rem;font-weight:700">' + SUBJECT_LABEL_VI[h.subject] + '</span> · ' +
+        '<code style="color:#22c55e">' + h.password + '</code></div>' +
+        '<div style="font-size:0.7rem;color:' + (isExpired ? '#ef4444' : '#475569') + '">' +
+        (isExpired ? '⚠️ Đã hết hạn' : '⏱ Hạn') + ': ' + (expireStr || '—') + ' · Cấp: ' + dateStr + '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:6px;flex-shrink:0">' +
+        '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
+        'onclick="renewLicense(this.dataset.pwd,this.dataset.name)" ' +
+        'style="padding:5px 10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🔄 Gia hạn</button>' +
+        '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
+        'onclick="revokeLicense(this.dataset.pwd,this.dataset.name)" ' +
+        'style="padding:5px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🗑 Xoá</button>' +
+        '</div></div></div>';
+}
+
+// Cloudflare KV là kho lưu trữ "eventually consistent" — ghi (put) xong,
+// đọc lại (list) ở nơi khác có thể mất 30-60s mới thấy dữ liệu mới nhất.
+// Vì vậy KHÔNG chờ gọi lại loadLicenseList() để hiện mật khẩu vừa cấp —
+// tự chèn NGAY vào đầu danh sách "Đã cấp gần đây" trên giao diện, không
+// phụ thuộc độ trễ đồng bộ của KV. loadLicenseList() vẫn được gọi song
+// song để dữ liệu tự "chuẩn hoá" lại khi KV đã đồng bộ xong.
+function prependHistoryItems(studentName, phone, results) {
+    var box = document.getElementById('licHistoryList');
+    if (!box) return;
+    if (/Chưa có mật khẩu|Đang tải|Lỗi tải danh sách/.test(box.textContent)) box.innerHTML = '';
+    var now = new Date().toISOString();
+    var html = results.map(function(r, i) {
+        return renderHistoryItem({
+            studentName: studentName, phone: phone, subject: r.subject,
+            password: r.password, expireDate: r.expireDate, issuedAt: now
+        }, 'lic-new-' + r.password);
+    }).join('');
+    box.insertAdjacentHTML('afterbegin', html);
+}
+
 async function loadLicenseList() {
     var box = document.getElementById('licHistoryList');
     try {
@@ -478,28 +544,7 @@ async function loadLicenseList() {
             return;
         }
         box.innerHTML = data.items.map(function(h, i) {
-            var dateStr = new Date(h.issuedAt).toLocaleString('vi-VN');
-            var expireStr = h.expireDate ? h.expireDate.slice(0,4) + '-' + h.expireDate.slice(4,6) + '-' + h.expireDate.slice(6) : '';
-            var isExpired = expireStr && expireStr < new Date().toISOString().slice(0,10);
-            var itemId = 'lic-item-' + i;
-            return '<div id="' + itemId + '" style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)">' +
-                '<div style="display:flex;justify-content:space-between;align-items:start;gap:8px">' +
-                '<div style="flex:1;min-width:0">' +
-                '<div style="font-weight:700;color:#fff;font-size:0.85rem">' + (h.studentName || 'Không tên') + '</div>' +
-                '<div style="color:#64748b;font-size:0.75rem;margin:4px 0">' + (h.phone || '') + ' · ' +
-                '<span style="background:rgba(0,242,255,0.1);color:#00f2ff;padding:2px 8px;border-radius:10px;font-size:0.7rem;font-weight:700">' + SUBJECT_LABEL_VI[h.subject] + '</span> · ' +
-                '<code style="color:#22c55e">' + h.password + '</code></div>' +
-                '<div style="font-size:0.7rem;color:' + (isExpired ? '#ef4444' : '#475569') + '">' +
-                (isExpired ? '⚠️ Đã hết hạn' : '⏱ Hạn') + ': ' + (expireStr || '—') + ' · Cấp: ' + dateStr + '</div>' +
-                '</div>' +
-                '<div style="display:flex;gap:6px;flex-shrink:0">' +
-                '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
-                'onclick="renewLicense(this.dataset.pwd,this.dataset.name)" ' +
-                'style="padding:5px 10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🔄 Gia hạn</button>' +
-                '<button data-pwd="' + h.password + '" data-name="' + (h.studentName||'').replace(/"/g,'') + '" ' +
-                'onclick="revokeLicense(this.dataset.pwd,this.dataset.name)" ' +
-                'style="padding:5px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.72rem;font-weight:700;cursor:pointer;white-space:nowrap">🗑 Xoá</button>' +
-                '</div></div></div>';
+            return renderHistoryItem(h, 'lic-item-' + i);
         }).join('');
     } catch (e) {
         box.innerHTML = '<div style="color:#ef4444;text-align:center;padding:20px;font-size:0.85rem">Lỗi tải danh sách</div>';
