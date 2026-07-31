@@ -481,7 +481,7 @@ async function submitEdit() {
 }
 
 async function confirmDeleteStudent(student) {
-    if (!confirm('Xóa học viên "' + (student.name || student.phone) + '" — ' + student.course + '?\nHành động này KHÔNG thể hoàn tác.')) return;
+    if (!confirm('Xóa học viên "' + (student.name || student.phone) + '" — ' + student.course + '?\\nHành động này KHÔNG thể hoàn tác.')) return;
     try {
         var res = await adminFetch('/api/admin/delete-student', {
             method: 'POST',
