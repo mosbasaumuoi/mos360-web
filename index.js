@@ -1913,7 +1913,7 @@ ${mode !== 'home' ? `
             <label class="hn-label">Biết đến MOS360 qua</label>
             <select class="hn-select" id="hoc_kenh">
               <option value="">-- Chọn kênh --</option>
-              <option>Facebook</option><option>TikTok</option><option>YouTube</option>
+              <option>Facebook</option><option>TikTok</option><option>YouTube</option><option>Tìm kiếm Google</option>
               <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
             </select>
           </div>
@@ -2015,7 +2015,7 @@ ${mode !== 'home' ? `
             <label class="hn-label">Biết đến MOS360 qua</label>
             <select class="hn-select" id="onl_kenh">
               <option value="">-- Chọn kênh --</option>
-              <option>Facebook</option><option>TikTok</option><option>YouTube</option>
+              <option>Facebook</option><option>TikTok</option><option>YouTube</option><option>Tìm kiếm Google</option>
               <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
             </select>
           </div>
@@ -2562,13 +2562,18 @@ async function submitForm(type) {
     if (!khoahoc.length) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 khóa học'); return; }
 
     var magg = document.getElementById('onl_magg').value.trim();
+    var fb = document.getElementById('onl_fb').value.trim();
+    var gioithieu = document.getElementById('onl_gioithieu').value.trim();
     var ghichu = document.getElementById('onl_ghichu').value.trim();
     var extra = {
       name: ten, phone: sdt,
       school: document.getElementById('onl_truong').value,
       classInfo: [document.getElementById('onl_namhoc').value, document.getElementById('onl_khoa').value].filter(Boolean).join(' - '),
       channel: document.getElementById('onl_kenh').value,
-      note: [magg ? ('Mã giảm giá: ' + magg) : '', ghichu].filter(Boolean).join('. ')
+      promoCode: magg,
+      facebook: fb,
+      referrer: gioithieu,
+      note: ghichu
     };
 
     btn.disabled = true;

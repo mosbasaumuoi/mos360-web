@@ -247,6 +247,20 @@ export function getAdminDashboardUI() {
                     <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">KÊNH BIẾT ĐẾN</label>
                     <input type="text" id="editChannel" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
                 </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">MÃ GIẢM GIÁ</label>
+                        <input type="text" id="editPromoCode" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">LINK FACEBOOK</label>
+                        <input type="text" id="editFacebook" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">NGƯỜI GIỚI THIỆU / TRƯỞNG NHÓM</label>
+                    <input type="text" id="editReferrer" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
                 <div>
                     <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">GHI CHÚ</label>
                     <textarea id="editNote" rows="2" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box; resize:vertical;"></textarea>
@@ -444,6 +458,9 @@ function openEditModal(student) {
     document.getElementById('editSchool').value = student.school || '';
     document.getElementById('editClassInfo').value = student.classInfo || '';
     document.getElementById('editChannel').value = student.channel || '';
+    document.getElementById('editPromoCode').value = student.promoCode || '';
+    document.getElementById('editFacebook').value = student.facebook || '';
+    document.getElementById('editReferrer').value = student.referrer || '';
     document.getElementById('editNote').value = student.note || '';
     document.getElementById('editDate').value = student.date || '';
     document.getElementById('editExpire').value = student.expire || '';
@@ -460,6 +477,9 @@ async function submitEdit() {
         school: document.getElementById('editSchool').value.trim(),
         classInfo: document.getElementById('editClassInfo').value.trim(),
         channel: document.getElementById('editChannel').value.trim(),
+        promoCode: document.getElementById('editPromoCode').value.trim(),
+        facebook: document.getElementById('editFacebook').value.trim(),
+        referrer: document.getElementById('editReferrer').value.trim(),
         note: document.getElementById('editNote').value.trim(),
         date: document.getElementById('editDate').value.trim(),
         expire: document.getElementById('editExpire').value.trim()

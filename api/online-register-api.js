@@ -50,7 +50,10 @@ export async function handleOnlineRegisterAPI(request, env) {
         school: String(body.school || "").trim(),
         classInfo: String(body.classInfo || "").trim(),
         channel: String(body.channel || "").trim(),
-        note: String(body.note || "").trim()
+        note: String(body.note || "").trim(),
+        promoCode: String(body.promoCode || "").trim(),
+        facebook: String(body.facebook || "").trim(),
+        referrer: String(body.referrer || "").trim()
     };
 
     if (!CONFIG.APPS_SCRIPT_URL || CONFIG.APPS_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) {
@@ -86,6 +89,9 @@ async function notifyTelegram(p) {
         (p.school ? `\n🏫 Trường: ${esc(p.school)}` : "") +
         (p.classInfo ? `\n🎓 Lớp/Khoa: ${esc(p.classInfo)}` : "") +
         (p.channel ? `\n📣 Kênh biết đến: ${esc(p.channel)}` : "") +
+        (p.promoCode ? `\n🏷️ Mã giảm giá: ${esc(p.promoCode)}` : "") +
+        (p.facebook ? `\n🔗 Facebook: ${esc(p.facebook)}` : "") +
+        (p.referrer ? `\n🙋 Người giới thiệu: ${esc(p.referrer)}` : "") +
         (p.note ? `\n📝 Ghi chú: ${esc(p.note)}` : "") +
         "\n⏳ Trạng thái: <b>Chờ xác nhận thanh toán</b> — vào Dashboard, tab Học viên Online, bấm 🔄 Gia hạn để kích hoạt.";
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;

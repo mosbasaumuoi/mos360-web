@@ -6,9 +6,10 @@
 //   - Học viên tự đăng ký học Online qua web (online-register-api.js)
 //
 // CỘT (giữ đúng thứ tự A→D như cũ để không phá code cũ đang đọc theo
-// index cột cố định — chỉ NỐI THÊM cột E→I phía sau):
+// index cột cố định — chỉ NỐI THÊM cột E→L phía sau):
 //   A Khóa học   B SĐT   C Ngày ĐK   D Ngày hết hạn
 //   E Họ tên     F Trường   G Lớp/Khoa   H Kênh biết đến   I Ghi chú
+//   J Mã giảm giá   K Link Facebook   L Người giới thiệu/Trưởng nhóm
 //
 // Hướng dẫn deploy:
 // 1. Mở Google Sheet quản lý học viên (17spoqBAG...)
@@ -18,8 +19,8 @@
 //    - Execute as: Me
 //    - Who has access: Anyone
 // 4. Đảm bảo range "Publish to web" (File → Share → Publish to web)
-//    của sheet này bao gồm ĐỦ các cột A→I (không chỉ A→D), để
-//    Dashboard đọc được cột Họ tên (cột E).
+//    của sheet này bao gồm ĐỦ các cột A→L (không chỉ A→D), để
+//    Dashboard đọc được cột Họ tên (cột E) và các cột mới J-L.
 // ================================================
 
 const SHEET_NAME = 'DSHVMOS360'; // Tên sheet tab
@@ -34,6 +35,16 @@ function fmtDateCell(val) {
     return Utilities.formatDate(val, Session.getScriptTimeZone() || 'GMT+7', 'dd/MM/yyyy');
   }
   return String(val || '').trim();
+}
+
+// Google Sheets tự nhận diện chuỗi TOÀN SỐ (VD "0912345678") là kiểu Number
+// khi ghi vào — làm MẤT số 0 ở đầu (thành 912345678). Thêm dấu nháy đơn '
+// phía trước ép Sheets lưu dạng TEXT (giống hệt khi gõ tay trên UI) — dấu
+// nháy này KHÔNG bị lưu vào giá trị thật, đọc lại vẫn ra đúng "0912345678".
+function toTextCell(val) {
+  var s = String(val || '').trim();
+  if (!s) return s;
+  return "'" + s;
 }
 
 function doPost(e) {
@@ -72,6 +83,9 @@ function addStudent(data) {
   var classInfo = String(data.classInfo || '').trim();
   var channel = String(data.channel || '').trim();
   var note = String(data.note || '').trim();
+  var promoCode = String(data.promoCode || '').trim();
+  var facebook = String(data.facebook || '').trim();
+  var referrer = String(data.referrer || '').trim();
 
   if (!course || !phone) return result(false, 'Thiếu thông tin khóa học hoặc SĐT');
 
@@ -95,6 +109,9 @@ function addStudent(data) {
         if (classInfo) sheet.getRange(updateRow, 7).setValue(classInfo);
         if (channel) sheet.getRange(updateRow, 8).setValue(channel);
         if (note) sheet.getRange(updateRow, 9).setValue(note);
+        if (promoCode) sheet.getRange(updateRow, 10).setValue(promoCode);
+        if (facebook) sheet.getRange(updateRow, 11).setValue(facebook);
+        if (referrer) sheet.getRange(updateRow, 12).setValue(referrer);
         return result(true, 'Đã cập nhật lại thông tin đăng ký — MOS360 sẽ liên hệ sớm!');
       }
       // Dòng cũ đã có hạn dùng (đã kích hoạt / đang học) — đây mới là trùng thật.
@@ -102,7 +119,7 @@ function addStudent(data) {
     }
   }
 
-  sheet.appendRow([course, phone, date, expire, name, school, classInfo, channel, note]);
+  sheet.appendRow([course, toTextCell(phone), date, expire, name, school, classInfo, channel, note, promoCode, facebook, referrer]);
   return result(true, 'Đã ghi nhận đăng ký!');
 }
 
@@ -143,7 +160,7 @@ function listStudents() {
   var lastRow = sheet.getLastRow();
   if (lastRow < 2) return listResult([]);
 
-  var rows = sheet.getRange(2, 1, lastRow - 1, 9).getValues();
+  var rows = sheet.getRange(2, 1, lastRow - 1, 12).getValues();
   var students = [];
   for (var i = 0; i < rows.length; i++) {
     var course = String(rows[i][0] || '').trim();
@@ -158,7 +175,10 @@ function listStudents() {
       school: String(rows[i][5] || '').trim(),
       classInfo: String(rows[i][6] || '').trim(),
       channel: String(rows[i][7] || '').trim(),
-      note: String(rows[i][8] || '').trim()
+      note: String(rows[i][8] || '').trim(),
+      promoCode: String(rows[i][9] || '').trim(),
+      facebook: String(rows[i][10] || '').trim(),
+      referrer: String(rows[i][11] || '').trim()
     });
   }
   return listResult(students);
@@ -193,6 +213,9 @@ function updateStudent(data) {
   var classInfo = String(data.classInfo || '').trim();
   var channel = String(data.channel || '').trim();
   var note = String(data.note || '').trim();
+  var promoCode = String(data.promoCode || '').trim();
+  var facebook = String(data.facebook || '').trim();
+  var referrer = String(data.referrer || '').trim();
 
   var lastRow = sheet.getLastRow();
   if (lastRow < 2) return result(false, 'Không tìm thấy dữ liệu');
@@ -201,7 +224,7 @@ function updateStudent(data) {
   for (var i = 0; i < rows.length; i++) {
     if (String(rows[i][0]).trim() === oldCourse && String(rows[i][1]).trim() === oldPhone) {
       var row = i + 2;
-      sheet.getRange(row, 1, 1, 9).setValues([[course, phone, date, expire, name, school, classInfo, channel, note]]);
+      sheet.getRange(row, 1, 1, 12).setValues([[course, toTextCell(phone), date, expire, name, school, classInfo, channel, note, promoCode, facebook, referrer]]);
       return result(true, 'Đã cập nhật thông tin học viên!');
     }
   }
