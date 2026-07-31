@@ -45,7 +45,10 @@ export async function handleAdminAPI(path, request, env) {
                 const phone = (cols[1] || '').replace(/\r/g, '').trim();
                 const date = (cols[2] || '').replace(/\r/g, '').trim();
                 const expire = (cols[3] || '').replace(/\r/g, '').trim();
-                if (course && phone) students.push({ course, phone, date, expire });
+                // Cột E — Họ tên (thêm khi học viên tự đăng ký học Online qua web;
+                // học viên đã có từ trước do admin nhập tay có thể để trống).
+                const name = (cols[4] || '').replace(/\r/g, '').trim();
+                if (course && phone) students.push({ course, phone, date, expire, name });
             });
             return json({ success: true, students });
         } catch (e) {
@@ -86,17 +89,6 @@ export async function handleAdminAPI(path, request, env) {
         try {
             const body = await request.json();
             const result = await callAppsScript('renew', body, env);
-            return json(result);
-        } catch (e) {
-            return json({ success: false, msg: e.message });
-        }
-    }
-
-    // POST /api/admin/add-student — thêm học viên
-    if (path === '/api/admin/add-student' && request.method === 'POST') {
-        try {
-            const body = await request.json();
-            const result = await callAppsScript('add', body, env);
             return json(result);
         } catch (e) {
             return json({ success: false, msg: e.message });

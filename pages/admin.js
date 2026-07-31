@@ -37,7 +37,6 @@ export function getAdminDashboardUI() {
             <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='none';document.getElementById('tabLicense').style.display='block';document.getElementById('tabResultStats').style.display='none';loadLicenseList();loadPendingRequests();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔑 Mật khẩu MOS</button>
             <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='none';document.getElementById('tabLicense').style.display='none';document.getElementById('tabResultStats').style.display='block';loadResultStats('today');" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">📊 Kết quả MOS</button>
             <button onclick="loadDashboard()" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔄 Làm mới</button>
-            <button onclick="showAddStudentModal()" style="padding:9px 18px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:#fff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">➕ Thêm học viên</button>
         </div>
     </div>
 
@@ -148,6 +147,7 @@ export function getAdminDashboardUI() {
         <select id="filterStatus" onchange="filterTable()"
             style="padding:10px 14px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.9rem; cursor:pointer;">
             <option value="all">Tất cả trạng thái</option>
+            <option value="pending">⏳ Chờ duyệt (đăng ký online)</option>
             <option value="active">✅ Còn hạn</option>
             <option value="expiring">⚠️ Sắp hết hạn</option>
             <option value="expired">❌ Đã hết hạn</option>
@@ -174,6 +174,7 @@ export function getAdminDashboardUI() {
                 <thead>
                     <tr style="background:#1a1f35; border-bottom:1px solid rgba(255,255,255,0.06);">
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">#</th>
+                        <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">HỌ TÊN</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">KHÓA HỌC</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">SỐ ĐIỆN THOẠI</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">NGÀY ĐK</th>
@@ -184,44 +185,9 @@ export function getAdminDashboardUI() {
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <tr><td colspan="8" style="padding:40px; text-align:center; color:#64748b;">Đang tải dữ liệu...</td></tr>
+                    <tr><td colspan="9" style="padding:40px; text-align:center; color:#64748b;">Đang tải dữ liệu...</td></tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-
-    <!-- Modal Thêm học viên -->
-    <div id="addModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center;">
-        <div style="background:#111422; border:1px solid #384260; border-radius:16px; padding:28px; width:90%; max-width:460px;">
-            <h3 style="color:#fff; margin-bottom:20px; font-size:1.2rem;">➕ Thêm học viên mới</h3>
-            <div style="display:flex; flex-direction:column; gap:14px;">
-                <div>
-                    <label style="font-size:0.8rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:6px;">KHÓA HỌC</label>
-                    <select id="newCourse" style="width:100%; padding:12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.9rem;">
-                        <option value="MOS WORD 2019">MOS WORD 2019</option>
-                        <option value="MOS EXCEL 2019">MOS EXCEL 2019</option>
-                        <option value="MOS PPT 2019">MOS PPT 2019</option>
-                        <option value="MOS WORD 365">MOS WORD 365</option>
-                        <option value="MOS EXCEL 365">MOS EXCEL 365</option>
-                        <option value="MOS PPT 365">MOS PPT 365</option>
-                        <option value="IC3 GS6">IC3 GS6</option>
-                        <option value="GENERATIVE AI">GENERATIVE AI</option>
-                        <option value="AI PRODUCTIVITY">AI PRODUCTIVITY</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size:0.8rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:6px;">SỐ ĐIỆN THOẠI</label>
-                    <input type="text" id="newPhone" placeholder="0912345678" style="width:100%; padding:12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.9rem;">
-                </div>
-                <div>
-                    <label style="font-size:0.8rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:6px;">NGÀY HẾT HẠN</label>
-                    <input type="date" id="newExpire" style="width:100%; padding:12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.9rem;">
-                </div>
-            </div>
-            <div style="display:flex; gap:10px; margin-top:20px;">
-                <button onclick="submitAddStudent()" style="flex:1; padding:12px; background:linear-gradient(135deg,#FF5722,#ff784e); border:none; color:#fff; border-radius:8px; font-weight:800; cursor:pointer;">XÁC NHẬN THÊM</button>
-                <button onclick="document.getElementById('addModal').style.display='none'" style="flex:1; padding:12px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer;">HỦY</button>
-            </div>
         </div>
     </div>
 
@@ -271,6 +237,9 @@ function parseExpire(str) {
 }
 
 function getStatus(expireStr) {
+    // Hạn dùng để trống = học viên online mới tự đăng ký qua web, admin
+    // chưa đối chiếu thanh toán và Gia hạn — chưa đăng nhập được.
+    if (!expireStr || !expireStr.trim()) return 'pending';
     var d = parseExpire(expireStr);
     if (!d) return 'unknown';
     var now = new Date();
@@ -282,6 +251,7 @@ function getStatus(expireStr) {
 
 function statusBadge(expireStr) {
     var s = getStatus(expireStr);
+    if (s === 'pending') return '<span style="background:rgba(148,163,184,0.15); color:#94a3b8; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700;">⏳ Chờ duyệt</span>';
     if (s === 'expired') return '<span style="background:rgba(239,68,68,0.15); color:#ef4444; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700;">❌ Hết hạn</span>';
     if (s === 'expiring') return '<span style="background:rgba(255,87,34,0.15); color:#FF5722; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700;">⚠️ Sắp hết</span>';
     return '<span style="background:rgba(34,197,94,0.15); color:#22c55e; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700;">✅ Còn hạn</span>';
@@ -296,7 +266,7 @@ async function getDeviceCount(phone, course) {
 }
 
 async function loadDashboard() {
-    document.getElementById('tableBody').innerHTML = '<tr><td colspan="8" style="padding:40px; text-align:center; color:#64748b;">Đang tải...</td></tr>';
+    document.getElementById('tableBody').innerHTML = '<tr><td colspan="9" style="padding:40px; text-align:center; color:#64748b;">Đang tải...</td></tr>';
     try {
         var res = await adminFetch('/api/admin/students');
         var data = await res.json();
@@ -304,7 +274,7 @@ async function loadDashboard() {
         updateStats();
         renderTable(allStudents);
     } catch(e) {
-        document.getElementById('tableBody').innerHTML = '<tr><td colspan="8" style="padding:40px; text-align:center; color:#ef4444;">Lỗi tải dữ liệu!</td></tr>';
+        document.getElementById('tableBody').innerHTML = '<tr><td colspan="9" style="padding:40px; text-align:center; color:#ef4444;">Lỗi tải dữ liệu!</td></tr>';
     }
 }
 
@@ -325,7 +295,7 @@ function updateStats() {
 function renderTable(students) {
     var tbody = document.getElementById('tableBody');
     if (!students.length) {
-        tbody.innerHTML = '<tr><td colspan="8" style="padding:40px; text-align:center; color:#64748b;">Không có dữ liệu</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="padding:40px; text-align:center; color:#64748b;">Không có dữ liệu</td></tr>';
         return;
     }
     tbody.innerHTML = students.map(function(s, i) {
@@ -333,6 +303,7 @@ function renderTable(students) {
         var rowBg = st === 'expired' ? 'rgba(239,68,68,0.03)' : st === 'expiring' ? 'rgba(255,87,34,0.03)' : 'transparent';
         return '<tr style="border-bottom:1px solid rgba(255,255,255,0.04); background:' + rowBg + ';">' +
             '<td style="padding:12px 16px; color:#64748b; font-size:0.85rem;">' + (i+1) + '</td>' +
+            '<td style="padding:12px 16px; color:#e2e8f0; font-size:0.85rem;">' + (s.name || '<span style="color:#384260;">—</span>') + '</td>' +
             '<td style="padding:12px 16px; font-weight:700; font-size:0.88rem; color:#e2e8f0;">' + (s.course||'') + '</td>' +
             '<td style="padding:12px 16px; font-family:monospace; color:#00f2ff; font-size:0.9rem;">' + (s.phone||'') + '</td>' +
             '<td style="padding:12px 16px; color:#94a3b8; font-size:0.85rem;">' + (s.date||'') + '</td>' +
@@ -361,19 +332,12 @@ function filterTable() {
     var status = document.getElementById('filterStatus').value;
     var course = document.getElementById('filterCourse').value;
     var filtered = allStudents.filter(function(s) {
-        var matchSearch = !search || (s.phone||'').includes(search) || (s.course||'').toLowerCase().includes(search);
+        var matchSearch = !search || (s.phone||'').includes(search) || (s.course||'').toLowerCase().includes(search) || (s.name||'').toLowerCase().includes(search);
         var matchStatus = status === 'all' || getStatus(s.expire) === status;
         var matchCourse = course === 'all' || (s.course||'') === course;
         return matchSearch && matchStatus && matchCourse;
     });
     renderTable(filtered);
-}
-
-function showAddStudentModal() {
-    var today = new Date();
-    var next30 = new Date(today.getTime() + 30*24*60*60*1000);
-    document.getElementById('newExpire').value = next30.toISOString().split('T')[0];
-    document.getElementById('addModal').style.display = 'flex';
 }
 
 function openRenewModal(student, rowIdx) {
@@ -403,30 +367,6 @@ async function submitRenew() {
         if (data.success) {
             alert('✅ Gia hạn thành công!');
             document.getElementById('renewModal').style.display = 'none';
-            loadDashboard();
-        } else { alert('❌ Lỗi: ' + data.msg); }
-    } catch(e) { alert('Lỗi kết nối!'); }
-}
-
-async function submitAddStudent() {
-    var course = document.getElementById('newCourse').value;
-    var phone = document.getElementById('newPhone').value.trim();
-    var expire = document.getElementById('newExpire').value;
-    if (!phone || !expire) { alert('Vui lòng điền đầy đủ thông tin!'); return; }
-    var parts = expire.split('-');
-    var expireFormatted = parts[2] + '/' + parts[1] + '/' + parts[0];
-    var today = new Date();
-    var dateFormatted = today.getDate() + '/' + (today.getMonth()+1) + '/' + today.getFullYear();
-    try {
-        var res = await adminFetch('/api/admin/add-student', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ course, phone, date: dateFormatted, expire: expireFormatted })
-        });
-        var data = await res.json();
-        if (data.success) {
-            alert('✅ Thêm học viên thành công!');
-            document.getElementById('addModal').style.display = 'none';
             loadDashboard();
         } else { alert('❌ Lỗi: ' + data.msg); }
     } catch(e) { alert('Lỗi kết nối!'); }

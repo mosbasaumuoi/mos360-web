@@ -23,6 +23,7 @@ import { getLibraryUI } from "./pages/library.js";
 import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
 import { BLOG_POSTS, getBlogListUI, getBlogPostUI } from "./pages/blog.js";
 import { handleRegisterAPI } from "./api/register-api.js";
+import { handleOnlineRegisterAPI } from "./api/online-register-api.js";
 import { handleVideoLibraryAPI, handleVideoStream } from "./api/video-library-api.js";
 
 // ── SEO: title/description riêng cho từng trang, thay vì dùng chung 1
@@ -537,9 +538,17 @@ export default {
             return new Response(xml, { headers: { "Content-Type": "application/xml;charset=UTF-8" } });
         }
 
-        // ── ĐĂNG KÝ (proxy sang Google Sheet + thông báo Telegram) ──
+        // ── ĐĂNG KÝ HỌC MOS (offline/tại trung tâm) — giữ nguyên như cũ,
+        // proxy sang Google Sheet lead cũ + thông báo Telegram ──
         if (path === "/api/register" && request.method === "POST") {
             return handleRegisterAPI(request, env);
+        }
+
+        // ── ĐĂNG KÝ HỌC ONLINE (IC3/GenAI/AI Productivity) — ghi thẳng
+        // vào sheet "Quản lý học viên" (hạn dùng để trống, chờ admin
+        // xác nhận thanh toán rồi Gia hạn trong Dashboard) ──
+        if (path === "/api/online-register" && request.method === "POST") {
+            return handleOnlineRegisterAPI(request, env);
         }
 
         // ── VISIT TRACKING API ────────────────────────────────────
@@ -683,24 +692,30 @@ export default {
                     const rawExpire = (cols[expireIdx] || "").trim();
 
                     if (sheetPhone === phone && (sheetCourse === course || sheetCourse.includes(course) || course.includes(sheetCourse))) {
-                        if (rawExpire) {
-                            // ── FIX 1+2: parse đúng cả DD/MM/YYYY và YYYY-MM-DD,
-                            // và tính end-of-day theo múi giờ Việt Nam (UTC+7 = 16:59:59 UTC)
-                            let dd, mm, yyyy;
-                            if (rawExpire.includes("/")) {
-                                [dd, mm, yyyy] = rawExpire.split("/").map(Number);
-                            } else {
-                                [yyyy, mm, dd] = rawExpire.split("-").map(Number);
-                            }
-                            if (yyyy < 100) yyyy += 2000;
-                            // 23:59:59 Vietnam = 16:59:59 UTC
-                            const expireDate = new Date(Date.UTC(yyyy, mm - 1, dd, 16, 59, 59));
-                            if (new Date() > expireDate) {
-                                reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
-                                break;
-                            }
-                            expireStr = rawExpire; // giữ chuỗi gốc để gửi về client
+                        // ── Hạn dùng để TRỐNG = học viên mới đăng ký online, admin
+                        // chưa xác nhận thanh toán/kích hoạt (chưa bấm Gia hạn trong
+                        // Dashboard). KHÔNG cho đăng nhập trong trường hợp này.
+                        if (!rawExpire) {
+                            reason = "Tài khoản đang chờ MOS360 xác nhận thanh toán và kích hoạt. Vui lòng thử lại sau ít phút hoặc liên hệ Zalo 0912.888.360 để được hỗ trợ nhanh!";
+                            break;
                         }
+
+                        // ── FIX 1+2: parse đúng cả DD/MM/YYYY và YYYY-MM-DD,
+                        // và tính end-of-day theo múi giờ Việt Nam (UTC+7 = 16:59:59 UTC)
+                        let dd, mm, yyyy;
+                        if (rawExpire.includes("/")) {
+                            [dd, mm, yyyy] = rawExpire.split("/").map(Number);
+                        } else {
+                            [yyyy, mm, dd] = rawExpire.split("-").map(Number);
+                        }
+                        if (yyyy < 100) yyyy += 2000;
+                        // 23:59:59 Vietnam = 16:59:59 UTC
+                        const expireDate = new Date(Date.UTC(yyyy, mm - 1, dd, 16, 59, 59));
+                        if (new Date() > expireDate) {
+                            reason = "Tài khoản đã hết hạn. Vui lòng liên hệ MOS360 để gia hạn!";
+                            break;
+                        }
+                        expireStr = rawExpire; // giữ chuỗi gốc để gửi về client
                         isValid = true;
                         break;
                     }
@@ -1988,11 +2003,11 @@ ${mode !== 'home' ? `
         <div class="hn-field">
           <label class="hn-label">Khóa học muốn đăng ký <span class="req">*</span></label>
           <div class="hn-checkbox-group">
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv1" value="IC3 GS6 Level 1"><span>🌐 IC3 GS6 Level 1</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv2" value="IC3 GS6 Level 2"><span>🌐 IC3 GS6 Level 2</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv3" value="IC3 GS6 Level 3"><span>🌐 IC3 GS6 Level 3</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_genai" value="Generative AI"><span>🤖 Generative AI</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_aiwork" value="AI Productivity"><span>⚡ Làm việc hiệu quả với AI</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv1" value="IC3 GS6 LEVEL 1"><span>🌐 IC3 GS6 Level 1</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv2" value="IC3 GS6 LEVEL 2"><span>🌐 IC3 GS6 Level 2</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv3" value="IC3 GS6 LEVEL 3"><span>🌐 IC3 GS6 Level 3</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_genai" value="GENERATIVE AI"><span>🤖 Generative AI</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_aiwork" value="AI PRODUCTIVITY"><span>⚡ Làm việc hiệu quả với AI</span></label>
           </div>
         </div>
         <div class="hn-row">
@@ -2446,6 +2461,21 @@ function toggleAcc(id) {
   }
 }
 
+// Tự mở sẵn accordion đăng ký khi đến từ link kèm ?open=hoc (nút "Điền
+// thông tin đăng ký" ở trang /courses cho khóa MOS 2019/365)
+(function autoOpenAcc() {
+  try {
+    var p = new URLSearchParams(location.search).get('open');
+    if (p && document.getElementById('hn-acc-' + p)) {
+      window.addEventListener('DOMContentLoaded', function() {
+        toggleAcc(p);
+        var el = document.getElementById('hn-acc-' + p);
+        if (el) setTimeout(function() { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 150);
+      });
+    }
+  } catch (e) {}
+})();
+
 var _offSlotWarningsLoaded = false;
 async function loadOfflineSlotWarnings() {
   if (_offSlotWarningsLoaded) return; // chỉ tải 1 lần/phiên xem trang
@@ -2518,6 +2548,9 @@ async function submitForm(type) {
   }
 
   if (type === 'online') {
+    // ── Đăng ký học ONLINE ghi thẳng vào sheet "Quản lý học viên" (không
+    // qua /api/register như các loại khác) — mỗi khóa học chọn là 1 dòng
+    // riêng, hạn dùng để trống, chờ admin xác nhận thanh toán rồi Gia hạn.
     var ten = document.getElementById('onl_ten').value.trim();
     var sdt = document.getElementById('onl_sdt').value.trim();
     if (!ten || !sdt) { showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ Họ tên và SĐT'); return; }
@@ -2527,19 +2560,47 @@ async function submitForm(type) {
       if (el && el.checked) khoahoc.push(el.value);
     });
     if (!khoahoc.length) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 khóa học'); return; }
-    Object.assign(payload, {
-      ten: ten, sdt: sdt,
-      ngaysinh: document.getElementById('onl_ngaysinh').value,
-      truong: document.getElementById('onl_truong').value,
-      namhoc: document.getElementById('onl_namhoc').value,
-      khoa: document.getElementById('onl_khoa').value,
-      khoahoc: khoahoc.join(', '),
-      kenh: document.getElementById('onl_kenh').value,
-      magiamgia: document.getElementById('onl_magg').value,
-      facebook: document.getElementById('onl_fb').value,
-      gioithieu: document.getElementById('onl_gioithieu').value,
-      ghichu: document.getElementById('onl_ghichu').value
-    });
+
+    var magg = document.getElementById('onl_magg').value.trim();
+    var ghichu = document.getElementById('onl_ghichu').value.trim();
+    var extra = {
+      name: ten, phone: sdt,
+      school: document.getElementById('onl_truong').value,
+      classInfo: [document.getElementById('onl_namhoc').value, document.getElementById('onl_khoa').value].filter(Boolean).join(' - '),
+      channel: document.getElementById('onl_kenh').value,
+      note: [magg ? ('Mã giảm giá: ' + magg) : '', ghichu].filter(Boolean).join('. ')
+    };
+
+    btn.disabled = true;
+    btn.innerHTML = '<span>⏳ Đang gửi...</span>';
+    try {
+      var results = await Promise.all(khoahoc.map(function(c) {
+        return fetch('/api/online-register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.assign({ course: c }, extra))
+        }).then(function(r) { return r.json(); });
+      }));
+      var allOk = results.every(function(r) { return r.success; });
+      if (allOk) {
+        showMsg(msgEl, 'ok', '✅ Đã gửi đăng ký! MOS360 sẽ liên hệ lại trong vòng 1 giờ.');
+        if (typeof gtag === 'function') gtag('event', 'generate_lead', { form_type: type });
+        setTimeout(function() {
+          document.querySelectorAll('#hn-reg-online input, #hn-reg-online select, #hn-reg-online textarea').forEach(function(el) {
+            if (el.type === 'checkbox') el.checked = false; else el.value = '';
+          });
+        }, 1500);
+      } else {
+        var firstErr = results.find(function(r) { return !r.success; });
+        showMsg(msgEl, 'err', '❌ ' + ((firstErr && firstErr.msg) || 'Gửi thất bại, thử lại hoặc liên hệ Zalo 0912.888.360'));
+      }
+    } catch (e) {
+      showMsg(msgEl, 'err', '❌ Không kết nối được máy chủ. Vui lòng thử lại.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<span>📝 Gửi đăng ký học</span>';
+    }
+    return; // không chạy tiếp xuống đoạn gửi /api/register chung phía dưới
   }
 
   if (type === 'thi') {
@@ -2899,7 +2960,7 @@ async function hnDoConfirm() {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <a href="/course-intro/mos2019" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--primary);background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-action" style="border:none; cursor:pointer;" onclick="openMosRegChoice('MOS WORD 2019')">ĐĂNG KÝ HỌC</button>
                 </div>
             </div>
             <div class="section-card">
@@ -2908,7 +2969,7 @@ async function hnDoConfirm() {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <a href="/course-intro/mos2019" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--primary);background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-action" style="border:none; cursor:pointer;" onclick="openMosRegChoice('MOS EXCEL 2019')">ĐĂNG KÝ HỌC</button>
                 </div>
             </div>
             <div class="section-card">
@@ -2917,7 +2978,7 @@ async function hnDoConfirm() {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <a href="/course-intro/mos2019" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--primary);background:rgba(255,87,34,0.08);border:1px solid rgba(255,87,34,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-action" style="border:none; cursor:pointer;" onclick="openMosRegChoice('MOS PPT 2019')">ĐĂNG KÝ HỌC</button>
                 </div>
             </div>
         </div>
@@ -2933,7 +2994,7 @@ async function hnDoConfirm() {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <a href="/course-intro/mos365" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-action" style="border:none; cursor:pointer;" onclick="openMosRegChoice('MOS WORD 365')">ĐĂNG KÝ HỌC</button>
                 </div>
             </div>
             <div class="section-card">
@@ -2942,7 +3003,7 @@ async function hnDoConfirm() {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <a href="/course-intro/mos365" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-action" style="border:none; cursor:pointer;" onclick="openMosRegChoice('MOS EXCEL 365')">ĐĂNG KÝ HỌC</button>
                 </div>
             </div>
             <div class="section-card">
@@ -2951,7 +3012,7 @@ async function hnDoConfirm() {
                 <div class="price-tag">400.000đ <span>600.000đ</span></div>
                 <a href="/course-intro/mos365" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.08);border:1px solid rgba(0,82,204,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;margin-bottom:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action">ĐĂNG KÝ HỌC</a>
+                    <button class="btn-action" style="border:none; cursor:pointer;" onclick="openMosRegChoice('MOS PPT 365')">ĐĂNG KÝ HỌC</button>
                 </div>
             </div>
         </div>
@@ -2971,7 +3032,7 @@ async function hnDoConfirm() {
                     <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#16a34a;background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff;">ĐĂNG KÝ NGAY</a>
+                    <button class="btn-action" style="background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff; border:none; cursor:pointer;" onclick="openOnlineRegChoice('IC3 GS6 LEVEL 1')">ĐĂNG KÝ NGAY</button>
                     <button class="btn-sub" id="btn-auth-IC3-LV1" onclick="triggerRemoteVerification(&apos;IC3 GS6 LEVEL 1&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                     <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/ic3-lv1&apos;,&apos;IC3 GS6 LEVEL 1&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN</button>
                 </div>
@@ -2986,7 +3047,7 @@ async function hnDoConfirm() {
                     <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#d97706;background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#d97706,#f59e0b); color:#fff;">ĐĂNG KÝ NGAY</a>
+                    <button class="btn-action" style="background:linear-gradient(135deg,#d97706,#f59e0b); color:#fff; border:none; cursor:pointer;" onclick="openOnlineRegChoice('IC3 GS6 LEVEL 2')">ĐĂNG KÝ NGAY</button>
                     <button class="btn-sub" id="btn-auth-IC3-LV2" onclick="triggerRemoteVerification(&apos;IC3 GS6 LEVEL 2&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                     <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/ic3-lv2&apos;,&apos;IC3 GS6 LEVEL 2&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN</button>
                 </div>
@@ -3001,7 +3062,7 @@ async function hnDoConfirm() {
                     <a href="/course-intro/ic3" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:700;color:#dc2626;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.25);padding:5px 12px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#dc2626,#ef4444); color:#fff;">ĐĂNG KÝ NGAY</a>
+                    <button class="btn-action" style="background:linear-gradient(135deg,#dc2626,#ef4444); color:#fff; border:none; cursor:pointer;" onclick="openOnlineRegChoice('IC3 GS6 LEVEL 3')">ĐĂNG KÝ NGAY</button>
                     <button class="btn-sub" id="btn-auth-IC3-LV3" onclick="triggerRemoteVerification(&apos;IC3 GS6 LEVEL 3&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                     <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/ic3-lv3&apos;,&apos;IC3 GS6 LEVEL 3&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN</button>
                 </div>
@@ -3015,7 +3076,7 @@ async function hnDoConfirm() {
                     <a href="/course-intro/genai" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:var(--cyan);background:rgba(0,82,204,0.06);border:1px solid rgba(0,82,204,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,var(--cyan),#2684FF); color:#fff;">ĐĂNG KÝ NGAY</a>
+                    <button class="btn-action" style="background:linear-gradient(135deg,var(--cyan),#2684FF); color:#fff; border:none; cursor:pointer;" onclick="openOnlineRegChoice('GENERATIVE AI')">ĐĂNG KÝ NGAY</button>
                     <button class="btn-sub" id="btn-auth-AI" onclick="triggerRemoteVerification(&apos;GENERATIVE AI&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                     <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/generative-ai&apos;,&apos;GENERATIVE AI&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
@@ -3029,13 +3090,120 @@ async function hnDoConfirm() {
                     <a href="/course-intro/aip" style="display:inline-flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:700;color:#0068FF;background:rgba(0,104,255,0.06);border:1px solid rgba(0,104,255,0.2);padding:6px 14px;border-radius:100px;margin-top:8px;cursor:pointer;font-family:inherit;transition:all 0.15s;text-decoration:none;">📘 Giáo trình học</a>
                 </div>
                 <div class="course-btn-group">
-                    <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" class="btn-action" style="background:linear-gradient(135deg,#0068FF,#00D4FF); color:#fff;">ĐĂNG KÝ NGAY</a>
+                    <button class="btn-action" style="background:linear-gradient(135deg,#0068FF,#00D4FF); color:#fff; border:none; cursor:pointer;" onclick="openOnlineRegChoice('AI PRODUCTIVITY')">ĐĂNG KÝ NGAY</button>
                     <button class="btn-sub" id="btn-auth-AIP" onclick="triggerRemoteVerification(&apos;AI PRODUCTIVITY&apos;)">🔑 ĐĂNG NHẬP HỌC VIÊN</button>
                     <button class="btn-sub btn-trial" onclick="startTrialAccess(&apos;/ai-productivity&apos;,&apos;AI PRODUCTIVITY&apos;)">🎯 VÀO PHÒNG ÔN LUYỆN THI THỬ</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal: chọn cách đăng ký khóa MOS 2019/365 -->
+    <div id="mosRegChoiceModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px 24px; max-width:380px; width:100%;">
+            <h3 style="margin-bottom:6px; font-size:1.05rem; color:var(--text);">Đăng ký <span id="mcChoiceCourse"></span></h3>
+            <p style="color:var(--muted); font-size:0.82rem; margin-bottom:20px;">Chọn cách đăng ký phù hợp với bạn:</p>
+            <a id="mcChoiceLink" href="/register?open=hoc" style="display:block; text-align:center; padding:13px; margin-bottom:10px; border-radius:10px; background:linear-gradient(135deg,#FF5722,#ff784e); color:#fff; font-weight:800; text-decoration:none; font-size:0.9rem;">📝 Đăng ký thông tin qua link</a>
+            <a href="${CONFIG.SOCIALS.ZALO}" target="_blank" style="display:block; text-align:center; padding:13px; border-radius:10px; background:linear-gradient(135deg,#0068FF,#00D4FF); color:#fff; font-weight:800; text-decoration:none; font-size:0.9rem;">💬 Chat Zalo trực tiếp</a>
+            <button onclick="closeMosRegChoice()" style="width:100%; margin-top:14px; padding:10px; background:transparent; border:1px solid var(--border); border-radius:10px; color:var(--muted); cursor:pointer; font-size:0.85rem;">Đóng</button>
+        </div>
+    </div>
+    <script>
+        function openMosRegChoice(course) {
+            document.getElementById('mcChoiceCourse').textContent = '— ' + course;
+            document.getElementById('mosRegChoiceModal').style.display = 'flex';
+        }
+        function closeMosRegChoice() { document.getElementById('mosRegChoiceModal').style.display = 'none'; }
+    </script>
+
+    <!-- Modal 1: chọn cách đăng ký học Online -->
+    <div id="onlineRegChoiceModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px 24px; max-width:380px; width:100%;">
+            <h3 style="margin-bottom:6px; font-size:1.05rem; color:var(--text);">Đăng ký <span id="ocChoiceCourse"></span></h3>
+            <p style="color:var(--muted); font-size:0.82rem; margin-bottom:20px;">Chọn cách đăng ký phù hợp với bạn:</p>
+            <a id="ocChoiceZalo" href="${CONFIG.SOCIALS.ZALO}" target="_blank" style="display:block; text-align:center; padding:13px; margin-bottom:10px; border-radius:10px; background:linear-gradient(135deg,#0068FF,#00D4FF); color:#fff; font-weight:800; text-decoration:none; font-size:0.9rem;">💬 Liên hệ trực tiếp qua Zalo</a>
+            <button onclick="openOnlineRegForm()" style="width:100%; padding:13px; border-radius:10px; background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff; font-weight:800; border:none; cursor:pointer; font-size:0.9rem;">📝 Điền thông tin đăng ký</button>
+            <p style="font-size:0.72rem; color:var(--muted); margin-top:8px; text-align:center;">Trung tâm sẽ liên hệ lại ngay trong vòng 1 giờ</p>
+            <button onclick="closeOnlineRegChoice()" style="width:100%; margin-top:14px; padding:10px; background:transparent; border:1px solid var(--border); border-radius:10px; color:var(--muted); cursor:pointer; font-size:0.85rem;">Đóng</button>
+        </div>
+    </div>
+
+    <!-- Modal 2: form điền thông tin đăng ký nhanh -->
+    <div id="onlineRegFormModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px 24px; max-width:420px; width:100%;">
+            <h3 style="margin-bottom:16px; font-size:1.02rem; color:var(--text);">📝 Đăng ký học online — <span id="ocFormCourse"></span></h3>
+            <div id="ocFormBox">
+                <div style="margin-bottom:14px;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--muted); display:block; margin-bottom:6px;">Họ và tên <span style="color:#dc2626">*</span></label>
+                    <input id="ocName" placeholder="Nguyễn Văn A" style="width:100%; padding:12px; border-radius:9px; border:1px solid var(--border); background:#E2ECFA; font-size:0.9rem;">
+                </div>
+                <div style="margin-bottom:18px;">
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--muted); display:block; margin-bottom:6px;">Số điện thoại (Zalo) <span style="color:#dc2626">*</span></label>
+                    <input id="ocPhone" type="tel" placeholder="0912345678" style="width:100%; padding:12px; border-radius:9px; border:1px solid var(--border); background:#E2ECFA; font-size:0.9rem;">
+                </div>
+                <button id="ocSubmitBtn" onclick="submitOnlineRegForm()" style="width:100%; padding:13px; border-radius:10px; background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff; font-weight:800; border:none; cursor:pointer; font-size:0.9rem;">GỬI ĐĂNG KÝ</button>
+                <div id="ocFormErr" style="display:none; margin-top:12px; padding:10px 12px; background:rgba(220,38,38,0.08); border:1px solid rgba(220,38,38,0.25); border-radius:9px; color:#dc2626; font-size:0.82rem;"></div>
+            </div>
+            <div id="ocFormSuccess" style="display:none; text-align:center; padding:14px 0 4px;">
+                <div style="font-size:2.2rem; margin-bottom:8px;">✅</div>
+                <div style="font-weight:800; color:var(--text); margin-bottom:6px;">Đã gửi đăng ký thành công!</div>
+                <div style="color:var(--muted); font-size:0.85rem; line-height:1.5;">MOS360 sẽ liên hệ lại ngay trong vòng 1 giờ để xác nhận và kích hoạt tài khoản cho bạn.</div>
+            </div>
+            <button onclick="closeOnlineRegForm()" style="width:100%; margin-top:16px; padding:10px; background:transparent; border:1px solid var(--border); border-radius:10px; color:var(--muted); cursor:pointer; font-size:0.85rem;">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        var _ocCourse = '';
+        function openOnlineRegChoice(course) {
+            _ocCourse = course;
+            document.getElementById('ocChoiceCourse').textContent = '— ' + course;
+            document.getElementById('onlineRegChoiceModal').style.display = 'flex';
+        }
+        function closeOnlineRegChoice() { document.getElementById('onlineRegChoiceModal').style.display = 'none'; }
+        function openOnlineRegForm() {
+            closeOnlineRegChoice();
+            document.getElementById('ocFormCourse').textContent = _ocCourse;
+            document.getElementById('ocFormBox').style.display = 'block';
+            document.getElementById('ocFormSuccess').style.display = 'none';
+            document.getElementById('ocName').value = '';
+            document.getElementById('ocPhone').value = '';
+            document.getElementById('ocFormErr').style.display = 'none';
+            document.getElementById('onlineRegFormModal').style.display = 'flex';
+        }
+        function closeOnlineRegForm() { document.getElementById('onlineRegFormModal').style.display = 'none'; }
+        async function submitOnlineRegForm() {
+            var name = document.getElementById('ocName').value.trim();
+            var phone = document.getElementById('ocPhone').value.trim();
+            var errBox = document.getElementById('ocFormErr');
+            errBox.style.display = 'none';
+            if (!name) { errBox.textContent = '⚠ Vui lòng nhập họ tên.'; errBox.style.display = 'block'; return; }
+            if (!phone) { errBox.textContent = '⚠ Vui lòng nhập số điện thoại.'; errBox.style.display = 'block'; return; }
+            var btn = document.getElementById('ocSubmitBtn');
+            btn.disabled = true; btn.textContent = '⏳ Đang gửi...';
+            try {
+                var res = await fetch('/api/online-register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, phone: phone, course: _ocCourse })
+                });
+                var data = await res.json();
+                if (data.success) {
+                    document.getElementById('ocFormBox').style.display = 'none';
+                    document.getElementById('ocFormSuccess').style.display = 'block';
+                } else {
+                    errBox.textContent = '❌ ' + (data.msg || 'Gửi thất bại, vui lòng thử lại.');
+                    errBox.style.display = 'block';
+                }
+            } catch (e) {
+                errBox.textContent = '❌ Không kết nối được máy chủ. Vui lòng thử lại.';
+                errBox.style.display = 'block';
+            } finally {
+                btn.disabled = false; btn.textContent = 'GỬI ĐĂNG KÝ';
+            }
+        }
+    </script>
+
     <script>
         const cList = ["IC3 GS6 LEVEL 1","IC3 GS6 LEVEL 2","IC3 GS6 LEVEL 3","GENERATIVE AI","AI PRODUCTIVITY"];
         const idMap = {
