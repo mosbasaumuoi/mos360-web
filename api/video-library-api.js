@@ -229,7 +229,7 @@ export async function handleVideoLibraryAPI(path, request, env) {
             const token = await makeSignedToken(payload, VIDEO_SECRET);
 
             return json(
-                { success: true, name: payload.n },
+                { success: true, name: payload.n, expiresAt: payload.e },
                 200,
                 { "Set-Cookie": buildSessionCookie(token, Math.floor(SESSION_TTL_MS / 1000)) }
             );
@@ -246,7 +246,7 @@ export async function handleVideoLibraryAPI(path, request, env) {
     // GET /api/video-library/me — kiểm tra trạng thái đăng nhập hiện tại
     if (path === "/api/video-library/me" && request.method === "GET") {
         const session = await getValidSession(request, env);
-        return json({ success: true, loggedIn: !!session, name: session ? session.n : null });
+        return json({ success: true, loggedIn: !!session, name: session ? session.n : null, expiresAt: session ? session.e : null });
     }
 
     // GET /api/video-library/catalog — danh mục video (công khai, chỉ tên/tiêu đề,

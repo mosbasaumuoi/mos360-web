@@ -691,6 +691,28 @@ export function getLibraryUI() {
             }
         }
 
+        // ── TỰ ĐỘNG ĐĂNG XUẤT GIAO DIỆN KHI PHIÊN HẾT HẠN ────────────
+        // Cookie phía server tự hết hạn đúng giờ (bảo mật không phụ thuộc
+        // đoạn này) — nhưng nếu không có timer chủ động, giao diện vẫn hiện
+        // "Xin chào [tên]" cho tới khi học viên thao tác gì đó (tải lại
+        // trang / bấm xem video) mới phát hiện ra đã hết hạn. Đặt hẹn giờ
+        // đúng thời điểm hết hạn để tự chuyển UI về "Chưa đăng nhập" ngay
+        // cả khi học viên không làm gì cả, tránh gây hiểu nhầm là còn hạn.
+        var vlLogoutTimer = null;
+        function vlScheduleAutoLogout(expiresAt) {
+            if (vlLogoutTimer) { clearTimeout(vlLogoutTimer); vlLogoutTimer = null; }
+            if (!expiresAt) return;
+            var ms = expiresAt - Date.now();
+            if (ms <= 0) { vlLoggedIn = false; vlUserName = null; vlRefreshAuthBar(); return; }
+            // setTimeout tối đa an toàn ~24 ngày, phiên 12h luôn nằm trong giới hạn này
+            vlLogoutTimer = setTimeout(function() {
+                vlLoggedIn = false;
+                vlUserName = null;
+                vlRefreshAuthBar();
+                toast('⚠️ Phiên đăng nhập đã hết hạn (12 tiếng), vui lòng đăng nhập lại', 'error');
+            }, ms);
+        }
+
         // ── SESSION CHECK ──────────────────────────────────────────
         async function vlCheckSession() {
             try {
@@ -699,6 +721,7 @@ export function getLibraryUI() {
                 vlLoggedIn = !!data.loggedIn;
                 vlUserName = data.name || null;
                 vlRefreshAuthBar();
+                if (vlLoggedIn) vlScheduleAutoLogout(data.expiresAt);
             } catch (e) { /* im lặng, coi như chưa đăng nhập */ }
         }
 
@@ -736,6 +759,7 @@ export function getLibraryUI() {
                     vlUserName = data.name;
                     passEl.value = '';
                     vlRefreshAuthBar();
+                    vlScheduleAutoLogout(data.expiresAt);
                     toast('✅ Đăng nhập thành công!');
                     // Nếu đang chờ xem 1 video cụ thể thì mở luôn sau khi đăng nhập
                     if (window._vlPendingPlay) {
@@ -759,6 +783,7 @@ export function getLibraryUI() {
             try { await fetch('/api/video-library/logout', { method: 'POST' }); } catch (e) {}
             vlLoggedIn = false;
             vlUserName = null;
+            if (vlLogoutTimer) { clearTimeout(vlLogoutTimer); vlLogoutTimer = null; }
             vlRefreshAuthBar();
             toast('Đã đăng xuất');
         }
