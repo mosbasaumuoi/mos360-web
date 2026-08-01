@@ -1133,7 +1133,18 @@ export default {
                 </div>
             </div>
             
-            <a href="/login" id="navLoginLink" style="color:var(--primary)">ĐĂNG NHẬP</a>
+            <!-- DROPDOWN: ĐĂNG NHẬP (3 luồng: Admin / Học viên Thư viện / Học viên Online) -->
+            <div class="nav-dropdown">
+                <button class="nav-drop-btn" id="navLoginLink" style="color:var(--primary);">🔐 ĐĂNG NHẬP</button>
+                <div class="nav-drop-menu">
+                    <div class="drop-label">Quản trị viên</div>
+                    <a href="/login">🛡️ Đăng nhập Admin</a>
+                    <div class="drop-divider"></div>
+                    <div class="drop-label">Học viên</div>
+                    <a href="/library">🎬 Xem video giải đề (Thư viện)</a>
+                    <a href="/courses">🎓 Học Online (Ôn tập / Thi thử)</a>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -1196,7 +1207,8 @@ export default {
             var logLink = document.getElementById('navLoginLink');
             if (logLink && isAdmin) {
                 logLink.textContent = "ĐĂNG XUẤT ADMIN";
-                logLink.href = "#";
+                var loginMenu = logLink.nextElementSibling;
+                if (loginMenu && loginMenu.classList.contains('nav-drop-menu')) loginMenu.style.display = 'none';
                 logLink.onclick = function(e) {
                     e.preventDefault();
                     localStorage.removeItem('mos360_admin_session');
@@ -2150,13 +2162,6 @@ ${mode !== 'home' ? `
           </select>
         </div>
         <div class="hn-field">
-          <label class="hn-label">Ngôn ngữ đề <span class="req">*</span></label>
-          <select class="hn-select" id="thi_ngonngu">
-            <option value="TV">Tiếng Việt (TV)</option>
-            <option value="TA">Tiếng Anh (TA)</option>
-          </select>
-        </div>
-        <div class="hn-field">
           <label class="hn-label">Đăng ký thi môn <span class="req">*</span> <span style="font-weight:400;color:var(--muted)">(SV VMU bắt buộc Word + Excel)</span></label>
           <div class="hn-checkbox-group">
             <label class="hn-checkbox-item"><input type="checkbox" id="thi_word" checked onchange="calcLePhi()"><span>📄 Word (W)</span></label>
@@ -2171,6 +2176,13 @@ ${mode !== 'home' ? `
           <select class="hn-select" id="thi_datungThi">
             <option value="N">Chưa thi lần nào</option>
             <option value="Y">Đã thi rồi</option>
+          </select>
+        </div>
+        <div class="hn-field">
+          <label class="hn-label">Ngôn ngữ đề thi <span class="req">*</span></label>
+          <select class="hn-select" id="thi_ngonngu">
+            <option value="TV">🇻🇳 Tiếng Việt</option>
+            <option value="TA">🇬🇧 Tiếng Anh</option>
           </select>
         </div>
 
