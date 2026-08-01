@@ -29,7 +29,7 @@ export function getLibraryUI() {
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
             <div>
                 <h2 style="font-size:1.15rem;font-weight:800;color:var(--text);margin:0;">🎬 Video Giải Đề Test (MOS 2019 / MOS 365)</h2>
-                <p style="color:var(--muted);font-size:0.8rem;margin-top:3px;">Học viên đã được cấp mật khẩu MOS đăng nhập để xem video giải đề chi tiết.</p>
+                <p style="color:var(--muted);font-size:0.8rem;margin-top:3px;">Học viên đã được cấp mật khẩu MOS đăng nhập để xem video giải đề chi tiết. Phiên đăng nhập có hiệu lực 12 tiếng — sau đó cần đăng nhập lại để tiếp tục xem.</p>
             </div>
             <div id="vlAuthBar" style="font-size:0.82rem;"></div>
         </div>
@@ -682,7 +682,12 @@ export function getLibraryUI() {
                 var lb = document.getElementById('vlLogoutBtn');
                 if (lb) lb.onclick = vlDoLogout;
             } else {
-                bar.innerHTML = '<span style="color:var(--muted);">Chưa đăng nhập</span>';
+                bar.innerHTML = '<button id="vlLoginPromptBtn" style="padding:6px 14px;background:#FF5722;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.78rem;">🔑 Đăng nhập để xem video</button>';
+                var pb = document.getElementById('vlLoginPromptBtn');
+                if (pb) pb.onclick = function() {
+                    document.getElementById('vlLoginBox').style.display = 'block';
+                    document.getElementById('vlLoginBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                };
             }
         }
 
