@@ -1514,7 +1514,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
 
 <!-- HERO -->
 ${mode === 'register' ? `
-<div class="hn-hero" style="padding-bottom:24px">
+<div class="hn-hero" style="padding-bottom:4px">
   <div class="hn-hero-bg"></div>
   <div class="hn-grid"></div>
   <div style="position:relative;z-index:1">
@@ -1548,7 +1548,7 @@ ${mode === 'register' ? `
 </div>
 `}
 
-<hr class="hn-divider">
+${mode !== 'register' ? '<hr class="hn-divider">' : ''}
 
 ${mode !== 'register' ? `
 <!-- BẢNG VÀNG CHỨNG CHỈ -->
@@ -1846,11 +1846,15 @@ ${mode !== 'home' ? `
 .hn-acc.open .hn-acc-hdr { border-bottom:none; }
 </style>
 
-<div class="hn-section" id="hn-register">
+<div class="hn-section" id="hn-register" style="${mode === 'register' ? 'padding-top:8px' : ''}">
   <div class="hn-inner">
+    ${mode !== 'register' ? `
     <div class="hn-tag">📝 Đăng ký</div>
     <h2 class="hn-h2">Đăng ký ngay hôm nay</h2>
     <p class="hn-desc">Nhấn vào loại đăng ký bên dưới để mở form — MOS360 liên hệ Zalo trong 24h.</p>
+    ` : `
+    <p class="hn-desc" style="margin-top:0">👇 Nhấn vào loại đăng ký bên dưới để mở form.</p>
+    `}
 
     <!-- ACCORDION: ĐĂNG KÝ HỌC -->
     <div class="hn-acc" id="hn-acc-hoc">
