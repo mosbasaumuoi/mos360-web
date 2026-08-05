@@ -1514,7 +1514,7 @@ table.hn-table { width:100%; border-collapse:collapse; }
 
 <!-- HERO -->
 ${mode === 'register' ? `
-<div class="hn-hero" style="padding-bottom:4px">
+<div class="hn-hero" style="padding-bottom:4px${mode === 'register' ? ';min-height:0;padding-top:28px' : ''}">
   <div class="hn-hero-bg"></div>
   <div class="hn-grid"></div>
   <div style="position:relative;z-index:1">
