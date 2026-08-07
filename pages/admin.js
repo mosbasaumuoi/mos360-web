@@ -32,12 +32,40 @@ export function getAdminDashboardUI() {
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button onclick="document.getElementById('tabStudents').style.display='block';document.getElementById('tabPromo').style.display='none';document.getElementById('tabLicense').style.display='none';document.getElementById('tabResultStats').style.display='none';" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">👥 Học viên Online</button>
-            <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='block';document.getElementById('tabLicense').style.display='none';document.getElementById('tabResultStats').style.display='none';" style="padding:9px 18px; background:rgba(255,87,34,0.15); border:1px solid rgba(255,87,34,0.4); color:#FF5722; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔥 Khuyến mãi</button>
-            <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='none';document.getElementById('tabLicense').style.display='block';document.getElementById('tabResultStats').style.display='none';loadLicenseList();loadPendingRequests();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔑 Mật khẩu MOS</button>
-            <button onclick="document.getElementById('tabStudents').style.display='none';document.getElementById('tabPromo').style.display='none';document.getElementById('tabLicense').style.display='none';document.getElementById('tabResultStats').style.display='block';loadResultStats('today');" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">📊 Kết quả MOS</button>
+            <button onclick="switchTab('tabStudents')" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">👥 Học viên Online</button>
+            <button onclick="switchTab('tabMosReg');loadMosRegistrations();" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">💰 Đăng ký học MOS</button>
+            <button onclick="switchTab('tabPromo')" style="padding:9px 18px; background:rgba(255,87,34,0.15); border:1px solid rgba(255,87,34,0.4); color:#FF5722; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔥 Khuyến mãi</button>
+            <button onclick="switchTab('tabLicense');loadLicenseList();loadPendingRequests();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔑 Mật khẩu MOS</button>
+            <button onclick="switchTab('tabResultStats');loadResultStats('today');" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">📊 Kết quả MOS</button>
             <button onclick="loadDashboard()" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔄 Làm mới</button>
         </div>
+    </div>
+
+    <!-- TAB ĐĂNG KÝ HỌC MOS (thanh toán) -->
+    <div id="tabMosReg" style="display:none">
+      <div style="background:#111422;border:1px solid rgba(34,197,94,0.2);border-radius:16px;padding:28px;margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+          <h2 style="font-size:1.1rem;font-weight:800;color:#fff">💰 Đăng ký học MOS — Thanh toán</h2>
+          <button onclick="loadMosRegistrations()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
+        </div>
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:16px">Đối chiếu sao kê ngân hàng theo đúng <b>Mã đăng ký</b> trong nội dung chuyển khoản, rồi bấm Xác nhận — hệ thống tự gửi email hướng dẫn cho học viên.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+            <thead>
+              <tr style="text-align:left;color:#64748b;font-size:0.72rem;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08)">
+                <th style="padding:8px 6px">HỌ TÊN</th>
+                <th style="padding:8px 6px">SĐT / EMAIL</th>
+                <th style="padding:8px 6px">KHÓA HỌC</th>
+                <th style="padding:8px 6px">MÃ ĐĂNG KÝ</th>
+                <th style="padding:8px 6px">SỐ TIỀN</th>
+                <th style="padding:8px 6px">TRẠNG THÁI</th>
+                <th style="padding:8px 6px"></th>
+              </tr>
+            </thead>
+            <tbody id="mosRegTableBody"><tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b">Đang tải...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
     <!-- TAB KHUYẾN MÃI -->
@@ -111,6 +139,36 @@ export function getAdminDashboardUI() {
         <div style="display:flex;gap:10px">
           <button id="btnSavePromo" onclick="savePromo()" style="flex:1;padding:12px;background:linear-gradient(135deg,#FF5722,#ff784e);color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.95rem;cursor:pointer">💾 Lưu & Kích hoạt</button>
           <button onclick="document.getElementById('promoActive').checked=false;savePromo()" style="padding:12px 20px;background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.3);border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer">⏹ Tắt KM</button>
+        </div>
+      </div>
+
+      <!-- BẢNG MÃ GIẢM GIÁ — khác với banner ở trên: đây là danh sách mã
+           cụ thể, có thời hạn riêng từng mã, học viên CHỌN (không gõ tay)
+           trên form đăng ký. Chỉ mã còn hiệu lực mới hiện trong dropdown. -->
+      <div style="background:#111422;border:1px solid rgba(0,242,255,0.2);border-radius:16px;padding:28px;max-width:900px;margin-top:20px">
+        <h2 style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">🎟️ Bảng mã giảm giá</h2>
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:20px">Học viên sẽ chọn 1 mã còn hiệu lực từ danh sách này khi đăng ký (form Học MOS + Học Online) — không còn gõ tay tự do.</p>
+
+        <div style="overflow-x:auto;margin-bottom:16px">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+            <thead>
+              <tr style="text-align:left;color:#64748b;font-size:0.72rem;font-weight:700">
+                <th style="padding:8px 6px;min-width:180px">NỘI DUNG</th>
+                <th style="padding:8px 6px;min-width:110px">MÃ</th>
+                <th style="padding:8px 6px;min-width:110px">GIẢM (VNĐ)</th>
+                <th style="padding:8px 6px;min-width:130px">TỪ NGÀY</th>
+                <th style="padding:8px 6px;min-width:130px">ĐẾN NGÀY</th>
+                <th style="padding:8px 6px;text-align:center">BẬT</th>
+                <th style="padding:8px 6px"></th>
+              </tr>
+            </thead>
+            <tbody id="promoCodesTableBody"></tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;gap:10px">
+          <button onclick="addPromoCodeRow()" style="padding:10px 18px;background:#1e2235;border:1px solid #384260;color:#00f2ff;border-radius:8px;font-weight:700;font-size:0.85rem;cursor:pointer">➕ Thêm mã mới</button>
+          <button onclick="savePromoCodes()" style="flex:1;padding:10px 18px;background:linear-gradient(135deg,#00b8d4,#00f2ff);color:#0a0f2e;border:none;border-radius:8px;font-weight:800;font-size:0.9rem;cursor:pointer">💾 Lưu bảng mã</button>
         </div>
       </div>
     </div>
@@ -528,7 +586,7 @@ async function resetDevices(phone, course) {
     } catch(e) { alert('Lỗi kết nối!'); }
 }
 
-window.addEventListener('DOMContentLoaded', () => { loadDashboard(); loadPromo(); });
+window.addEventListener('DOMContentLoaded', () => { loadDashboard(); loadPromo(); loadPromoCodes(); });
 
 // ── QUẢN LÝ KHUYẾN MÃI ─────────────────────────────────
 async function loadPromo() {
@@ -602,6 +660,129 @@ function updatePromoPreview() {
     + badge + ' ' + title
     + (subtitle ? ' — ' + subtitle : '')
     + countdown + ' <span style="opacity:0.7">← Banner preview</span></div>';
+}
+
+// ── CHUYỂN TAB (dùng chung cho mọi nút tab) ──────────────
+function switchTab(showId) {
+  ['tabStudents', 'tabMosReg', 'tabPromo', 'tabLicense', 'tabResultStats'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = (id === showId) ? 'block' : 'none';
+  });
+}
+
+// ── ĐĂNG KÝ HỌC MOS — THANH TOÁN ──────────────────────────
+async function loadMosRegistrations() {
+  var body = document.getElementById('mosRegTableBody');
+  try {
+    var res = await adminFetch('/api/admin/mos-registrations');
+    var data = await res.json();
+    if (!data.success) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#ef4444">Lỗi: ' + esc(data.msg) + '</td></tr>'; return; }
+    var items = (data.items || []).filter(function(it){ return it.maDangKy; }); // chỉ hiện đăng ký có tính tiền
+    if (items.length === 0) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#475569">Chưa có đăng ký nào</td></tr>'; return; }
+    // Mới nhất lên đầu
+    items = items.slice().reverse();
+    body.innerHTML = items.map(function(it) {
+      var isPaid = /Đã xác nhận/i.test(it.trangThai);
+      var statusColor = isPaid ? '#22c55e' : '#f59e0b';
+      var statusText = isPaid ? ('✅ Đã xác nhận' + (it.ngayXacNhan ? ' (' + it.ngayXacNhan + ')' : '')) : '⏳ Chờ thanh toán';
+      return '<tr style="border-top:1px solid rgba(255,255,255,0.06)">' +
+        '<td style="padding:8px 6px;color:#fff;font-weight:700">' + esc(it.ten) + '</td>' +
+        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.sdt) + (it.email ? '<br>' + esc(it.email) : '') + '</td>' +
+        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.khoaHoc) + '</td>' +
+        '<td style="padding:8px 6px"><code style="color:#00f2ff">' + esc(it.maDangKy) + '</code></td>' +
+        '<td style="padding:8px 6px;color:#22c55e;font-weight:700">' + (it.soTien || 0).toLocaleString('vi-VN') + 'đ</td>' +
+        '<td style="padding:8px 6px;color:' + statusColor + ';font-size:0.8rem;font-weight:700">' + statusText + '</td>' +
+        '<td style="padding:8px 6px">' + (isPaid ? '' :
+          '<button onclick="confirmMosPayment(&quot;' + it.maDangKy + '&quot;, this)" style="padding:6px 12px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap">✅ Xác nhận</button>') +
+        '</td></tr>';
+    }).join('');
+  } catch(e) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#ef4444">Lỗi kết nối!</td></tr>'; }
+}
+
+async function confirmMosPayment(maDangKy, btnEl) {
+  if (!confirm('Xác nhận ĐÃ NHẬN thanh toán cho mã ' + maDangKy + '?\\nHệ thống sẽ tự gửi email hướng dẫn cho học viên.')) return;
+  if (btnEl) { btnEl.disabled = true; btnEl.textContent = '⏳ Đang xử lý...'; }
+  try {
+    var res = await adminFetch('/api/admin/mos-registrations/confirm-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ maDangKy: maDangKy })
+    });
+    var data = await res.json();
+    alert(data.success ? ('✅ ' + data.msg) : ('❌ ' + data.msg));
+    loadMosRegistrations();
+  } catch(e) {
+    alert('❌ Lỗi kết nối!');
+    if (btnEl) { btnEl.disabled = false; btnEl.textContent = '✅ Xác nhận'; }
+  }
+}
+
+// ── BẢNG MÃ GIẢM GIÁ ──────────────────────────────────────
+var promoCodesList = [];
+
+async function loadPromoCodes() {
+  try {
+    var res = await adminFetch('/api/admin/promo-codes');
+    var data = await res.json();
+    promoCodesList = (data.codes || []).map(function(c) {
+      return { content: c.content || '', code: c.code || '', discountAmount: c.discountAmount || 0, startDate: c.startDate || '', endDate: c.endDate || '', active: c.active !== false };
+    });
+    renderPromoCodesTable();
+  } catch(e) { promoCodesList = []; renderPromoCodesTable(); }
+}
+
+function renderPromoCodesTable() {
+  var body = document.getElementById('promoCodesTableBody');
+  if (!body) return;
+  var todayStr = new Date().toISOString().slice(0,10);
+  if (promoCodesList.length === 0) {
+    body.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#475569">Chưa có mã nào — bấm "➕ Thêm mã mới" để bắt đầu</td></tr>';
+    return;
+  }
+  body.innerHTML = promoCodesList.map(function(c, i) {
+    var expired = c.endDate && c.endDate < todayStr;
+    return '<tr style="border-top:1px solid rgba(255,255,255,0.06)' + (expired ? ';opacity:0.5' : '') + '">' +
+      '<td style="padding:6px"><input value="' + esc(c.content) + '" oninput="promoCodesList[' + i + '].content=this.value" placeholder="VD: Giảm 10% học viên mới" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.82rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px"><input value="' + esc(c.code) + '" oninput="promoCodesList[' + i + '].code=this.value.toUpperCase()" placeholder="MOS10" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#00f2ff;font-family:monospace;font-weight:700;font-size:0.82rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.discountAmount || 0) + '" oninput="promoCodesList[' + i + '].discountAmount=parseInt(this.value)||0" placeholder="50000" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#22c55e;font-weight:700;font-size:0.82rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px"><input type="date" value="' + esc(c.startDate) + '" onchange="promoCodesList[' + i + '].startDate=this.value" style="width:100%;padding:6px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.78rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px"><input type="date" value="' + esc(c.endDate) + '" onchange="promoCodesList[' + i + '].endDate=this.value" style="width:100%;padding:6px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.78rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px;text-align:center"><input type="checkbox" ' + (c.active ? 'checked' : '') + ' onchange="promoCodesList[' + i + '].active=this.checked" style="width:18px;height:18px;accent-color:#00f2ff;cursor:pointer"></td>' +
+      '<td style="padding:6px;text-align:center"><button onclick="deletePromoCodeRow(' + i + ')" style="padding:5px 10px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444;border-radius:6px;font-size:0.72rem;cursor:pointer">🗑️</button></td>' +
+      '</tr>';
+  }).join('');
+}
+
+function esc(s) { return String(s || '').replace(/"/g, '&quot;'); }
+
+function addPromoCodeRow() {
+  var today = new Date().toISOString().slice(0,10);
+  var nextMonth = new Date(Date.now() + 30*86400000).toISOString().slice(0,10);
+  promoCodesList.push({ content: '', code: '', discountAmount: 0, startDate: today, endDate: nextMonth, active: true });
+  renderPromoCodesTable();
+}
+
+function deletePromoCodeRow(i) {
+  promoCodesList.splice(i, 1);
+  renderPromoCodesTable();
+}
+
+async function savePromoCodes() {
+  // Kiểm tra nhanh: mã không được để trống, không được trùng nhau
+  var codes = promoCodesList.map(function(c){ return c.code.trim(); }).filter(Boolean);
+  if (codes.length !== promoCodesList.length) { alert('⚠️ Có dòng chưa nhập Mã — vui lòng điền đủ hoặc xoá dòng trống.'); return; }
+  var dup = codes.filter(function(c, i){ return codes.indexOf(c) !== i; });
+  if (dup.length) { alert('⚠️ Mã bị trùng: ' + dup.join(', ')); return; }
+
+  try {
+    var res = await adminFetch('/api/admin/promo-codes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ codes: promoCodesList })
+    });
+    var data = await res.json();
+    alert(data.success ? '✅ Đã lưu bảng mã giảm giá!' : '❌ ' + data.msg);
+  } catch(e) { alert('❌ Lỗi kết nối!'); }
 }
 
 // THONG KE TRUY CAP

@@ -141,6 +141,73 @@ export async function handleAdminAPI(path, request, env) {
         }
     }
 
+    // GET /api/admin/promo-codes — lấy TOÀN BỘ bảng mã giảm giá (kể cả mã
+    // đã hết hạn/đang tắt — để admin xem lại lịch sử, sửa, hoặc bật lại)
+    if (path === '/api/admin/promo-codes' && request.method === 'GET') {
+        try {
+            const raw = await env.MOS360_USERS_KV.get('promo_codes');
+            const codes = raw ? JSON.parse(raw) : [];
+            return json({ success: true, codes });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // POST /api/admin/promo-codes — lưu đè TOÀN BỘ bảng mã (admin sửa/thêm/
+    // xoá trực tiếp trên bảng ở Dashboard rồi lưu 1 lần cả danh sách, đơn
+    // giản hơn nhiều so với làm CRUD riêng từng mã, phù hợp quy mô ít mã).
+    if (path === '/api/admin/promo-codes' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const codes = Array.isArray(body.codes) ? body.codes : [];
+            await env.MOS360_USERS_KV.put('promo_codes', JSON.stringify(codes));
+            return json({ success: true, msg: 'Đã lưu bảng mã giảm giá!' });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // GET /api/admin/mos-registrations — danh sách đăng ký học MOS (đọc
+    // trực tiếp từ Apps Script DKHOC, real-time — không qua publish cache)
+    if (path === '/api/admin/mos-registrations' && request.method === 'GET') {
+        try {
+            const result = await callDKHocScript('listDKHoc', {});
+            if (!result.ok) return json({ success: false, msg: result.msg || 'Lỗi tải danh sách' });
+            return json({ success: true, items: result.items || [] });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi tải dữ liệu: ' + e.message });
+        }
+    }
+
+    // POST /api/admin/mos-registrations/confirm-payment — body: { maDangKy }
+    // Đánh dấu đã thanh toán trong Sheet + TỰ ĐỘNG gửi email xác nhận kèm
+    // hướng dẫn tải phần mềm cho học viên (nếu học viên có để lại email).
+    if (path === '/api/admin/mos-registrations/confirm-payment' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const maDangKy = String(body.maDangKy || '').trim();
+            if (!maDangKy) return json({ success: false, msg: 'Thiếu mã đăng ký' });
+
+            const result = await callDKHocScript('confirmDKHocPayment', { maDangKy });
+            if (!result.ok) return json({ success: false, msg: result.msg || 'Không xác nhận được' });
+
+            let emailResult = { ok: false, msg: 'Học viên chưa để lại email' };
+            if (result.email) {
+                emailResult = await sendPaymentConfirmEmail(env, {
+                    toEmail: result.email, toName: result.ten,
+                    khoaHoc: result.khoaHoc, soTien: result.soTien, maDangKy: result.maDangKy
+                });
+            }
+
+            return json({
+                success: true,
+                msg: emailResult.ok ? 'Đã xác nhận thanh toán và gửi email cho học viên!' : ('Đã xác nhận thanh toán (email chưa gửi được: ' + emailResult.msg + ')')
+            });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi: ' + e.message });
+        }
+    }
+
     return json({ success: false, msg: 'API not found' }, 404);
 }
 
@@ -154,6 +221,70 @@ async function callAppsScript(action, data, env) {
         body: JSON.stringify({ action, ...data })
     });
     return await resp.json();
+}
+
+// Apps Script riêng cho sheet "Đăng ký học MOS" (DKHOC) — khác hẳn với
+// CONFIG.APPS_SCRIPT_URL ở trên (đó là sheet học viên Online). Cùng URL
+// đang dùng trong api/register-api.js.
+const DKHOC_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbweC3d-SKm29ltW6Y13hWqYuw8Q-4X23QEbF0AhQL_IfA2YiWYzVkIOyV4n-sxApEpcMA/exec";
+
+async function callDKHocScript(action, data) {
+    const resp = await fetch(DKHOC_APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, ...data })
+    });
+    return await resp.json();
+}
+
+// Gửi email xác nhận thanh toán qua Resend — dùng lại đúng cơ chế đã có
+// sẵn ở api/license-api.js (sendPasswordEmail), tách hàm riêng ở đây vì
+// nội dung email khác hẳn (xác nhận đóng học phí + hướng dẫn tải phần
+// mềm/tài liệu, không phải gửi mật khẩu).
+async function sendPaymentConfirmEmail(env, { toEmail, toName, khoaHoc, soTien, maDangKy }) {
+    const apiKey = env.RESEND_API_KEY;
+    if (!apiKey) return { ok: false, msg: "Chưa cấu hình RESEND_API_KEY" };
+    if (!toEmail) return { ok: false, msg: "Học viên chưa để lại email" };
+
+    const amountStr = (Number(soTien) || 0).toLocaleString('vi-VN') + 'đ';
+    const html = `
+      <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1a1a2e">
+        <h2 style="color:#FF5722">✅ Đã xác nhận thanh toán — MOS360</h2>
+        <p>Chào <b>${escHtml(toName)}</b>,</p>
+        <p>MOS360 xác nhận đã nhận được học phí cho khóa học <b>${escHtml(khoaHoc)}</b>:</p>
+        <table style="width:100%;border-collapse:collapse;margin:16px 0">
+          <tr><td style="padding:6px 0;color:#64748b">Mã đăng ký</td><td style="padding:6px 0;font-weight:700">${escHtml(maDangKy)}</td></tr>
+          <tr><td style="padding:6px 0;color:#64748b">Số tiền đã đóng</td><td style="padding:6px 0;font-weight:700;color:#22c55e">${amountStr}</td></tr>
+        </table>
+        <h3 style="margin-top:24px">🖥️ Bước tiếp theo — Tải phần mềm MOS360</h3>
+        <p>1. Tải phần mềm luyện thi: <a href="https://drive.google.com/file/d/16ZRK0JtioIq1R0grfw88-M5V0fr6tY_A/view">Tải tại đây</a></p>
+        <p>2. Hướng dẫn cài đặt từng bước: <a href="https://docs.google.com/document/d/1j2zrxTZWvuPa6CaffkKlS9UMbU4xFLWC/edit">Xem hướng dẫn</a></p>
+        <p>3. Thư viện tài liệu + video giải đề: <a href="https://mos360.vn/library">mos360.vn/library</a></p>
+        <p style="margin-top:20px;color:#64748b;font-size:0.9rem">Lịch khai giảng cụ thể MOS360 sẽ thông báo qua Zalo trong thời gian sớm nhất. Mọi thắc mắc liên hệ hotline <b>0912.888.360</b>.</p>
+        <p style="margin-top:24px">Trân trọng,<br>MOS360</p>
+      </div>`;
+
+    try {
+        const res = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                from: "MOS360 <hotro@mos360.vn>",
+                to: [toEmail],
+                subject: `✅ Xác nhận thanh toán khóa học ${khoaHoc} — MOS360`,
+                html
+            })
+        });
+        const text = await res.text();
+        if (!res.ok) return { ok: false, msg: "Resend lỗi: " + text.slice(0, 200) };
+        return { ok: true };
+    } catch (e) {
+        return { ok: false, msg: e.message };
+    }
+}
+
+function escHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 function json(data, status = 200) {

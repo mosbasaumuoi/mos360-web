@@ -551,6 +551,24 @@ export default {
             return handleOnlineRegisterAPI(request, env);
         }
 
+        // ── MÃ GIẢM GIÁ — danh sách mã ĐANG CÒN HIỆU LỰC (công khai,
+        // không cần đăng nhập admin) — form đăng ký gọi để hiện dropdown
+        // chọn mã, thay vì học viên tự gõ tay dễ sai/dùng mã đã hết hạn.
+        // Quản lý toàn bộ mã (thêm/sửa/xoá) nằm ở /api/admin/promo-codes.
+        if (path === '/api/promo-codes/active' && request.method === 'GET') {
+            try {
+                const raw = await env.MOS360_USERS_KV.get('promo_codes');
+                const all = raw ? JSON.parse(raw) : [];
+                const todayStr = new Date().toISOString().slice(0, 10);
+                const active = all
+                    .filter(c => c.active !== false && (!c.startDate || c.startDate <= todayStr) && (!c.endDate || c.endDate >= todayStr))
+                    .map(c => ({ code: c.code, content: c.content, discountAmount: c.discountAmount || 0 }));
+                return new Response(JSON.stringify({ success: true, codes: active }), { headers: { 'Content-Type': 'application/json' } });
+            } catch (e) {
+                return new Response(JSON.stringify({ success: true, codes: [] }), { headers: { 'Content-Type': 'application/json' } });
+            }
+        }
+
         // ── VISIT TRACKING API ────────────────────────────────────
         if (path === '/api/admin/visit-stats' && request.method === 'GET') {
             const token = url.searchParams.get('token') || request.headers.get('X-Admin-Token') || '';
@@ -1887,6 +1905,13 @@ ${mode !== 'home' ? `
         </div>
         <div class="hn-row">
           <div class="hn-field">
+            <label class="hn-label">Email <span class="req">*</span></label>
+            <input class="hn-input" id="hoc_email" type="email" placeholder="ban@gmail.com" required>
+            <div style="font-size:0.72rem;color:#94a3b8;margin-top:4px">Dùng để gửi xác nhận thanh toán + hướng dẫn tải phần mềm</div>
+          </div>
+        </div>
+        <div class="hn-row">
+          <div class="hn-field">
             <label class="hn-label">Ngày, tháng, năm sinh</label>
             <input class="hn-input" id="hoc_ngaysinh" placeholder="01/01/2005">
           </div>
@@ -1937,7 +1962,7 @@ ${mode !== 'home' ? `
           </div>
           <div class="hn-field">
             <label class="hn-label">Mã giảm giá (nếu có)</label>
-            <input class="hn-input" id="hoc_magg" placeholder="Nhập mã giảm giá">
+            <select class="hn-select" id="hoc_magg"><option value="">-- Không dùng mã --</option></select>
           </div>
         </div>
         <div class="hn-field">
@@ -1956,6 +1981,18 @@ ${mode !== 'home' ? `
           <span>📝 Gửi đăng ký học</span>
         </button>
         <div class="hn-form-msg" id="msg_hoc"></div>
+        <!-- Hiện sau khi đăng ký học MOS thành công: mã đăng ký + số tiền +
+             QR VietQR — thay cho việc chỉ hiện dòng "cảm ơn" chung chung. -->
+        <div id="hoc_payment_box" style="display:none;margin-top:16px;padding:20px;background:#F8FAFD;border:1.5px solid #FF5722;border-radius:14px;text-align:center">
+          <div style="font-weight:800;color:#1a1a2e;font-size:1rem;margin-bottom:2px">💳 Quét mã để thanh toán</div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-bottom:14px">Nội dung chuyển khoản đã tự điền sẵn trong mã QR — không cần sửa gì thêm.</div>
+          <img id="hoc_qr_img" src="" alt="QR thanh toán" style="max-width:260px;width:100%;border-radius:10px;border:1px solid var(--border);background:#fff">
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:4px;font-size:0.85rem">
+            <div>Mã đăng ký: <b id="hoc_ma_dk" style="color:#FF5722;font-family:monospace"></b></div>
+            <div>Số tiền cần chuyển: <b id="hoc_so_tien" style="color:#22c55e;font-size:1.1rem"></b></div>
+          </div>
+          <div style="margin-top:12px;font-size:0.75rem;color:var(--muted)">Sau khi chuyển khoản, MOS360 sẽ xác nhận và gửi email hướng dẫn tải phần mềm trong ít phút. Giữ lại mã đăng ký để tiện tra cứu nếu cần hỗ trợ.</div>
+        </div>
         <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center">
           Sau khi gửi, MOS360 sẽ liên hệ Zalo/Face trong vòng 1 giờ · Hotline: <strong style="color:var(--text)">0912.888.360</strong>
         </p>
@@ -2039,7 +2076,7 @@ ${mode !== 'home' ? `
           </div>
           <div class="hn-field">
             <label class="hn-label">Mã giảm giá (nếu có)</label>
-            <input class="hn-input" id="onl_magg" placeholder="Nhập mã giảm giá">
+            <select class="hn-select" id="onl_magg"><option value="">-- Không dùng mã --</option></select>
           </div>
         </div>
         <div class="hn-field">
@@ -2470,6 +2507,28 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script>// Accordion register
+// Nạp danh sách mã giảm giá còn hiệu lực vào 2 dropdown (Học MOS + Học
+// Online) — chỉ chạy nếu trang có ô này (trang /register hoặc trang chủ
+// có form đăng ký), tránh gọi API thừa ở các trang khác.
+async function loadActivePromoCodes() {
+  var selects = ['hoc_magg', 'onl_magg'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if (selects.length === 0) return;
+  try {
+    var res = await fetch('/api/promo-codes/active');
+    var data = await res.json();
+    var codes = data.codes || [];
+    selects.forEach(function(sel) {
+      codes.forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.code;
+        opt.textContent = c.code + (c.content ? ' — ' + c.content : '');
+        sel.appendChild(opt);
+      });
+    });
+  } catch (e) { /* im lặng — không có mã cũng không chặn đăng ký */ }
+}
+document.addEventListener('DOMContentLoaded', loadActivePromoCodes);
+
 function toggleAcc(id) {
   var acc = document.getElementById('hn-acc-' + id);
   if (!acc) return;
@@ -2550,7 +2609,9 @@ async function submitForm(type) {
   if (type === 'hoc') {
     var ten = document.getElementById('hoc_ten').value.trim();
     var sdt = document.getElementById('hoc_sdt').value.trim();
+    var email = document.getElementById('hoc_email').value.trim();
     if (!ten || !sdt) { showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ Họ tên và SĐT'); return; }
+    if (!email) { showMsg(msgEl, 'err', '⚠ Vui lòng nhập Email để nhận xác nhận thanh toán'); return; }
     var khoahoc = [];
     ['w19','e19','p19','w365','e365','p365'].forEach(function(k) {
       var el = document.getElementById('hoc_kh_' + k);
@@ -2558,7 +2619,7 @@ async function submitForm(type) {
     });
     if (!khoahoc.length) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 khóa học'); return; }
     Object.assign(payload, {
-      ten: ten, sdt: sdt,
+      ten: ten, sdt: sdt, email: email,
       ngaysinh: document.getElementById('hoc_ngaysinh').value,
       truong: document.getElementById('hoc_truong').value,
       namhoc: document.getElementById('hoc_namhoc').value,
@@ -2709,13 +2770,23 @@ async function submitForm(type) {
       if (typeof gtag === 'function') {
         gtag('event', 'generate_lead', { form_type: type });
       }
-      // Reset form sau khi gửi thành công
-      setTimeout(function() {
-        document.querySelectorAll('#hn-reg-' + type + ' input, #hn-reg-' + type + ' select, #hn-reg-' + type + ' textarea').forEach(function(el) {
-          if (el.type === 'checkbox') el.checked = (el.id === 'thi_word' || el.id === 'thi_excel');
-          else el.value = '';
-        });
-      }, 1500);
+      if (type === 'hoc' && data.qrImageUrl) {
+        document.getElementById('hoc_qr_img').src = data.qrImageUrl;
+        document.getElementById('hoc_ma_dk').textContent = data.maDangKy || '';
+        document.getElementById('hoc_so_tien').textContent = (data.soTien || 0).toLocaleString('vi-VN') + 'đ';
+        var box = document.getElementById('hoc_payment_box');
+        box.style.display = 'block';
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Reset form sau khi gửi thành công (không áp dụng cho "hoc" — cần
+        // giữ nguyên để học viên còn xem/chụp lại mã QR thanh toán).
+        setTimeout(function() {
+          document.querySelectorAll('#hn-reg-' + type + ' input, #hn-reg-' + type + ' select, #hn-reg-' + type + ' textarea').forEach(function(el) {
+            if (el.type === 'checkbox') el.checked = (el.id === 'thi_word' || el.id === 'thi_excel');
+            else el.value = '';
+          });
+        }, 1500);
+      }
     } else {
       showMsg(msgEl, 'err', '❌ ' + (data.msg || 'Gửi thất bại, thử lại hoặc liên hệ Zalo 0912.888.360'));
     }
