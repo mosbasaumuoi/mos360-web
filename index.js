@@ -2535,6 +2535,10 @@ async function loadActivePromoCodes() {
     var res = await fetch('/api/promo-codes/active');
     var data = await res.json();
     activePromoCodes = data.codes || [];
+    // Mã có ngày bắt đầu MỚI NHẤT (đợt khuyến mãi mới nhất) lên đầu danh
+    // sách — và TỰ CHỌN SẴN mã đó luôn, để học viên thấy ngay khuyến mãi
+    // đang chạy thay vì phải tự tìm/gõ mã.
+    activePromoCodes.sort(function(a, b) { return (b.startDate || '').localeCompare(a.startDate || ''); });
     selects.forEach(function(sel) {
       activePromoCodes.forEach(function(c) {
         var opt = document.createElement('option');
@@ -2542,6 +2546,10 @@ async function loadActivePromoCodes() {
         opt.textContent = c.code;
         sel.appendChild(opt);
       });
+      if (activePromoCodes.length > 0) {
+        sel.value = activePromoCodes[0].code;
+        if (sel.id === 'hoc_magg') onHocPromoChange();
+      }
     });
   } catch (e) { /* im lặng — không có mã cũng không chặn đăng ký */ }
 }

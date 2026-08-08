@@ -136,6 +136,7 @@ async function computeDKHocPayment(payload, env) {
     return {
         maDangKy,
         amount,
+        soTien: amount, // alias — client-side (index.js) đọc field "soTien" khi hiện lên form
         baseAmount,
         discount,
         isDeposit: depositMonths > 0,
