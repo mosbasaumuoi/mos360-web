@@ -45,7 +45,7 @@ export async function handleRegisterAPI(request, env) {
     let paymentInfo = null;
     if (payload.action === "dkhoc") {
         paymentInfo = await computeDKHocPayment(payload, env);
-        payload = { ...payload, maDangKy: paymentInfo.maDangKy, soTien: paymentInfo.amount, email: String(payload.email || "").trim() };
+        payload = { ...payload, maDangKy: paymentInfo.maDangKy, soTien: paymentInfo.amount, soTienCoc: paymentInfo.depositAmount, email: String(payload.email || "").trim() };
     }
 
     // 1. Forward payload (đã bổ sung mã đăng ký/số tiền nếu là dkhoc) sang
@@ -87,31 +87,49 @@ export async function handleRegisterAPI(request, env) {
 
 // Tính số tiền cần đóng cho 1 lượt đăng ký học MOS + sinh mã đăng ký và
 // nội dung chuyển khoản chuẩn hoá (không dấu, không khoảng trắng).
+//
+// 2 CƠ CHẾ mã giảm giá (phân biệt bằng có/không có "subCode"):
+//  A) ĐẶT CỌC (subCode = "MP1"/"MP2"/"MP3" → 1/2/3 môn được áp cọc):
+//     Tổng tiền = Cọc + (số môn đã chọn − số môn được cọc, tối thiểu 0)
+//                 × Học phí ưu đãi môn dư
+//     (chọn ÍT môn hơn số môn được cọc vẫn đóng đủ tiền cọc, không bớt)
+//  B) GIẢM GIÁ CỐ ĐỊNH (không có subCode):
+//     Tổng tiền = max(0, số môn × 400.000 − Giá trị giảm)
 async function computeDKHocPayment(payload, env) {
     const soMon = String(payload.khoahoc || "")
         .split(",")
         .map(s => s.trim())
         .filter(Boolean).length;
-    const baseAmount = soMon * HOC_PHI_MOI_MON;
 
-    let discount = 0;
+    let match = null;
     const codeInput = String(payload.magiamgia || "").trim().toUpperCase();
     if (codeInput && env.MOS360_USERS_KV) {
         try {
             const raw = await env.MOS360_USERS_KV.get("promo_codes");
             const codes = raw ? JSON.parse(raw) : [];
             const todayStr = new Date().toISOString().slice(0, 10);
-            const match = codes.find(c =>
+            match = codes.find(c =>
                 String(c.code || "").trim().toUpperCase() === codeInput &&
                 c.active !== false &&
                 (!c.startDate || c.startDate <= todayStr) &&
                 (!c.endDate || c.endDate >= todayStr)
-            );
-            if (match) discount = Number(match.discountAmount) || 0;
+            ) || null;
         } catch (e) { /* mã lỗi/không đọc được KV → coi như không có mã, không chặn đăng ký */ }
     }
 
-    const amount = Math.max(0, baseAmount - discount);
+    let amount, depositAmount = 0, extraTuitionAmount = 0, extraCount = 0, baseAmount = soMon * HOC_PHI_MOI_MON, discount = 0;
+    const depositMonths = match && match.subCode ? (parseInt(String(match.subCode).replace(/\D/g, ""), 10) || 0) : 0;
+
+    if (match && depositMonths > 0) {
+        depositAmount = Number(match.deposit) || 0;
+        extraCount = Math.max(0, soMon - depositMonths);
+        extraTuitionAmount = extraCount * (Number(match.tuitionPerExtra) || 0);
+        amount = depositAmount + extraTuitionAmount;
+    } else {
+        discount = match ? (Number(match.discountAmount) || 0) : 0;
+        amount = Math.max(0, baseAmount - discount);
+    }
+
     const maDangKy = "MOS" + Math.random().toString(36).slice(2, 7).toUpperCase();
     const qrContent = buildQrContent(payload.ten, payload.sdt, maDangKy);
 
@@ -120,6 +138,11 @@ async function computeDKHocPayment(payload, env) {
         amount,
         baseAmount,
         discount,
+        isDeposit: depositMonths > 0,
+        depositAmount,
+        depositMonths,
+        extraCount,
+        extraTuitionAmount,
         qrContent,
         bankInfo: BANK_INFO,
         qrImageUrl: `https://img.vietqr.io/image/${BANK_INFO.bin}-${BANK_INFO.accountNo}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(qrContent)}&accountName=${encodeURIComponent(BANK_INFO.accountName)}`
@@ -162,7 +185,8 @@ function buildMessage(p) {
             (p.email ? `\n📧 Email: ${esc(p.email)}` : "") +
             `\n📚 Khóa học: ${esc(p.khoahoc)}` +
             (p.maDangKy ? `\n🎫 Mã đăng ký: <code>${esc(p.maDangKy)}</code>` : "") +
-            (typeof p.soTien === "number" ? `\n💰 Số tiền: ${p.soTien.toLocaleString("vi-VN")}đ` : "") +
+            (typeof p.soTienCoc === "number" && p.soTienCoc > 0 ? `\n💵 Trong đó tiền cọc: ${p.soTienCoc.toLocaleString("vi-VN")}đ` : "") +
+            (typeof p.soTien === "number" ? `\n💰 Tổng tiền: ${p.soTien.toLocaleString("vi-VN")}đ` : "") +
             (p.truong ? `\n🏫 Trường: ${esc(p.truong)}` : "") +
             (isPromo ? `\n🎟 Mã giảm giá: ${esc(p.magiamgia)}` : "") +
             (p.kenh ? `\n📣 Kênh biết đến: ${esc(p.kenh)}` : "") +

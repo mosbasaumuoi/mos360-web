@@ -562,7 +562,11 @@ export default {
                 const todayStr = new Date().toISOString().slice(0, 10);
                 const active = all
                     .filter(c => c.active !== false && (!c.startDate || c.startDate <= todayStr) && (!c.endDate || c.endDate >= todayStr))
-                    .map(c => ({ code: c.code, content: c.content, discountAmount: c.discountAmount || 0 }));
+                    .map(c => ({
+                        code: c.code, content: c.content, subCode: c.subCode || '',
+                        deposit: c.deposit || 0, tuitionPerExtra: c.tuitionPerExtra || 0,
+                        discountAmount: c.discountAmount || 0
+                    }));
                 return new Response(JSON.stringify({ success: true, codes: active }), { headers: { 'Content-Type': 'application/json' } });
             } catch (e) {
                 return new Response(JSON.stringify({ success: true, codes: [] }), { headers: { 'Content-Type': 'application/json' } });
@@ -1910,45 +1914,12 @@ ${mode !== 'home' ? `
             <div style="font-size:0.72rem;color:#94a3b8;margin-top:4px">Dùng để gửi xác nhận thanh toán + hướng dẫn tải phần mềm</div>
           </div>
         </div>
-        <div class="hn-row">
-          <div class="hn-field">
-            <label class="hn-label">Ngày, tháng, năm sinh</label>
-            <input class="hn-input" id="hoc_ngaysinh" placeholder="01/01/2005">
-          </div>
-          <div class="hn-field">
-            <label class="hn-label">Trường đang học</label>
-            <select class="hn-select" id="hoc_truong">
-              <option value="">-- Chọn trường --</option>
-              <option>ĐH Hàng Hải Việt Nam</option>
-              <option>ĐH Hải Phòng</option>
-              <option>ĐH Quản lý & Công nghệ HP</option>
-              <option>CĐ Hàng Hải I</option>
-              <option>Khác</option>
-            </select>
-          </div>
-        </div>
-        <div class="hn-row">
-          <div class="hn-field">
-            <label class="hn-label">Năm học</label>
-            <select class="hn-select" id="hoc_namhoc">
-              <option value="">-- Năm học --</option>
-              <option>Năm 1</option><option>Năm 2</option><option>Năm 3</option><option>Năm 4</option><option>Đã tốt nghiệp</option>
-            </select>
-          </div>
-          <div class="hn-field">
-            <label class="hn-label">Khoa / Lớp</label>
-            <input class="hn-input" id="hoc_khoa" placeholder="VD: Khoa Kinh tế - KTB66ĐH">
-          </div>
-        </div>
         <div class="hn-field">
           <label class="hn-label">Khóa học muốn đăng ký <span class="req">*</span></label>
           <div class="hn-checkbox-group">
             <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_w19" value="MOS Word 2019"><span>📄 Word 2019</span></label>
             <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_e19" value="MOS Excel 2019"><span>📊 Excel 2019</span></label>
             <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_p19" value="MOS PowerPoint 2019"><span>📑 PowerPoint 2019</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_w365" value="MOS Word 365"><span>📄 Word 365</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_e365" value="MOS Excel 365"><span>📊 Excel 365</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="hoc_kh_p365" value="MOS PowerPoint 365"><span>📑 PowerPoint 365</span></label>
           </div>
         </div>
         <div class="hn-row">
@@ -1962,22 +1933,21 @@ ${mode !== 'home' ? `
           </div>
           <div class="hn-field">
             <label class="hn-label">Mã giảm giá (nếu có)</label>
-            <select class="hn-select" id="hoc_magg"><option value="">-- Không dùng mã --</option></select>
+            <select class="hn-select" id="hoc_magg" onchange="onHocPromoChange()"><option value="">-- Không dùng mã --</option></select>
           </div>
         </div>
+        <!-- Hiện nội dung đầy đủ của chương trình KM khi học viên chọn mã -->
+        <div id="hoc_promo_box" style="display:none;margin:4px 0 16px;padding:14px 16px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;font-size:0.84rem;color:#7c2d12;white-space:pre-line"></div>
         <div class="hn-field">
           <label class="hn-label">Link Facebook của em</label>
           <input class="hn-input" id="hoc_fb" placeholder="https://facebook.com/...">
         </div>
         <div class="hn-field">
-          <label class="hn-label">Thông tin bạn giới thiệu hoặc trưởng nhóm (nếu có)</label>
-          <input class="hn-input" id="hoc_gioithieu" placeholder="VD: Nguyễn Văn A - 0912888360">
-        </div>
-        <div class="hn-field">
           <label class="hn-label">Ghi chú thêm</label>
           <textarea class="hn-textarea" id="hoc_ghichu" placeholder="Câu hỏi hoặc yêu cầu đặc biệt..."></textarea>
         </div>
-        <button class="hn-submit" onclick="submitForm('hoc')" id="btn_hoc">
+        <div id="hoc_required_hint" style="display:none;font-size:0.75rem;color:#ef4444;margin-bottom:10px">* Các trường có dấu * là bắt buộc — vui lòng điền đầy đủ.</div>
+        <button class="hn-submit" onclick="openHocConfirmModal()" id="btn_hoc">
           <span>📝 Gửi đăng ký học</span>
         </button>
         <div class="hn-form-msg" id="msg_hoc"></div>
@@ -1996,6 +1966,51 @@ ${mode !== 'home' ? `
         <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center">
           Sau khi gửi, MOS360 sẽ liên hệ Zalo/Face trong vòng 1 giờ · Hotline: <strong style="color:var(--text)">0912.888.360</strong>
         </p>
+      </div>
+    </div>
+
+    <!-- MODAL XÁC NHẬN ĐĂNG KÝ HỌC MOS — bấm "Gửi đăng ký học" chỉ mở modal
+         này, CHƯA gửi đi gì cả. Chỉ khi bấm "Xác nhận & Gửi đăng ký" trong
+         modal thì mới thực sự POST lên server (giữ nguyên logic tính tiền/
+         QR như cũ, chỉ chèn thêm bước xem lại trước khi gửi thật). -->
+    <div id="hocConfirmModal" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.6);z-index:9999;align-items:center;justify-content:center;padding:16px">
+      <div style="background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;padding:28px">
+        <h3 style="font-size:1.15rem;font-weight:800;color:#1a1a2e;margin-bottom:4px">📋 Xác nhận thông tin đăng ký</h3>
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:18px">Vui lòng kiểm tra kỹ trước khi gửi — sau khi xác nhận, MOS360 sẽ ghi nhận đăng ký của bạn.</p>
+
+        <div style="background:#F8FAFD;border-radius:10px;padding:16px;margin-bottom:14px;font-size:0.85rem;line-height:1.7">
+          <div style="font-weight:800;color:#1a1a2e;margin-bottom:6px">THÔNG TIN KHÓA HỌC</div>
+          ✅ Khóa MOS (Word + Excel + PowerPoint) được học 100% bằng phần mềm, giao diện giống như thi thật.<br>
+          ✅ Được giáo viên hướng dẫn 1:1 trực tiếp, rút ngắn thời gian học. Chỉ cần 1 tuần học, học viên có thể hoàn thành 2–3 môn.<br>
+          ✅ Học mọi lúc, mọi nơi. Không giới hạn số lần học.<br>
+          ✅ Cam kết 700+ đầu ra bằng văn bản. Hoàn lại 100% lệ phí thi nếu chưa đỗ.<br>
+          ☘ <b>Học phí gốc: 400.000đ/1 môn</b>
+        </div>
+
+        <div style="background:#F8FAFD;border-radius:10px;padding:16px;margin-bottom:14px;font-size:0.85rem;line-height:1.7">
+          <div style="font-weight:800;color:#1a1a2e;margin-bottom:6px">🌟 KẾT QUẢ HỌC VIÊN</div>
+          Tỷ lệ học viên thi đỗ: <b style="color:#22c55e">100%</b><br>
+          Tỷ lệ đạt tuyệt đối 1000 điểm: <b style="color:#22c55e">trên 30%</b>
+        </div>
+
+        <div id="hocConfirmPromoBlock" style="display:none;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:16px;margin-bottom:14px;font-size:0.85rem;line-height:1.7;color:#7c2d12"></div>
+
+        <div style="background:#F8FAFD;border-radius:10px;padding:16px;margin-bottom:14px;font-size:0.85rem">
+          <div style="font-weight:800;color:#1a1a2e;margin-bottom:8px">🌟 MÔN ĐĂNG KÝ HỌC</div>
+          <div id="hocConfirmMonList" style="color:#334155"></div>
+        </div>
+
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:16px;margin-bottom:18px;font-size:0.85rem">
+          <div style="font-weight:800;color:#1a1a2e;margin-bottom:8px">🌟 THANH TOÁN</div>
+          <div id="hocConfirmPaymentTable" style="display:flex;flex-direction:column;gap:5px"></div>
+        </div>
+
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:18px">☘ Sau khi hoàn tất đăng ký, MOS360 sẽ liên hệ học viên để hỗ trợ cài đặt phần mềm và hướng dẫn học viên học trong thời gian sớm nhất.</p>
+
+        <div style="display:flex;gap:10px">
+          <button onclick="document.getElementById('hocConfirmModal').style.display='none'" style="flex:1;padding:13px;background:#F1F5F9;border:none;border-radius:10px;font-weight:700;color:#475569;cursor:pointer">← Sửa lại</button>
+          <button id="hocConfirmSubmitBtn" onclick="confirmAndSubmitHoc()" style="flex:1.4;padding:13px;background:linear-gradient(135deg,#FF5722,#ff784e);border:none;border-radius:10px;font-weight:800;color:#fff;cursor:pointer">✅ Xác nhận & Gửi đăng ký</button>
+        </div>
       </div>
     </div>
     </div></div><!-- end acc-body hoc -->
@@ -2509,25 +2524,45 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>// Accordion register
 // Nạp danh sách mã giảm giá còn hiệu lực vào 2 dropdown (Học MOS + Học
 // Online) — chỉ chạy nếu trang có ô này (trang /register hoặc trang chủ
-// có form đăng ký), tránh gọi API thừa ở các trang khác.
+// có form đăng ký), tránh gọi API thừa ở các trang khác. Dropdown chỉ
+// hiện MÃ (không hiện nội dung mô tả) — nội dung đầy đủ hiện riêng ở
+// khối "hoc_promo_box" bên dưới khi học viên chọn mã.
+var activePromoCodes = [];
 async function loadActivePromoCodes() {
   var selects = ['hoc_magg', 'onl_magg'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
   if (selects.length === 0) return;
   try {
     var res = await fetch('/api/promo-codes/active');
     var data = await res.json();
-    var codes = data.codes || [];
+    activePromoCodes = data.codes || [];
     selects.forEach(function(sel) {
-      codes.forEach(function(c) {
+      activePromoCodes.forEach(function(c) {
         var opt = document.createElement('option');
         opt.value = c.code;
-        opt.textContent = c.code + (c.content ? ' — ' + c.content : '');
+        opt.textContent = c.code;
         sel.appendChild(opt);
       });
     });
   } catch (e) { /* im lặng — không có mã cũng không chặn đăng ký */ }
 }
 document.addEventListener('DOMContentLoaded', loadActivePromoCodes);
+
+// Hiện/ẩn khối nội dung khuyến mãi khi học viên chọn mã ở form Học MOS,
+// và tính lại tiền xem trước ngay (số liệu chính thức vẫn luôn được máy
+// chủ tính lại khi gửi, tránh học viên sửa DevTools).
+function onHocPromoChange() {
+  var sel = document.getElementById('hoc_magg');
+  var box = document.getElementById('hoc_promo_box');
+  if (!sel || !box) return;
+  var match = activePromoCodes.find(function(c) { return c.code === sel.value; });
+  if (match && match.content) {
+    box.style.display = 'block';
+    box.textContent = '🌸 ' + match.content;
+  } else {
+    box.style.display = 'none';
+    box.textContent = '';
+  }
+}
 
 function toggleAcc(id) {
   var acc = document.getElementById('hn-acc-' + id);
@@ -2594,6 +2629,82 @@ async function loadOfflineSlotWarnings() {
   }
 }
 
+// ── MODAL XÁC NHẬN "ĐĂNG KÝ HỌC MOS" ──────────────────────
+// Bấm "Gửi đăng ký học" chỉ VALIDATE + hiện modal xem lại — CHƯA gửi gì
+// lên server. Số tiền hiện trong modal là TÍNH TRƯỚC ở trình duyệt (dùng
+// đúng công thức bên server) chỉ để xem trước; khi bấm "Xác nhận & Gửi"
+// mới thực sự POST — lúc đó server tính lại chính thức (nguồn xác thực
+// thật, không tin số liệu trình duyệt gửi lên).
+function openHocConfirmModal() {
+  var ten = document.getElementById('hoc_ten').value.trim();
+  var sdt = document.getElementById('hoc_sdt').value.trim();
+  var email = document.getElementById('hoc_email').value.trim();
+  var khoahoc = [], khoahocLabels = [];
+  ['w19','e19','p19'].forEach(function(k) {
+    var el = document.getElementById('hoc_kh_' + k);
+    if (el && el.checked) {
+      khoahoc.push(el.value);
+      khoahocLabels.push(el.parentElement.textContent.trim());
+    }
+  });
+  var hint = document.getElementById('hoc_required_hint');
+  if (!ten || !sdt || !email || !khoahoc.length) {
+    hint.style.display = 'block';
+    hint.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  hint.style.display = 'none';
+
+  var HOC_PHI = 400000;
+  var soMon = khoahoc.length;
+  var maggCode = document.getElementById('hoc_magg').value;
+  var match = activePromoCodes.find(function(c) { return c.code === maggCode; });
+  var promoBlock = document.getElementById('hocConfirmPromoBlock');
+  var paymentHtml;
+
+  function payRow(label, value, isTotal) {
+    return '<div style="display:flex;justify-content:space-between;' +
+      (isTotal ? 'border-top:1px solid #BBF7D0;padding-top:7px;margin-top:3px;font-weight:800;color:#166534;font-size:0.95rem' : 'color:#334155') +
+      '"><span>' + label + '</span><span>' + value + '</span></div>';
+  }
+  function vnd(n) { return n.toLocaleString('vi-VN') + 'đ'; }
+
+  if (match && match.subCode) {
+    var depositMonths = parseInt(String(match.subCode).replace(/\D/g, ''), 10) || 0;
+    var deposit = match.deposit || 0;
+    var extraCount = Math.max(0, soMon - depositMonths);
+    var extraTuition = extraCount * (match.tuitionPerExtra || 0);
+    var total = deposit + extraTuition;
+    paymentHtml = payRow('Mã', maggCode) + payRow('Cọc', vnd(deposit)) +
+      (extraCount > 0 ? payRow('Học phí (' + extraCount + ' môn dư)', vnd(extraTuition)) : '') +
+      payRow('Tổng cộng', vnd(total), true);
+    promoBlock.style.display = 'block';
+    promoBlock.textContent = '🌸 ' + match.content;
+  } else if (match) {
+    var base = soMon * HOC_PHI;
+    var discount = match.discountAmount || 0;
+    var total2 = Math.max(0, base - discount);
+    paymentHtml = payRow('Mã', maggCode) + payRow('Học phí', vnd(base)) +
+      payRow('Giảm giá', '-' + vnd(discount)) + payRow('Tổng cộng', vnd(total2), true);
+    promoBlock.style.display = 'block';
+    promoBlock.textContent = '🌸 ' + match.content;
+  } else {
+    var base2 = soMon * HOC_PHI;
+    paymentHtml = payRow('Học phí', vnd(base2)) + payRow('Tổng cộng', vnd(base2), true);
+    promoBlock.style.display = 'none';
+    promoBlock.textContent = '';
+  }
+
+  document.getElementById('hocConfirmPaymentTable').innerHTML = paymentHtml;
+  document.getElementById('hocConfirmMonList').innerHTML = khoahocLabels.map(function(l) { return '• ' + l; }).join('<br>');
+  document.getElementById('hocConfirmModal').style.display = 'flex';
+}
+
+function confirmAndSubmitHoc() {
+  document.getElementById('hocConfirmModal').style.display = 'none';
+  submitForm('hoc');
+}
+
 // Submit form → /api/register (Worker proxy: ghi Google Sheet + báo Telegram)
 
 async function submitForm(type) {
@@ -2613,22 +2724,17 @@ async function submitForm(type) {
     if (!ten || !sdt) { showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ Họ tên và SĐT'); return; }
     if (!email) { showMsg(msgEl, 'err', '⚠ Vui lòng nhập Email để nhận xác nhận thanh toán'); return; }
     var khoahoc = [];
-    ['w19','e19','p19','w365','e365','p365'].forEach(function(k) {
+    ['w19','e19','p19'].forEach(function(k) {
       var el = document.getElementById('hoc_kh_' + k);
       if (el && el.checked) khoahoc.push(el.value);
     });
     if (!khoahoc.length) { showMsg(msgEl, 'err', '⚠ Vui lòng chọn ít nhất 1 khóa học'); return; }
     Object.assign(payload, {
       ten: ten, sdt: sdt, email: email,
-      ngaysinh: document.getElementById('hoc_ngaysinh').value,
-      truong: document.getElementById('hoc_truong').value,
-      namhoc: document.getElementById('hoc_namhoc').value,
-      khoa: document.getElementById('hoc_khoa').value,
       khoahoc: khoahoc.join(', '),
       kenh: document.getElementById('hoc_kenh').value,
       magiamgia: document.getElementById('hoc_magg').value,
       facebook: document.getElementById('hoc_fb').value,
-      gioithieu: document.getElementById('hoc_gioithieu').value,
       ghichu: document.getElementById('hoc_ghichu').value
     });
   }

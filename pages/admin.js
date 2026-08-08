@@ -147,7 +147,7 @@ export function getAdminDashboardUI() {
            trên form đăng ký. Chỉ mã còn hiệu lực mới hiện trong dropdown. -->
       <div style="background:#111422;border:1px solid rgba(0,242,255,0.2);border-radius:16px;padding:28px;max-width:900px;margin-top:20px">
         <h2 style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">🎟️ Bảng mã giảm giá</h2>
-        <p style="font-size:0.82rem;color:#64748b;margin-bottom:20px">Học viên sẽ chọn 1 mã còn hiệu lực từ danh sách này khi đăng ký (form Học MOS + Học Online) — không còn gõ tay tự do.</p>
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:20px">Học viên gõ <b>Mã</b> khi đăng ký. "Mã con" (MP1/MP2/MP3) chỉ dùng nội bộ để xác định số môn được áp dụng Cọc — học viên không nhìn thấy. Chọn "-- Không --" nếu đây là mã <b>Giảm giá cố định</b> thông thường (dùng cột Giảm).</p>
 
         <div style="overflow-x:auto;margin-bottom:16px">
           <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
@@ -155,7 +155,10 @@ export function getAdminDashboardUI() {
               <tr style="text-align:left;color:#64748b;font-size:0.72rem;font-weight:700">
                 <th style="padding:8px 6px;min-width:180px">NỘI DUNG</th>
                 <th style="padding:8px 6px;min-width:110px">MÃ</th>
-                <th style="padding:8px 6px;min-width:110px">GIẢM (VNĐ)</th>
+                <th style="padding:8px 6px;min-width:90px">MÃ CON</th>
+                <th style="padding:8px 6px;min-width:100px">CỌC (VNĐ)</th>
+                <th style="padding:8px 6px;min-width:110px">HỌC PHÍ MÔN DƯ</th>
+                <th style="padding:8px 6px;min-width:100px">GIẢM (VNĐ)</th>
                 <th style="padding:8px 6px;min-width:130px">TỪ NGÀY</th>
                 <th style="padding:8px 6px;min-width:130px">ĐẾN NGÀY</th>
                 <th style="padding:8px 6px;text-align:center">BẬT</th>
@@ -688,7 +691,7 @@ async function loadMosRegistrations() {
       return '<tr style="border-top:1px solid rgba(255,255,255,0.06)">' +
         '<td style="padding:8px 6px;color:#fff;font-weight:700">' + esc(it.ten) + '</td>' +
         '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.sdt) + (it.email ? '<br>' + esc(it.email) : '') + '</td>' +
-        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.khoaHoc) + '</td>' +
+        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.khoaHoc) + (it.soTienCoc > 0 ? '<br><span style="background:rgba(245,158,11,0.15);color:#f59e0b;padding:1px 7px;border-radius:8px;font-size:0.68rem;font-weight:700">🔵 Có cọc ' + it.soTienCoc.toLocaleString('vi-VN') + 'đ</span>' : '') + '</td>' +
         '<td style="padding:8px 6px"><code style="color:#00f2ff">' + esc(it.maDangKy) + '</code></td>' +
         '<td style="padding:8px 6px;color:#22c55e;font-weight:700">' + (it.soTien || 0).toLocaleString('vi-VN') + 'đ</td>' +
         '<td style="padding:8px 6px;color:' + statusColor + ';font-size:0.8rem;font-weight:700">' + statusText + '</td>' +
@@ -725,7 +728,11 @@ async function loadPromoCodes() {
     var res = await adminFetch('/api/admin/promo-codes');
     var data = await res.json();
     promoCodesList = (data.codes || []).map(function(c) {
-      return { content: c.content || '', code: c.code || '', discountAmount: c.discountAmount || 0, startDate: c.startDate || '', endDate: c.endDate || '', active: c.active !== false };
+      return {
+        content: c.content || '', code: c.code || '', subCode: c.subCode || '',
+        deposit: c.deposit || 0, tuitionPerExtra: c.tuitionPerExtra || 0,
+        discountAmount: c.discountAmount || 0, startDate: c.startDate || '', endDate: c.endDate || '', active: c.active !== false
+      };
     });
     renderPromoCodesTable();
   } catch(e) { promoCodesList = []; renderPromoCodesTable(); }
@@ -736,15 +743,20 @@ function renderPromoCodesTable() {
   if (!body) return;
   var todayStr = new Date().toISOString().slice(0,10);
   if (promoCodesList.length === 0) {
-    body.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:#475569">Chưa có mã nào — bấm "➕ Thêm mã mới" để bắt đầu</td></tr>';
+    body.innerHTML = '<tr><td colspan="10" style="padding:20px;text-align:center;color:#475569">Chưa có mã nào — bấm "➕ Thêm mã mới" để bắt đầu</td></tr>';
     return;
   }
   body.innerHTML = promoCodesList.map(function(c, i) {
     var expired = c.endDate && c.endDate < todayStr;
     return '<tr style="border-top:1px solid rgba(255,255,255,0.06)' + (expired ? ';opacity:0.5' : '') + '">' +
       '<td style="padding:6px"><input value="' + esc(c.content) + '" oninput="promoCodesList[' + i + '].content=this.value" placeholder="VD: Giảm 10% học viên mới" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.82rem;box-sizing:border-box"></td>' +
-      '<td style="padding:6px"><input value="' + esc(c.code) + '" oninput="promoCodesList[' + i + '].code=this.value.toUpperCase()" placeholder="MOS10" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#00f2ff;font-family:monospace;font-weight:700;font-size:0.82rem;box-sizing:border-box"></td>' +
-      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.discountAmount || 0) + '" oninput="promoCodesList[' + i + '].discountAmount=parseInt(this.value)||0" placeholder="50000" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#22c55e;font-weight:700;font-size:0.82rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px"><input value="' + esc(c.code) + '" oninput="promoCodesList[' + i + '].code=this.value.toUpperCase()" placeholder="MOSFREE1" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#00f2ff;font-family:monospace;font-weight:700;font-size:0.82rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px"><select onchange="promoCodesList[' + i + '].subCode=this.value;renderPromoCodesTable()" style="width:100%;padding:7px 6px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.8rem;box-sizing:border-box">' +
+        ['', 'MP1', 'MP2', 'MP3'].map(function(v) { return '<option value="' + v + '"' + (c.subCode === v ? ' selected' : '') + '>' + (v || '-- Không --') + '</option>'; }).join('') +
+      '</select></td>' +
+      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.deposit || 0) + '" ' + (c.subCode ? '' : 'disabled') + ' oninput="promoCodesList[' + i + '].deposit=parseInt(this.value)||0" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.subCode ? '' : ';opacity:0.35') + '"></td>' +
+      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.tuitionPerExtra || 0) + '" ' + (c.subCode ? '' : 'disabled') + ' oninput="promoCodesList[' + i + '].tuitionPerExtra=parseInt(this.value)||0" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.subCode ? '' : ';opacity:0.35') + '"></td>' +
+      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.discountAmount || 0) + '" ' + (c.subCode ? 'disabled' : '') + ' oninput="promoCodesList[' + i + '].discountAmount=parseInt(this.value)||0" placeholder="50000" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#22c55e;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.subCode ? ';opacity:0.35' : '') + '"></td>' +
       '<td style="padding:6px"><input type="date" value="' + esc(c.startDate) + '" onchange="promoCodesList[' + i + '].startDate=this.value" style="width:100%;padding:6px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.78rem;box-sizing:border-box"></td>' +
       '<td style="padding:6px"><input type="date" value="' + esc(c.endDate) + '" onchange="promoCodesList[' + i + '].endDate=this.value" style="width:100%;padding:6px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.78rem;box-sizing:border-box"></td>' +
       '<td style="padding:6px;text-align:center"><input type="checkbox" ' + (c.active ? 'checked' : '') + ' onchange="promoCodesList[' + i + '].active=this.checked" style="width:18px;height:18px;accent-color:#00f2ff;cursor:pointer"></td>' +
@@ -758,7 +770,7 @@ function esc(s) { return String(s || '').replace(/"/g, '&quot;'); }
 function addPromoCodeRow() {
   var today = new Date().toISOString().slice(0,10);
   var nextMonth = new Date(Date.now() + 30*86400000).toISOString().slice(0,10);
-  promoCodesList.push({ content: '', code: '', discountAmount: 0, startDate: today, endDate: nextMonth, active: true });
+  promoCodesList.push({ content: '', code: '', subCode: '', deposit: 0, tuitionPerExtra: 0, discountAmount: 0, startDate: today, endDate: nextMonth, active: true });
   renderPromoCodesTable();
 }
 

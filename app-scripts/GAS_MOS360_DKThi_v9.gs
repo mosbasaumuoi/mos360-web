@@ -129,7 +129,7 @@ function setupSheets() {
       "Thời gian","Họ và tên","Ngày/tháng/năm sinh","SĐT (Zalo)","Link Facebook",
       "Trường","Năm học","Khoa / Lớp","Khóa học","Biết đến MOS360 qua","Mã giảm giá",
       "Người giới thiệu / Trưởng nhóm","Ghi chú",
-      "Email","Mã đăng ký","Số tiền","Trạng thái thanh toán","Ngày xác nhận"
+      "Email","Mã đăng ký","Số tiền","Số tiền cọc","Trạng thái thanh toán","Ngày xác nhận"
     ]},
     { name: SHEET_THI, headers: [
       "Thời gian","Họ và tên","Mã SV","Ngày sinh","Tháng sinh","Năm sinh",
@@ -155,7 +155,7 @@ function setupSheets() {
       // Sheet đã có sẵn dữ liệu từ trước — bổ sung cột mới nếu chưa có,
       // KHÔNG đụng gì tới dữ liệu cũ đang có.
       if (tab.name === SHEET_THI) ensureColumnsExist(sheet, ["Phòng thi", "Ca thi", "Trạng thái", "Phiên bản", "Lưu ý thi"]);
-      if (tab.name === SHEET_HV) ensureColumnsExist(sheet, ["Người giới thiệu / Trưởng nhóm", "Email", "Mã đăng ký", "Số tiền", "Trạng thái thanh toán", "Ngày xác nhận"]);
+      if (tab.name === SHEET_HV) ensureColumnsExist(sheet, ["Người giới thiệu / Trưởng nhóm", "Email", "Mã đăng ký", "Số tiền", "Số tiền cọc", "Trạng thái thanh toán", "Ngày xác nhận"]);
     }
   });
   fixPhoneCCCDFormat();
@@ -458,6 +458,7 @@ function handleDKHoc(d) {
     "Người giới thiệu / Trưởng nhóm": d.gioithieu||"", "Ghi chú": d.ghichu||"",
     "Email": d.email||"", "Mã đăng ký": d.maDangKy||"",
     "Số tiền": (typeof d.soTien === "number" ? d.soTien : Number(d.soTien) || ""),
+    "Số tiền cọc": (typeof d.soTienCoc === "number" ? d.soTienCoc : Number(d.soTienCoc) || ""),
     "Trạng thái thanh toán": d.maDangKy ? "Chờ thanh toán" : "", // chỉ đăng ký có tính tiền mới cần trạng thái
     "Ngày xác nhận": ""
   };
@@ -496,6 +497,7 @@ function handleListDKHoc() {
       khoaHoc: String(data[r][col["Khóa học"]] || "").trim(),
       maDangKy: col["Mã đăng ký"] !== undefined ? String(data[r][col["Mã đăng ký"]] || "").trim() : "",
       soTien: col["Số tiền"] !== undefined ? (Number(data[r][col["Số tiền"]]) || 0) : 0,
+      soTienCoc: col["Số tiền cọc"] !== undefined ? (Number(data[r][col["Số tiền cọc"]]) || 0) : 0,
       trangThai: col["Trạng thái thanh toán"] !== undefined ? String(data[r][col["Trạng thái thanh toán"]] || "").trim() : "",
       ngayXacNhan: col["Ngày xác nhận"] !== undefined ? String(data[r][col["Ngày xác nhận"]] || "").trim() : ""
     });
