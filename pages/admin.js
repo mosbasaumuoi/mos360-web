@@ -729,7 +729,7 @@ async function loadPromoCodes() {
     var data = await res.json();
     promoCodesList = (data.codes || []).map(function(c) {
       return {
-        content: c.content || '', code: c.code || '', subCode: c.subCode || '',
+        content: c.content || '', code: c.code || '', depositMonths: c.depositMonths || 0,
         deposit: c.deposit || 0, tuitionPerExtra: c.tuitionPerExtra || 0,
         discountAmount: c.discountAmount || 0, startDate: c.startDate || '', endDate: c.endDate || '', active: c.active !== false
       };
@@ -751,12 +751,12 @@ function renderPromoCodesTable() {
     return '<tr style="border-top:1px solid rgba(255,255,255,0.06)' + (expired ? ';opacity:0.5' : '') + '">' +
       '<td style="padding:6px"><input value="' + esc(c.content) + '" oninput="promoCodesList[' + i + '].content=this.value" placeholder="VD: Giảm 10% học viên mới" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.82rem;box-sizing:border-box"></td>' +
       '<td style="padding:6px"><input value="' + esc(c.code) + '" oninput="promoCodesList[' + i + '].code=this.value.toUpperCase()" placeholder="MOSFREE1" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#00f2ff;font-family:monospace;font-weight:700;font-size:0.82rem;box-sizing:border-box"></td>' +
-      '<td style="padding:6px"><select onchange="promoCodesList[' + i + '].subCode=this.value;renderPromoCodesTable()" style="width:100%;padding:7px 6px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.8rem;box-sizing:border-box">' +
-        ['', 'MP1', 'MP2', 'MP3'].map(function(v) { return '<option value="' + v + '"' + (c.subCode === v ? ' selected' : '') + '>' + (v || '-- Không --') + '</option>'; }).join('') +
+      '<td style="padding:6px"><select onchange="promoCodesList[' + i + '].depositMonths=parseInt(this.value)||0;renderPromoCodesTable()" style="width:100%;padding:7px 6px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.8rem;box-sizing:border-box">' +
+        [[0,''],[1,'MP1'],[2,'MP2'],[3,'MP3']].map(function(v) { return '<option value="' + v[0] + '"' + ((c.depositMonths||0) === v[0] ? ' selected' : '') + '>' + (v[1] || '-- Không --') + '</option>'; }).join('') +
       '</select></td>' +
-      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.deposit || 0) + '" ' + (c.subCode ? '' : 'disabled') + ' oninput="promoCodesList[' + i + '].deposit=parseInt(this.value)||0" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.subCode ? '' : ';opacity:0.35') + '"></td>' +
-      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.tuitionPerExtra || 0) + '" ' + (c.subCode ? '' : 'disabled') + ' oninput="promoCodesList[' + i + '].tuitionPerExtra=parseInt(this.value)||0" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.subCode ? '' : ';opacity:0.35') + '"></td>' +
-      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.discountAmount || 0) + '" ' + (c.subCode ? 'disabled' : '') + ' oninput="promoCodesList[' + i + '].discountAmount=parseInt(this.value)||0" placeholder="50000" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#22c55e;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.subCode ? ';opacity:0.35' : '') + '"></td>' +
+      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.deposit || 0) + '" ' + (c.depositMonths ? '' : 'disabled') + ' oninput="promoCodesList[' + i + '].deposit=parseInt(this.value)||0" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.depositMonths ? '' : ';opacity:0.35') + '"></td>' +
+      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.tuitionPerExtra || 0) + '" ' + (c.depositMonths ? '' : 'disabled') + ' oninput="promoCodesList[' + i + '].tuitionPerExtra=parseInt(this.value)||0" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.depositMonths ? '' : ';opacity:0.35') + '"></td>' +
+      '<td style="padding:6px"><input type="number" min="0" step="1000" value="' + (c.discountAmount || 0) + '" ' + (c.depositMonths ? 'disabled' : '') + ' oninput="promoCodesList[' + i + '].discountAmount=parseInt(this.value)||0" placeholder="50000" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#22c55e;font-weight:700;font-size:0.82rem;box-sizing:border-box' + (c.depositMonths ? ';opacity:0.35' : '') + '"></td>' +
       '<td style="padding:6px"><input type="date" value="' + esc(c.startDate) + '" onchange="promoCodesList[' + i + '].startDate=this.value" style="width:100%;padding:6px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.78rem;box-sizing:border-box"></td>' +
       '<td style="padding:6px"><input type="date" value="' + esc(c.endDate) + '" onchange="promoCodesList[' + i + '].endDate=this.value" style="width:100%;padding:6px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.78rem;box-sizing:border-box"></td>' +
       '<td style="padding:6px;text-align:center"><input type="checkbox" ' + (c.active ? 'checked' : '') + ' onchange="promoCodesList[' + i + '].active=this.checked" style="width:18px;height:18px;accent-color:#00f2ff;cursor:pointer"></td>' +
@@ -770,7 +770,7 @@ function esc(s) { return String(s || '').replace(/"/g, '&quot;'); }
 function addPromoCodeRow() {
   var today = new Date().toISOString().slice(0,10);
   var nextMonth = new Date(Date.now() + 30*86400000).toISOString().slice(0,10);
-  promoCodesList.push({ content: '', code: '', subCode: '', deposit: 0, tuitionPerExtra: 0, discountAmount: 0, startDate: today, endDate: nextMonth, active: true });
+  promoCodesList.push({ content: '', code: '', depositMonths: 0, deposit: 0, tuitionPerExtra: 0, discountAmount: 0, startDate: today, endDate: nextMonth, active: true });
   renderPromoCodesTable();
 }
 

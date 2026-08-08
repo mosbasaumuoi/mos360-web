@@ -563,7 +563,7 @@ export default {
                 const active = all
                     .filter(c => c.active !== false && (!c.startDate || c.startDate <= todayStr) && (!c.endDate || c.endDate >= todayStr))
                     .map(c => ({
-                        code: c.code, content: c.content, subCode: c.subCode || '',
+                        code: c.code, content: c.content, depositMonths: c.depositMonths || 0,
                         deposit: c.deposit || 0, tuitionPerExtra: c.tuitionPerExtra || 0,
                         discountAmount: c.discountAmount || 0
                     }));
@@ -1993,7 +1993,7 @@ ${mode !== 'home' ? `
           Tỷ lệ đạt tuyệt đối 1000 điểm: <b style="color:#22c55e">trên 30%</b>
         </div>
 
-        <div id="hocConfirmPromoBlock" style="display:none;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:16px;margin-bottom:14px;font-size:0.85rem;line-height:1.7;color:#7c2d12"></div>
+        <div id="hocConfirmPromoBlock" style="display:none;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:16px;margin-bottom:14px;font-size:0.85rem;line-height:1.7;color:#7c2d12;white-space:pre-line"></div>
 
         <div style="background:#F8FAFD;border-radius:10px;padding:16px;margin-bottom:14px;font-size:0.85rem">
           <div style="font-weight:800;color:#1a1a2e;margin-bottom:8px">🌟 MÔN ĐĂNG KÝ HỌC</div>
@@ -2547,6 +2547,10 @@ async function loadActivePromoCodes() {
 }
 document.addEventListener('DOMContentLoaded', loadActivePromoCodes);
 
+function escHtmlClient(s) {
+  return String(s || '').replace(/[&<>"']/g, function(c) { return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; });
+}
+
 // Hiện/ẩn khối nội dung khuyến mãi khi học viên chọn mã ở form Học MOS,
 // và tính lại tiền xem trước ngay (số liệu chính thức vẫn luôn được máy
 // chủ tính lại khi gửi, tránh học viên sửa DevTools).
@@ -2557,10 +2561,10 @@ function onHocPromoChange() {
   var match = activePromoCodes.find(function(c) { return c.code === sel.value; });
   if (match && match.content) {
     box.style.display = 'block';
-    box.textContent = '🌸 ' + match.content;
+    box.innerHTML = '<div style="font-weight:800;margin-bottom:6px">🌸 Chương trình khuyến mại</div>' + escHtmlClient(match.content);
   } else {
     box.style.display = 'none';
-    box.textContent = '';
+    box.innerHTML = '';
   }
 }
 
@@ -2669,8 +2673,8 @@ function openHocConfirmModal() {
   }
   function vnd(n) { return n.toLocaleString('vi-VN') + 'đ'; }
 
-  if (match && match.subCode) {
-    var depositMonths = parseInt(String(match.subCode).replace(/\D/g, ''), 10) || 0;
+  if (match && match.depositMonths) {
+    var depositMonths = Number(match.depositMonths) || 0;
     var deposit = match.deposit || 0;
     var extraCount = Math.max(0, soMon - depositMonths);
     var extraTuition = extraCount * (match.tuitionPerExtra || 0);
@@ -2679,7 +2683,7 @@ function openHocConfirmModal() {
       (extraCount > 0 ? payRow('Học phí (' + extraCount + ' môn dư)', vnd(extraTuition)) : '') +
       payRow('Tổng cộng', vnd(total), true);
     promoBlock.style.display = 'block';
-    promoBlock.textContent = '🌸 ' + match.content;
+    promoBlock.innerHTML = '<div style="font-weight:800;margin-bottom:6px">🌸 Chương trình khuyến mại</div>' + escHtmlClient(match.content);
   } else if (match) {
     var base = soMon * HOC_PHI;
     var discount = match.discountAmount || 0;
@@ -2687,7 +2691,7 @@ function openHocConfirmModal() {
     paymentHtml = payRow('Mã', maggCode) + payRow('Học phí', vnd(base)) +
       payRow('Giảm giá', '-' + vnd(discount)) + payRow('Tổng cộng', vnd(total2), true);
     promoBlock.style.display = 'block';
-    promoBlock.textContent = '🌸 ' + match.content;
+    promoBlock.innerHTML = '<div style="font-weight:800;margin-bottom:6px">🌸 Chương trình khuyến mại</div>' + escHtmlClient(match.content);
   } else {
     var base2 = soMon * HOC_PHI;
     paymentHtml = payRow('Học phí', vnd(base2)) + payRow('Tổng cộng', vnd(base2), true);

@@ -88,12 +88,12 @@ export async function handleRegisterAPI(request, env) {
 // Tính số tiền cần đóng cho 1 lượt đăng ký học MOS + sinh mã đăng ký và
 // nội dung chuyển khoản chuẩn hoá (không dấu, không khoảng trắng).
 //
-// 2 CƠ CHẾ mã giảm giá (phân biệt bằng có/không có "subCode"):
-//  A) ĐẶT CỌC (subCode = "MP1"/"MP2"/"MP3" → 1/2/3 môn được áp cọc):
+// 2 CƠ CHẾ mã giảm giá (phân biệt bằng có/không có "depositMonths"):
+//  A) ĐẶT CỌC (depositMonths = 1/2/3 → số môn được áp cọc):
 //     Tổng tiền = Cọc + (số môn đã chọn − số môn được cọc, tối thiểu 0)
 //                 × Học phí ưu đãi môn dư
 //     (chọn ÍT môn hơn số môn được cọc vẫn đóng đủ tiền cọc, không bớt)
-//  B) GIẢM GIÁ CỐ ĐỊNH (không có subCode):
+//  B) GIẢM GIÁ CỐ ĐỊNH (depositMonths = 0):
 //     Tổng tiền = max(0, số môn × 400.000 − Giá trị giảm)
 async function computeDKHocPayment(payload, env) {
     const soMon = String(payload.khoahoc || "")
@@ -118,7 +118,7 @@ async function computeDKHocPayment(payload, env) {
     }
 
     let amount, depositAmount = 0, extraTuitionAmount = 0, extraCount = 0, baseAmount = soMon * HOC_PHI_MOI_MON, discount = 0;
-    const depositMonths = match && match.subCode ? (parseInt(String(match.subCode).replace(/\D/g, ""), 10) || 0) : 0;
+    const depositMonths = match && match.depositMonths ? (Number(match.depositMonths) || 0) : 0;
 
     if (match && depositMonths > 0) {
         depositAmount = Number(match.deposit) || 0;
