@@ -208,6 +208,30 @@ export async function handleAdminAPI(path, request, env) {
         }
     }
 
+    // POST /api/admin/mos-registrations/update — sửa thông tin đăng ký
+    if (path === '/api/admin/mos-registrations/update' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const result = await callDKHocScript('updateDKHoc', body);
+            return json({ success: !!result.ok, msg: result.msg });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi: ' + e.message });
+        }
+    }
+
+    // POST /api/admin/mos-registrations/delete — body: { maDangKy }
+    if (path === '/api/admin/mos-registrations/delete' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const maDangKy = String(body.maDangKy || '').trim();
+            if (!maDangKy) return json({ success: false, msg: 'Thiếu mã đăng ký' });
+            const result = await callDKHocScript('deleteDKHoc', { maDangKy });
+            return json({ success: !!result.ok, msg: result.msg });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi: ' + e.message });
+        }
+    }
+
     return json({ success: false, msg: 'API not found' }, 404);
 }
 

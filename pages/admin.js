@@ -41,8 +41,57 @@ export function getAdminDashboardUI() {
         </div>
     </div>
 
-    <!-- TAB ĐĂNG KÝ HỌC MOS (thanh toán) -->
-    <div id="tabMosReg" style="display:none">
+    <!-- Modal Sửa Đăng ký học MOS -->
+    <div id="editMosRegModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:#111422; border:1px solid #384260; border-radius:16px; padding:28px; width:100%; max-width:480px; max-height:90vh; overflow-y:auto;">
+            <h3 style="color:#fff; margin-bottom:6px; font-size:1.2rem;">✏️ Sửa đăng ký học MOS</h3>
+            <p style="color:#64748b; font-size:0.8rem; margin-bottom:18px;">Mã đăng ký: <code id="editMosMaDangKy" style="color:#00f2ff"></code> — không đổi được.</p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">HỌ TÊN</label>
+                    <input type="text" id="editMosTen" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">SỐ ĐIỆN THOẠI</label>
+                        <input type="text" id="editMosSdt" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">EMAIL</label>
+                        <input type="email" id="editMosEmail" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">KHÓA HỌC (cách nhau bằng dấu phẩy)</label>
+                    <input type="text" id="editMosKhoaHoc" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">SỐ TIỀN (VNĐ)</label>
+                        <input type="number" id="editMosSoTien" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#22c55e; font-weight:700; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">SỐ TIỀN CỌC (VNĐ)</label>
+                        <input type="number" id="editMosSoTienCoc" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#f59e0b; font-weight:700; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">MÃ GIẢM GIÁ</label>
+                    <input type="text" id="editMosMagg" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">GHI CHÚ</label>
+                    <textarea id="editMosGhiChu" rows="2" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box; resize:vertical;"></textarea>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:22px;">
+                <button onclick="submitEditMosReg()" style="flex:1; padding:12px; background:linear-gradient(135deg,#00b8d4,#00f2ff); border:none; color:#0a0f2e; border-radius:8px; font-weight:800; cursor:pointer;">💾 LƯU THAY ĐỔI</button>
+                <button onclick="document.getElementById('editMosRegModal').style.display='none'" style="flex:1; padding:12px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer;">HỦY</button>
+            </div>
+        </div>
+    </div>
+
+
       <div style="background:#111422;border:1px solid rgba(34,197,94,0.2);border-radius:16px;padding:28px;margin-bottom:20px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
           <h2 style="font-size:1.1rem;font-weight:800;color:#fff">💰 Đăng ký học MOS — Thanh toán</h2>
@@ -686,8 +735,9 @@ async function loadMosRegistrations() {
     items = items.slice().reverse();
     body.innerHTML = items.map(function(it) {
       var isPaid = /Đã xác nhận/i.test(it.trangThai);
-      var statusColor = isPaid ? '#22c55e' : '#f59e0b';
-      var statusText = isPaid ? ('✅ Đã xác nhận' + (it.ngayXacNhan ? ' (' + it.ngayXacNhan + ')' : '')) : '⏳ Chờ thanh toán';
+      var statusColor = isPaid ? '#22c55e' : (it.isExpired ? '#ef4444' : '#f59e0b');
+      var statusText = isPaid ? ('✅ Đã xác nhận' + (it.ngayXacNhan ? ' (' + it.ngayXacNhan + ')' : ''))
+        : (it.isExpired ? '⏰ Hết hạn (quá 30p)' : '⏳ Chờ thanh toán');
       return '<tr style="border-top:1px solid rgba(255,255,255,0.06)">' +
         '<td style="padding:8px 6px;color:#fff;font-weight:700">' + esc(it.ten) + '</td>' +
         '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.sdt) + (it.email ? '<br>' + esc(it.email) : '') + '</td>' +
@@ -695,11 +745,70 @@ async function loadMosRegistrations() {
         '<td style="padding:8px 6px"><code style="color:#00f2ff">' + esc(it.maDangKy) + '</code></td>' +
         '<td style="padding:8px 6px;color:#22c55e;font-weight:700">' + (it.soTien || 0).toLocaleString('vi-VN') + 'đ</td>' +
         '<td style="padding:8px 6px;color:' + statusColor + ';font-size:0.8rem;font-weight:700">' + statusText + '</td>' +
-        '<td style="padding:8px 6px">' + (isPaid ? '' :
-          '<button onclick="confirmMosPayment(&quot;' + it.maDangKy + '&quot;, this)" style="padding:6px 12px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap">✅ Xác nhận</button>') +
-        '</td></tr>';
+        '<td style="padding:8px 6px;white-space:nowrap">' +
+          '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+          (isPaid ? '' : '<button onclick="confirmMosPayment(&quot;' + it.maDangKy + '&quot;, this)" style="padding:6px 10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.76rem;font-weight:700;cursor:pointer">✅ Xác nhận</button>') +
+          '<button onclick="openEditMosRegModal(' + JSON.stringify(it).replace(/"/g,"&quot;") + ')" style="padding:6px 10px;background:rgba(0,242,255,0.1);border:1px solid rgba(0,242,255,0.3);color:#00f2ff;border-radius:6px;font-size:0.76rem;font-weight:700;cursor:pointer">✏️ Sửa</button>' +
+          '<button onclick="deleteMosRegistration(&quot;' + it.maDangKy + '&quot;,&quot;' + esc(it.ten) + '&quot;)" style="padding:6px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.76rem;font-weight:700;cursor:pointer">🗑️ Xóa</button>' +
+          '</div></td></tr>';
     }).join('');
   } catch(e) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#ef4444">Lỗi kết nối!</td></tr>'; }
+}
+
+function openEditMosRegModal(item) {
+  document.getElementById('editMosMaDangKy').textContent = item.maDangKy || '';
+  document.getElementById('editMosTen').value = item.ten || '';
+  document.getElementById('editMosSdt').value = item.sdt || '';
+  document.getElementById('editMosEmail').value = item.email || '';
+  document.getElementById('editMosKhoaHoc').value = item.khoaHoc || '';
+  document.getElementById('editMosSoTien').value = item.soTien || 0;
+  document.getElementById('editMosSoTienCoc').value = item.soTienCoc || 0;
+  document.getElementById('editMosMagg').value = item.magiamgia || '';
+  document.getElementById('editMosGhiChu').value = item.ghiChu || '';
+  document.getElementById('editMosRegModal').style.display = 'flex';
+}
+
+async function submitEditMosReg() {
+  var maDangKy = document.getElementById('editMosMaDangKy').textContent.trim();
+  var payload = {
+    maDangKy: maDangKy,
+    ten: document.getElementById('editMosTen').value.trim(),
+    sdt: document.getElementById('editMosSdt').value.trim(),
+    email: document.getElementById('editMosEmail').value.trim(),
+    khoahoc: document.getElementById('editMosKhoaHoc').value.trim(),
+    magiamgia: document.getElementById('editMosMagg').value.trim(),
+    ghichu: document.getElementById('editMosGhiChu').value.trim(),
+    soTien: parseInt(document.getElementById('editMosSoTien').value) || 0,
+    soTienCoc: parseInt(document.getElementById('editMosSoTienCoc').value) || 0
+  };
+  if (!payload.ten || !payload.sdt) { alert('Vui lòng nhập đủ Họ tên và SĐT!'); return; }
+  try {
+    var res = await adminFetch('/api/admin/mos-registrations/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (data.success) {
+      alert('✅ Đã lưu thay đổi!');
+      document.getElementById('editMosRegModal').style.display = 'none';
+      loadMosRegistrations();
+    } else { alert('❌ Lỗi: ' + data.msg); }
+  } catch(e) { alert('Lỗi kết nối!'); }
+}
+
+async function deleteMosRegistration(maDangKy, ten) {
+  if (!confirm('Xóa đăng ký của "' + ten + '" (mã ' + maDangKy + ')?\\nHành động này KHÔNG thể hoàn tác.')) return;
+  try {
+    var res = await adminFetch('/api/admin/mos-registrations/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ maDangKy: maDangKy })
+    });
+    var data = await res.json();
+    if (data.success) { alert('✅ Đã xóa!'); loadMosRegistrations(); }
+    else { alert('❌ Lỗi: ' + data.msg); }
+  } catch(e) { alert('Lỗi kết nối!'); }
 }
 
 async function confirmMosPayment(maDangKy, btnEl) {

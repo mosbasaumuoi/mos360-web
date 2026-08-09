@@ -129,7 +129,8 @@ function setupSheets() {
       "Thời gian","Họ và tên","Ngày/tháng/năm sinh","SĐT (Zalo)","Link Facebook",
       "Trường","Năm học","Khoa / Lớp","Khóa học","Biết đến MOS360 qua","Mã giảm giá",
       "Người giới thiệu / Trưởng nhóm","Ghi chú",
-      "Email","Mã đăng ký","Số tiền","Số tiền cọc","Trạng thái thanh toán","Ngày xác nhận"
+      "Email","Mã đăng ký","Số tiền","Số tiền cọc","Số môn đã áp cọc",
+      "Trạng thái thanh toán","Ngày xác nhận","Hình thức HV báo","Thời gian HV báo"
     ]},
     { name: SHEET_THI, headers: [
       "Thời gian","Họ và tên","Mã SV","Ngày sinh","Tháng sinh","Năm sinh",
@@ -155,7 +156,7 @@ function setupSheets() {
       // Sheet đã có sẵn dữ liệu từ trước — bổ sung cột mới nếu chưa có,
       // KHÔNG đụng gì tới dữ liệu cũ đang có.
       if (tab.name === SHEET_THI) ensureColumnsExist(sheet, ["Phòng thi", "Ca thi", "Trạng thái", "Phiên bản", "Lưu ý thi"]);
-      if (tab.name === SHEET_HV) ensureColumnsExist(sheet, ["Người giới thiệu / Trưởng nhóm", "Email", "Mã đăng ký", "Số tiền", "Số tiền cọc", "Trạng thái thanh toán", "Ngày xác nhận"]);
+      if (tab.name === SHEET_HV) ensureColumnsExist(sheet, ["Người giới thiệu / Trưởng nhóm", "Email", "Mã đăng ký", "Số tiền", "Số tiền cọc", "Số môn đã áp cọc", "Trạng thái thanh toán", "Ngày xác nhận", "Hình thức HV báo", "Thời gian HV báo"]);
     }
   });
   fixPhoneCCCDFormat();
@@ -271,6 +272,10 @@ function doPost(e) {
     if (action === "xacNhan")   return handleXacNhanPost(body);
     if (action === "listDKHoc") return handleListDKHoc();
     if (action === "confirmDKHocPayment") return handleConfirmDKHocPayment(body);
+    if (action === "checkPromoUsage") return handleCheckPromoUsage(body);
+    if (action === "reportPayment") return handleReportPayment(body);
+    if (action === "updateDKHoc") return handleUpdateDKHoc(body);
+    if (action === "deleteDKHoc") return handleDeleteDKHoc(body);
     return jsonResp({ ok: false, msg: "Action không hợp lệ" });
   } catch(err) {
     return jsonResp({ ok: false, msg: "Lỗi server: " + err.message });
@@ -459,8 +464,9 @@ function handleDKHoc(d) {
     "Email": d.email||"", "Mã đăng ký": d.maDangKy||"",
     "Số tiền": (typeof d.soTien === "number" ? d.soTien : Number(d.soTien) || ""),
     "Số tiền cọc": (typeof d.soTienCoc === "number" ? d.soTienCoc : Number(d.soTienCoc) || ""),
+    "Số môn đã áp cọc": (typeof d.soMonApCoc === "number" ? d.soMonApCoc : Number(d.soMonApCoc) || 0),
     "Trạng thái thanh toán": d.maDangKy ? "Chờ thanh toán" : "", // chỉ đăng ký có tính tiền mới cần trạng thái
-    "Ngày xác nhận": ""
+    "Ngày xác nhận": "", "Hình thức HV báo": "", "Thời gian HV báo": ""
   };
   Object.keys(fields).forEach(function(name) {
     if (col[name] !== undefined) newRow[col[name]] = fields[name];
@@ -469,6 +475,21 @@ function handleDKHoc(d) {
 
   return jsonResp({ ok: true, msg: "Đăng ký thành công! MOS360 sẽ liên hệ Zalo/Face trong vòng 1 giờ." });
 }
+
+// Google Sheets có thể lưu "Thời gian" dưới dạng Date object thật (tự
+// động nhận diện) hoặc vẫn là chuỗi "dd/MM/yyyy HH:mm:ss" tùy định dạng
+// cột — hàm này luôn trả về đúng thời điểm tuyệt đối (UTC), coi chuỗi là
+// giờ Việt Nam (GMT+7), để tính khoảng cách thời gian chính xác dù Apps
+// Script đang chạy ở múi giờ nào.
+function parseThoiGian(val) {
+  if (Object.prototype.toString.call(val) === '[object Date]' && !isNaN(val)) return val;
+  var s = String(val || '').trim();
+  var m = /^(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2}):(\d{2})$/.exec(s);
+  if (!m) return null;
+  return new Date(Date.UTC(+m[3], +m[2] - 1, +m[1], +m[4] - 7, +m[5], +m[6]));
+}
+
+const HOC_QR_TTL_MINUTES = 30; // QR chỉ hiệu lực 30 phút — sau đó Dashboard đánh dấu "Hết hạn" để admin biết
 
 // ── DASHBOARD: LIỆT KÊ ĐĂNG KÝ HỌC MOS ─────────────────────
 // action = "listDKHoc" — trả toàn bộ danh sách cho tab "Đăng ký học MOS"
@@ -489,16 +510,25 @@ function handleListDKHoc() {
     var ten = String(data[r][col["Họ và tên"]] || "").trim();
     var sdt = String(data[r][col["SĐT (Zalo)"]] || "").trim();
     if (!ten || !sdt) continue;
+    var trangThaiRaw = col["Trạng thái thanh toán"] !== undefined ? String(data[r][col["Trạng thái thanh toán"]] || "").trim() : "";
+    var thoiGianDate = parseThoiGian(data[r][col["Thời gian"]]);
+    var isExpired = false;
+    if (trangThaiRaw === "Chờ thanh toán" && thoiGianDate) {
+      isExpired = (Date.now() - thoiGianDate.getTime()) > HOC_QR_TTL_MINUTES * 60 * 1000;
+    }
     items.push({
       rowIndex: r + 2,
       thoiGian: String(data[r][col["Thời gian"]] || "").trim(),
       ten: ten, sdt: sdt,
       email: col["Email"] !== undefined ? String(data[r][col["Email"]] || "").trim() : "",
       khoaHoc: String(data[r][col["Khóa học"]] || "").trim(),
+      magiamgia: col["Mã giảm giá"] !== undefined ? String(data[r][col["Mã giảm giá"]] || "").trim() : "",
+      ghiChu: col["Ghi chú"] !== undefined ? String(data[r][col["Ghi chú"]] || "").trim() : "",
       maDangKy: col["Mã đăng ký"] !== undefined ? String(data[r][col["Mã đăng ký"]] || "").trim() : "",
       soTien: col["Số tiền"] !== undefined ? (Number(data[r][col["Số tiền"]]) || 0) : 0,
       soTienCoc: col["Số tiền cọc"] !== undefined ? (Number(data[r][col["Số tiền cọc"]]) || 0) : 0,
-      trangThai: col["Trạng thái thanh toán"] !== undefined ? String(data[r][col["Trạng thái thanh toán"]] || "").trim() : "",
+      trangThai: trangThaiRaw,
+      isExpired: isExpired,
       ngayXacNhan: col["Ngày xác nhận"] !== undefined ? String(data[r][col["Ngày xác nhận"]] || "").trim() : ""
     });
   }
@@ -540,6 +570,155 @@ function handleConfirmDKHocPayment(d) {
         soTien: col["Số tiền"] !== undefined ? (Number(data[r][col["Số tiền"]]) || 0) : 0,
         maDangKy: maDangKy
       });
+    }
+  }
+  return jsonResp({ ok: false, msg: "Không tìm thấy đăng ký với mã " + maDangKy });
+}
+
+// ── TRA CỨU HẠN MỨC MÃ KM ĐÃ DÙNG (theo SĐT) ───────────────
+// action = "checkPromoUsage", body: { sdt, code }
+// Cộng dồn "Số môn đã áp cọc" của TẤT CẢ lần đăng ký trước đó của cùng
+// SĐT + cùng Mã giảm giá — CHỈ tính những lần đã "✅ Đã xác nhận" hoặc
+// còn "Chờ thanh toán" và CHƯA quá 30 phút (QR còn hiệu lực coi như vẫn
+// đang "giữ chỗ" hạn mức). Đăng ký đã hết hạn (bỏ dở, không thanh toán)
+// KHÔNG tính vào hạn mức đã dùng — trả lại "suất" cho lần đăng ký sau.
+function handleCheckPromoUsage(d) {
+  var sdt = normalizePhone(String(d.sdt || "").trim());
+  var code = String(d.code || "").trim().toUpperCase();
+  if (!sdt || !code) return jsonResp({ ok: true, usedCount: 0 });
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_HV);
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return jsonResp({ ok: true, usedCount: 0 });
+
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  var col = {};
+  headers.forEach(function(h, i) { col[h] = i; });
+  if (col["Mã giảm giá"] === undefined || col["Số môn đã áp cọc"] === undefined) return jsonResp({ ok: true, usedCount: 0 });
+
+  var data = sheet.getRange(2, 1, lastRow - 1, headers.length).getValues();
+  var usedCount = 0;
+  for (var r = 0; r < data.length; r++) {
+    var rowSdt = normalizePhone(String(data[r][col["SĐT (Zalo)"]] || "").trim());
+    var rowCode = String(data[r][col["Mã giảm giá"]] || "").trim().toUpperCase();
+    if (rowSdt !== sdt || rowCode !== code) continue;
+
+    var trangThai = col["Trạng thái thanh toán"] !== undefined ? String(data[r][col["Trạng thái thanh toán"]] || "").trim() : "";
+    if (trangThai === "✅ Đã xác nhận") {
+      usedCount += Number(data[r][col["Số môn đã áp cọc"]]) || 0;
+    } else if (trangThai === "Chờ thanh toán") {
+      var t = parseThoiGian(data[r][col["Thời gian"]]);
+      var stillValid = t && (Date.now() - t.getTime()) <= HOC_QR_TTL_MINUTES * 60 * 1000;
+      if (stillValid) usedCount += Number(data[r][col["Số môn đã áp cọc"]]) || 0;
+    }
+  }
+  return jsonResp({ ok: true, usedCount: usedCount });
+}
+
+// ── HỌC VIÊN TỰ BÁO ĐÃ THANH TOÁN (CK hoặc tiền mặt) ───────
+// action = "reportPayment", body: { maDangKy, method: "chuyen_khoan"|"tien_mat" }
+// CHỈ ghi nhận học viên đã "báo" — KHÔNG tự đổi "Trạng thái thanh toán"
+// sang Đã xác nhận (đó vẫn phải do admin đối chiếu sao kê/tiền mặt thật
+// rồi bấm xác nhận tay ở Dashboard). Trả về thông tin để Worker tự gửi
+// thông báo Telegram nhắc admin ưu tiên kiểm tra đơn này.
+function handleReportPayment(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  var method = String(d.method || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_HV);
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  var col = {};
+  headers.forEach(function(h, i) { col[h] = i; });
+  if (col["Hình thức HV báo"] === undefined) return jsonResp({ ok: false, msg: "Sheet thiếu cột Hình thức HV báo" });
+
+  var data = sheet.getRange(2, 1, lastRow - 1, headers.length).getValues();
+  for (var r = 0; r < data.length; r++) {
+    if (String(data[r][col["Mã đăng ký"]] || "").trim() === maDangKy) {
+      var rowNum = r + 2;
+      var now = Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm:ss");
+      var methodLabel = method === "tien_mat" ? "Tiền mặt" : "Chuyển khoản";
+      sheet.getRange(rowNum, col["Hình thức HV báo"] + 1).setValue(methodLabel);
+      sheet.getRange(rowNum, col["Thời gian HV báo"] + 1).setValue(now);
+      return jsonResp({
+        ok: true, msg: "Đã ghi nhận, MOS360 sẽ kiểm tra và xác nhận sớm!",
+        ten: String(data[r][col["Họ và tên"]] || "").trim(),
+        sdt: String(data[r][col["SĐT (Zalo)"]] || "").trim(),
+        khoaHoc: String(data[r][col["Khóa học"]] || "").trim(),
+        soTien: col["Số tiền"] !== undefined ? (Number(data[r][col["Số tiền"]]) || 0) : 0,
+        maDangKy: maDangKy, method: methodLabel
+      });
+    }
+  }
+  return jsonResp({ ok: false, msg: "Không tìm thấy đăng ký với mã " + maDangKy });
+}
+
+// ── DASHBOARD: SỬA THÔNG TIN ĐĂNG KÝ HỌC MOS ───────────────
+// action = "updateDKHoc", body: { maDangKy, ten, sdt, email, khoahoc,
+// kenh, magiamgia, facebook, ghichu, soTien, soTienCoc }
+// Định danh dòng cần sửa bằng Mã đăng ký (không đổi được qua form Sửa —
+// khác với sheet Online, mã đăng ký ở đây do hệ thống tự sinh lúc đăng
+// ký, không phải khoá tự nhiên như course+phone nên giữ cố định).
+function handleUpdateDKHoc(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_HV);
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  var col = {};
+  headers.forEach(function(h, i) { col[h] = i; });
+  if (col["Mã đăng ký"] === undefined) return jsonResp({ ok: false, msg: "Sheet thiếu cột Mã đăng ký" });
+
+  var data = sheet.getRange(2, 1, lastRow - 1, headers.length).getValues();
+  for (var r = 0; r < data.length; r++) {
+    if (String(data[r][col["Mã đăng ký"]] || "").trim() === maDangKy) {
+      var rowNum = r + 2;
+      var fields = {
+        "Họ và tên": d.ten||"", "SĐT (Zalo)": normalizePhoneForSheet(d.sdt), "Email": d.email||"",
+        "Khóa học": d.khoahoc||"", "Biết đến MOS360 qua": d.kenh||"", "Mã giảm giá": d.magiamgia||"",
+        "Link Facebook": d.facebook||"", "Ghi chú": d.ghichu||""
+      };
+      if (d.soTien !== undefined) fields["Số tiền"] = Number(d.soTien) || 0;
+      if (d.soTienCoc !== undefined) fields["Số tiền cọc"] = Number(d.soTienCoc) || 0;
+      Object.keys(fields).forEach(function(name) {
+        if (col[name] !== undefined) sheet.getRange(rowNum, col[name] + 1).setValue(fields[name]);
+      });
+      return jsonResp({ ok: true, msg: "Đã cập nhật thông tin đăng ký!" });
+    }
+  }
+  return jsonResp({ ok: false, msg: "Không tìm thấy đăng ký với mã " + maDangKy });
+}
+
+// ── DASHBOARD: XÓA ĐĂNG KÝ HỌC MOS ─────────────────────────
+// action = "deleteDKHoc", body: { maDangKy }
+function handleDeleteDKHoc(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_HV);
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+
+  var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  var col = {};
+  headers.forEach(function(h, i) { col[h] = i; });
+  if (col["Mã đăng ký"] === undefined) return jsonResp({ ok: false, msg: "Sheet thiếu cột Mã đăng ký" });
+
+  var data = sheet.getRange(2, 1, lastRow - 1, headers.length).getValues();
+  for (var r = 0; r < data.length; r++) {
+    if (String(data[r][col["Mã đăng ký"]] || "").trim() === maDangKy) {
+      sheet.deleteRow(r + 2);
+      return jsonResp({ ok: true, msg: "Đã xóa đăng ký!" });
     }
   }
   return jsonResp({ ok: false, msg: "Không tìm thấy đăng ký với mã " + maDangKy });

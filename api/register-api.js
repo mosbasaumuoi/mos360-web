@@ -45,7 +45,7 @@ export async function handleRegisterAPI(request, env) {
     let paymentInfo = null;
     if (payload.action === "dkhoc") {
         paymentInfo = await computeDKHocPayment(payload, env);
-        payload = { ...payload, maDangKy: paymentInfo.maDangKy, soTien: paymentInfo.amount, soTienCoc: paymentInfo.depositAmount, email: String(payload.email || "").trim() };
+        payload = { ...payload, maDangKy: paymentInfo.maDangKy, soTien: paymentInfo.amount, soTienCoc: paymentInfo.depositAmount, soMonApCoc: paymentInfo.coveredCount, email: String(payload.email || "").trim() };
     }
 
     // 1. Forward payload (đã bổ sung mã đăng ký/số tiền nếu là dkhoc) sang
@@ -89,12 +89,22 @@ export async function handleRegisterAPI(request, env) {
 // nội dung chuyển khoản chuẩn hoá (không dấu, không khoảng trắng).
 //
 // 2 CƠ CHẾ mã giảm giá (phân biệt bằng có/không có "depositMonths"):
-//  A) ĐẶT CỌC (depositMonths = 1/2/3 → số môn được áp cọc):
-//     Tổng tiền = Cọc + (số môn đã chọn − số môn được cọc, tối thiểu 0)
-//                 × Học phí ưu đãi môn dư
-//     (chọn ÍT môn hơn số môn được cọc vẫn đóng đủ tiền cọc, không bớt)
+//  A) ĐẶT CỌC (depositMonths = 1/2/3 → hạn mức TỐI ĐA số môn được cọc,
+//     CỘNG DỒN qua nhiều lần đăng ký của CÙNG SĐT dùng CÙNG mã — không
+//     phải reset mỗi lần đăng ký):
+//       1. Tra hạn mức đã dùng (usedCount) qua các lần đăng ký trước.
+//       2. remainingQuota = max(0, depositMonths − usedCount)
+//       3. coveredCount = min(số môn đang đăng ký, remainingQuota)
+//          → coveredCount môn được tính giá CỌC (VNĐ/môn)
+//       4. extraCount = số môn đang đăng ký − coveredCount
+//          → extraCount môn còn lại tính HỌC PHÍ ƯU ĐÃI (VNĐ/môn dư)
+//     VD: mã cho phép cọc tối đa 2 môn, đăng ký lần 1 đã dùng 1 môn →
+//     lần 2 đăng ký 1 môn nữa vẫn còn hạn mức (remainingQuota=1) → môn
+//     đó tiếp tục được giá cọc. Nhưng nếu lần 2 đăng ký khi hạn mức đã
+//     dùng hết (usedCount ≥ depositMonths) → toàn bộ môn lần này tính
+//     theo học phí ưu đãi, KHÔNG còn giá cọc nữa.
 //  B) GIẢM GIÁ CỐ ĐỊNH (depositMonths = 0):
-//     Tổng tiền = max(0, số môn × 400.000 − Giá trị giảm)
+//     Tổng tiền = max(0, số môn × max(0, 400.000 − Giá trị giảm/môn))
 async function computeDKHocPayment(payload, env) {
     const soMon = String(payload.khoahoc || "")
         .split(",")
@@ -117,17 +127,28 @@ async function computeDKHocPayment(payload, env) {
         } catch (e) { /* mã lỗi/không đọc được KV → coi như không có mã, không chặn đăng ký */ }
     }
 
-    let amount, depositAmount = 0, extraTuitionAmount = 0, extraCount = 0, baseAmount = soMon * HOC_PHI_MOI_MON, discount = 0;
+    let amount, depositAmount = 0, extraTuitionAmount = 0, extraCount = 0, coveredCount = 0,
+        baseAmount = soMon * HOC_PHI_MOI_MON, discount = 0, quotaMsg = "";
     const depositMonths = match && match.depositMonths ? (Number(match.depositMonths) || 0) : 0;
 
     if (match && depositMonths > 0) {
-        depositAmount = Number(match.deposit) || 0;
-        extraCount = Math.max(0, soMon - depositMonths);
+        const usedCount = await getPromoUsage(payload.sdt, codeInput, env);
+        const remainingQuota = Math.max(0, depositMonths - usedCount);
+        coveredCount = Math.min(soMon, remainingQuota);
+        extraCount = soMon - coveredCount;
+        depositAmount = coveredCount * (Number(match.deposit) || 0);
         extraTuitionAmount = extraCount * (Number(match.tuitionPerExtra) || 0);
         amount = depositAmount + extraTuitionAmount;
+        if (extraCount > 0) {
+            quotaMsg = usedCount > 0
+                ? `Bạn đã dùng mã ${codeInput} cho ${usedCount}/${depositMonths} môn ở (các) lần đăng ký trước. Lần này chỉ còn ${remainingQuota} suất giá cọc — ${extraCount} môn còn lại áp dụng học phí ưu đãi ${(Number(match.tuitionPerExtra) || 0).toLocaleString("vi-VN")}đ/môn.`
+                : `Mã ${codeInput} chỉ áp dụng giá cọc cho tối đa ${depositMonths} môn. ${extraCount} môn vượt hạn mức áp dụng học phí ưu đãi ${(Number(match.tuitionPerExtra) || 0).toLocaleString("vi-VN")}đ/môn.`;
+        }
     } else {
         discount = match ? (Number(match.discountAmount) || 0) : 0;
-        amount = Math.max(0, baseAmount - discount);
+        // Giảm áp dụng TRÊN TỪNG MÔN (VD giảm 50k/môn) — không phải trừ 1
+        // lần duy nhất vào tổng đơn hàng.
+        amount = Math.max(0, soMon * Math.max(0, HOC_PHI_MOI_MON - discount));
     }
 
     const maDangKy = "MOS" + Math.random().toString(36).slice(2, 7).toUpperCase();
@@ -142,12 +163,87 @@ async function computeDKHocPayment(payload, env) {
         isDeposit: depositMonths > 0,
         depositAmount,
         depositMonths,
+        coveredCount,
         extraCount,
         extraTuitionAmount,
+        quotaMsg,
         qrContent,
         bankInfo: BANK_INFO,
         qrImageUrl: `https://img.vietqr.io/image/${BANK_INFO.bin}-${BANK_INFO.accountNo}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(qrContent)}&accountName=${encodeURIComponent(BANK_INFO.accountName)}`
     };
+}
+
+// Tra cứu tổng số môn ĐÃ ĐƯỢC ÁP GIÁ CỌC của 1 SĐT với 1 mã KM cụ thể,
+// cộng dồn qua các lần đăng ký trước (đọc trực tiếp từ Apps Script DKHOC,
+// luôn là dữ liệu mới nhất — không cache).
+async function getPromoUsage(sdt, code, env) {
+    try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({ action: "checkPromoUsage", sdt, code })
+        });
+        const data = await res.json();
+        return Number(data.usedCount) || 0;
+    } catch (e) {
+        return 0; // lỗi tra cứu → coi như chưa dùng, không chặn đăng ký (an toàn về UX hơn là chặn nhầm)
+    }
+}
+
+// GET /api/promo-usage?sdt=..&code=.. — endpoint CÔNG KHAI để form đăng
+// ký tra hạn mức TRƯỚC khi hiện popup xác nhận (xem giá đúng thực tế
+// trước khi gửi, khớp với số server sẽ tính chính thức lúc submit).
+export async function handlePromoUsageAPI(request, env) {
+    const url = new URL(request.url);
+    const sdt = url.searchParams.get("sdt") || "";
+    const code = (url.searchParams.get("code") || "").trim().toUpperCase();
+    if (!sdt || !code) return json({ ok: true, usedCount: 0 });
+    const usedCount = await getPromoUsage(sdt, code, env);
+    return json({ ok: true, usedCount });
+}
+
+// POST /api/register-payment-report — body: { maDangKy, method } — học
+// viên tự báo đã chuyển khoản/tiền mặt ngay trên trang QR. KHÔNG tự xác
+// nhận thanh toán chính thức (đó vẫn cần admin đối chiếu) — chỉ ghi nhận
+// + báo Telegram để admin ưu tiên kiểm tra đơn này sớm hơn.
+export async function handlePaymentReportAPI(request, env) {
+    let body;
+    try { body = await request.json(); } catch (e) { return json({ ok: false, msg: "Dữ liệu không hợp lệ" }, 400); }
+
+    const maDangKy = String(body.maDangKy || "").trim();
+    const method = String(body.method || "").trim();
+    if (!maDangKy) return json({ ok: false, msg: "Thiếu mã đăng ký" }, 400);
+
+    let data;
+    try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({ action: "reportPayment", maDangKy, method })
+        });
+        data = await res.json();
+    } catch (e) {
+        return json({ ok: false, msg: "Không kết nối được máy chủ. Vui lòng thử lại." }, 502);
+    }
+
+    if (data.ok) {
+        try {
+            const methodEmoji = method === "tien_mat" ? "💵" : "🏦";
+            const text = `${methodEmoji} <b>HỌC VIÊN BÁO ĐÃ THANH TOÁN (${esc(data.method)})</b>` +
+                `\n👤 ${esc(data.ten)} — ${esc(data.sdt)}` +
+                `\n📚 ${esc(data.khoaHoc)}` +
+                `\n🎫 Mã đăng ký: <code>${esc(data.maDangKy)}</code>` +
+                (typeof data.soTien === "number" ? `\n💰 Số tiền: ${data.soTien.toLocaleString("vi-VN")}đ` : "") +
+                `\n⚠️ Vui lòng kiểm tra và xác nhận trên Dashboard.`;
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text, parse_mode: "HTML" })
+            });
+        } catch (e) { console.error("Lỗi gửi Telegram báo thanh toán:", e.message); }
+    }
+
+    return json(data);
 }
 
 // Nội dung chuyển khoản: HOTENHOCVIEN_SODIENTHOAI_MADANGKY — viết hoa,

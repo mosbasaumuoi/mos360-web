@@ -22,7 +22,7 @@ import { getCosUI } from "./pages/cos.js";
 import { getLibraryUI } from "./pages/library.js";
 import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
 import { BLOG_POSTS, getBlogListUI, getBlogPostUI } from "./pages/blog.js";
-import { handleRegisterAPI } from "./api/register-api.js";
+import { handleRegisterAPI, handlePromoUsageAPI, handlePaymentReportAPI } from "./api/register-api.js";
 import { handleOnlineRegisterAPI } from "./api/online-register-api.js";
 import { handleVideoLibraryAPI, handleVideoStream } from "./api/video-library-api.js";
 
@@ -542,6 +542,18 @@ export default {
         // proxy sang Google Sheet lead cũ + thông báo Telegram ──
         if (path === "/api/register" && request.method === "POST") {
             return handleRegisterAPI(request, env);
+        }
+
+        // ── TRA HẠN MỨC MÃ KM ĐÃ DÙNG (theo SĐT) — form gọi trước khi
+        // hiện popup xác nhận, để giá xem trước khớp với giá server sẽ
+        // tính chính thức lúc gửi thật ──
+        if (path === "/api/promo-usage" && request.method === "GET") {
+            return handlePromoUsageAPI(request, env);
+        }
+
+        // ── HỌC VIÊN TỰ BÁO ĐÃ THANH TOÁN (CK/tiền mặt) trên trang QR ──
+        if (path === "/api/register-payment-report" && request.method === "POST") {
+            return handlePaymentReportAPI(request, env);
         }
 
         // ── ĐĂNG KÝ HỌC ONLINE (IC3/GenAI/AI Productivity) — ghi thẳng
@@ -1957,11 +1969,17 @@ ${mode !== 'home' ? `
           <div style="font-weight:800;color:#1a1a2e;font-size:1rem;margin-bottom:2px">💳 Quét mã để thanh toán</div>
           <div style="font-size:0.8rem;color:var(--muted);margin-bottom:14px">Nội dung chuyển khoản đã tự điền sẵn trong mã QR — không cần sửa gì thêm.</div>
           <img id="hoc_qr_img" src="" alt="QR thanh toán" style="max-width:260px;width:100%;border-radius:10px;border:1px solid var(--border);background:#fff">
+          <div id="hoc_qr_countdown" style="margin-top:10px;font-size:0.82rem;color:#FF5722;font-weight:700"></div>
           <div style="margin-top:14px;display:flex;flex-direction:column;gap:4px;font-size:0.85rem">
             <div>Mã đăng ký: <b id="hoc_ma_dk" style="color:#FF5722;font-family:monospace"></b></div>
             <div>Số tiền cần chuyển: <b id="hoc_so_tien" style="color:#22c55e;font-size:1.1rem"></b></div>
           </div>
           <div style="margin-top:12px;font-size:0.75rem;color:var(--muted)">Sau khi chuyển khoản, MOS360 sẽ xác nhận và gửi email hướng dẫn tải phần mềm trong ít phút. Giữ lại mã đăng ký để tiện tra cứu nếu cần hỗ trợ.</div>
+          <div style="display:flex;gap:8px;margin-top:14px">
+            <button id="btnReportCK" onclick="reportHocPayment('chuyen_khoan')" style="flex:1;padding:10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.35);color:#16a34a;border-radius:8px;font-weight:700;font-size:0.8rem;cursor:pointer">🏦 Tôi đã chuyển khoản</button>
+            <button id="btnReportTM" onclick="reportHocPayment('tien_mat')" style="flex:1;padding:10px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.35);color:#b45309;border-radius:8px;font-weight:700;font-size:0.8rem;cursor:pointer">💵 Đã TT tiền mặt</button>
+          </div>
+          <div id="hoc_report_msg" style="margin-top:10px;font-size:0.8rem"></div>
         </div>
         <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center">
           Sau khi gửi, MOS360 sẽ liên hệ Zalo/Face trong vòng 1 giờ · Hotline: <strong style="color:var(--text)">0912.888.360</strong>
@@ -2647,7 +2665,7 @@ async function loadOfflineSlotWarnings() {
 // đúng công thức bên server) chỉ để xem trước; khi bấm "Xác nhận & Gửi"
 // mới thực sự POST — lúc đó server tính lại chính thức (nguồn xác thực
 // thật, không tin số liệu trình duyệt gửi lên).
-function openHocConfirmModal() {
+async function openHocConfirmModal() {
   var ten = document.getElementById('hoc_ten').value.trim();
   var sdt = document.getElementById('hoc_sdt').value.trim();
   var email = document.getElementById('hoc_email').value.trim();
@@ -2683,21 +2701,48 @@ function openHocConfirmModal() {
 
   if (match && match.depositMonths) {
     var depositMonths = Number(match.depositMonths) || 0;
+    // Tra hạn mức đã dùng của SĐT này với mã này (cộng dồn qua các lần
+    // đăng ký trước) — để giá xem trước KHỚP với giá server tính chính
+    // thức lúc gửi, không hứa hẹn sai với học viên.
+    var usedCount = 0;
+    var btn = document.getElementById('btn_hoc');
+    try {
+      btn.disabled = true;
+      var res = await fetch('/api/promo-usage?sdt=' + encodeURIComponent(sdt) + '&code=' + encodeURIComponent(maggCode));
+      var usageData = await res.json();
+      usedCount = Number(usageData.usedCount) || 0;
+    } catch (e) { /* lỗi tra cứu → coi như chưa dùng, server sẽ tính lại chính thức lúc gửi */ }
+    finally { btn.disabled = false; }
+
+    var remainingQuota = Math.max(0, depositMonths - usedCount);
+    var coveredCount = Math.min(soMon, remainingQuota);
+    var extraCount = soMon - coveredCount;
     var deposit = match.deposit || 0;
-    var extraCount = Math.max(0, soMon - depositMonths);
+    var depositAmount = coveredCount * deposit;
     var extraTuition = extraCount * (match.tuitionPerExtra || 0);
-    var total = deposit + extraTuition;
-    paymentHtml = payRow('Mã', maggCode) + payRow('Cọc', vnd(deposit)) +
+    var total = depositAmount + extraTuition;
+
+    var quotaWarning = '';
+    if (extraCount > 0) {
+      quotaWarning = '<div style="margin-top:10px;padding:10px 12px;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;font-size:0.78rem;color:#991B1B">⚠️ ' +
+        (usedCount > 0
+          ? ('Bạn đã dùng mã này cho ' + usedCount + '/' + depositMonths + ' môn ở lần đăng ký trước. Lần này chỉ còn ' + remainingQuota + ' suất giá cọc — ' + extraCount + ' môn còn lại áp dụng học phí ưu đãi.')
+          : ('Mã này chỉ áp dụng giá cọc cho tối đa ' + depositMonths + ' môn. ' + extraCount + ' môn vượt hạn mức áp dụng học phí ưu đãi.')) +
+        '</div>';
+    }
+
+    paymentHtml = payRow('Mã', maggCode) +
+      (coveredCount > 0 ? payRow('Cọc (' + coveredCount + ' môn)', vnd(depositAmount)) : '') +
       (extraCount > 0 ? payRow('Học phí (' + extraCount + ' môn dư)', vnd(extraTuition)) : '') +
-      payRow('Tổng cộng', vnd(total), true);
+      payRow('Tổng cộng', vnd(total), true) + quotaWarning;
     promoBlock.style.display = 'block';
     promoBlock.innerHTML = '<div style="font-weight:800;margin-bottom:6px">🌸 Chương trình khuyến mại</div>' + escHtmlClient(match.content);
   } else if (match) {
     var base = soMon * HOC_PHI;
     var discount = match.discountAmount || 0;
-    var total2 = Math.max(0, base - discount);
-    paymentHtml = payRow('Mã', maggCode) + payRow('Học phí', vnd(base)) +
-      payRow('Giảm giá', '-' + vnd(discount)) + payRow('Tổng cộng', vnd(total2), true);
+    var total2 = Math.max(0, soMon * Math.max(0, HOC_PHI - discount));
+    paymentHtml = payRow('Mã', maggCode) + payRow('Học phí (' + soMon + ' môn)', vnd(base)) +
+      payRow('Giảm (' + vnd(discount) + '/môn)', '-' + vnd(base - total2)) + payRow('Tổng cộng', vnd(total2), true);
     promoBlock.style.display = 'block';
     promoBlock.innerHTML = '<div style="font-weight:800;margin-bottom:6px">🌸 Chương trình khuyến mại</div>' + escHtmlClient(match.content);
   } else {
@@ -2715,6 +2760,65 @@ function openHocConfirmModal() {
 function confirmAndSubmitHoc() {
   document.getElementById('hocConfirmModal').style.display = 'none';
   submitForm('hoc');
+}
+
+async function reportHocPayment(method) {
+  var maDangKy = window.hocCurrentMaDangKy;
+  if (!maDangKy) return;
+  var btnCK = document.getElementById('btnReportCK');
+  var btnTM = document.getElementById('btnReportTM');
+  var msgEl = document.getElementById('hoc_report_msg');
+  btnCK.disabled = true; btnTM.disabled = true;
+  msgEl.style.color = '#64748b';
+  msgEl.textContent = '⏳ Đang gửi...';
+  try {
+    var res = await fetch('/api/register-payment-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ maDangKy: maDangKy, method: method })
+    });
+    var data = await res.json();
+    if (data.ok) {
+      msgEl.style.color = '#22c55e';
+      msgEl.textContent = '✅ ' + data.msg;
+    } else {
+      msgEl.style.color = '#ef4444';
+      msgEl.textContent = '❌ ' + data.msg;
+      btnCK.disabled = false; btnTM.disabled = false;
+    }
+  } catch (e) {
+    msgEl.style.color = '#ef4444';
+    msgEl.textContent = '❌ Lỗi kết nối, vui lòng thử lại.';
+    btnCK.disabled = false; btnTM.disabled = false;
+  }
+}
+
+// QR chỉ hiệu lực 30 PHÚT kể từ lúc hiện lên (đếm ngược để học viên biết
+// cần chuyển khoản sớm). Đây là bộ đếm HIỂN THỊ (UX) — việc chặn/không
+// nhận thanh toán trễ vẫn do admin quyết định thủ công khi đối chiếu ở
+// Dashboard (tab Đăng ký học MOS đã đánh dấu "⏰ Hết hạn" sau 30 phút nếu
+// còn "Chờ thanh toán", nhưng admin vẫn xác nhận được nếu tiền đã về).
+var hocQrTimer = null;
+function startHocQrCountdown() {
+  if (hocQrTimer) clearInterval(hocQrTimer);
+  var deadline = Date.now() + 30 * 60 * 1000;
+  var el = document.getElementById('hoc_qr_countdown');
+  var img = document.getElementById('hoc_qr_img');
+  function tick() {
+    var remain = deadline - Date.now();
+    if (remain <= 0) {
+      clearInterval(hocQrTimer);
+      el.textContent = '⏰ Mã QR đã hết hạn (quá 30 phút) — vui lòng tải lại trang và đăng ký lại để lấy mã mới.';
+      el.style.color = '#ef4444';
+      img.style.opacity = '0.25';
+      return;
+    }
+    var m = Math.floor(remain / 60000);
+    var s = Math.floor((remain % 60000) / 1000);
+    el.textContent = '⏰ Mã QR còn hiệu lực: ' + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  tick();
+  hocQrTimer = setInterval(tick, 1000);
 }
 
 // Submit form → /api/register (Worker proxy: ghi Google Sheet + báo Telegram)
@@ -2892,9 +2996,11 @@ async function submitForm(type) {
         document.getElementById('hoc_qr_img').src = data.qrImageUrl;
         document.getElementById('hoc_ma_dk').textContent = data.maDangKy || '';
         document.getElementById('hoc_so_tien').textContent = (data.soTien || 0).toLocaleString('vi-VN') + 'đ';
+        window.hocCurrentMaDangKy = data.maDangKy || '';
         var box = document.getElementById('hoc_payment_box');
         box.style.display = 'block';
         box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        startHocQrCountdown();
       } else {
         // Reset form sau khi gửi thành công (không áp dụng cho "hoc" — cần
         // giữ nguyên để học viên còn xem/chụp lại mã QR thanh toán).
