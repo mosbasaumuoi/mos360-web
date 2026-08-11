@@ -1939,8 +1939,8 @@ ${mode !== 'home' ? `
             <label class="hn-label">Biết đến MOS360 qua</label>
             <select class="hn-select" id="hoc_kenh">
               <option value="">-- Chọn kênh --</option>
-              <option>Facebook</option><option>TikTok</option><option>YouTube</option><option>Tìm kiếm Google</option>
-              <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
+              <option>Toeic Ms Hương</option><option>Bạn bè</option><option>Facebook</option>
+              <option>Tiktok</option><option>Youtube</option><option>Google</option><option>Khác</option>
             </select>
           </div>
           <div class="hn-field">
@@ -2103,8 +2103,8 @@ ${mode !== 'home' ? `
             <label class="hn-label">Biết đến MOS360 qua</label>
             <select class="hn-select" id="onl_kenh">
               <option value="">-- Chọn kênh --</option>
-              <option>Facebook</option><option>TikTok</option><option>YouTube</option><option>Tìm kiếm Google</option>
-              <option>Bạn bè giới thiệu</option><option>Học viên cũ của Toeic Ms.Hương</option><option>Khác</option>
+              <option>Toeic Ms Hương</option><option>Bạn bè</option><option>Facebook</option>
+              <option>Tiktok</option><option>Youtube</option><option>Google</option><option>Khác</option>
             </select>
           </div>
           <div class="hn-field">
