@@ -118,6 +118,49 @@ const ORG_JSONLD = {
     ]
 };
 
+// VideoObject JSON-LD — giúp video xuất hiện trực tiếp trong kết quả tìm
+// kiếm Google (video rich result / video carousel) thay vì chỉ nằm im trên
+// YouTube. embedId lấy từ URL dạng youtu.be/xxxx hoặc watch?v=xxxx.
+function buildVideoJsonLd({ name, description, embedId, uploadDate, thumbnailUrl }) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": name,
+        "description": description,
+        "thumbnailUrl": thumbnailUrl || `https://i.ytimg.com/vi/${embedId}/hqdefault.jpg`,
+        "uploadDate": uploadDate,
+        "embedUrl": `https://www.youtube.com/embed/${embedId}`,
+        "contentUrl": `https://www.youtube.com/watch?v=${embedId}`,
+        "publisher": {
+            "@type": "Organization",
+            "name": "MOS360",
+            "logo": { "@type": "ImageObject", "url": "https://raw.githubusercontent.com/mosbasaumuoi/mos360-web/main/logo%20vien.png" }
+        }
+    };
+}
+
+// Video hướng dẫn sử dụng phần mềm MOS360 (hiển thị ở trang chủ, mục
+// "Xem phần mềm MOS360 hoạt động") — gắn schema để lên kết quả tìm kiếm.
+const TUTORIAL_VIDEO_JSONLD = buildVideoJsonLd({
+    name: "Hướng dẫn sử dụng phần mềm luyện thi MOS360",
+    description: "Video hướng dẫn tổng quan cách cài đặt, giao diện, học và thi thử từng môn Word, Excel, PowerPoint trên phần mềm luyện thi MOS360.",
+    embedId: "rmXrwT0Iu8U",
+    uploadDate: "2026-01-01"
+});
+
+// ── VIDEO GIỚI THIỆU TRUNG TÂM ─────────────────────────────
+// Dán ID video YouTube giới thiệu MOS360 vào đây (phần sau "v=" hoặc sau
+// "youtu.be/"). Để trống "" thì mục giới thiệu trên trang chủ sẽ tự ẩn.
+// Ví dụ: nếu link là https://youtu.be/AbCdEfGhIjK thì điền "AbCdEfGhIjK".
+const INTRO_VIDEO_EMBED_ID = ""; // TODO: điền ID video giới thiệu trung tâm
+
+const INTRO_VIDEO_JSONLD = INTRO_VIDEO_EMBED_ID ? buildVideoJsonLd({
+    name: "Giới thiệu Trung tâm tin học MOS360",
+    description: "Video giới thiệu Trung tâm tin học MOS & IC3 & AI MOS360 tại Hải Phòng — cơ sở vật chất, phương pháp đào tạo và đội ngũ giáo viên.",
+    embedId: INTRO_VIDEO_EMBED_ID,
+    uploadDate: "2026-08-14"
+}) : null;
+
 // ── Course schema (schema.org/Course) ──
 const MOS360_PROVIDER = {
     "@type": "EducationalOrganization",
@@ -918,7 +961,7 @@ export default {
         else content = this.getHomeUI(studentData, promoConfig);
 
         let pageSeo = SEO_PAGES[path] || SEO_PAGES["/"];
-        let dynamicJsonLd = path === "/" ? ORG_JSONLD
+        let dynamicJsonLd = path === "/" ? [ORG_JSONLD, TUTORIAL_VIDEO_JSONLD, INTRO_VIDEO_JSONLD].filter(Boolean)
             : path === "/courses" ? COURSES_ITEMLIST_JSONLD
                 : COURSE_SCHEMAS[path] || null;
         if (path === "/blog") {
@@ -929,7 +972,7 @@ export default {
         } else if (path.startsWith("/blog/")) {
             if (blogPost) {
                 pageSeo = { title: blogPost.title + " | MOS360", description: blogPost.seoDescription };
-                dynamicJsonLd = {
+                const blogPostingJsonLd = {
                     "@context": "https://schema.org",
                     "@type": "BlogPosting",
                     "headline": blogPost.title,
@@ -943,6 +986,14 @@ export default {
                     },
                     "mainEntityOfPage": CONFIG.SITE_URL + path
                 };
+                dynamicJsonLd = blogPost.videoEmbedId
+                    ? [blogPostingJsonLd, buildVideoJsonLd({
+                        name: blogPost.videoTitle || blogPost.title,
+                        description: blogPost.videoDescription || blogPost.seoDescription,
+                        embedId: blogPost.videoEmbedId,
+                        uploadDate: blogPost.publishedDate
+                    })]
+                    : blogPostingJsonLd;
             } else {
                 pageSeo = { title: "Không tìm thấy bài viết | MOS360", noindex: true };
             }
@@ -968,9 +1019,11 @@ export default {
         const canonical = CONFIG.SITE_URL + (!seo.path || seo.path === "/" ? "" : seo.path);
         const robotsMeta = seo.noindex ? "noindex, nofollow" : "index, follow";
         const esc = (s) => String(s).replace(/"/g, "&quot;");
-        const jsonLdBlock = seo.jsonLd
-            ? `<script type="application/ld+json">${JSON.stringify(seo.jsonLd)}</script>`
-            : "";
+        const jsonLdList = seo.jsonLd ? (Array.isArray(seo.jsonLd) ? seo.jsonLd : [seo.jsonLd]) : [];
+        const jsonLdBlock = jsonLdList
+            .filter(Boolean)
+            .map((ld) => `<script type="application/ld+json">${JSON.stringify(ld)}</script>`)
+            .join("\n    ");
         return `<!DOCTYPE html><html lang="vi"><head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>${title}</title>
@@ -1581,6 +1634,30 @@ ${mode === 'register' ? `
   </div>
 </div>
 `}
+
+${mode !== 'register' && INTRO_VIDEO_EMBED_ID ? `
+<!-- VIDEO GIỚI THIỆU TRUNG TÂM (vị trí đầu trang, ngay sau Hero) -->
+<div class="hn-section" style="padding:8px 24px 48px">
+  <div class="hn-inner">
+    <div class="hn-tag">🎬 Video giới thiệu</div>
+    <h2 class="hn-h2" style="font-size:1.4rem;margin-bottom:6px">Khám phá MOS360 qua video</h2>
+    <p class="hn-desc" style="margin-bottom:18px">Cơ sở vật chất, phương pháp đào tạo và đội ngũ giáo viên tại MOS360 Hải Phòng.</p>
+    <div class="hn-video-wrap">
+      <div class="hn-video-left">
+        <h3>Giới thiệu Trung tâm tin học MOS360</h3>
+        <p>Tìm hiểu vì sao hơn 1000 học viên đã chọn MOS360 để luyện thi MOS &amp; IC3 — học bằng phần mềm mô phỏng, kèm 1:1, cam kết đầu ra 700+.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="hn-btn-p" style="font-size:0.85rem;padding:9px 18px;border:none;cursor:pointer" onclick="openVideoModal('https://www.youtube.com/watch?v=${INTRO_VIDEO_EMBED_ID}')">▶ Xem ngay</button>
+          <a href="/register#hn-register" class="hn-btn-s" style="font-size:0.85rem;padding:9px 18px">Đăng ký học →</a>
+        </div>
+      </div>
+      <div class="hn-video-right" onclick="openVideoModal('https://www.youtube.com/watch?v=${INTRO_VIDEO_EMBED_ID}')">
+        <div class="hn-play">▶</div>
+      </div>
+    </div>
+  </div>
+</div>
+` : ''}
 
 ${mode !== 'register' ? '<hr class="hn-divider">' : ''}
 

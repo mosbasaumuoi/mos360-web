@@ -372,6 +372,139 @@ export const BLOG_POSTS = [
             <p><strong>Chứng chỉ MOS/IC3 thi từ năm hai có còn giá trị đến lúc xét tốt nghiệp không?</strong><br>Có. Chứng chỉ MOS có giá trị 5 năm kể từ ngày cấp, thừa đủ thời gian sử dụng cho đến khi xét tốt nghiệp.</p>
             <p><strong>Sinh viên năm cuối cần ôn gấp thì nên bắt đầu từ đâu?</strong><br>Liên hệ ngay Zalo/Hotline <strong>0912888360</strong> để được tư vấn lộ trình ôn cấp tốc, ưu tiên đúng phần trọng tâm của đề thi.</p>
         `
+    },
+    {
+        slug: "hoc-mos-powerpoint-duoc-gi",
+        title: "Sinh Viên Học MOS PowerPoint Được Gì? Lợi Ích Khi Trường Chỉ Bắt Buộc Word Và Excel",
+        seoDescription: "Trường chỉ bắt buộc MOS Word và Excel, vậy học thêm MOS PowerPoint mang lại lợi ích gì cho sinh viên? 5 lý do nên học PowerPoint dù không bắt buộc.",
+        publishedDate: "2026-08-05",
+        excerpt: "Không ít sinh viên coi PowerPoint là môn 'không bắt buộc thì thôi khỏi học'. Nhưng bỏ qua PowerPoint có thể khiến bạn bỏ lỡ nhiều thứ hơn bạn nghĩ.",
+        contentHtml: `
+            <p>Phần lớn các trường đại học, cao đẳng hiện nay chỉ yêu cầu sinh viên có <strong>chứng chỉ MOS Word</strong> và <strong>MOS Excel</strong> để đủ điều kiện xét tốt nghiệp. Vì vậy, không ít sinh viên coi PowerPoint là môn "không bắt buộc thì thôi khỏi học" — học đủ 2 chứng chỉ theo yêu cầu là dừng lại.</p>
+            <p>Điều này dễ hiểu vì ai cũng muốn tiết kiệm thời gian. Nhưng nếu nhìn xa hơn một chút, bỏ qua PowerPoint có thể là một quyết định khiến bạn bỏ lỡ nhiều thứ hơn bạn nghĩ.</p>
+
+            <h2>PowerPoint không chỉ là "làm slide cho đẹp"</h2>
+            <p>Nhiều sinh viên nghĩ PowerPoint đơn giản, ai cũng biết dùng nên không cần học thêm. Nhưng biết dùng cơ bản (gõ chữ, chèn ảnh) khác hoàn toàn với việc <strong>thiết kế một bài trình bày chuyên nghiệp</strong>: bố cục rõ ràng, dữ liệu được trực quan hoá dễ hiểu, hiệu ứng chuyển động hợp lý không gây rối mắt, và quan trọng nhất — truyền đạt được thông điệp trong thời gian ngắn.</p>
+            <p>MOS PowerPoint không kiểm tra bạn "có biết mở phần mềm" hay không, mà kiểm tra bạn có làm chủ được các kỹ năng ở mức chuyên nghiệp: master slide, animation, quản lý dữ liệu biểu đồ, thiết kế bố cục theo chuẩn thiết kế — những kỹ năng không tự nhiên mà có nếu chỉ "làm slide theo bản năng" suốt 4 năm đại học.</p>
+
+            <h2>Vì sao kỹ năng này quan trọng hơn bạn nghĩ trong quãng đời sinh viên</h2>
+            <p><strong>1. Bảo vệ khóa luận, đồ án tốt nghiệp</strong><br>Đây là lúc bạn cần trình bày nội dung nghiên cứu trong 10–15 phút trước hội đồng. Một bài slide được thiết kế tốt giúp hội đồng nắm ý nhanh, và gián tiếp thể hiện sự chuyên nghiệp của người trình bày — điều ảnh hưởng không nhỏ đến điểm số.</p>
+            <p><strong>2. Phỏng vấn xin việc, làm hồ sơ năng lực</strong><br>Nhiều vị trí (đặc biệt Marketing, Kinh doanh, Nhân sự, Truyền thông) yêu cầu ứng viên trình bày ý tưởng, portfolio hoặc kế hoạch bằng slide ngay trong buổi phỏng vấn — đây là cơ hội để bạn "ghi điểm bằng hình ảnh" so với các ứng viên khác.</p>
+            <p><strong>3. Công việc thực tế sau khi ra trường</strong><br>Báo cáo tuần/tháng, đề xuất dự án, pitch ý tưởng với sếp hoặc khách hàng, đào tạo nội bộ... hầu hết đều dùng PowerPoint. Người làm slide tốt thường được giao trình bày thay cho cả nhóm — một lợi thế nhỏ nhưng tích luỹ theo thời gian sẽ tạo khác biệt lớn trong sự nghiệp.</p>
+            <p><strong>4. Một số ngành cần PowerPoint nhiều hơn cả Excel</strong><br>Với các bạn học Marketing, Truyền thông, Sư phạm, Quản trị kinh doanh, Du lịch..., công việc hàng ngày gắn liền với thuyết trình và trình bày ý tưởng nhiều hơn là xử lý số liệu. Với nhóm ngành này, PowerPoint thực chất là kỹ năng "sát sườn" hơn Excel.</p>
+            <p><strong>5. Hồ sơ xin việc nổi bật hơn</strong><br>Giữa hai ứng viên cùng có Word và Excel, người có thêm MOS PowerPoint cho thấy sự đầu tư nghiêm túc và bộ kỹ năng văn phòng hoàn chỉnh — điều nhà tuyển dụng luôn đánh giá cao dù không bắt buộc.</p>
+
+            <h2>Học thêm PowerPoint có tốn nhiều thời gian và chi phí không?</h2>
+            <p>Không nhiều như bạn nghĩ. Nếu bạn đã học Word/Excel theo chuẩn MOS, bạn đã quen với cấu trúc đề thi và cách ôn luyện — chuyển sang PowerPoint thường chỉ mất thêm một khoảng thời gian ngắn để làm quen phần thao tác đặc thù (animation, transition, master slide), vì kỹ năng làm bài thi mô phỏng đã có sẵn từ trước.</p>
+            <p>Tại MOS360, học phí luyện thi MOS PowerPoint là <strong>400.000đ/môn</strong>, đi kèm phần mềm mô phỏng 100% giống đề thi thật, giáo viên hướng dẫn 1:1 và <strong>cam kết đầu ra 700+ điểm bằng văn bản</strong> — mức đầu tư nhỏ so với những gì bạn nhận lại được về lâu dài.</p>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>Trường không bắt buộc MOS PowerPoint thì có nên thi không?</strong><br>Nên, đặc biệt nếu bạn học các ngành thiên về thuyết trình, giao tiếp hoặc muốn có bộ hồ sơ kỹ năng văn phòng hoàn chỉnh khi đi xin việc.</p>
+            <p><strong>Học MOS PowerPoint mất bao lâu nếu đã có MOS Word/Excel?</strong><br>Thường ngắn hơn đáng kể vì bạn đã quen cấu trúc đề thi và cách ôn luyện — chỉ cần làm quen thêm phần thao tác đặc thù như animation, transition, master slide.</p>
+            <p><strong>Đăng ký học MOS PowerPoint tại MOS360 như thế nào?</strong><br>Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí lộ trình học phù hợp với ngành học của bạn.</p>
+        `
+    },
+    {
+        slug: "hoc-mos-mien-phi-hay-co-phi",
+        title: "Học MOS Miễn Phí Hay Có Phí? Sinh Viên Nên Chọn Thế Nào Trước Khi Đăng Ký",
+        seoDescription: "Học MOS miễn phí có ổn không hay nên chọn nơi thu phí? So sánh ưu nhược điểm 2 hình thức và 4 tiêu chí thực sự quyết định bạn có thi đỗ MOS hay không.",
+        publishedDate: "2026-08-08",
+        excerpt: "Cùng một chứng chỉ MOS, cùng một kỳ thi, nhưng giá học chênh nhau từ miễn phí đến cả triệu đồng. Đâu là tiêu chí thực sự quan trọng khi chọn nơi học?",
+        contentHtml: `
+            <p>Bạn chỉ cần gõ "học MOS" lên mạng là thấy hàng loạt lời mời: chỗ thì "miễn phí 100%", chỗ thì thu học phí vài trăm nghìn đến cả triệu đồng. Cùng một chứng chỉ MOS, cùng một kỳ thi, nhưng giá cả chênh nhau rất nhiều — khiến không ít sinh viên hoang mang: học miễn phí thì có ổn không, hay cứ phải trả phí mới học tử tế?</p>
+            <p>Bài viết này sẽ giúp bạn nhìn thẳng vào vấn đề, thay vì chỉ nghe quảng cáo một chiều.</p>
+
+            <h2>Vì sao thị trường luyện thi MOS đang "loạn giá"?</h2>
+            <p>Vài năm trở lại đây, nhu cầu chứng chỉ MOS/IC3 tăng mạnh vì nhiều trường đại học, cao đẳng đưa vào làm điều kiện xét tốt nghiệp hoặc điều kiện cộng điểm. Nhu cầu lớn kéo theo nhiều trung tâm mới mở ra, cạnh tranh nhau bằng đủ cách — trong đó có cả việc miễn học phí để thu hút học viên nhanh.</p>
+            <p>Điều này không xấu — sinh viên rõ ràng được lợi về mặt chi phí. Nhưng nó cũng khiến nhiều bạn quên mất câu hỏi quan trọng hơn: <strong>học ở đâu để thực sự thi đỗ</strong>, chứ không chỉ học ở đâu rẻ nhất.</p>
+
+            <h2>Học miễn phí: được gì, cần cảnh giác gì?</h2>
+            <p><strong>Được:</strong> Rõ ràng nhất là không tốn tiền học phí, giảm áp lực tài chính cho sinh viên — vốn là đối tượng phần lớn chưa có thu nhập ổn định. Nếu trung tâm tổ chức bài bản, đây là lựa chọn hợp lý.</p>
+            <p><strong>Cần cảnh giác:</strong> Không phải "miễn phí" nào cũng giống nhau. Một số nơi miễn học phí nhưng:</p>
+            <ul>
+                <li>Lớp học đông, giáo viên không kèm sát được từng người</li>
+                <li>Không có cam kết gì về kết quả — học xong thi trượt thì bạn tự lo, tự đóng tiền học lại từ đầu</li>
+                <li>Chương trình học sơ sài, chủ yếu để "câu" học viên đăng ký thi qua trung tâm để lấy uy tín ảo</li>
+            </ul>
+            <p>Vì vậy, khi thấy "miễn phí", câu hỏi bạn nên hỏi lại không phải "có thật không" mà là: <strong>"Nếu tôi học xong mà thi trượt thì sao?"</strong></p>
+
+            <h2>Học có phí: được gì, cần cảnh giác gì?</h2>
+            <p><strong>Được:</strong> Nhiều trung tâm thu phí vì đầu tư thật vào giáo viên, tài liệu, phần mềm luyện thi mô phỏng — chất lượng giảng dạy thường đồng đều và được kèm sát hơn.</p>
+            <p><strong>Cần cảnh giác:</strong> Mức phí cao không đồng nghĩa với chất lượng cao. Có những nơi thu phí chỉ vì không ai bắt họ phải giảm, trong khi nội dung giảng dạy không khác gì các trung tâm miễn phí.</p>
+
+            <h2>Vậy tiêu chí nào mới thực sự quan trọng — không phải giá tiền</h2>
+            <p>Sau khi nhìn cả hai mặt, có thể thấy: <strong>giá cả (miễn phí hay có phí) không phải là yếu tố quyết định bạn có đỗ hay không.</strong> Thứ quyết định là:</p>
+            <ul>
+                <li><strong>Có cam kết đầu ra rõ ràng không?</strong> Ví dụ: nếu thi trượt, bạn có được hỗ trợ ôn lại hay phải tự lo hoàn toàn từ đầu?</li>
+                <li><strong>Sĩ số lớp và cách kèm học viên</strong> — lớp quá đông thì dù miễn phí hay thu phí, bạn cũng khó được hỗ trợ sát sao</li>
+                <li><strong>Có hệ thống ôn luyện/đề thi thử thực tế không</strong>, hay chỉ dạy lý thuyết chung chung</li>
+                <li><strong>Phản hồi từ học viên đã học thật</strong> — tỷ lệ đỗ, thời gian ôn trung bình, chứ không chỉ nghe quảng cáo</li>
+            </ul>
+
+            <h2>Học phí và cam kết tại MOS360</h2>
+            <p>Tại MOS360, học phí ôn luyện MOS chỉ <strong>400.000đ/môn</strong>, đã bao gồm phần mềm luyện tập mô phỏng 100% giống đề thi thật, giáo viên hướng dẫn 1:1, học không giới hạn số lần, và <strong>cam kết đầu ra 700+ điểm bằng văn bản</strong> — hoàn lại 100% lệ phí thi nếu ôn tập đầy đủ theo lộ trình mà vẫn chưa đạt.</p>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>Học MOS miễn phí có đảm bảo thi đỗ không?</strong><br>Không có gì đảm bảo tuyệt đối ở bất kỳ hình thức học nào — điều quan trọng là trung tâm có cam kết đầu ra rõ ràng và hệ thống ôn luyện bài bản hay không, chứ không phải học phí bao nhiêu.</p>
+            <p><strong>Nên hỏi trung tâm điều gì trước khi đăng ký?</strong><br>Hỏi thẳng 2 câu: "Học phí thế nào, và nếu tôi thi trượt thì sẽ ra sao?" — câu trả lời cho câu hỏi thứ hai mới là thứ đáng cân nhắc nhất.</p>
+            <p><strong>Đăng ký học MOS tại MOS360 như thế nào?</strong><br>Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí lộ trình phù hợp với ngành học và chứng chỉ trường bạn yêu cầu.</p>
+        `
+    },
+    {
+        slug: "hoc-sinh-sinh-vien-nen-hoc-mos-khi-nao",
+        title: "Học Sinh, Sinh Viên Nên Học MOS Khi Nào? Câu Trả Lời Là Càng Sớm Càng Tốt",
+        seoDescription: "Nên học MOS từ khi nào? Học sớm giúp học sinh, sinh viên chủ động kiến thức, tăng kỹ năng vận dụng trong học tập và mở rộng cơ hội nghề nghiệp sau này.",
+        publishedDate: "2026-08-14",
+        excerpt: "Không ít bạn nghĩ MOS chỉ cần học 'khi nào trường yêu cầu'. Nhưng càng học sớm, bạn càng có nhiều thời gian để biến kỹ năng văn phòng thành lợi thế thật sự.",
+        videoUrl: "https://www.youtube.com/watch?v=CU503v5t_30",
+        videoEmbedId: "CU503v5t_30",
+        videoTitle: "Học sinh, sinh viên nên học MOS khi nào?",
+        videoDescription: "MOS360 chia sẻ vì sao học sinh, sinh viên nên chủ động học MOS càng sớm càng tốt để tăng kỹ năng, khả năng vận dụng trong học tập và mở rộng cơ hội.",
+        contentHtml: `
+            <p>"MOS thì để lúc nào trường yêu cầu rồi học cũng được" — đây là suy nghĩ khá phổ biến ở nhiều học sinh, sinh viên. Nhưng nếu phải chọn một thời điểm lý tưởng nhất để bắt đầu học MOS, câu trả lời luôn là: <strong>càng sớm càng tốt</strong>. Video dưới đây và bài viết sẽ giải thích rõ vì sao.</p>
+
+            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;margin:20px 0;background:#000;">
+                <iframe src="https://www.youtube.com/embed/CU503v5t_30" title="Học sinh, sinh viên nên học MOS khi nào?" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+            </div>
+
+            <h2>Vì sao nên chủ động học MOS sớm, thay vì chờ đến lúc bắt buộc?</h2>
+            <p>Rất nhiều trường chỉ đưa MOS/IC3 vào yêu cầu chuẩn đầu ra ở giai đoạn sinh viên năm hai, năm ba. Nhưng chờ đến lúc "bị bắt buộc" mới học đồng nghĩa với việc bạn để bản thân bị động trước một kỹ năng mà lẽ ra có thể làm chủ từ sớm hơn rất nhiều. Học sớm giúp bạn:</p>
+            <ul>
+                <li><strong>Chủ động nắm bắt kiến thức mới</strong> ngay khi còn nhiều thời gian, thay vì học dồn dập, chạy deadline chứng chỉ vào những kỳ học bận rộn nhất</li>
+                <li><strong>Kiến thức bổ ích và cần thiết cho việc học ngay từ bây giờ</strong>, không phải đợi đến lúc đi làm mới dùng đến</li>
+                <li><strong>Tăng kỹ năng thực tế</strong>: gõ văn bản nhanh, chuẩn format, xử lý bảng biểu, làm slide — những việc bạn sẽ làm hàng tuần suốt quãng đời học sinh, sinh viên</li>
+                <li><strong>Tăng khả năng vận dụng vào việc học</strong>: làm báo cáo, tiểu luận, bài thuyết trình nhóm đẹp và nhanh hơn hẳn so với bạn bè chưa được học bài bản</li>
+                <li><strong>Mở ra nhiều cơ hội hơn</strong>: hồ sơ xin học bổng, hồ sơ thực tập, hồ sơ xin việc part-time đều có thể ghi thêm điểm cộng nhờ có chứng chỉ tin học quốc tế sớm</li>
+            </ul>
+
+            <h2>Học sinh THPT có nên học MOS ngay từ bây giờ không?</h2>
+            <p>Hoàn toàn nên. MOS không đòi hỏi kiến thức chuyên ngành đại học — chỉ cần biết dùng máy tính cơ bản là có thể bắt đầu ôn luyện. Học sinh THPT học MOS sớm sẽ có lợi thế lớn khi bước vào đại học: không phải học lại từ đầu kỹ năng tin học văn phòng, có thể dồn thời gian đó cho các môn chuyên ngành hoặc hoạt động khác.</p>
+
+            <h2>Sinh viên năm nhất, năm hai thì sao?</h2>
+            <p>Đây thường là giai đoạn sinh viên có lịch học nhẹ nhàng hơn so với năm cuối — thời điểm lý tưởng để ôn và thi xong chuẩn đầu ra tin học sớm. Hoàn thành sớm giúp bạn:</p>
+            <ul>
+                <li>Không phải lo lắng, dồn việc vào giai đoạn thực tập, làm khóa luận tốt nghiệp ở năm cuối</li>
+                <li>Có chứng chỉ MOS sẵn sàng để đưa vào CV ngay khi bắt đầu tìm việc làm thêm, thực tập từ sớm</li>
+                <li>Thời gian ôn tập thường ngắn hơn vì chưa bị áp lực deadline chồng chéo với các môn chuyên ngành nặng</li>
+            </ul>
+
+            <h2>Học sớm có "phí" thời gian không, vì kiến thức có thể quên?</h2>
+            <p>Không. Kỹ năng sử dụng Word, Excel, PowerPoint là kỹ năng thực hành — càng dùng thường xuyên trong quá trình học tập (làm báo cáo, tiểu luận, thuyết trình) thì càng không bị mai một, mà còn được củng cố tự nhiên qua thời gian. Chứng chỉ MOS cũng có giá trị 5 năm kể từ ngày cấp, thừa đủ thời gian sử dụng cho đến lúc xét tốt nghiệp hoặc đi xin việc.</p>
+
+            <h2>Học và thi MOS ở đâu tại Hải Phòng?</h2>
+            <p><strong>MOS360 - Trung tâm tin học MOS &amp; IC3 &amp; AI</strong> (số 57 Lê Văn Thuyết A, phường Lê Chân, Hải Phòng) nhận học viên ở mọi độ tuổi, từ học sinh THPT muốn học sớm đến sinh viên các năm, với:</p>
+            <ul>
+                <li>Luyện tập <strong>100% bằng phần mềm mô phỏng</strong>, giao diện giống hệt bài thi thật</li>
+                <li>Giáo viên <strong>hướng dẫn 1:1</strong>, phù hợp cả với người mất gốc tin học</li>
+                <li>Học <strong>không giới hạn số lần</strong>, chủ động sắp xếp quanh lịch học chính khóa</li>
+                <li>Học phí chỉ <strong>400.000đ/môn MOS</strong>, <strong>cam kết đầu ra 700+ điểm bằng văn bản</strong>, hoàn lại 100% lệ phí thi nếu chưa đạt</li>
+            </ul>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>Học sinh cấp 3 có thi được chứng chỉ MOS không?</strong><br>Có. MOS không giới hạn độ tuổi hay yêu cầu phải là sinh viên đại học, chỉ cần biết sử dụng máy tính cơ bản.</p>
+            <p><strong>Nên học MOS trước hay đợi trường yêu cầu?</strong><br>Nên học trước. Học sớm giúp chủ động thời gian ôn tập, tránh dồn vào giai đoạn bận rộn, và chứng chỉ vẫn còn giá trị 5 năm để dùng cho chuẩn đầu ra sau này.</p>
+            <p><strong>Muốn bắt đầu học MOS ngay thì liên hệ ở đâu?</strong><br>Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí lộ trình học phù hợp với độ tuổi và mục tiêu của bạn.</p>
+        `
     }
 ];
 
