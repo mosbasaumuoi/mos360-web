@@ -152,7 +152,7 @@ const TUTORIAL_VIDEO_JSONLD = buildVideoJsonLd({
 // Dán ID video YouTube giới thiệu MOS360 vào đây (phần sau "v=" hoặc sau
 // "youtu.be/"). Để trống "" thì mục giới thiệu trên trang chủ sẽ tự ẩn.
 // Ví dụ: nếu link là https://youtu.be/AbCdEfGhIjK thì điền "AbCdEfGhIjK".
-const INTRO_VIDEO_EMBED_ID = "CU503v5t_30"; // TODO: điền ID video giới thiệu trung tâm
+const INTRO_VIDEO_EMBED_ID = "CU503v5t_30";
 
 const INTRO_VIDEO_JSONLD = INTRO_VIDEO_EMBED_ID ? buildVideoJsonLd({
     name: "Giới thiệu Trung tâm tin học MOS360",
@@ -1510,9 +1510,11 @@ ${bannerHtml}
 .hn-video-left { padding:28px; display:flex; flex-direction:column; justify-content:center; }
 .hn-video-left h3 { font-size:1.1rem; font-weight:800; margin-bottom:8px; }
 .hn-video-left p { font-size:0.85rem; color:var(--muted); line-height:1.6; margin-bottom:20px; }
-.hn-video-right { background:linear-gradient(135deg,#E2ECFA,#D6E4F7); display:flex; align-items:center; justify-content:center; min-height:220px; cursor:pointer; position:relative; transition:all 0.2s; }
+.hn-video-right { background:linear-gradient(135deg,#E2ECFA,#D6E4F7); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; min-height:220px; cursor:pointer; position:relative; transition:all 0.2s; }
+.hn-video-right::before { content:''; position:absolute; inset:0; background:rgba(15,31,64,0.32); transition:background 0.2s; }
+.hn-video-right:hover::before { background:rgba(15,31,64,0.14); }
 .hn-video-right:hover .hn-play { background:var(--cyan); color:#fff; transform:scale(1.1); }
-.hn-play { width:60px; height:60px; background:rgba(0,82,204,0.12); border:2px solid var(--cyan); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--cyan); transition:all 0.25s; }
+.hn-play { position:relative; z-index:1; width:60px; height:60px; background:rgba(0,82,204,0.12); border:2px solid var(--cyan); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--cyan); transition:all 0.25s; }
 
 /* Tools */
 .hn-tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
@@ -1651,7 +1653,7 @@ ${mode !== 'register' && INTRO_VIDEO_EMBED_ID ? `
           <a href="/register#hn-register" class="hn-btn-s" style="font-size:0.85rem;padding:9px 18px">Đăng ký học →</a>
         </div>
       </div>
-      <div class="hn-video-right" onclick="openVideoModal('https://www.youtube.com/watch?v=${INTRO_VIDEO_EMBED_ID}')">
+      <div class="hn-video-right" style="background-image:url('https://img.youtube.com/vi/${INTRO_VIDEO_EMBED_ID}/hqdefault.jpg')" onclick="openVideoModal('https://www.youtube.com/watch?v=${INTRO_VIDEO_EMBED_ID}')">
         <div class="hn-play">▶</div>
       </div>
     </div>
@@ -1845,7 +1847,7 @@ ${promoSectionHtml}
             <a href="/register#hn-register" class="hn-btn-s" style="font-size:0.85rem;padding:9px 18px">Đăng ký học →</a>
           </div>
         </div>
-        <div class="hn-video-right" onclick="openVideoModal('https://www.youtube.com/watch?v=rmXrwT0Iu8U')">
+        <div class="hn-video-right" style="background-image:url('https://img.youtube.com/vi/rmXrwT0Iu8U/hqdefault.jpg')" onclick="openVideoModal('https://www.youtube.com/watch?v=rmXrwT0Iu8U')">
           <div class="hn-play">▶</div>
         </div>
       </div>
