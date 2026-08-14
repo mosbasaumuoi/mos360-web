@@ -152,7 +152,7 @@ const TUTORIAL_VIDEO_JSONLD = buildVideoJsonLd({
 // Dán ID video YouTube giới thiệu MOS360 vào đây (phần sau "v=" hoặc sau
 // "youtu.be/"). Để trống "" thì mục giới thiệu trên trang chủ sẽ tự ẩn.
 // Ví dụ: nếu link là https://youtu.be/AbCdEfGhIjK thì điền "AbCdEfGhIjK".
-const INTRO_VIDEO_EMBED_ID = ""; // TODO: điền ID video giới thiệu trung tâm
+const INTRO_VIDEO_EMBED_ID = "CU503v5t_30"; // TODO: điền ID video giới thiệu trung tâm
 
 const INTRO_VIDEO_JSONLD = INTRO_VIDEO_EMBED_ID ? buildVideoJsonLd({
     name: "Giới thiệu Trung tâm tin học MOS360",
