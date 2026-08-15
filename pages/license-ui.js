@@ -20,6 +20,18 @@ export function getLicenseTabHTML() {
         <div id="pendingList"><div style="color:#64748b;text-align:center;padding:24px;font-size:0.85rem">Đang tải...</div></div>
       </div>
 
+      <!-- YÊU CẦU GỬI BỊ LỖI (mã ID hỏng...) — học viên tưởng đã gửi
+           thành công nhưng thực ra chưa vào hàng chờ. Hiện ra đây để
+           admin biết mà chủ động liên hệ, thay vì học viên "biến mất". -->
+      <div style="background:#111422;border:1px solid rgba(239,68,68,0.3);border-radius:16px;padding:24px;margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <h2 style="font-size:1.05rem;font-weight:800;color:#fff;">⚠️ Yêu cầu gửi bị lỗi <span id="failedCount" style="color:#ef4444;">(0)</span></h2>
+          <button id="btnRefreshFailed" onclick="refreshFailedBtn()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
+        </div>
+        <p style="font-size:0.78rem;color:#64748b;margin-bottom:16px;">Học viên đã bấm "Gửi yêu cầu" nhưng mã ID lỗi (thường do link tự động điền từ app bị hỏng ký tự) — <b>chưa vào hàng chờ ở trên</b>. Liên hệ lại và nhờ họ dùng nút "Dán từ Clipboard" thay vì để app tự điền.</p>
+        <div id="failedList"><div style="color:#64748b;text-align:center;padding:24px;font-size:0.85rem">Đang tải...</div></div>
+      </div>
+
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; align-items:start;">
 
         <!-- FORM CẤP MẬT KHẨU THỦ CÔNG -->
@@ -244,6 +256,58 @@ async function loadPendingRequests() {
     } catch (e) {
         box.innerHTML = '<div style="color:#ef4444;text-align:center;padding:20px;font-size:0.85rem">Lỗi tải danh sách</div>';
     }
+}
+
+// ── NHẬT KÝ YÊU CẦU GỬI BỊ LỖI ──────────────────────────
+async function refreshFailedBtn() {
+    var btn = document.getElementById('btnRefreshFailed');
+    if (!btn) return loadFailedRequests();
+    btn.disabled = true; var orig = btn.innerHTML; btn.innerHTML = '⏳';
+    try { await loadFailedRequests(); } finally {
+        btn.innerHTML = '✅'; setTimeout(function() { btn.innerHTML = orig; btn.disabled = false; }, 700);
+    }
+}
+
+async function loadFailedRequests() {
+    var box = document.getElementById('failedList');
+    var countEl = document.getElementById('failedCount');
+    if (!box) return;
+    try {
+        var res = await adminFetch('/api/license/failed-requests');
+        var data = await res.json();
+        if (!data.success || !data.items.length) {
+            countEl.textContent = '(0)';
+            box.innerHTML = '<div style="color:#64748b;text-align:center;padding:24px;font-size:0.85rem">Không có yêu cầu lỗi nào gần đây 👍</div>';
+            return;
+        }
+        countEl.textContent = '(' + data.items.length + ')';
+        box.innerHTML = data.items.map(function(it) {
+            var dateStr = new Date(it.requestedAt).toLocaleString('vi-VN');
+            var idShort = (it.randomID || '').length > 40 ? it.randomID.slice(0, 40) + '…' : (it.randomID || '');
+            return '<div style="background:#090b14;border:1px solid rgba(239,68,68,0.15);border-radius:10px;padding:14px;margin-bottom:10px">' +
+                '<div style="display:flex;justify-content:space-between;align-items:start;gap:10px;flex-wrap:wrap">' +
+                '<div style="flex:1;min-width:200px">' +
+                '<div style="font-weight:800;color:#fff;font-size:0.92rem">' + escapeHtml(it.studentName || '(chưa rõ tên)') + '</div>' +
+                '<div style="color:#64748b;font-size:0.76rem;margin-top:3px">' + escapeHtml(it.phone || '') + ' · ' + dateStr + '</div>' +
+                '<div style="color:#ef4444;font-size:0.76rem;margin-top:6px">❌ ' + escapeHtml(it.reason || 'Lỗi không rõ') + '</div>' +
+                '<div style="color:#475569;font-size:0.7rem;margin-top:6px;font-family:monospace;word-break:break-all">ID đã gửi: ' + escapeHtml(idShort) + '</div>' +
+                '</div>' +
+                '<button data-key="' + it.key + '" onclick="deleteFailedRequest(this.dataset.key, this)" style="padding:7px 16px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#ef4444;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.78rem;white-space:nowrap;flex-shrink:0">🗑️ Đã xử lý</button>' +
+                '</div></div>';
+        }).join('');
+    } catch (e) {
+        box.innerHTML = '<div style="color:#ef4444;text-align:center;padding:20px;font-size:0.85rem">Lỗi tải danh sách</div>';
+    }
+}
+
+async function deleteFailedRequest(key, btnEl) {
+    if (btnEl) { btnEl.disabled = true; btnEl.textContent = '⏳...'; }
+    try {
+        var res = await adminFetch('/api/license/failed-requests', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: key }) });
+        var data = await res.json();
+        if (data.success) { loadFailedRequests(); }
+    } catch (e) { /* im lặng */ }
+    finally { if (btnEl) { btnEl.disabled = false; btnEl.textContent = '🗑️ Đã xử lý'; } }
 }
 
 async function deletePending(key, btnEl) {

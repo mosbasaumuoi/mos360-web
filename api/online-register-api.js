@@ -52,8 +52,9 @@ export async function handleOnlineRegisterAPI(request, env) {
         channel: String(body.channel || "").trim(),
         note: String(body.note || "").trim(),
         promoCode: String(body.promoCode || "").trim(),
+        discountAmount: Number(body.discountAmount) || 0,
         facebook: String(body.facebook || "").trim(),
-        referrer: String(body.referrer || "").trim()
+        referrer: String(body.referrer || "").trim() // giữ để tương thích ngược, form hiện không còn thu thập trường này
     };
 
     if (!CONFIG.APPS_SCRIPT_URL || CONFIG.APPS_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) {
@@ -89,7 +90,7 @@ async function notifyTelegram(p) {
         (p.school ? `\n🏫 Trường: ${esc(p.school)}` : "") +
         (p.classInfo ? `\n🎓 Lớp/Khoa: ${esc(p.classInfo)}` : "") +
         (p.channel ? `\n📣 Kênh biết đến: ${esc(p.channel)}` : "") +
-        (p.promoCode ? `\n🏷️ Mã giảm giá: ${esc(p.promoCode)}` : "") +
+        (p.promoCode ? `\n🏷️ Mã giảm giá: ${esc(p.promoCode)}` + (p.discountAmount ? ` (giảm ${p.discountAmount.toLocaleString('vi-VN')}đ)` : "") : "") +
         (p.facebook ? `\n🔗 Facebook: ${esc(p.facebook)}` : "") +
         (p.referrer ? `\n🙋 Người giới thiệu: ${esc(p.referrer)}` : "") +
         (p.note ? `\n📝 Ghi chú: ${esc(p.note)}` : "") +

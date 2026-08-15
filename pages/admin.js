@@ -35,7 +35,7 @@ export function getAdminDashboardUI() {
             <button onclick="switchTab('tabStudents')" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">👥 Học viên Online</button>
             <button onclick="switchTab('tabMosReg');loadMosRegistrations();" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">💰 Đăng ký học MOS</button>
             <button onclick="switchTab('tabPromo')" style="padding:9px 18px; background:rgba(255,87,34,0.15); border:1px solid rgba(255,87,34,0.4); color:#FF5722; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔥 Khuyến mãi</button>
-            <button onclick="switchTab('tabLicense');loadLicenseList();loadPendingRequests();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔑 Mật khẩu MOS</button>
+            <button onclick="switchTab('tabLicense');loadLicenseList();loadPendingRequests();loadFailedRequests();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔑 Mật khẩu MOS</button>
             <button onclick="switchTab('tabResultStats');loadResultStats('today');" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">📊 Kết quả MOS</button>
             <button onclick="loadDashboard()" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔄 Làm mới</button>
         </div>
@@ -102,6 +102,7 @@ export function getAdminDashboardUI() {
           <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
             <thead>
               <tr style="text-align:left;color:#64748b;font-size:0.72rem;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08)">
+                <th style="padding:8px 6px;width:36px">STT</th>
                 <th style="padding:8px 6px">HỌ TÊN</th>
                 <th style="padding:8px 6px">SĐT / EMAIL</th>
                 <th style="padding:8px 6px">KHÓA HỌC</th>
@@ -111,7 +112,7 @@ export function getAdminDashboardUI() {
                 <th style="padding:8px 6px"></th>
               </tr>
             </thead>
-            <tbody id="mosRegTableBody"><tr><td colspan="7" style="padding:20px;text-align:center;color:#64748b">Đang tải...</td></tr></tbody>
+            <tbody id="mosRegTableBody"><tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b">Đang tải...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -196,7 +197,7 @@ export function getAdminDashboardUI() {
            trên form đăng ký. Chỉ mã còn hiệu lực mới hiện trong dropdown. -->
       <div style="background:#111422;border:1px solid rgba(0,242,255,0.2);border-radius:16px;padding:28px;max-width:900px;margin-top:20px">
         <h2 style="font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:4px">🎟️ Bảng mã giảm giá</h2>
-        <p style="font-size:0.82rem;color:#64748b;margin-bottom:20px">Học viên gõ <b>Mã</b> khi đăng ký. "Mã con" (MP1/MP2/MP3) chỉ dùng nội bộ để xác định số môn được áp dụng Cọc — học viên không nhìn thấy. Chọn "-- Không --" nếu đây là mã <b>Giảm giá cố định</b> thông thường (dùng cột Giảm).</p>
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:20px">Học viên gõ <b>Mã</b> khi đăng ký. Cột <b>Áp dụng</b> quyết định mã hiện ở form nào (Học MOS / Học Online / Cả hai) — cấu trúc mã giống hệt nhau cho cả 2 loại. "Mã con" (MP1/MP2/MP3) chỉ dùng nội bộ để xác định số môn được áp dụng giá <b>Cọc</b> — học viên không nhìn thấy. Chọn "-- Không --" nếu đây là mã <b>Giảm giá cố định</b> thông thường (dùng cột Giảm).</p>
 
         <div style="overflow-x:auto;margin-bottom:16px">
           <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
@@ -204,6 +205,7 @@ export function getAdminDashboardUI() {
               <tr style="text-align:left;color:#64748b;font-size:0.72rem;font-weight:700">
                 <th style="padding:8px 6px;min-width:180px">NỘI DUNG</th>
                 <th style="padding:8px 6px;min-width:110px">MÃ</th>
+                <th style="padding:8px 6px;min-width:100px">ÁP DỤNG</th>
                 <th style="padding:8px 6px;min-width:90px">MÃ CON</th>
                 <th style="padding:8px 6px;min-width:100px">CỌC (VNĐ)</th>
                 <th style="padding:8px 6px;min-width:110px">HỌC PHÍ MÔN DƯ</th>
@@ -728,17 +730,18 @@ async function loadMosRegistrations() {
   try {
     var res = await adminFetch('/api/admin/mos-registrations');
     var data = await res.json();
-    if (!data.success) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#ef4444">Lỗi: ' + esc(data.msg) + '</td></tr>'; return; }
+    if (!data.success) { body.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#ef4444">Lỗi: ' + esc(data.msg) + '</td></tr>'; return; }
     var items = (data.items || []).filter(function(it){ return it.maDangKy; }); // chỉ hiện đăng ký có tính tiền
-    if (items.length === 0) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#475569">Chưa có đăng ký nào</td></tr>'; return; }
+    if (items.length === 0) { body.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#475569">Chưa có đăng ký nào</td></tr>'; return; }
     // Mới nhất lên đầu
     items = items.slice().reverse();
-    body.innerHTML = items.map(function(it) {
+    body.innerHTML = items.map(function(it, idx) {
       var isPaid = /Đã xác nhận/i.test(it.trangThai);
       var statusColor = isPaid ? '#22c55e' : (it.isExpired ? '#ef4444' : '#f59e0b');
       var statusText = isPaid ? ('✅ Đã xác nhận' + (it.ngayXacNhan ? ' (' + it.ngayXacNhan + ')' : ''))
         : (it.isExpired ? '⏰ Hết hạn (quá 30p)' : '⏳ Chờ thanh toán');
       return '<tr style="border-top:1px solid rgba(255,255,255,0.06)">' +
+        '<td style="padding:8px 6px;color:#64748b;font-size:0.8rem">' + (idx + 1) + '</td>' +
         '<td style="padding:8px 6px;color:#fff;font-weight:700">' + esc(it.ten) + '</td>' +
         '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.sdt) + (it.email ? '<br>' + esc(it.email) : '') + '</td>' +
         '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.khoaHoc) + (it.soTienCoc > 0 ? '<br><span style="background:rgba(245,158,11,0.15);color:#f59e0b;padding:1px 7px;border-radius:8px;font-size:0.68rem;font-weight:700">🔵 Có cọc ' + it.soTienCoc.toLocaleString('vi-VN') + 'đ</span>' : '') + '</td>' +
@@ -752,7 +755,7 @@ async function loadMosRegistrations() {
           '<button onclick="deleteMosRegistration(&quot;' + it.maDangKy + '&quot;,&quot;' + esc(it.ten) + '&quot;)" style="padding:6px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.76rem;font-weight:700;cursor:pointer">🗑️ Xóa</button>' +
           '</div></td></tr>';
     }).join('');
-  } catch(e) { body.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:#ef4444">Lỗi kết nối!</td></tr>'; }
+  } catch(e) { body.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#ef4444">Lỗi kết nối!</td></tr>'; }
 }
 
 function openEditMosRegModal(item) {
@@ -840,7 +843,8 @@ async function loadPromoCodes() {
       return {
         content: c.content || '', code: c.code || '', depositMonths: c.depositMonths || 0,
         deposit: c.deposit || 0, tuitionPerExtra: c.tuitionPerExtra || 0,
-        discountAmount: c.discountAmount || 0, startDate: c.startDate || '', endDate: c.endDate || '', active: c.active !== false
+        discountAmount: c.discountAmount || 0, startDate: c.startDate || '', endDate: c.endDate || '',
+        active: c.active !== false, scope: c.scope || 'hoc'
       };
     });
     renderPromoCodesTable();
@@ -852,7 +856,7 @@ function renderPromoCodesTable() {
   if (!body) return;
   var todayStr = new Date().toISOString().slice(0,10);
   if (promoCodesList.length === 0) {
-    body.innerHTML = '<tr><td colspan="10" style="padding:20px;text-align:center;color:#475569">Chưa có mã nào — bấm "➕ Thêm mã mới" để bắt đầu</td></tr>';
+    body.innerHTML = '<tr><td colspan="11" style="padding:20px;text-align:center;color:#475569">Chưa có mã nào — bấm "➕ Thêm mã mới" để bắt đầu</td></tr>';
     return;
   }
   body.innerHTML = promoCodesList.map(function(c, i) {
@@ -860,6 +864,9 @@ function renderPromoCodesTable() {
     return '<tr style="border-top:1px solid rgba(255,255,255,0.06)' + (expired ? ';opacity:0.5' : '') + '">' +
       '<td style="padding:6px"><input value="' + esc(c.content) + '" oninput="promoCodesList[' + i + '].content=this.value" placeholder="VD: Giảm 10% học viên mới" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:0.82rem;box-sizing:border-box"></td>' +
       '<td style="padding:6px"><input value="' + esc(c.code) + '" oninput="promoCodesList[' + i + '].code=this.value.toUpperCase()" placeholder="MOSFREE1" style="width:100%;padding:7px 8px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#00f2ff;font-family:monospace;font-weight:700;font-size:0.82rem;box-sizing:border-box"></td>' +
+      '<td style="padding:6px"><select onchange="promoCodesList[' + i + '].scope=this.value;if(this.value===\\'online\\'){promoCodesList[' + i + '].depositMonths=0;}renderPromoCodesTable()" style="width:100%;padding:7px 6px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#c084fc;font-weight:700;font-size:0.78rem;box-sizing:border-box">' +
+        [['hoc','Học MOS'],['online','Học Online'],['both','Cả hai']].map(function(v) { return '<option value="' + v[0] + '"' + ((c.scope||'hoc') === v[0] ? ' selected' : '') + '>' + v[1] + '</option>'; }).join('') +
+      '</select></td>' +
       '<td style="padding:6px"><select onchange="promoCodesList[' + i + '].depositMonths=parseInt(this.value)||0;renderPromoCodesTable()" style="width:100%;padding:7px 6px;background:#090b14;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#f59e0b;font-weight:700;font-size:0.8rem;box-sizing:border-box">' +
         [[0,''],[1,'MP1'],[2,'MP2'],[3,'MP3']].map(function(v) { return '<option value="' + v[0] + '"' + ((c.depositMonths||0) === v[0] ? ' selected' : '') + '>' + (v[1] || '-- Không --') + '</option>'; }).join('') +
       '</select></td>' +
@@ -879,7 +886,7 @@ function esc(s) { return String(s || '').replace(/"/g, '&quot;'); }
 function addPromoCodeRow() {
   var today = new Date().toISOString().slice(0,10);
   var nextMonth = new Date(Date.now() + 30*86400000).toISOString().slice(0,10);
-  promoCodesList.push({ content: '', code: '', depositMonths: 0, deposit: 0, tuitionPerExtra: 0, discountAmount: 0, startDate: today, endDate: nextMonth, active: true });
+  promoCodesList.push({ content: '', code: '', depositMonths: 0, deposit: 0, tuitionPerExtra: 0, discountAmount: 0, startDate: today, endDate: nextMonth, active: true, scope: 'hoc' });
   renderPromoCodesTable();
 }
 

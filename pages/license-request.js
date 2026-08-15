@@ -75,11 +75,15 @@ export function getLicenseRequestUI() {
     </div>
 
     <script>
-        // Tự động điền ID nếu URL có ?id=... (từ app C# deep-link)
+        // Tự động điền ID nếu URL có ?id=... (từ app C# deep-link).
+        // LƯU Ý: mã ID là Base64 nên có thể chứa ký tự '+'. Nếu app gửi
+        // link mà không encode '+' (%2B), trình duyệt sẽ hiểu '+' là dấu
+        // cách khi tách query string → mã bị hỏng ngay từ đây. Base64
+        // thật không bao giờ chứa dấu cách, nên khôi phục lại '+' an toàn.
         (function autoFillFromURL() {
             var params = new URLSearchParams(window.location.search);
             var idFromUrl = params.get('id');
-            if (idFromUrl) document.getElementById('reqRandomID').value = idFromUrl;
+            if (idFromUrl) document.getElementById('reqRandomID').value = idFromUrl.replace(/ /g, '+');
         })();
 
         async function pasteRandomID() {

@@ -218,11 +218,25 @@ function todayVietnam() {
 // Base64Decode(randomID) → { mac, ngayHocVienGui }
 // randomID = Base64( mac + "yyyyMMdd" )  → 8 ký tự cuối luôn là ngày
 function decodeRandomID(randomID) {
+    // Chuẩn hoá trước khi decode — dung thứ các kiểu hỏng thường gặp khi
+    // mã ID (Base64) đi qua deep-link/copy-paste:
+    //   1. '+' bị trình duyệt hiểu nhầm thành dấu cách trong query string
+    //      (do app gửi link không encode) → base64 thật không có dấu
+    //      cách nên khôi phục an toàn.
+    //   2. Biến thể URL-safe Base64 ('-' thay '+', '_' thay '/').
+    //   3. Thiếu ký tự đệm '=' ở cuối (một số nơi cắt bớt khi copy).
+    //   4. Khoảng trắng/xuống dòng thừa do dán từ nơi khác.
+    let clean = randomID.trim()
+        .replace(/\s+/g, "+")
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
+    while (clean.length % 4 !== 0) clean += "=";
+
     let decoded;
     try {
-        decoded = atob(randomID.trim());
+        decoded = atob(clean);
     } catch (e) {
-        throw new Error("Mã ID không hợp lệ (không decode được Base64)");
+        throw new Error("Mã ID không hợp lệ (không decode được Base64) — vui lòng copy lại nguyên mã từ phần mềm, tránh gõ tay hoặc dán thiếu.");
     }
     if (decoded.length < 9) {
         throw new Error("Mã ID quá ngắn, không hợp lệ");
@@ -325,6 +339,17 @@ export async function handleLicenseAPI(path, request, env) {
             try {
                 decodeRandomID(randomID);
             } catch (e) {
+                // Học viên NGHĨ là đã gửi thành công nhưng thực ra yêu cầu chưa
+                // được lưu (lỗi mã ID) → admin sẽ không thấy gì trong hàng chờ và
+                // không biết học viên đã cố gửi. Ghi lại lỗi này để admin nhìn
+                // thấy trong Dashboard và chủ động liên hệ, thay vì yêu cầu biến
+                // mất không dấu vết.
+                try {
+                    const failKey = "failed_request:" + Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+                    await env.MOS360_USERS_KV.put(failKey, JSON.stringify({
+                        studentName, phone, randomID, reason: e.message, requestedAt: new Date().toISOString()
+                    }), { expirationTtl: 30 * 24 * 60 * 60 }); // tự xoá sau 30 ngày
+                } catch (e2) { /* không chặn response nếu ghi log lỗi thất bại */ }
                 return json({ success: false, msg: e.message });
             }
 
@@ -367,6 +392,40 @@ export async function handleLicenseAPI(path, request, env) {
             );
 
             return json({ success: true, mac, results });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // GET /api/license/failed-requests — nhật ký các lần học viên gửi bị lỗi
+    // (mã ID không decode được...) — để admin biết có người đã CỐ gửi nhưng
+    // thất bại, thay vì không thấy gì và tưởng chưa ai gửi.
+    if (path === "/api/license/failed-requests" && request.method === "GET") {
+        try {
+            const limit = Math.min(parseInt(url.searchParams.get("limit") || "50", 10), 200);
+            const listResult = await env.MOS360_USERS_KV.list({ prefix: "failed_request:", limit });
+            const items = [];
+            for (const k of listResult.keys) {
+                const raw = await env.MOS360_USERS_KV.get(k.name);
+                if (!raw) continue;
+                items.push({ key: k.name, ...JSON.parse(raw) });
+            }
+            items.sort((a, b) => (b.requestedAt || "").localeCompare(a.requestedAt || ""));
+            return json({ success: true, items });
+        } catch (e) {
+            return json({ success: false, msg: e.message });
+        }
+    }
+
+    // DELETE /api/license/failed-requests — xoá 1 dòng nhật ký lỗi (sau khi
+    // admin đã liên hệ/xử lý xong với học viên).
+    if (path === "/api/license/failed-requests" && request.method === "DELETE") {
+        try {
+            const body = await request.json();
+            const key = body.key || "";
+            if (!key || !key.startsWith("failed_request:")) return json({ success: false, msg: "Thiếu hoặc sai key" });
+            await env.MOS360_USERS_KV.delete(key);
+            return json({ success: true });
         } catch (e) {
             return json({ success: false, msg: e.message });
         }

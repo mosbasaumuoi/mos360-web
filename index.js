@@ -620,7 +620,7 @@ export default {
                     .map(c => ({
                         code: c.code, content: c.content, depositMonths: c.depositMonths || 0,
                         deposit: c.deposit || 0, tuitionPerExtra: c.tuitionPerExtra || 0,
-                        discountAmount: c.discountAmount || 0
+                        discountAmount: c.discountAmount || 0, scope: c.scope || 'hoc'
                     }));
                 return new Response(JSON.stringify({ success: true, codes: active }), { headers: { 'Content-Type': 'application/json' } });
             } catch (e) {
@@ -2154,27 +2154,18 @@ ${mode !== 'home' ? `
             </select>
           </div>
         </div>
-        <div class="hn-row">
-          <div class="hn-field">
-            <label class="hn-label">Năm học</label>
-            <select class="hn-select" id="onl_namhoc">
-              <option value="">-- Năm học --</option>
-              <option>Năm 1</option><option>Năm 2</option><option>Năm 3</option><option>Năm 4</option><option>Đã tốt nghiệp</option>
-            </select>
-          </div>
-          <div class="hn-field">
-            <label class="hn-label">Khoa / Lớp</label>
-            <input class="hn-input" id="onl_khoa" placeholder="VD: Khoa Kinh tế - KTB66ĐH">
-          </div>
+        <div class="hn-field">
+          <label class="hn-label">Khoa / Lớp</label>
+          <input class="hn-input" id="onl_khoa" placeholder="VD: Khoa Kinh tế - KTB66ĐH">
         </div>
         <div class="hn-field">
           <label class="hn-label">Khóa học muốn đăng ký <span class="req">*</span></label>
           <div class="hn-checkbox-group">
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv1" value="IC3 GS6 LEVEL 1"><span>🌐 IC3 GS6 Level 1</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv2" value="IC3 GS6 LEVEL 2"><span>🌐 IC3 GS6 Level 2</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv3" value="IC3 GS6 LEVEL 3"><span>🌐 IC3 GS6 Level 3</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_genai" value="GENERATIVE AI"><span>🤖 Generative AI</span></label>
-            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_aiwork" value="AI PRODUCTIVITY"><span>⚡ Làm việc hiệu quả với AI</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv1" value="IC3 GS6 LEVEL 1" onchange="onOnlinePromoChange()"><span>🌐 IC3 GS6 Level 1</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv2" value="IC3 GS6 LEVEL 2" onchange="onOnlinePromoChange()"><span>🌐 IC3 GS6 Level 2</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_ic3lv3" value="IC3 GS6 LEVEL 3" onchange="onOnlinePromoChange()"><span>🌐 IC3 GS6 Level 3</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_genai" value="GENERATIVE AI" onchange="onOnlinePromoChange()"><span>🤖 Generative AI</span></label>
+            <label class="hn-checkbox-item"><input type="checkbox" id="onl_kh_aiwork" value="AI PRODUCTIVITY" onchange="onOnlinePromoChange()"><span>⚡ Làm việc hiệu quả với AI</span></label>
           </div>
         </div>
         <div class="hn-row">
@@ -2188,16 +2179,13 @@ ${mode !== 'home' ? `
           </div>
           <div class="hn-field">
             <label class="hn-label">Mã giảm giá (nếu có)</label>
-            <select class="hn-select" id="onl_magg"><option value="">-- Không dùng mã --</option></select>
+            <select class="hn-select" id="onl_magg" onchange="onOnlinePromoChange()"><option value="">-- Không dùng mã --</option></select>
           </div>
         </div>
+        <div id="onl_promo_box" style="display:none;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px 16px;margin-bottom:18px;font-size:0.85rem;color:#7C2D12"></div>
         <div class="hn-field">
           <label class="hn-label">Link Facebook của em</label>
           <input class="hn-input" id="onl_fb" placeholder="https://facebook.com/...">
-        </div>
-        <div class="hn-field">
-          <label class="hn-label">Thông tin bạn giới thiệu hoặc trưởng nhóm (nếu có)</label>
-          <input class="hn-input" id="onl_gioithieu" placeholder="VD: Nguyễn Văn A - 0912888360">
         </div>
         <div class="hn-field">
           <label class="hn-label">Ghi chú thêm</label>
@@ -2637,15 +2625,21 @@ async function loadActivePromoCodes() {
     // đang chạy thay vì phải tự tìm/gõ mã.
     activePromoCodes.sort(function(a, b) { return (b.startDate || '').localeCompare(a.startDate || ''); });
     selects.forEach(function(sel) {
-      activePromoCodes.forEach(function(c) {
+      // hoc_magg chỉ nhận mã scope 'hoc'/'both'; onl_magg chỉ nhận mã
+      // scope 'online'/'both' — mã Cọc/Mã con của Học MOS không hợp lệ
+      // cho Học Online (khóa online không có khái niệm Cọc).
+      var wantScope = sel.id === 'onl_magg' ? ['online', 'both'] : ['hoc', 'both'];
+      var codesForSelect = activePromoCodes.filter(function(c) { return wantScope.indexOf(c.scope || 'hoc') !== -1; });
+      codesForSelect.forEach(function(c) {
         var opt = document.createElement('option');
         opt.value = c.code;
         opt.textContent = c.code;
         sel.appendChild(opt);
       });
-      if (activePromoCodes.length > 0) {
-        sel.value = activePromoCodes[0].code;
+      if (codesForSelect.length > 0) {
+        sel.value = codesForSelect[0].code;
         if (sel.id === 'hoc_magg') onHocPromoChange();
+        if (sel.id === 'onl_magg') onOnlinePromoChange();
       }
     });
   } catch (e) { /* im lặng — không có mã cũng không chặn đăng ký */ }
@@ -2671,6 +2665,90 @@ function onHocPromoChange() {
     box.style.display = 'none';
     box.innerHTML = '';
   }
+}
+
+// Học Online (IC3/AI): mỗi môn 100.000đ. Mã giảm giá dùng ĐÚNG cấu trúc
+// như Học MOS — có thể là mã Cọc (Mã con MP1/MP2/MP3 giới hạn số môn
+// giá cọc, môn dư tính theo Học phí môn dư) hoặc mã Giảm cố định
+// (discountAmount/môn) khi Mã con để "-- Không --".
+var ONLINE_COURSE_PRICE = 100000;
+
+function vndClient(n) { return n.toLocaleString('vi-VN') + 'đ'; }
+
+// Tính giá cho Học Online — dùng chung logic với Học MOS, tra hạn mức đã
+// dùng qua /api/promo-usage (SĐT+mã) để khớp với số liệu server tính lúc
+// gửi chính thức.
+async function computeOnlinePromoPricing(sdt, code, soMon) {
+  var match = activePromoCodes.find(function(c) { return c.code === code; });
+  if (!match) return { total: soMon * ONLINE_COURSE_PRICE, match: null };
+
+  if (match.depositMonths) {
+    var depositMonths = Number(match.depositMonths) || 0;
+    var usedCount = 0;
+    if (sdt) {
+      try {
+        var res = await fetch('/api/promo-usage?sdt=' + encodeURIComponent(sdt) + '&code=' + encodeURIComponent(code));
+        var usageData = await res.json();
+        usedCount = Number(usageData.usedCount) || 0;
+      } catch (e) { /* lỗi tra cứu → coi như chưa dùng, server tính lại chính thức lúc gửi */ }
+    }
+    var remainingQuota = Math.max(0, depositMonths - usedCount);
+    var coveredCount = Math.min(soMon, remainingQuota);
+    var extraCount = soMon - coveredCount;
+    var deposit = match.deposit || 0;
+    var depositAmount = coveredCount * deposit;
+    var extraTuition = extraCount * (match.tuitionPerExtra || 0);
+    return {
+      match: match, depositMonths: depositMonths, usedCount: usedCount, remainingQuota: remainingQuota,
+      coveredCount: coveredCount, extraCount: extraCount, depositAmount: depositAmount,
+      extraTuition: extraTuition, total: depositAmount + extraTuition
+    };
+  }
+
+  var base = soMon * ONLINE_COURSE_PRICE;
+  var discount = match.discountAmount || 0;
+  var total = Math.max(0, soMon * Math.max(0, ONLINE_COURSE_PRICE - discount));
+  return { match: match, base: base, discount: discount, total: total };
+}
+
+function getOnlineSelectedCourseCount() {
+  return ['ic3lv1','ic3lv2','ic3lv3','genai','aiwork'].filter(function(k) {
+    var el = document.getElementById('onl_kh_' + k);
+    return el && el.checked;
+  }).length;
+}
+
+async function onOnlinePromoChange() {
+  var box = document.getElementById('onl_promo_box');
+  var sel = document.getElementById('onl_magg');
+  if (!box || !sel) return;
+  var soMon = getOnlineSelectedCourseCount();
+  var sdt = (document.getElementById('onl_sdt').value || '').trim();
+
+  if (!soMon && !sel.value) { box.style.display = 'none'; box.innerHTML = ''; return; }
+
+  var pricing = await computeOnlinePromoPricing(sdt, sel.value, soMon);
+  var match = pricing.match;
+  var html = '';
+  if (match && match.content) html += '<div style="font-weight:800;margin-bottom:6px">🌸 ' + escHtmlClient(match.content) + '</div>';
+
+  if (soMon > 0) {
+    if (match && match.depositMonths) {
+      if (pricing.coveredCount > 0) html += '<div style="display:flex;justify-content:space-between"><span>Cọc (' + pricing.coveredCount + ' môn)</span><span>' + vndClient(pricing.depositAmount) + '</span></div>';
+      if (pricing.extraCount > 0) html += '<div style="display:flex;justify-content:space-between"><span>Học phí (' + pricing.extraCount + ' môn dư)</span><span>' + vndClient(pricing.extraTuition) + '</span></div>';
+      if (pricing.extraCount > 0) {
+        html += '<div style="margin-top:8px;padding:8px 10px;background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;font-size:0.76rem;color:#991B1B">⚠️ ' +
+          (pricing.usedCount > 0
+            ? ('Bạn đã dùng mã này cho ' + pricing.usedCount + '/' + pricing.depositMonths + ' môn ở lần đăng ký trước. Lần này chỉ còn ' + pricing.remainingQuota + ' suất giá cọc.')
+            : ('Mã này chỉ áp dụng giá cọc cho tối đa ' + pricing.depositMonths + ' môn.')) + '</div>';
+      }
+    } else {
+      html += '<div style="display:flex;justify-content:space-between"><span>Tạm tính (' + soMon + ' môn × 100.000đ)</span><span>' + vndClient(soMon * ONLINE_COURSE_PRICE) + '</span></div>';
+      if (pricing.discount > 0) html += '<div style="display:flex;justify-content:space-between;color:#16A34A"><span>Giảm giá</span><span>-' + vndClient(pricing.base - pricing.total) + '</span></div>';
+    }
+    html += '<div style="display:flex;justify-content:space-between;border-top:1px solid #FED7AA;padding-top:6px;margin-top:4px;font-weight:800"><span>Cần thanh toán</span><span>' + vndClient(pricing.total) + '</span></div>';
+  }
+  if (html) { box.style.display = 'block'; box.innerHTML = html; } else { box.style.display = 'none'; box.innerHTML = ''; }
 }
 
 function toggleAcc(id) {
@@ -2950,16 +3028,17 @@ async function submitForm(type) {
 
     var magg = document.getElementById('onl_magg').value.trim();
     var fb = document.getElementById('onl_fb').value.trim();
-    var gioithieu = document.getElementById('onl_gioithieu').value.trim();
     var ghichu = document.getElementById('onl_ghichu').value.trim();
+    var maggMatch = activePromoCodes.find(function(c) { return c.code === magg; });
+    var maggDiscount = (maggMatch && maggMatch.discountAmount) ? Math.min(maggMatch.discountAmount, khoahoc.length * ONLINE_COURSE_PRICE) : 0;
     var extra = {
       name: ten, phone: sdt,
       school: document.getElementById('onl_truong').value,
-      classInfo: [document.getElementById('onl_namhoc').value, document.getElementById('onl_khoa').value].filter(Boolean).join(' - '),
+      classInfo: document.getElementById('onl_khoa').value,
       channel: document.getElementById('onl_kenh').value,
       promoCode: magg,
+      discountAmount: maggDiscount,
       facebook: fb,
-      referrer: gioithieu,
       note: ghichu
     };
 
