@@ -291,13 +291,14 @@ export function getAdminDashboardUI() {
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">SỐ ĐIỆN THOẠI</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">NGÀY ĐK</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">HẾT HẠN</th>
+                        <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">MÃ GIẢM GIÁ</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">THIẾT BỊ</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">TRẠNG THÁI</th>
                         <th style="padding:12px 16px; text-align:left; font-size:0.75rem; color:#64748b; font-weight:800; letter-spacing:0.5px;">THAO TÁC</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <tr><td colspan="9" style="padding:40px; text-align:center; color:#64748b;">Đang tải dữ liệu...</td></tr>
+                    <tr><td colspan="10" style="padding:40px; text-align:center; color:#64748b;">Đang tải dữ liệu...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -453,7 +454,7 @@ async function getDeviceCount(phone, course) {
 }
 
 async function loadDashboard() {
-    document.getElementById('tableBody').innerHTML = '<tr><td colspan="9" style="padding:40px; text-align:center; color:#64748b;">Đang tải...</td></tr>';
+    document.getElementById('tableBody').innerHTML = '<tr><td colspan="10" style="padding:40px; text-align:center; color:#64748b;">Đang tải...</td></tr>';
     try {
         var res = await adminFetch('/api/admin/students');
         var data = await res.json();
@@ -461,7 +462,7 @@ async function loadDashboard() {
         updateStats();
         renderTable(allStudents);
     } catch(e) {
-        document.getElementById('tableBody').innerHTML = '<tr><td colspan="9" style="padding:40px; text-align:center; color:#ef4444;">Lỗi tải dữ liệu!</td></tr>';
+        document.getElementById('tableBody').innerHTML = '<tr><td colspan="10" style="padding:40px; text-align:center; color:#ef4444;">Lỗi tải dữ liệu!</td></tr>';
     }
 }
 
@@ -495,6 +496,7 @@ function renderTable(students) {
             '<td style="padding:12px 16px; font-family:monospace; color:#00f2ff; font-size:0.9rem;">' + (s.phone||'') + '</td>' +
             '<td style="padding:12px 16px; color:#94a3b8; font-size:0.85rem;">' + (s.date||'') + '</td>' +
             '<td style="padding:12px 16px; color:#94a3b8; font-size:0.85rem;">' + (s.expire||'') + '</td>' +
+            '<td style="padding:12px 16px; font-family:monospace; font-size:0.82rem;">' + (s.promoCode ? '<span style="color:#f59e0b;font-weight:700">' + s.promoCode + '</span>' : '<span style="color:#384260;">—</span>') + '</td>' +
             '<td style="padding:12px 16px; color:#94a3b8; font-size:0.85rem;" id="dev-' + i + '"><span style="color:#384260;">—</span></td>' +
             '<td style="padding:12px 16px;">' + statusBadge(s.expire) + '</td>' +
             '<td style="padding:12px 16px;">' +
