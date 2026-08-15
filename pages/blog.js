@@ -505,6 +505,64 @@ export const BLOG_POSTS = [
             <p><strong>Nên học MOS trước hay đợi trường yêu cầu?</strong><br>Nên học trước. Học sớm giúp chủ động thời gian ôn tập, tránh dồn vào giai đoạn bận rộn, và chứng chỉ vẫn còn giá trị 5 năm để dùng cho chuẩn đầu ra sau này.</p>
             <p><strong>Muốn bắt đầu học MOS ngay thì liên hệ ở đâu?</strong><br>Liên hệ Zalo/Hotline <strong>0912888360</strong> để được tư vấn miễn phí lộ trình học phù hợp với độ tuổi và mục tiêu của bạn.</p>
         `
+    },
+    {
+        slug: "so-sanh-mos-ic3-tin-hoc-van-phong-quoc-gia",
+        title: "So Sánh MOS, IC3 Và Chứng Chỉ Tin Học Văn Phòng Quốc Gia: Nên Thi Loại Nào?",
+        seoDescription: "MOS, IC3 và chứng chỉ Ứng dụng CNTT quốc gia khác nhau thế nào về giá trị, thời hạn, nơi công nhận? So sánh chi tiết để chọn đúng loại trường bạn yêu cầu.",
+        publishedDate: "2026-08-15",
+        excerpt: "Cùng là 'chứng chỉ tin học' nhưng MOS, IC3 và chứng chỉ Ứng dụng CNTT quốc gia lại khác nhau về đơn vị cấp, thời hạn và nơi công nhận. Chọn sai loại có thể khiến bạn phải thi lại từ đầu.",
+        contentHtml: `
+            <p>"Chứng chỉ tin học" là cụm từ khiến rất nhiều sinh viên nhầm lẫn, vì trên thực tế có tới 3 hệ chứng chỉ hoàn toàn khác nhau đang cùng được gọi bằng cái tên này: <strong>MOS</strong>, <strong>IC3</strong> và <strong>chứng chỉ Ứng dụng CNTT quốc gia</strong> (hay còn gọi là "tin học văn phòng quốc gia", tương đương chứng chỉ A/B cũ). Nộp nhầm loại chứng chỉ trường không công nhận là tình huống không hiếm — và cái giá phải trả là phải thi lại từ đầu, mất thêm thời gian lẫn chi phí.</p>
+
+            <h2>Bảng so sánh nhanh</h2>
+            <table>
+                <thead>
+                    <tr><th>Tiêu chí</th><th>MOS</th><th>IC3 GS6</th><th>Ứng dụng CNTT quốc gia</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Đơn vị cấp</td><td>Microsoft (qua Certiport)</td><td>Certiport (Hoa Kỳ)</td><td>Cơ sở được Bộ GD&ĐT / Bộ TT&TT cấp phép tại Việt Nam</td></tr>
+                    <tr><td>Phạm vi công nhận</td><td>Quốc tế</td><td>Quốc tế (150+ quốc gia)</td><td>Trong nước (hệ thống giáo dục quốc dân Việt Nam)</td></tr>
+                    <tr><td>Nội dung thi</td><td>Kỹ năng chuyên sâu Word, Excel, PowerPoint</td><td>Kiến thức nền tảng về máy tính, internet, an toàn số, cộng tác trực tuyến</td><td>Kỹ năng CNTT cơ bản/nâng cao theo 6 mô-đun quy định</td></tr>
+                    <tr><td>Thời hạn hiệu lực</td><td><strong>5 năm</strong> kể từ ngày cấp (áp dụng từ 23/9/2025)</td><td><strong>Trọn đời</strong>, không thời hạn</td><td><strong>Trọn đời</strong>, không thời hạn</td></tr>
+                    <tr><td>Thường dùng để</td><td>Chuẩn đầu ra tin học, CV xin việc khối văn phòng</td><td>Chuẩn đầu ra tin học, đánh giá kỹ năng số nền tảng</td><td>Xét tốt nghiệp, thi/nâng ngạch công chức viên chức, hồ sơ nhà nước</td></tr>
+                </tbody>
+            </table>
+            <p style="font-size:0.82rem;color:#888">Nguồn thời hạn hiệu lực MOS/IC3: Thông báo chính thức của IIG Việt Nam (đại diện Certiport tại Việt Nam), áp dụng từ 23/9/2025.</p>
+
+            <h2>MOS (Microsoft Office Specialist) là gì?</h2>
+            <p>MOS do <strong>Microsoft</strong> trực tiếp xây dựng nội dung thi, tổ chức khảo thí qua hệ thống <strong>Certiport</strong>. Đây là chứng chỉ quốc tế xác nhận kỹ năng sử dụng chuyên sâu từng phần mềm cụ thể — Word, Excel hoặc PowerPoint — ở mức độ thao tác thực tế: định dạng, hàm, biểu đồ, master slide, animation... Từ ngày 23/9/2025, Certiport áp dụng thời hạn hiệu lực <strong>5 năm</strong> cho chứng chỉ MOS, lý do là các phiên bản Office (2016, 2019...) sẽ dần lỗi thời nên cần đảm bảo người có chứng chỉ luôn cập nhật kỹ năng theo phiên bản hiện hành.</p>
+
+            <h2>IC3 GS6 (Internet and Computing Core Certification) là gì?</h2>
+            <p>Cũng do <strong>Certiport</strong> tổ chức, nhưng IC3 kiểm tra kiến thức <strong>nền tảng, tổng quát hơn</strong> MOS — về máy tính, internet, an toàn thông tin, công dân số, cộng tác trực tuyến — thay vì đi sâu vào từng phần mềm. Vì đánh giá kỹ năng nền tảng ít bị lỗi thời theo phiên bản phần mềm, IC3 tiếp tục giữ hiệu lực <strong>trọn đời, không giới hạn thời gian</strong>.</p>
+
+            <h2>Chứng chỉ Ứng dụng CNTT quốc gia là gì?</h2>
+            <p>Đây là chứng chỉ theo <strong>Thông tư 03/2014/TT-BTTTT</strong>, thuộc hệ thống giáo dục quốc dân Việt Nam, đã <strong>thay thế hoàn toàn chứng chỉ A, B, C</strong> cũ từ ngày 10/8/2016. Gồm 2 cấp độ: <strong>Cơ bản</strong> và <strong>Nâng cao</strong>, đánh giá theo 6 mô-đun kỹ năng CNTT do Bộ TT&TT quy định. Chứng chỉ này có giá trị <strong>trọn đời</strong> và đặc biệt quan trọng với nhóm cần hồ sơ liên quan đến <strong>khu vực nhà nước</strong>: xét tốt nghiệp tại một số trường, hoặc là điều kiện bắt buộc khi thi/xét nâng ngạch, chuyển ngạch công chức, viên chức.</p>
+
+            <h2>Vậy nên thi loại nào?</h2>
+            <p>Không có câu trả lời chung cho tất cả — điều quan trọng nhất là <strong>đối chiếu đúng quy định chuẩn đầu ra của trường bạn</strong>, vì mỗi trường công nhận loại chứng chỉ khác nhau:</p>
+            <ul>
+                <li><strong>Trường yêu cầu chứng chỉ quốc tế</strong> (phổ biến ở khối kinh tế, kỹ thuật, ngoại ngữ): thường chấp nhận MOS hoặc IC3 — nên hỏi rõ trường có yêu cầu môn cụ thể (Word/Excel/PowerPoint) hay chỉ cần đạt 1 trong các cấp độ IC3.</li>
+                <li><strong>Trường yêu cầu chứng chỉ theo hệ thống giáo dục quốc dân Việt Nam</strong>: cần chứng chỉ Ứng dụng CNTT cơ bản/nâng cao theo Thông tư 03 — MOS/IC3 trong trường hợp này thường <strong>không được chấp nhận thay thế</strong>.</li>
+                <li><strong>Định hướng thi/xét công chức, viên chức sau này</strong>: nên ưu tiên chứng chỉ Ứng dụng CNTT quốc gia, vì đây là loại được yêu cầu trong hồ sơ tuyển dụng khu vực nhà nước.</li>
+                <li><strong>Định hướng xin việc khối doanh nghiệp, đặc biệt ngành cần thao tác Word/Excel/PowerPoint nhiều</strong> (Kế toán, Hành chính - Nhân sự, Marketing...): MOS có giá trị thực tế cao hơn vì chứng minh được kỹ năng thao tác cụ thể, không chỉ kiến thức nền tảng.</li>
+            </ul>
+            <p>Nếu không chắc trường mình yêu cầu loại nào, cách an toàn nhất là <strong>kiểm tra trực tiếp trong quyết định/thông báo chuẩn đầu ra</strong> của trường (thường đăng trên website phòng đào tạo), hoặc liên hệ MOS360 để được tra cứu giúp.</p>
+
+            <h2>Học và thi ở đâu tại Hải Phòng?</h2>
+            <p><strong>MOS360 - Trung tâm tin học MOS &amp; IC3 &amp; AI</strong> (số 57 Lê Văn Thuyết A, phường Lê Chân, Hải Phòng) đào tạo và luyện thi cả 2 hệ chứng chỉ quốc tế:</p>
+            <ul>
+                <li>Luyện tập <strong>100% bằng phần mềm mô phỏng</strong>, giao diện giống hệt bài thi thật</li>
+                <li>Giáo viên <strong>hướng dẫn 1:1</strong>, học <strong>không giới hạn số lần</strong></li>
+                <li><strong>Cam kết đầu ra 700+ điểm bằng văn bản</strong>, hoàn lại 100% lệ phí thi nếu chưa đạt</li>
+                <li>Học phí chỉ <strong>400.000đ/môn MOS</strong> và <strong>100.000đ/môn IC3</strong></li>
+            </ul>
+
+            <h2>Câu hỏi thường gặp</h2>
+            <p><strong>MOS/IC3 có được dùng thay chứng chỉ Ứng dụng CNTT quốc gia không?</strong><br>Tùy trường — nhiều trường đại học, cao đẳng chấp nhận MOS/IC3 thay thế cho chuẩn đầu ra tin học, nhưng các thủ tục hành chính nhà nước (thi nâng ngạch công chức...) thường yêu cầu đúng chứng chỉ Ứng dụng CNTT theo Thông tư 03.</p>
+            <p><strong>Chứng chỉ MOS mới bị giới hạn 5 năm có ảnh hưởng gì đến sinh viên đang cần chuẩn đầu ra không?</strong><br>Không ảnh hưởng đến mục đích xét chuẩn đầu ra — 5 năm là quá đủ thời gian từ lúc thi đến lúc tốt nghiệp và đi làm những năm đầu. Giới hạn này chủ yếu nhắm đến việc đảm bảo kỹ năng luôn cập nhật theo phiên bản Office mới.</p>
+            <p><strong>Nên thi loại nào nếu trường không quy định rõ?</strong><br>Liên hệ MOS360 qua Zalo/Hotline <strong>0912888360</strong> để được tra cứu và tư vấn miễn phí đúng loại chứng chỉ phù hợp với ngành học và mục tiêu nghề nghiệp của bạn.</p>
+        `
     }
 ];
 
