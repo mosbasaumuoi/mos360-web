@@ -437,17 +437,33 @@ export async function handleLicenseAPI(path, request, env) {
             const limit = Math.min(parseInt(url.searchParams.get("limit") || "100", 10), 1000);
             const listResult = await env.MOS360_USERS_KV.list({ prefix: "pending:", limit });
             const items = [];
+            const debugRaw = [];
             for (const k of listResult.keys) {
                 const raw = await env.MOS360_USERS_KV.get(k.name);
-                if (!raw) continue;
-                const info = JSON.parse(raw);
-                if (info.status !== "pending") continue; // đã duyệt rồi thì không hiện ở hàng chờ nữa
+                if (!raw) { debugRaw.push({ key: k.name, note: "raw rỗng/null" }); continue; }
+                let info;
+                try {
+                    info = JSON.parse(raw);
+                } catch (e2) {
+                    debugRaw.push({ key: k.name, note: "JSON.parse lỗi: " + e2.message, raw: raw.slice(0, 200) });
+                    continue;
+                }
+                if (info.status !== "pending") { debugRaw.push({ key: k.name, note: "status=" + JSON.stringify(info.status) }); continue; }
                 items.push({ key: k.name, ...info });
             }
             items.sort((a, b) => (b.requestedAt || "").localeCompare(a.requestedAt || ""));
-            return json({ success: true, items });
+            return json({
+                success: true, items,
+                _debug: {
+                    keysFoundByList: listResult.keys.length,
+                    listComplete: listResult.list_complete,
+                    cursor: listResult.cursor || null,
+                    keyNames: listResult.keys.map(k => k.name),
+                    skippedDetail: debugRaw
+                }
+            });
         } catch (e) {
-            return json({ success: false, msg: e.message });
+            return json({ success: false, msg: e.message, _debugError: e.stack || String(e) });
         }
     }
 
