@@ -402,16 +402,23 @@ export async function handleLicenseAPI(path, request, env) {
     // thất bại, thay vì không thấy gì và tưởng chưa ai gửi.
     if (path === "/api/license/failed-requests" && request.method === "GET") {
         try {
-            const limit = Math.min(parseInt(url.searchParams.get("limit") || "50", 10), 200);
-            const listResult = await env.MOS360_USERS_KV.list({ prefix: "failed_request:", limit });
+            const requestedLimit = Math.min(parseInt(url.searchParams.get("limit") || "50", 10), 500);
+            let allKeys = [];
+            let cursor = undefined;
+            for (let page = 0; page < 20; page++) {
+                const listResult = await env.MOS360_USERS_KV.list({ prefix: "failed_request:", limit: 1000, cursor });
+                allKeys = allKeys.concat(listResult.keys);
+                if (listResult.list_complete || !listResult.cursor) break;
+                cursor = listResult.cursor;
+            }
             const items = [];
-            for (const k of listResult.keys) {
+            for (const k of allKeys) {
                 const raw = await env.MOS360_USERS_KV.get(k.name);
                 if (!raw) continue;
                 items.push({ key: k.name, ...JSON.parse(raw) });
             }
             items.sort((a, b) => (b.requestedAt || "").localeCompare(a.requestedAt || ""));
-            return json({ success: true, items });
+            return json({ success: true, items: items.slice(0, requestedLimit) });
         } catch (e) {
             return json({ success: false, msg: e.message });
         }
@@ -434,36 +441,34 @@ export async function handleLicenseAPI(path, request, env) {
     // GET /api/license/pending — danh sách yêu cầu đang chờ duyệt (mới nhất lên đầu)
     if (path === "/api/license/pending" && request.method === "GET") {
         try {
-            const limit = Math.min(parseInt(url.searchParams.get("limit") || "100", 10), 1000);
-            const listResult = await env.MOS360_USERS_KV.list({ prefix: "pending:", limit });
+            // Lưu ý: KV.list() trả key theo thứ tự tăng dần (cũ → mới vì key =
+            // "pending:" + timestamp). Nếu limit quá nhỏ, những yêu cầu MỚI NHẤT
+            // (còn thật sự pending) có thể nằm ở các trang sau và bị bỏ sót —
+            // trong khi các key cũ nhất (đã approved từ lâu) lại chiếm hết trang đầu.
+            // → Duyệt hết toàn bộ các trang (theo cursor) thay vì chỉ lấy 1 trang.
+            const requestedLimit = Math.min(parseInt(url.searchParams.get("limit") || "1000", 10), 5000);
+            let allKeys = [];
+            let cursor = undefined;
+            for (let page = 0; page < 20; page++) { // an toàn: tối đa 20 trang (~20.000 key)
+                const listResult = await env.MOS360_USERS_KV.list({ prefix: "pending:", limit: 1000, cursor });
+                allKeys = allKeys.concat(listResult.keys);
+                if (listResult.list_complete || !listResult.cursor) break;
+                cursor = listResult.cursor;
+            }
+
             const items = [];
-            const debugRaw = [];
-            for (const k of listResult.keys) {
+            for (const k of allKeys) {
                 const raw = await env.MOS360_USERS_KV.get(k.name);
-                if (!raw) { debugRaw.push({ key: k.name, note: "raw rỗng/null" }); continue; }
+                if (!raw) continue;
                 let info;
-                try {
-                    info = JSON.parse(raw);
-                } catch (e2) {
-                    debugRaw.push({ key: k.name, note: "JSON.parse lỗi: " + e2.message, raw: raw.slice(0, 200) });
-                    continue;
-                }
-                if (info.status !== "pending") { debugRaw.push({ key: k.name, note: "status=" + JSON.stringify(info.status) }); continue; }
+                try { info = JSON.parse(raw); } catch (e2) { continue; }
+                if (info.status !== "pending") continue; // đã duyệt rồi thì không hiện ở hàng chờ nữa
                 items.push({ key: k.name, ...info });
             }
             items.sort((a, b) => (b.requestedAt || "").localeCompare(a.requestedAt || ""));
-            return json({
-                success: true, items,
-                _debug: {
-                    keysFoundByList: listResult.keys.length,
-                    listComplete: listResult.list_complete,
-                    cursor: listResult.cursor || null,
-                    keyNames: listResult.keys.map(k => k.name),
-                    skippedDetail: debugRaw
-                }
-            });
+            return json({ success: true, items: items.slice(0, requestedLimit) });
         } catch (e) {
-            return json({ success: false, msg: e.message, _debugError: e.stack || String(e) });
+            return json({ success: false, msg: e.message });
         }
     }
 
