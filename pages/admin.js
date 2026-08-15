@@ -642,7 +642,7 @@ async function resetDevices(phone, course) {
     } catch(e) { alert('Lỗi kết nối!'); }
 }
 
-window.addEventListener('DOMContentLoaded', () => { loadDashboard(); loadPromo(); loadPromoCodes(); });
+window.addEventListener('DOMContentLoaded', () => { loadDashboard(); loadPromo(); loadPromoCodes(); loadLicenseList(); loadPendingRequests(); loadFailedRequests(); });
 
 // ── QUẢN LÝ KHUYẾN MÃI ─────────────────────────────────
 async function loadPromo() {
