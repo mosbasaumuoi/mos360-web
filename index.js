@@ -122,13 +122,18 @@ const ORG_JSONLD = {
 // kiếm Google (video rich result / video carousel) thay vì chỉ nằm im trên
 // YouTube. embedId lấy từ URL dạng youtu.be/xxxx hoặc watch?v=xxxx.
 function buildVideoJsonLd({ name, description, embedId, uploadDate, thumbnailUrl }) {
+    // Chuẩn hoá ngày trước khi dùng — nếu chỉ là "YYYY-MM-DD" thì tự thêm
+    // giờ + múi giờ Việt Nam (+07:00) cho đúng chuẩn ISO 8601.
+    const isoUploadDate = /^\d{4}-\d{2}-\d{2}$/.test(uploadDate || "")
+        ? uploadDate + "T08:00:00+07:00"
+        : uploadDate;
     return {
         "@context": "https://schema.org",
         "@type": "VideoObject",
         "name": name,
         "description": description,
         "thumbnailUrl": thumbnailUrl || `https://i.ytimg.com/vi/${embedId}/hqdefault.jpg`,
-        "uploadDate": uploadDate,
+        "uploadDate": isoUploadDate, 
         "embedUrl": `https://www.youtube.com/embed/${embedId}`,
         "contentUrl": `https://www.youtube.com/watch?v=${embedId}`,
         "publisher": {
