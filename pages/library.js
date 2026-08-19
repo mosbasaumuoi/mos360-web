@@ -29,7 +29,7 @@ export function getLibraryUI() {
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
             <div>
                 <h2 style="font-size:1.15rem;font-weight:800;color:var(--text);margin:0;">🎬 Video Giải Đề Test (MOS 2019 / MOS 365)</h2>
-                <p style="color:var(--muted);font-size:0.8rem;margin-top:3px;">Học viên đã được cấp mật khẩu MOS đăng nhập để xem video giải đề chi tiết. Phiên đăng nhập có hiệu lực 12 tiếng — sau đó cần đăng nhập lại để tiếp tục xem.</p>
+                <p style="color:var(--muted);font-size:0.8rem;margin-top:3px;">Học viên đã được cấp mật khẩu MOS đăng nhập để xem video giải đề chi tiết. Phiên đăng nhập có hiệu lực 30 ngày — sau đó cần đăng nhập lại để tiếp tục xem.</p>
             </div>
             <div id="vlAuthBar" style="font-size:0.82rem;"></div>
         </div>
@@ -699,17 +699,25 @@ export function getLibraryUI() {
         // đúng thời điểm hết hạn để tự chuyển UI về "Chưa đăng nhập" ngay
         // cả khi học viên không làm gì cả, tránh gây hiểu nhầm là còn hạn.
         var vlLogoutTimer = null;
+        // setTimeout của trình duyệt chỉ an toàn tới ~24,8 ngày (giới hạn số
+        // nguyên 32-bit); phiên đăng nhập nay là 30 ngày nên vượt mốc này —
+        // phải hẹn giờ theo từng chặng tối đa 20 ngày rồi tự gọi lại chính
+        // mình cho tới khi chạm đúng thời điểm hết hạn thật sự.
+        var VL_MAX_SAFE_TIMEOUT_MS = 20 * 24 * 60 * 60 * 1000;
         function vlScheduleAutoLogout(expiresAt) {
             if (vlLogoutTimer) { clearTimeout(vlLogoutTimer); vlLogoutTimer = null; }
             if (!expiresAt) return;
             var ms = expiresAt - Date.now();
             if (ms <= 0) { vlLoggedIn = false; vlUserName = null; vlRefreshAuthBar(); return; }
-            // setTimeout tối đa an toàn ~24 ngày, phiên 12h luôn nằm trong giới hạn này
+            if (ms > VL_MAX_SAFE_TIMEOUT_MS) {
+                vlLogoutTimer = setTimeout(function() { vlScheduleAutoLogout(expiresAt); }, VL_MAX_SAFE_TIMEOUT_MS);
+                return;
+            }
             vlLogoutTimer = setTimeout(function() {
                 vlLoggedIn = false;
                 vlUserName = null;
                 vlRefreshAuthBar();
-                toast('⚠️ Phiên đăng nhập đã hết hạn (12 tiếng), vui lòng đăng nhập lại', 'error');
+                toast('⚠️ Phiên đăng nhập đã hết hạn (30 ngày), vui lòng đăng nhập lại', 'error');
             }, ms);
         }
 
@@ -879,7 +887,7 @@ export function getLibraryUI() {
         // hạn, miễn còn cookie hợp lệ. Nhờ vậy KHÔNG cần làm mới URL định kỳ,
         // video phát liên tục dù dài bao lâu, không bị giật/gián đoạn.
         // vlStartStream chỉ gọi lại (retryLoad=true) khi hls.js báo lỗi mạng
-        // thật sự (vd phiên đăng nhập 12h đã hết hạn) — và chỉ thử lại 1 lần,
+        // thật sự (vd phiên đăng nhập 30 ngày đã hết hạn) — và chỉ thử lại 1 lần,
         // giữ nguyên vị trí đang xem.
         async function vlStartStream(isFirstLoad, retryLoad) {
             if (!vlCurrentVideoId) return;

@@ -36,7 +36,7 @@ const VIDEO_SECRET = "M0s360V!d30Libr@ry_S3cr3t_2026#HP";
 const VIP_CHECK_URL = "https://script.google.com/macros/s/AKfycbweC3d-SKm29ltW6Y13hWqYuw8Q-4X23QEbF0AhQL_IfA2YiWYzVkIOyV4n-sxApEpcMA/exec";
 
 const SESSION_COOKIE_NAME = "mv_sess";
-const SESSION_TTL_MS = 12 * 60 * 60 * 1000;   // 12 giờ — thời gian đăng nhập còn hiệu lực
+const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 ngày — thời gian đăng nhập còn hiệu lực
 const STREAM_TTL_MS = 8 * 60 * 1000;          // 8 phút — thời hạn 1 URL stream (chống copy link)
 
 // ───────────────────────── Danh mục Video (khớp cấu trúc thư mục R2) ─────
