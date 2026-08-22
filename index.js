@@ -295,7 +295,7 @@ const CONFIG = {
 
     // Links tải tiện ích
     TOOLS: {
-        MOS360: "https://drive.google.com/file/d/16ZRK0JtioIq1R0grfw88-M5V0fr6tY_A/view",
+        MOS360: "https://drive.google.com/file/d/1A59QNyKm5zvkxjwNTimf-6CdEq5iM9_w/view",
         OFFICE: "https://drive.google.com/file/d/1nYo6f5VDqgsgbp_-_IA6tO9muyohHOhg/view",
         OFFICE365: "https://drive.google.com/file/d/1PPnUsYUP_jD_gF5pp7ezoxtyzw8JtVC3/view?usp=sharing",
         FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
