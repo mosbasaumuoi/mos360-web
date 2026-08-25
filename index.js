@@ -296,7 +296,7 @@ const CONFIG = {
     // Links tải tiện ích
     TOOLS: {
         MOS360: "https://drive.google.com/file/d/1A59QNyKm5zvkxjwNTimf-6CdEq5iM9_w/view",
-        OFFICE: "https://drive.google.com/file/d/1nYo6f5VDqgsgbp_-_IA6tO9muyohHOhg/view",
+        OFFICE: "https://drive.google.com/file/d/1Et1GdjAgVArMO4ZVkaX_yP-XKP4wvO-_/view",
         OFFICE365: "https://drive.google.com/file/d/1PPnUsYUP_jD_gF5pp7ezoxtyzw8JtVC3/view?usp=sharing",
         FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
         WINRAR: "https://drive.google.com/file/d/1NJVEBHJBpPr6R_y7PP_oZM0qn8hFyoG1/view",
