@@ -1,9 +1,47 @@
 /**
- * MOS360 Apps Script v9
+ * MOS360 Apps Script v10
  * Nhận dữ liệu POST từ web form → ghi vào Google Sheet
  * Deploy: Web App → Anyone → Execute as Me
  *
- * ── THAY ĐỔI Ở v9 ───────────────────────────────────────────
+ * ── THAY ĐỔI Ở v10 — ĐỒNG BỘ VỚI CLOUDFLARE WORKER ──────────
+ * File v9 cũ CHỈ xử lý được action "dkhoc"/"dkthi"/"dkoffline"/"xacNhan"
+ * (ghi Sheet) — nhưng Worker (api/register-api.js + api/admin-api.js) đã
+ * từ lâu gọi sang RẤT NHIỀU action khác mà v9 hoàn toàn KHÔNG có, khiến
+ * toàn bộ luồng thanh toán (QR VietQR) + tab "Đăng ký học MOS"/"Đăng ký
+ * thi" trên Admin Dashboard bị lỗi (404/"Action không hợp lệ"). v10 bổ
+ * sung ĐẦY ĐỦ các action còn thiếu, không đổi/xoá bất kỳ action cũ nào:
+ *
+ * 1. handleDKHoc()/handleDKThi(): giờ LƯU THÊM "Mã đăng ký", "Email",
+ *    "Số tiền" (và với DKHOC: "Số tiền cọc", "Số môn áp cọc" — phục vụ
+ *    cơ chế mã giảm giá kiểu ĐẶT CỌC cộng dồn) — đúng các trường mà
+ *    Worker đã tự tính (soTien/maDangKy...) và forward sang kèm payload
+ *    gốc, TRƯỚC ĐÂY v9 âm thầm bỏ qua hoàn toàn các trường này.
+ * 2. Thêm 2 cột mới "Trạng thái TT" (thanh toán) + "Ngày xác nhận TT" ở
+ *    CẢ DKHOC và DKTHI — TÁCH RIÊNG khỏi cột "Trạng thái"/"Phòng thi/Ca
+ *    thi" sẵn có của DKTHI (đó là trạng thái NGÀY THI do trung tâm điền
+ *    tay, khác hẳn trạng thái ĐÃ THU TIỀN hay chưa).
+ * 3. POST action "checkPromoUsage" — tra tổng số môn ĐÃ được áp giá cọc
+ *    của 1 SĐT với 1 mã KM cụ thể (cộng dồn qua nhiều lần đăng ký) —
+ *    Worker dùng để tính đúng hạn mức mã giảm giá kiểu đặt cọc.
+ * 4. POST action "reportPayment" — học viên tự báo đã chuyển khoản (chỉ
+ *    để thông báo Telegram cho admin ưu tiên kiểm tra, KHÔNG tự xác nhận
+ *    thanh toán chính thức).
+ * 5. POST action "listDKHoc" / "listDKThi" — Admin Dashboard đọc TRỰC
+ *    TIẾP danh sách đăng ký học/thi (kèm trạng thái thanh toán) để hiện
+ *    ở 2 tab "Đăng ký học MOS" / "Đăng ký thi", real-time không qua cache.
+ * 6. POST action "confirmDKHocPayment" / "confirmDKThiPayment" — admin
+ *    bấm "✅ Xác nhận" trên Dashboard sau khi đối chiếu đã nhận tiền →
+ *    đánh dấu Trạng thái TT + trả về thông tin (kèm email nếu có) để
+ *    Worker tự gửi email xác nhận cho học viên/thí sinh.
+ * 7. POST action "updateDKHoc" / "updateDKThi" / "deleteDKHoc" /
+ *    "deleteDKThi" — CRUD sửa/xoá 1 dòng đăng ký từ Admin Dashboard,
+ *    định danh bằng "Mã đăng ký" (KHÔNG dùng SĐT vì 1 SĐT có thể đăng ký
+ *    nhiều lần/nhiều môn khác nhau, mỗi lần 1 mã đăng ký riêng).
+ *
+ * Các action/cột đã có ở v9 GIỮ NGUYÊN không đổi hành vi.
+ * ============================================================
+ *
+ * ── THAY ĐỔI Ở v9 (giữ nguyên) ───────────────────────────────
  * Thêm GET ?action=vipCheck — đọc tab "DSVIP" (Họ và tên, SĐT (Zalo),
  * Ghi chú), dùng để trang Thư viện video (Cloudflare Worker) xác thực
  * đăng nhập học viên.
@@ -66,6 +104,20 @@ var SHEET_THI     = "DKTHI";
 var SHEET_OFF     = "DKOFFLINE";
 var SHEET_VIP     = "DSVIP"; // v9 — danh sách học viên được cấp quyền xem Thư viện video
 
+// ── v10 — CỘT THANH TOÁN CHUNG CHO DKHOC & DKTHI ────────────
+// Tách riêng khỏi cột "Trạng thái"/"Phòng thi"/"Ca thi" sẵn có của DKTHI
+// (đó là trạng thái NGÀY THI do trung tâm tự điền tay, không liên quan
+// việc đã thu tiền hay chưa).
+var COL_MA_DANG_KY   = "Mã đăng ký";
+var COL_EMAIL        = "Email";
+var COL_SO_TIEN      = "Số tiền";
+var COL_SO_TIEN_COC  = "Số tiền cọc";        // chỉ dùng ở DKHOC
+var COL_SO_MON_COC   = "Số môn áp cọc";      // chỉ dùng ở DKHOC (tra hạn mức mã giảm giá)
+var COL_TT_THANH_TOAN = "Trạng thái TT";     // "⏳ Chờ thanh toán" | "✅ Đã xác nhận (...)"
+var COL_NGAY_XAC_NHAN_TT = "Ngày xác nhận TT";
+
+var TT_CHO_THANH_TOAN = "⏳ Chờ thanh toán";
+
 // ── CẤU HÌNH LỆ PHÍ ────────────────────────────────────────
 var LE_PHI = {
   "Hải Phòng": 950000,
@@ -118,14 +170,17 @@ function setupSheets() {
     { name: SHEET_HV, headers: [
       "Thời gian","Họ và tên","Ngày/tháng/năm sinh","SĐT (Zalo)","Link Facebook",
       "Trường","Năm học","Khoa / Lớp","Khóa học","Biết đến MOS360 qua","Mã giảm giá",
-      "Người giới thiệu / Trưởng nhóm","Ghi chú"
+      "Người giới thiệu / Trưởng nhóm","Ghi chú",
+      COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_SO_TIEN_COC, COL_SO_MON_COC,
+      COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT
     ]},
     { name: SHEET_THI, headers: [
       "Thời gian","Họ và tên","Mã SV","Ngày sinh","Tháng sinh","Năm sinh",
       "Giới tính","CCCD","Địa chỉ (VNeID)","SĐT","Thành phố thi","Địa điểm thi",
       "Đợt thi","Ngày thi","Hạn đăng ký","Lệ phí (VNĐ/môn)","Phiên bản",
       "Đăng ký Word","Đăng ký Excel","Đăng ký PPT","Ngôn ngữ đề","Đã thi MOS chưa","Ghi chú",
-      "Phòng thi","Ca thi","Trạng thái","Lưu ý thi"
+      "Phòng thi","Ca thi","Trạng thái","Lưu ý thi",
+      COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT
     ]},
     { name: SHEET_OFF, headers: [
       "Thời gian","Họ và tên","SĐT (Zalo)","Ngày học",
@@ -143,13 +198,21 @@ function setupSheets() {
     } else {
       // Sheet đã có sẵn dữ liệu từ trước — bổ sung cột mới nếu chưa có,
       // KHÔNG đụng gì tới dữ liệu cũ đang có.
-      if (tab.name === SHEET_THI) ensureColumnsExist(sheet, ["Phòng thi", "Ca thi", "Trạng thái", "Phiên bản", "Lưu ý thi"]);
-      if (tab.name === SHEET_HV) ensureColumnsExist(sheet, ["Người giới thiệu / Trưởng nhóm"]);
+      if (tab.name === SHEET_THI) ensureColumnsExist(sheet, [
+        "Phòng thi", "Ca thi", "Trạng thái", "Phiên bản", "Lưu ý thi",
+        COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT
+      ]);
+      if (tab.name === SHEET_HV) ensureColumnsExist(sheet, [
+        "Người giới thiệu / Trưởng nhóm",
+        COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_SO_TIEN_COC, COL_SO_MON_COC,
+        COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT
+      ]);
     }
   });
-  fixPhoneCCCDFormat();
-  setNgayThiDateFormat();
-  SpreadsheetApp.getUi().alert("✅ Đã tạo/cập nhật sheet! (đã ép định dạng SĐT/CCCD/Ngày thi)");
+  var formatWarning = "";
+  try { fixPhoneCCCDFormat(); } catch (e) { formatWarning += "\n⚠️ Bỏ qua ép định dạng SĐT/CCCD: " + e.message; }
+  try { setNgayThiDateFormat(); } catch (e) { formatWarning += "\n⚠️ Bỏ qua ép định dạng Ngày thi: " + e.message; }
+  SpreadsheetApp.getUi().alert("✅ Đã tạo/cập nhật sheet (đã thêm đủ các cột mới)!" + formatWarning);
 }
 
 // Thêm cột mới vào cuối sheet nếu tên cột chưa tồn tại — dùng khi nâng
@@ -182,7 +245,17 @@ function fixPhoneCCCDFormat() {
     var sheet = ss.getSheetByName(t.sheet);
     if (!sheet) return;
     t.cols.forEach(function(col) {
-      sheet.getRange(2, col, MAX_ROWS, 1).setNumberFormat("@");
+      try {
+        sheet.getRange(2, col, MAX_ROWS, 1).setNumberFormat("@");
+        SpreadsheetApp.flush(); // v10.3 fix — ép lỗi (nếu có) nổ ra NGAY ĐÂY,
+        // không để nó bị gom hàng đợi rồi "trôi" sang lệnh đọc dữ liệu kế
+        // tiếp (khiến try/catch này trở nên vô dụng — đây chính là nguyên
+        // nhân lỗi "Bạn không thể đặt định dạng số..." vẫn lọt ra ngoài
+        // dù đã bọc try/catch).
+      } catch (e) {
+        // v10 fix: bỏ qua nếu cột chứa Smart Chip / dữ liệu đặc biệt không
+        // cho phép setNumberFormat() — không chặn phần còn lại của setup.
+      }
     });
   });
 }
@@ -198,7 +271,16 @@ function setNgayThiDateFormat() {
   var headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   var col = headers.indexOf("Ngày thi");
   if (col === -1) return;
-  sheet.getRange(2, col + 1, 5000, 1).setNumberFormat("dd/MM/yyyy");
+  try {
+    sheet.getRange(2, col + 1, 5000, 1).setNumberFormat("dd/MM/yyyy");
+    SpreadsheetApp.flush(); // v10.3 fix — cùng lý do như fixPhoneCCCDFormat()
+  } catch (e) {
+    // v10 fix: cột "Ngày thi" có thể chứa Smart Chip (ô ngày chèn qua menu
+    // "@" thay vì gõ ngày thường) — Apps Script KHÔNG cho phép setNumberFormat()
+    // lên loại ô này ("Bạn không thể đặt định dạng số của các ô trong một cột
+    // đã nhập"). Bỏ qua, không chặn phần còn lại của setupSheets() vì đây chỉ
+    // là bước ép hiển thị, không ảnh hưởng dữ liệu hay các cột mới đã thêm.
+  }
 }
 
 // ── KHÔI PHỤC SỐ 0 ĐẦU CHO DỮ LIỆU CŨ (chạy tay 1 lần) ──────
@@ -258,9 +340,29 @@ function doPost(e) {
     if (action === "dkthi")     return handleDKThi(body);
     if (action === "dkoffline") return handleDKOffline(body);
     if (action === "xacNhan")   return handleXacNhanPost(body);
+
+    // ── v10 — bổ sung cho luồng thanh toán (register-api.js) ─────
+    if (action === "checkPromoUsage") return handleCheckPromoUsage(body);
+    if (action === "reportPayment")   return handleReportPayment(body);
+
+    // ── v10 — bổ sung cho Admin Dashboard (admin-api.js → callDKHocScript) ─
+    if (action === "listDKHoc")            return handleListDKHoc();
+    if (action === "confirmDKHocPayment")  return handleConfirmDKHocPayment(body);
+    if (action === "updateDKHoc")          return handleUpdateDKHoc(body);
+    if (action === "deleteDKHoc")          return handleDeleteDKHoc(body);
+
+    if (action === "listDKThi")            return handleListDKThi();
+    if (action === "confirmDKThiPayment")  return handleConfirmDKThiPayment(body);
+    if (action === "updateDKThi")          return handleUpdateDKThi(body);
+    if (action === "deleteDKThi")          return handleDeleteDKThi(body);
+
     return jsonResp({ ok: false, msg: "Action không hợp lệ" });
   } catch(err) {
-    return jsonResp({ ok: false, msg: "Lỗi server: " + err.message });
+    // DEBUG TẠM (v10.2) — trả thẳng chi tiết lỗi (kèm vài dòng stack) về
+    // cho web hiển thị luôn, khỏi cần vào Executions tìm log. Sau khi xác
+    // định xong nguyên nhân, xoá phần nối thêm stack này đi cho gọn.
+    var stackShort = (err.stack || "").split("\n").slice(0, 3).join(" | ");
+    return jsonResp({ ok: false, msg: "Lỗi server: " + err.message + " || DEBUG: " + stackShort });
   }
 }
 
@@ -419,6 +521,13 @@ function normalizeVN(s) {
 }
 
 // ── ĐĂNG KÝ HỌC ───────────────────────────────────────────
+// v10: LƯU THÊM Mã đăng ký/Email/Số tiền/Số tiền cọc/Số môn áp cọc do
+// Worker (register-api.js) tự tính và gửi kèm — TRƯỚC ĐÂY (v9) các
+// trường này bị bỏ qua hoàn toàn (không ghi vào Sheet), khiến Admin
+// Dashboard không thấy được số tiền cần thu/mã đăng ký để đối chiếu.
+// Ghi theo TÊN CỘT (không theo vị trí cố định) — an toàn dù sheet cũ
+// (trước v10) chưa có các cột mới, vì ensureColumnsExist() nối chúng
+// vào CUỐI sheet.
 function handleDKHoc(d) {
   var required = ["ten", "sdt"];
   for (var i = 0; i < required.length; i++) {
@@ -427,12 +536,43 @@ function handleDKHoc(d) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_HV);
   var now = Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm:ss");
-  sheet.appendRow([
-    now, d.ten||"", d.ngaysinh||"", normalizePhoneForSheet(d.sdt), d.facebook||"",
-    d.truong||"", d.namhoc||"", d.khoa||"", d.khoahoc||"",
-    d.kenh||"", d.magiamgia||"", d.gioithieu||"", d.ghichu||""
-  ]);
+
+  var headers = sheet.getRange(1, 1, 1, Math.max(1, sheet.getLastColumn())).getValues()[0];
+  var col = {};
+  headers.forEach(function(h, i) { col[h] = i; });
+
+  var newRow = new Array(headers.length).fill("");
+  var fields = {
+    "Thời gian": now, "Họ và tên": d.ten||"", "Ngày/tháng/năm sinh": d.ngaysinh||"",
+    "SĐT (Zalo)": normalizePhoneForSheet(d.sdt), "Link Facebook": d.facebook||"",
+    "Trường": d.truong||"", "Năm học": d.namhoc||"", "Khoa / Lớp": d.khoa||"",
+    "Khóa học": d.khoahoc||"", "Biết đến MOS360 qua": d.kenh||"",
+    "Mã giảm giá": d.magiamgia||"", "Người giới thiệu / Trưởng nhóm": d.gioithieu||"",
+    "Ghi chú": d.ghichu||""
+  };
+  // Chỉ có khi Worker đã tính tiền trước (action "dkhoc" qua register-api.js) —
+  // nếu học viên/nơi khác gọi thẳng thiếu các trường này thì để trống, không lỗi.
+  fields[COL_MA_DANG_KY]  = d.maDangKy || "";
+  fields[COL_EMAIL]       = d.email || "";
+  fields[COL_SO_TIEN]     = toMoneyOrBlank(d.soTien);
+  fields[COL_SO_TIEN_COC] = toMoneyOrBlank(d.soTienCoc);
+  fields[COL_SO_MON_COC]  = (d.soMonApCoc !== undefined && d.soMonApCoc !== null) ? Number(d.soMonApCoc) || 0 : "";
+  fields[COL_TT_THANH_TOAN] = d.maDangKy ? TT_CHO_THANH_TOAN : ""; // chỉ có mã đăng ký mới cần theo dõi thanh toán
+
+  Object.keys(fields).forEach(function(name) {
+    if (col[name] !== undefined) newRow[col[name]] = fields[name];
+  });
+  sheet.appendRow(newRow);
+
   return jsonResp({ ok: true, msg: "Đăng ký thành công! MOS360 sẽ liên hệ Zalo/Face trong vòng 1 giờ." });
+}
+
+// Chuẩn hoá số tiền — trả về số nếu hợp lệ, "" nếu không có (tránh ghi 0
+// nhầm lẫn với "chưa có thông tin số tiền" khi gọi từ nơi không tính tiền).
+function toMoneyOrBlank(v) {
+  if (v === undefined || v === null || v === "") return "";
+  var n = Number(v);
+  return isNaN(n) ? "" : n;
 }
 
 // ── ĐĂNG KÝ THI (gộp nếu trùng SĐT + Đợt thi) ──────────────
@@ -492,6 +632,19 @@ function handleDKThi(d) {
     };
     if (d.ghichu) fields["Ghi chú"] = d.ghichu;
 
+    // v10 — mỗi lần gộp thêm môn là 1 LƯỢT THANH TOÁN MỚI (Worker sinh mã
+    // đăng ký "LPT..." mới + số tiền mới cho riêng phần môn vừa thêm) →
+    // cập nhật Mã đăng ký/Số tiền mới nhất + reset Trạng thái TT về "Chờ
+    // thanh toán", KHÔNG đụng tới Phòng thi/Ca thi/Trạng thái (ngày thi,
+    // trung tâm tự điền tay riêng, xem comment đầu file).
+    if (d.maDangKy) {
+      fields[COL_MA_DANG_KY] = d.maDangKy;
+      fields[COL_EMAIL] = d.email || "";
+      fields[COL_SO_TIEN] = toMoneyOrBlank(d.soTien);
+      fields[COL_TT_THANH_TOAN] = TT_CHO_THANH_TOAN;
+      fields[COL_NGAY_XAC_NHAN_TT] = "";
+    }
+
     Object.keys(fields).forEach(function(name) {
       if (col[name] !== undefined) sheet.getRange(rowNum, col[name] + 1).setValue(fields[name]);
     });
@@ -522,6 +675,14 @@ function handleDKThi(d) {
     "Ngôn ngữ đề": d.ngonngu||"N", "Đã thi MOS chưa": d.datungThi||"N", "Ghi chú": d.ghichu||"",
     "Phòng thi": "", "Ca thi": "", "Trạng thái": "Chưa xác nhận", "Lưu ý thi": ""
   };
+  // v10 — Mã đăng ký/Email/Số tiền do Worker tự tính (xem handleDKHoc ở
+  // trên) + trạng thái thanh toán ban đầu, tách riêng khỏi "Trạng thái"
+  // (đó là trạng thái xác nhận NGÀY THI, không phải đã thu tiền hay chưa).
+  newFields[COL_MA_DANG_KY] = d.maDangKy || "";
+  newFields[COL_EMAIL] = d.email || "";
+  newFields[COL_SO_TIEN] = toMoneyOrBlank(d.soTien);
+  newFields[COL_TT_THANH_TOAN] = d.maDangKy ? TT_CHO_THANH_TOAN : "";
+  newFields[COL_NGAY_XAC_NHAN_TT] = "";
   Object.keys(newFields).forEach(function(name) {
     if (col[name] !== undefined) newRow[col[name]] = newFields[name];
   });
@@ -672,6 +833,335 @@ function handleXacNhanPost(d) {
 
   if (updated > 0) return jsonResp({ ok: true, msg: "Đã xác nhận. Cảm ơn bạn!" });
   return jsonResp({ ok: false, msg: "Không tìm thấy thông tin để xác nhận" });
+}
+
+// ══════════════════════ v10 — BỔ SUNG CHO WORKER ═══════════════════
+
+// ── HELPER DÙNG CHUNG ──────────────────────────────────────
+// Đọc toàn bộ sheet ra {headers, col, data} — col[TênCột] = index 0-based.
+function readSheet(sheetName) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) return null;
+  var data = sheet.getDataRange().getValues();
+  var headers = data.length ? data[0] : [];
+  var col = {};
+  headers.forEach(function(h, i) { col[h] = i; });
+  return { sheet: sheet, headers: headers, col: col, data: data };
+}
+
+// Tìm dòng (data-row index, KHÔNG kể header) theo "Mã đăng ký" — trả về -1
+// nếu không tìm thấy hoặc sheet chưa có cột Mã đăng ký (sheet cũ trước v10
+// chưa từng lưu mã cho các dòng đã đăng ký từ trước).
+function findRowIndexByMaDangKy(ctx, maDangKy) {
+  if (ctx.col[COL_MA_DANG_KY] === undefined) return -1;
+  var maCol = ctx.col[COL_MA_DANG_KY];
+  for (var r = 1; r < ctx.data.length; r++) {
+    if (String(ctx.data[r][maCol] || "").trim() === maDangKy) return r;
+  }
+  return -1;
+}
+
+// "Thời gian" được ghi dạng text "dd/MM/yyyy HH:mm:ss" (Utilities.formatDate)
+// nhưng Google Sheets có thể tự nhận diện & lưu thành kiểu Date thật —
+// hàm này đọc đúng cả 2 trường hợp, trả về đối tượng Date (giờ Việt Nam)
+// hoặc null nếu không đọc được.
+function parseVNDateTime(v) {
+  if (!v) return null;
+  if (Object.prototype.toString.call(v) === "[object Date]") return v;
+  var s = String(v).trim();
+  var m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/.exec(s);
+  if (!m) return null;
+  return new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]), Number(m[4] || 0), Number(m[5] || 0), Number(m[6] || 0));
+}
+
+// Đăng ký được coi là "hết hạn chờ thanh toán" sau 30 phút kể từ lúc đăng
+// ký mà vẫn chưa được admin xác nhận — hiển thị cảnh báo riêng trên
+// Dashboard (⏰ thay vì ⏳) để admin biết ưu tiên liên hệ lại học viên.
+var PAYMENT_EXPIRE_MINUTES = 30;
+function isPaymentExpired(thoiGianRaw, isPaid) {
+  if (isPaid) return false;
+  var d = parseVNDateTime(thoiGianRaw);
+  if (!d) return false;
+  return (Date.now() - d.getTime()) > PAYMENT_EXPIRE_MINUTES * 60 * 1000;
+}
+
+// ── checkPromoUsage — tra hạn mức mã giảm giá kiểu ĐẶT CỌC ──────────
+// POST { action:"checkPromoUsage", sdt, code } → { ok:true, usedCount }
+// usedCount = tổng "Số môn áp cọc" đã dùng của SĐT này với ĐÚNG mã KM
+// này qua tất cả các lần đăng ký học trước đó (cộng dồn).
+function handleCheckPromoUsage(d) {
+  try {
+    var phone = normalizePhone(String(d.sdt || "").trim());
+    var code = String(d.code || "").trim().toUpperCase();
+    if (!phone || !code) return jsonResp({ ok: true, usedCount: 0 });
+
+    var ctx = readSheet(SHEET_HV);
+    if (!ctx || ctx.col[COL_SO_MON_COC] === undefined) return jsonResp({ ok: true, usedCount: 0 });
+
+    var used = 0;
+    for (var r = 1; r < ctx.data.length; r++) {
+      var rowPhone = normalizePhone(String(ctx.data[r][ctx.col["SĐT (Zalo)"]] || "").trim());
+      var rowCode = String(ctx.data[r][ctx.col["Mã giảm giá"]] || "").trim().toUpperCase();
+      if (rowPhone === phone && rowCode === code) {
+        used += Number(ctx.data[r][ctx.col[COL_SO_MON_COC]]) || 0;
+      }
+    }
+    return jsonResp({ ok: true, usedCount: used });
+  } catch (err) {
+    return jsonResp({ ok: true, usedCount: 0 }); // lỗi tra cứu → coi như chưa dùng, không chặn đăng ký
+  }
+}
+
+// ── reportPayment — học viên tự báo đã chuyển khoản ─────────────────
+// POST { action:"reportPayment", maDangKy, method } — CHỈ để Worker bắn
+// Telegram cho admin ưu tiên kiểm tra, KHÔNG tự đổi Trạng thái TT (việc
+// xác nhận chính thức vẫn cần admin đối chiếu sao kê rồi bấm "✅ Xác nhận"
+// trên Dashboard — xem handleConfirmDKHocPayment/handleConfirmDKThiPayment).
+// Nhận diện sheet cần tìm qua tiền tố mã: "MOS..." → DKHOC, "LPT..." → DKTHI.
+function handleReportPayment(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  var method = String(d.method || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var isThi = maDangKy.indexOf("LPT") === 0;
+  var ctx = readSheet(isThi ? SHEET_THI : SHEET_HV);
+  if (!ctx) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+
+  var r = findRowIndexByMaDangKy(ctx, maDangKy);
+  if (r === -1) return jsonResp({ ok: false, msg: "Không tìm thấy mã đăng ký " + maDangKy });
+
+  var row = ctx.data[r];
+  var get = function(name) { return ctx.col[name] !== undefined ? row[ctx.col[name]] : ""; };
+
+  var result = {
+    ok: true, method: method,
+    ten: String(get("Họ và tên") || "").trim(),
+    sdt: String(get(isThi ? "SĐT" : "SĐT (Zalo)") || "").trim(),
+    maDangKy: maDangKy,
+    soTien: Number(get(COL_SO_TIEN)) || 0
+  };
+  if (isThi) {
+    var monList = [];
+    if (get("Đăng ký Word"))  monList.push("Word");
+    if (get("Đăng ký Excel")) monList.push("Excel");
+    if (get("Đăng ký PPT"))   monList.push("PowerPoint");
+    result.monThi = monList.join(", ");
+    result.dotThi = String(get("Đợt thi") || "").trim();
+  } else {
+    result.khoaHoc = String(get("Khóa học") || "").trim();
+  }
+  return jsonResp(result);
+}
+
+// ── listDKHoc — Admin Dashboard tab "Đăng ký học MOS" ────────────────
+function handleListDKHoc() {
+  try {
+    var ctx = readSheet(SHEET_HV);
+    if (!ctx) return jsonResp({ ok: true, items: [] });
+    var items = [];
+    for (var r = 1; r < ctx.data.length; r++) {
+      var row = ctx.data[r];
+      var get = function(name) { return ctx.col[name] !== undefined ? row[ctx.col[name]] : ""; };
+      var maDangKy = String(get(COL_MA_DANG_KY) || "").trim();
+      if (!maDangKy) continue; // dòng đăng ký cũ (trước v10) hoặc không tính tiền — Dashboard tự lọc, bỏ qua cho gọn
+      var trangThai = String(get(COL_TT_THANH_TOAN) || "").trim();
+      var isPaid = /Đã xác nhận/i.test(trangThai);
+      items.push({
+        ten: String(get("Họ và tên") || "").trim(),
+        sdt: String(get("SĐT (Zalo)") || "").trim(),
+        email: String(get(COL_EMAIL) || "").trim(),
+        khoaHoc: String(get("Khóa học") || "").trim(),
+        maDangKy: maDangKy,
+        soTien: Number(get(COL_SO_TIEN)) || 0,
+        soTienCoc: Number(get(COL_SO_TIEN_COC)) || 0,
+        magiamgia: String(get("Mã giảm giá") || "").trim(),
+        ghiChu: String(get("Ghi chú") || "").trim(),
+        trangThai: trangThai || TT_CHO_THANH_TOAN,
+        ngayXacNhan: String(get(COL_NGAY_XAC_NHAN_TT) || "").trim(),
+        isExpired: isPaymentExpired(get("Thời gian"), isPaid)
+      });
+    }
+    return jsonResp({ ok: true, items: items });
+  } catch (err) {
+    return jsonResp({ ok: false, msg: "Lỗi server: " + err.message });
+  }
+}
+
+// ── confirmDKHocPayment — admin bấm "✅ Xác nhận" đã nhận học phí ────
+function handleConfirmDKHocPayment(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var ctx = readSheet(SHEET_HV);
+  if (!ctx) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+  var r = findRowIndexByMaDangKy(ctx, maDangKy);
+  if (r === -1) return jsonResp({ ok: false, msg: "Không tìm thấy mã đăng ký " + maDangKy });
+
+  var now = Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm");
+  var rowNum = r + 1;
+  ctx.sheet.getRange(rowNum, ctx.col[COL_TT_THANH_TOAN] + 1).setValue("✅ Đã xác nhận (" + now + ")");
+  if (ctx.col[COL_NGAY_XAC_NHAN_TT] !== undefined) {
+    ctx.sheet.getRange(rowNum, ctx.col[COL_NGAY_XAC_NHAN_TT] + 1).setValue(now);
+  }
+
+  var row = ctx.data[r];
+  var get = function(name) { return ctx.col[name] !== undefined ? row[ctx.col[name]] : ""; };
+  return jsonResp({
+    ok: true,
+    maDangKy: maDangKy,
+    ten: String(get("Họ và tên") || "").trim(),
+    email: String(get(COL_EMAIL) || "").trim(),
+    khoaHoc: String(get("Khóa học") || "").trim(),
+    soTien: Number(get(COL_SO_TIEN)) || 0
+  });
+}
+
+// ── updateDKHoc — sửa 1 dòng đăng ký học (định danh bằng Mã đăng ký) ─
+function handleUpdateDKHoc(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var ctx = readSheet(SHEET_HV);
+  if (!ctx) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+  var r = findRowIndexByMaDangKy(ctx, maDangKy);
+  if (r === -1) return jsonResp({ ok: false, msg: "Không tìm thấy mã đăng ký " + maDangKy });
+
+  var rowNum = r + 1;
+  var fields = {
+    "Họ và tên": d.ten, "SĐT (Zalo)": d.sdt !== undefined ? normalizePhoneForSheet(d.sdt) : undefined,
+    "Khóa học": d.khoahoc, "Mã giảm giá": d.magiamgia, "Ghi chú": d.ghichu
+  };
+  fields[COL_EMAIL] = d.email;
+  if (d.soTien !== undefined) fields[COL_SO_TIEN] = toMoneyOrBlank(d.soTien);
+  if (d.soTienCoc !== undefined) fields[COL_SO_TIEN_COC] = toMoneyOrBlank(d.soTienCoc);
+
+  Object.keys(fields).forEach(function(name) {
+    if (fields[name] !== undefined && ctx.col[name] !== undefined) {
+      ctx.sheet.getRange(rowNum, ctx.col[name] + 1).setValue(fields[name]);
+    }
+  });
+  return jsonResp({ ok: true, msg: "Đã cập nhật đăng ký học!" });
+}
+
+// ── deleteDKHoc ───────────────────────────────────────────
+function handleDeleteDKHoc(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+  var ctx = readSheet(SHEET_HV);
+  if (!ctx) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+  var r = findRowIndexByMaDangKy(ctx, maDangKy);
+  if (r === -1) return jsonResp({ ok: false, msg: "Không tìm thấy mã đăng ký " + maDangKy });
+  ctx.sheet.deleteRow(r + 1);
+  return jsonResp({ ok: true, msg: "Đã xóa đăng ký học!" });
+}
+
+// ── listDKThi — Admin Dashboard tab "Đăng ký thi" ────────────────────
+function handleListDKThi() {
+  try {
+    var ctx = readSheet(SHEET_THI);
+    if (!ctx) return jsonResp({ ok: true, items: [] });
+    var items = [];
+    for (var r = 1; r < ctx.data.length; r++) {
+      var row = ctx.data[r];
+      var get = function(name) { return ctx.col[name] !== undefined ? row[ctx.col[name]] : ""; };
+      var maDangKy = String(get(COL_MA_DANG_KY) || "").trim();
+      if (!maDangKy) continue; // dòng đăng ký cũ (trước v10) — Dashboard tự lọc, bỏ qua cho gọn
+      var trangThai = String(get(COL_TT_THANH_TOAN) || "").trim();
+      var isPaid = /Đã xác nhận/i.test(trangThai);
+      items.push({
+        ten: String(get("Họ và tên") || "").trim(),
+        sdt: String(get("SĐT") || "").trim(),
+        email: String(get(COL_EMAIL) || "").trim(),
+        word: !!get("Đăng ký Word"), excel: !!get("Đăng ký Excel"), ppt: !!get("Đăng ký PPT"),
+        dotThi: String(get("Đợt thi") || "").trim(),
+        maDangKy: maDangKy,
+        soTien: Number(get(COL_SO_TIEN)) || 0,
+        ghiChu: String(get("Ghi chú") || "").trim(),
+        trangThai: trangThai || TT_CHO_THANH_TOAN,
+        ngayXacNhan: String(get(COL_NGAY_XAC_NHAN_TT) || "").trim(),
+        isExpired: isPaymentExpired(get("Thời gian"), isPaid)
+      });
+    }
+    return jsonResp({ ok: true, items: items });
+  } catch (err) {
+    return jsonResp({ ok: false, msg: "Lỗi server: " + err.message });
+  }
+}
+
+// ── confirmDKThiPayment — admin bấm "✅ Xác nhận" đã thu lệ phí thi ──
+function handleConfirmDKThiPayment(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var ctx = readSheet(SHEET_THI);
+  if (!ctx) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+  var r = findRowIndexByMaDangKy(ctx, maDangKy);
+  if (r === -1) return jsonResp({ ok: false, msg: "Không tìm thấy mã đăng ký " + maDangKy });
+
+  var now = Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "dd/MM/yyyy HH:mm");
+  var rowNum = r + 1;
+  ctx.sheet.getRange(rowNum, ctx.col[COL_TT_THANH_TOAN] + 1).setValue("✅ Đã xác nhận (" + now + ")");
+  if (ctx.col[COL_NGAY_XAC_NHAN_TT] !== undefined) {
+    ctx.sheet.getRange(rowNum, ctx.col[COL_NGAY_XAC_NHAN_TT] + 1).setValue(now);
+  }
+
+  var row = ctx.data[r];
+  var get = function(name) { return ctx.col[name] !== undefined ? row[ctx.col[name]] : ""; };
+  var monList = [];
+  if (get("Đăng ký Word"))  monList.push("Word");
+  if (get("Đăng ký Excel")) monList.push("Excel");
+  if (get("Đăng ký PPT"))   monList.push("PowerPoint");
+
+  return jsonResp({
+    ok: true,
+    maDangKy: maDangKy,
+    ten: String(get("Họ và tên") || "").trim(),
+    email: String(get(COL_EMAIL) || "").trim(),
+    monThi: monList.join(", "),
+    dotThi: String(get("Đợt thi") || "").trim(),
+    ngayThi: formatDateField(get("Ngày thi")),
+    diaDiem: String(get("Địa điểm thi") || "").trim(),
+    soTien: Number(get(COL_SO_TIEN)) || 0
+  });
+}
+
+// ── updateDKThi — sửa 1 dòng đăng ký thi (định danh bằng Mã đăng ký) ─
+function handleUpdateDKThi(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+
+  var ctx = readSheet(SHEET_THI);
+  if (!ctx) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+  var r = findRowIndexByMaDangKy(ctx, maDangKy);
+  if (r === -1) return jsonResp({ ok: false, msg: "Không tìm thấy mã đăng ký " + maDangKy });
+
+  var rowNum = r + 1;
+  var fields = {
+    "Họ và tên": d.ten, "SĐT": d.sdt !== undefined ? normalizePhoneForSheet(d.sdt) : undefined,
+    "Đợt thi": d.dotThi, "Ghi chú": d.ghichu
+  };
+  fields[COL_EMAIL] = d.email;
+  if (d.soTien !== undefined) fields[COL_SO_TIEN] = toMoneyOrBlank(d.soTien);
+
+  Object.keys(fields).forEach(function(name) {
+    if (fields[name] !== undefined && ctx.col[name] !== undefined) {
+      ctx.sheet.getRange(rowNum, ctx.col[name] + 1).setValue(fields[name]);
+    }
+  });
+  return jsonResp({ ok: true, msg: "Đã cập nhật đăng ký thi!" });
+}
+
+// ── deleteDKThi ───────────────────────────────────────────
+function handleDeleteDKThi(d) {
+  var maDangKy = String(d.maDangKy || "").trim();
+  if (!maDangKy) return jsonResp({ ok: false, msg: "Thiếu mã đăng ký" });
+  var ctx = readSheet(SHEET_THI);
+  if (!ctx) return jsonResp({ ok: false, msg: "Không tìm thấy dữ liệu" });
+  var r = findRowIndexByMaDangKy(ctx, maDangKy);
+  if (r === -1) return jsonResp({ ok: false, msg: "Không tìm thấy mã đăng ký " + maDangKy });
+  ctx.sheet.deleteRow(r + 1);
+  return jsonResp({ ok: true, msg: "Đã xóa đăng ký thi!" });
 }
 
 // ── TIỆN ÍCH ─────────────────────────────────────────────

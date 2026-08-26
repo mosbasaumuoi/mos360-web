@@ -378,7 +378,7 @@ async function sendPaymentConfirmEmail(env, { toEmail, toName, khoaHoc, soTien, 
 // sendPaymentConfirmEmail() ở trên, tách riêng vì nội dung khác hẳn (xác
 // nhận lệ phí thi + thông tin lịch thi/địa điểm, không phải hướng dẫn tải
 // phần mềm luyện thi).
-async function sendExamConfirmEmail(env, { toEmail, toName, monThi, dotThi, ngayThi, diaDiem, soTien, maDangKy }) {
+async function sendExamConfirmEmail(env, { toEmail, toName, monThi, dotThi, ngayThi, thanhphoThi, soTien, maDangKy }) {
     const apiKey = env.RESEND_API_KEY;
     if (!apiKey) return { ok: false, msg: "Chưa cấu hình RESEND_API_KEY" };
     if (!toEmail) return { ok: false, msg: "Thí sinh chưa để lại email" };
@@ -394,7 +394,7 @@ async function sendExamConfirmEmail(env, { toEmail, toName, monThi, dotThi, ngay
           <tr><td style="padding:6px 0;color:#64748b">Lệ phí đã đóng</td><td style="padding:6px 0;font-weight:700;color:#22c55e">${amountStr}</td></tr>
           ${dotThi ? `<tr><td style="padding:6px 0;color:#64748b">Đợt thi</td><td style="padding:6px 0;font-weight:700">${escHtml(dotThi)}</td></tr>` : ''}
           ${ngayThi ? `<tr><td style="padding:6px 0;color:#64748b">Ngày thi</td><td style="padding:6px 0;font-weight:700">${escHtml(ngayThi)}</td></tr>` : ''}
-          ${diaDiem ? `<tr><td style="padding:6px 0;color:#64748b">Địa điểm</td><td style="padding:6px 0;font-weight:700">${escHtml(diaDiem)}</td></tr>` : ''}
+          ${thanhphoThi ? `<tr><td style="padding:6px 0;color:#64748b">Thành phố thi</td><td style="padding:6px 0;font-weight:700">${escHtml(thanhphoThi)}</td></tr>` : ''}
         </table>
         <h3 style="margin-top:24px">📋 Lưu ý trước ngày thi</h3>
         <p>1. Mang theo <b>CCCD/CMND hoặc hộ chiếu</b> còn hiệu lực, thông tin phải khớp với thông tin đã đăng ký.</p>
