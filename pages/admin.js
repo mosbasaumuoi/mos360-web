@@ -34,6 +34,7 @@ export function getAdminDashboardUI() {
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <button onclick="switchTab('tabStudents')" style="padding:9px 18px; background:#1e2235; border:1px solid #384260; color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">👥 Học viên Online</button>
             <button onclick="switchTab('tabMosReg');loadMosRegistrations();" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">💰 Đăng ký học MOS</button>
+            <button onclick="switchTab('tabThiReg');loadThiRegistrations();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🎯 Đăng ký thi</button>
             <button onclick="switchTab('tabPromo')" style="padding:9px 18px; background:rgba(255,87,34,0.15); border:1px solid rgba(255,87,34,0.4); color:#FF5722; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔥 Khuyến mãi</button>
             <button onclick="switchTab('tabLicense');loadLicenseList();loadPendingRequests();loadFailedRequests();" style="padding:9px 18px; background:rgba(0,242,255,0.12); border:1px solid rgba(0,242,255,0.35); color:#00f2ff; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">🔑 Mật khẩu MOS</button>
             <button onclick="switchTab('tabResultStats');loadResultStats('today');" style="padding:9px 18px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.35); color:#22c55e; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.85rem;">📊 Kết quả MOS</button>
@@ -113,6 +114,80 @@ export function getAdminDashboardUI() {
               </tr>
             </thead>
             <tbody id="mosRegTableBody"><tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b">Đang tải...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Sửa Đăng ký thi -->
+    <div id="editThiRegModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:#111422; border:1px solid #384260; border-radius:16px; padding:28px; width:100%; max-width:480px; max-height:90vh; overflow-y:auto;">
+            <h3 style="color:#fff; margin-bottom:6px; font-size:1.2rem;">✏️ Sửa đăng ký thi</h3>
+            <p style="color:#64748b; font-size:0.8rem; margin-bottom:18px;">Mã đăng ký: <code id="editThiMaDangKy" style="color:#00f2ff"></code> — không đổi được.</p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">HỌ TÊN</label>
+                    <input type="text" id="editThiTen" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">SỐ ĐIỆN THOẠI</label>
+                        <input type="text" id="editThiSdt" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">EMAIL</label>
+                        <input type="email" id="editThiEmail" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">MÔN THI</label>
+                    <input type="text" id="editThiMonThi" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">ĐỢT THI</label>
+                        <input type="text" id="editThiDotThi" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">SỐ TIỀN (VNĐ)</label>
+                        <input type="number" id="editThiSoTien" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#22c55e; font-weight:700; border-radius:8px; font-size:0.88rem; box-sizing:border-box;">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:#94a3b8; font-weight:700; display:block; margin-bottom:5px;">GHI CHÚ</label>
+                    <textarea id="editThiGhiChu" rows="2" style="width:100%; padding:10px 12px; background:#1e2235; border:1px solid #384260; color:#fff; border-radius:8px; font-size:0.88rem; box-sizing:border-box; resize:vertical;"></textarea>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:22px;">
+                <button onclick="submitEditThiReg()" style="flex:1; padding:12px; background:linear-gradient(135deg,#00b8d4,#00f2ff); border:none; color:#0a0f2e; border-radius:8px; font-weight:800; cursor:pointer;">💾 LƯU THAY ĐỔI</button>
+                <button onclick="document.getElementById('editThiRegModal').style.display='none'" style="flex:1; padding:12px; background:#1e2235; border:1px solid #384260; color:#94a3b8; border-radius:8px; font-weight:700; cursor:pointer;">HỦY</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB ĐĂNG KÝ THI -->
+    <div id="tabThiReg" style="display:none">
+      <div style="background:#111422;border:1px solid rgba(0,242,255,0.2);border-radius:16px;padding:28px;margin-bottom:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+          <h2 style="font-size:1.1rem;font-weight:800;color:#fff">🎯 Đăng ký thi — Lệ phí</h2>
+          <button onclick="loadThiRegistrations()" style="padding:6px 12px;background:#1e2235;border:1px solid #384260;color:#94a3b8;border-radius:6px;font-size:0.78rem;cursor:pointer">🔄</button>
+        </div>
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:16px">Đối chiếu sao kê ngân hàng theo đúng <b>Mã đăng ký</b> (tiền tố LPT) trong nội dung chuyển khoản, rồi bấm Xác nhận — hệ thống tự gửi email xác nhận cho thí sinh.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
+            <thead>
+              <tr style="text-align:left;color:#64748b;font-size:0.72rem;font-weight:700;border-bottom:1px solid rgba(255,255,255,0.08)">
+                <th style="padding:8px 6px;width:36px">STT</th>
+                <th style="padding:8px 6px">HỌ TÊN</th>
+                <th style="padding:8px 6px">SĐT / EMAIL</th>
+                <th style="padding:8px 6px">MÔN THI / ĐỢT</th>
+                <th style="padding:8px 6px">MÃ ĐĂNG KÝ</th>
+                <th style="padding:8px 6px">LỆ PHÍ</th>
+                <th style="padding:8px 6px">TRẠNG THÁI</th>
+                <th style="padding:8px 6px"></th>
+              </tr>
+            </thead>
+            <tbody id="thiRegTableBody"><tr><td colspan="8" style="padding:20px;text-align:center;color:#64748b">Đang tải...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -720,7 +795,7 @@ function updatePromoPreview() {
 
 // ── CHUYỂN TAB (dùng chung cho mọi nút tab) ──────────────
 function switchTab(showId) {
-  ['tabStudents', 'tabMosReg', 'tabPromo', 'tabLicense', 'tabResultStats'].forEach(function(id) {
+  ['tabStudents', 'tabMosReg', 'tabThiReg', 'tabPromo', 'tabLicense', 'tabResultStats'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.style.display = (id === showId) ? 'block' : 'none';
   });
@@ -828,6 +903,113 @@ async function confirmMosPayment(maDangKy, btnEl) {
     var data = await res.json();
     alert(data.success ? ('✅ ' + data.msg) : ('❌ ' + data.msg));
     loadMosRegistrations();
+  } catch(e) {
+    alert('❌ Lỗi kết nối!');
+    if (btnEl) { btnEl.disabled = false; btnEl.textContent = '✅ Xác nhận'; }
+  }
+}
+
+// ── ĐĂNG KÝ THI — LỆ PHÍ ───────────────────────────────────
+async function loadThiRegistrations() {
+  var body = document.getElementById('thiRegTableBody');
+  try {
+    var res = await adminFetch('/api/admin/exam-registrations');
+    var data = await res.json();
+    if (!data.success) { body.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#ef4444">Lỗi: ' + esc(data.msg) + '</td></tr>'; return; }
+    var items = (data.items || []).filter(function(it){ return it.maDangKy; }); // chỉ hiện đăng ký có tính tiền
+    if (items.length === 0) { body.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#475569">Chưa có đăng ký nào</td></tr>'; return; }
+    // Mới nhất lên đầu
+    items = items.slice().reverse();
+    body.innerHTML = items.map(function(it, idx) {
+      var isPaid = /Đã xác nhận/i.test(it.trangThai);
+      var statusColor = isPaid ? '#22c55e' : (it.isExpired ? '#ef4444' : '#f59e0b');
+      var statusText = isPaid ? ('✅ Đã xác nhận' + (it.ngayXacNhan ? ' (' + it.ngayXacNhan + ')' : ''))
+        : (it.isExpired ? '⏰ Hết hạn (quá 30p)' : '⏳ Chờ thanh toán');
+      var monThi = [it.word && 'Word', it.excel && 'Excel', it.ppt && 'PowerPoint'].filter(Boolean).join(', ');
+      return '<tr style="border-top:1px solid rgba(255,255,255,0.06)">' +
+        '<td style="padding:8px 6px;color:#64748b;font-size:0.8rem">' + (idx + 1) + '</td>' +
+        '<td style="padding:8px 6px;color:#fff;font-weight:700">' + esc(it.ten) + '</td>' +
+        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.sdt) + (it.email ? '<br>' + esc(it.email) : '') + '</td>' +
+        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(monThi) + (it.dotThi ? '<br>' + esc(it.dotThi) : '') + '</td>' +
+        '<td style="padding:8px 6px"><code style="color:#00f2ff">' + esc(it.maDangKy) + '</code></td>' +
+        '<td style="padding:8px 6px;color:#22c55e;font-weight:700">' + (it.soTien || 0).toLocaleString('vi-VN') + 'đ</td>' +
+        '<td style="padding:8px 6px;color:' + statusColor + ';font-size:0.8rem;font-weight:700">' + statusText + '</td>' +
+        '<td style="padding:8px 6px;white-space:nowrap">' +
+          '<div style="display:flex;gap:6px;flex-wrap:wrap">' +
+          (isPaid ? '' : '<button onclick="confirmThiPayment(&quot;' + it.maDangKy + '&quot;, this)" style="padding:6px 10px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.35);color:#22c55e;border-radius:6px;font-size:0.76rem;font-weight:700;cursor:pointer">✅ Xác nhận</button>') +
+          '<button onclick="openEditThiRegModal(' + JSON.stringify(it).replace(/"/g,"&quot;") + ')" style="padding:6px 10px;background:rgba(0,242,255,0.1);border:1px solid rgba(0,242,255,0.3);color:#00f2ff;border-radius:6px;font-size:0.76rem;font-weight:700;cursor:pointer">✏️ Sửa</button>' +
+          '<button onclick="deleteThiRegistration(&quot;' + it.maDangKy + '&quot;,&quot;' + esc(it.ten) + '&quot;)" style="padding:6px 10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#ef4444;border-radius:6px;font-size:0.76rem;font-weight:700;cursor:pointer">🗑️ Xóa</button>' +
+          '</div></td></tr>';
+    }).join('');
+  } catch(e) { body.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#ef4444">Lỗi kết nối!</td></tr>'; }
+}
+
+function openEditThiRegModal(item) {
+  document.getElementById('editThiMaDangKy').textContent = item.maDangKy || '';
+  document.getElementById('editThiTen').value = item.ten || '';
+  document.getElementById('editThiSdt').value = item.sdt || '';
+  document.getElementById('editThiEmail').value = item.email || '';
+  var monThi = [item.word && 'Word', item.excel && 'Excel', item.ppt && 'PowerPoint'].filter(Boolean).join(', ');
+  document.getElementById('editThiMonThi').value = monThi;
+  document.getElementById('editThiDotThi').value = item.dotThi || '';
+  document.getElementById('editThiSoTien').value = item.soTien || 0;
+  document.getElementById('editThiGhiChu').value = item.ghiChu || '';
+  document.getElementById('editThiRegModal').style.display = 'flex';
+}
+
+async function submitEditThiReg() {
+  var maDangKy = document.getElementById('editThiMaDangKy').textContent.trim();
+  var payload = {
+    maDangKy: maDangKy,
+    ten: document.getElementById('editThiTen').value.trim(),
+    sdt: document.getElementById('editThiSdt').value.trim(),
+    email: document.getElementById('editThiEmail').value.trim(),
+    dotThi: document.getElementById('editThiDotThi').value.trim(),
+    ghichu: document.getElementById('editThiGhiChu').value.trim(),
+    soTien: parseInt(document.getElementById('editThiSoTien').value) || 0
+  };
+  if (!payload.ten || !payload.sdt) { alert('Vui lòng nhập đủ Họ tên và SĐT!'); return; }
+  try {
+    var res = await adminFetch('/api/admin/exam-registrations/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (data.success) {
+      alert('✅ Đã lưu thay đổi!');
+      document.getElementById('editThiRegModal').style.display = 'none';
+      loadThiRegistrations();
+    } else { alert('❌ Lỗi: ' + data.msg); }
+  } catch(e) { alert('Lỗi kết nối!'); }
+}
+
+async function deleteThiRegistration(maDangKy, ten) {
+  if (!confirm('Xóa đăng ký thi của "' + ten + '" (mã ' + maDangKy + ')?\\nHành động này KHÔNG thể hoàn tác.')) return;
+  try {
+    var res = await adminFetch('/api/admin/exam-registrations/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ maDangKy: maDangKy })
+    });
+    var data = await res.json();
+    if (data.success) { alert('✅ Đã xóa!'); loadThiRegistrations(); }
+    else { alert('❌ Lỗi: ' + data.msg); }
+  } catch(e) { alert('Lỗi kết nối!'); }
+}
+
+async function confirmThiPayment(maDangKy, btnEl) {
+  if (!confirm('Xác nhận ĐÃ NHẬN lệ phí thi cho mã ' + maDangKy + '?\\nHệ thống sẽ tự gửi email xác nhận cho thí sinh.')) return;
+  if (btnEl) { btnEl.disabled = true; btnEl.textContent = '⏳ Đang xử lý...'; }
+  try {
+    var res = await adminFetch('/api/admin/exam-registrations/confirm-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ maDangKy: maDangKy })
+    });
+    var data = await res.json();
+    alert(data.success ? ('✅ ' + data.msg) : ('❌ ' + data.msg));
+    loadThiRegistrations();
   } catch(e) {
     alert('❌ Lỗi kết nối!');
     if (btnEl) { btnEl.disabled = false; btnEl.textContent = '✅ Xác nhận'; }

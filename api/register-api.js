@@ -31,6 +31,35 @@ const BANK_INFO = {
     accountName: "NGUYEN THI THAO"
 };
 
+// ── LỆ PHÍ THI (dkthi) — TRA THEO THÀNH PHỐ + ĐỢT THI ───────
+// QUAN TRỌNG: bảng này phải khớp với "CONFIG.LICH_THI" ở index.js (nơi
+// hiển thị lịch thi cho học viên chọn). Đây là bản sao dùng RIÊNG ở phía
+// server để tự tính lại lệ phí — KHÔNG tin số "lePhi" học viên tự gửi từ
+// trình duyệt (tránh sửa giá qua DevTools), giống hệt lý do computeDKHocPayment
+// không tin "soTien"/"magiamgia" của client.
+// Mỗi khi admin cập nhật lịch thi/lệ phí ở CONFIG.LICH_THI (index.js), CẦN
+// cập nhật lại bảng này cho khớp, nếu không hệ thống sẽ dùng mức lệ phí
+// mặc định DEFAULT_LE_PHI bên dưới (an toàn nhưng có thể không đúng giá mới).
+const LICH_THI_FEE = {
+    "Hải Phòng": [
+        { dot: "Đợt 5/2026", ngayThi: "27–28/06/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)" },
+        { dot: "Đợt 6/2026", ngayThi: "01–02/08/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)" },
+        { dot: "Đợt 7/2026", ngayThi: "29–30/08/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)" },
+        { dot: "Đợt 8/2026", ngayThi: "26–27/09/2026", lephi: 950000, diaDiem: "CITAD – Trường ĐH Hàng Hải VN (484 Lạch Tray, Lê Chân, Hải Phòng)" }
+    ],
+    "Hà Nội": [
+        { dot: "Đợt 6/2026", ngayThi: "21/07/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)" },
+        { dot: "Đợt 7/2026", ngayThi: "18/08/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)" },
+        { dot: "Đợt 8/2026", ngayThi: "22/09/2026", lephi: 960000, diaDiem: "VP IIG (75 Giang Văn Minh / Trung Yên Plaza / 217 Quan Hoa, Hà Nội)" }
+    ],
+    "Hồ Chí Minh": [
+        { dot: "Đợt 6/2026", ngayThi: "23/07/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)" },
+        { dot: "Đợt 7/2026", ngayThi: "20/08/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)" },
+        { dot: "Đợt 8/2026", ngayThi: "24/09/2026", lephi: 960000, diaDiem: "VP IIG HCM (Tầng 1, Tháp 1, The Sun Avenue, 28 Mai Chí Thọ, Bình Trưng, TP.HCM)" }
+    ]
+};
+const DEFAULT_LE_PHI = 950000; // dùng khi không khớp được thành phố/đợt thi nào ở trên
+
 export async function handleRegisterAPI(request, env) {
     let payload;
     try {
@@ -46,6 +75,15 @@ export async function handleRegisterAPI(request, env) {
     if (payload.action === "dkhoc") {
         paymentInfo = await computeDKHocPayment(payload, env);
         payload = { ...payload, maDangKy: paymentInfo.maDangKy, soTien: paymentInfo.amount, soTienCoc: paymentInfo.depositAmount, soMonApCoc: paymentInfo.coveredCount, email: String(payload.email || "").trim() };
+    }
+
+    // 0b. "Đăng ký thi" (dkthi) — cùng nguyên tắc với dkhoc: Worker tự TÍNH
+    // LỆ PHÍ (tra theo thành phố + đợt thi, nhân số môn đăng ký), KHÔNG tin
+    // "lePhi"/số tiền client tự gửi, rồi sinh Mã đăng ký thi (tiền tố "LPT")
+    // + nội dung chuyển khoản VietQR — y hệt luồng "Đăng ký học".
+    if (payload.action === "dkthi") {
+        paymentInfo = computeDKThiPayment(payload);
+        payload = { ...payload, maDangKy: paymentInfo.maDangKy, soTien: paymentInfo.amount, feeFallback: paymentInfo.feeFallback, email: String(payload.email || "").trim() };
     }
 
     // 1. Forward payload (đã bổ sung mã đăng ký/số tiền nếu là dkhoc) sang
@@ -246,6 +284,44 @@ export async function handlePaymentReportAPI(request, env) {
     return json(data);
 }
 
+// Tính lệ phí cho 1 lượt "Đăng ký thi" (dkthi) + sinh Mã đăng ký (tiền tố
+// "LPT" — phân biệt với "MOS" của Đăng ký học) và nội dung chuyển khoản
+// VietQR. Lệ phí = (Lệ phí/môn tra theo thành phố+đợt thi) × số môn thi
+// đã chọn (Word/Excel/PowerPoint) — TÍNH LẠI Ở SERVER, không tin số tiền
+// hay lệ phí do client tự gửi lên.
+function computeDKThiPayment(payload) {
+    const thanhPho = String(payload.thanhPho || "").trim();
+    const dotThi = String(payload.dotThi || "").trim();
+    const soMon = [payload.word, payload.excel, payload.ppt].filter(Boolean).length;
+
+    const lichTP = LICH_THI_FEE[thanhPho] || [];
+    const lich = lichTP.find(r => r.dot === dotThi) || null;
+    const lephi = lich ? (Number(lich.lephi) || DEFAULT_LE_PHI) : DEFAULT_LE_PHI;
+
+    const amount = soMon * lephi;
+    const maDangKy = "LPT" + Math.random().toString(36).slice(2, 7).toUpperCase();
+    const qrContent = buildQrContent(payload.ten, payload.sdt, maDangKy);
+
+    return {
+        maDangKy,
+        amount,
+        soTien: amount, // alias — client-side (index.js) đọc field "soTien" khi hiện lên form
+        lephi,
+        soMon,
+        thanhPho,
+        dotThi,
+        ngayThi: lich ? lich.ngayThi : (payload.ngayThi || ""),
+        diaDiem: lich ? lich.diaDiem : (payload.diaDiem || ""),
+        // Cảnh báo nội bộ (hiện trong Telegram) nếu không khớp được lịch thi
+        // đã cấu hình — giúp admin phát hiện sớm khi lịch thi mới chưa được
+        // cập nhật vào LICH_THI_FEE (khi đó hệ thống tạm dùng DEFAULT_LE_PHI).
+        feeFallback: !lich,
+        qrContent,
+        bankInfo: BANK_INFO,
+        qrImageUrl: `https://img.vietqr.io/image/${BANK_INFO.bin}-${BANK_INFO.accountNo}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(qrContent)}&accountName=${encodeURIComponent(BANK_INFO.accountName)}`
+    };
+}
+
 // Nội dung chuyển khoản: HOTENHOCVIEN_SODIENTHOAI_MADANGKY — viết hoa,
 // bỏ dấu tiếng Việt, khoảng trắng thay bằng "_" (ngân hàng không nhận
 // được dấu tiếng Việt/khoảng trắng phức tạp trong nội dung CK).
@@ -295,10 +371,14 @@ function buildMessage(p) {
         return "🎯 <b>ĐĂNG KÝ THI MỚI</b>" +
             `\n👤 Họ tên: ${esc(p.ten)}` +
             `\n📱 SĐT: ${esc(p.sdt)}` +
+            (p.email ? `\n📧 Email: ${esc(p.email)}` : "") +
             `\n📄 Môn thi: ${esc(mon)}` +
             (p.thanhPho ? `\n📍 Thành phố: ${esc(p.thanhPho)}` : "") +
             (p.dotThi ? `\n🗓 Đợt thi: ${esc(p.dotThi)}` : "") +
-            (p.ngayThi ? `\n📆 Ngày thi: ${esc(p.ngayThi)}` : "");
+            (p.ngayThi ? `\n📆 Ngày thi: ${esc(p.ngayThi)}` : "") +
+            (p.maDangKy ? `\n🎫 Mã đăng ký: <code>${esc(p.maDangKy)}</code>` : "") +
+            (typeof p.soTien === "number" ? `\n💰 Lệ phí cần đóng: ${p.soTien.toLocaleString("vi-VN")}đ` : "") +
+            (p.feeFallback ? `\n⚠️ Không khớp được lịch thi trong hệ thống — đang dùng lệ phí mặc định, admin kiểm tra lại LICH_THI_FEE trong api/register-api.js!` : "");
     }
 
     if (p.action === "dkoffline") {

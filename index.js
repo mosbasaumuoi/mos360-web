@@ -2297,6 +2297,13 @@ ${mode !== 'home' ? `
             <input class="hn-input" id="thi_diachi" placeholder="VD: Số 14/53 Xóm Trung, P.Gia Viên, TP.HP">
           </div>
         </div>
+        <div class="hn-row">
+          <div class="hn-field">
+            <label class="hn-label">Email <span class="req">*</span></label>
+            <input class="hn-input" id="thi_email" type="email" placeholder="ban@gmail.com" required>
+            <div style="font-size:0.72rem;color:#94a3b8;margin-top:4px">Dùng để gửi xác nhận đã đóng lệ phí thi</div>
+          </div>
+        </div>
 
         <!-- BƯỚC 3: Chọn môn thi -->
         <div style="font-size:0.8rem;font-weight:800;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">📝 Bước 3 — Môn thi</div>
@@ -2336,10 +2343,25 @@ ${mode !== 'home' ? `
           <span>📋 Gửi đăng ký thi</span>
         </button>
         <div class="hn-form-msg" id="msg_thi"></div>
-        <p style="font-size:0.75rem;color:var(--muted);margin-top:12px;text-align:center;line-height:1.7">
-          Sau khi gửi, vui lòng chuyển khoản lệ phí và chụp màn hình gửi Zalo MOS360 xác nhận.<br>
-          🏦 <strong>Vietcombank 1912888360</strong> — Nguyễn Thị Thảo · Nội dung: <em>Tên + SĐT + Môn thi + Đợt</em>
-        </p>
+        <!-- Hiện sau khi đăng ký thi thành công: mã đăng ký + lệ phí + QR
+             VietQR — thay cho việc chỉ dặn tự chuyển khoản + chụp màn hình
+             gửi Zalo như trước. -->
+        <div id="thi_payment_box" style="display:none;margin-top:16px;padding:20px;background:#F8FAFD;border:1.5px solid #22c55e;border-radius:14px;text-align:center">
+          <div style="font-weight:800;color:#1a1a2e;font-size:1rem;margin-bottom:2px">💳 Quét mã để đóng lệ phí thi</div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-bottom:14px">Nội dung chuyển khoản đã tự điền sẵn trong mã QR — không cần sửa gì thêm.</div>
+          <img id="thi_qr_img" src="" alt="QR thanh toán" style="max-width:260px;width:100%;border-radius:10px;border:1px solid var(--border);background:#fff">
+          <div id="thi_qr_countdown" style="margin-top:10px;font-size:0.82rem;color:#22c55e;font-weight:700"></div>
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:4px;font-size:0.85rem">
+            <div>Mã đăng ký: <b id="thi_ma_dk" style="color:#22c55e;font-family:monospace"></b></div>
+            <div>Lệ phí cần chuyển: <b id="thi_so_tien" style="color:#22c55e;font-size:1.1rem"></b></div>
+          </div>
+          <div style="margin-top:12px;font-size:0.75rem;color:var(--muted)">Sau khi chuyển khoản, MOS360 sẽ đối chiếu và gửi email xác nhận trong ít phút. Giữ lại mã đăng ký để tiện tra cứu nếu cần hỗ trợ.</div>
+          <div style="display:flex;gap:8px;margin-top:14px">
+            <button id="thiBtnReportCK" onclick="reportThiPayment('chuyen_khoan')" style="flex:1;padding:10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.35);color:#16a34a;border-radius:8px;font-weight:700;font-size:0.8rem;cursor:pointer">🏦 Tôi đã chuyển khoản</button>
+            <button id="thiBtnReportTM" onclick="reportThiPayment('tien_mat')" style="flex:1;padding:10px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.35);color:#b45309;border-radius:8px;font-weight:700;font-size:0.8rem;cursor:pointer">💵 Đã TT tiền mặt</button>
+          </div>
+          <div id="thi_report_msg" style="margin-top:10px;font-size:0.8rem"></div>
+        </div>
       </div>
     </div>
     </div></div><!-- end acc-body thi -->
@@ -2983,6 +3005,62 @@ function startHocQrCountdown() {
   hocQrTimer = setInterval(tick, 1000);
 }
 
+// QR đăng ký thi cũng hiệu lực 30 PHÚT giống QR đăng ký học — xem chú
+// thích ở startHocQrCountdown() phía trên.
+var thiQrTimer = null;
+function startThiQrCountdown() {
+  if (thiQrTimer) clearInterval(thiQrTimer);
+  var deadline = Date.now() + 30 * 60 * 1000;
+  var el = document.getElementById('thi_qr_countdown');
+  var img = document.getElementById('thi_qr_img');
+  function tick() {
+    var remain = deadline - Date.now();
+    if (remain <= 0) {
+      clearInterval(thiQrTimer);
+      el.textContent = '⏰ Mã QR đã hết hạn (quá 30 phút) — vui lòng tải lại trang và đăng ký lại để lấy mã mới.';
+      el.style.color = '#ef4444';
+      img.style.opacity = '0.25';
+      return;
+    }
+    var m = Math.floor(remain / 60000);
+    var s = Math.floor((remain % 60000) / 1000);
+    el.textContent = '⏰ Mã QR còn hiệu lực: ' + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  tick();
+  thiQrTimer = setInterval(tick, 1000);
+}
+
+async function reportThiPayment(method) {
+  var maDangKy = window.thiCurrentMaDangKy;
+  if (!maDangKy) return;
+  var btnCK = document.getElementById('thiBtnReportCK');
+  var btnTM = document.getElementById('thiBtnReportTM');
+  var msgEl = document.getElementById('thi_report_msg');
+  btnCK.disabled = true; btnTM.disabled = true;
+  msgEl.style.color = '#64748b';
+  msgEl.textContent = '⏳ Đang gửi...';
+  try {
+    var res = await fetch('/api/register-payment-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ maDangKy: maDangKy, method: method })
+    });
+    var data = await res.json();
+    if (data.ok) {
+      msgEl.style.color = '#22c55e';
+      msgEl.textContent = '✅ ' + data.msg;
+    } else {
+      msgEl.style.color = '#ef4444';
+      msgEl.textContent = '❌ ' + data.msg;
+      btnCK.disabled = false; btnTM.disabled = false;
+    }
+  } catch (e) {
+    msgEl.style.color = '#ef4444';
+    msgEl.textContent = '❌ Lỗi kết nối, vui lòng thử lại.';
+    btnCK.disabled = false; btnTM.disabled = false;
+  }
+}
+
 // Submit form → /api/register (Worker proxy: ghi Google Sheet + báo Telegram)
 
 async function submitForm(type) {
@@ -3087,9 +3165,11 @@ async function submitForm(type) {
     var thang = document.getElementById('thi_thang').value.trim();
     var nam = document.getElementById('thi_nam').value.trim();
     var diachi = document.getElementById('thi_diachi').value.trim();
+    var email = document.getElementById('thi_email').value.trim();
     if (!ten || !sdt || !cccd || !ngay || !thang || !nam || !diachi) {
       showMsg(msgEl, 'err', '⚠ Vui lòng điền đầy đủ các trường bắt buộc (*)'); return;
     }
+    if (!email) { showMsg(msgEl, 'err', '⚠ Vui lòng nhập Email để nhận xác nhận đã đóng lệ phí'); return; }
     var word = document.getElementById('thi_word').checked ? 'W' : '';
     var excel = document.getElementById('thi_excel').checked ? 'E' : '';
     var ppt = document.getElementById('thi_ppt').checked ? 'P' : '';
@@ -3101,7 +3181,7 @@ async function submitForm(type) {
     var lichTP = (_lichThi && _lichThi[thanhPho]) || [];
     var lichDot = lichTP.find(function(r){ return r.dot === dotThi; }) || {};
     Object.assign(payload, {
-      ten: ten, sdt: sdt, cccd: cccd,
+      ten: ten, sdt: sdt, cccd: cccd, email: email,
       masv: document.getElementById('thi_masv').value,
       gioitinh: document.getElementById('thi_gioitinh').value,
       ngay: ngay, thang: thang, nam: nam,
@@ -3164,9 +3244,18 @@ async function submitForm(type) {
         box.style.display = 'block';
         box.scrollIntoView({ behavior: 'smooth', block: 'center' });
         startHocQrCountdown();
+      } else if (type === 'thi' && data.qrImageUrl) {
+        document.getElementById('thi_qr_img').src = data.qrImageUrl;
+        document.getElementById('thi_ma_dk').textContent = data.maDangKy || '';
+        document.getElementById('thi_so_tien').textContent = (data.soTien || 0).toLocaleString('vi-VN') + 'đ';
+        window.thiCurrentMaDangKy = data.maDangKy || '';
+        var boxThi = document.getElementById('thi_payment_box');
+        boxThi.style.display = 'block';
+        boxThi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        startThiQrCountdown();
       } else {
-        // Reset form sau khi gửi thành công (không áp dụng cho "hoc" — cần
-        // giữ nguyên để học viên còn xem/chụp lại mã QR thanh toán).
+        // Reset form sau khi gửi thành công (không áp dụng cho "hoc"/"thi" —
+        // cần giữ nguyên để học viên còn xem/chụp lại mã QR thanh toán).
         setTimeout(function() {
           document.querySelectorAll('#hn-reg-' + type + ' input, #hn-reg-' + type + ' select, #hn-reg-' + type + ' textarea').forEach(function(el) {
             if (el.type === 'checkbox') el.checked = (el.id === 'thi_word' || el.id === 'thi_excel');

@@ -232,6 +232,73 @@ export async function handleAdminAPI(path, request, env) {
         }
     }
 
+    // GET /api/admin/exam-registrations — danh sách đăng ký thi (DKTHI, đọc
+    // trực tiếp từ Apps Script, real-time — không qua publish cache). Dùng
+    // CÙNG Apps Script với DKHOC (DKHOC_APPS_SCRIPT_URL), chỉ khác action.
+    if (path === '/api/admin/exam-registrations' && request.method === 'GET') {
+        try {
+            const result = await callDKHocScript('listDKThi', {});
+            if (!result.ok) return json({ success: false, msg: result.msg || 'Lỗi tải danh sách' });
+            return json({ success: true, items: result.items || [] });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi tải dữ liệu: ' + e.message });
+        }
+    }
+
+    // POST /api/admin/exam-registrations/confirm-payment — body: { maDangKy }
+    // Đánh dấu đã thu lệ phí trong Sheet + TỰ ĐỘNG gửi email xác nhận kèm
+    // thông tin lịch thi cho thí sinh (nếu có để lại email).
+    if (path === '/api/admin/exam-registrations/confirm-payment' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const maDangKy = String(body.maDangKy || '').trim();
+            if (!maDangKy) return json({ success: false, msg: 'Thiếu mã đăng ký' });
+
+            const result = await callDKHocScript('confirmDKThiPayment', { maDangKy });
+            if (!result.ok) return json({ success: false, msg: result.msg || 'Không xác nhận được' });
+
+            let emailResult = { ok: false, msg: 'Thí sinh chưa để lại email' };
+            if (result.email) {
+                emailResult = await sendExamConfirmEmail(env, {
+                    toEmail: result.email, toName: result.ten,
+                    monThi: result.monThi, dotThi: result.dotThi, ngayThi: result.ngayThi,
+                    diaDiem: result.diaDiem, soTien: result.soTien, maDangKy: result.maDangKy
+                });
+            }
+
+            return json({
+                success: true,
+                msg: emailResult.ok ? 'Đã xác nhận lệ phí và gửi email cho thí sinh!' : ('Đã xác nhận lệ phí (email chưa gửi được: ' + emailResult.msg + ')')
+            });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi: ' + e.message });
+        }
+    }
+
+    // POST /api/admin/exam-registrations/update — sửa thông tin đăng ký thi
+    if (path === '/api/admin/exam-registrations/update' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const result = await callDKHocScript('updateDKThi', body);
+            return json({ success: !!result.ok, msg: result.msg });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi: ' + e.message });
+        }
+    }
+
+    // POST /api/admin/exam-registrations/delete — body: { maDangKy }
+    if (path === '/api/admin/exam-registrations/delete' && request.method === 'POST') {
+        try {
+            const body = await request.json();
+            const maDangKy = String(body.maDangKy || '').trim();
+            if (!maDangKy) return json({ success: false, msg: 'Thiếu mã đăng ký' });
+            const result = await callDKHocScript('deleteDKThi', { maDangKy });
+            return json({ success: !!result.ok, msg: result.msg });
+        } catch (e) {
+            return json({ success: false, msg: 'Lỗi: ' + e.message });
+        }
+    }
+
     return json({ success: false, msg: 'API not found' }, 404);
 }
 
@@ -296,6 +363,55 @@ async function sendPaymentConfirmEmail(env, { toEmail, toName, khoaHoc, soTien, 
                 from: "MOS360 <hotro@mos360.vn>",
                 to: [toEmail],
                 subject: `✅ Xác nhận thanh toán khóa học ${khoaHoc} — MOS360`,
+                html
+            })
+        });
+        const text = await res.text();
+        if (!res.ok) return { ok: false, msg: "Resend lỗi: " + text.slice(0, 200) };
+        return { ok: true };
+    } catch (e) {
+        return { ok: false, msg: e.message };
+    }
+}
+
+// Gửi email xác nhận đã thu LỆ PHÍ THI qua Resend — dùng lại đúng cơ chế
+// sendPaymentConfirmEmail() ở trên, tách riêng vì nội dung khác hẳn (xác
+// nhận lệ phí thi + thông tin lịch thi/địa điểm, không phải hướng dẫn tải
+// phần mềm luyện thi).
+async function sendExamConfirmEmail(env, { toEmail, toName, monThi, dotThi, ngayThi, diaDiem, soTien, maDangKy }) {
+    const apiKey = env.RESEND_API_KEY;
+    if (!apiKey) return { ok: false, msg: "Chưa cấu hình RESEND_API_KEY" };
+    if (!toEmail) return { ok: false, msg: "Thí sinh chưa để lại email" };
+
+    const amountStr = (Number(soTien) || 0).toLocaleString('vi-VN') + 'đ';
+    const html = `
+      <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1a1a2e">
+        <h2 style="color:#22c55e">✅ Đã xác nhận lệ phí thi — MOS360</h2>
+        <p>Chào <b>${escHtml(toName)}</b>,</p>
+        <p>MOS360 xác nhận đã nhận được lệ phí thi${monThi ? ` môn <b>${escHtml(monThi)}</b>` : ''}:</p>
+        <table style="width:100%;border-collapse:collapse;margin:16px 0">
+          <tr><td style="padding:6px 0;color:#64748b">Mã đăng ký</td><td style="padding:6px 0;font-weight:700">${escHtml(maDangKy)}</td></tr>
+          <tr><td style="padding:6px 0;color:#64748b">Lệ phí đã đóng</td><td style="padding:6px 0;font-weight:700;color:#22c55e">${amountStr}</td></tr>
+          ${dotThi ? `<tr><td style="padding:6px 0;color:#64748b">Đợt thi</td><td style="padding:6px 0;font-weight:700">${escHtml(dotThi)}</td></tr>` : ''}
+          ${ngayThi ? `<tr><td style="padding:6px 0;color:#64748b">Ngày thi</td><td style="padding:6px 0;font-weight:700">${escHtml(ngayThi)}</td></tr>` : ''}
+          ${diaDiem ? `<tr><td style="padding:6px 0;color:#64748b">Địa điểm</td><td style="padding:6px 0;font-weight:700">${escHtml(diaDiem)}</td></tr>` : ''}
+        </table>
+        <h3 style="margin-top:24px">📋 Lưu ý trước ngày thi</h3>
+        <p>1. Mang theo <b>CCCD/CMND hoặc hộ chiếu</b> còn hiệu lực, thông tin phải khớp với thông tin đã đăng ký.</p>
+        <p>2. Có mặt tại địa điểm thi trước giờ thi ít nhất 15–30 phút.</p>
+        <p>3. Hướng dẫn dự thi chi tiết: <a href="https://iigvietnam.com/wp-content/uploads/2021/09/Huong-dan-du-thi-MOS-2016-update-05.08.2020_compressed.pdf">Xem tại đây</a></p>
+        <p style="margin-top:20px;color:#64748b;font-size:0.9rem">Nếu có thay đổi lịch thi hoặc cần hỗ trợ, vui lòng liên hệ hotline <b>0912.888.360</b>.</p>
+        <p style="margin-top:24px">Trân trọng,<br>MOS360</p>
+      </div>`;
+
+    try {
+        const res = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+                from: "MOS360 <hotro@mos360.vn>",
+                to: [toEmail],
+                subject: `✅ Xác nhận lệ phí thi${monThi ? ' ' + monThi : ''} — MOS360`,
                 html
             })
         });
