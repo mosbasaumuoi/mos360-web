@@ -281,9 +281,9 @@ async function sendPaymentConfirmEmail(env, { toEmail, toName, khoaHoc, soTien, 
           <tr><td style="padding:6px 0;color:#64748b">Số tiền đã đóng</td><td style="padding:6px 0;font-weight:700;color:#22c55e">${amountStr}</td></tr>
         </table>
         <h3 style="margin-top:24px">🖥️ Bước tiếp theo — Tải phần mềm MOS360</h3>
-        <p>1. Tải phần mềm luyện thi: <a href="https://drive.google.com/file/d/16ZRK0JtioIq1R0grfw88-M5V0fr6tY_A/view">Tải tại đây</a></p>
-        <p>2. Hướng dẫn cài đặt từng bước: <a href="https://docs.google.com/document/d/1j2zrxTZWvuPa6CaffkKlS9UMbU4xFLWC/edit">Xem hướng dẫn</a></p>
-        <p>3. Thư viện tài liệu + video giải đề: <a href="https://mos360.vn/library">mos360.vn/library</a></p>
+        <p>1. Tải phần mềm luyện thi MOS360: <a href="https://go.mos360.vn/2019setup">Tải tại đây</a></p>
+        <p>2. Hướng dẫn cài đặt phần mềm MOS360 từng bước: <a href="https://docs.google.com/document/d/1j2zrxTZWvuPa6CaffkKlS9UMbU4xFLWC/edit">Xem hướng dẫn</a></p>
+        <p>3. Hướng dẫn tải và cài đặt Office: <a href="https://go.mos360.vn/hdcaioffice2019">Xem hướng dẫn/library</a></p>
         <p style="margin-top:20px;color:#64748b;font-size:0.9rem">Lịch khai giảng cụ thể MOS360 sẽ thông báo qua Zalo trong thời gian sớm nhất. Mọi thắc mắc liên hệ hotline <b>0912.888.360</b>.</p>
         <p style="margin-top:24px">Trân trọng,<br>MOS360</p>
       </div>`;
