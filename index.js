@@ -301,7 +301,7 @@ const CONFIG = {
         FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
         WINRAR: "https://drive.google.com/file/d/1NJVEBHJBpPr6R_y7PP_oZM0qn8hFyoG1/view",
         UNIKEY: "https://drive.google.com/file/d/1niMPJWesSzTmvNRLAvxxNNv4llL0WlcT/view",
-        TEAMVIEWER: "https://drive.google.com/file/d/1dBlMqaSqkjYqC-rvjoyVf5q3NaDVSoHL/view",
+        TEAMVIEWER FOR MAC: "https://go.mos360.vn/teamviewer",
         ULTRAVIEWER: "https://www.ultraviewer.net/vi/download.html",
         HD_MOS360: "https://docs.google.com/document/d/1j2zrxTZWvuPa6CaffkKlS9UMbU4xFLWC/edit",
         HD_OFFICE: "https://docs.google.com/document/d/1RXFli_WC_2hiTtOTZHTx-Ln5VHCBkJLI/edit",

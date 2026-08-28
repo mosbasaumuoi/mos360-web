@@ -759,7 +759,7 @@ function handleLookup(e) {
       "Địa điểm thi": String(data[r][col["Địa điểm thi"]] || "").trim(),
       "Đợt thi": rowDot,
       "Ngày thi": formatDateField(data[r][col["Ngày thi"]]),
-      "Ngôn ngữ đề": String(data[r][col["Ngôn ngữ đề"]] || "").trim() === "V" ? "Tiếng Việt" : "Tiếng Anh",
+      "Ngôn ngữ đề": String(data[r][col["Ngôn ngữ đề"]] || "").trim() === "TV" ? "Tiếng Việt" : "Tiếng Anh",
       "Đã từng thi MOS chưa": String(data[r][col["Đã thi MOS chưa"]] || "").trim() === "Y" ? "Đã từng thi" : "Chưa thi lần nào",
       "Phòng thi": String(data[r][col["Phòng thi"]] || "").trim(),
       "Ca thi": String(data[r][col["Ca thi"]] || "").trim(),
