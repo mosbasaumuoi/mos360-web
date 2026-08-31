@@ -290,14 +290,14 @@ const CONFIG = {
     FORMS: {
         HOC: "https://docs.google.com/forms/d/e/1FAIpQLSegb6K7afTKsw5Go0E0H9MYcNZ6guOxkzSWrUe3nMli0AXQqQ/viewform",
         THI: "https://docs.google.com/forms/d/1a7tW5YzmX4-lFEl4lXHcpYD430ztM7NOnNdHPWjMwuA/viewform",
-        OFFLINE: "https://docs.google.com/forms/d/1rQt3B9eae_dYlc9PLrwsljxY9LLfMtoumEC1_n12lOc/viewform"
+        OFFLINE: "https://docs.google.com/forms/d/1rQt3B9eae_dYlc9PLrwsljxY9LLfMtoumEC1_n12lOc/viewform"                
     },
 
     // Links tải tiện ích
     TOOLS: {
-        MOS360: "https://drive.google.com/file/d/1A59QNyKm5zvkxjwNTimf-6CdEq5iM9_w/view",
-        OFFICE: "https://drive.google.com/file/d/1Et1GdjAgVArMO4ZVkaX_yP-XKP4wvO-_/view",
-        OFFICE365: "https://drive.google.com/file/d/1PPnUsYUP_jD_gF5pp7ezoxtyzw8JtVC3/view?usp=sharing",
+        MOS360: "https://go.mos360.vn/2019setup",
+        OFFICE: "https://go.mos360.vn/office",
+        OFFICE365: "https://go.mos360.vn/office365",
         FRAMEWORK: "https://go.microsoft.com/fwlink/?LinkId=852092",
         WINRAR: "https://drive.google.com/file/d/1NJVEBHJBpPr6R_y7PP_oZM0qn8hFyoG1/view",
         UNIKEY: "https://drive.google.com/file/d/1niMPJWesSzTmvNRLAvxxNNv4llL0WlcT/view",
