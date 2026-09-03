@@ -821,7 +821,7 @@ async function loadMosRegistrations() {
         '<td style="padding:8px 6px;color:#64748b;font-size:0.8rem">' + (idx + 1) + '</td>' +
         '<td style="padding:8px 6px;color:#fff;font-weight:700">' + esc(it.ten) + '</td>' +
         '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.sdt) + (it.email ? '<br>' + esc(it.email) : '') + '</td>' +
-        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.khoaHoc) + (it.soTienCoc > 0 ? '<br><span style="background:rgba(245,158,11,0.15);color:#f59e0b;padding:1px 7px;border-radius:8px;font-size:0.68rem;font-weight:700">🔵 Có cọc ' + it.soTienCoc.toLocaleString('vi-VN') + 'đ</span>' : '') + '</td>' +
+        '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.khoaHoc) + (it.soTienCoc > 0 ? '<br><span style="background:rgba(245,158,11,0.15);color:#f59e0b;padding:1px 7px;border-radius:8px;font-size:0.68rem;font-weight:700">🔵 Có cọc ' + it.soTienCoc.toLocaleString('vi-VN') + 'đ</span>' : '') + (it.cocConLai > 0 ? '<br><span style="background:rgba(34,197,94,0.15);color:#22c55e;padding:1px 7px;border-radius:8px;font-size:0.68rem;font-weight:700">💚 Cọc còn lại ' + it.cocConLai.toLocaleString('vi-VN') + 'đ</span>' : '') + '</td>' +
         '<td style="padding:8px 6px"><code style="color:#00f2ff">' + esc(it.maDangKy) + '</code></td>' +
         '<td style="padding:8px 6px;color:#22c55e;font-weight:700">' + (it.soTien || 0).toLocaleString('vi-VN') + 'đ</td>' +
         '<td style="padding:8px 6px;color:' + statusColor + ';font-size:0.8rem;font-weight:700">' + statusText + '</td>' +
@@ -932,7 +932,7 @@ async function loadThiRegistrations() {
         '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(it.sdt) + (it.email ? '<br>' + esc(it.email) : '') + '</td>' +
         '<td style="padding:8px 6px;color:#94a3b8;font-size:0.8rem">' + esc(monThi) + (it.dotThi ? '<br>' + esc(it.dotThi) : '') + '</td>' +
         '<td style="padding:8px 6px"><code style="color:#00f2ff">' + esc(it.maDangKy) + '</code></td>' +
-        '<td style="padding:8px 6px;color:#22c55e;font-weight:700">' + (it.soTien || 0).toLocaleString('vi-VN') + 'đ</td>' +
+        '<td style="padding:8px 6px;color:#22c55e;font-weight:700">' + (it.soTien || 0).toLocaleString('vi-VN') + 'đ' + (it.cocDaTru > 0 ? '<br><span style="background:rgba(245,158,11,0.15);color:#f59e0b;padding:1px 7px;border-radius:8px;font-size:0.68rem;font-weight:700">🎉 Đã trừ cọc ' + it.cocDaTru.toLocaleString('vi-VN') + 'đ</span>' : '') + '</td>' +
         '<td style="padding:8px 6px;color:' + statusColor + ';font-size:0.8rem;font-weight:700">' + statusText + '</td>' +
         '<td style="padding:8px 6px;white-space:nowrap">' +
           '<div style="display:flex;gap:6px;flex-wrap:wrap">' +

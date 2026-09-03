@@ -22,7 +22,7 @@ import { getCosUI } from "./pages/cos.js";
 import { getLibraryUI } from "./pages/library.js";
 import { handleLinksAPI, handleLinkRedirect } from "./api/links-api.js";
 import { BLOG_POSTS, getBlogListUI, getBlogPostUI } from "./pages/blog.js";
-import { handleRegisterAPI, handlePromoUsageAPI, handlePaymentReportAPI } from "./api/register-api.js";
+import { handleRegisterAPI, handlePromoUsageAPI, handlePaymentReportAPI, handleDepositLookupAPI } from "./api/register-api.js";
 import { handleOnlineRegisterAPI } from "./api/online-register-api.js";
 import { handleVideoLibraryAPI, handleVideoStream } from "./api/video-library-api.js";
 
@@ -597,6 +597,13 @@ export default {
         // tính chính thức lúc gửi thật ──
         if (path === "/api/promo-usage" && request.method === "GET") {
             return handlePromoUsageAPI(request, env);
+        }
+
+        // ── TRA CỌC CHƯA DÙNG (từ lần Đăng ký học trước) — form "Đăng ký
+        // thi" gọi trước để hiện preview "được trừ Xđ tiền cọc", khớp với
+        // số Worker sẽ tính chính thức lúc gửi thật ──
+        if (path === "/api/deposit-lookup" && request.method === "GET") {
+            return handleDepositLookupAPI(request, env);
         }
 
         // ── HỌC VIÊN TỰ BÁO ĐÃ THANH TOÁN (CK/tiền mặt) trên trang QR ──
@@ -2257,7 +2264,7 @@ ${mode !== 'home' ? `
           </div>
           <div class="hn-field">
             <label class="hn-label">SĐT (Zalo) <span class="req">*</span></label>
-            <input class="hn-input" id="thi_sdt" type="tel" placeholder="0912888360" required>
+            <input class="hn-input" id="thi_sdt" type="tel" placeholder="0912888360" required onchange="checkThiDeposit()" onblur="checkThiDeposit()">
           </div>
         </div>
         <div class="hn-row">
@@ -2300,9 +2307,24 @@ ${mode !== 'home' ? `
         <div class="hn-row">
           <div class="hn-field">
             <label class="hn-label">Email <span class="req">*</span></label>
-            <input class="hn-input" id="thi_email" type="email" placeholder="ban@gmail.com" required>
+            <input class="hn-input" id="thi_email" type="email" placeholder="ban@gmail.com" required onchange="checkThiDeposit()" onblur="checkThiDeposit()">
             <div style="font-size:0.72rem;color:#94a3b8;margin-top:4px">Dùng để gửi xác nhận đã đóng lệ phí thi</div>
           </div>
+        </div>
+
+        <!-- v11 — TRỪ CỌC: tự động tra theo SĐT/Email vừa nhập ở trên, hiện
+             preview số cọc sẽ được trừ. Nếu trùng nhiều người cùng SĐT →
+             hiện ô nhập Mã đăng ký học để xác định chính xác. -->
+        <div id="thi_coc_box" style="display:none;margin-bottom:14px;padding:10px 14px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:8px;font-size:0.82rem;color:#16a34a;font-weight:700"></div>
+        <div id="thi_coc_ambiguous_box" style="display:none;margin-bottom:14px;padding:12px 14px;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;font-size:0.8rem;color:#92400E">
+          <div style="font-weight:700;margin-bottom:8px">⚠️ SĐT/Email này trùng nhiều người từng đăng ký học — vui lòng nhập Mã đăng ký học (đã nhận lúc Đăng ký học) để trừ đúng cọc:</div>
+          <div style="display:flex;gap:8px">
+            <input class="hn-input" id="thi_ma_dk_hoc" placeholder="VD: MOSAB12C" style="flex:1" oninput="this.value=this.value.toUpperCase()">
+            <button type="button" onclick="checkThiDeposit()" style="padding:0 16px;background:#F59E0B;border:none;border-radius:8px;color:#fff;font-weight:700;cursor:pointer;white-space:nowrap">Tra lại</button>
+          </div>
+        </div>
+        <div id="thi_coc_manual_toggle" style="display:none;margin:-8px 0 14px;font-size:0.76rem">
+          <a href="javascript:void(0)" onclick="document.getElementById('thi_coc_ambiguous_box').style.display='block';this.parentElement.style.display='none'" style="color:var(--cyan);text-decoration:underline">Không đúng cọc của bạn? Nhập Mã đăng ký học</a>
         </div>
 
         <!-- BƯỚC 3: Chọn môn thi -->
@@ -2353,6 +2375,7 @@ ${mode !== 'home' ? `
           <div id="thi_qr_countdown" style="margin-top:10px;font-size:0.82rem;color:#22c55e;font-weight:700"></div>
           <div style="margin-top:14px;display:flex;flex-direction:column;gap:4px;font-size:0.85rem">
             <div>Mã đăng ký: <b id="thi_ma_dk" style="color:#22c55e;font-family:monospace"></b></div>
+            <div id="thi_coc_applied_line" style="display:none;color:#16a34a">🎉 Đã trừ cọc: <b id="thi_coc_applied"></b></div>
             <div>Lệ phí cần chuyển: <b id="thi_so_tien" style="color:#22c55e;font-size:1.1rem"></b></div>
           </div>
           <div style="margin-top:12px;font-size:0.75rem;color:var(--muted)">Sau khi chuyển khoản, MOS360 sẽ đối chiếu và gửi email xác nhận trong ít phút. Giữ lại mã đăng ký để tiện tra cứu nếu cần hỗ trợ.</div>
@@ -3194,7 +3217,11 @@ async function submitForm(type) {
       word: word, excel: excel, ppt: ppt,
       phienBan: document.getElementById('thi_phienban').value,
       ngonngu: document.getElementById('thi_ngonngu').value,
-      datungThi: document.getElementById('thi_datungThi').value
+      datungThi: document.getElementById('thi_datungThi').value,
+      // v11 — TRỪ CỌC: chỉ gửi kèm nếu học viên có tự nhập (trường hợp
+      // trùng SĐT cần xác định chính xác) — Worker vẫn tự tra lại theo
+      // SĐT/Email như bình thường nếu để trống.
+      maDangKyHoc: (document.getElementById('thi_ma_dk_hoc') ? document.getElementById('thi_ma_dk_hoc').value.trim() : '')
     });
   }
 
@@ -3248,6 +3275,15 @@ async function submitForm(type) {
         document.getElementById('thi_qr_img').src = data.qrImageUrl;
         document.getElementById('thi_ma_dk').textContent = data.maDangKy || '';
         document.getElementById('thi_so_tien').textContent = (data.soTien || 0).toLocaleString('vi-VN') + 'đ';
+        var cocLine = document.getElementById('thi_coc_applied_line');
+        if (cocLine) {
+          if (data.cocApDung > 0) {
+            cocLine.style.display = 'block';
+            document.getElementById('thi_coc_applied').textContent = '-' + data.cocApDung.toLocaleString('vi-VN') + 'đ (lệ phí gốc ' + (data.grossAmount || 0).toLocaleString('vi-VN') + 'đ)';
+          } else {
+            cocLine.style.display = 'none';
+          }
+        }
         window.thiCurrentMaDangKy = data.maDangKy || '';
         var boxThi = document.getElementById('thi_payment_box');
         boxThi.style.display = 'block';
@@ -3422,8 +3458,67 @@ function calcLePhi() {
   });
   if (!monCount) { sumEl.style.display = 'none'; return; }
   var tong = lich.lephi * monCount;
+
+  // v11 — TRỪ CỌC: nếu đã tra được cọc (checkThiDeposit), trừ luôn vào
+  // preview này để học viên thấy đúng số cần đóng TRƯỚC khi gửi form —
+  // khớp với số Worker sẽ tính chính thức lúc submit thật.
+  var coc = Math.min(window.thiCocApDung || 0, tong);
   sumEl.style.display = 'block';
-  sumEl.textContent = '💰 Tổng lệ phí: ' + tong.toLocaleString('vi-VN') + ' đ (' + monCount + ' môn × ' + lich.lephi.toLocaleString('vi-VN') + ' đ)';
+  if (coc > 0) {
+    sumEl.innerHTML = '💰 Lệ phí gốc: ' + tong.toLocaleString('vi-VN') + ' đ (' + monCount + ' môn × ' + lich.lephi.toLocaleString('vi-VN') + ' đ)' +
+      '<br>🎉 Trừ cọc: -' + coc.toLocaleString('vi-VN') + ' đ' +
+      '<br>➡️ Cần đóng: ' + (tong - coc).toLocaleString('vi-VN') + ' đ';
+  } else {
+    sumEl.textContent = '💰 Tổng lệ phí: ' + tong.toLocaleString('vi-VN') + ' đ (' + monCount + ' môn × ' + lich.lephi.toLocaleString('vi-VN') + ' đ)';
+  }
+}
+
+// v11 — TRỪ CỌC: tra số cọc chưa dùng theo SĐT/Email (hoặc Mã đăng ký học
+// nếu học viên tự nhập để xác định chính xác khi trùng SĐT) — gọi ngay khi
+// học viên rời khỏi ô SĐT/Email, chỉ để HIỆN PREVIEW; số chính thức vẫn do
+// Worker tự tính lại lúc gửi form thật (xem computeDKThiPayment ở Worker).
+window.thiCocApDung = 0;
+var thiDepositReqId = 0;
+async function checkThiDeposit() {
+  var sdt = (document.getElementById('thi_sdt') || {}).value || '';
+  var email = (document.getElementById('thi_email') || {}).value || '';
+  var maDkHoc = (document.getElementById('thi_ma_dk_hoc') || {}).value || '';
+  sdt = sdt.trim(); email = email.trim(); maDkHoc = maDkHoc.trim();
+  var cocBox = document.getElementById('thi_coc_box');
+  var ambBox = document.getElementById('thi_coc_ambiguous_box');
+  var toggleBox = document.getElementById('thi_coc_manual_toggle');
+  if (!sdt && !email && !maDkHoc) { window.thiCocApDung = 0; if (cocBox) cocBox.style.display = 'none'; calcLePhi(); return; }
+
+  var reqId = ++thiDepositReqId; // tránh phản hồi trả về không đúng thứ tự (gõ nhanh)
+  try {
+    var url = '/api/deposit-lookup?sdt=' + encodeURIComponent(sdt) + '&email=' + encodeURIComponent(email) + '&maDangKyHoc=' + encodeURIComponent(maDkHoc);
+    var res = await fetch(url);
+    var data = await res.json();
+    if (reqId !== thiDepositReqId) return; // có request mới hơn đã gửi sau, bỏ kết quả cũ
+
+    if (data.ambiguous) {
+      window.thiCocApDung = 0;
+      if (cocBox) cocBox.style.display = 'none';
+      if (ambBox) ambBox.style.display = 'block';
+      if (toggleBox) toggleBox.style.display = 'none';
+    } else if (data.coc > 0) {
+      window.thiCocApDung = data.coc;
+      if (ambBox) ambBox.style.display = 'none';
+      if (cocBox) {
+        cocBox.style.display = 'block';
+        cocBox.textContent = '🎉 Bạn còn ' + data.coc.toLocaleString('vi-VN') + 'đ tiền cọc' + (data.ten ? ' (' + data.ten + ')' : '') + ' sẽ được tự động trừ vào lệ phí thi.';
+      }
+      if (toggleBox && !maDkHoc) toggleBox.style.display = 'block';
+    } else {
+      window.thiCocApDung = 0;
+      if (cocBox) cocBox.style.display = 'none';
+      if (ambBox) ambBox.style.display = 'none';
+    }
+    calcLePhi();
+  } catch (e) {
+    // Lỗi tra cứu không chặn đăng ký — chỉ là mất phần preview, Worker vẫn
+    // tự tính lại chính xác lúc gửi form thật.
+  }
 }
 
 // ── TRA CỨU DỰ THI ───────────────────────────────────────

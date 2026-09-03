@@ -115,6 +115,12 @@ var COL_SO_TIEN_COC  = "Số tiền cọc";        // chỉ dùng ở DKHOC
 var COL_SO_MON_COC   = "Số môn áp cọc";      // chỉ dùng ở DKHOC (tra hạn mức mã giảm giá)
 var COL_TT_THANH_TOAN = "Trạng thái TT";     // "⏳ Chờ thanh toán" | "✅ Đã xác nhận (...)"
 var COL_NGAY_XAC_NHAN_TT = "Ngày xác nhận TT";
+// v11 — TRỪ CỌC KHI ĐĂNG KÝ THI: số tiền cọc (trong "Số tiền cọc" của
+// DKHOC) đã được dùng để trừ vào lệ phí thi ở LƯỢT ĐĂNG KÝ THI NÀY — chỉ
+// dùng ở DKTHI. Khi cộng dồn 2 cột này lại (qua mọi dòng DKTHI của cùng 1
+// SĐT) và so với tổng "Số tiền cọc" (qua mọi dòng DKHOC của cùng SĐT), hệ
+// thống biết học viên còn dư bao nhiêu cọc CHƯA DÙNG (xem handleCheckDeposit).
+var COL_COC_DA_TRU  = "Cọc đã trừ (thi)";    // chỉ dùng ở DKTHI
 
 var TT_CHO_THANH_TOAN = "⏳ Chờ thanh toán";
 
@@ -180,7 +186,7 @@ function setupSheets() {
       "Đợt thi","Ngày thi","Hạn đăng ký","Lệ phí (VNĐ/môn)","Phiên bản",
       "Đăng ký Word","Đăng ký Excel","Đăng ký PPT","Ngôn ngữ đề","Đã thi MOS chưa","Ghi chú",
       "Phòng thi","Ca thi","Trạng thái","Lưu ý thi",
-      COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT
+      COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT, COL_COC_DA_TRU
     ]},
     { name: SHEET_OFF, headers: [
       "Thời gian","Họ và tên","SĐT (Zalo)","Ngày học",
@@ -200,7 +206,7 @@ function setupSheets() {
       // KHÔNG đụng gì tới dữ liệu cũ đang có.
       if (tab.name === SHEET_THI) ensureColumnsExist(sheet, [
         "Phòng thi", "Ca thi", "Trạng thái", "Phiên bản", "Lưu ý thi",
-        COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT
+        COL_MA_DANG_KY, COL_EMAIL, COL_SO_TIEN, COL_TT_THANH_TOAN, COL_NGAY_XAC_NHAN_TT, COL_COC_DA_TRU
       ]);
       if (tab.name === SHEET_HV) ensureColumnsExist(sheet, [
         "Người giới thiệu / Trưởng nhóm",
@@ -343,6 +349,7 @@ function doPost(e) {
 
     // ── v10 — bổ sung cho luồng thanh toán (register-api.js) ─────
     if (action === "checkPromoUsage") return handleCheckPromoUsage(body);
+    if (action === "checkDeposit")    return handleCheckDeposit(body);
     if (action === "reportPayment")   return handleReportPayment(body);
 
     // ── v10 — bổ sung cho Admin Dashboard (admin-api.js → callDKHocScript) ─
@@ -643,6 +650,12 @@ function handleDKThi(d) {
       fields[COL_SO_TIEN] = toMoneyOrBlank(d.soTien);
       fields[COL_TT_THANH_TOAN] = TT_CHO_THANH_TOAN;
       fields[COL_NGAY_XAC_NHAN_TT] = "";
+      // v11 — Cọc đã trừ CỘNG DỒN thêm (mỗi lần gộp thêm môn là 1 lượt trừ
+      // cọc riêng, không ghi đè mất phần cọc đã trừ ở (các) lượt trước).
+      if (Number(d.cocApDung) > 0) {
+        var cocCoTruoc = (col[COL_COC_DA_TRU] !== undefined) ? (Number(data[existingRowIdx][col[COL_COC_DA_TRU]]) || 0) : 0;
+        fields[COL_COC_DA_TRU] = cocCoTruoc + Number(d.cocApDung);
+      }
     }
 
     Object.keys(fields).forEach(function(name) {
@@ -683,6 +696,7 @@ function handleDKThi(d) {
   newFields[COL_SO_TIEN] = toMoneyOrBlank(d.soTien);
   newFields[COL_TT_THANH_TOAN] = d.maDangKy ? TT_CHO_THANH_TOAN : "";
   newFields[COL_NGAY_XAC_NHAN_TT] = "";
+  newFields[COL_COC_DA_TRU] = (Number(d.cocApDung) > 0) ? Number(d.cocApDung) : ""; // v11 — trừ cọc
   Object.keys(newFields).forEach(function(name) {
     if (col[name] !== undefined) newRow[col[name]] = newFields[name];
   });
@@ -913,6 +927,124 @@ function handleCheckPromoUsage(d) {
   }
 }
 
+// ── checkDeposit — TRỪ CỌC KHI ĐĂNG KÝ THI (v11) ────────────────────
+// POST { action:"checkDeposit", sdt, email, maDangKyHoc } →
+//   { ok:true, coc, ten, sdt, ambiguous, options }
+// "coc" = tổng "Số tiền cọc" (DKHOC) của học viên này CHƯA bị trừ vào lần
+// đăng ký thi nào trước đó (đã trừ đi "Cọc đã trừ (thi)" cộng dồn ở DKTHI).
+//
+// Cách xác định "học viên này là ai":
+//  1) Nếu có "maDangKyHoc" (học viên tự nhập Mã đăng ký học, dạng
+//     "MOSxxxxx") → tra CHÍNH XÁC 1 dòng DKHOC theo đúng mã đó, không cần
+//     đoán qua SĐT/tên. Dùng khi tự động tra bị trùng nhiều người (2)
+//     hoặc học viên muốn chắc chắn 100%.
+//  2) Không thì tự động tra theo SĐT (đã chuẩn hoá) — nếu nhiều dòng DKHOC
+//     cùng SĐT nhưng KHÁC TÊN (VD: 2 anh chị em dùng chung SĐT bố mẹ) đều
+//     có cọc > 0 → "ambiguous:true", KHÔNG tự trừ gì cả (an toàn, tránh
+//     trừ nhầm cọc của người khác) — trả kèm "options" (tên + số cọc từng
+//     người) để client hỏi lại học viên nhập Mã đăng ký học.
+function handleCheckDeposit(d) {
+  try {
+    var maDangKyHoc = String(d.maDangKyHoc || "").trim().toUpperCase();
+    var phone = normalizePhone(String(d.sdt || "").trim());
+    var email = String(d.email || "").trim().toLowerCase();
+    if (!maDangKyHoc && !phone && !email) return jsonResp({ ok: true, coc: 0, ambiguous: false });
+
+    var ctxHoc = readSheet(SHEET_HV);
+    if (!ctxHoc || ctxHoc.col[COL_SO_TIEN_COC] === undefined) return jsonResp({ ok: true, coc: 0, ambiguous: false });
+    var colSdtHoc = ctxHoc.col["SĐT (Zalo)"];
+    var colTenHoc = ctxHoc.col["Họ và tên"];
+    var colEmailHoc = ctxHoc.col[COL_EMAIL];
+    var colMaHoc = ctxHoc.col[COL_MA_DANG_KY];
+
+    var identityPhone = "", identityTen = "", rows = [];
+
+    if (maDangKyHoc) {
+      // (1) Tra chính xác theo Mã đăng ký học
+      for (var r1 = 1; r1 < ctxHoc.data.length; r1++) {
+        var maRow = colMaHoc !== undefined ? String(ctxHoc.data[r1][colMaHoc] || "").trim().toUpperCase() : "";
+        if (maRow === maDangKyHoc) { rows.push(r1); break; }
+      }
+      if (!rows.length) return jsonResp({ ok: true, coc: 0, ambiguous: false, msg: "Không tìm thấy Mã đăng ký học này" });
+      identityPhone = normalizePhone(String(ctxHoc.data[rows[0]][colSdtHoc] || ""));
+      identityTen = String(ctxHoc.data[rows[0]][colTenHoc] || "").trim();
+      // Cộng thêm các dòng KHÁC của CÙNG học viên này (cùng SĐT + cùng tên)
+      // để không bỏ sót cọc từ những lần đăng ký học khác của họ.
+      for (var r1b = 1; r1b < ctxHoc.data.length; r1b++) {
+        if (rows.indexOf(r1b) !== -1) continue;
+        var p1b = normalizePhone(String(ctxHoc.data[r1b][colSdtHoc] || ""));
+        var t1b = String(ctxHoc.data[r1b][colTenHoc] || "").trim();
+        if (p1b === identityPhone && normalizeVN(t1b) === normalizeVN(identityTen)) rows.push(r1b);
+      }
+    } else {
+      // (2) Tự động tra theo SĐT (và/hoặc Email) — gom theo TÊN để phát
+      // hiện trùng SĐT nhưng khác người.
+      var groups = {}; // key: tên đã chuẩn hoá → { ten, rows:[] }
+      for (var r2 = 1; r2 < ctxHoc.data.length; r2++) {
+        var p2 = normalizePhone(String(ctxHoc.data[r2][colSdtHoc] || ""));
+        var e2 = colEmailHoc !== undefined ? String(ctxHoc.data[r2][colEmailHoc] || "").trim().toLowerCase() : "";
+        var matchPhone = phone && p2 === phone;
+        var matchEmail = email && e2 && e2 === email;
+        if (!matchPhone && !matchEmail) continue;
+        var t2 = String(ctxHoc.data[r2][colTenHoc] || "").trim();
+        var key = normalizeVN(t2);
+        if (!groups[key]) groups[key] = { ten: t2, rows: [] };
+        groups[key].rows.push(r2);
+      }
+      var keys = Object.keys(groups);
+      if (!keys.length) return jsonResp({ ok: true, coc: 0, ambiguous: false });
+
+      // Chỉ tính là "trùng" (ambiguous) nếu >1 người KHÁC TÊN và có >1
+      // người trong số đó còn cọc > 0 — nếu chỉ 1 người có cọc, người còn
+      // lại cọc = 0 thì không cần hỏi lại, tự động chọn luôn người có cọc.
+      if (keys.length > 1) {
+        var withDeposit = [];
+        keys.forEach(function(k) {
+          var sum = 0;
+          groups[k].rows.forEach(function(ri) { sum += Number(ctxHoc.data[ri][ctxHoc.col[COL_SO_TIEN_COC]]) || 0; });
+          if (sum > 0) withDeposit.push({ ten: groups[k].ten, coc: sum, key: k });
+        });
+        if (withDeposit.length > 1) {
+          return jsonResp({
+            ok: true, coc: 0, ambiguous: true,
+            options: withDeposit.map(function(o) { return { ten: o.ten, coc: o.coc }; }),
+            msg: "SĐT/Email này trùng nhiều học viên khác nhau — vui lòng nhập Mã đăng ký học để xác định chính xác."
+          });
+        }
+        if (withDeposit.length === 1) {
+          rows = groups[withDeposit[0].key].rows;
+          identityTen = withDeposit[0].ten;
+        } else {
+          rows = groups[keys[0]].rows; // không ai có cọc — trả 0, không cần phân biệt
+          identityTen = groups[keys[0]].ten;
+        }
+      } else {
+        rows = groups[keys[0]].rows;
+        identityTen = groups[keys[0]].ten;
+      }
+      identityPhone = phone || normalizePhone(String(ctxHoc.data[rows[0]][colSdtHoc] || ""));
+    }
+
+    var totalDeposit = 0;
+    rows.forEach(function(ri) { totalDeposit += Number(ctxHoc.data[ri][ctxHoc.col[COL_SO_TIEN_COC]]) || 0; });
+
+    // Trừ đi phần cọc đã dùng ở (các) lần Đăng ký thi trước đó của CÙNG SĐT.
+    var totalUsed = 0;
+    var ctxThi = readSheet(SHEET_THI);
+    if (ctxThi && ctxThi.col[COL_COC_DA_TRU] !== undefined && ctxThi.col["SĐT"] !== undefined && identityPhone) {
+      for (var r3 = 1; r3 < ctxThi.data.length; r3++) {
+        var p3 = normalizePhone(String(ctxThi.data[r3][ctxThi.col["SĐT"]] || ""));
+        if (p3 === identityPhone) totalUsed += Number(ctxThi.data[r3][ctxThi.col[COL_COC_DA_TRU]]) || 0;
+      }
+    }
+
+    var available = Math.max(0, totalDeposit - totalUsed);
+    return jsonResp({ ok: true, coc: available, ten: identityTen, sdt: identityPhone, ambiguous: false });
+  } catch (err) {
+    return jsonResp({ ok: true, coc: 0, ambiguous: false }); // lỗi tra cứu → coi như không có cọc, không chặn đăng ký
+  }
+}
+
 // ── reportPayment — học viên tự báo đã chuyển khoản ─────────────────
 // POST { action:"reportPayment", maDangKy, method } — CHỈ để Worker bắn
 // Telegram cho admin ưu tiên kiểm tra, KHÔNG tự đổi Trạng thái TT (việc
@@ -955,10 +1087,35 @@ function handleReportPayment(d) {
 }
 
 // ── listDKHoc — Admin Dashboard tab "Đăng ký học MOS" ────────────────
+// v11 — thêm "cocConLai": số cọc CHƯA DÙNG còn lại của học viên (tính theo
+// SĐT, cộng dồn mọi dòng DKHOC trừ đi mọi dòng "Cọc đã trừ (thi)" ở DKTHI
+// — CÙNG CÔNG THỨC với handleCheckDeposit) để admin nhìn Dashboard là biết
+// ngay, không cần lật sang tab Đăng ký thi kiểm tra thủ công. Giá trị này
+// là số dư CHUNG của cả SĐT nên sẽ GIỐNG NHAU ở mọi dòng cùng 1 SĐT (đúng
+// vì cọc được cộng dồn/dùng chung, không tách riêng theo từng lượt).
 function handleListDKHoc() {
   try {
     var ctx = readSheet(SHEET_HV);
     if (!ctx) return jsonResp({ ok: true, items: [] });
+
+    var depositByPhone = {};
+    if (ctx.col[COL_SO_TIEN_COC] !== undefined) {
+      for (var rd = 1; rd < ctx.data.length; rd++) {
+        var pd = normalizePhone(String(ctx.data[rd][ctx.col["SĐT (Zalo)"]] || ""));
+        if (!pd) continue;
+        depositByPhone[pd] = (depositByPhone[pd] || 0) + (Number(ctx.data[rd][ctx.col[COL_SO_TIEN_COC]]) || 0);
+      }
+    }
+    var usedByPhone = {};
+    var ctxThi = readSheet(SHEET_THI);
+    if (ctxThi && ctxThi.col[COL_COC_DA_TRU] !== undefined && ctxThi.col["SĐT"] !== undefined) {
+      for (var ru = 1; ru < ctxThi.data.length; ru++) {
+        var pu = normalizePhone(String(ctxThi.data[ru][ctxThi.col["SĐT"]] || ""));
+        if (!pu) continue;
+        usedByPhone[pu] = (usedByPhone[pu] || 0) + (Number(ctxThi.data[ru][ctxThi.col[COL_COC_DA_TRU]]) || 0);
+      }
+    }
+
     var items = [];
     for (var r = 1; r < ctx.data.length; r++) {
       var row = ctx.data[r];
@@ -967,6 +1124,8 @@ function handleListDKHoc() {
       if (!maDangKy) continue; // dòng đăng ký cũ (trước v10) hoặc không tính tiền — Dashboard tự lọc, bỏ qua cho gọn
       var trangThai = String(get(COL_TT_THANH_TOAN) || "").trim();
       var isPaid = /Đã xác nhận/i.test(trangThai);
+      var phoneKey = normalizePhone(String(get("SĐT (Zalo)") || ""));
+      var cocConLai = Math.max(0, (depositByPhone[phoneKey] || 0) - (usedByPhone[phoneKey] || 0));
       items.push({
         ten: String(get("Họ và tên") || "").trim(),
         sdt: String(get("SĐT (Zalo)") || "").trim(),
@@ -975,6 +1134,7 @@ function handleListDKHoc() {
         maDangKy: maDangKy,
         soTien: Number(get(COL_SO_TIEN)) || 0,
         soTienCoc: Number(get(COL_SO_TIEN_COC)) || 0,
+        cocConLai: cocConLai,
         magiamgia: String(get("Mã giảm giá") || "").trim(),
         ghiChu: String(get("Ghi chú") || "").trim(),
         trangThai: trangThai || TT_CHO_THANH_TOAN,
@@ -1077,6 +1237,7 @@ function handleListDKThi() {
         dotThi: String(get("Đợt thi") || "").trim(),
         maDangKy: maDangKy,
         soTien: Number(get(COL_SO_TIEN)) || 0,
+        cocDaTru: Number(get(COL_COC_DA_TRU)) || 0,
         ghiChu: String(get("Ghi chú") || "").trim(),
         trangThai: trangThai || TT_CHO_THANH_TOAN,
         ngayXacNhan: String(get(COL_NGAY_XAC_NHAN_TT) || "").trim(),

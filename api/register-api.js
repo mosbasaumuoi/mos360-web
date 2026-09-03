@@ -81,9 +81,22 @@ export async function handleRegisterAPI(request, env) {
     // LỆ PHÍ (tra theo thành phố + đợt thi, nhân số môn đăng ký), KHÔNG tin
     // "lePhi"/số tiền client tự gửi, rồi sinh Mã đăng ký thi (tiền tố "LPT")
     // + nội dung chuyển khoản VietQR — y hệt luồng "Đăng ký học".
+    // v11 — TRỪ CỌC: nếu học viên này (tra theo SĐT/Email, hoặc theo Mã
+    // đăng ký học nếu học viên tự nhập để xác định chính xác — trường
+    // "maDangKyHoc") còn "Số tiền cọc" CHƯA DÙNG từ (các) lần Đăng ký học
+    // trước đó, số cọc đó được TỰ ĐỘNG trừ thẳng vào lệ phí thi lần này.
+    // Cũng KHÔNG tin số cọc do client tự gửi — Worker tự tra lại qua Apps
+    // Script (action "checkDeposit"), giống hệt lý do không tin "lePhi".
     if (payload.action === "dkthi") {
-        paymentInfo = computeDKThiPayment(payload);
-        payload = { ...payload, maDangKy: paymentInfo.maDangKy, soTien: paymentInfo.amount, feeFallback: paymentInfo.feeFallback, email: String(payload.email || "").trim() };
+        paymentInfo = await computeDKThiPayment(payload, env);
+        payload = {
+            ...payload,
+            maDangKy: paymentInfo.maDangKy,
+            soTien: paymentInfo.amount,
+            feeFallback: paymentInfo.feeFallback,
+            email: String(payload.email || "").trim(),
+            cocApDung: paymentInfo.cocApDung
+        };
     }
 
     // 1. Forward payload (đã bổ sung mã đăng ký/số tiền nếu là dkhoc) sang
@@ -289,7 +302,10 @@ export async function handlePaymentReportAPI(request, env) {
 // VietQR. Lệ phí = (Lệ phí/môn tra theo thành phố+đợt thi) × số môn thi
 // đã chọn (Word/Excel/PowerPoint) — TÍNH LẠI Ở SERVER, không tin số tiền
 // hay lệ phí do client tự gửi lên.
-function computeDKThiPayment(payload) {
+// v11 — TRỪ CỌC: sau khi tính lệ phí gốc, tự tra số "Cọc" CHƯA DÙNG của
+// học viên này (getDepositAvailable) rồi trừ thẳng vào lệ phí trước khi
+// sinh QR — xem chú thích ở nơi gọi hàm này (handleRegisterAPI).
+async function computeDKThiPayment(payload, env) {
     const thanhPho = String(payload.thanhPho || "").trim();
     const dotThi = String(payload.dotThi || "").trim();
     const soMon = [payload.word, payload.excel, payload.ppt].filter(Boolean).length;
@@ -298,7 +314,18 @@ function computeDKThiPayment(payload) {
     const lich = lichTP.find(r => r.dot === dotThi) || null;
     const lephi = lich ? (Number(lich.lephi) || DEFAULT_LE_PHI) : DEFAULT_LE_PHI;
 
-    const amount = soMon * lephi;
+    const grossAmount = soMon * lephi;
+
+    // Tra cọc chưa dùng — nếu có "maDangKyHoc" (học viên tự nhập để xác
+    // định chính xác, dùng khi trùng SĐT/nhiều người) thì tra chính xác
+    // theo mã đó; không thì tự động tra theo SĐT/Email. Nếu kết quả
+    // "ambiguous" (nhiều người khác tên cùng dùng chung SĐT đều có cọc)
+    // → KHÔNG tự trừ gì cả, để an toàn (tránh trừ nhầm cọc của người khác)
+    // — client cần hỏi lại học viên nhập Mã đăng ký học để xác định đúng.
+    const depositInfo = await getDepositAvailable(payload.sdt, payload.email, payload.maDangKyHoc, env);
+    const cocApDung = (!depositInfo.ambiguous) ? Math.max(0, Math.min(Number(depositInfo.coc) || 0, grossAmount)) : 0;
+    const amount = Math.max(0, grossAmount - cocApDung);
+
     const maDangKy = "LPT" + Math.random().toString(36).slice(2, 7).toUpperCase();
     const qrContent = buildQrContent(payload.ten, payload.sdt, maDangKy);
 
@@ -306,12 +333,18 @@ function computeDKThiPayment(payload) {
         maDangKy,
         amount,
         soTien: amount, // alias — client-side (index.js) đọc field "soTien" khi hiện lên form
+        grossAmount,
         lephi,
         soMon,
         thanhPho,
         dotThi,
         ngayThi: lich ? lich.ngayThi : (payload.ngayThi || ""),
         diaDiem: lich ? lich.diaDiem : (payload.diaDiem || ""),
+        // Thông tin cọc — trả về để client hiện rõ "đã trừ cọc bao nhiêu"
+        // và để Telegram/Sheet ghi nhận đúng khoản đã trừ.
+        cocApDung,
+        cocAmbiguous: !!depositInfo.ambiguous,
+        cocOptions: depositInfo.options || [],
         // Cảnh báo nội bộ (hiện trong Telegram) nếu không khớp được lịch thi
         // đã cấu hình — giúp admin phát hiện sớm khi lịch thi mới chưa được
         // cập nhật vào LICH_THI_FEE (khi đó hệ thống tạm dùng DEFAULT_LE_PHI).
@@ -320,6 +353,55 @@ function computeDKThiPayment(payload) {
         bankInfo: BANK_INFO,
         qrImageUrl: `https://img.vietqr.io/image/${BANK_INFO.bin}-${BANK_INFO.accountNo}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(qrContent)}&accountName=${encodeURIComponent(BANK_INFO.accountName)}`
     };
+}
+
+// Tra số tiền cọc CHƯA DÙNG của 1 học viên (đọc trực tiếp từ Apps Script,
+// action "checkDeposit" — luôn là dữ liệu mới nhất, không cache):
+//  - Nếu có "maDangKyHoc" (Mã đăng ký học, dạng "MOSxxxxx") → tra CHÍNH
+//    XÁC theo mã đó (dùng khi tự động tra theo SĐT/Email bị trùng nhiều
+//    người, học viên tự nhập mã đã nhận lúc Đăng ký học để xác định đúng
+//    mình).
+//  - Không thì tự động tra theo SĐT (Email chỉ để đối chiếu thêm phòng
+//    khi SĐT gõ sai).
+// Trả về { coc, ten, ambiguous, options } — "ambiguous: true" nghĩa là
+// nhiều học viên KHÁC TÊN đang dùng chung SĐT này đều có cọc → KHÔNG tự
+// trừ, phải hỏi lại Mã đăng ký học.
+async function getDepositAvailable(sdt, email, maDangKyHoc, env) {
+    try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({
+                action: "checkDeposit",
+                sdt: sdt || "",
+                email: email || "",
+                maDangKyHoc: maDangKyHoc || ""
+            })
+        });
+        const data = await res.json();
+        return {
+            coc: Number(data.coc) || 0,
+            ten: data.ten || "",
+            ambiguous: !!data.ambiguous,
+            options: Array.isArray(data.options) ? data.options : []
+        };
+    } catch (e) {
+        return { coc: 0, ten: "", ambiguous: false, options: [] }; // lỗi tra cứu → coi như không có cọc, không chặn đăng ký
+    }
+}
+
+// GET /api/deposit-lookup?sdt=..&email=..&maDangKyHoc=.. — endpoint CÔNG
+// KHAI để form "Đăng ký thi" tra trước số cọc sẽ được trừ (hiện preview
+// cho học viên xem TRƯỚC khi bấm gửi), khớp với số Worker sẽ tính chính
+// thức lúc submit thật (computeDKThiPayment ở trên).
+export async function handleDepositLookupAPI(request, env) {
+    const url = new URL(request.url);
+    const sdt = url.searchParams.get("sdt") || "";
+    const email = url.searchParams.get("email") || "";
+    const maDangKyHoc = url.searchParams.get("maDangKyHoc") || "";
+    if (!sdt && !email && !maDangKyHoc) return json({ ok: true, coc: 0, ambiguous: false });
+    const info = await getDepositAvailable(sdt, email, maDangKyHoc, env);
+    return json({ ok: true, ...info });
 }
 
 // Nội dung chuyển khoản: HOTENHOCVIEN_SODIENTHOAI_MADANGKY — viết hoa,
@@ -377,6 +459,7 @@ function buildMessage(p) {
             (p.dotThi ? `\n🗓 Đợt thi: ${esc(p.dotThi)}` : "") +
             (p.ngayThi ? `\n📆 Ngày thi: ${esc(p.ngayThi)}` : "") +
             (p.maDangKy ? `\n🎫 Mã đăng ký: <code>${esc(p.maDangKy)}</code>` : "") +
+            (typeof p.cocApDung === "number" && p.cocApDung > 0 ? `\n🎉 Đã trừ cọc: -${p.cocApDung.toLocaleString("vi-VN")}đ` : "") +
             (typeof p.soTien === "number" ? `\n💰 Lệ phí cần đóng: ${p.soTien.toLocaleString("vi-VN")}đ` : "") +
             (p.feeFallback ? `\n⚠️ Không khớp được lịch thi trong hệ thống — đang dùng lệ phí mặc định, admin kiểm tra lại LICH_THI_FEE trong api/register-api.js!` : "");
     }
